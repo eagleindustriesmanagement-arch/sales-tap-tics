@@ -20,7 +20,8 @@
     "db:migrate": "pnpm --filter @taptics/db migrate",
     "db:seed": "pnpm --filter @taptics/db seed",
     "db:publish-content": "pnpm --filter @taptics/db publish-content",
-    "compliance:suite": "tsx packages/ai/scripts/compliance-suite.ts"
+    "compliance:suite": "tsx packages/ai/scripts/compliance-suite.ts",
+    "secret:scan": "tsx scripts/secret-scan.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

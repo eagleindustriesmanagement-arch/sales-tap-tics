@@ -15,6 +15,11 @@ export default defineConfig({
   workers: 1,
   reporter: [["list"]],
   use: { baseURL: `http://localhost:${port}`, ...devices["Pixel 7"], trace: "retain-on-failure" },
+  // The accessibility audit runs after the flows, which expect first sign-ins (consent) to happen in them.
+  projects: [
+    { name: "flows", testMatch: /flows\.spec\.ts/ },
+    { name: "a11y", testMatch: /a11y\.spec\.ts/, dependencies: ["flows"] },
+  ],
   // The production build, so the tests cover what ships. Login codes go to a file outbox the tests read.
   webServer: {
     command: `pnpm exec next build --webpack && pnpm exec next start -p ${port}`,

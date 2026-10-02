@@ -34,7 +34,7 @@ export default async function Team() {
           <Link href="/manager/coach" className="inline-flex min-h-12 items-center rounded-xl border border-line px-4 font-semibold text-ink">{t("coach.title", lang)}</Link>
         </div>
       </div>
-      <Card className="overflow-x-auto">
+      <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("team.title", lang)}>
         <table className="w-full text-left text-sm">
           <thead className="text-muted"><tr><th className="py-2 pr-3">{t("team.rep", lang)}</th><th className="pr-3">{t("team.sessions", lang)}</th><th className="pr-3">{t("team.avg", lang)}</th><th className="pr-3">{t("team.card", lang)}</th><th className="pr-3">{t("cert.team", lang)}</th><th>{t("team.flags", lang)}</th></tr></thead>
           <tbody className="divide-y divide-line text-ink">
@@ -78,7 +78,7 @@ export default async function Team() {
           </ul>
         </Card>
       )}
-      <Card className="overflow-x-auto">
+      <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("team.coaching", lang)}>
         <h2 className="mb-2 font-bold text-ink">{t("team.coaching", lang)}</h2>
         <table className="w-full text-left text-sm">
           <thead className="text-muted"><tr><th className="py-2 pr-3">{t("nav.team", lang)}</th><th className="pr-3">{t("team.checks", lang)}</th><th className="pr-3">{t("team.hours", lang)}</th><th className="pr-3">{t("team.specific", lang)}</th><th className="pr-3">{t("team.modeled", lang)}</th><th>{t("coach.column", lang)}</th></tr></thead>

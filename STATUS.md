@@ -70,6 +70,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 | M3 | Zero critical false negatives | **Not met.** The deterministic layer misses 116 critical cases; the target is for both layers together, and the classifier needs `ANTHROPIC_API_KEY` (decision 0008) |
 | M3 | Store setup wizard and compliance reviewer sign-off; compliance view | Done |
 | M4 | 122 techniques, 65 objections as content | Done (imported from the spec) |
+| M7 | Accessibility audit | Done: axe (WCAG 2.1 A and AA) passes on every main screen for every role, a live practice session and a debrief, in CI. It found and fixed low-contrast grey text and keyboard-unreachable scrolling tables |
+| M7 | Dependency and secret scanning in CI | Done: `pnpm audit --prod` (no known vulnerabilities) and a secret scan of tracked files (proven to catch a planted key) |
+| M7 | Prompt-injection tests | Done offline: the engine never unlocks on injections (200 sessions), and an obedient model's leak is blocked and replaced before it is spoken, in both languages. To repeat against the real model once a key is set |
+| M7 | Load test, observability, cost dashboards, backup restore drill | **Not started** |
 | M4 | 20 release 1 scenarios with personas | Done: 20 scenarios and personas; every one plays offline in both languages to its hidden truth and win with no critical violation, and its flawed demo never reaches the hidden truth (CI gate) |
 | M4 | Every technique shows its grade, source and why | Done: all 122 have a "why" (67 honestly marked as tradition or weak evidence) and a flawed model line |
 | M4 | Content editor with Spanish review workflow | Done for review (approve, edit with compliance check, numbers sign-off, write-back to YAML). Audio preview waits on the speech provider |
@@ -82,10 +86,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 
 ## Numbers
 
-- 347 unit and database tests: rules 116, session 99 (including the 20-scenario release gate and the 30-day
+- 348 unit and database tests: rules 116, session 99 (including the 20-scenario release gate and the 30-day
   simulation), engine 60, database 27 (row-level security, sign-in, repository, assignments, coaching practice,
-  Spanish review), scoring 19, AI client 15 (fake SDK), i18n 8, content 3.
-- 9 browser tests on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
+  Spanish review), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
+- 14 browser tests (9 flows and 5 accessibility audits) on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; the general manager edits store
   setup (a one-language consent text is refused), cannot sign it off, and the reviewer signs off and sees the flags;
