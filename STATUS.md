@@ -33,14 +33,14 @@ Updated 2026-10-02. Build plan: spec section 22. Decisions: `docs/decisions/`. P
 | M2 | Scoring deterministic and judge passes; debrief; behavior card | Done |
 | M2 | Rep completes the scenario on a phone in under 15 minutes | Done in text mode (browser test at 390 px wide) |
 | M2 | Debrief within 90 seconds | Offline: instant. Live judge: needs a key to measure |
-| M3 | 600-utterance labeled suite, zero critical false negatives | **Not started** (about 110 labeled cases so far) |
+| M3 | 600-utterance labeled suite, zero critical false negatives | **Not started** (about 90 labeled cases so far) |
 | M4 | 122 techniques, 65 objections as content | Done (imported from the spec) |
 | M4 | 20 release 1 scenarios with personas | 1 of 20 |
 | M4 | Spanish reviewed by a Miami native speaker | **Blocked on people**: every Spanish line is a draft (`spanish_reviewed: false`) |
 
 ## Numbers
 
-- 167 automated tests: rules 101 cases, engine 21, scoring 15, AI client 15 (fake SDK), database 9, session 6.
+- 167 automated tests: rules 93, engine 21, scoring 15, AI client 15 (fake SDK), database 9, i18n 8, session 6.
 - Content CI: 0 errors; the compliance engine finds 0 critical violations across every model line, flawed line,
   demonstration, offline line and behavior-card line.
 
