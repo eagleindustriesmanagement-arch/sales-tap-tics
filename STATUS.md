@@ -64,6 +64,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
   not at all, with every problem listed by line; re-uploading a month replaces it; reps are matched by email or
   name and unmatched names are kept and reported. Shows the close rate by month and by rep over the last 3 months,
   the baseline for spec 19.2's calibration. Only the general manager reads or writes it (row-level security).
+- **Exit-rate calibration** (spec 19.2 item 1, decision 0011): each ups upload sets the month's practice exit
+  multiplier from the real unsold share against the practice exit share. It moves by at most ×0.5 to ×2 a month,
+  keeps each scenario's authored difficulty, never lets exits pass 90%, and waits for 50 real ups and 30
+  practice sessions. Practice only; certification keeps the standard rates.
 - **Coach the coach** (spec 14.3): managers practice a floor check and are scored on its four parts.
 - **Library**: all 122 techniques and 65 objections with grade, evidence note, sources, both languages, search
   and grade filter.
@@ -111,9 +115,9 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 
 ## Numbers
 
-- 368 unit and database tests: rules 116, session 102 (including the 20-scenario release gate and the 30-day
-  simulation), engine 60, database 44 (row-level security for reads and writes, sign-in, repository, assignments,
-  coaching practice, Spanish review, usage, people, store-number import), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
+- 377 unit and database tests: rules 116, session 108 (including the 20-scenario release gate and the 30-day
+  simulation), engine 60, database 47 (row-level security for reads and writes, sign-in, repository, assignments,
+  coaching practice, Spanish review, usage, people, store-number import, exit calibration), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
 - 21 browser tests (16 flows and 5 accessibility audits); each account signs in once per run, under the real limit
   of five codes per 15 minutes on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
@@ -124,7 +128,7 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
   weak one scores 50 with the card's wording for what was missing, the spec example scores 100; the Spanish reviewer
   approves a line, an edit that invents a deadline is refused, and a line with an amount waits for and gets the
   compliance reviewer's sign-off; the general manager uploads store numbers, a bad file is refused line by line,
-  a good one shows a 23% close rate, and a rep is refused.
+  a good one shows a 23% close rate and the exit calibration waiting for 30 practice sessions, and a rep is refused.
 - Compliance suite, deterministic layer (CI fails if any number gets worse):
 
   | Half | Cases | Violations missed | Critical missed | False positives |
@@ -179,8 +183,8 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 1. M3: run the suite with both layers (`pnpm compliance:suite --with-classifier`) once `ANTHROPIC_API_KEY` is set,
    and work the critical misses to zero on dev, reporting holdout.
 2. M6: send reminders once a push or SMS provider is chosen (the rep's reminder time is already a setting).
-3. Spec 19.2 calibration from the imported store numbers: exit rates against real be-back and walk-away rates,
-   then score validity (practice scores against close rate) once there are 8 weeks of both.
+3. Spec 19.2 calibration, the rest: objection weights from lost-deal reasons (item 2), then score validity
+   (practice scores against close rate, item 3) once there are 8 weeks of both.
 4. Content checks for technique lines run without scenario facts, so a technique's flawed line cannot demonstrate a
    fact-based violation (a price without the fee, an invented deadline). Checking them against a fixed example deal
    would let those lessons show the real violation.

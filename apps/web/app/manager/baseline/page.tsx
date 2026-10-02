@@ -1,4 +1,5 @@
-import { baseline, IMPORT_KINDS, type ImportKind } from "@taptics/db";
+import { baseline, IMPORT_KINDS, latestExitCalibration, type ImportKind } from "@taptics/db";
+import { EXIT_CALIBRATION } from "@taptics/session";
 import { t } from "@taptics/i18n";
 import { notFound } from "next/navigation";
 import { ImportForm } from "@/components/import-form";
@@ -12,7 +13,13 @@ export default async function Baseline() {
   const user = await requireUser({ roles: ["general_manager"] });
   const lang = await language();
   if (!user.storeId) notFound();
-  const b = await asUser(principalOf(user), (db) => baseline(db, user.storeId!));
+  const { b, cal } = await asUser(principalOf(user), async (db) => ({ b: await baseline(db, user.storeId!), cal: await latestExitCalibration(db, user.storeId!) }));
+  const pct = (n: unknown) => `${Math.round(Number(n) * 100)}%`;
+  const v = cal?.value ?? {};
+  const calText = !cal ? null
+    : v["status"] === "updated" ? t("baseline.calibration.updated", lang, { month: cal.month, target: pct(v["target"]), observed: pct(v["observed"]), multiplier: Number(v["multiplier"]) })
+    : v["reason"] === "ups" ? t("baseline.calibration.ups", lang, { month: cal.month, multiplier: Number(v["multiplier"]), min: EXIT_CALIBRATION.minUps })
+    : t("baseline.calibration.sessions", lang, { month: cal.month, multiplier: Number(v["multiplier"]), min: EXIT_CALIBRATION.minSessions, sessions: Number(v["sessions"] ?? 0) });
   const kinds = Object.fromEntries(Object.entries(IMPORT_KINDS).map(([k, v]) => [k, v.columns.join(",")])) as Record<ImportKind, string>;
   const rate = (sold: number, ups: number) => (ups ? `${Math.round((sold / ups) * 100)}%` : "—");
   const head = "py-2 pr-3";
@@ -23,6 +30,13 @@ export default async function Baseline() {
         <p className="mt-1 text-sm">{t("baseline.intro", lang)}</p>
       </div>
       <Card><ImportForm language={lang} kinds={kinds} /></Card>
+      {calText && (
+        <Card>
+          <h2 className="font-bold text-ink">{t("baseline.calibration", lang)}</h2>
+          <p className="mt-1 text-sm text-muted">{t("baseline.calibration.intro", lang)}</p>
+          <p className="mt-2 text-ink" data-testid="calibration">{calText}</p>
+        </Card>
+      )}
       {b.months.length === 0 && b.beBacks.length === 0 && <p className="text-muted">{t("baseline.none", lang)}</p>}
       {b.months.length > 0 && (
         <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("baseline.closeRate", lang)}>

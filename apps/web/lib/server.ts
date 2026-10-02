@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { AiClient, ClaudeComplianceClassifier, ClaudeJudge, ClaudeUnlockDetector, MemoryUsageSink } from "@taptics/ai";
 import { platformLibrary } from "@taptics/content";
 import {
-  createPracticeSession, insertTurns, issueCard, latestPlatformRelease, loadStoreSetup, practiceHistory, saveSessionResult, weekScoreItems, type UserContext,
+  createPracticeSession, currentExitMultiplier, insertTurns, issueCard, latestPlatformRelease, loadStoreSetup, practiceHistory, saveSessionResult, weekScoreItems, type UserContext,
 } from "@taptics/db";
 import { exitDrawFor } from "@taptics/engine";
 import { isLanguage, type Language } from "@taptics/i18n";
@@ -57,7 +57,7 @@ const STARTS_PER_MINUTE = 4;
 export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow", mode: "practice" | "certification" = "practice") {
   sweep();
   const id = randomUUID();
-  const { recent, attempt, certAttempt, release, store, history } = await asUser(principal(user), async (db) => {
+  const { recent, attempt, certAttempt, release, store, history, exitMultiplier } = await asUser(principal(user), async (db) => {
     const r = await db.query<{ recent: number; attempt: number; cert_attempt: number }>(
       `select count(*) filter (where started_at > now() - interval '1 minute')::int recent, count(*) filter (where scenario_code = $2)::int attempt,
               count(*) filter (where scenario_code = $2 and mode = 'certification')::int cert_attempt
@@ -69,6 +69,7 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
       certAttempt: r.rows[0]!.cert_attempt,
       release: await latestPlatformRelease(db),
       store: user.storeId ? await loadStoreSetup(db, user.storeId) : null,
+      exitMultiplier: user.storeId && mode === "practice" ? await currentExitMultiplier(db, user.storeId) : 1,
       history: mode === "certification" ? (await practiceHistory(db, user.id)).history : [],
     };
   });
@@ -112,6 +113,7 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
     stopOnCritical: certification || user.stopOnCritical,
     // The store's real charges and policies drive the compliance checker (spec 3.4). Until the compliance reviewer
     // signs them off, the removal policy is treated as not configured: the strictest reading (spec 4.5).
+    exitMultiplier,
     dealerFees: store?.fees.filter((f) => f.kind === "dealer_mandatory").map((f) => ({ code: f.code, cents: f.amountCents })),
     store: {
       addOnRemovalPolicy: store?.approvedAt ? store.addOnRemoval : "none_configured",
@@ -121,7 +123,7 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
   });
   const opening = session.start();
   await asUser(principal(user), async (db) => {
-    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: true, seed, exitDraw });
+    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: true, seed, exitDraw, exitMultiplier });
     await insertTurns(db, user.tenantId, id, session.transcript.map((t) => ({ ...t, isObjection: t.isObjection })));
   });
   live.set(id, { id, session, userId: user.id, tenantId: user.tenantId, createdAt: Date.now(), persistedTurns: session.transcript.length, usage, result: null });

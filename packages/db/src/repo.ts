@@ -74,6 +74,8 @@ export interface NewSession {
   textMode: boolean;
   seed: string;
   exitDraw: number;
+  /** The store's exit-rate multiplier the session ran under (spec 19.2 item 1). */
+  exitMultiplier?: number;
 }
 
 /** Spec 3.3 rule 3: practice is private for the store's window; certification is visible immediately. */
@@ -81,9 +83,9 @@ export async function createPracticeSession(db: Queryable, user: UserContext, s:
   if (!user.storeId) throw new Error("user has no store");
   const privateUntil = s.mode === "practice" || s.mode === "warm_up" ? new Date(Date.now() + user.privateWindowHours * 3_600_000) : null;
   await db.query(
-    `insert into sessions (id, tenant_id, user_id, store_id, scenario_code, release_id, language, mode, channel, text_mode, seed, exit_draw, private_until)
-     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
-    [s.id, user.tenantId, user.id, user.storeId, s.scenarioCode, s.releaseId, s.language, s.mode, s.channel, s.textMode, s.seed, s.exitDraw, privateUntil],
+    `insert into sessions (id, tenant_id, user_id, store_id, scenario_code, release_id, language, mode, channel, text_mode, seed, exit_draw, private_until, exit_multiplier)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
+    [s.id, user.tenantId, user.id, user.storeId, s.scenarioCode, s.releaseId, s.language, s.mode, s.channel, s.textMode, s.seed, s.exitDraw, privateUntil, s.exitMultiplier ?? 1],
   );
 }
 

@@ -18,6 +18,7 @@ import {
 } from "@taptics/rules";
 import { buildDebrief, FixtureJudge, scoreSession, type Debrief, type Judge, type ScoredTurn, type ScoreResult } from "@taptics/scoring";
 import { OfflineCustomer, type CustomerSentence, type CustomerVoice } from "./offline-customer.js";
+import { scaleExitPolicy } from "./calibrate.js";
 
 export interface RepTiming {
   startedMs?: number;
@@ -47,6 +48,11 @@ export interface PracticeSessionOptions {
    * all-in price is recomputed, so the compliance engine enforces the store's real numbers.
    */
   dealerFees?: { code: string; cents: number }[];
+  /**
+   * The store's exit-rate calibration (spec 19.2 item 1). Scales practice exits only: certification faces the
+   * authored rates in every store, so certifications stay comparable (decision 0011).
+   */
+  exitMultiplier?: number;
   /** Omit for the offline customer and judge. */
   ai?: { client: AiClient; classifier?: ComplianceClassifier; detector?: UnlockDetector; judge?: Judge };
 }
@@ -103,7 +109,9 @@ export class PracticeSession {
     const { library } = options;
     const content = library.scenarios.get(options.scenarioCode);
     if (!content) throw new Error(`unknown scenario ${options.scenarioCode}`);
-    const scenario = options.dealerFees?.length ? withStoreFees(content, options.dealerFees) : content;
+    const withFees = options.dealerFees?.length ? withStoreFees(content, options.dealerFees) : content;
+    const calibrated = (options.mode ?? "practice") === "practice" && options.exitMultiplier !== undefined;
+    const scenario = calibrated ? { ...withFees, exit_policy: scaleExitPolicy(withFees.exit_policy, options.exitMultiplier!) } : withFees;
     const persona = library.personas.get(scenario.persona);
     if (!persona) throw new Error(`scenario ${scenario.code} has no persona ${scenario.persona}`);
     this.scenario = scenario;

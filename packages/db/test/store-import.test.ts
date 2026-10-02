@@ -1,12 +1,14 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type pg from "pg";
-import { baseline, importStoreMetrics, loadUser, parseCsv, withTenant } from "../src/index.js";
+import { randomUUID } from "node:crypto";
+import { calibrateExits } from "@taptics/session";
+import { baseline, createPracticeSession, currentExitMultiplier, exitCalibrationInputs, importStoreMetrics, latestExitCalibration, loadUser, parseCsv, saveExitCalibration, withTenant } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
 
 let db: pg.Client;
 let drop: () => Promise<void>;
-const [REP, , MANAGER, GM] = DEMO.users.map((u) => u.id) as [string, string, string, string];
+const [REP, REP2, MANAGER, GM] = DEMO.users.map((u) => u.id) as [string, string, string, string];
 const as = <T>(userId: string, work: (q: pg.Client) => Promise<T>) => withTenant(db, { tenantId: DEMO.tenant, userId }, () => work(db));
 const importAs = (userId: string, kind: Parameters<typeof importStoreMetrics>[2], csv: string) =>
   as(userId, async (q) => importStoreMetrics(q, (await loadUser(q, userId))!, kind, csv));
@@ -90,5 +92,58 @@ describe.skipIf(SKIP)("store data import (spec 19.1)", () => {
     const r = await db.query("select detail from audit_log where action = 'store.import' order by created_at");
     expect(r.rows.length).toBeGreaterThanOrEqual(5);
     expect(r.rows[0].detail).toMatchObject({ kind: "ups", rows: 4, unmatched: 1 });
+  });
+});
+
+describe.skipIf(SKIP)("exit-rate calibration (spec 19.2 item 1)", () => {
+  const JULY = new Date("2026-07-15T12:00:00Z");
+  const AUGUST = new Date("2026-08-15T12:00:00Z");
+  async function practice(userId: string, n: number, exits: number, multiplier: number, startedAt: Date) {
+    const user = (await as(userId, (q) => loadUser(q, userId)))!;
+    for (let i = 0; i < n; i += 1) {
+      const id = randomUUID();
+      await as(userId, (q) => createPracticeSession(q, user, { id, scenarioCode: "S-partner-check-L1", releaseId: null, language: "en", mode: "practice", channel: "floor", textMode: true, seed: id, exitDraw: 0.5, exitMultiplier: multiplier }));
+      await db.query("update sessions set end_reason = $2, ended_at = $3, started_at = $3 where id = $1", [id, i < exits ? "walk_away" : "next_step", startedAt]);
+    }
+  }
+  const calibrate = (at: Date) => as(GM, async (q) => {
+    const gm = (await loadUser(q, GM))!;
+    const input = await exitCalibrationInputs(q, DEMO.store, at);
+    const result = calibrateExits(input);
+    await saveExitCalibration(q, gm, input.month, { ...result, ups: input.ups, sessions: input.sessions });
+    return { input, result };
+  });
+
+  it("counts every finished practice session in the store, private window included, under the multiplier in force", async () => {
+    await db.query("delete from store_metrics");
+    await importAs(GM, "ups", "month,rep,ups,sold\n2026-06,Luis,100,20\n2026-06,Ana,100,20\n");
+    await practice(REP, 20, 6, 1, new Date("2026-07-10T12:00:00Z"));
+    await practice(REP2, 20, 6, 1, new Date("2026-07-11T12:00:00Z"));
+    await practice(REP2, 5, 5, 1.5, new Date("2026-07-11T12:00:00Z")); // another multiplier: not counted
+    await db.query("update sessions set private_until = now() + interval '1 day'");
+    const { input, result } = await calibrate(JULY);
+    expect(input).toMatchObject({ month: "2026-07-01", current: 1, ups: 200, sold: 40, sessions: 40, exits: 12 });
+    // 80% real unsold against 30% practice exits: the most one month allows.
+    expect(result).toEqual({ status: "updated", multiplier: 2, target: 0.8, observed: 0.3 });
+    expect(await as(REP, (q) => currentExitMultiplier(q, DEMO.store, JULY))).toBe(2);
+  });
+
+  it("recomputing the same month starts from the previous month, so it never compounds", async () => {
+    await calibrate(JULY);
+    await calibrate(JULY);
+    expect(await as(REP, (q) => currentExitMultiplier(q, DEMO.store, JULY))).toBe(2);
+    // August starts from July's 2 and counts only sessions run under it: none yet.
+    const { result } = await calibrate(AUGUST);
+    expect(result).toEqual({ status: "insufficient_data", multiplier: 2, reason: "sessions" });
+    expect(await as(GM, (q) => latestExitCalibration(q, DEMO.store))).toMatchObject({ month: "2026-08", value: { status: "insufficient_data", multiplier: 2, sessions: 0 } });
+  });
+
+  it("a rep reads the multiplier but cannot set it or count the store's sessions", async () => {
+    const write = as(REP, (q) => q.query("insert into store_calibrations (tenant_id, store_id, kind, month, value, computed_by) values ($1, $2, 'exit_rates', '2026-09-01', '{\"multiplier\": 4}', $3)", [DEMO.tenant, DEMO.store, REP]));
+    await expect(write).rejects.toThrow(/row-level security/);
+    const counts = await as(REP, (q) => q.query("select * from app.store_exit_counts($1, '2026-01-01', 1)", [DEMO.store]));
+    expect(counts.rows[0]).toEqual({ sessions: 0, exits: 0 });
+    const managerUpdate = await as(MANAGER, (q) => q.query("update store_calibrations set value = '{\"multiplier\": 4}'"));
+    expect(managerUpdate.rowCount).toBe(0);
   });
 });

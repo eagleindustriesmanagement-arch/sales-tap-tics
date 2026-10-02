@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { IMPORT_KINDS, importStoreMetrics, type ImportKind } from "@taptics/db";
+import { exitCalibrationInputs, IMPORT_KINDS, importStoreMetrics, saveExitCalibration, type ImportKind } from "@taptics/db";
+import { calibrateExits } from "@taptics/session";
 import { apiUser, principalOf } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 
@@ -13,6 +14,14 @@ export async function POST(request: Request) {
   if (!user.storeId) return NextResponse.json({ error: "no store" }, { status: 400 });
   const parsed = Input.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ error: "invalid" }, { status: 400 });
-  const result = await asUser(principalOf(user), (db) => importStoreMetrics(db, user, parsed.data.kind, parsed.data.csv));
+  const result = await asUser(principalOf(user), async (db) => {
+    const imported = await importStoreMetrics(db, user, parsed.data.kind, parsed.data.csv);
+    // New ups data recalibrates this month's exit rates (spec 19.2 item 1, decision 0011).
+    if (imported.ok && parsed.data.kind === "ups") {
+      const input = await exitCalibrationInputs(db, user.storeId!);
+      await saveExitCalibration(db, user, input.month, { ...calibrateExits(input), ups: input.ups, sessions: input.sessions });
+    }
+    return imported;
+  });
   return NextResponse.json(result, { status: result.ok ? 200 : 422 });
 }

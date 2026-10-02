@@ -450,6 +450,8 @@ test("the general manager uploads the store's numbers; a bad file is refused by 
   await expect(page.getByTestId("import-result")).toContainText("Old Timer");
   // 120 ups, 27 sold: a 23% close rate for August.
   await expect(page.getByTestId("baseline-months").getByRole("row").nth(1).getByRole("cell")).toHaveText(["2026-08", "120", "27", "23%"]);
+  // The ups upload recalibrates practice exits; a handful of practice sessions is not enough to move them.
+  await expect(page.getByTestId("calibration")).toContainText("stay at 1× the standard rates until the store has at least 30 finished practice sessions");
   const rep = await browser.newPage();
   await signInReady(rep, "rep@demo.test");
   const res = await rep.request.post("/api/store/import", { data: { kind: "ups", csv: "month,rep,ups,sold\n2026-08,Luis,1,1\n" } });
