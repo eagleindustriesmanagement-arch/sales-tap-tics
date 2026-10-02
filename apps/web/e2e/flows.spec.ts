@@ -294,3 +294,23 @@ test("the Spanish reviewer approves and edits lines; an edit that breaks a rule 
   // A rep cannot review.
   expect((await page.context().request.post("/api/review/compliance", { data: { code: "S-partner-check-L1", lineKey: "opening" } })).status()).toBe(403);
 });
+
+test("the general manager sees model costs; a rep cannot", async ({ page, browser }) => {
+  const c = db();
+  await c.connect();
+  await c.query(
+    `insert into model_usage (tenant_id, purpose, model, prompt_version, input_tokens, output_tokens, cost_usd, latency_ms, ok)
+     values ('11111111-1111-4111-8111-111111111111', 'judge', 'claude-opus-5-5', 'judge@1', 5000, 800, 0.12, 9000, true),
+            ('11111111-1111-4111-8111-111111111111', 'judge', 'claude-opus-5-5', 'judge@1', 5000, 800, 0.13, 11000, false)`,
+  );
+  await c.end();
+  await signInReady(page, "gm@demo.test");
+  await page.goto("/manager/team");
+  await page.getByRole("link", { name: "AI costs" }).click();
+  await expect(page.getByTestId("cost-total")).toHaveText("$0.25");
+  await expect(page.getByTestId("cost-failures")).toHaveText("50%");
+  const rep = await browser.newPage();
+  await signInReady(rep, "rep2@demo.test");
+  await rep.goto("/manager/costs");
+  await expect(rep).toHaveURL(/localhost:\d+\/$/);
+});

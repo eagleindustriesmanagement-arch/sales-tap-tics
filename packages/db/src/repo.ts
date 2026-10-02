@@ -628,3 +628,25 @@ export async function approveSpanishCompliance(db: Queryable, reviewer: UserCont
   const r = await db.query("update spanish_reviews set compliance_by = $3, compliance_at = now() where content_code = $1 and line_key = $2 and needs_compliance", [code, lineKey, reviewer.id]);
   if (r.rowCount === 0) throw new Error("no reviewed line with numbers to sign off");
 }
+
+// ---------------------------------------------------------------- model usage and cost (M7)
+
+export interface UsageRow { day: string; purpose: string; model: string; calls: number; failures: number; inputTokens: number; outputTokens: number; costUsd: number; p50Ms: number | null; p95Ms: number | null }
+
+/** Model calls, tokens, cost and latency per day, purpose and model, for the last `days` days. */
+export async function usageSummary(db: Queryable, days = 30): Promise<{ rows: UsageRow[]; sessions: number }> {
+  const r = await db.query(
+    `select to_char(date_trunc('day', created_at at time zone 'America/New_York'), 'YYYY-MM-DD') as day, purpose, model,
+            count(*)::int calls, count(*) filter (where not ok)::int failures,
+            sum(input_tokens)::int input_tokens, sum(output_tokens)::int output_tokens, sum(cost_usd)::float8 cost_usd,
+            percentile_cont(0.5) within group (order by latency_ms)::int p50, percentile_cont(0.95) within group (order by latency_ms)::int p95
+     from model_usage where created_at > now() - make_interval(days => $1)
+     group by 1, 2, 3 order by 1 desc, 2, 3`,
+    [days],
+  );
+  const s = await db.query("select count(distinct session_id)::int n from model_usage where session_id is not null and created_at > now() - make_interval(days => $1)", [days]);
+  return {
+    rows: r.rows.map((x) => ({ day: x.day, purpose: x.purpose, model: x.model, calls: x.calls, failures: x.failures, inputTokens: x.input_tokens, outputTokens: x.output_tokens, costUsd: x.cost_usd, p50Ms: x.p50, p95Ms: x.p95 })),
+    sessions: s.rows[0].n,
+  };
+}

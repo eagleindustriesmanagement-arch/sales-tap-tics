@@ -76,7 +76,8 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 | M7 | Load test | Done offline: 25 reps at once, 0 errors; server share of a turn p95 205 ms warm, 410 ms on the first burst after boot; dashboard p95 1.3 s cold, 485 ms warm (budgets met). A boot warm-up cut the cold tail from 1.35 s. Live model latency needs the key (`docs/runbooks`) |
 | M7 | Backup restore drill | Done: `scripts/backup-drill.sh` restores into a scratch database and proves every table's rows, 50 policies, forced RLS on 31 tables and 33 triggers match |
 | M7 | Incident response runbook | Done (`docs/runbooks/README.md`) |
-| M7 | Observability and cost dashboards | **Not started** (per-tenant model cost is already logged in `model_usage`; a dashboard over it is next) |
+| M7 | Cost dashboard | Done: the general manager sees 30-day model spend, cost per session, failure rate, and cost and latency by day, purpose and model; only the general manager can read usage (row-level security) |
+| M7 | Observability (traces, alerting) | **Not started**: needs the hosting choice |
 | M4 | 20 release 1 scenarios with personas | Done: 20 scenarios and personas; every one plays offline in both languages to its hidden truth and win with no critical violation, and its flawed demo never reaches the hidden truth (CI gate) |
 | M4 | Every technique shows its grade, source and why | Done: all 122 have a "why" (67 honestly marked as tradition or weak evidence) and a flawed model line |
 | M4 | Content editor with Spanish review workflow | Done for review (approve, edit with compliance check, numbers sign-off, write-back to YAML). Audio preview waits on the speech provider |
@@ -89,10 +90,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 
 ## Numbers
 
-- 348 unit and database tests: rules 116, session 99 (including the 20-scenario release gate and the 30-day
-  simulation), engine 60, database 27 (row-level security, sign-in, repository, assignments, coaching practice,
-  Spanish review), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
-- 14 browser tests (9 flows and 5 accessibility audits) on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
+- 349 unit and database tests: rules 116, session 99 (including the 20-scenario release gate and the 30-day
+  simulation), engine 60, database 28 (row-level security, sign-in, repository, assignments, coaching practice,
+  Spanish review, usage), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
+- 15 browser tests (10 flows and 5 accessibility audits) on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; the general manager edits store
   setup (a one-language consent text is refused), cannot sign it off, and the reviewer signs off and sees the flags;

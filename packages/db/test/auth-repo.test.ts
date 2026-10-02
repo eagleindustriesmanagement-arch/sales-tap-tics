@@ -3,7 +3,7 @@ import type pg from "pg";
 import { randomUUID } from "node:crypto";
 import {
   coachingQuality, createPracticeSession, getSessionDetail, insertTurns, issueCard, listSessions, loadUser, markMissedCards, recordConsent,
-  approveSpanishCompliance, assignableReps, coachPracticeSummary, listSpanishReviews, saveSpanishReview, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
+  approveSpanishCompliance, assignableReps, usageSummary, coachPracticeSummary, listSpanishReviews, saveSpanishReview, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
 } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
@@ -220,5 +220,22 @@ describe.skipIf(SKIP)("Spanish review (spec 16.3, decision 0010)", () => {
     await expect(as(ROSA, (q) => q.query("update spanish_reviews set es_final = 'otra cosa'"))).rejects.toThrow(/only the Spanish reviewer/);
     await as(YESENIA, async (q) => saveSpanishReview(q, (await loadUser(q, YESENIA))!, { ...line, esFinal: "La verdad, son como sesenta dólares más de lo que le dije." }));
     expect((await as(ROSA, (q) => listSpanishReviews(q)))[0]!.complianceBy).toBeNull();
+  });
+});
+
+describe.skipIf(SKIP)("model usage and cost (M7)", () => {
+  it("only the general manager reads usage; the summary adds up", async () => {
+    await db.query(
+      `insert into model_usage (tenant_id, purpose, model, prompt_version, input_tokens, output_tokens, cost_usd, latency_ms, ok)
+       values ($1, 'customer', 'claude-sonnet-5-5', 'customer@1', 1000, 100, 0.01, 800, true),
+              ($1, 'customer', 'claude-sonnet-5-5', 'customer@1', 2000, 200, 0.02, 1200, false)`,
+      [DEMO.tenant],
+    );
+    const gm = await as(GM, (q) => usageSummary(q));
+    const row = gm.rows.find((r) => r.purpose === "customer")!;
+    expect(row).toMatchObject({ calls: 2, failures: 1, inputTokens: 3000, outputTokens: 300 });
+    expect(row.costUsd).toBeCloseTo(0.03);
+    expect((await as(REP, (q) => usageSummary(q))).rows).toEqual([]);
+    expect((await as(MANAGER, (q) => usageSummary(q))).rows).toEqual([]);
   });
 });

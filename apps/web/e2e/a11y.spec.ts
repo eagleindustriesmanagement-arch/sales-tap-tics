@@ -53,7 +53,7 @@ test("a live practice session and its debrief", async ({ page }) => {
 
 test("manager screens", async ({ page }) => {
   await signIn(page, "gm@demo.test");
-  for (const path of ["/manager/floor", "/manager/team", "/manager/assign", "/manager/coach", "/manager/compliance", "/manager/store"]) await audit(page, path);
+  for (const path of ["/manager/floor", "/manager/team", "/manager/assign", "/manager/coach", "/manager/compliance", "/manager/store", "/manager/costs"]) await audit(page, path);
 });
 
 test("review screens", async ({ page }) => {
