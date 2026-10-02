@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { coachingQuality, listAssignments, listSessions, teamCertification, teamOverview } from "@taptics/db";
+import { coachingQuality, coachPracticeSummary, listAssignments, listSessions, teamCertification, teamOverview } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { Card, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
@@ -15,8 +15,9 @@ export default async function Team() {
   const lang = await language();
   const gm = user.roles.includes("general_manager");
   const release1 = scheduleInputs().scenarios.filter((s) => s.release1).map((s) => s.code);
-  const { team, quality, sessions, assignments, certified } = await asUser(principalOf(user), async (db) => ({
+  const { team, quality, sessions, assignments, certified, coachPractice } = await asUser(principalOf(user), async (db) => ({
     certified: await teamCertification(db, release1),
+    coachPractice: await coachPracticeSummary(db),
     assignments: await listAssignments(db, { limit: 30 }),
     team: await teamOverview(db),
     quality: (await coachingQuality(db)).filter((q) => gm || q.manager_id === user.id),
@@ -28,7 +29,10 @@ export default async function Team() {
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold text-ink">{t("team.title", lang)}</h1>
-        <Link href="/manager/assign" className={buttonClass}>{t("assign.title", lang)}</Link>
+        <div className="flex flex-wrap gap-2">
+          <Link href="/manager/assign" className={buttonClass}>{t("assign.title", lang)}</Link>
+          <Link href="/manager/coach" className="inline-flex min-h-12 items-center rounded-xl border border-line px-4 font-semibold text-ink">{t("coach.title", lang)}</Link>
+        </div>
       </div>
       <Card className="overflow-x-auto">
         <table className="w-full text-left text-sm">
@@ -77,10 +81,10 @@ export default async function Team() {
       <Card className="overflow-x-auto">
         <h2 className="mb-2 font-bold text-ink">{t("team.coaching", lang)}</h2>
         <table className="w-full text-left text-sm">
-          <thead className="text-muted"><tr><th className="py-2 pr-3">{t("nav.team", lang)}</th><th className="pr-3">{t("team.checks", lang)}</th><th className="pr-3">{t("team.hours", lang)}</th><th className="pr-3">{t("team.specific", lang)}</th><th>{t("team.modeled", lang)}</th></tr></thead>
+          <thead className="text-muted"><tr><th className="py-2 pr-3">{t("nav.team", lang)}</th><th className="pr-3">{t("team.checks", lang)}</th><th className="pr-3">{t("team.hours", lang)}</th><th className="pr-3">{t("team.specific", lang)}</th><th className="pr-3">{t("team.modeled", lang)}</th><th>{t("coach.column", lang)}</th></tr></thead>
           <tbody className="divide-y divide-line text-ink">
             {quality.map((q) => (
-              <tr key={q.manager_id}><td className="py-2 pr-3 font-semibold">{q.first_name}</td><td className="pr-3">{q.checks}</td><td className="pr-3">{q.avg_hours === null ? "—" : q.avg_hours.toFixed(1)}</td><td className="pr-3">{pct(q.specific_share)}</td><td>{pct(q.modeled_share)}</td></tr>
+              <tr key={q.manager_id}><td className="py-2 pr-3 font-semibold">{q.first_name}</td><td className="pr-3">{q.checks}</td><td className="pr-3">{q.avg_hours === null ? "—" : q.avg_hours.toFixed(1)}</td><td className="pr-3">{pct(q.specific_share)}</td><td className="pr-3">{pct(q.modeled_share)}</td><td data-testid={`coach-${q.first_name}`}>{coachCell(coachPractice.find((c) => c.manager_id === q.manager_id))}</td></tr>
             ))}
           </tbody>
         </table>
@@ -91,4 +95,8 @@ export default async function Team() {
 
 function fmtDay(d: Date, lang: "en" | "es") {
   return new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "America/New_York" }).format(new Date(d));
+}
+
+function coachCell(c: { sessions: number; avg_score: number } | undefined) {
+  return c ? `${c.sessions} · ${Math.round(c.avg_score)}` : "—";
 }

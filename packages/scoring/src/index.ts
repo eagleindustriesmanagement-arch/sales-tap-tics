@@ -4,3 +4,4 @@ export * from "./judge.js";
 export * from "./assemble.js";
 export * from "./debrief.js";
 export * from "./cards.js";
+export * from "./coach.js";

@@ -562,3 +562,23 @@ export async function teamCertification(db: Queryable, release1: string[]): Prom
   );
   return new Map(r.rows.map((x) => [x.user_id as string, x.certified as number]));
 }
+
+// ---------------------------------------------------------------- coach the coach (spec 14.3)
+
+export async function recordCoachPractice(db: Queryable, manager: UserContext, r: { cardCode: string; language: "en" | "es"; text: string; parts: Record<string, boolean>; oneBehavior: boolean; score: number }) {
+  if (!isManager(manager)) throw new Error("only managers practice coaching");
+  const x = await db.query(
+    "insert into coach_practice (tenant_id, manager_id, card_code, language, text, parts, one_behavior, score) values ($1, $2, $3, $4, $5, $6, $7, $8) returning id",
+    [manager.tenantId, manager.id, r.cardCode, r.language, r.text, JSON.stringify(r.parts), r.oneBehavior, r.score],
+  );
+  return x.rows[0].id as string;
+}
+
+/** Each visible manager's coach-the-coach practice in the last 30 days: count, average score, last date. */
+export async function coachPracticeSummary(db: Queryable) {
+  const r = await db.query(
+    `select c.manager_id, app.colleague_first_name(c.manager_id) first_name, count(*)::int sessions, avg(c.score)::real avg_score, max(c.created_at) last_at
+     from coach_practice c where c.created_at > now() - interval '30 days' group by c.manager_id`,
+  );
+  return r.rows as { manager_id: string; first_name: string | null; sessions: number; avg_score: number; last_at: Date }[];
+}

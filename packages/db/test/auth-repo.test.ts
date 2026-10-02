@@ -3,7 +3,7 @@ import type pg from "pg";
 import { randomUUID } from "node:crypto";
 import {
   coachingQuality, createPracticeSession, getSessionDetail, insertTurns, issueCard, listSessions, loadUser, markMissedCards, recordConsent,
-  assignableReps, createAssignments, listAssignments, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
+  assignableReps, coachPracticeSummary, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
 } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
@@ -187,5 +187,18 @@ describe.skipIf(SKIP)("assignments (spec 14.5 item 4)", () => {
     });
     expect((await as(REP2, (q) => listAssignments(q, { open: true })))).toEqual([]);
     expect((await as(REP, (q) => listAssignments(q, { open: true })))).toHaveLength(1);
+  });
+});
+
+describe.skipIf(SKIP)("coach the coach (spec 14.3)", () => {
+  it("is private to the manager, visible to the general manager, immutable, and refused to reps", async () => {
+    const result = { cardCode: "B-T002-clarify", language: "en" as const, text: "I saw...", parts: { saw: true, behavior: true, line: true, check_again: false }, oneBehavior: true, score: 75 };
+    await as(MANAGER, async (q) => recordCoachPractice(q, (await loadUser(q, MANAGER))!, result));
+    expect((await as(MANAGER, (q) => coachPracticeSummary(q))).map((r) => [r.first_name, r.sessions, r.avg_score])).toEqual([["Carlos", 1, 75]]);
+    expect((await as(GM, (q) => coachPracticeSummary(q))).map((r) => r.first_name)).toEqual(["Carlos"]);
+    expect(await as(REP, (q) => coachPracticeSummary(q))).toEqual([]);
+    await expect(as(REP, async (q) => recordCoachPractice(q, (await loadUser(q, REP))!, result))).rejects.toThrow(/only managers/);
+    // No update grant, and an immutability trigger behind it.
+    await expect(as(MANAGER, (q) => q.query("update coach_practice set score = 100"))).rejects.toThrow(/permission denied|immutable/);
   });
 });

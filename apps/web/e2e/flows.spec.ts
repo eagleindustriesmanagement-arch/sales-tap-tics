@@ -236,3 +236,22 @@ test("certification is refused without the live judge, and the team view counts 
   await manager.goto("/manager/team");
   await expect(manager.getByTestId("cert-Luis")).toHaveText("0/20");
 });
+
+test("a manager practices a floor check and is scored on the four parts", async ({ page }) => {
+  await signInReady(page, "manager@demo.test");
+  await page.goto("/manager/team");
+  await page.getByRole("link", { name: "Practice coaching" }).click();
+  await page.getByLabel("Behavior").selectOption("B-T002-clarify");
+  await expect(page.getByTestId("coach-scene")).toContainText("You watched");
+  // A weak check first: no line, no time.
+  await page.getByLabel("What you would say to the rep").fill("I saw you go straight to options. Next time slow down.");
+  await page.getByRole("button", { name: "Score my floor check" }).click();
+  await expect(page.getByTestId("coach-result")).toContainText("50 of 100");
+  await expect(page.getByTestId("coach-result")).toContainText("The card's wording for what was missing");
+  // The spec 14.2 example.
+  await page.getByLabel("What you would say to the rep").fill("I watched your talk with the couple at the Tahoe. When they said the payment was high, you went straight to options. Next time, ask first: 'What number did you have in mind?' Let's try it on your next up. I'll check back after lunch.");
+  await page.getByRole("button", { name: "Score my floor check" }).click();
+  await expect(page.getByTestId("coach-result")).toContainText("100 of 100");
+  await page.goto("/manager/team");
+  await expect(page.getByTestId("coach-Carlos")).toHaveText("2 · 75");
+});
