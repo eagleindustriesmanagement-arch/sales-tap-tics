@@ -59,6 +59,11 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
   own; a manager opens any of their reps from the team view (row-level security keeps the private window).
 - **People** (spec 18.3 Users, general manager): add a person with an email or phone and roles, change roles,
   deactivate (sign-in stops on the next request), all audit-logged. A general manager cannot remove their own role.
+- **Store numbers** (general manager, spec 19.1): CSV upload of ups and sales by rep, lost-deal reasons, be-backs
+  and walk-aways, phone and internet leads, and add-ons sold and cancelled, by month. A file is accepted whole or
+  not at all, with every problem listed by line; re-uploading a month replaces it; reps are matched by email or
+  name and unmatched names are kept and reported. Shows the close rate by month and by rep over the last 3 months,
+  the baseline for spec 19.2's calibration. Only the general manager reads or writes it (row-level security).
 - **Coach the coach** (spec 14.3): managers practice a floor check and are scored on its four parts.
 - **Library**: all 122 techniques and 65 objections with grade, evidence note, sources, both languages, search
   and grade filter.
@@ -106,10 +111,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 
 ## Numbers
 
-- 359 unit and database tests: rules 116, session 102 (including the 20-scenario release gate and the 30-day
-  simulation), engine 60, database 35 (row-level security for reads and writes, sign-in, repository, assignments,
-  coaching practice, Spanish review, usage, people), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
-- 20 browser tests (15 flows and 5 accessibility audits); each account signs in once per run, under the real limit
+- 368 unit and database tests: rules 116, session 102 (including the 20-scenario release gate and the 30-day
+  simulation), engine 60, database 44 (row-level security for reads and writes, sign-in, repository, assignments,
+  coaching practice, Spanish review, usage, people, store-number import), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
+- 21 browser tests (16 flows and 5 accessibility audits); each account signs in once per run, under the real limit
   of five codes per 15 minutes on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; the general manager edits store
@@ -118,7 +123,8 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
   is refused without the live judge and the team view counts certifications; a manager practices a floor check, a
   weak one scores 50 with the card's wording for what was missing, the spec example scores 100; the Spanish reviewer
   approves a line, an edit that invents a deadline is refused, and a line with an amount waits for and gets the
-  compliance reviewer's sign-off.
+  compliance reviewer's sign-off; the general manager uploads store numbers, a bad file is refused line by line,
+  a good one shows a 23% close rate, and a rep is refused.
 - Compliance suite, deterministic layer (CI fails if any number gets worse):
 
   | Half | Cases | Violations missed | Critical missed | False positives |
@@ -172,8 +178,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 
 1. M3: run the suite with both layers (`pnpm compliance:suite --with-classifier`) once `ANTHROPIC_API_KEY` is set,
    and work the critical misses to zero on dev, reporting holdout.
-2. M6: send reminders once a push or SMS provider is chosen; a setting for the rep's reminder time.
-3. Content checks for technique lines run without scenario facts, so a technique's flawed line cannot demonstrate a
+2. M6: send reminders once a push or SMS provider is chosen (the rep's reminder time is already a setting).
+3. Spec 19.2 calibration from the imported store numbers: exit rates against real be-back and walk-away rates,
+   then score validity (practice scores against close rate) once there are 8 weeks of both.
+4. Content checks for technique lines run without scenario facts, so a technique's flawed line cannot demonstrate a
    fact-based violation (a price without the fee, an invented deadline). Checking them against a fixed example deal
    would let those lessons show the real violation.
-4. Voice gateway with provider interfaces, once the bake-off candidates are chosen.
+5. Voice gateway with provider interfaces, once the bake-off candidates are chosen.

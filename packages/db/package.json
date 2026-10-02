@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "pg": "^8.13.1",
-    "@taptics/content": "workspace:*"
+    "@taptics/content": "workspace:*",
+    "zod": "^3.25.0"
   },
   "devDependencies": {
     "@types/pg": "^8.11.10"

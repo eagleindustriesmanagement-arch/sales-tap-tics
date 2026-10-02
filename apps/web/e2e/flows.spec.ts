@@ -434,3 +434,26 @@ test("settings: a reminder time, the privacy rule, and signing out on a phone", 
   await page.goto("/settings");
   await expect(page).toHaveURL(/\/login$/);
 });
+
+test("the general manager uploads the store's numbers; a bad file is refused by line; a rep cannot upload", async ({ page, browser }) => {
+  await signInReady(page, "gm@demo.test");
+  await page.getByRole("link", { name: "Dashboard" }).first().click();
+  await page.getByRole("link", { name: "Store numbers" }).click();
+  await expect(page.getByText("No numbers uploaded yet.")).toBeVisible();
+  await page.getByTestId("import-file").setInputFiles({ name: "ups.csv", mimeType: "text/csv", buffer: Buffer.from("month,rep,ups,sold\n2026-08,Luis,40,10\n2026-08,2,x\n") });
+  await page.getByRole("button", { name: "Upload" }).click();
+  await expect(page.getByTestId("import-result")).toContainText("Nothing was imported");
+  await expect(page.getByTestId("import-result")).toContainText("line 3: ups must be a whole number");
+  await page.getByTestId("import-file").setInputFiles({ name: "ups.csv", mimeType: "text/csv", buffer: Buffer.from("month,rep,ups,sold\r\n2026-08,Luis,40,10\r\n2026-08,rep2@demo.test,60,12\r\n2026-08,Old Timer,20,5\r\n") });
+  await page.getByRole("button", { name: "Upload" }).click();
+  await expect(page.getByTestId("import-result")).toContainText("Imported 3 rows.");
+  await expect(page.getByTestId("import-result")).toContainText("Old Timer");
+  // 120 ups, 27 sold: a 23% close rate for August.
+  await expect(page.getByTestId("baseline-months").getByRole("row").nth(1).getByRole("cell")).toHaveText(["2026-08", "120", "27", "23%"]);
+  const rep = await browser.newPage();
+  await signInReady(rep, "rep@demo.test");
+  const res = await rep.request.post("/api/store/import", { data: { kind: "ups", csv: "month,rep,ups,sold\n2026-08,Luis,1,1\n" } });
+  expect(res.status()).toBe(403);
+  await rep.goto("/manager/baseline");
+  await expect(rep).toHaveURL(/localhost:\d+\/$/);
+});

@@ -25,7 +25,7 @@ STATUS.md first.
     pnpm compliance:suite                # 689 labelled cases; fails if any number gets worse than the baseline
     pnpm secret:scan
     pnpm web:typecheck && pnpm web:build
-    pnpm db:seed --private-window-hours=0 && pnpm --filter @taptics/web e2e   # 10 flows + 5 accessibility audits
+    pnpm db:seed --private-window-hours=0 && pnpm --filter @taptics/web e2e   # 16 flows + 5 accessibility audits
     pnpm --filter @taptics/web dev       # http://localhost:3000; demo logins: rep@ / rep2@ / manager@ / gm@ /
                                          # review@ / es@demo.test (codes print to the server log in development)
 
