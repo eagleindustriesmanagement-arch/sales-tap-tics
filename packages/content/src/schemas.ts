@@ -196,6 +196,22 @@ export const personaSchema = z
       })
       .strict()
       .default({}),
+    /**
+     * Lines for the offline customer used when no model is available (local development, demos, outages). They
+     * follow the same engine directives, so a session still exercises unlocks, exits and scoring.
+     */
+    offline_lines: z
+      .object({
+        deflect: z.array(bilingual).min(1),
+        reveal: bilingual,
+        agree_next_step: bilingual,
+        not_now: bilingual,
+        walk_away: bilingual,
+        goodbye: bilingual,
+        react_to_pressure: bilingual,
+      })
+      .strict()
+      .optional(),
     spanish_reviewed: z.boolean().default(false),
   })
   .strict();

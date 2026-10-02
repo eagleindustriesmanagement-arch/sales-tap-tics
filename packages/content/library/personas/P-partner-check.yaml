@@ -111,4 +111,15 @@ variation:
   moods: [relaxed, a little tired, wants to get home for dinner]
   amount_ranges:
     budget_told_spouse_cents: [51500, 52500]  # keeps the gap at about $60, as the hidden truth says
+offline_lines:
+  deflect:
+    - { en: "Probably the payment. I just want to be sure.", es: "Seguro que por el pago. Quiero estar seguro." }
+    - { en: "Yeah, I like the car. I just don't want to do anything without her.", es: "Sí, el carro me gusta. Es que no quiero hacer nada sin ella." }
+    - { en: "I hear you. I still need to talk to her.", es: "Lo entiendo. Igual tengo que hablarlo con ella." }
+  reveal: { en: "Honestly, it is about sixty bucks higher than what I said.", es: "La verdad, está como sesenta dólares por encima." }
+  agree_next_step: { en: "Okay, that works for us.", es: "Está bien, eso nos funciona." }
+  not_now: { en: "Not today. Thanks, though.", es: "Hoy no. Pero gracias." }
+  walk_away: { en: "I think I'm going to head out.", es: "Creo que me voy a ir yendo." }
+  goodbye: { en: "Thanks. Take care.", es: "Gracias. Que le vaya bien." }
+  react_to_pressure: { en: "I told you, I'm not deciding without her.", es: "Ya le dije, no voy a decidir sin ella." }
 spanish_reviewed: false

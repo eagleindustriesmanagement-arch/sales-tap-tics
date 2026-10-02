@@ -59,8 +59,8 @@ relative_days:
   tomorrow: { en: ["tomorrow"], es: ["(?<!(esta|la|en la|por la) )mañana(?! (en|por) la)"] }
 # Rep asking for the decision (U-ONECLOSE). Counted once per rep turn.
 close_questions:
-  en: ["want me to get it ready", "are we doing this", "is this the one", "ready to (go|do this|move forward)", "shall we (do|write)", "can we (do|write) (it|this|the paperwork)", "do you want to take it home", "are you taking it home", "let's do (it|the paperwork)", "would you like to (buy|go ahead)"]
-  es: ["se lo preparo", "lo hacemos", "es este el carro", "¿?es el que se lleva", "se lo lleva", "hacemos los papeles", "lo dejamos listo", "quiere llevárselo", "seguimos adelante"]
+  en: ["want me to get it ready", "are we doing this", "is this the one", "ready to (go|do this|move forward)", "shall we (do|write)", "can we (do|write) (it|this|the paperwork)", "do you want to take it home", "are you taking it home", "let's (just )?(do|write) (it|this|the paperwork)( up)?", "sign (it )?(today|now|tonight)", "take it home (today|tonight)", "would you like to (buy|go ahead)"]
+  es: ["se lo preparo", "lo hacemos", "es este el carro", "¿?es el que se lleva", "se lo lleva", "hacemos los papeles", "hagámoslo (hoy|ahora|ya)", "firme (hoy|ahora|ya)", "llévese(lo|la)? hoy", "lo dejamos listo", "quiere llevárselo", "seguimos adelante"]
 # Tie-downs (U-TIEDOWN, T048).
 tie_downs:
   en: ["doesn't it\\?", "isn't it\\?", "wouldn't it\\?", "won't it\\?", "don't you\\?", "right\\?", "wouldn't you\\?", "can't you\\?"]
