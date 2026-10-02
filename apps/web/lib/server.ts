@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { AiClient, ClaudeComplianceClassifier, ClaudeJudge, ClaudeUnlockDetector, MemoryUsageSink } from "@taptics/ai";
 import { platformLibrary } from "@taptics/content";
 import {
-  createPracticeSession, insertTurns, issueCard, latestPlatformRelease, saveSessionResult, weekScoreItems, type UserContext,
+  createPracticeSession, insertTurns, issueCard, latestPlatformRelease, loadStoreSetup, saveSessionResult, weekScoreItems, type UserContext,
 } from "@taptics/db";
 import { exitDrawFor } from "@taptics/engine";
 import { isLanguage, type Language } from "@taptics/i18n";
@@ -57,12 +57,12 @@ const STARTS_PER_MINUTE = 4;
 export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow") {
   sweep();
   const id = randomUUID();
-  const { recent, attempt, release } = await asUser(principal(user), async (db) => {
+  const { recent, attempt, release, store } = await asUser(principal(user), async (db) => {
     const r = await db.query<{ recent: number; attempt: number }>(
       "select count(*) filter (where started_at > now() - interval '1 minute')::int recent, count(*) filter (where scenario_code = $2)::int attempt from sessions where user_id = $1",
       [user.id, scenarioCode],
     );
-    return { ...r.rows[0]!, release: await latestPlatformRelease(db) };
+    return { ...r.rows[0]!, release: await latestPlatformRelease(db), store: user.storeId ? await loadStoreSetup(db, user.storeId) : null };
   });
   if (recent >= STARTS_PER_MINUTE) return { error: "rate_limited" as const };
 
@@ -90,6 +90,13 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
     sessionId: id,
     textMode: true,
     stopOnCritical: user.stopOnCritical,
+    // The store's real charges and policies drive the compliance checker (spec 3.4). Until the compliance reviewer
+    // signs them off, the removal policy is treated as not configured: the strictest reading (spec 4.5).
+    dealerFees: store?.fees.filter((f) => f.kind === "dealer_mandatory").map((f) => ({ code: f.code, cents: f.amountCents })),
+    store: {
+      addOnRemovalPolicy: store?.approvedAt ? store.addOnRemoval : "none_configured",
+      ignoredIdentityPlaces: store ? store.storeName.split(/\s+/).filter((w) => w.length > 3) : [],
+    },
     ai,
   });
   const opening = session.start();

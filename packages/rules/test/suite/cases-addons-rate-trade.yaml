@@ -1,0 +1,1397 @@
+# Compliance suite cases for ADD-01, ADD-02, ADD-03, ADD-04, RATE-01, TRADE-01, TRADE-02.
+# Written from the rule meanings in SPEC 4.4 and facts.yaml only, without reading the engine or its patterns.
+# Labeling conventions used in this file:
+# - ADD-04 is judged only on `turns` cases (a session). Single `text` cases are not sessions, so ADD-04 is
+#   never expected on them; compliant and near-miss `text` cases avoid the service contract so the question
+#   does not arise.
+# - Payment figures that appear here are either in the facts ($580 no add-ons) or the manager floor ($575),
+#   unless the case is a RATE-01 violation on purpose.
+
+# ---------------------------------------------------------------- ADD-01 (English)
+- id: ar-add01-en-001
+  rule_focus: ADD-01
+  lang: en
+  kind: violation
+  text: "You need the GAP to get approved, the bank won't fund it without it."
+  expect: [ADD-01]
+
+- id: ar-add01-en-002
+  rule_focus: ADD-01
+  lang: en
+  kind: violation
+  text: "To get you the good rate we're gonna have to include the protection package, that's what the lender looks for."
+  expect: [ADD-01]
+  note: "Package tied to the rate; no number stated, so not a rate claim."
+
+- id: ar-add01-en-003
+  rule_focus: ADD-01
+  lang: en
+  kind: violation
+  text: "Honestly everybody gets the GAP and the extended warranty, I'll just put it in the paperwork for you."
+  expect: [ADD-01]
+  note: "Everyone-gets-it pre-judging; presented as a default, not a choice."
+
+- id: ar-add01-en-004
+  rule_focus: ADD-01
+  lang: en
+  kind: violation
+  text: "yeah so the extended warranty is part of it the bank wants to see that on a seventy two month loan"
+  expect: [ADD-01]
+  note: "ASR style, no punctuation."
+
+- id: ar-add01-en-005
+  rule_focus: ADD-01
+  lang: en
+  kind: violation
+  text: "Lenders look a lot more favorably on the deal when there's a service contract on it, it really helps push you through."
+  expect: [ADD-01]
+  note: "Implied requirement for approval without the word required."
+
+- id: ar-add01-en-006
+  rule_focus: ADD-01
+  lang: en
+  kind: violation
+  text: "We can't release the car tonight unless the GAP's on there, that's just how it works here."
+  expect: [ADD-01]
+  note: "Required for delivery."
+
+- id: ar-add01-en-007
+  rule_focus: ADD-01
+  lang: en
+  kind: violation
+  text: "It's not technically required, but trust me, with your file the bank is not approving you without it."
+  expect: [ADD-01]
+  note: "Disclaims then implies the GAP is required for approval."
+
+- id: ar-add01-en-008
+  rule_focus: ADD-01
+  lang: en
+  kind: near_miss
+  text: "The GAP isn't required for approval. Completely your call, yes or no."
+  expect: []
+
+- id: ar-add01-en-009
+  rule_focus: ADD-01
+  lang: en
+  kind: near_miss
+  text: "If the other store told you the protection package was mandatory for the loan, that's not right. It's optional and the bank doesn't care either way."
+  expect: []
+  note: "Correcting another dealer's claim."
+
+- id: ar-add01-en-010
+  rule_focus: ADD-01
+  lang: en
+  kind: near_miss
+  text: "Did somebody tell you GAP was required? Because it's not."
+  expect: []
+
+- id: ar-add01-en-011
+  rule_focus: ADD-01
+  lang: en
+  kind: compliant
+  text: "If you put little down you're upside down on day one. GAP covers that difference. It's optional, but I'd hate to see you owing on a car you don't have anymore. Want it or not?"
+  expect: []
+  note: "Hardball recommendation, clearly optional."
+
+- id: ar-add01-en-012
+  rule_focus: ADD-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "My brother said you guys make you buy the warranty to get financed."
+  expect: []
+
+- id: ar-add01-en-013
+  rule_focus: ADD-01
+  lang: en
+  kind: near_miss
+  text: "If a finance guy ever tells you that you have to buy GAP to get the loan, get up and walk out, because that's not how it works."
+  expect: []
+  note: "Hypothetical, warns against the forbidden claim."
+
+# ---------------------------------------------------------------- ADD-01 (Spanish)
+- id: ar-add01-es-001
+  rule_focus: ADD-01
+  lang: es
+  kind: violation
+  text: "Para que el banco lo apruebe necesita el GAP, eso no es opcional."
+  expect: [ADD-01]
+
+- id: ar-add01-es-002
+  rule_focus: ADD-01
+  lang: es
+  kind: violation
+  text: "Mire, la garantía extendida va incluida, todo el mundo la lleva, así es como lo trabajamos aquí."
+  expect: [ADD-01]
+  note: "Pre-judging, presented as standard."
+
+- id: ar-add01-es-003
+  rule_focus: ADD-01
+  lang: es
+  kind: violation
+  text: "sin el paquete de protección no le puedo sacar esa tasa el banco lo pide"
+  expect: [ADD-01]
+  note: "ASR style; package tied to the rate, no number stated."
+
+- id: ar-add01-es-004
+  rule_focus: ADD-01
+  lang: es
+  kind: violation
+  text: "Le soy sincero, en el papel no es obligatorio, pero sin el contrato de servicio el banco no lo va a aprobar con ese crédito."
+  expect: [ADD-01]
+  note: "Disclaims then implies requirement."
+
+- id: ar-add01-es-005
+  rule_focus: ADD-01
+  lang: es
+  kind: violation
+  text: "Para entregarle el carro hoy tiene que firmar el GAP, después vemos lo demás."
+  expect: [ADD-01]
+  note: "Required for delivery."
+
+- id: ar-add01-es-006
+  rule_focus: ADD-01
+  lang: es
+  kind: violation
+  text: "Yo ya se lo puse con el GAP y la garantía porque eso es lo que lleva todo el mundo, ¿okay?"
+  expect: [ADD-01]
+  note: "Everyone-gets-it pre-judging."
+
+- id: ar-add01-es-007
+  rule_focus: ADD-01
+  lang: es
+  kind: violation
+  text: "El lender requires the warranty en los préstamos de ochenta y cuatro meses, so tenemos que ponérsela."
+  expect: [ADD-01]
+  note: "Code-switching."
+
+- id: ar-add01-es-008
+  rule_focus: ADD-01
+  lang: es
+  kind: near_miss
+  text: "El GAP no es requisito para la aprobación, usted decide si lo quiere o no."
+  expect: []
+
+- id: ar-add01-es-009
+  rule_focus: ADD-01
+  lang: es
+  kind: near_miss
+  text: "Si en el otro dealer le dijeron que el paquete de protección era obligatorio para el préstamo, eso no es así. Aquí es opcional."
+  expect: []
+  note: "Correcting another dealer's claim."
+
+- id: ar-add01-es-010
+  rule_focus: ADD-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "Mi cuñada dice que sin el GAP no te aprueban."
+  expect: []
+
+- id: ar-add01-es-011
+  rule_focus: ADD-01
+  lang: es
+  kind: compliant
+  text: "Si da poquito de entrada, usted queda debiendo más de lo que vale el carro. El GAP cubre esa diferencia. Es opcional, pero yo se lo recomiendo. ¿Lo agregamos o no?"
+  expect: []
+
+- id: ar-add01-es-012
+  rule_focus: ADD-01
+  lang: es
+  kind: near_miss
+  text: "¿Quién le dijo que tenía que comprar el GAP para que lo aprobaran? Eso no es cierto."
+  expect: []
+
+# ---------------------------------------------------------------- ADD-02 (English)
+- id: ar-add02-en-001
+  rule_focus: ADD-02
+  lang: en
+  kind: violation
+  text: "The paint protection's already on the car, it can't come off."
+  expect: [ADD-02]
+
+- id: ar-add02-en-002
+  rule_focus: ADD-02
+  lang: en
+  kind: violation
+  text: "That package gets installed at the port, so it's part of the car now, there's no removing it."
+  expect: [ADD-02]
+
+- id: ar-add02-en-003
+  rule_focus: ADD-02
+  lang: en
+  kind: violation
+  text: "the tint and the nitrogen are already done so theres nothing i can do those stay on the deal"
+  expect: [ADD-02]
+  note: "ASR style; says the charge stays because it is installed."
+
+- id: ar-add02-en-004
+  rule_focus: ADD-02
+  lang: en
+  kind: violation
+  text: "Every unit on the lot has the appearance package, it's baked into the car, I can't take it off for anybody."
+  expect: [ADD-02]
+
+- id: ar-add02-en-005
+  rule_focus: ADD-02
+  lang: en
+  kind: violation
+  text: "Even if you don't want the wheel locks, the charge stays, they're already on the car."
+  expect: [ADD-02]
+  note: "Subtle: claims the installed item cannot come off the deal."
+
+- id: ar-add02-en-006
+  rule_focus: ADD-02
+  lang: en
+  kind: near_miss
+  text: "I'm not going to tell you it can't come off. Let me get you a straight answer from my manager on removing it."
+  expect: []
+  note: "Negated."
+
+- id: ar-add02-en-007
+  rule_focus: ADD-02
+  lang: en
+  kind: near_miss
+  text: "Whoever told you the protection package can't be removed, I'm not saying that. Let's ask the desk what your options are."
+  expect: []
+  note: "Distancing from someone else's claim."
+
+- id: ar-add02-en-008
+  rule_focus: ADD-02
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "The other dealer said the tint can't come off, so I figured it's the same here."
+  expect: []
+
+- id: ar-add02-en-009
+  rule_focus: ADD-02
+  lang: en
+  kind: compliant
+  text: "The appearance package is already installed. I'm not going to tell you you're stuck with it. I'll find out exactly how removal works and get it to you in writing before you sign anything."
+  expect: []
+
+- id: ar-add02-en-010
+  rule_focus: ADD-02
+  lang: en
+  kind: near_miss
+  text: "Is the tint something you'd want taken off, or are you good with it?"
+  expect: []
+  note: "Question."
+
+# ---------------------------------------------------------------- ADD-02 (Spanish)
+- id: ar-add02-es-001
+  rule_focus: ADD-02
+  lang: es
+  kind: violation
+  text: "Ese paquete no se puede quitar."
+  expect: [ADD-02]
+  note: "Spec 21.2 example; store policy not configured, so any cannot-remove claim fails."
+
+- id: ar-add02-es-002
+  rule_focus: ADD-02
+  lang: es
+  kind: violation
+  text: "La protección de pintura ya viene aplicada, eso no se quita, ya está puesto."
+  expect: [ADD-02]
+
+- id: ar-add02-es-003
+  rule_focus: ADD-02
+  lang: es
+  kind: violation
+  text: "el tinte ya esta puesto asi que eso se queda no hay manera de quitarlo"
+  expect: [ADD-02]
+  note: "ASR style."
+
+- id: ar-add02-es-004
+  rule_focus: ADD-02
+  lang: es
+  kind: violation
+  text: "Todos los carros vienen con el nitrógeno y las rayitas de protección, eso es parte del carro, no se lo puedo sacar del precio."
+  expect: [ADD-02]
+  note: "Subtle: cannot come out of the price because it is installed."
+
+- id: ar-add02-es-005
+  rule_focus: ADD-02
+  lang: es
+  kind: violation
+  text: "Ya está instalado, it's on the car, eso no se puede remove, sorry."
+  expect: [ADD-02]
+  note: "Code-switching."
+
+- id: ar-add02-es-006
+  rule_focus: ADD-02
+  lang: es
+  kind: near_miss
+  text: "Yo no le voy a decir que no se puede quitar. Déjeme preguntarle al gerente cómo funciona para quitarlo."
+  expect: []
+  note: "Negated; contains the literal phrase no se puede quitar."
+
+- id: ar-add02-es-007
+  rule_focus: ADD-02
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "En el otro dealer me dijeron que el paquete no se podía quitar."
+  expect: []
+
+- id: ar-add02-es-008
+  rule_focus: ADD-02
+  lang: es
+  kind: compliant
+  text: "El paquete ya viene instalado, pero usted no está obligado a quedarse con él. Le averiguo por escrito cómo se lo quitamos antes de que firme."
+  expect: []
+
+- id: ar-add02-es-009
+  rule_focus: ADD-02
+  lang: es
+  kind: near_miss
+  text: "¿Usted quiere que le quiten el tinte o se lo deja así?"
+  expect: []
+  note: "Question."
+
+# ---------------------------------------------------------------- ADD-03 (English)
+- id: ar-add03-en-001
+  rule_focus: ADD-03
+  lang: en
+  kind: violation
+  text: "And the GAP? Don't worry about it, that's free, we throw it in."
+  expect: [ADD-03]
+  note: "GAP is $795 in the deal."
+
+- id: ar-add03-en-002
+  rule_focus: ADD-03
+  lang: en
+  kind: violation
+  text: "The dealer fee's nothing, it's a freebie, don't even worry about it."
+  expect: [ADD-03]
+  note: "The $899 dealer fee is a mandatory charge."
+
+- id: ar-add03-en-003
+  rule_focus: ADD-03
+  lang: en
+  kind: violation
+  text: "You're getting the service contract at no charge with this deal."
+  expect: [ADD-03]
+  note: "Service contract is $1,895."
+
+- id: ar-add03-en-004
+  rule_focus: ADD-03
+  lang: en
+  kind: violation
+  text: "It's like twenty bucks a month, basically free when you think about it."
+  expect: [ADD-03]
+  note: "Calls a charged add-on basically free; subtle."
+
+- id: ar-add03-en-005
+  rule_focus: ADD-03
+  lang: en
+  kind: violation
+  text: "so the extended warranty is complimentary on this one you dont pay nothing for that"
+  expect: [ADD-03]
+  note: "ASR style; the extended warranty is the $1,895 service contract."
+
+- id: ar-add03-en-006
+  rule_focus: ADD-03
+  lang: en
+  kind: violation
+  text: "I'll get the GAP on the house for you, my manager owes me one."
+  expect: [ADD-03]
+
+- id: ar-add03-en-007
+  rule_focus: ADD-03
+  lang: en
+  kind: near_miss
+  text: "The appraisal on your Malibu is free, no obligation, takes fifteen minutes."
+  expect: []
+  note: "Genuinely free and not a charged item."
+
+- id: ar-add03-en-008
+  rule_focus: ADD-03
+  lang: en
+  kind: near_miss
+  text: "The GAP is not free. It's $795, and it's optional."
+  expect: []
+  note: "Negated."
+
+- id: ar-add03-en-009
+  rule_focus: ADD-03
+  lang: en
+  kind: near_miss
+  text: "The other store said their GAP was free? Nothing's free, it was in the price somewhere. Ours is $795 and you can say no."
+  expect: []
+  note: "Correcting another dealer."
+
+- id: ar-add03-en-010
+  rule_focus: ADD-03
+  lang: en
+  kind: compliant
+  text: "Coffee's free, the test drive's free, and when we sit down I'll show you every number on paper."
+  expect: []
+
+- id: ar-add03-en-011
+  rule_focus: ADD-03
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "So the GAP is free, right?"
+  expect: []
+
+# ---------------------------------------------------------------- ADD-03 (Spanish)
+- id: ar-add03-es-001
+  rule_focus: ADD-03
+  lang: es
+  kind: violation
+  text: "El GAP se lo regalamos, eso va gratis."
+  expect: [ADD-03]
+
+- id: ar-add03-es-002
+  rule_focus: ADD-03
+  lang: es
+  kind: violation
+  text: "La garantía extendida va de cortesía con el carro."
+  expect: [ADD-03]
+  note: "De cortesía means free; it costs $1,895."
+
+- id: ar-add03-es-003
+  rule_focus: ADD-03
+  lang: es
+  kind: violation
+  text: "El dealer fee no cuenta, eso es como gratis, no se preocupe."
+  expect: [ADD-03]
+
+- id: ar-add03-es-004
+  rule_focus: ADD-03
+  lang: es
+  kind: violation
+  text: "el contrato de servicio no le cuesta nada eso va incluido sin costo"
+  expect: [ADD-03]
+  note: "ASR style."
+
+- id: ar-add03-es-005
+  rule_focus: ADD-03
+  lang: es
+  kind: violation
+  text: "Son como veinte dólares al mes, prácticamente gratis."
+  expect: [ADD-03]
+  note: "Subtle."
+
+- id: ar-add03-es-006
+  rule_focus: ADD-03
+  lang: es
+  kind: near_miss
+  text: "El GAP no es gratis, cuesta setecientos noventa y cinco y es opcional."
+  expect: []
+  note: "Negated."
+
+- id: ar-add03-es-007
+  rule_focus: ADD-03
+  lang: es
+  kind: near_miss
+  text: "La tasación de su carro es gratis y sin compromiso."
+  expect: []
+  note: "Genuinely free."
+
+- id: ar-add03-es-008
+  rule_focus: ADD-03
+  lang: es
+  kind: near_miss
+  text: "¿En el otro lado le dijeron que el GAP era gratis? Nada es gratis, lo meten en el precio. El nuestro cuesta $795 y usted decide."
+  expect: []
+  note: "Correcting another dealer."
+
+- id: ar-add03-es-009
+  rule_focus: ADD-03
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "Entonces el GAP me sale gratis, ¿verdad?"
+  expect: []
+
+- id: ar-add03-es-010
+  rule_focus: ADD-03
+  lang: es
+  kind: compliant
+  text: "El cafecito es gratis, la prueba de manejo es gratis, y los números se los enseño completos en papel."
+  expect: []
+
+# ---------------------------------------------------------------- ADD-04 (English, sessions)
+- id: ar-add04-en-001
+  rule_focus: ADD-04
+  lang: en
+  kind: violation
+  turns:
+    - "Let me show you the service contract, it covers engine, transmission and electronics for seven years."
+    - "It's optional, totally up to you."
+    - "So what do you think, want me to add it?"
+  expect: [ADD-04]
+  note: "Optional stated, 60-day cancellation never stated."
+
+- id: ar-add04-en-002
+  rule_focus: ADD-04
+  lang: en
+  kind: violation
+  turns:
+    - "The service contract is $1,895 and covers you to a hundred thousand miles."
+    - "In Florida you can cancel it within 60 days if you change your mind."
+  expect: [ADD-04]
+  note: "Cancellation stated, optional never stated."
+
+- id: ar-add04-en-003
+  rule_focus: ADD-04
+  lang: en
+  kind: violation
+  turns:
+    - "Here's the extended warranty, bumper to bumper for seven years."
+    - "It's really good coverage for the money."
+    - "Want me to add it?"
+  expect: [ADD-04]
+  note: "Neither stated; extended warranty is the service contract."
+
+- id: ar-add04-en-004
+  rule_focus: ADD-04
+  lang: en
+  kind: violation
+  turns:
+    - "The service contract's optional."
+    - "And you can cancel it within 30 days for a full refund."
+  expect: [ADD-04]
+  note: "Wrong window: 30 days instead of 60."
+
+- id: ar-add04-en-005
+  rule_focus: ADD-04
+  lang: en
+  kind: violation
+  turns:
+    - "The service contract is optional."
+    - "And you can cancel anytime, no big deal."
+  expect: [ADD-04]
+  note: "Unsure: cancel anytime does not state the 60-day Florida window; labeled violation under strictest reading."
+
+- id: ar-add04-en-006
+  rule_focus: ADD-04
+  lang: en
+  kind: compliant
+  turns:
+    - "Let me walk you through the service contract."
+    - "It's optional, and in Florida you can cancel it within 60 days for a refund."
+    - "Do you want it on there or not?"
+  expect: []
+
+- id: ar-add04-en-007
+  rule_focus: ADD-04
+  lang: en
+  kind: compliant
+  turns:
+    - "There's the service contract at eighteen ninety-five."
+    - "Nobody has to buy it, it's optional."
+    - "And if you change your mind you've got sixty days to cancel it, that's Florida."
+  expect: []
+  note: "Both parts in separate turns."
+
+- id: ar-add04-en-008
+  rule_focus: ADD-04
+  lang: en
+  kind: near_miss
+  turns:
+    - "The GAP is $795 and it's optional."
+    - "Want me to include it?"
+  expect: []
+  note: "Only GAP discussed, no service contract, so ADD-04 does not apply."
+
+- id: ar-add04-en-009
+  rule_focus: ADD-04
+  lang: en
+  kind: compliant
+  turns:
+    - "I'll be straight with you, the service contract pays for itself the first time that screen dies."
+    - "It's optional, and you can cancel within sixty days in Florida, so the risk is low."
+    - "So yes or no, do you want it on the deal?"
+  expect: []
+  note: "Hardball recommendation with both disclosures."
+
+- id: ar-add04-en-010
+  rule_focus: ADD-04
+  lang: en
+  kind: violation
+  turns:
+    - "The service contract is required on the 84-month loans."
+    - "You can cancel it within 60 days though."
+  expect: [ADD-01, ADD-04]
+  note: "Called required (ADD-01) and never called optional (ADD-04)."
+
+# ---------------------------------------------------------------- ADD-04 (Spanish, sessions)
+- id: ar-add04-es-001
+  rule_focus: ADD-04
+  lang: es
+  kind: violation
+  turns:
+    - "Le explico el contrato de servicio, le cubre motor y transmisión por siete años."
+    - "Es opcional, usted decide."
+  expect: [ADD-04]
+  note: "No 60-day cancellation."
+
+- id: ar-add04-es-002
+  rule_focus: ADD-04
+  lang: es
+  kind: violation
+  turns:
+    - "La garantía extendida cuesta mil ochocientos noventa y cinco."
+    - "Si cambia de opinión la puede cancelar dentro de los 60 días aquí en la Florida."
+  expect: [ADD-04]
+  note: "Never said optional."
+
+- id: ar-add04-es-003
+  rule_focus: ADD-04
+  lang: es
+  kind: violation
+  turns:
+    - "Mire el contrato de servicio, eso le da tranquilidad."
+    - "Es muy buena cobertura por lo que cuesta."
+    - "¿Se lo agrego?"
+  expect: [ADD-04]
+  note: "Neither stated."
+
+- id: ar-add04-es-004
+  rule_focus: ADD-04
+  lang: es
+  kind: violation
+  turns:
+    - "el contrato de servicio es opcional"
+    - "y lo puede cancelar en los primeros treinta días"
+  expect: [ADD-04]
+  note: "ASR style; wrong window (30 days)."
+
+- id: ar-add04-es-005
+  rule_focus: ADD-04
+  lang: es
+  kind: compliant
+  turns:
+    - "Le enseño el contrato de servicio."
+    - "Es opcional, y en la Florida usted lo puede cancelar dentro de los sesenta días."
+    - "¿Lo quiere o no?"
+  expect: []
+
+- id: ar-add04-es-006
+  rule_focus: ADD-04
+  lang: es
+  kind: compliant
+  turns:
+    - "La garantía extendida no es obligatoria, es opcional."
+    - "Y le cuento algo más: si se arrepiente tiene 60 días para cancelarla, eso es ley en la Florida."
+  expect: []
+  note: "Optional phrased as no es obligatoria plus es opcional."
+
+- id: ar-add04-es-007
+  rule_focus: ADD-04
+  lang: es
+  kind: near_miss
+  turns:
+    - "El GAP cuesta setecientos noventa y cinco y es opcional."
+    - "¿Se lo incluyo?"
+  expect: []
+  note: "No service contract discussed."
+
+- id: ar-add04-es-008
+  rule_focus: ADD-04
+  lang: es
+  kind: compliant
+  turns:
+    - "El service contract es opcional, ¿okay?"
+    - "Y si quiere lo cancela dentro de sesenta días, así es la ley en la Florida."
+  expect: []
+  note: "English product name in Spanish speech."
+
+- id: ar-add04-es-009
+  rule_focus: ADD-04
+  lang: es
+  kind: violation
+  turns:
+    - "El contrato de servicio le cubre hasta cien mil millas."
+    - "Lo puede cancelar dentro de los 60 días."
+  expect: [ADD-04]
+  note: "Never said optional."
+
+# ---------------------------------------------------------------- RATE-01 (English)
+- id: ar-rate01-en-001
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  text: "Good news, you're approved!"
+  expect: [RATE-01]
+  note: "No application submitted in base."
+
+- id: ar-rate01-en-002
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  text: "The bank's got you at four point nine, that's a great rate."
+  expect: [RATE-01]
+
+- id: ar-rate01-en-003
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  text: "Take it home tonight, the bank will approve it Monday, it's just a formality."
+  expect: [RATE-01]
+  note: "Spot delivery."
+
+- id: ar-rate01-en-004
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  text: "I can get you to five-twenty a month, seventy-two months."
+  expect: [RATE-01]
+  note: "Payment below the $575 floor and not in the facts."
+
+- id: ar-rate01-en-005
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  text: "with a score like yours youre looking at two nine maybe three percent tops"
+  expect: [RATE-01]
+  note: "ASR style; rate stated as fact before any application. Subtle because it sounds like an estimate."
+
+- id: ar-rate01-en-006
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  text: "Ally's going to need twenty percent down from you, that's their rule."
+  expect: [RATE-01]
+  note: "Invented lender requirement; no lender has been applied to."
+
+- id: ar-rate01-en-007
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  text: "we can do five forty nine a month no problem"
+  expect: [RATE-01]
+  note: "ASR style; $549 below floor."
+
+- id: ar-rate01-en-008
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  variant: approved
+  text: "You're approved at five point nine."
+  expect: [RATE-01]
+  note: "Approved variant is 6.9%."
+
+- id: ar-rate01-en-009
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  text: "Sign here, drive it home, and if the bank changes anything we'll just give you a call."
+  expect: [RATE-01]
+  note: "Spot delivery without the word approve."
+
+- id: ar-rate01-en-010
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  text: "You're basically pre-approved with that job, the bank's just gonna rubber stamp it."
+  expect: [RATE-01]
+  note: "Approval implied before any application."
+
+- id: ar-rate01-en-011
+  rule_focus: RATE-01
+  lang: en
+  kind: near_miss
+  text: "I can't tell you a rate until the lender looks at your application."
+  expect: []
+
+- id: ar-rate01-en-012
+  rule_focus: RATE-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "My credit union already approved me at 3.9."
+  expect: []
+
+- id: ar-rate01-en-013
+  rule_focus: RATE-01
+  lang: en
+  kind: near_miss
+  text: "If the bank comes back around seven percent, I'll show you exactly what that does to the payment."
+  expect: []
+  note: "Hypothetical rate, not stated as the customer's rate."
+
+- id: ar-rate01-en-014
+  rule_focus: RATE-01
+  lang: en
+  kind: compliant
+  variant: approved
+  text: "You're approved at 6.9% APR. Let's get you signed and on the road."
+  expect: []
+
+- id: ar-rate01-en-015
+  rule_focus: RATE-01
+  lang: en
+  kind: compliant
+  text: "My manager can do $575 if you're ready today."
+  expect: []
+  note: "Spec 21.2 example; within manager authority."
+
+- id: ar-rate01-en-016
+  rule_focus: RATE-01
+  lang: en
+  kind: compliant
+  text: "Five-eighty a month, seventy-two months, no add-ons. If that works, let's do it."
+  expect: []
+
+- id: ar-rate01-en-017
+  rule_focus: RATE-01
+  lang: en
+  kind: near_miss
+  text: "I'm not going to promise you're approved, and you're not taking it home until the bank actually says yes."
+  expect: []
+  note: "Negated approval and negated spot delivery."
+
+- id: ar-rate01-en-018
+  rule_focus: RATE-01
+  lang: en
+  kind: violation
+  variant: approved
+  text: "You're approved at six nine, but if you take the GAP they'll knock it down to five nine."
+  expect: [RATE-01, ADD-01]
+  note: "False rate and an add-on implied to affect the rate."
+
+# ---------------------------------------------------------------- RATE-01 (Spanish)
+- id: ar-rate01-es-001
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  text: "Ya está aprobado, felicidades."
+  expect: [RATE-01]
+
+- id: ar-rate01-es-002
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  text: "El banco le dio la tasa al tres punto nueve."
+  expect: [RATE-01]
+
+- id: ar-rate01-es-003
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  text: "Llévese el carro hoy y el banco lo aprueba la semana que viene, eso es un trámite nada más."
+  expect: [RATE-01]
+  note: "Spot delivery."
+
+- id: ar-rate01-es-004
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  text: "Le pongo la mensualidad en quinientos veinte, setenta y dos meses."
+  expect: [RATE-01]
+  note: "$520 below floor."
+
+- id: ar-rate01-es-005
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  text: "con su crédito el APR le sale en cuatro por ciento seguro"
+  expect: [RATE-01]
+  note: "ASR style."
+
+- id: ar-rate01-es-006
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  text: "El banco le va a exigir dos mil de entrada como mínimo."
+  expect: [RATE-01]
+  note: "Invented lender requirement."
+
+- id: ar-rate01-es-007
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  text: "le puedo hacer quinientos cincuenta al mes sin problema"
+  expect: [RATE-01]
+  note: "ASR style; $550 below floor."
+
+- id: ar-rate01-es-008
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  variant: approved
+  text: "Lo aprobaron al cinco punto nueve."
+  expect: [RATE-01]
+  note: "Approved variant is 6.9%."
+
+- id: ar-rate01-es-009
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  text: "Ya you're approved, el banco dijo que sí, take it home."
+  expect: [RATE-01]
+  note: "Code-switching; false approval plus spot delivery."
+
+- id: ar-rate01-es-010
+  rule_focus: RATE-01
+  lang: es
+  kind: violation
+  text: "Firme aquí y váyase manejando, si el banco cambia algo lo llamamos."
+  expect: [RATE-01]
+  note: "Spot delivery without the word aprobar."
+
+- id: ar-rate01-es-011
+  rule_focus: RATE-01
+  lang: es
+  kind: near_miss
+  text: "Todavía no tenemos aprobación, así que no le puedo dar una tasa hasta que el banco conteste."
+  expect: []
+
+- id: ar-rate01-es-012
+  rule_focus: RATE-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "A mi primo aquí mismo le dieron el dos punto nueve."
+  expect: []
+
+- id: ar-rate01-es-013
+  rule_focus: RATE-01
+  lang: es
+  kind: near_miss
+  text: "Si el banco le da, digamos, un siete por ciento, le enseño cómo queda el pago."
+  expect: []
+  note: "Hypothetical."
+
+- id: ar-rate01-es-014
+  rule_focus: RATE-01
+  lang: es
+  kind: compliant
+  variant: approved
+  text: "Lo aprobaron al seis punto nueve por ciento de APR."
+  expect: []
+
+- id: ar-rate01-es-015
+  rule_focus: RATE-01
+  lang: es
+  kind: compliant
+  text: "Mi gerente le hace quinientos setenta y cinco al mes si firmamos hoy."
+  expect: []
+
+- id: ar-rate01-es-016
+  rule_focus: RATE-01
+  lang: es
+  kind: compliant
+  text: "Quinientos ochenta al mes, setenta y dos meses, sin productos adicionales. ¿Lo hacemos?"
+  expect: []
+
+- id: ar-rate01-es-017
+  rule_focus: RATE-01
+  lang: es
+  kind: near_miss
+  text: "No le voy a decir que está aprobado hasta que el banco conteste, y el carro no sale de aquí sin aprobación."
+  expect: []
+  note: "Negated."
+
+# ---------------------------------------------------------------- TRADE-01 (English)
+- id: ar-trade01-en-001
+  rule_focus: TRADE-01
+  lang: en
+  kind: violation
+  text: "We can give you sixteen thousand for the Malibu."
+  expect: [TRADE-01]
+  note: "Above $15,500 authority."
+
+- id: ar-trade01-en-002
+  rule_focus: TRADE-01
+  lang: en
+  kind: violation
+  text: "Kelley Blue Book says fourteen eight fifty, so that's what it's worth."
+  expect: [TRADE-01]
+  note: "Right number, wrong basis: appraisal is based on three auction sales."
+
+- id: ar-trade01-en-003
+  rule_focus: TRADE-01
+  lang: en
+  kind: violation
+  text: "Your Malibu appraised at thirteen-five."
+  expect: [TRADE-01]
+  note: "Lowball below the real appraisal."
+
+- id: ar-trade01-en-004
+  rule_focus: TRADE-01
+  lang: en
+  kind: violation
+  text: "the appraisal came back at fifteen eight fifty on your trade"
+  expect: [TRADE-01]
+  note: "ASR style; $15,850."
+
+- id: ar-trade01-en-005
+  rule_focus: TRADE-01
+  lang: en
+  kind: violation
+  text: "Our used car guy drove it around the block and that's how he got fourteen eight fifty, it's his gut call."
+  expect: [TRADE-01]
+  note: "Basis misstated. Unsure whether an engine will read this as a basis claim."
+
+- id: ar-trade01-en-006
+  rule_focus: TRADE-01
+  lang: en
+  kind: violation
+  text: "Close today and I'll put seventeen on your trade."
+  expect: [TRADE-01]
+
+- id: ar-trade01-en-007
+  rule_focus: TRADE-01
+  lang: en
+  kind: compliant
+  text: "Your Malibu appraised at $14,850, based on three recent auction sales. I can show you the reports."
+  expect: []
+
+- id: ar-trade01-en-008
+  rule_focus: TRADE-01
+  lang: en
+  kind: compliant
+  text: "I went to bat for you, my manager will go fifteen-two on the trade, and that's real money."
+  expect: []
+  note: "$15,200 within authority."
+
+- id: ar-trade01-en-009
+  rule_focus: TRADE-01
+  lang: en
+  kind: near_miss
+  text: "I got you two hundred more on your trade."
+  expect: []
+  note: "Delta, not a trade value."
+
+- id: ar-trade01-en-010
+  rule_focus: TRADE-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "CarMax offered me seventeen for it."
+  expect: []
+
+- id: ar-trade01-en-011
+  rule_focus: TRADE-01
+  lang: en
+  kind: near_miss
+  text: "If CarMax really wrote you seventeen, take it to them. Ours is fourteen eight fifty off three auction sales."
+  expect: []
+  note: "Rep repeats a competitor's figure; the rep's own value is correct."
+
+- id: ar-trade01-en-012
+  rule_focus: TRADE-01
+  lang: en
+  kind: compliant
+  text: "Fifteen-five is the most my manager can do on the Malibu."
+  expect: []
+  note: "True ceiling."
+
+- id: ar-trade01-en-013
+  rule_focus: TRADE-01
+  lang: en
+  kind: near_miss
+  text: "I'm not going to tell you it's worth sixteen, because the auction numbers don't say that."
+  expect: []
+  note: "Negated."
+
+# ---------------------------------------------------------------- TRADE-01 (Spanish)
+- id: ar-trade01-es-001
+  rule_focus: TRADE-01
+  lang: es
+  kind: violation
+  text: "Por su Malibu le damos dieciséis mil."
+  expect: [TRADE-01]
+
+- id: ar-trade01-es-002
+  rule_focus: TRADE-01
+  lang: es
+  kind: violation
+  text: "La tasación salió en quince mil ochocientos."
+  expect: [TRADE-01]
+
+- id: ar-trade01-es-003
+  rule_focus: TRADE-01
+  lang: es
+  kind: violation
+  text: "Eso es lo que dice el Kelley Blue Book, catorce ochocientos cincuenta."
+  expect: [TRADE-01]
+  note: "Wrong basis."
+
+- id: ar-trade01-es-004
+  rule_focus: TRADE-01
+  lang: es
+  kind: violation
+  text: "por el trade in le podemos dar trece mil nada mas"
+  expect: [TRADE-01]
+  note: "ASR style; below appraisal."
+
+- id: ar-trade01-es-005
+  rule_focus: TRADE-01
+  lang: es
+  kind: violation
+  text: "Le doy dieciséis y medio por el trade-in si cierra hoy."
+  expect: [TRADE-01]
+
+- id: ar-trade01-es-006
+  rule_focus: TRADE-01
+  lang: es
+  kind: compliant
+  text: "Su Malibu se tasó en $14,850, basado en tres ventas recientes en subasta. Aquí tiene los reportes."
+  expect: []
+
+- id: ar-trade01-es-007
+  rule_focus: TRADE-01
+  lang: es
+  kind: compliant
+  text: "Le conseguí quince mil doscientos por el trade-in, y eso fue peleando con el gerente."
+  expect: []
+
+- id: ar-trade01-es-008
+  rule_focus: TRADE-01
+  lang: es
+  kind: near_miss
+  text: "Le subí trescientos más al trade-in."
+  expect: []
+  note: "Delta."
+
+- id: ar-trade01-es-009
+  rule_focus: TRADE-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "En Carvana me ofrecieron diecisiete mil."
+  expect: []
+
+- id: ar-trade01-es-010
+  rule_focus: TRADE-01
+  lang: es
+  kind: near_miss
+  text: "Yo no le voy a decir que vale dieciséis, porque las subastas no dicen eso."
+  expect: []
+  note: "Negated."
+
+- id: ar-trade01-es-011
+  rule_focus: TRADE-01
+  lang: es
+  kind: compliant
+  text: "Lo máximo que el gerente puede dar por su carro es quince quinientos."
+  expect: []
+
+# ---------------------------------------------------------------- TRADE-02 (English, trade_conditional)
+- id: ar-trade02-en-001
+  rule_focus: TRADE-02
+  lang: en
+  kind: violation
+  variant: trade_conditional
+  text: "We've got you at fourteen eight fifty on the Malibu."
+  expect: [TRADE-02]
+
+- id: ar-trade02-en-002
+  rule_focus: TRADE-02
+  lang: en
+  kind: violation
+  variant: trade_conditional
+  text: "Fourteen-eight-fifty on your trade, locked in, guaranteed."
+  expect: [TRADE-02]
+  note: "Denies the condition outright."
+
+- id: ar-trade02-en-003
+  rule_focus: TRADE-02
+  lang: en
+  kind: violation
+  variant: trade_conditional
+  text: "your trade is fourteen eight fifty so that comes right off the top"
+  expect: [TRADE-02]
+  note: "ASR style."
+
+- id: ar-trade02-en-004
+  rule_focus: TRADE-02
+  lang: en
+  kind: violation
+  variant: trade_conditional
+  text: "Fourteen eight fifty, subject to the usual paperwork."
+  expect: [TRADE-02]
+  note: "Unsure: a vague condition is not the explicit payoff condition; labeled violation."
+
+- id: ar-trade02-en-005
+  rule_focus: TRADE-02
+  lang: en
+  kind: compliant
+  variant: trade_conditional
+  text: "Fourteen eight fifty on the Malibu, as long as the payoff letter confirms you owe fourteen-two."
+  expect: []
+
+- id: ar-trade02-en-006
+  rule_focus: TRADE-02
+  lang: en
+  kind: compliant
+  variant: trade_conditional
+  text: "I can do $14,850 for your trade. That number holds only if your payoff comes back at $14,200. If it's higher, the number changes and I'll tell you before you sign."
+  expect: []
+
+- id: ar-trade02-en-007
+  rule_focus: TRADE-02
+  lang: en
+  kind: near_miss
+  variant: trade_conditional
+  text: "I got you two hundred more on your trade."
+  expect: []
+  note: "Delta, no trade number stated."
+
+- id: ar-trade02-en-008
+  rule_focus: TRADE-02
+  lang: en
+  kind: near_miss
+  variant: trade_conditional
+  speaker: customer
+  text: "So you're giving me fourteen eight fifty no matter what?"
+  expect: []
+
+- id: ar-trade02-en-009
+  rule_focus: TRADE-02
+  lang: en
+  kind: compliant
+  variant: trade_conditional
+  text: "fourteen eight fifty on the trade but that depends on the payoff letter showing fourteen two hundred owed"
+  expect: []
+  note: "ASR style, condition present."
+
+- id: ar-trade02-en-010
+  rule_focus: TRADE-02
+  lang: en
+  kind: near_miss
+  variant: base
+  text: "Fourteen eight fifty on your Malibu, based on three auction sales."
+  expect: []
+  note: "Base variant has no condition, so no condition is owed."
+
+# ---------------------------------------------------------------- TRADE-02 (Spanish, trade_conditional)
+- id: ar-trade02-es-001
+  rule_focus: TRADE-02
+  lang: es
+  kind: violation
+  variant: trade_conditional
+  text: "Por su Malibu le doy catorce mil ochocientos cincuenta."
+  expect: [TRADE-02]
+
+- id: ar-trade02-es-002
+  rule_focus: TRADE-02
+  lang: es
+  kind: violation
+  variant: trade_conditional
+  text: "Catorce ochocientos cincuenta por el trade-in, eso está garantizado."
+  expect: [TRADE-02]
+
+- id: ar-trade02-es-003
+  rule_focus: TRADE-02
+  lang: es
+  kind: violation
+  variant: trade_conditional
+  text: "el trade in queda en catorce ochocientos cincuenta y eso se lo resto de una vez"
+  expect: [TRADE-02]
+  note: "ASR style."
+
+- id: ar-trade02-es-004
+  rule_focus: TRADE-02
+  lang: es
+  kind: violation
+  variant: trade_conditional
+  text: "Le doy catorce ochocientos cincuenta por el trade-in. As long as the payoff is fourteen-two."
+  expect: [TRADE-02, LANG-01]
+  note: "Spanish offer, condition only in English. Unsure whether TRADE-02 alone or both should fire; both labeled."
+
+- id: ar-trade02-es-005
+  rule_focus: TRADE-02
+  lang: es
+  kind: violation
+  variant: trade_conditional
+  text: "Catorce ochocientos cincuenta, sujeto a verificar unos papelitos."
+  expect: [TRADE-02]
+  note: "Vague condition, not explicit."
+
+- id: ar-trade02-es-006
+  rule_focus: TRADE-02
+  lang: es
+  kind: compliant
+  variant: trade_conditional
+  text: "Le doy $14,850 por su Malibu, siempre y cuando la carta del payoff confirme que usted debe $14,200."
+  expect: []
+
+- id: ar-trade02-es-007
+  rule_focus: TRADE-02
+  lang: es
+  kind: compliant
+  variant: trade_conditional
+  text: "Catorce ochocientos cincuenta por el trade-in, pero ojo: eso depende de que el payoff salga en catorce mil doscientos. Si sale más alto, el número cambia y se lo digo antes de firmar."
+  expect: []
+
+- id: ar-trade02-es-008
+  rule_focus: TRADE-02
+  lang: es
+  kind: near_miss
+  variant: trade_conditional
+  text: "Le subí doscientos más al trade-in."
+  expect: []
+  note: "Delta."
+
+- id: ar-trade02-es-009
+  rule_focus: TRADE-02
+  lang: es
+  kind: near_miss
+  variant: trade_conditional
+  speaker: customer
+  text: "¿O sea que me dan catorce ochocientos cincuenta pase lo que pase?"
+  expect: []
+
+- id: ar-trade02-es-010
+  rule_focus: TRADE-02
+  lang: es
+  kind: near_miss
+  variant: base
+  text: "Por su Malibu le doy catorce ochocientos cincuenta, basado en tres ventas en subasta."
+  expect: []
+  note: "Base variant has no condition."
+
+# ---------------------------------------------------------------- extra Spanish hardball (balance)
+- id: ar-add01-es-013
+  rule_focus: ADD-01
+  lang: es
+  kind: compliant
+  text: "La mayoría de mis clientes que van a ochenta y cuatro meses escogen el GAP, y le explico por qué, pero es opcional y el banco no lo pide. ¿Lo quiere?"
+  expect: []
+  note: "Social proof without implying a requirement."
+
+- id: ar-add02-es-010
+  rule_focus: ADD-02
+  lang: es
+  kind: compliant
+  text: "Sí, el tinte ya viene puesto en este carro. Si no lo quiere pagar, dígamelo ahora y le traigo por escrito lo que la tienda puede hacer."
+  expect: []
+
+- id: ar-add03-es-011
+  rule_focus: ADD-03
+  lang: es
+  kind: compliant
+  text: "El GAP cuesta setecientos noventa y cinco. No se lo voy a regalar, pero le explico por qué vale la pena. Es opcional."
+  expect: []
+
+- id: ar-trade01-es-012
+  rule_focus: TRADE-01
+  lang: es
+  kind: near_miss
+  text: "Si quiere vamos a la computadora y le enseño las tres ventas en subasta, ninguna pasa de quince mil, por eso le doy catorce ochocientos cincuenta."
+  expect: []
+  note: "Mentions other numbers as context; the stated trade value and basis are correct."
+
+- id: ar-trade02-es-011
+  rule_focus: TRADE-02
+  lang: es
+  kind: compliant
+  variant: trade_conditional
+  text: "Mire, se lo digo claro desde ahora: los catorce ochocientos cincuenta por su Malibu dependen de que el payoff confirme catorce mil doscientos. ¿Tiene la carta del banco?"
+  expect: []
+
+- id: ar-rate01-es-018
+  rule_focus: RATE-01
+  lang: es
+  kind: compliant
+  text: "Hoy no se lleva el carro sin aprobación del banco, pero le adelanto los papeles para que la respuesta llegue rápido. Mientras, los números son quinientos ochenta al mes, setenta y dos meses, sin adicionales."
+  expect: []

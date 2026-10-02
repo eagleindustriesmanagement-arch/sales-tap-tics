@@ -1,0 +1,1251 @@
+# Price and payment cases (PRICE-01..05, PAY-01..03). Written from SPEC 4.4 meanings and facts.yaml only.
+# Real all-in prices: 33,349 (anyone), 32,349 (anyone, with the everyone bonus cash through Monday 10/5).
+# 31,349 needs first responder cash too. Payments: 580/72 no add-ons, 625/72 with service contract + GAP,
+# 599/84 with service contract + GAP. Manager can go to 575/month.
+# Text-channel cases use variant consent_given so CONSENT-01 is not in play.
+
+# ---------------------------------------------------------------- PRICE-01 (floor) English
+- id: pp-p01-en-01
+  rule_focus: PRICE-01
+  lang: en
+  kind: violation
+  text: "The Equinox LT is thirty-two four fifty, plus tax and tag."
+  expect: [PRICE-01]
+  note: "Leaves out the $899 dealer fee."
+- id: pp-p01-en-02
+  rule_focus: PRICE-01
+  lang: en
+  kind: violation
+  text: "yeah so this one's $32,450 and that's a great price for an LT honestly"
+  expect: [PRICE-01]
+- id: pp-p01-en-03
+  rule_focus: PRICE-01
+  lang: en
+  kind: violation
+  text: "It's 32,450 plus fees, tax, tag and title."
+  expect: [PRICE-01]
+  note: "'Plus fees' does not make a pre-fee price compliant; the stated price excludes a mandatory dealer charge."
+- id: pp-p01-en-04
+  rule_focus: PRICE-01
+  lang: en
+  kind: violation
+  variant: no_room
+  text: "I can let it go for 29,999 today if you sign."
+  expect: [PRICE-01]
+  note: "Below any real price; manager has no room in this variant."
+- id: pp-p01-en-05
+  rule_focus: PRICE-01
+  lang: en
+  kind: violation
+  text: "With the bonus cash you're at 31,450 all in."
+  expect: [PRICE-01]
+  note: "Subtle: 32,450 minus 1,000; real figure with the bonus cash is 32,349. Calls it all in but drops the fee."
+- id: pp-p01-en-06
+  rule_focus: PRICE-01
+  lang: en
+  kind: violation
+  text: "price is 32,450 and you'll see the rest of it at signing"
+  expect: [PRICE-01]
+  note: "Subtle: hints at more charges without stating the all-in price."
+- id: pp-p01-en-07
+  rule_focus: PRICE-01
+  lang: en
+  kind: violation
+  text: "Look I'll be straight with you, selling price thirty two thousand four hundred fifty, that's it, plus the government stuff."
+  expect: [PRICE-01]
+- id: pp-p01-en-08
+  rule_focus: PRICE-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "The website said 32,450, so that's what I'm paying, right?"
+  expect: []
+  note: "Customer speech is never a violation."
+- id: pp-p01-en-09
+  rule_focus: PRICE-01
+  lang: en
+  kind: near_miss
+  text: "All in it's 33,349 before tax, tag and title. The 32,450 you saw online doesn't include our 899 dealer fee."
+  expect: []
+  note: "Rep corrects the pre-fee number after stating the total."
+- id: pp-p01-en-10
+  rule_focus: PRICE-01
+  lang: en
+  kind: near_miss
+  text: "The other dealer quoted you 31,500, but ask them for the all-in. Ours is 33,349 with every dealer charge included."
+  expect: []
+  note: "31,500 is the competitor's quote, not this vehicle's price."
+- id: pp-p01-en-11
+  rule_focus: PRICE-01
+  lang: en
+  kind: near_miss
+  text: "I can't do thirty grand. It's 33,349, or 32,349 with the bonus cash."
+  expect: []
+  note: "Negated figure."
+- id: pp-p01-en-12
+  rule_focus: PRICE-01
+  lang: en
+  kind: near_miss
+  text: "Your Malibu appraised at 14,850 based on three auction sales."
+  expect: []
+  note: "Trade value, not a vehicle price."
+- id: pp-p01-en-13
+  rule_focus: PRICE-01
+  lang: en
+  kind: near_miss
+  text: "were you hoping to be closer to thirty-one"
+  expect: []
+  note: "Question about the customer's target, no price asserted."
+- id: pp-p01-en-14
+  rule_focus: PRICE-01
+  lang: en
+  kind: compliant
+  text: "It's thirty-three three forty-nine all in, Summit White, on the lot and ready to go today."
+  expect: []
+- id: pp-p01-en-15
+  rule_focus: PRICE-01
+  lang: en
+  kind: compliant
+  text: "33,349 plus tax tag and title that's the price and I'm not going to start you somewhere lower and then change it"
+  expect: []
+- id: pp-p01-en-16
+  rule_focus: PRICE-01
+  lang: en
+  kind: compliant
+  text: "With the thousand-dollar bonus cash, which ends Monday, here's the bulletin, you're at 32,349 all in."
+  expect: []
+- id: pp-p01-en-17
+  rule_focus: PRICE-01
+  lang: en
+  kind: compliant
+  text: "If I get you to 32,349 with the bonus cash, are we doing this today?"
+  expect: []
+
+# ---------------------------------------------------------------- PRICE-01 (floor) Spanish
+- id: pp-p01-es-01
+  rule_focus: PRICE-01
+  lang: es
+  kind: violation
+  text: "La Equinox le sale en treinta y dos mil cuatrocientos cincuenta, más el tax y el tag."
+  expect: [PRICE-01]
+- id: pp-p01-es-02
+  rule_focus: PRICE-01
+  lang: es
+  kind: violation
+  text: "Mire, el precio es $32.450, eso es lo que le estoy dando."
+  expect: [PRICE-01]
+  note: "Period as thousands separator."
+- id: pp-p01-es-03
+  rule_focus: PRICE-01
+  lang: es
+  kind: violation
+  text: "32,450 más fees y taxes, ¿ok?"
+  expect: [PRICE-01]
+- id: pp-p01-es-04
+  rule_focus: PRICE-01
+  lang: es
+  kind: violation
+  text: "Con el rebate le queda en treinta y un mil cuatrocientos cincuenta con todo."
+  expect: [PRICE-01]
+  note: "Subtle: 32,450 minus 1,000; the real figure with the bonus is 32,349."
+- id: pp-p01-es-05
+  rule_focus: PRICE-01
+  lang: es
+  kind: violation
+  variant: no_room
+  text: "Se la dejo en 30 mil redonditos si firma ahorita."
+  expect: [PRICE-01]
+- id: pp-p01-es-06
+  rule_focus: PRICE-01
+  lang: es
+  kind: violation
+  text: "el precio de venta es treinta y dos cuatro cincuenta lo demás se lo explican en la oficina"
+  expect: [PRICE-01]
+- id: pp-p01-es-07
+  rule_focus: PRICE-01
+  lang: es
+  kind: violation
+  text: "Oiga, this one is 32,450, un precio buenísimo para un LT."
+  expect: [PRICE-01]
+  note: "Code-switching."
+- id: pp-p01-es-08
+  rule_focus: PRICE-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "En el internet decía 32,450, así que eso es lo que voy a pagar."
+  expect: []
+- id: pp-p01-es-09
+  rule_focus: PRICE-01
+  lang: es
+  kind: near_miss
+  text: "No, señor, no son 32,450. El precio total final es 33,349, y eso ya incluye el dealer fee."
+  expect: []
+  note: "Negated pre-fee number, total given."
+- id: pp-p01-es-10
+  rule_focus: PRICE-01
+  lang: es
+  kind: near_miss
+  text: "El otro dealer le dijo 31,500, pero pregúntele cuánto es con todo. El nuestro es 33,349 con todo incluido."
+  expect: []
+- id: pp-p01-es-11
+  rule_focus: PRICE-01
+  lang: es
+  kind: near_miss
+  text: "¿Usted estaba pensando en algo cerca de los treinta y uno?"
+  expect: []
+- id: pp-p01-es-12
+  rule_focus: PRICE-01
+  lang: es
+  kind: near_miss
+  text: "Su trade-in, el Malibu, lo tasaron en 14,850 basado en tres ventas de subasta."
+  expect: []
+- id: pp-p01-es-13
+  rule_focus: PRICE-01
+  lang: es
+  kind: compliant
+  text: "El precio total final es treinta y tres mil trescientos cuarenta y nueve, más tax, tag y título. Ese es el precio."
+  expect: []
+- id: pp-p01-es-14
+  rule_focus: PRICE-01
+  lang: es
+  kind: compliant
+  text: "Con el bono de mil dólares, que se vence el lunes, aquí tiene el boletín, le queda en 32,349 con todo."
+  expect: []
+- id: pp-p01-es-15
+  rule_focus: PRICE-01
+  lang: es
+  kind: compliant
+  text: "Si le consigo 32,349 con el bono, ¿la firmamos hoy?"
+  expect: []
+- id: pp-p01-es-16
+  rule_focus: PRICE-01
+  lang: es
+  kind: compliant
+  text: "$33.349 con todo incluido, y no le voy a empezar con un número que después cambia."
+  expect: []
+  note: "Period as thousands separator."
+
+# ---------------------------------------------------------------- PRICE-02 (phone / text) English
+- id: pp-p02-en-01
+  rule_focus: PRICE-02
+  lang: en
+  kind: violation
+  channel: phone
+  text: "yeah on the phone I can tell you it's 32,450 come see it today"
+  expect: [PRICE-02]
+- id: pp-p02-en-02
+  rule_focus: PRICE-02
+  lang: en
+  kind: violation
+  channel: phone
+  text: "We've got it at twenty-nine nine ninety-five if you can make it in before close."
+  expect: [PRICE-02]
+  note: "Phone price below any walk-in price."
+- id: pp-p02-en-03
+  rule_focus: PRICE-02
+  lang: en
+  kind: violation
+  channel: text
+  variant: consent_given
+  text: "Hi Ana, thanks for opting in to texts! Equinox LT stock 4521 is $32,450 + tax/tag. Reply STOP to opt out."
+  expect: [PRICE-02]
+- id: pp-p02-en-04
+  rule_focus: PRICE-02
+  lang: en
+  kind: violation
+  channel: phone
+  text: "Internet price on that one is 31,449."
+  expect: [PRICE-02]
+- id: pp-p02-en-05
+  rule_focus: PRICE-02
+  lang: en
+  kind: violation
+  channel: phone
+  text: "it's thirty two four fifty plus our fees plus tax you know how it is"
+  expect: [PRICE-02]
+- id: pp-p02-en-06
+  rule_focus: PRICE-02
+  lang: en
+  kind: near_miss
+  channel: phone
+  speaker: customer
+  text: "Your website says 32,450, is that right?"
+  expect: []
+- id: pp-p02-en-07
+  rule_focus: PRICE-02
+  lang: en
+  kind: near_miss
+  channel: phone
+  text: "I'll give you the same price on the phone you'd get walking in: 33,349 all in, plus tax, tag and title."
+  expect: []
+- id: pp-p02-en-08
+  rule_focus: PRICE-02
+  lang: en
+  kind: near_miss
+  channel: phone
+  text: "That 31,800 you heard from the other store, ask them if it includes their fees. Ours is 33,349 with everything the dealer charges."
+  expect: []
+- id: pp-p02-en-09
+  rule_focus: PRICE-02
+  lang: en
+  kind: near_miss
+  channel: phone
+  text: "Are you trying to stay under 32 thousand?"
+  expect: []
+- id: pp-p02-en-10
+  rule_focus: PRICE-02
+  lang: en
+  kind: compliant
+  channel: phone
+  text: "I'm not going to throw out a lowball to get you in here. It's 33,349 all in, 32,349 with the bonus cash that ends Monday."
+  expect: []
+- id: pp-p02-en-11
+  rule_focus: PRICE-02
+  lang: en
+  kind: compliant
+  channel: text
+  variant: consent_given
+  text: "Hi Ana, thanks for opting in to texts. Equinox LT #4521: $33,349 all-in before tax/tag/title, $32,349 with the $1,000 bonus cash through Mon 10/5. Reply STOP to opt out."
+  expect: []
+
+# ---------------------------------------------------------------- PRICE-02 (phone / text) Spanish
+- id: pp-p02-es-01
+  rule_focus: PRICE-02
+  lang: es
+  kind: violation
+  channel: phone
+  text: "Por teléfono le digo, está en 32,450, venga a verla hoy."
+  expect: [PRICE-02]
+- id: pp-p02-es-02
+  rule_focus: PRICE-02
+  lang: es
+  kind: violation
+  channel: phone
+  text: "Se la puedo dejar en veintinueve mil novecientos noventa y cinco si viene antes de que cerremos."
+  expect: [PRICE-02]
+- id: pp-p02-es-03
+  rule_focus: PRICE-02
+  lang: es
+  kind: violation
+  channel: text
+  variant: consent_given
+  text: "Hola Sr. Pérez, gracias por autorizar los mensajes. La Equinox LT #4521 está en $32,450 + tax. Responda STOP para cancelar."
+  expect: [PRICE-02]
+- id: pp-p02-es-04
+  rule_focus: PRICE-02
+  lang: es
+  kind: violation
+  channel: phone
+  text: "el precio de internet es treinta y un mil cuatrocientos cuarenta y nueve"
+  expect: [PRICE-02]
+- id: pp-p02-es-05
+  rule_focus: PRICE-02
+  lang: es
+  kind: violation
+  channel: phone
+  text: "32 mil 450 más los fees del dealer y los taxes"
+  expect: [PRICE-02]
+- id: pp-p02-es-06
+  rule_focus: PRICE-02
+  lang: es
+  kind: near_miss
+  channel: phone
+  speaker: customer
+  text: "En la página dice 32,450, ¿eso es correcto?"
+  expect: []
+- id: pp-p02-es-07
+  rule_focus: PRICE-02
+  lang: es
+  kind: near_miss
+  channel: phone
+  text: "Le doy por teléfono el mismo precio que le daría aquí en persona: 33,349 con todo, más tax, tag y título."
+  expect: []
+- id: pp-p02-es-08
+  rule_focus: PRICE-02
+  lang: es
+  kind: near_miss
+  channel: phone
+  text: "Eso de 31,800 que le dijeron en el otro dealer, pregunte si incluye los fees. El nuestro es 33,349 con todo."
+  expect: []
+- id: pp-p02-es-09
+  rule_focus: PRICE-02
+  lang: es
+  kind: near_miss
+  channel: phone
+  text: "¿Usted quiere quedar por debajo de los 32 mil?"
+  expect: []
+- id: pp-p02-es-10
+  rule_focus: PRICE-02
+  lang: es
+  kind: compliant
+  channel: phone
+  text: "No le voy a dar un número bajito para que venga y después cambie. Son 33,349 con todo, o 32,349 con el bono de mil que se vence el lunes."
+  expect: []
+- id: pp-p02-es-11
+  rule_focus: PRICE-02
+  lang: es
+  kind: compliant
+  channel: text
+  variant: consent_given
+  text: "Hola Sr. Pérez, gracias por autorizar los mensajes. Equinox LT #4521: $33,349 precio total antes de tax, tag y título; $32,349 con el bono de $1,000 hasta el lunes 10/5. Responda STOP para cancelar."
+  expect: []
+
+# ---------------------------------------------------------------- PRICE-03 (session order) English
+- id: pp-p03-en-01
+  rule_focus: PRICE-03
+  lang: en
+  kind: violation
+  turns:
+    - "Good news, for first responders this one comes down to 31,349."
+    - "For everybody else it's 33,349 all in, or 32,349 with the bonus cash."
+  expect: [PRICE-03]
+- id: pp-p03-en-02
+  rule_focus: PRICE-03
+  lang: en
+  kind: violation
+  turns:
+    - "With both rebates you're at thirty-one three forty-nine."
+    - "Now one of those is the first responder cash, so we'd need proof you qualify."
+  expect: [PRICE-03]
+  note: "Subtle: 'both rebates' hides that one is restricted."
+- id: pp-p03-en-03
+  rule_focus: PRICE-03
+  lang: en
+  kind: violation
+  turns:
+    - "Let me start you with the best number we have, 31,349 with first responder cash."
+    - "If you don't qualify, it's 32,349."
+  expect: [PRICE-03]
+- id: pp-p03-en-04
+  rule_focus: PRICE-03
+  lang: en
+  kind: violation
+  turns:
+    - "The price on this Equinox is 31,349 all in."
+  expect: [PRICE-03, PRICE-01]
+  note: "Unqualified restricted price presented as the price; also not a price this customer can be assumed to pay."
+- id: pp-p03-en-05
+  rule_focus: PRICE-03
+  lang: en
+  kind: violation
+  turns:
+    - "your number's thirty-one three forty-nine once we put the first responder cash on it"
+    - "what do you do for work by the way"
+  expect: [PRICE-03]
+  note: "Restricted price first, eligibility checked only afterwards."
+- id: pp-p03-en-06
+  rule_focus: PRICE-03
+  lang: en
+  kind: near_miss
+  turns:
+    - "It's 33,349 all in before tax, tag and title."
+    - "With the bonus cash everyone gets, it's 32,349."
+    - "And if you're a first responder there's another thousand, so 31,349 with proof."
+  expect: []
+- id: pp-p03-en-07
+  rule_focus: PRICE-03
+  lang: en
+  kind: near_miss
+  turns:
+    - "Are you by any chance a firefighter or a police officer?"
+    - "OK, the price is 32,349 with the bonus cash everyone gets, and if you were a first responder there'd be an extra thousand off."
+  expect: []
+  note: "Eligibility question first, no price asserted before an any-buyer price."
+- id: pp-p03-en-08
+  rule_focus: PRICE-03
+  lang: en
+  kind: near_miss
+  turns:
+    - "That 31,349 your cousin got was with first responder cash, so it's not your number."
+    - "Your price is 32,349 all in with the bonus cash."
+  expect: []
+  note: "Rep corrects the customer's restricted figure rather than stating it as a price."
+- id: pp-p03-en-09
+  rule_focus: PRICE-03
+  lang: en
+  kind: compliant
+  turns:
+    - "32,349 all in with the bonus cash, which ends Monday."
+    - "I'm not going lower on price, but let's take a look at your trade."
+  expect: []
+
+# ---------------------------------------------------------------- PRICE-03 (session order) Spanish
+- id: pp-p03-es-01
+  rule_focus: PRICE-03
+  lang: es
+  kind: violation
+  turns:
+    - "Buenas noticias, para los first responders esta le queda en 31,349."
+    - "Para los demás es 33,349 con todo, o 32,349 con el bono."
+  expect: [PRICE-03]
+- id: pp-p03-es-02
+  rule_focus: PRICE-03
+  lang: es
+  kind: violation
+  turns:
+    - "Con los dos rebates usted queda en treinta y un mil trescientos cuarenta y nueve."
+    - "Bueno, uno de esos es para first responders, habría que ver si usted califica."
+  expect: [PRICE-03]
+- id: pp-p03-es-03
+  rule_focus: PRICE-03
+  lang: es
+  kind: violation
+  turns:
+    - "Le empiezo con el mejor número, 31,349 con el cash de first responder."
+    - "Si no califica, son 32,349."
+  expect: [PRICE-03]
+- id: pp-p03-es-04
+  rule_focus: PRICE-03
+  lang: es
+  kind: violation
+  turns:
+    - "El precio de esta Equinox es 31,349 con todo."
+  expect: [PRICE-03, PRICE-01]
+  note: "Unqualified restricted price presented as the price."
+- id: pp-p03-es-05
+  rule_focus: PRICE-03
+  lang: es
+  kind: violation
+  turns:
+    - "su número es treinta y un mil trescientos cuarenta y nueve con el cash de first responder"
+    - "y usted en qué trabaja"
+  expect: [PRICE-03]
+- id: pp-p03-es-06
+  rule_focus: PRICE-03
+  lang: es
+  kind: near_miss
+  turns:
+    - "Son 33,349 con todo, antes de tax, tag y título."
+    - "Con el bono que le dan a todo el mundo queda en 32,349."
+    - "Y si usted es first responder hay mil más, o sea 31,349 con prueba."
+  expect: []
+- id: pp-p03-es-07
+  rule_focus: PRICE-03
+  lang: es
+  kind: near_miss
+  turns:
+    - "¿Usted es bombero o policía, por casualidad?"
+    - "Ok, el precio es 32,349 con el bono que tiene todo el mundo, y si fuera first responder serían mil más de descuento."
+  expect: []
+- id: pp-p03-es-08
+  rule_focus: PRICE-03
+  lang: es
+  kind: near_miss
+  turns:
+    - "Los 31,349 que le dieron a su primo fueron con el cash de first responder, ese no es su número."
+    - "Su precio es 32,349 con todo, con el bono incluido."
+  expect: []
+- id: pp-p03-es-09
+  rule_focus: PRICE-03
+  lang: es
+  kind: compliant
+  turns:
+    - "El precio total final es 32,349 con el bono, que se vence el lunes."
+    - "No le voy a bajar más el precio, pero vamos a ver su trade-in."
+  expect: []
+
+# ---------------------------------------------------------------- PRICE-04 (financing tie) English
+- id: pp-p04-en-01
+  rule_focus: PRICE-04
+  lang: en
+  kind: violation
+  text: "That price is only if you finance with us."
+  expect: [PRICE-04]
+- id: pp-p04-en-02
+  rule_focus: PRICE-04
+  lang: en
+  kind: violation
+  text: "To get you 32,349 I need to do the financing here. If you bring your own bank it's 33,349."
+  expect: [PRICE-04]
+- id: pp-p04-en-03
+  rule_focus: PRICE-04
+  lang: en
+  kind: violation
+  text: "Cash buyers don't get the bonus cash, so paying cash you're at thirty-three three forty-nine."
+  expect: [PRICE-04]
+  note: "Both prices are real numbers, but the discount is falsely tied to financing."
+- id: pp-p04-en-04
+  rule_focus: PRICE-04
+  lang: en
+  kind: violation
+  text: "finance with us for like three payments then pay it off that's how you get this number"
+  expect: [PRICE-04]
+- id: pp-p04-en-05
+  rule_focus: PRICE-04
+  lang: en
+  kind: violation
+  text: "The 33,349 assumes you're financing through our lenders. Credit union deals get priced a little different."
+  expect: [PRICE-04]
+  note: "Subtle: no 'only if', but price depends on financing source."
+- id: pp-p04-en-06
+  rule_focus: PRICE-04
+  lang: en
+  kind: near_miss
+  text: "The price is the same whether you pay cash, finance with us, or bring a credit union check: 33,349 all in."
+  expect: []
+- id: pp-p04-en-07
+  rule_focus: PRICE-04
+  lang: en
+  kind: near_miss
+  text: "You don't need to finance with us to get 32,349. That bonus cash is for everyone."
+  expect: []
+- id: pp-p04-en-08
+  rule_focus: PRICE-04
+  lang: en
+  kind: near_miss
+  text: "Are you planning to finance or pay cash?"
+  expect: []
+- id: pp-p04-en-09
+  rule_focus: PRICE-04
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "The other place said their price was only good with their financing."
+  expect: []
+- id: pp-p04-en-10
+  rule_focus: PRICE-04
+  lang: en
+  kind: near_miss
+  text: "The other store told you their price was only good with their financing? Here the price doesn't change however you pay."
+  expect: []
+- id: pp-p04-en-11
+  rule_focus: PRICE-04
+  lang: en
+  kind: compliant
+  text: "If you finance with us I still have to get a lender to approve you, but the price stays 32,349 either way."
+  expect: []
+- id: pp-p04-en-12
+  rule_focus: PRICE-04
+  lang: en
+  kind: compliant
+  text: "32,349 cash or finance. I'm not moving on price today, so let's talk about how you want to pay for it."
+  expect: []
+  note: "Rep's own position, not a claimed manager limit."
+
+# ---------------------------------------------------------------- PRICE-04 (financing tie) Spanish
+- id: pp-p04-es-01
+  rule_focus: PRICE-04
+  lang: es
+  kind: violation
+  text: "Ese precio es solamente si financia con nosotros."
+  expect: [PRICE-04]
+- id: pp-p04-es-02
+  rule_focus: PRICE-04
+  lang: es
+  kind: violation
+  text: "Para darle 32,349 tengo que hacer el financiamiento aquí. Si trae su propio banco son 33,349."
+  expect: [PRICE-04]
+- id: pp-p04-es-03
+  rule_focus: PRICE-04
+  lang: es
+  kind: violation
+  text: "Si paga cash no le aplica el bono, así que le queda en treinta y tres mil trescientos cuarenta y nueve."
+  expect: [PRICE-04]
+- id: pp-p04-es-04
+  rule_focus: PRICE-04
+  lang: es
+  kind: violation
+  text: "Financie con nosotros tres meses y después lo paga completo, así es como le doy este precio."
+  expect: [PRICE-04]
+- id: pp-p04-es-05
+  rule_focus: PRICE-04
+  lang: es
+  kind: violation
+  text: "ese número es con financiamiento de la casa con el credit union es otro precio"
+  expect: [PRICE-04]
+- id: pp-p04-es-06
+  rule_focus: PRICE-04
+  lang: es
+  kind: near_miss
+  text: "El precio es el mismo si paga cash, si financia con nosotros o si trae el cheque de su credit union: 33,349 con todo."
+  expect: []
+- id: pp-p04-es-07
+  rule_focus: PRICE-04
+  lang: es
+  kind: near_miss
+  text: "No tiene que financiar con nosotros para el 32,349. Ese bono es para todo el mundo."
+  expect: []
+- id: pp-p04-es-08
+  rule_focus: PRICE-04
+  lang: es
+  kind: near_miss
+  text: "¿Usted piensa financiar o pagar cash?"
+  expect: []
+- id: pp-p04-es-09
+  rule_focus: PRICE-04
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "En el otro lugar me dijeron que el precio era solo si financiaba con ellos."
+  expect: []
+- id: pp-p04-es-10
+  rule_focus: PRICE-04
+  lang: es
+  kind: near_miss
+  text: "¿En el otro dealer le dijeron que el precio era solo con su financiamiento? Aquí el precio no cambia como sea que pague."
+  expect: []
+- id: pp-p04-es-11
+  rule_focus: PRICE-04
+  lang: es
+  kind: compliant
+  text: "Si financia con nosotros, el banco todavía tiene que aprobarlo, pero el precio se queda en 32,349 de todas maneras."
+  expect: []
+- id: pp-p04-es-12
+  rule_focus: PRICE-04
+  lang: es
+  kind: compliant
+  text: "32,349 cash o financiado. Hoy no me muevo en el precio, así que hablemos de cómo lo quiere pagar."
+  expect: []
+
+# ---------------------------------------------------------------- PRICE-05 (total before itemizing) English
+- id: pp-p05-en-01
+  rule_focus: PRICE-05
+  lang: en
+  kind: violation
+  turns:
+    - "There's an $899 dealer fee on every car we sell."
+    - "So the total all in is 33,349 plus tax, tag and title."
+  expect: [PRICE-05]
+- id: pp-p05-en-02
+  rule_focus: PRICE-05
+  lang: en
+  kind: violation
+  turns:
+    - "OK so on the Equinox you've got the eight ninety-nine dealer fee, then tax, tag and title."
+    - "All in before the government stuff it's thirty-three three forty-nine."
+  expect: [PRICE-05]
+- id: pp-p05-en-03
+  rule_focus: PRICE-05
+  lang: en
+  kind: violation
+  turns:
+    - "Before I give you the number, just so you know, we charge a dealer fee of 899 for prep and paperwork."
+    - "33,349 is your total before tax and tag."
+  expect: [PRICE-05]
+- id: pp-p05-en-04
+  rule_focus: PRICE-05
+  lang: en
+  kind: violation
+  turns:
+    - "dealer fee's 899 and the bonus cash is a thousand off so total with everything is 32,349"
+  expect: [PRICE-05]
+- id: pp-p05-en-05
+  rule_focus: PRICE-05
+  lang: en
+  kind: near_miss
+  turns:
+    - "It's 33,349 all in before tax, tag and title."
+    - "That includes the 899 dealer fee, there's nothing else from us."
+  expect: []
+- id: pp-p05-en-06
+  rule_focus: PRICE-05
+  lang: en
+  kind: near_miss
+  turns:
+    - "We don't tack on surprise charges here."
+    - "Total is 33,349 before tax, tag and title, and I can break it down for you."
+  expect: []
+  note: "General statement about fees is not itemizing."
+- id: pp-p05-en-07
+  rule_focus: PRICE-05
+  lang: en
+  kind: near_miss
+  turns:
+    - "33,349 total, that's 32,450 for the vehicle and 899 dealer fee."
+  expect: []
+  note: "32,450 is a line item after the total, not a quoted price."
+- id: pp-p05-en-08
+  rule_focus: PRICE-05
+  lang: en
+  kind: compliant
+  turns:
+    - "Total first: 33,349 before tax, tag and title, 32,349 with the bonus cash."
+    - "Want me to break that down line by line?"
+    - "Vehicle 32,450, dealer fee 899, bonus cash minus 1,000."
+  expect: []
+
+# ---------------------------------------------------------------- PRICE-05 (total before itemizing) Spanish
+- id: pp-p05-es-01
+  rule_focus: PRICE-05
+  lang: es
+  kind: violation
+  turns:
+    - "Tenemos un dealer fee de $899 en todos los carros."
+    - "Así que el precio total final es 33,349 más tax, tag y título."
+  expect: [PRICE-05]
+- id: pp-p05-es-02
+  rule_focus: PRICE-05
+  lang: es
+  kind: violation
+  turns:
+    - "Ok, en la Equinox tiene el dealer fee de ochocientos noventa y nueve, después el tax, tag y título."
+    - "Con todo, antes de lo del gobierno, son treinta y tres mil trescientos cuarenta y nueve."
+  expect: [PRICE-05]
+- id: pp-p05-es-03
+  rule_focus: PRICE-05
+  lang: es
+  kind: violation
+  turns:
+    - "Antes de darle el número, para que sepa, cobramos un dealer fee de 899 por la preparación y los papeles."
+    - "33,349 es su total antes de tax y tag."
+  expect: [PRICE-05]
+- id: pp-p05-es-04
+  rule_focus: PRICE-05
+  lang: es
+  kind: violation
+  turns:
+    - "el dealer fee es 899 y el bono son mil menos así que el total con todo es 32,349"
+  expect: [PRICE-05]
+- id: pp-p05-es-05
+  rule_focus: PRICE-05
+  lang: es
+  kind: near_miss
+  turns:
+    - "Son 33,349 con todo, antes de tax, tag y título."
+    - "Eso ya incluye el dealer fee de 899, no hay nada más de parte nuestra."
+  expect: []
+- id: pp-p05-es-06
+  rule_focus: PRICE-05
+  lang: es
+  kind: near_miss
+  turns:
+    - "Aquí no le metemos cargos sorpresa."
+    - "El total es 33,349 antes de tax, tag y título, y se lo desgloso si quiere."
+  expect: []
+- id: pp-p05-es-07
+  rule_focus: PRICE-05
+  lang: es
+  kind: near_miss
+  turns:
+    - "Precio total final 33,349: 32,450 el carro y 899 el dealer fee."
+  expect: []
+  note: "Line items after the total."
+- id: pp-p05-es-08
+  rule_focus: PRICE-05
+  lang: es
+  kind: compliant
+  turns:
+    - "Primero el total: 33,349 antes de tax, tag y título, 32,349 con el bono."
+    - "¿Quiere que se lo desglose?"
+    - "Carro 32,450, dealer fee 899, menos 1,000 del bono."
+  expect: []
+
+# ---------------------------------------------------------------- PAY-01 (add-on payment labeled) English
+- id: pp-pay01-en-01
+  rule_focus: PAY-01
+  lang: en
+  kind: violation
+  text: "Your payment's 625 a month for 72 months."
+  expect: [PAY-01]
+  note: "625 includes service contract and GAP; not said."
+- id: pp-pay01-en-02
+  rule_focus: PAY-01
+  lang: en
+  kind: violation
+  text: "I got you down to five ninety-nine for 84 months."
+  expect: [PAY-01]
+  note: "Term is stated, so not PAY-03; add-ons are not."
+- id: pp-pay01-en-03
+  rule_focus: PAY-01
+  lang: en
+  kind: violation
+  text: "625 a month and that's with no extras, just the car."
+  expect: [PAY-01]
+  note: "Falsely labeled as having no add-ons."
+- id: pp-pay01-en-04
+  rule_focus: PAY-01
+  lang: en
+  kind: violation
+  text: "six twenty-five a month and you're fully taken care of, no worries about repairs"
+  expect: [PAY-01]
+  note: "Subtle: implies coverage but never says the payment includes a service contract and GAP."
+- id: pp-pay01-en-05
+  rule_focus: PAY-01
+  lang: en
+  kind: violation
+  text: "monthly is 625 for 72 that's your number you want to sign"
+  expect: [PAY-01]
+- id: pp-pay01-en-06
+  rule_focus: PAY-01
+  lang: en
+  kind: near_miss
+  text: "580 a month for 72 months, that's the car only, no add-ons."
+  expect: []
+- id: pp-pay01-en-07
+  rule_focus: PAY-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "So it's 625 a month, right?"
+  expect: []
+- id: pp-pay01-en-08
+  rule_focus: PAY-01
+  lang: en
+  kind: near_miss
+  text: "It's not 625 for you, that number has the service contract and GAP in it. Without them you're at 580 for 72."
+  expect: []
+- id: pp-pay01-en-09
+  rule_focus: PAY-01
+  lang: en
+  kind: near_miss
+  text: "Would you rather do 625 with the service contract and GAP, or stay at 580 without them, both on 72 months?"
+  expect: []
+- id: pp-pay01-en-10
+  rule_focus: PAY-01
+  lang: en
+  kind: near_miss
+  text: "The other dealer's 625 had their add-ons packed in. Ours is 580 for 72 with nothing added, or 625 if you choose the service contract and GAP."
+  expect: []
+- id: pp-pay01-en-11
+  rule_focus: PAY-01
+  lang: en
+  kind: compliant
+  text: "580 for 72 months, no add-ons. If you want the service contract and GAP, both optional, it's 625 for 72."
+  expect: []
+- id: pp-pay01-en-12
+  rule_focus: PAY-01
+  lang: en
+  kind: compliant
+  text: "If you're ready today my manager can do 575 a month, no add-ons."
+  expect: []
+  note: "True manager authority."
+- id: pp-pay01-en-13
+  rule_focus: PAY-01
+  lang: en
+  kind: violation
+  text: "With the service contract and GAP I can get you to 520 a month, without them 480."
+  expect: [RATE-01]
+  note: "Labeled correctly, so PAY-01 is fine; the payments themselves are not in the facts."
+
+# ---------------------------------------------------------------- PAY-01 (add-on payment labeled) Spanish
+- id: pp-pay01-es-01
+  rule_focus: PAY-01
+  lang: es
+  kind: violation
+  text: "Su pago le queda en 625 al mes a 72 meses."
+  expect: [PAY-01]
+- id: pp-pay01-es-02
+  rule_focus: PAY-01
+  lang: es
+  kind: violation
+  text: "Se lo bajé a quinientos noventa y nueve a 84 meses."
+  expect: [PAY-01]
+- id: pp-pay01-es-03
+  rule_focus: PAY-01
+  lang: es
+  kind: violation
+  text: "625 al mes y eso es sin nada extra, nada más el carro."
+  expect: [PAY-01]
+- id: pp-pay01-es-04
+  rule_focus: PAY-01
+  lang: es
+  kind: violation
+  text: "seiscientos veinticinco al mes y queda protegido de todo sin preocuparse por reparaciones"
+  expect: [PAY-01]
+  note: "Subtle: implies coverage without saying the payment includes the add-ons."
+- id: pp-pay01-es-05
+  rule_focus: PAY-01
+  lang: es
+  kind: violation
+  text: "la mensualidad es 625 a 72 meses ese es su número ¿firmamos?"
+  expect: [PAY-01]
+- id: pp-pay01-es-06
+  rule_focus: PAY-01
+  lang: es
+  kind: violation
+  text: "Ok, su payment queda en six twenty-five al mes, a setenta y dos."
+  expect: [PAY-01]
+  note: "Code-switching."
+- id: pp-pay01-es-07
+  rule_focus: PAY-01
+  lang: es
+  kind: near_miss
+  text: "580 al mes a 72 meses, eso es nada más el carro, sin add-ons."
+  expect: []
+- id: pp-pay01-es-08
+  rule_focus: PAY-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "Entonces son 625 al mes, ¿verdad?"
+  expect: []
+- id: pp-pay01-es-09
+  rule_focus: PAY-01
+  lang: es
+  kind: near_miss
+  text: "No son 625, ese número tiene el contrato de servicio y el GAP. Sin eso le queda en 580 a 72 meses."
+  expect: []
+- id: pp-pay01-es-10
+  rule_focus: PAY-01
+  lang: es
+  kind: near_miss
+  text: "¿Prefiere 625 con el contrato de servicio y el GAP, o quedarse en 580 sin ellos, los dos a 72 meses?"
+  expect: []
+- id: pp-pay01-es-11
+  rule_focus: PAY-01
+  lang: es
+  kind: near_miss
+  text: "Los 625 del otro dealer traían los add-ons metidos. El nuestro es 580 a 72 sin nada añadido, o 625 si usted escoge el contrato de servicio y el GAP."
+  expect: []
+- id: pp-pay01-es-12
+  rule_focus: PAY-01
+  lang: es
+  kind: compliant
+  text: "580 a 72 meses, sin add-ons. Si quiere el contrato de servicio y el GAP, que son opcionales, son 625 a 72."
+  expect: []
+- id: pp-pay01-es-13
+  rule_focus: PAY-01
+  lang: es
+  kind: compliant
+  text: "Si está listo hoy, mi manager le puede hacer 575 al mes sin add-ons."
+  expect: []
+- id: pp-pay01-es-14
+  rule_focus: PAY-01
+  lang: es
+  kind: violation
+  text: "Con el contrato de servicio y el GAP le consigo 520 al mes, sin ellos 480."
+  expect: [RATE-01]
+  note: "Labeled correctly; payments not in the facts."
+
+# ---------------------------------------------------------------- PAY-02 (two-payment menu) English
+- id: pp-pay02-en-01
+  rule_focus: PAY-02
+  lang: en
+  kind: violation
+  turns:
+    - "With the service contract and GAP your payment is 625 a month for 72 months."
+  expect: [PAY-02]
+- id: pp-pay02-en-02
+  rule_focus: PAY-02
+  lang: en
+  kind: violation
+  turns:
+    - "I'd really recommend the service contract and the GAP, both optional."
+    - "So with both you're at 625 for 72 months."
+  expect: [PAY-02]
+- id: pp-pay02-en-03
+  rule_focus: PAY-02
+  lang: en
+  kind: violation
+  turns:
+    - "With the service contract and GAP it's 625 for 72."
+    - "Without them it comes down a little."
+  expect: [PAY-02]
+  note: "Subtle: the without-add-ons payment is mentioned but never shown."
+- id: pp-pay02-en-04
+  rule_focus: PAY-02
+  lang: en
+  kind: violation
+  turns:
+    - "Here are your two options, both with the service contract and GAP."
+    - "625 a month for 72 months, or 599 a month for 84 months."
+  expect: [PAY-02]
+  note: "Two payments, but both include add-ons."
+- id: pp-pay02-en-05
+  rule_focus: PAY-02
+  lang: en
+  kind: near_miss
+  turns:
+    - "Your payment is 580 a month for 72 months with no add-ons."
+  expect: []
+  note: "No add-ons presented."
+- id: pp-pay02-en-06
+  rule_focus: PAY-02
+  lang: en
+  kind: near_miss
+  turns:
+    - "With the service contract and GAP it's 625 for 72."
+    - "Take them off and you're at 580 for 72."
+  expect: []
+  note: "With-add-ons first, then without; both shown."
+- id: pp-pay02-en-07
+  rule_focus: PAY-02
+  lang: en
+  kind: compliant
+  turns:
+    - "Here's the menu: 580 for 72 with nothing added."
+    - "625 for 72 with the service contract and GAP."
+    - "Or 599 for 84 months with both. Longer term, you pay more overall."
+  expect: []
+- id: pp-pay02-en-08
+  rule_focus: PAY-02
+  lang: en
+  kind: compliant
+  turns:
+    - "580 for 72 months, no add-ons."
+    - "625 for 72 if you add the service contract and GAP. They're optional, and the service contract can be canceled within 60 days."
+    - "Which one fits your budget?"
+  expect: []
+
+# ---------------------------------------------------------------- PAY-02 (two-payment menu) Spanish
+- id: pp-pay02-es-01
+  rule_focus: PAY-02
+  lang: es
+  kind: violation
+  turns:
+    - "Con el contrato de servicio y el GAP su pago es 625 al mes a 72 meses."
+  expect: [PAY-02]
+- id: pp-pay02-es-02
+  rule_focus: PAY-02
+  lang: es
+  kind: violation
+  turns:
+    - "Yo le recomiendo el contrato de servicio y el GAP, los dos son opcionales."
+    - "Entonces con los dos queda en 625 a 72 meses."
+  expect: [PAY-02]
+- id: pp-pay02-es-03
+  rule_focus: PAY-02
+  lang: es
+  kind: violation
+  turns:
+    - "Con el contrato de servicio y el GAP son 625 a 72."
+    - "Sin eso baja un poquito."
+  expect: [PAY-02]
+  note: "Without-add-ons payment never shown."
+- id: pp-pay02-es-04
+  rule_focus: PAY-02
+  lang: es
+  kind: violation
+  turns:
+    - "Le tengo dos opciones, las dos con el contrato de servicio y el GAP."
+    - "625 al mes a 72 meses, o 599 al mes a 84 meses."
+  expect: [PAY-02]
+- id: pp-pay02-es-05
+  rule_focus: PAY-02
+  lang: es
+  kind: near_miss
+  turns:
+    - "Su pago es 580 al mes a 72 meses, sin add-ons."
+  expect: []
+- id: pp-pay02-es-06
+  rule_focus: PAY-02
+  lang: es
+  kind: near_miss
+  turns:
+    - "Con el contrato de servicio y el GAP son 625 a 72."
+    - "Si se los quitamos, queda en 580 a 72."
+  expect: []
+- id: pp-pay02-es-07
+  rule_focus: PAY-02
+  lang: es
+  kind: compliant
+  turns:
+    - "Aquí tiene el menú: 580 a 72 sin nada añadido."
+    - "625 a 72 con el contrato de servicio y el GAP."
+    - "O 599 a 84 meses con los dos. Es más tiempo y paga más en total."
+  expect: []
+- id: pp-pay02-es-08
+  rule_focus: PAY-02
+  lang: es
+  kind: compliant
+  turns:
+    - "580 a 72 meses, sin add-ons."
+    - "625 a 72 si añade el contrato de servicio y el GAP. Son opcionales, y el contrato de servicio se puede cancelar dentro de 60 días."
+    - "¿Cuál le cuadra mejor?"
+  expect: []
+
+# ---------------------------------------------------------------- PAY-03 (term stretch disclosed) English
+- id: pp-pay03-en-01
+  rule_focus: PAY-03
+  lang: en
+  kind: violation
+  text: "580 without add-ons, or with the service contract and GAP it's only 599, barely a difference."
+  expect: [PAY-03]
+  note: "599 is on 84 months; term never mentioned."
+- id: pp-pay03-en-02
+  rule_focus: PAY-03
+  lang: en
+  kind: violation
+  text: "Good news, I got the service contract and GAP in and kept you under 600, 599 a month, and 580 without them."
+  expect: [PAY-03]
+- id: pp-pay03-en-03
+  rule_focus: PAY-03
+  lang: en
+  kind: violation
+  text: "Without anything it's 580; with the service contract and GAP, 599 a month, 72 months."
+  expect: [PAY-03, RATE-01]
+  note: "Misstates the 599 option as 72 months; 599 at 72 is not a real payment."
+- id: pp-pay03-en-04
+  rule_focus: PAY-03
+  lang: en
+  kind: violation
+  text: "five ninety nine includes service contract and gap five eighty without which one do you want"
+  expect: [PAY-03]
+- id: pp-pay03-en-05
+  rule_focus: PAY-03
+  lang: en
+  kind: near_miss
+  text: "With the service contract and GAP it's 599 a month, but that's on 84 months instead of 72. Without them it's 580 for 72."
+  expect: []
+- id: pp-pay03-en-06
+  rule_focus: PAY-03
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "Can you get it to 599 with the warranty?"
+  expect: []
+- id: pp-pay03-en-07
+  rule_focus: PAY-03
+  lang: en
+  kind: near_miss
+  text: "I won't stretch you to 84 months just to make the add-ons look cheap: 580 for 72 with nothing, or 625 for 72 with the service contract and GAP."
+  expect: []
+- id: pp-pay03-en-08
+  rule_focus: PAY-03
+  lang: en
+  kind: compliant
+  text: "580 for 72 with no add-ons, 625 for 72 with the service contract and GAP, or 599 if we stretch it to 84 months with them. You pay more in total on the 84."
+  expect: []
+
+# ---------------------------------------------------------------- PAY-03 (term stretch disclosed) Spanish
+- id: pp-pay03-es-01
+  rule_focus: PAY-03
+  lang: es
+  kind: violation
+  text: "580 sin add-ons, o con el contrato de servicio y el GAP son nada más 599, casi lo mismo."
+  expect: [PAY-03]
+- id: pp-pay03-es-02
+  rule_focus: PAY-03
+  lang: es
+  kind: violation
+  text: "Buenas noticias, le metí el contrato de servicio y el GAP y lo dejé por debajo de 600, 599 al mes, y 580 sin ellos."
+  expect: [PAY-03]
+- id: pp-pay03-es-03
+  rule_focus: PAY-03
+  lang: es
+  kind: violation
+  text: "Sin nada son 580; con el contrato de servicio y el GAP, 599 al mes a 72 meses."
+  expect: [PAY-03, RATE-01]
+  note: "Misstates the 599 option's term."
+- id: pp-pay03-es-04
+  rule_focus: PAY-03
+  lang: es
+  kind: violation
+  text: "quinientos noventa y nueve con el contrato de servicio y el gap quinientos ochenta sin eso cuál quiere"
+  expect: [PAY-03]
+- id: pp-pay03-es-05
+  rule_focus: PAY-03
+  lang: es
+  kind: near_miss
+  text: "Con el contrato de servicio y el GAP son 599 al mes, pero eso es a 84 meses en vez de 72. Sin ellos son 580 a 72."
+  expect: []
+- id: pp-pay03-es-06
+  rule_focus: PAY-03
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "¿Me lo puede dejar en 599 con la garantía?"
+  expect: []
+- id: pp-pay03-es-07
+  rule_focus: PAY-03
+  lang: es
+  kind: near_miss
+  text: "No le voy a estirar el plazo a 84 meses para que los add-ons parezcan baratos: 580 a 72 sin nada, o 625 a 72 con el contrato de servicio y el GAP."
+  expect: []
+- id: pp-pay03-es-08
+  rule_focus: PAY-03
+  lang: es
+  kind: compliant
+  text: "580 a 72 sin add-ons, 625 a 72 con el contrato de servicio y el GAP, o 599 si lo estiramos a 84 meses con ellos. A 84 paga más en total."
+  expect: []

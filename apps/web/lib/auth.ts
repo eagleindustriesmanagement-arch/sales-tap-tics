@@ -3,7 +3,7 @@ import { cache } from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
-import { isManager, loadUser, resolveLogin, type UserContext } from "@taptics/db";
+import { isManager, loadUser, resolveLogin, type Role, type UserContext } from "@taptics/db";
 import { asUser, withClient } from "./db";
 
 export const SESSION_COOKIE = "tt_session";
@@ -32,20 +32,22 @@ export const currentUser = cache(async (): Promise<Viewer | null> => {
 });
 
 /** Pages: send to login, then to the consent notice, then check the role (spec 3.3 rule 1: server-side). */
-export async function requireUser(opts: { manager?: boolean } = {}): Promise<Viewer> {
+export async function requireUser(opts: { manager?: boolean; roles?: Role[] } = {}): Promise<Viewer> {
   const user = await currentUser();
   if (!user) redirect("/login");
   if (user.consentVersion !== CONSENT_VERSION) redirect("/consent");
   if (opts.manager && !isManager(user)) redirect("/");
+  if (opts.roles && !opts.roles.some((r) => user.roles.includes(r))) redirect("/");
   return user;
 }
 
 /** API routes: the user, or a 401/403 response. */
-export async function apiUser(opts: { manager?: boolean } = {}): Promise<Viewer | NextResponse> {
+export async function apiUser(opts: { manager?: boolean; roles?: Role[] } = {}): Promise<Viewer | NextResponse> {
   const user = await currentUser();
   if (!user) return NextResponse.json({ error: "sign in required" }, { status: 401 });
   if (user.consentVersion !== CONSENT_VERSION) return NextResponse.json({ error: "consent required" }, { status: 403 });
   if (opts.manager && !isManager(user)) return NextResponse.json({ error: "managers only" }, { status: 403 });
+  if (opts.roles && !opts.roles.some((r) => user.roles.includes(r))) return NextResponse.json({ error: "not allowed for your role" }, { status: 403 });
   return user;
 }
 

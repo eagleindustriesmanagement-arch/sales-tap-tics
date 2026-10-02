@@ -324,3 +324,120 @@ export async function latestPlatformRelease(db: Queryable): Promise<{ id: string
   const r = await db.query<{ id: string; version: string }>("select id, version from content_releases where scope = 'platform' order by published_at desc limit 1");
   return r.rows[0] ?? null;
 }
+
+// ---------------------------------------------------------------- store setup (spec 3.4, 18.3)
+
+export interface StoreFee {
+  code: string;
+  nameEn: string;
+  nameEs: string;
+  amountCents: number;
+  kind: "dealer_mandatory" | "government_customer_pays" | "optional";
+}
+
+export interface StoreSetup {
+  storeId: string;
+  storeName: string;
+  fees: StoreFee[];
+  lenders: { name: string; isCreditAcceptance: boolean }[];
+  addOnRemoval: "credit_price" | "show_alternative" | "none_configured";
+  referralReward: "none" | "gift" | "cash";
+  textConsentEn: string;
+  textConsentEs: string;
+  privateWindowHours: number;
+  audioRetentionDays: number;
+  stopOnCritical: boolean;
+  walkInMetric: "all_logged_ups" | "qualified_ups";
+  languages: ("en" | "es")[];
+  spanishRegister: "usted" | "tu";
+  approvedBy: string | null;
+  approvedAt: Date | null;
+}
+
+export async function loadStoreSetup(db: Queryable, storeId: string): Promise<StoreSetup | null> {
+  const s = await db.query<{ id: string; name: string; settings: Record<string, unknown> }>("select id, name, settings from stores where id = $1", [storeId]);
+  const store = s.rows[0];
+  if (!store) return null;
+  const p = (await db.query("select * from store_policies where store_id = $1", [storeId])).rows[0] ?? {};
+  const fees = await db.query("select code, name_en, name_es, amount_cents, kind from store_fees where store_id = $1 order by kind, code", [storeId]);
+  const lenders = await db.query("select name, is_credit_acceptance from store_lenders where store_id = $1 order by name", [storeId]);
+  return {
+    storeId,
+    storeName: store.name,
+    fees: fees.rows.map((f) => ({ code: f.code, nameEn: f.name_en, nameEs: f.name_es, amountCents: Number(f.amount_cents), kind: f.kind })),
+    lenders: lenders.rows.map((l) => ({ name: l.name, isCreditAcceptance: l.is_credit_acceptance })),
+    addOnRemoval: p.add_on_removal ?? "none_configured",
+    referralReward: p.referral_reward ?? "none",
+    textConsentEn: p.text_consent_text_en ?? "",
+    textConsentEs: p.text_consent_text_es ?? "",
+    privateWindowHours: p.private_window_hours ?? 24,
+    audioRetentionDays: p.audio_retention_days ?? 180,
+    stopOnCritical: p.stop_on_critical ?? true,
+    walkInMetric: p.walk_in_metric ?? "all_logged_ups",
+    languages: (store.settings["languages"] as ("en" | "es")[]) ?? ["en", "es"],
+    spanishRegister: (store.settings["spanish_register"] as "usted" | "tu") ?? "usted",
+    approvedBy: p.approved_by ?? null,
+    approvedAt: p.approved_at ?? null,
+  };
+}
+
+/**
+ * Saves the setup wizard (general manager only). Any change clears the compliance sign-off, because scripts and the
+ * compliance checker read these settings (spec 3.4). Every save is audit-logged with what changed.
+ */
+export async function saveStoreSetup(db: Queryable, user: UserContext, input: Omit<StoreSetup, "storeName" | "approvedBy" | "approvedAt">) {
+  if (!user.roles.includes("general_manager")) throw new Error("only a general manager changes store settings");
+  const before = await loadStoreSetup(db, input.storeId);
+  if (!before) throw new Error("store not found");
+  await db.query(
+    `insert into store_policies (tenant_id, store_id, add_on_removal, referral_reward, text_consent_text_en, text_consent_text_es, private_window_hours, audio_retention_days, stop_on_critical, walk_in_metric, approved_by, approved_at)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, null, null)
+     on conflict (store_id) do update set add_on_removal = excluded.add_on_removal, referral_reward = excluded.referral_reward,
+       text_consent_text_en = excluded.text_consent_text_en, text_consent_text_es = excluded.text_consent_text_es,
+       private_window_hours = excluded.private_window_hours, audio_retention_days = excluded.audio_retention_days,
+       stop_on_critical = excluded.stop_on_critical, walk_in_metric = excluded.walk_in_metric, approved_by = null, approved_at = null`,
+    [user.tenantId, input.storeId, input.addOnRemoval, input.referralReward, input.textConsentEn || null, input.textConsentEs || null, input.privateWindowHours, input.audioRetentionDays, input.stopOnCritical, input.walkInMetric],
+  );
+  await db.query("update stores set settings = settings || $2::jsonb where id = $1", [input.storeId, JSON.stringify({ languages: input.languages, spanish_register: input.spanishRegister })]);
+  await db.query("delete from store_fees where store_id = $1", [input.storeId]);
+  for (const f of input.fees) {
+    await db.query("insert into store_fees (tenant_id, store_id, code, name_en, name_es, amount_cents, kind) values ($1, $2, $3, $4, $5, $6, $7)", [user.tenantId, input.storeId, f.code, f.nameEn, f.nameEs, f.amountCents, f.kind]);
+  }
+  await db.query("delete from store_lenders where store_id = $1", [input.storeId]);
+  for (const l of input.lenders) {
+    await db.query("insert into store_lenders (tenant_id, store_id, name, is_credit_acceptance) values ($1, $2, $3, $4)", [user.tenantId, input.storeId, l.name, l.isCreditAcceptance]);
+  }
+  const after = await loadStoreSetup(db, input.storeId);
+  const strip = (s: StoreSetup | null) => s && { ...s, approvedBy: undefined, approvedAt: undefined };
+  await audit(db, user, "store.settings_changed", "store", input.storeId, { before: strip(before), after: strip(after) });
+}
+
+/** The compliance reviewer signs off the store's fees and policies (spec 3.2, 3.4). */
+export async function approveStoreSetup(db: Queryable, user: UserContext, storeId: string) {
+  if (!user.roles.includes("compliance_reviewer")) throw new Error("only a compliance reviewer signs off store settings");
+  const r = await db.query("update store_policies set approved_by = $2, approved_at = now() where store_id = $1", [storeId, user.id]);
+  if (!r.rowCount) throw new Error("store has no settings to approve");
+  await audit(db, user, "store.settings_approved", "store", storeId);
+}
+
+// ---------------------------------------------------------------- compliance view (spec 14.5 item 3)
+
+/** Violations the viewer may see (RLS on sessions), by rule, by rep, and the most recent with their true fact. */
+export async function complianceFlags(db: Queryable, limit = 30) {
+  const byRule = await db.query(
+    `select v.rule_code, v.severity, count(*)::int n from violations v join sessions s on s.id = v.session_id
+     where not v.uncertain group by v.rule_code, v.severity order by n desc, v.rule_code`,
+  );
+  const byRep = await db.query(
+    `select u.first_name, count(*)::int n, count(*) filter (where v.severity = 'critical')::int critical
+     from violations v join sessions s on s.id = v.session_id join users u on u.id = s.user_id
+     where not v.uncertain group by u.first_name order by critical desc, n desc`,
+  );
+  const recent = await db.query(
+    `select v.id, v.rule_code, v.severity, v.span, v.true_fact, v.uncertain, v.created_at, s.id as session_id, u.first_name
+     from violations v join sessions s on s.id = v.session_id join users u on u.id = s.user_id
+     order by v.created_at desc limit $1`,
+    [limit],
+  );
+  return { byRule: byRule.rows, byRep: byRep.rows, recent: recent.rows };
+}

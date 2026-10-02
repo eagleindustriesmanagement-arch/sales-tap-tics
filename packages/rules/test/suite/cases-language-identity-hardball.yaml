@@ -1,0 +1,1454 @@
+# Compliance suite cases: LANG-01, ID-01, REVIEW-01, CONSENT-01 and compliant hardball.
+# Written from the rule meanings (SPEC 4.1 to 4.5) and facts.yaml only, without looking at the engine.
+# Labels are drafts until the compliance reviewer and the store's attorney confirm them.
+
+# ---------------------------------------------------------------------------
+# LANG-01: conditions stated in the language of the offer
+# ---------------------------------------------------------------------------
+
+- id: lh-lang-001
+  rule_focus: LANG-01
+  lang: es
+  kind: violation
+  offer_language: es
+  text: "Su pago queda en $580 al mes a 72 meses, sin productos añadidos, with approved credit."
+  expect: [LANG-01]
+  note: "Approval condition in English inside a Spanish offer."
+
+- id: lh-lang-002
+  rule_focus: LANG-01
+  lang: es
+  kind: violation
+  offer_language: es
+  text: "Mi gerente le puede dejar el pago en $575 al mes, but only if the bank approves you."
+  expect: [LANG-01]
+
+- id: lh-lang-003
+  rule_focus: LANG-01
+  lang: es
+  kind: violation
+  offer_language: es
+  text: "Todo incluido son $33,349, más impuestos, placa y título, y con el bono de $1,000 le queda en $32,349, as long as you sign by Monday."
+  expect: [LANG-01]
+  note: "Price condition (rebate deadline) in English; the deadline itself is real."
+
+- id: lh-lang-004
+  rule_focus: LANG-01
+  lang: es
+  kind: violation
+  offer_language: es
+  text: "entonces el pago le queda en 580 al mes 72 meses sin nada añadido subject to bank approval ok"
+  expect: [LANG-01]
+  note: "Speech-recognition style, no punctuation."
+
+- id: lh-lang-005
+  rule_focus: LANG-01
+  lang: es
+  kind: violation
+  variant: trade_conditional
+  offer_language: es
+  text: "Le dejo el trade-in en $14,850, as long as the payoff letter comes back at $14,200."
+  expect: [LANG-01, TRADE-02]
+  note: "Trade condition in English in a Spanish offer; TRADE-02 also requires the condition in the offer language."
+
+- id: lh-lang-006
+  rule_focus: LANG-01
+  lang: es
+  kind: violation
+  offer_language: es
+  turns:
+    - "Le explico los números: $33,349 todo incluido, más impuestos, placa y título."
+    - "El pago sin productos de protección es $580 al mes a 72 meses."
+    - "That's if the bank approves you, of course."
+  expect: [LANG-01]
+  note: "Offer in Spanish across turns; the approval condition arrives later in English."
+
+- id: lh-lang-007
+  rule_focus: LANG-01
+  lang: en
+  kind: violation
+  offer_language: en
+  text: "Your payment is $580 a month for 72 months with no add-ons, siempre y cuando el banco lo apruebe."
+  expect: [LANG-01]
+
+- id: lh-lang-008
+  rule_focus: LANG-01
+  lang: en
+  kind: violation
+  offer_language: en
+  text: "We can do $575 a month, si firma hoy."
+  expect: [LANG-01]
+  note: "Commitment condition on the payment stated in Spanish in an English offer."
+
+- id: lh-lang-009
+  rule_focus: LANG-01
+  lang: en
+  kind: violation
+  variant: trade_conditional
+  offer_language: en
+  text: "Your trade is at $14,850, si la carta del payoff confirma los $14,200 que usted debe."
+  expect: [LANG-01, TRADE-02]
+  note: "Payoff condition in Spanish in an English offer."
+
+- id: lh-lang-010
+  rule_focus: LANG-01
+  lang: en
+  kind: violation
+  offer_language: en
+  text: "With the service contract and GAP it's $625 a month for 72 months, without them $580, and they're optional. Todo eso sujeto a la aprobación del banco."
+  expect: [LANG-01]
+
+- id: lh-lang-011
+  rule_focus: LANG-01
+  lang: en
+  kind: violation
+  offer_language: en
+  text: "so five eighty a month seventy two months no add ons con crédito aprobado"
+  expect: [LANG-01]
+  note: "Speech-recognition style, numbers spoken."
+
+- id: lh-lang-012
+  rule_focus: LANG-01
+  lang: en
+  kind: violation
+  offer_language: en
+  text: "Anyone can pay $32,349 through Monday, and first responders get another $1,000 off, solamente si nos trae prueba de que es socorrista."
+  expect: [LANG-01]
+  note: "Price eligibility condition in Spanish."
+
+- id: lh-lang-013
+  rule_focus: LANG-01
+  lang: es
+  kind: compliant
+  variant: trade_conditional
+  offer_language: es
+  text: "Su trade-in se mantiene en $14,850 si la carta del payoff confirma los $14,200. Si sale distinto, lo rehacemos juntos, por escrito."
+  expect: []
+  note: "Dealer terms 'trade-in' and 'payoff' inside Spanish are not a different language."
+
+- id: lh-lang-014
+  rule_focus: LANG-01
+  lang: es
+  kind: near_miss
+  offer_language: es
+  text: "Okay perfect, el pago queda en $580 al mes a 72 meses, sin nada añadido, si el banco lo aprueba."
+  expect: []
+  note: "English filler only; the condition is in Spanish."
+
+- id: lh-lang-015
+  rule_focus: LANG-01
+  lang: es
+  kind: near_miss
+  offer_language: es
+  text: "Le queda en $33,349 todo incluido, más el tax, el tag y el title del estado."
+  expect: []
+  note: "English nouns for government charges, no condition."
+
+- id: lh-lang-016
+  rule_focus: LANG-01
+  lang: es
+  kind: near_miss
+  offer_language: es
+  text: "El trade-in queda en $14,850, based on three auction sales. Aquí se las enseño."
+  expect: []
+  note: "English phrase states the basis of the number, not a condition."
+
+- id: lh-lang-017
+  rule_focus: LANG-01
+  lang: es
+  kind: compliant
+  offer_language: es
+  text: "si el banco lo aprueba el pago queda en quinientos ochenta al mes a setenta y dos meses sin nada añadido"
+  expect: []
+  note: "Speech-recognition style, condition in Spanish."
+
+- id: lh-lang-018
+  rule_focus: LANG-01
+  lang: es
+  kind: near_miss
+  offer_language: es
+  text: "Su pago es $580 al mes a 72 meses si el banco lo aprueba. If the bank approves it, como le dije."
+  expect: []
+  note: "Condition stated in Spanish and then repeated in English; the offer language carries it."
+
+- id: lh-lang-019
+  rule_focus: LANG-01
+  lang: en
+  kind: near_miss
+  offer_language: en
+  text: "Mire, Don Ramón, it's $33,349 all in, plus only tax, tag and title. If the lender approves you, it's $580 a month for 72 months with no add-ons."
+  expect: []
+  note: "Spanish greeting only; conditions in English."
+
+- id: lh-lang-020
+  rule_focus: LANG-01
+  lang: en
+  kind: near_miss
+  offer_language: en
+  text: "If I get my manager to $575 a month, are you taking it home today? Piénselo un segundo."
+  expect: []
+  note: "Spanish aside is not a condition."
+
+- id: lh-lang-021
+  rule_focus: LANG-01
+  lang: en
+  kind: compliant
+  variant: trade_conditional
+  offer_language: en
+  text: "This number holds if the payoff letter matches the $14,200 you told me. If not, we redo it together, in writing."
+  expect: []
+
+- id: lh-lang-022
+  rule_focus: LANG-01
+  lang: en
+  kind: near_miss
+  offer_language: en
+  text: "Your payment would be $580 a month for 72 months if the lender approves it. ¿Me explico? I can go over it in Spanish too, same deal."
+  expect: []
+
+- id: lh-lang-023
+  rule_focus: LANG-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  offer_language: es
+  text: "Ok but what if the bank doesn't approve me, entonces qué pasa con el pago"
+  expect: []
+  note: "Customer speech is not checked."
+
+# ---------------------------------------------------------------------------
+# ID-01: no invented shared identity (rep really grew up in Hialeah)
+# ---------------------------------------------------------------------------
+
+- id: lh-id-001
+  rule_focus: ID-01
+  lang: en
+  kind: violation
+  text: "No way, you're from Doral? Me too, born and raised."
+  expect: [ID-01]
+
+- id: lh-id-002
+  rule_focus: ID-01
+  lang: en
+  kind: violation
+  text: "You went to Miami Springs High? So did I. Small world."
+  expect: [ID-01]
+  note: "Invented shared school."
+
+- id: lh-id-003
+  rule_focus: ID-01
+  lang: en
+  kind: violation
+  text: "Hialeah? Me too. Actually I think I went to school with your brother."
+  expect: [ID-01]
+  note: "Hialeah part is true; the shared contact is invented."
+
+- id: lh-id-004
+  rule_focus: ID-01
+  lang: en
+  kind: violation
+  text: "My dad worked at Jackson for years, same as you, so I get the night-shift thing."
+  expect: [ID-01]
+  note: "Invented shared workplace connection."
+
+- id: lh-id-005
+  rule_focus: ID-01
+  lang: es
+  kind: violation
+  text: "¿De Doral? ¡Yo también me crié en Doral!"
+  expect: [ID-01]
+
+- id: lh-id-006
+  rule_focus: ID-01
+  lang: es
+  kind: violation
+  text: "¿Usted estudió en FIU? Yo también, mire qué casualidad."
+  expect: [ID-01]
+
+- id: lh-id-007
+  rule_focus: ID-01
+  lang: es
+  kind: violation
+  text: "Yo conozco a su primo, el que juega dominó en el parque de la Pequeña Habana."
+  expect: [ID-01]
+  note: "Invented shared contact."
+
+- id: lh-id-008
+  rule_focus: ID-01
+  lang: es
+  kind: violation
+  text: "ah usted es de westchester yo también soy de westchester de toda la vida"
+  expect: [ID-01]
+  note: "Speech-recognition style."
+
+- id: lh-id-009
+  rule_focus: ID-01
+  lang: en
+  kind: compliant
+  text: "You're from Hialeah? I grew up off 49th Street."
+  expect: []
+
+- id: lh-id-010
+  rule_focus: ID-01
+  lang: en
+  kind: compliant
+  text: "I grew up in Hialeah too, so I know exactly what the Palmetto does to you at five o'clock."
+  expect: []
+
+- id: lh-id-011
+  rule_focus: ID-01
+  lang: en
+  kind: near_miss
+  text: "Hi, I'm Luis from the dealership. Welcome in."
+  expect: []
+  note: "Self-introduction is not an identity claim."
+
+- id: lh-id-012
+  rule_focus: ID-01
+  lang: en
+  kind: near_miss
+  text: "Doral's great. I didn't grow up there, I'm a Hialeah guy, but I sell a lot of cars to families from Doral."
+  expect: []
+
+- id: lh-id-013
+  rule_focus: ID-01
+  lang: es
+  kind: compliant
+  text: "¿Usted es de Hialeah? Yo me crié por la 49."
+  expect: []
+
+- id: lh-id-014
+  rule_focus: ID-01
+  lang: es
+  kind: near_miss
+  text: "No conozco esa escuela, pero mi zona es Hialeah, me crié allá."
+  expect: []
+
+- id: lh-id-015
+  rule_focus: ID-01
+  lang: es
+  kind: near_miss
+  text: "Mucha gente de Doral compra aquí. Yo soy de Hialeah, así que estamos cerquita."
+  expect: []
+
+- id: lh-id-016
+  rule_focus: ID-01
+  lang: es
+  kind: near_miss
+  channel: phone
+  text: "Buenas, le habla Luis, del dealer. La llamo por la Equinox que usted consultó. ¿Tiene dos minutos?"
+  expect: []
+
+- id: lh-id-017
+  rule_focus: ID-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "I went to school with your manager, he said he'd give me the employee price."
+  expect: []
+  note: "Customer speech is not checked."
+
+- id: lh-id-018
+  rule_focus: ID-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "Yo también soy de Doral como usted, así que deme un buen precio."
+  expect: []
+  note: "Customer speech; the false claim about the rep is the customer's."
+
+# ---------------------------------------------------------------------------
+# REVIEW-01: no review gating, no reward for positive reviews
+# ---------------------------------------------------------------------------
+
+- id: lh-rev-001
+  rule_focus: REVIEW-01
+  lang: en
+  kind: violation
+  text: "If you're happy with everything, leave us five stars on Google. If not, just call me instead."
+  expect: [REVIEW-01]
+
+- id: lh-rev-002
+  rule_focus: REVIEW-01
+  lang: en
+  kind: violation
+  text: "Leave us a five-star review and I'll throw in an oil change on me."
+  expect: [REVIEW-01]
+
+- id: lh-rev-003
+  rule_focus: REVIEW-01
+  lang: en
+  kind: violation
+  text: "We only send the review link to customers who tell us they're a ten."
+  expect: [REVIEW-01]
+
+- id: lh-rev-004
+  rule_focus: REVIEW-01
+  lang: en
+  kind: violation
+  text: "I'll knock fifty bucks off your first service if the review's positive."
+  expect: [REVIEW-01]
+
+- id: lh-rev-005
+  rule_focus: REVIEW-01
+  lang: es
+  kind: violation
+  text: "Si quedó contento, déjenos cinco estrellitas. Si algo no le gustó, mejor llámeme a mí y no ponga nada."
+  expect: [REVIEW-01]
+
+- id: lh-rev-006
+  rule_focus: REVIEW-01
+  lang: es
+  kind: violation
+  text: "Le regalo un lavado con cera si me deja una reseña de cinco estrellas."
+  expect: [REVIEW-01]
+
+- id: lh-rev-007
+  rule_focus: REVIEW-01
+  lang: es
+  kind: violation
+  text: "A los clientes contentos les mando el link de las reseñas; a los otros no se lo mando."
+  expect: [REVIEW-01]
+
+- id: lh-rev-008
+  rule_focus: REVIEW-01
+  lang: es
+  kind: violation
+  text: "si me pone cinco estrellas en google le doy una tarjeta de regalo de cincuenta dólares"
+  expect: [REVIEW-01]
+  note: "Speech-recognition style."
+
+- id: lh-rev-009
+  rule_focus: REVIEW-01
+  lang: en
+  kind: compliant
+  text: "Now that you've had the Equinox about a week, would you share how we did? Good or bad, honest is what helps us."
+  expect: []
+
+- id: lh-rev-010
+  rule_focus: REVIEW-01
+  lang: en
+  kind: near_miss
+  text: "I'm not asking for five stars. I'm asking for the truth, whatever it is."
+  expect: []
+
+- id: lh-rev-011
+  rule_focus: REVIEW-01
+  lang: en
+  kind: near_miss
+  text: "If anything wasn't right, tell me so I can fix it. Either way, you'll get the same review link every customer gets."
+  expect: []
+
+- id: lh-rev-012
+  rule_focus: REVIEW-01
+  lang: es
+  kind: compliant
+  text: "Ahora que ya lleva una semanita con la Equinox, ¿nos regala un comentario? Bueno o malo, pero sincero."
+  expect: []
+
+- id: lh-rev-013
+  rule_focus: REVIEW-01
+  lang: es
+  kind: near_miss
+  text: "Todos nuestros clientes reciben el mismo link para decirnos cómo les fue, contentos o no."
+  expect: []
+
+- id: lh-rev-014
+  rule_focus: REVIEW-01
+  lang: es
+  kind: near_miss
+  text: "Me alegra verlo contento con la Equinox. Cualquier cosa que necesite, llámeme directamente."
+  expect: []
+  note: "Mentions a happy customer but asks for no review."
+
+- id: lh-rev-015
+  rule_focus: REVIEW-01
+  lang: en
+  kind: near_miss
+  text: "Everyone who leaves a review, good or bad, gets entered in the same drawing as everybody else."
+  expect: []
+  note: "Incentive not tied to sentiment. Uncertain; attorney to confirm."
+
+- id: lh-rev-016
+  rule_focus: REVIEW-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "Si me rebaja quinientos le pongo cinco estrellas en Google."
+  expect: []
+  note: "Customer offer; rep speech only is checked."
+
+# ---------------------------------------------------------------------------
+# CONSENT-01: texts and automated voicemail need documented consent (phone)
+# ---------------------------------------------------------------------------
+
+- id: lh-con-001
+  rule_focus: CONSENT-01
+  lang: en
+  kind: violation
+  channel: phone
+  text: "Perfect, I'll text you the price right now."
+  expect: [CONSENT-01]
+
+- id: lh-con-002
+  rule_focus: CONSENT-01
+  lang: en
+  kind: violation
+  channel: phone
+  text: "Tomorrow morning you'll get an automated voicemail from our system confirming your 4:15."
+  expect: [CONSENT-01]
+
+- id: lh-con-003
+  rule_focus: CONSENT-01
+  lang: en
+  kind: violation
+  channel: phone
+  text: "ok so ill shoot you a text with the bulletin and the all in number"
+  expect: [CONSENT-01]
+  note: "Speech-recognition style."
+
+- id: lh-con-004
+  rule_focus: CONSENT-01
+  lang: en
+  kind: violation
+  channel: phone
+  text: "I'm sending you a quick text with my info and the address, okay?"
+  expect: [CONSENT-01]
+  note: "Announced, not asked; the tag 'okay?' is not documented consent."
+
+- id: lh-con-005
+  rule_focus: CONSENT-01
+  lang: en
+  kind: violation
+  channel: phone
+  text: "Did you get the text I sent you this morning with the photos?"
+  expect: [CONSENT-01]
+  note: "States a text was already sent without consent."
+
+- id: lh-con-006
+  rule_focus: CONSENT-01
+  lang: es
+  kind: violation
+  channel: phone
+  text: "Ahorita le mando el precio por texto."
+  expect: [CONSENT-01]
+
+- id: lh-con-007
+  rule_focus: CONSENT-01
+  lang: es
+  kind: violation
+  channel: phone
+  text: "Le voy a textear unas fotos de la Equinox blanca."
+  expect: [CONSENT-01]
+
+- id: lh-con-008
+  rule_focus: CONSENT-01
+  lang: es
+  kind: violation
+  channel: phone
+  text: "Mañana le va a llegar un mensaje de voz automático confirmándole la cita."
+  expect: [CONSENT-01]
+
+- id: lh-con-009
+  rule_focus: CONSENT-01
+  lang: es
+  kind: violation
+  channel: phone
+  text: "Le mandé un WhatsApp con el precio total, chequéelo cuando pueda."
+  expect: [CONSENT-01]
+  note: "Treats WhatsApp as a text message. Uncertain; attorney to confirm."
+
+- id: lh-con-010
+  rule_focus: CONSENT-01
+  lang: en
+  kind: compliant
+  channel: phone
+  text: "Can I text you the all-in number so you have it in writing?"
+  expect: []
+
+- id: lh-con-011
+  rule_focus: CONSENT-01
+  lang: en
+  kind: compliant
+  channel: phone
+  text: "Would it be okay if I texted you? If not, I'll stick to calling."
+  expect: []
+
+- id: lh-con-012
+  rule_focus: CONSENT-01
+  lang: en
+  kind: compliant
+  channel: phone
+  variant: consent_given
+  text: "Since you signed up for texts, I'm sending the $33,349 all-in price and the bonus cash bulletin to your phone now. Only tax, tag and title get added."
+  expect: []
+
+- id: lh-con-013
+  rule_focus: CONSENT-01
+  lang: en
+  kind: near_miss
+  channel: phone
+  text: "I'll email you the full price sheet: $33,349 all in, including the $899 dealer fee, plus only tax, tag and title."
+  expect: []
+  note: "Email, not text."
+
+- id: lh-con-014
+  rule_focus: CONSENT-01
+  lang: en
+  kind: near_miss
+  channel: phone
+  text: "Don't text and drive on the Palmetto. Just call me when you're close and I'll have it pulled up front."
+  expect: []
+
+- id: lh-con-015
+  rule_focus: CONSENT-01
+  lang: es
+  kind: compliant
+  channel: phone
+  text: "¿Me permite mandarle un texto con la dirección del dealer?"
+  expect: []
+
+- id: lh-con-016
+  rule_focus: CONSENT-01
+  lang: es
+  kind: compliant
+  channel: phone
+  variant: consent_given
+  text: "Como usted autorizó los textos, ahorita le mando la foto del boletín del bono."
+  expect: []
+
+- id: lh-con-017
+  rule_focus: CONSENT-01
+  lang: es
+  kind: near_miss
+  channel: phone
+  text: "Mándeme un texto cuando esté parqueado y salgo a buscarlo."
+  expect: []
+  note: "Customer texts the rep; the rep sends nothing."
+
+- id: lh-con-018
+  rule_focus: CONSENT-01
+  lang: es
+  kind: near_miss
+  channel: phone
+  text: "Buenas, señora María, le habla Luis. La llamo por la Equinox que usted consultó. Llámeme cuando pueda."
+  expect: []
+  note: "Live personal voicemail, not automated. Uncertain whether CONSENT-01 covers all voicemail."
+
+- id: lh-con-019
+  rule_focus: CONSENT-01
+  lang: es
+  kind: near_miss
+  channel: phone
+  text: "Lo vuelvo a llamar mañana a las 5:45, como quedamos."
+  expect: []
+
+- id: lh-con-020
+  rule_focus: CONSENT-01
+  lang: en
+  kind: near_miss
+  channel: phone
+  speaker: customer
+  text: "Just text me, I gave you guys permission last year."
+  expect: []
+  note: "Customer speech; not documented consent, but not rep speech either."
+
+# ---------------------------------------------------------------------------
+# HARDBALL: firm, persuasive lines that state only true facts
+# ---------------------------------------------------------------------------
+
+- id: lh-hb-001
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "It's $33,349 all in. That already includes the $899 dealer fee; only tax, tag and title go on top. Let me show you why it's priced there."
+  expect: []
+
+- id: lh-hb-002
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Anyone can drive it home for $32,349 plus tax, tag and title. That's with the $1,000 bonus cash everyone gets, and it ends Monday the 5th. Here's bulletin 26-114."
+  expect: []
+
+- id: lh-hb-003
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "The $1,000 bonus cash ends Monday. Here's the bulletin."
+  expect: []
+
+- id: lh-hb-004
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  offer_language: en
+  text: "If I get my manager to $575 a month, are you taking it home today?"
+  expect: []
+
+- id: lh-hb-005
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  offer_language: en
+  text: "My manager can do $575 a month if you're ready today."
+  expect: []
+
+- id: lh-hb-006
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Your Malibu comes in at $14,850. Here are the three auction sales behind that number."
+  expect: []
+
+- id: lh-hb-007
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "It sounds like the trade number caught you off guard."
+  expect: []
+
+- id: lh-hb-008
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Other than talking it over at home, is anything about the car or the numbers holding you back?"
+  expect: []
+
+- id: lh-hb-009
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "A lot of people at this point worry about picking the wrong one and regretting it in a year. Is any of that going on for you?"
+  expect: []
+
+- id: lh-hb-010
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "If I were in your shoes, with your commute and the kids, I'd take the Equinox LT. Here's why."
+  expect: []
+
+- id: lh-hb-011
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "With the service contract and GAP, it's $625 a month for 72 months. Without them, $580. They're optional. Which would you like?"
+  expect: []
+
+- id: lh-hb-012
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "The service contract is $1,895. It's optional, it's not required for your loan, and in Florida you can cancel it within 60 days."
+  expect: []
+  note: "'Required' used in a negation."
+
+- id: lh-hb-013
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Totally your call, and you're free to walk away. Would you take it around the block first?"
+  expect: []
+  note: "'Free' in another sense."
+
+- id: lh-hb-014
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "The last thing I want is to pressure you. So I'll ask once: do you want to take it home?"
+  expect: []
+  note: "'Last' in another sense."
+
+- id: lh-hb-015
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  text: "The only required paperwork today is your driver's license and your insurance card."
+  expect: []
+  note: "'Required' about paperwork, not an add-on."
+
+- id: lh-hb-016
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  text: "Today's Friday, October 2nd. The bonus cash runs through Monday the 5th, so you've got three days to use that thousand."
+  expect: []
+  note: "Real deadline; 'three days' is not a cancellation claim."
+
+- id: lh-hb-017
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  text: "Florida doesn't have a three-day cancellation on car purchases, so I want you completely sure before you sign anything."
+  expect: []
+  note: "True statement about the absence of a cancel right."
+
+- id: lh-hb-018
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  text: "Nothing here is free and I won't pretend it is. GAP is $795, and it's optional."
+  expect: []
+
+- id: lh-hb-019
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  text: "I'm not going to tell you it's the last one. We have three in Summit White on the lot. What I can tell you is the bonus cash ends Monday."
+  expect: []
+
+- id: lh-hb-020
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Maybe the LT is more than you need. Want me to show you something a step down, like a Trax?"
+  expect: []
+
+- id: lh-hb-021
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "[pause] That's $33,349 all in, plus only tax, tag and title. [silence]"
+  expect: []
+  note: "Silence after the number."
+
+- id: lh-hb-022
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Compared to what? Walk me through what you're seeing elsewhere, total price, same equipment."
+  expect: []
+
+- id: lh-hb-023
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  offer_language: en
+  text: "We're $5 a month apart, $580 versus the $575 you want. If you're ready to sign, I'll go get my manager to meet you there."
+  expect: []
+
+- id: lh-hb-024
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  offer_language: en
+  text: "My manager has some room on the trade. If I go fight for more, are we doing this today?"
+  expect: []
+
+- id: lh-hb-025
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  offer_language: en
+  text: "If my manager can get you $15,000 on the Malibu, do we have a deal today?"
+  expect: []
+  note: "Conditional concession within the manager's $15,500 trade authority; the appraisal itself is not misstated."
+
+- id: lh-hb-026
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "I can't give you a rate yet, because we haven't sent it to a lender. Once we do, you'll see it in writing before you sign."
+  expect: []
+
+- id: lh-hb-027
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  text: "There's no other buyer and I won't invent one. We have three of these. The only real clock is the bonus cash on Monday."
+  expect: []
+
+- id: lh-hb-028
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "You said under $600 a month and room for the kids' gear. At $580 for 72 months with no add-ons, this does both. Want me to get it ready?"
+  expect: []
+
+- id: lh-hb-029
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Help me understand. When you say the payment is high, what number were you expecting?"
+  expect: []
+
+- id: lh-hb-030
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "This isn't you against me. It's us against the payment gap."
+  expect: []
+
+- id: lh-hb-031
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "All I ask is that at the end you tell me yes or no. Either is fine. Fair?"
+  expect: []
+
+- id: lh-hb-032
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Anyone can pay $32,349 all in through Monday. If you're a first responder, there's another $1,000 off on top of that through October 31st."
+  expect: []
+  note: "Price anyone can pay first, qualifying discount second."
+
+- id: lh-hb-033
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Your trade is $14,850 based on three auction sales. If you think it's worth more, show me what you're seeing and I'll take it to my manager."
+  expect: []
+
+- id: lh-hb-034
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "I'm not dropping the price just because you asked. Give me a reason I can take to my manager and a yes from you, and I'll go to bat."
+  expect: []
+
+- id: lh-hb-035
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  text: "The required stuff is tax, tag and title. Everything else on that menu is optional."
+  expect: []
+  note: "'Required' used truthfully about government charges."
+
+- id: lh-hb-036
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  text: "I'll ask one last time and then I'll drop it: are we doing this today?"
+  expect: []
+
+- id: lh-hb-037
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "The 60 days is real: if you buy the service contract and change your mind, you can cancel it within 60 days."
+  expect: []
+
+- id: lh-hb-038
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Would it be a bad idea to take it out for ten minutes right now?"
+  expect: []
+
+- id: lh-hb-039
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Here's every number on one sheet: $33,349 all in, $14,850 for your Malibu, and $580 a month for 72 months without add-ons. Take your time."
+  expect: []
+
+- id: lh-hb-040
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "If it's not the right car, I'd rather you leave without it than buy the wrong one."
+  expect: []
+
+- id: lh-hb-041
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Is that a no on the car, or a no on the payment?"
+  expect: []
+
+- id: lh-hb-042
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "Let me get my manager over here. He decides the numbers, and he does have room to move."
+  expect: []
+
+- id: lh-hb-043
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  text: "Today's date goes at the top of the buyer's order, October 2nd, and nothing gets signed until you've seen every number."
+  expect: []
+
+- id: lh-hb-044
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "thirty three three forty nine all in plus tax tag and title thats the number and im going to stop talking now"
+  expect: []
+  note: "Speech-recognition style, spoken number."
+
+- id: lh-hb-045
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  text: "With protection, $625 a month for 72. Without, $580 for 72. Or if you want the protection with a lower payment, $599 a month, but that stretches it to 84 months. All the protection is optional."
+  expect: []
+  note: "Third option discloses both the add-ons and the longer term."
+
+- id: lh-hb-046
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  channel: phone
+  text: "The price is $33,349, and that already includes our $899 dealer fee. Only tax and the state tag and title fees are added."
+  expect: []
+
+- id: lh-hb-047
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  variant: no_room
+  text: "I'll be straight with you: my manager has no room left. $33,349 and $580 a month are final. I'd rather tell you that than waste your afternoon."
+  expect: []
+
+- id: lh-hb-048
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  variant: last_unit
+  text: "This is the only one in this trim and color. If it's the one, I wouldn't wait on it."
+  expect: []
+
+- id: lh-hb-049
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  variant: competing_buyer
+  text: "Honestly, another customer has a deposit hold on this unit. I can show you the hold, and I'll tell you if it falls through."
+  expect: []
+
+- id: lh-hb-050
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  variant: approved
+  text: "Good news: the lender approved you at 6.9%. With that, it's $580 a month for 72 months, no add-ons."
+  expect: []
+
+- id: lh-hb-051
+  rule_focus: HARDBALL
+  lang: en
+  kind: compliant
+  variant: in_transit
+  text: "Just so you know, this one is in transit, not on the lot yet. It arrives Tuesday, and you can see it before you sign."
+  expect: []
+
+- id: lh-hb-052
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "The guy at the other store told me I can bring it back in three days if I don't like it."
+  expect: []
+  note: "Customer speech is not checked."
+
+- id: lh-hb-053
+  rule_focus: HARDBALL
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "You told me $29,999 on the phone, and the GAP is required to get approved anyway, right?"
+  expect: []
+  note: "Customer speech with false numbers and a false add-on claim."
+
+# Spanish hardball
+
+- id: lh-hb-054
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Está en $33,349 todo incluido, con el cargo de concesionario de $899 ya adentro. Solo se suman impuestos, placa y título. Le explico por qué tiene ese precio."
+  expect: []
+
+- id: lh-hb-055
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Cualquier persona se la puede llevar por $32,349, más impuestos, placa y título, con el bono de $1,000 que vence el lunes 5. Aquí tiene el boletín 26-114."
+  expect: []
+
+- id: lh-hb-056
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "El bono de $1,000 vence el lunes. Aquí tiene el boletín."
+  expect: []
+
+- id: lh-hb-057
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  offer_language: es
+  text: "Si consigo que mi gerente lo deje en $575 al mes, ¿se la lleva hoy?"
+  expect: []
+
+- id: lh-hb-058
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  offer_language: es
+  text: "Mi gerente le puede hacer $575 al mes si usted está listo hoy."
+  expect: []
+
+- id: lh-hb-059
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Su trade-in sale en $14,850. Aquí están las tres ventas de subasta que lo respaldan."
+  expect: []
+
+- id: lh-hb-060
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Parece que el número del trade-in lo tomó por sorpresa."
+  expect: []
+
+- id: lh-hb-061
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Aparte de hablarlo en casa, ¿hay algo del carro o de los números que lo detenga?"
+  expect: []
+
+- id: lh-hb-062
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Mucha gente en este punto tiene miedo de escoger el carro equivocado y arrepentirse después. ¿Le está pasando algo de eso?"
+  expect: []
+
+- id: lh-hb-063
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Si yo estuviera en su lugar, con ese viaje diario y los niños, yo me llevaría la Equinox LT. Le explico por qué."
+  expect: []
+
+- id: lh-hb-064
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Con el contrato de servicio y el GAP, son $625 al mes a 72 meses. Sin ellos, $580. Son opcionales. ¿Cuál prefiere?"
+  expect: []
+
+- id: lh-hb-065
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "El contrato de servicio cuesta $1,895. Es opcional, no hace falta para el préstamo, y en Florida lo puede cancelar dentro de 60 días."
+  expect: []
+
+- id: lh-hb-066
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Usted decide, y está en libertad de irse. ¿Le da una vuelta primero?"
+  expect: []
+
+- id: lh-hb-067
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Lo último que quiero es presionarlo. Le pregunto una sola vez: ¿se la lleva?"
+  expect: []
+  note: "'Lo último' in another sense."
+
+- id: lh-hb-068
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  text: "Lo único obligatorio hoy son su licencia y la tarjeta del seguro."
+  expect: []
+  note: "'Obligatorio' about paperwork, not an add-on."
+
+- id: lh-hb-069
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  text: "Hoy es viernes 2 de octubre. El bono va hasta el lunes 5, o sea que le quedan tres días para aprovechar esos mil."
+  expect: []
+  note: "Real deadline; 'tres días' is not a cancellation claim."
+
+- id: lh-hb-070
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  text: "En Florida no existe eso de tres días para cancelar la compra de un carro, por eso quiero que esté seguro antes de firmar."
+  expect: []
+
+- id: lh-hb-071
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  text: "Aquí nada es gratis y no se lo voy a pintar como gratis: el GAP cuesta $795 y es opcional."
+  expect: []
+
+- id: lh-hb-072
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  text: "No le voy a decir que es la última. Tenemos tres blancas en el lote. Lo que sí le digo es que el bono se acaba el lunes."
+  expect: []
+
+- id: lh-hb-073
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "A lo mejor esta versión es más de lo que necesita. ¿Quiere que le enseñe algo un escalón más abajo, como una Trax?"
+  expect: []
+
+- id: lh-hb-074
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "[pausa] Son $33,349 todo incluido, más impuestos, placa y título. [silencio]"
+  expect: []
+
+- id: lh-hb-075
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "¿Comparado con qué? Cuénteme lo que ha visto en otros lados, precio total, mismo equipo."
+  expect: []
+
+- id: lh-hb-076
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  offer_language: es
+  text: "Estamos a $5 al mes: $580 contra los $575 que usted quiere. Si usted firma hoy, voy y se lo peleo a mi gerente."
+  expect: []
+
+- id: lh-hb-077
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  offer_language: es
+  text: "Mi gerente tiene un poquito de margen en el trade-in. Si voy y se lo peleo, ¿hacemos el negocio hoy?"
+  expect: []
+
+- id: lh-hb-078
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  offer_language: es
+  text: "Si mi gerente le da $15,000 por el Malibu, ¿cerramos hoy?"
+  expect: []
+  note: "Within the manager's $15,500 trade authority."
+
+- id: lh-hb-079
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Todavía no le puedo dar una tasa porque no lo hemos mandado al banco. Cuando lo mandemos, la ve por escrito antes de firmar."
+  expect: []
+
+- id: lh-hb-080
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  text: "No hay otro cliente esperando y no se lo voy a inventar. Tenemos tres de estas. Lo único que corre es el bono del lunes."
+  expect: []
+
+- id: lh-hb-081
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Usted dijo menos de $600 al mes y espacio para las cosas de los niños. A $580 por 72 meses sin nada añadido, esta cumple con las dos. ¿Se la preparo?"
+  expect: []
+
+- id: lh-hb-082
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Ayúdeme a entender. Cuando dice que el pago está alto, ¿qué número tenía en mente?"
+  expect: []
+
+- id: lh-hb-083
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Esto no es usted contra mí. Somos usted y yo contra el problema del pago."
+  expect: []
+
+- id: lh-hb-084
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Lo único que le pido es que al final me diga sí o no; cualquiera de las dos está bien. ¿Le parece?"
+  expect: []
+
+- id: lh-hb-085
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Cualquiera paga $32,349 todo incluido hasta el lunes. Si usted es socorrista, hay $1,000 más de descuento hasta el 31 de octubre. Boletín 26-120."
+  expect: []
+
+- id: lh-hb-086
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "mire el precio total son treinta y tres mil trescientos cuarenta y nueve todo incluido nada más se suma el tax el tag y el título"
+  expect: []
+  note: "Speech-recognition style, spoken number."
+
+- id: lh-hb-087
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "su trade in sale en catorce mil ochocientos cincuenta aquí le enseño las tres ventas de subasta"
+  expect: []
+  note: "Speech-recognition style."
+
+- id: lh-hb-088
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  offer_language: es
+  text: "si le consigo quinientos setenta y cinco al mes se la lleva hoy sí o no"
+  expect: []
+  note: "Speech-recognition style."
+
+- id: lh-hb-089
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Mire, le voy a ser honest: no le estoy dando mi mejor número de una, pero cada número que le doy es real."
+  expect: []
+  note: "Code-switching; not leading with the best number is allowed."
+
+- id: lh-hb-090
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  text: "Lo obligatorio son los impuestos, la placa y el título. Todo lo demás del menú es opcional."
+  expect: []
+
+- id: lh-hb-091
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  text: "Se lo pregunto una última vez y no le insisto más: ¿la hacemos hoy?"
+  expect: []
+
+- id: lh-hb-092
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Los 60 días son de verdad: si compra el contrato de servicio y se arrepiente, lo puede cancelar dentro de 60 días."
+  expect: []
+
+- id: lh-hb-093
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "¿Sería mala idea darle una vuelta de diez minutos ahorita?"
+  expect: []
+
+- id: lh-hb-094
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Si no es el carro correcto, prefiero que se vaya sin él a que compre el equivocado."
+  expect: []
+
+- id: lh-hb-095
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "¿Eso es un no al carro o un no al pago?"
+  expect: []
+
+- id: lh-hb-096
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Déjeme traer a mi gerente. Él decide los números, y sí tiene margen para moverse."
+  expect: []
+
+- id: lh-hb-097
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  text: "Okay, full transparency: precio $33,349 todo incluido, su Malibu en $14,850, y el pago $580 al mes a 72 meses sin productos. Todo en una sola hoja."
+  expect: []
+  note: "Code-switching with no conditions."
+
+- id: lh-hb-098
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  text: "Tranquilo, está en su casa. Si quiere llamar a su esposa, siéntase libre; aquí lo espero."
+  expect: []
+
+- id: lh-hb-099
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  channel: phone
+  text: "El precio es $33,349, y ya incluye nuestro cargo de concesionario de $899. Solo se suman los impuestos y los cargos de placa y título del estado."
+  expect: []
+
+- id: lh-hb-100
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  variant: no_room
+  text: "Le voy a ser sincero: mi gerente no tiene más margen. $33,349 y $580 al mes es lo final. Prefiero decírselo de frente."
+  expect: []
+
+- id: lh-hb-101
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  variant: last_unit
+  text: "Esta es la única que tenemos en esta versión y este color. Si es la suya, yo no esperaría."
+  expect: []
+
+- id: lh-hb-102
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  variant: competing_buyer
+  text: "Le soy honesto: otro cliente le puso un depósito a esta unidad. Le enseño el papel, y si se cae, yo lo llamo."
+  expect: []
+
+- id: lh-hb-103
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  variant: approved
+  text: "Buenas noticias: el banco lo aprobó al 6.9%. Con eso queda en $580 al mes a 72 meses, sin productos añadidos."
+  expect: []
+
+- id: lh-hb-104
+  rule_focus: HARDBALL
+  lang: es
+  kind: compliant
+  variant: in_transit
+  text: "Para que sepa, esta viene en camino, todavía no está en el lote. Llega el martes y la puede ver antes de firmar."
+  expect: []
+
+- id: lh-hb-105
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "Mi cuñado me dijo que tengo tres días para devolverlo si no me gusta."
+  expect: []
+  note: "Customer speech is not checked."
+
+- id: lh-hb-106
+  rule_focus: HARDBALL
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "En el otro dealer me la daban en $29,000 con todo, y me dijeron que el GAP es obligatorio para aprobarme."
+  expect: []
+  note: "Customer speech with a false price and a false add-on claim."

@@ -15,6 +15,7 @@ export const DEMO = {
     { id: "33333333-3333-4333-8333-333333333302", first: "Ana", email: "rep2@demo.test", role: "rep" },
     { id: "33333333-3333-4333-8333-333333333303", first: "Carlos", email: "manager@demo.test", role: "manager" },
     { id: "33333333-3333-4333-8333-333333333304", first: "Marta", email: "gm@demo.test", role: "general_manager" },
+    { id: "33333333-3333-4333-8333-333333333305", first: "Rosa", email: "review@demo.test", role: "compliance_reviewer" },
   ],
 } as const;
 

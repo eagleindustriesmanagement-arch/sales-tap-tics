@@ -1,0 +1,19 @@
+{
+  "cases": 689,
+  "dev": {
+    "cases": 316,
+    "criticalMisses": 66,
+    "misses": 92,
+    "expectedFirings": 143,
+    "falsePositiveCases": 15,
+    "falsePositiveRate": 0.04746835443037975
+  },
+  "holdout": {
+    "cases": 373,
+    "criticalMisses": 72,
+    "misses": 101,
+    "expectedFirings": 160,
+    "falsePositiveCases": 26,
+    "falsePositiveRate": 0.06970509383378017
+  }
+}

@@ -10,6 +10,7 @@ import { language, library } from "@/lib/server";
 export default async function Today() {
   const user = await requireUser();
   if (isManager(user)) redirect("/manager/floor");
+  if (user.roles.includes("compliance_reviewer")) redirect("/manager/compliance");
   const lang = await language();
   const lib = library();
   const { cards, recent } = await asUser(principalOf(user), async (db) => ({

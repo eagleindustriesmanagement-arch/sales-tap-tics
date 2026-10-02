@@ -127,3 +127,47 @@ test("a rep cannot open manager screens or another rep's session", async ({ page
   const api = await page.request.post("/api/floor-checks", { data: { cardIssueId: "00000000-0000-0000-0000-000000000000", observed: "yes" } });
   expect(api.status()).toBe(403);
 });
+
+test("the general manager edits store setup, the reviewer signs it off and sees the compliance flags", async ({ page, browser }) => {
+  await signIn(page, "gm@demo.test");
+  await page.getByRole("button", { name: "I understand and agree" }).click();
+  await page.getByRole("link", { name: "Store", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Store setup" })).toBeVisible();
+  await expect(page.getByTestId("approval")).toHaveText(/Not signed off yet/);
+  await page.getByLabel("Amount ($)").fill("799");
+  await page.getByLabel("When a customer refuses a pre-installed add-on").selectOption("credit_price");
+  await page.getByLabel(/Lenders/).fill("Ally\nCredit Acceptance *");
+  // Consent wording in one language only is refused: both languages or neither (spec 1.2 item 3).
+  await page.getByLabel("Text-message consent wording (English)").fill("Can I text you about this car?");
+  await page.getByRole("button", { name: "Save settings" }).click();
+  await expect(page.getByRole("status")).toHaveText(/Not saved/);
+  await page.getByLabel("Text-message consent wording (Spanish)").fill("¿Le puedo mandar un mensaje sobre este carro?");
+  await page.getByRole("button", { name: "Save settings" }).click();
+  await expect(page.getByRole("status")).toHaveText(/Saved\. Waiting/);
+
+  // The general manager cannot sign off their own settings.
+  expect((await page.request.post("/api/store/approve")).status()).toBe(403);
+
+  const reviewer = await browser.newPage();
+  await signIn(reviewer, "review@demo.test");
+  await reviewer.getByRole("button", { name: "I understand and agree" }).click();
+  await expect(reviewer).toHaveURL(/\/manager\/compliance$/);
+  await expect(reviewer.getByRole("heading", { name: "Compliance flags" })).toBeVisible();
+  await expect(reviewer.getByText("DEAD-01 · critical")).toBeVisible();
+  await expect(reviewer.getByText(/Ana ·/)).toBeVisible();
+  await reviewer.getByRole("link", { name: "Store", exact: true }).click();
+  await expect(reviewer.getByRole("button", { name: "Save settings" })).toHaveCount(0);
+  await reviewer.getByRole("button", { name: "Sign off these settings" }).click();
+  await expect(reviewer.getByTestId("approval")).toHaveText(/Signed off by the compliance reviewer/);
+  expect((await reviewer.request.put("/api/store", { data: {} })).status()).toBe(403);
+
+  const c = db();
+  await c.connect();
+  const fees = await c.query("select code, amount_cents::int from store_fees");
+  expect(fees.rows).toEqual([{ code: "dealer_fee", amount_cents: 79900 }]);
+  const p = await c.query("select add_on_removal, approved_at is not null approved from store_policies");
+  expect(p.rows).toEqual([{ add_on_removal: "credit_price", approved: true }]);
+  const lenders = await c.query("select name, is_credit_acceptance from store_lenders order by name");
+  expect(lenders.rows).toEqual([{ name: "Ally", is_credit_acceptance: false }, { name: "Credit Acceptance", is_credit_acceptance: true }]);
+  await c.end();
+});

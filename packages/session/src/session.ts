@@ -42,6 +42,11 @@ export interface PracticeSessionOptions {
   store?: StoreContext;
   /** Stop and debrief on the first confident critical violation (spec 12.2 item 5, always on in certification). */
   stopOnCritical?: boolean;
+  /**
+   * The store's mandatory dealer charges (spec 3.4). When given, they replace the scenario's example fees and the
+   * all-in price is recomputed, so the compliance engine enforces the store's real numbers.
+   */
+  dealerFees?: { code: string; cents: number }[];
   /** Omit for the offline customer and judge. */
   ai?: { client: AiClient; classifier?: ComplianceClassifier; detector?: UnlockDetector; judge?: Judge };
 }
@@ -64,6 +69,12 @@ export interface SessionResult {
   score: ScoreResult;
   debrief: Debrief;
   offline: boolean;
+}
+
+/** The scenario with the store's mandatory dealer charges in place of its example fees. */
+export function withStoreFees(scenario: Scenario, fees: { code: string; cents: number }[]): Scenario {
+  const total = fees.reduce((sum, f) => sum + f.cents, 0);
+  return { ...scenario, facts: { ...scenario.facts, dealer_fees: fees.map((f) => ({ ...f })), all_in_price_cents: scenario.facts.price_cents + total } };
 }
 
 /**
@@ -90,8 +101,9 @@ export class PracticeSession {
 
   constructor(private readonly options: PracticeSessionOptions) {
     const { library } = options;
-    const scenario = library.scenarios.get(options.scenarioCode);
-    if (!scenario) throw new Error(`unknown scenario ${options.scenarioCode}`);
+    const content = library.scenarios.get(options.scenarioCode);
+    if (!content) throw new Error(`unknown scenario ${options.scenarioCode}`);
+    const scenario = options.dealerFees?.length ? withStoreFees(content, options.dealerFees) : content;
     const persona = library.personas.get(scenario.persona);
     if (!persona) throw new Error(`scenario ${scenario.code} has no persona ${scenario.persona}`);
     this.scenario = scenario;

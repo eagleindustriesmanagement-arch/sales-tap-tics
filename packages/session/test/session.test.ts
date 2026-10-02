@@ -89,6 +89,18 @@ describe("offline practice session (spec 12.2, M2 thin slice)", () => {
     expect(r.debrief.critical[0]!.rule).toBe("DEAD-01");
   });
 
+  it("uses the store's real dealer fee for the all-in price the engine enforces", async () => {
+    const s = session({ dealerFees: [{ code: "dealer_fee", cents: 99500 }, { code: "electronic_filing", cents: 19900 }] });
+    expect(s.scenario.facts.all_in_price_cents).toBe(3245000 + 99500 + 19900);
+    s.start();
+    // $33,349 was the scenario's example all-in; with this store's fees it understates the price.
+    const before = (await say(s, "Out the door it's $33,349, everything included.")).outcome;
+    expect(before.ended).toBe(false);
+    const r = await s.finish();
+    expect(r.violations.map((v) => v.rule)).toContain("PRICE-01");
+    expect(r.violations.find((v) => v.rule === "PRICE-01")!.trueFact.en).toContain("$33,644");
+  });
+
   it("the pre-brief never shows the hidden truth", () => {
     const s = session();
     const brief = JSON.stringify(s.preBrief());

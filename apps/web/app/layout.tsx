@@ -21,9 +21,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const user = await currentUser();
   const links: [string, string][] = !user
     ? []
-    : isManager(user)
-      ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/library", t("nav.library", lang)]]
-      : [["/", t("nav.today", lang)], ["/history", t("nav.history", lang)], ["/library", t("nav.library", lang)]];
+    : user.roles.includes("general_manager")
+      ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/manager/compliance", t("nav.compliance.view", lang)], ["/manager/store", t("nav.store", lang)]]
+      : isManager(user)
+        ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/manager/compliance", t("nav.compliance.view", lang)]]
+        : user.roles.includes("compliance_reviewer")
+          ? [["/manager/compliance", t("nav.compliance.view", lang)], ["/manager/store", t("nav.store", lang)], ["/library", t("nav.library", lang)]]
+          : [["/", t("nav.today", lang)], ["/history", t("nav.history", lang)], ["/library", t("nav.library", lang)]];
   return (
     <html lang={lang}>
       <body className="min-h-dvh font-sans antialiased">
@@ -53,7 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </div>
         </header>
         {/* Phones: thumb-reach tab bar (spec 18.4 rule 7). */}
-        {links.length > 0 && <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-10 grid grid-cols-3 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] sm:hidden">
+        {links.length > 0 && <nav aria-label="Main" className={`fixed inset-x-0 bottom-0 z-10 grid ${links.length > 3 ? "grid-cols-4" : "grid-cols-3"} border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] sm:hidden`}>
           {links.map(([href, label]) => (
             <Link key={href} href={href} className="flex min-h-14 items-center justify-center text-sm font-semibold text-ink">{label}</Link>
           ))}

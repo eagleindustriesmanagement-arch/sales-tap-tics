@@ -1,0 +1,1132 @@
+# Compliance suite cases for DEAD-01, AVAIL-01, AVAIL-02, AUTH-01, CANCEL-01, COERCE-01.
+# Written from the rule meanings in SPEC 4.4 and facts.yaml only (engine patterns not consulted).
+# Today is Friday 2026-10-02. Real deadlines: bonus cash ends Monday 2026-10-05; first-responder cash ends 2026-10-31.
+
+# ---------------------------------------------------------------- DEAD-01 English
+- id: da-dead-en-01
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "This price is only good today, once you walk out that door it's gone."
+  expect: [DEAD-01]
+- id: da-dead-en-02
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "The rebate ends tomorrow so we gotta get this done today."
+  expect: [DEAD-01]
+  note: "Bonus cash ends Monday, not Saturday."
+- id: da-dead-en-03
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "Prices go up next week, Chevy just sent us the memo."
+  expect: [DEAD-01]
+- id: da-dead-en-04
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "this weekend only on the bonus cash so let's knock it out"
+  expect: [DEAD-01]
+  note: "Bonus cash runs through Monday; 'this weekend only' shortens a real deadline."
+- id: da-dead-en-05
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "The bonus cash is good through the end of the month, so no pressure, but it won't last forever."
+  expect: [DEAD-01]
+  note: "Wrong date for a real rebate: bonus cash ends Monday the 5th, not month end."
+- id: da-dead-en-06
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "The first responder money ends Monday too, so if you're a firefighter we really gotta move."
+  expect: [DEAD-01]
+  note: "First-responder cash ends October 31."
+- id: da-dead-en-07
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "Rates are going up November first, so you want to lock it in now."
+  expect: [DEAD-01]
+  note: "No rate change is in the facts; lender has not even been applied to."
+- id: da-dead-en-08
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "honestly I can only hold this number till six tonight"
+  expect: [DEAD-01]
+- id: da-dead-en-09
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "look the thousand bucks goes away at midnight Sunday so if we're not signed by then you lose it"
+  expect: [DEAD-01]
+  note: "Real end is Monday; Sunday midnight is a day early."
+- id: da-dead-en-10
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "The bonus cash runs out next Monday the twelfth."
+  expect: [DEAD-01]
+  note: "Wrong date: it ends Monday the fifth."
+- id: da-dead-en-11
+  rule_focus: DEAD-01
+  lang: en
+  kind: compliant
+  text: "The bonus cash ends Monday, October fifth. Here's the bulletin, 26-114, the date's right there at the bottom."
+  expect: []
+- id: da-dead-en-12
+  rule_focus: DEAD-01
+  lang: en
+  kind: compliant
+  text: "If you're a first responder there's another thousand on top, and that one runs through October thirty-first."
+  expect: []
+- id: da-dead-en-13
+  rule_focus: DEAD-01
+  lang: en
+  kind: compliant
+  text: "No rush, take your time. The only date that matters is Monday, that's when the bonus cash ends."
+  expect: []
+- id: da-dead-en-14
+  rule_focus: DEAD-01
+  lang: en
+  kind: compliant
+  text: "If I can get the numbers where you want them, are we doing this today?"
+  expect: []
+  note: "Asking for a commitment today is not a deadline claim."
+- id: da-dead-en-15
+  rule_focus: DEAD-01
+  lang: en
+  kind: compliant
+  text: "You've got the weekend and Monday to think it over. After Monday the bonus cash is gone, and I can't change that."
+  expect: []
+- id: da-dead-en-16
+  rule_focus: DEAD-01
+  lang: en
+  kind: compliant
+  channel: phone
+  text: "Just so you know, the thousand dollar bonus cash ends Monday the fifth, so if you want it, come see me by Monday."
+  expect: []
+- id: da-dead-en-17
+  rule_focus: DEAD-01
+  lang: en
+  kind: near_miss
+  text: "Did they tell you the price goes up tomorrow? It doesn't. The only thing ending is the bonus cash, and that's Monday."
+  expect: []
+- id: da-dead-en-18
+  rule_focus: DEAD-01
+  lang: en
+  kind: near_miss
+  text: "The other dealer told you their deal ends tonight? I can't speak for them. Ours, the bonus cash, ends Monday."
+  expect: []
+- id: da-dead-en-19
+  rule_focus: DEAD-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "You said the price goes up tomorrow, right? That's what you told me."
+  expect: []
+- id: da-dead-en-20
+  rule_focus: DEAD-01
+  lang: en
+  kind: violation
+  text: "It's the last one and the rebate's gone tomorrow, so I'd jump on it."
+  expect: [DEAD-01, AVAIL-01]
+  note: "Combined: false deadline and false scarcity in base."
+
+# ---------------------------------------------------------------- DEAD-01 Spanish
+- id: da-dead-es-01
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "Este precio es solo por hoy, mañana ya no se lo puedo dar."
+  expect: [DEAD-01]
+- id: da-dead-es-02
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "El rebate se acaba mañana sábado, así que hay que hacerlo hoy."
+  expect: [DEAD-01]
+- id: da-dead-es-03
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "La semana que viene suben los precios, ya nos llegó el aviso de la fábrica."
+  expect: [DEAD-01]
+- id: da-dead-es-04
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "Esto es nada más este fin de semana, mi amor, después se acaba."
+  expect: [DEAD-01]
+- id: da-dead-es-05
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "El bono de mil dólares es hasta fin de mes, así que usted tiene tiempo."
+  expect: [DEAD-01]
+  note: "Wrong date for a real rebate: bonus cash ends Monday the 5th."
+- id: da-dead-es-06
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "El bono de first responder también se vence el lunes, así que si usted es policía apúrese."
+  expect: [DEAD-01]
+  note: "First-responder cash ends the 31st."
+- id: da-dead-es-07
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "Los intereses suben el primero de noviembre, le conviene amarrarlo ya."
+  expect: [DEAD-01]
+- id: da-dead-es-08
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "le aguanto este número hasta las seis de la tarde nada más"
+  expect: [DEAD-01]
+- id: da-dead-es-09
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "Mañana ya no le puedo garantizar este precio, se lo digo de verdad."
+  expect: [DEAD-01]
+  note: "Implied deadline tomorrow; nothing changes until Monday. Softer wording, labeled violation."
+- id: da-dead-es-10
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "El bono se acaba el lunes doce, así que tiene una semanita."
+  expect: [DEAD-01]
+  note: "Wrong date: Monday the fifth."
+- id: da-dead-es-11
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "este deal es nada más pa' hoy después que usted se va no hay rebate"
+  expect: [DEAD-01]
+- id: da-dead-es-12
+  rule_focus: DEAD-01
+  lang: es
+  kind: compliant
+  text: "El bono de mil se acaba el lunes cinco de octubre, aquí tiene el boletín de la fábrica."
+  expect: []
+- id: da-dead-es-13
+  rule_focus: DEAD-01
+  lang: es
+  kind: compliant
+  text: "Si usted es bombero o policía hay mil más, y ese bono vence el treinta y uno."
+  expect: []
+- id: da-dead-es-14
+  rule_focus: DEAD-01
+  lang: es
+  kind: compliant
+  text: "Tranquilo, sin apuro, tómese su tiempo. Lo único que vence es el bono del lunes."
+  expect: []
+- id: da-dead-es-15
+  rule_focus: DEAD-01
+  lang: es
+  kind: compliant
+  text: "Si le consigo el pago que usted quiere, ¿lo hacemos hoy?"
+  expect: []
+- id: da-dead-es-16
+  rule_focus: DEAD-01
+  lang: es
+  kind: compliant
+  text: "Tiene el fin de semana y el lunes para pensarlo; después del lunes se va el bono y eso no lo decido yo."
+  expect: []
+- id: da-dead-es-17
+  rule_focus: DEAD-01
+  lang: es
+  kind: compliant
+  channel: phone
+  text: "Le llamo para recordarle que el bono de mil dólares vence este lunes cinco. Si lo quiere, pase antes del lunes."
+  expect: []
+- id: da-dead-es-18
+  rule_focus: DEAD-01
+  lang: es
+  kind: near_miss
+  text: "¿Quién le dijo que se acaba hoy? No, no, el bono se acaba el lunes."
+  expect: []
+- id: da-dead-es-19
+  rule_focus: DEAD-01
+  lang: es
+  kind: near_miss
+  text: "¿El otro dealer le dijo que la oferta se vence esta noche? Eso es cosa de ellos. Aquí el bono va hasta el lunes."
+  expect: []
+- id: da-dead-es-20
+  rule_focus: DEAD-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "Pero usted me dijo que el precio sube mañana."
+  expect: []
+- id: da-dead-es-21
+  rule_focus: DEAD-01
+  lang: es
+  kind: violation
+  text: "Es la última que queda y el precio sube mañana, así que usted verá."
+  expect: [DEAD-01, AVAIL-01]
+  note: "Combined: false deadline and false scarcity in base."
+
+# ---------------------------------------------------------------- AVAIL-01 English
+- id: da-avail-en-01
+  rule_focus: AVAIL-01
+  lang: en
+  kind: violation
+  text: "It's the last one we have in Summit White."
+  expect: [AVAIL-01]
+- id: da-avail-en-02
+  rule_focus: AVAIL-01
+  lang: en
+  kind: violation
+  text: "I only have two left in this trim."
+  expect: [AVAIL-01]
+- id: da-avail-en-03
+  rule_focus: AVAIL-01
+  lang: en
+  kind: violation
+  text: "Someone else was looking at this exact one an hour ago and said they're coming back."
+  expect: [AVAIL-01]
+- id: da-avail-en-04
+  rule_focus: AVAIL-01
+  lang: en
+  kind: violation
+  text: "I got a couple coming back at four for this same car so if you want it you gotta tell me now"
+  expect: [AVAIL-01]
+- id: da-avail-en-05
+  rule_focus: AVAIL-01
+  lang: en
+  kind: violation
+  text: "Between you and me, another salesman has a deposit coming in on this one."
+  expect: [AVAIL-01]
+- id: da-avail-en-06
+  rule_focus: AVAIL-01
+  lang: en
+  kind: violation
+  text: "We had a bunch of these, this is the only white LT left on the lot."
+  expect: [AVAIL-01]
+- id: da-avail-en-07
+  rule_focus: AVAIL-01
+  lang: en
+  kind: compliant
+  text: "We've got three of these in Summit White, so you can pick the one you like."
+  expect: []
+- id: da-avail-en-08
+  rule_focus: AVAIL-01
+  lang: en
+  kind: compliant
+  text: "Nobody else has a hold on it, so take your time."
+  expect: []
+- id: da-avail-en-09
+  rule_focus: AVAIL-01
+  lang: en
+  kind: near_miss
+  text: "I'm not going to tell you it's the last one. We have three."
+  expect: []
+- id: da-avail-en-10
+  rule_focus: AVAIL-01
+  lang: en
+  kind: near_miss
+  text: "The other store told you they only had one left? Maybe for them. We have three right here."
+  expect: []
+- id: da-avail-en-11
+  rule_focus: AVAIL-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "Your guy on the phone told me it was the last one."
+  expect: []
+- id: da-avail-en-12
+  rule_focus: AVAIL-01
+  lang: en
+  kind: near_miss
+  text: "Is anybody else looking at it? Not that I know of, no, it's all yours if you want it."
+  expect: []
+- id: da-avail-en-13
+  rule_focus: AVAIL-01
+  lang: en
+  kind: compliant
+  variant: last_unit
+  text: "This is the last one in this trim and color, I can pull up the inventory screen and show you."
+  expect: []
+- id: da-avail-en-14
+  rule_focus: AVAIL-01
+  lang: en
+  kind: violation
+  variant: last_unit
+  text: "It's the last one, and there's another buyer interested too."
+  expect: [AVAIL-01]
+  note: "Last unit is true in this variant; the other buyer is not."
+- id: da-avail-en-15
+  rule_focus: AVAIL-01
+  lang: en
+  kind: compliant
+  variant: competing_buyer
+  text: "Full honesty, another customer put a deposit hold on this one. If it falls through I'll call you, and meanwhile I have two more just like it."
+  expect: []
+- id: da-avail-en-16
+  rule_focus: AVAIL-01
+  lang: en
+  kind: violation
+  variant: competing_buyer
+  text: "Somebody's got a hold on it and it's the last one in white."
+  expect: [AVAIL-01]
+  note: "The hold is real here, but there are three units, not one."
+
+# ---------------------------------------------------------------- AVAIL-01 Spanish
+- id: da-avail-es-01
+  rule_focus: AVAIL-01
+  lang: es
+  kind: violation
+  text: "Es la última que me queda en blanco."
+  expect: [AVAIL-01]
+- id: da-avail-es-02
+  rule_focus: AVAIL-01
+  lang: es
+  kind: violation
+  text: "Solo me quedan dos de esta."
+  expect: [AVAIL-01]
+- id: da-avail-es-03
+  rule_focus: AVAIL-01
+  lang: es
+  kind: violation
+  text: "Hay otro cliente que la está mirando, se lo digo para que no la pierda."
+  expect: [AVAIL-01]
+- id: da-avail-es-04
+  rule_focus: AVAIL-01
+  lang: es
+  kind: violation
+  text: "hay una pareja que viene a las cuatro a ver esta misma"
+  expect: [AVAIL-01]
+- id: da-avail-es-05
+  rule_focus: AVAIL-01
+  lang: es
+  kind: violation
+  text: "Mire, el otro vendedor tiene un cliente detrás de esta misma Equinox."
+  expect: [AVAIL-01]
+- id: da-avail-es-06
+  rule_focus: AVAIL-01
+  lang: es
+  kind: violation
+  text: "Ya casi no quedan, este color vuela."
+  expect: [AVAIL-01]
+  note: "Vague scarcity claim ('almost none left') against three in stock; labeled violation, softer than a count."
+- id: da-avail-es-07
+  rule_focus: AVAIL-01
+  lang: es
+  kind: compliant
+  text: "Tengo tres en blanco, escoja la que más le guste."
+  expect: []
+- id: da-avail-es-08
+  rule_focus: AVAIL-01
+  lang: es
+  kind: compliant
+  text: "Nadie más la tiene apartada, tómese su tiempo."
+  expect: []
+- id: da-avail-es-09
+  rule_focus: AVAIL-01
+  lang: es
+  kind: near_miss
+  text: "¿Le dijeron que era la última? No, aquí tenemos tres."
+  expect: []
+- id: da-avail-es-10
+  rule_focus: AVAIL-01
+  lang: es
+  kind: near_miss
+  text: "El otro dealer le dijo que le quedaba una sola, puede ser, pero aquí tenemos tres."
+  expect: []
+- id: da-avail-es-11
+  rule_focus: AVAIL-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "El muchacho me dijo que era la última y que otro señor la quería."
+  expect: []
+- id: da-avail-es-12
+  rule_focus: AVAIL-01
+  lang: es
+  kind: compliant
+  text: "Este color se vende bastante, pero ahora mismo tengo tres, así que no hay apuro."
+  expect: []
+- id: da-avail-es-13
+  rule_focus: AVAIL-01
+  lang: es
+  kind: compliant
+  variant: last_unit
+  text: "Esta es la última en este color, se lo enseño en la computadora."
+  expect: []
+- id: da-avail-es-14
+  rule_focus: AVAIL-01
+  lang: es
+  kind: violation
+  variant: last_unit
+  text: "Es la última, y ya hay otro cliente que la quiere."
+  expect: [AVAIL-01]
+  note: "Last unit is true in this variant; the other buyer is not."
+- id: da-avail-es-15
+  rule_focus: AVAIL-01
+  lang: es
+  kind: compliant
+  variant: competing_buyer
+  text: "Le soy sincero, otro cliente le puso un depósito a esta, pero le tengo dos más iguales."
+  expect: []
+- id: da-avail-es-16
+  rule_focus: AVAIL-01
+  lang: es
+  kind: violation
+  variant: competing_buyer
+  text: "Otro cliente le puso depósito y hay dos más preguntando por ella."
+  expect: [AVAIL-01]
+  note: "One real hold; the two extra interested buyers are invented."
+
+# ---------------------------------------------------------------- AVAIL-02 English (session level)
+- id: da-transit-en-01
+  rule_focus: AVAIL-02
+  lang: en
+  kind: violation
+  variant: in_transit
+  turns:
+    - "This is the Equinox LT in Summit White, great choice."
+    - "It's got the bigger screen and the safety package you asked about."
+    - "Let's sit down and run the numbers on it."
+  expect: [AVAIL-02]
+- id: da-transit-en-02
+  rule_focus: AVAIL-02
+  lang: en
+  kind: violation
+  variant: in_transit
+  turns:
+    - "Let me grab the keys to the white LT and we'll take it for a spin."
+    - "So what did you think, feels good right?"
+  expect: [AVAIL-02]
+- id: da-transit-en-03
+  rule_focus: AVAIL-02
+  lang: en
+  kind: violation
+  variant: in_transit
+  turns:
+    - "The white Equinox is sitting right out front, ready to go."
+    - "We can have it detailed and delivered to you today."
+  expect: [AVAIL-02]
+  note: "Affirmatively says on the lot when it is in transit."
+- id: da-transit-en-04
+  rule_focus: AVAIL-02
+  lang: en
+  kind: violation
+  variant: in_transit
+  turns:
+    - "the Equinox you saw online thats the one"
+    - "it'll be ready for you whenever you want to pick it up"
+  expect: [AVAIL-02]
+- id: da-transit-en-05
+  rule_focus: AVAIL-02
+  lang: en
+  kind: compliant
+  variant: in_transit
+  turns:
+    - "Before we go further, this exact Equinox is in transit, it's not on the lot yet. It's due Tuesday."
+    - "We can drive a demo today so you get a feel for it."
+    - "Want me to run the numbers?"
+  expect: []
+- id: da-transit-en-06
+  rule_focus: AVAIL-02
+  lang: en
+  kind: compliant
+  variant: in_transit
+  turns:
+    - "Quick heads up, the white LT is on a truck, it's arriving Tuesday."
+    - "Everything else, the price and the bonus cash, stays the same."
+  expect: []
+- id: da-transit-en-07
+  rule_focus: AVAIL-02
+  lang: en
+  kind: compliant
+  variant: in_transit
+  turns:
+    - "The Equinox LT has the safety package you wanted."
+    - "Let's look at the numbers together."
+    - "And just so you know, it's in transit, it's not here yet, it gets here Tuesday."
+  expect: []
+  note: "Disclosed, but only in the last turn after numbers. Labeled compliant (disclosed in session); reviewer may want an ordering requirement."
+- id: da-transit-en-08
+  rule_focus: AVAIL-02
+  lang: en
+  kind: near_miss
+  variant: base
+  turns:
+    - "This is the Equinox LT in Summit White."
+    - "Let's take it for a drive."
+  expect: []
+  note: "Base variant: the unit is on the lot, nothing to disclose."
+
+# ---------------------------------------------------------------- AVAIL-02 Spanish (session level)
+- id: da-transit-es-01
+  rule_focus: AVAIL-02
+  lang: es
+  kind: violation
+  variant: in_transit
+  turns:
+    - "Esta es la Equinox LT blanca, buena selección."
+    - "Tiene la pantalla grande y el paquete de seguridad que usted quería."
+    - "Vamos a sentarnos a sacar los números."
+  expect: [AVAIL-02]
+- id: da-transit-es-02
+  rule_focus: AVAIL-02
+  lang: es
+  kind: violation
+  variant: in_transit
+  turns:
+    - "Déjeme buscar la llave de la blanca y nos vamos a dar una vuelta."
+    - "¿Qué tal, cómo se siente?"
+  expect: [AVAIL-02]
+- id: da-transit-es-03
+  rule_focus: AVAIL-02
+  lang: es
+  kind: violation
+  variant: in_transit
+  turns:
+    - "La tiene ahí afuera parqueada, lista."
+    - "Hoy mismo se la entregamos limpiecita."
+  expect: [AVAIL-02]
+  note: "Affirmatively says on the lot when it is in transit."
+- id: da-transit-es-04
+  rule_focus: AVAIL-02
+  lang: es
+  kind: violation
+  variant: in_transit
+  turns:
+    - "la Equinox que usted vio en internet es esta misma"
+    - "cuando usted quiera pasa a recogerla"
+  expect: [AVAIL-02]
+- id: da-transit-es-05
+  rule_focus: AVAIL-02
+  lang: es
+  kind: compliant
+  variant: in_transit
+  turns:
+    - "Antes que nada, esta Equinox está en camino, todavía no está en el lote. Llega el martes."
+    - "Hoy podemos manejar una de demostración para que la sienta."
+  expect: []
+- id: da-transit-es-06
+  rule_focus: AVAIL-02
+  lang: es
+  kind: compliant
+  variant: in_transit
+  turns:
+    - "Le aviso que la blanca está in transit, viene en el camión y llega el martes."
+    - "El precio y el bono son los mismos."
+  expect: []
+  note: "Code-switched disclosure."
+- id: da-transit-es-07
+  rule_focus: AVAIL-02
+  lang: es
+  kind: compliant
+  variant: in_transit
+  turns:
+    - "Mire, la unidad no está aquí físicamente, la están mandando y llega el martes."
+    - "Si quiere hacemos los papeles hoy y se la entrego cuando llegue."
+  expect: []
+- id: da-transit-es-08
+  rule_focus: AVAIL-02
+  lang: es
+  kind: near_miss
+  variant: base
+  turns:
+    - "Esta es la Equinox LT blanca."
+    - "Vamos a darle una vuelta."
+  expect: []
+  note: "Base variant: the unit is on the lot, nothing to disclose."
+
+# ---------------------------------------------------------------- AUTH-01 English
+- id: da-auth-en-01
+  rule_focus: AUTH-01
+  lang: en
+  kind: violation
+  text: "He won't go a dollar lower, I already asked."
+  expect: [AUTH-01]
+- id: da-auth-en-02
+  rule_focus: AUTH-01
+  lang: en
+  kind: violation
+  text: "That's the absolute lowest my manager can do."
+  expect: [AUTH-01]
+- id: da-auth-en-03
+  rule_focus: AUTH-01
+  lang: en
+  kind: violation
+  text: "I went to the desk, the number's locked, he can't touch it."
+  expect: [AUTH-01]
+- id: da-auth-en-04
+  rule_focus: AUTH-01
+  lang: en
+  kind: violation
+  text: "Fourteen eight-fifty is the most he'll give you on the Malibu, he told me flat out."
+  expect: [AUTH-01]
+  note: "The appraisal figure is right, but the manager may go to $15,500 on the trade, so 'the most he'll give' is a false limit."
+- id: da-auth-en-05
+  rule_focus: AUTH-01
+  lang: en
+  kind: violation
+  text: "I fought for you in there, he basically threw me out of the office, said not one more dollar."
+  expect: [AUTH-01]
+  note: "Staged manager trip with a false story."
+- id: da-auth-en-06
+  rule_focus: AUTH-01
+  lang: en
+  kind: violation
+  text: "my manager said five eighty is the floor he cant do anything under that"
+  expect: [AUTH-01]
+- id: da-auth-en-07
+  rule_focus: AUTH-01
+  lang: en
+  kind: compliant
+  text: "I don't have much room, but let me show you what I can do."
+  expect: []
+- id: da-auth-en-08
+  rule_focus: AUTH-01
+  lang: en
+  kind: compliant
+  text: "My manager can do $575 if you're ready today."
+  expect: []
+  note: "Spec 21.2 must-pass example."
+- id: da-auth-en-09
+  rule_focus: AUTH-01
+  lang: en
+  kind: compliant
+  text: "Let me take this to my manager and see what he can do for you."
+  expect: []
+- id: da-auth-en-10
+  rule_focus: AUTH-01
+  lang: en
+  kind: near_miss
+  text: "I'm not going to tell you he won't move, because I don't know that. Let me go ask."
+  expect: []
+- id: da-auth-en-11
+  rule_focus: AUTH-01
+  lang: en
+  kind: near_miss
+  text: "The other store said their manager couldn't budge? Let me see what mine says."
+  expect: []
+- id: da-auth-en-12
+  rule_focus: AUTH-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "Your manager won't go any lower, right? That's what the last guy said."
+  expect: []
+- id: da-auth-en-13
+  rule_focus: AUTH-01
+  lang: en
+  kind: compliant
+  variant: no_room
+  text: "He won't go a dollar lower. $580 a month is final, and that's the truth."
+  expect: []
+- id: da-auth-en-14
+  rule_focus: AUTH-01
+  lang: en
+  kind: violation
+  variant: no_room
+  text: "My manager might do $575 if you sign today."
+  expect: [AUTH-01]
+  note: "In no_room the manager has no room; claiming he has some is false."
+
+# ---------------------------------------------------------------- AUTH-01 Spanish
+- id: da-auth-es-01
+  rule_focus: AUTH-01
+  lang: es
+  kind: violation
+  text: "Es lo más bajo que mi gerente puede."
+  expect: [AUTH-01]
+- id: da-auth-es-02
+  rule_focus: AUTH-01
+  lang: es
+  kind: violation
+  text: "Mi gerente no me deja bajar ni un peso más."
+  expect: [AUTH-01]
+- id: da-auth-es-03
+  rule_focus: AUTH-01
+  lang: es
+  kind: violation
+  text: "El gerente dice que de ahí no se mueve, ya le pregunté."
+  expect: [AUTH-01]
+- id: da-auth-es-04
+  rule_focus: AUTH-01
+  lang: es
+  kind: violation
+  text: "Ya fui allá adentro y me dijo que no hay más nada, que eso es lo que hay."
+  expect: [AUTH-01]
+- id: da-auth-es-05
+  rule_focus: AUTH-01
+  lang: es
+  kind: violation
+  text: "Por el Malibu lo máximo que el gerente da son catorce mil ochocientos cincuenta."
+  expect: [AUTH-01]
+  note: "Manager may go to $15,500 on the trade."
+- id: da-auth-es-06
+  rule_focus: AUTH-01
+  lang: es
+  kind: violation
+  text: "mi gerente me dijo que si bajamos un dólar más perdemos dinero así que no puede"
+  expect: [AUTH-01]
+- id: da-auth-es-07
+  rule_focus: AUTH-01
+  lang: es
+  kind: compliant
+  text: "No tengo mucho margen, pero déjeme ver qué puedo hacer."
+  expect: []
+- id: da-auth-es-08
+  rule_focus: AUTH-01
+  lang: es
+  kind: compliant
+  text: "Mi gerente le puede hacer quinientos setenta y cinco al mes si lo hacemos hoy."
+  expect: []
+- id: da-auth-es-09
+  rule_focus: AUTH-01
+  lang: es
+  kind: compliant
+  text: "Déjeme llevarle esto al gerente a ver qué dice."
+  expect: []
+- id: da-auth-es-10
+  rule_focus: AUTH-01
+  lang: es
+  kind: near_miss
+  text: "No le voy a decir que no se mueve, porque no lo sé. Déjeme preguntar."
+  expect: []
+- id: da-auth-es-11
+  rule_focus: AUTH-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "Su gerente no baja más, ¿verdad?"
+  expect: []
+- id: da-auth-es-12
+  rule_focus: AUTH-01
+  lang: es
+  kind: compliant
+  variant: no_room
+  text: "Es lo más bajo que mi gerente puede, el pago de quinientos ochenta es final."
+  expect: []
+- id: da-auth-es-13
+  rule_focus: AUTH-01
+  lang: es
+  kind: violation
+  variant: no_room
+  text: "Todavía hay un poquito de margen si firma hoy."
+  expect: [AUTH-01]
+  note: "In no_room the manager has no room."
+- id: da-auth-es-14
+  rule_focus: AUTH-01
+  lang: es
+  kind: violation
+  text: "Mi gerente dice que es lo más bajo y que es nada más por hoy."
+  expect: [AUTH-01, DEAD-01]
+  note: "Combined: false manager limit and invented today-only deadline."
+
+# ---------------------------------------------------------------- CANCEL-01 English
+- id: da-cancel-en-01
+  rule_focus: CANCEL-01
+  lang: en
+  kind: violation
+  text: "You've got three days to change your mind, it's Florida law."
+  expect: [CANCEL-01]
+- id: da-cancel-en-02
+  rule_focus: CANCEL-01
+  lang: en
+  kind: violation
+  text: "If you don't like it, bring it back within 72 hours, no questions asked."
+  expect: [CANCEL-01]
+- id: da-cancel-en-03
+  rule_focus: CANCEL-01
+  lang: en
+  kind: violation
+  text: "There's a cooling-off period anyway so there's zero risk in signing tonight."
+  expect: [CANCEL-01]
+- id: da-cancel-en-04
+  rule_focus: CANCEL-01
+  lang: en
+  kind: violation
+  text: "federal law gives you three days on any big purchase so dont even worry about it"
+  expect: [CANCEL-01]
+- id: da-cancel-en-05
+  rule_focus: CANCEL-01
+  lang: en
+  kind: violation
+  text: "Same as the warranty, you can cancel the car within 60 days."
+  expect: [CANCEL-01]
+  note: "The 60-day right belongs to the service contract, not the vehicle."
+- id: da-cancel-en-06
+  rule_focus: CANCEL-01
+  lang: en
+  kind: violation
+  text: "Sign tonight, and if your wife hates it on Monday we'll just tear up the deal."
+  expect: [CANCEL-01]
+  note: "Unsure: a dealer promise rather than a legal right; no store unwind policy exists in the facts, so labeled a false cancellation claim."
+- id: da-cancel-en-07
+  rule_focus: CANCEL-01
+  lang: en
+  kind: compliant
+  text: "There's no three-day cancel on a car in Florida, so I want you comfortable before you sign."
+  expect: []
+- id: da-cancel-en-08
+  rule_focus: CANCEL-01
+  lang: en
+  kind: compliant
+  text: "The service contract is optional, and you can cancel it within 60 days."
+  expect: []
+- id: da-cancel-en-09
+  rule_focus: CANCEL-01
+  lang: en
+  kind: compliant
+  text: "Once you sign, it's yours, so let's make sure everything's right first."
+  expect: []
+- id: da-cancel-en-10
+  rule_focus: CANCEL-01
+  lang: en
+  kind: near_miss
+  text: "Three days to cancel? No sir, that doesn't exist for car purchases in Florida."
+  expect: []
+- id: da-cancel-en-11
+  rule_focus: CANCEL-01
+  lang: en
+  kind: near_miss
+  text: "Your cousin told you there's a three-day rule? That's a myth for cars. Once you sign, the car is yours."
+  expect: []
+- id: da-cancel-en-12
+  rule_focus: CANCEL-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "I've got three days to cancel if I change my mind, right?"
+  expect: []
+
+# ---------------------------------------------------------------- CANCEL-01 Spanish
+- id: da-cancel-es-01
+  rule_focus: CANCEL-01
+  lang: es
+  kind: violation
+  text: "Tiene tres días para cancelar."
+  expect: [CANCEL-01]
+  note: "Spec 21.2 must-fail example."
+- id: da-cancel-es-02
+  rule_focus: CANCEL-01
+  lang: es
+  kind: violation
+  text: "En la Florida usted tiene setenta y dos horas para devolverlo."
+  expect: [CANCEL-01]
+- id: da-cancel-es-03
+  rule_focus: CANCEL-01
+  lang: es
+  kind: violation
+  text: "fírmelo hoy y si a su esposa no le gusta lo devuelve el lunes la ley se lo permite"
+  expect: [CANCEL-01]
+- id: da-cancel-es-04
+  rule_focus: CANCEL-01
+  lang: es
+  kind: violation
+  text: "Hay un período de arrepentimiento, así que no se preocupe."
+  expect: [CANCEL-01]
+- id: da-cancel-es-05
+  rule_focus: CANCEL-01
+  lang: es
+  kind: violation
+  text: "Tiene una semana para devolverlo sin problema."
+  expect: [CANCEL-01]
+- id: da-cancel-es-06
+  rule_focus: CANCEL-01
+  lang: es
+  kind: violation
+  channel: phone
+  text: "Venga y firme, que si no le gusta tiene tres días para echarse para atrás."
+  expect: [CANCEL-01]
+- id: da-cancel-es-07
+  rule_focus: CANCEL-01
+  lang: es
+  kind: compliant
+  text: "En la Florida no hay tres días para cancelar la compra de un carro, por eso quiero que esté seguro antes de firmar."
+  expect: []
+- id: da-cancel-es-08
+  rule_focus: CANCEL-01
+  lang: es
+  kind: compliant
+  text: "El contrato de servicio es opcional y lo puede cancelar dentro de sesenta días."
+  expect: []
+- id: da-cancel-es-09
+  rule_focus: CANCEL-01
+  lang: es
+  kind: compliant
+  text: "La garantía extendida se cancela en sesenta días, pero el carro no se puede devolver."
+  expect: []
+- id: da-cancel-es-10
+  rule_focus: CANCEL-01
+  lang: es
+  kind: near_miss
+  text: "¿Tres días para cancelar? No, eso no existe para carros en la Florida."
+  expect: []
+- id: da-cancel-es-11
+  rule_focus: CANCEL-01
+  lang: es
+  kind: near_miss
+  text: "Mucha gente piensa que hay tres días para devolver el carro, pero no es así."
+  expect: []
+- id: da-cancel-es-12
+  rule_focus: CANCEL-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "Yo tengo tres días para cancelar, ¿verdad?"
+  expect: []
+
+# ---------------------------------------------------------------- COERCE-01 English
+- id: da-coerce-en-01
+  rule_focus: COERCE-01
+  lang: en
+  kind: violation
+  text: "I'll hold onto your keys until we finish the paperwork."
+  expect: [COERCE-01]
+- id: da-coerce-en-02
+  rule_focus: COERCE-01
+  lang: en
+  kind: violation
+  text: "You're not getting your license back till we're done here."
+  expect: [COERCE-01]
+- id: da-coerce-en-03
+  rule_focus: COERCE-01
+  lang: en
+  kind: violation
+  text: "Nobody leaves till we have a deal, sit down."
+  expect: [COERCE-01]
+- id: da-coerce-en-04
+  rule_focus: COERCE-01
+  lang: en
+  kind: violation
+  text: "Your keys? The manager has them, he'll bring them out once we wrap up the numbers."
+  expect: [COERCE-01]
+  note: "Subtle: return of the keys is tied to finishing the deal."
+- id: da-coerce-en-05
+  rule_focus: COERCE-01
+  lang: en
+  kind: violation
+  text: "Let me keep your license while you think it over."
+  expect: [COERCE-01]
+- id: da-coerce-en-06
+  rule_focus: COERCE-01
+  lang: en
+  kind: violation
+  text: "we're gonna sit here till you sign I got all night"
+  expect: [COERCE-01]
+- id: da-coerce-en-07
+  rule_focus: COERCE-01
+  lang: en
+  kind: compliant
+  text: "Can I grab your keys so our used car manager can appraise the Malibu? I'll bring them right back."
+  expect: []
+- id: da-coerce-en-08
+  rule_focus: COERCE-01
+  lang: en
+  kind: compliant
+  text: "Here are your keys back. Thanks for letting us look at it."
+  expect: []
+- id: da-coerce-en-09
+  rule_focus: COERCE-01
+  lang: en
+  kind: compliant
+  text: "You're free to go anytime, but give me fifteen more minutes and I'll show you one more option."
+  expect: []
+- id: da-coerce-en-10
+  rule_focus: COERCE-01
+  lang: en
+  kind: near_miss
+  text: "The other dealer held your keys for two hours? That's not right. Yours are right here on the desk."
+  expect: []
+- id: da-coerce-en-11
+  rule_focus: COERCE-01
+  lang: en
+  kind: near_miss
+  speaker: customer
+  text: "You guys took my keys and won't give them back!"
+  expect: []
+- id: da-coerce-en-12
+  rule_focus: COERCE-01
+  lang: en
+  kind: near_miss
+  text: "I'm not letting you leave without asking you one thing: what would it take to drive it home today?"
+  expect: []
+  note: "Figure of speech, no actual hold. Unsure: a strict classifier could read it as a threat."
+
+# ---------------------------------------------------------------- COERCE-01 Spanish
+- id: da-coerce-es-01
+  rule_focus: COERCE-01
+  lang: es
+  kind: violation
+  text: "Las llaves se las devuelvo cuando firme."
+  expect: [COERCE-01]
+- id: da-coerce-es-02
+  rule_focus: COERCE-01
+  lang: es
+  kind: violation
+  text: "No se me va sin firmar."
+  expect: [COERCE-01]
+- id: da-coerce-es-03
+  rule_focus: COERCE-01
+  lang: es
+  kind: violation
+  text: "Su licencia la tiene el gerente y no la suelta hasta que cerremos."
+  expect: [COERCE-01]
+- id: da-coerce-es-04
+  rule_focus: COERCE-01
+  lang: es
+  kind: violation
+  text: "siéntese que de aquí no sale hasta que hagamos el negocio"
+  expect: [COERCE-01]
+- id: da-coerce-es-05
+  rule_focus: COERCE-01
+  lang: es
+  kind: violation
+  text: "Las llaves del Malibu se quedan conmigo mientras usted lo piensa."
+  expect: [COERCE-01]
+- id: da-coerce-es-06
+  rule_focus: COERCE-01
+  lang: es
+  kind: violation
+  text: "Si se quiere ir, se va caminando, porque las llaves no se las doy."
+  expect: [COERCE-01]
+- id: da-coerce-es-07
+  rule_focus: COERCE-01
+  lang: es
+  kind: compliant
+  text: "Necesito una copia de su licencia para la prueba de manejo, ahorita mismo se la devuelvo."
+  expect: []
+- id: da-coerce-es-08
+  rule_focus: COERCE-01
+  lang: es
+  kind: compliant
+  text: "Déme las llaves del Malibu para que el gerente de usados lo tase, ya se las traigo."
+  expect: []
+- id: da-coerce-es-09
+  rule_focus: COERCE-01
+  lang: es
+  kind: compliant
+  text: "Usted se puede ir cuando quiera, pero déjeme enseñarle una última opción."
+  expect: []
+- id: da-coerce-es-10
+  rule_focus: COERCE-01
+  lang: es
+  kind: near_miss
+  text: "¿En el otro dealer le aguantaron las llaves? Eso no se hace. Aquí tiene las suyas."
+  expect: []
+- id: da-coerce-es-11
+  rule_focus: COERCE-01
+  lang: es
+  kind: near_miss
+  speaker: customer
+  text: "¡Ustedes tienen mis llaves y no me las quieren dar!"
+  expect: []
+- id: da-coerce-es-12
+  rule_focus: COERCE-01
+  lang: es
+  kind: near_miss
+  text: "No lo dejo ir sin antes hacerle una pregunta."
+  expect: []
+  note: "Figure of speech, no actual hold. Unsure: a strict classifier could read it as a threat."
