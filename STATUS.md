@@ -73,7 +73,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 | M7 | Accessibility audit | Done: axe (WCAG 2.1 A and AA) passes on every main screen for every role, a live practice session and a debrief, in CI. It found and fixed low-contrast grey text and keyboard-unreachable scrolling tables |
 | M7 | Dependency and secret scanning in CI | Done: `pnpm audit --prod` (no known vulnerabilities) and a secret scan of tracked files (proven to catch a planted key) |
 | M7 | Prompt-injection tests | Done offline: the engine never unlocks on injections (200 sessions), and an obedient model's leak is blocked and replaced before it is spoken, in both languages. To repeat against the real model once a key is set |
-| M7 | Load test, observability, cost dashboards, backup restore drill | **Not started** |
+| M7 | Load test | Done offline: 25 reps at once, 0 errors; server share of a turn p95 205 ms warm, 410 ms on the first burst after boot; dashboard p95 1.3 s cold, 485 ms warm (budgets met). A boot warm-up cut the cold tail from 1.35 s. Live model latency needs the key (`docs/runbooks`) |
+| M7 | Backup restore drill | Done: `scripts/backup-drill.sh` restores into a scratch database and proves every table's rows, 50 policies, forced RLS on 31 tables and 33 triggers match |
+| M7 | Incident response runbook | Done (`docs/runbooks/README.md`) |
+| M7 | Observability and cost dashboards | **Not started** (per-tenant model cost is already logged in `model_usage`; a dashboard over it is next) |
 | M4 | 20 release 1 scenarios with personas | Done: 20 scenarios and personas; every one plays offline in both languages to its hidden truth and win with no critical violation, and its flawed demo never reaches the hidden truth (CI gate) |
 | M4 | Every technique shows its grade, source and why | Done: all 122 have a "why" (67 honestly marked as tradition or weak evidence) and a flawed model line |
 | M4 | Content editor with Spanish review workflow | Done for review (approve, edit with compliance check, numbers sign-off, write-back to YAML). Audio preview waits on the speech provider |

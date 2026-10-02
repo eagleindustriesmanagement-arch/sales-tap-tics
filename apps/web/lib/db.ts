@@ -6,7 +6,8 @@ const g = globalThis as unknown as { __tapticsPool?: pg.Pool };
 
 export function pool(): pg.Pool {
   if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not set");
-  g.__tapticsPool ??= new pg.Pool({ connectionString: process.env.DATABASE_URL, max: 10 });
+  // Sized for a store of reps practicing at once (load test, M7); TAPTICS_DB_POOL overrides it per instance.
+  g.__tapticsPool ??= new pg.Pool({ connectionString: process.env.DATABASE_URL, max: Number(process.env.TAPTICS_DB_POOL ?? 20) });
   return g.__tapticsPool;
 }
 

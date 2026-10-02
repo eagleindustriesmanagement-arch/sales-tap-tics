@@ -9,13 +9,16 @@ export default async function globalSetup() {
   await c.connect();
   await c.query("truncate spanish_reviews, coach_practice, assignments, floor_checks, manager_check_quality, behavior_card_issues, debriefs, scores, violations, scenario_state_events, turns, model_usage, sessions, consents, auth_sessions, login_codes, audit_log cascade");
   // Put the store setup back to the seeded state, since one test edits it.
-  await c.query("delete from store_lenders");
-  await c.query("delete from store_fees where code <> 'dealer_fee'");
-  await c.query("update store_fees set amount_cents = 89900, kind = 'dealer_mandatory'");
+  const store = "22222222-2222-4222-8222-222222222222"; // the demo store; other tenants may share the database
+  await c.query("delete from store_lenders where store_id = $1", [store]);
+  await c.query("delete from store_fees where store_id = $1 and code <> 'dealer_fee'", [store]);
+  await c.query("update store_fees set amount_cents = 89900, kind = 'dealer_mandatory' where store_id = $1", [store]);
   await c.query(
     `update store_policies set add_on_removal = 'none_configured', referral_reward = 'none', text_consent_text_en = null, text_consent_text_es = null,
-       audio_retention_days = 180, stop_on_critical = true, walk_in_metric = 'all_logged_ups', approved_by = null, approved_at = null`,
+       audio_retention_days = 180, stop_on_critical = true, walk_in_metric = 'all_logged_ups', approved_by = null, approved_at = null
+     where store_id = $1`,
+    [store],
   );
-  await c.query("update stores set settings = '{}'");
+  await c.query("update stores set settings = '{}' where id = $1", [store]);
   await c.end();
 }

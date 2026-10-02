@@ -4,6 +4,8 @@ import pg from "pg";
 import { OUTBOX } from "../playwright.config";
 
 const db = () => new pg.Client({ connectionString: process.env.DATABASE_URL });
+/** The demo store (packages/db/scripts/seed-demo.ts); other tenants, such as the load test's, may share the database. */
+const DEMO_STORE = "22222222-2222-4222-8222-222222222222";
 
 /** Signs in and, when the consent notice shows (first sign-in), accepts it. */
 async function signInReady(page: Page, email: string) {
@@ -179,11 +181,11 @@ test("the general manager edits store setup, the reviewer signs it off and sees 
 
   const c = db();
   await c.connect();
-  const fees = await c.query("select code, amount_cents::int from store_fees");
+  const fees = await c.query("select code, amount_cents::int from store_fees where store_id = $1", [DEMO_STORE]);
   expect(fees.rows).toEqual([{ code: "dealer_fee", amount_cents: 79900 }]);
-  const p = await c.query("select add_on_removal, approved_at is not null approved from store_policies");
+  const p = await c.query("select add_on_removal, approved_at is not null approved from store_policies where store_id = $1", [DEMO_STORE]);
   expect(p.rows).toEqual([{ add_on_removal: "credit_price", approved: true }]);
-  const lenders = await c.query("select name, is_credit_acceptance from store_lenders order by name");
+  const lenders = await c.query("select name, is_credit_acceptance from store_lenders where store_id = $1 order by name", [DEMO_STORE]);
   expect(lenders.rows).toEqual([{ name: "Ally", is_credit_acceptance: false }, { name: "Credit Acceptance", is_credit_acceptance: true }]);
   await c.end();
 });
