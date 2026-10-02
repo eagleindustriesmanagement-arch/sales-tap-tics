@@ -117,7 +117,7 @@ items:
     points: 1
     evidence: Rackham
     technique: T023
-    params: { max: 2, lexicon: close_questions }
+    params: { max: 2, lexicon: [close_questions, next_step_time] }
   - code: U-TIEDOWN
     behavior:
       en: "Used no more than two tie-downs"

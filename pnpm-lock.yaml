@@ -59,6 +59,21 @@ importers:
         specifier: workspace:*
         version: link:../i18n
 
+  packages/scoring:
+    dependencies:
+      '@taptics/content':
+        specifier: workspace:*
+        version: link:../content
+      '@taptics/engine':
+        specifier: workspace:*
+        version: link:../engine
+      '@taptics/i18n':
+        specifier: workspace:*
+        version: link:../i18n
+      '@taptics/rules':
+        specifier: workspace:*
+        version: link:../rules
+
 packages:
 
   '@ampproject/remapping@2.3.0':
