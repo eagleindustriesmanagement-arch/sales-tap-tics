@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { isManager, listAssignments, listSessions, practiceHistory, weekCards } from "@taptics/db";
 import { t } from "@taptics/i18n";
-import { dailyPlan, type PlanReason } from "@taptics/session";
+import { dailyPlan, practiceStreak, type PlanReason } from "@taptics/session";
 import { Card, Grade, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
@@ -32,6 +32,7 @@ export default async function Today() {
     userId: user.id,
   });
   const top = plan[0];
+  const streak = practiceStreak(progress.history.map((o) => o.at), new Date());
   const next = top ? lib.scenarios.get(top.scenarioCode) : undefined;
   const assignedNext = top?.reason.kind === "assigned" ? assigned.find((a) => a.scenarioCode === top.scenarioCode) : undefined;
   const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "long", month: "short", day: "numeric", timeZone: "America/New_York" });
@@ -66,7 +67,10 @@ export default async function Today() {
           </div>
         </Card>
       )}
-      <Link href="/progress" className="inline-block font-semibold text-brand underline">{t("progress.link", lang)}</Link>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <Link href="/progress" className="inline-block font-semibold text-brand underline">{t("progress.link", lang)}</Link>
+        {streak > 0 && <p className="font-semibold text-ink" data-testid="streak">{t("today.streak", lang, { n: streak })}</p>}
+      </div>
       <Card>
         <h2 className="font-semibold text-ink">{card ? t("card.issued", lang) : t("today.behaviorCard", lang)}</h2>
         {card ? (

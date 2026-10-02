@@ -48,11 +48,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               ))}
             </nav>
             {user && (
-              <form action="/api/auth/logout" method="post" className="ml-auto hidden sm:ml-0 sm:block">
-                <button className="min-h-11 rounded-lg px-3 text-sm font-medium text-muted hover:bg-ground">{t("login.signOut", lang)}</button>
-              </form>
+              <Link href="/settings" className="ml-auto inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-ink hover:bg-ground sm:ml-0">{t("settings.title", lang)}</Link>
             )}
-            <form action="/api/language" method="post" className="ml-auto sm:ml-0">
+            <form action="/api/language" method="post" className={user ? "" : "ml-auto sm:ml-0"}>
               <input type="hidden" name="lang" value={other} />
               <button className="min-h-11 rounded-lg border border-line px-3 text-sm font-medium text-ink hover:bg-ground" lang={other}>{t("language.switch", lang)}</button>
             </form>

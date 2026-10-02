@@ -43,6 +43,8 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
   engine before it is saved; lines with numbers also need the compliance reviewer. `pnpm --filter @taptics/db
   apply-reviews --tenant=<id>` writes approved edits back into the YAML (only the edited values change) and marks a
   file reviewed when every line is approved.
+- **Settings** (everyone, spec 18.1): language, daily reminder time, the store's private-window rule in plain words,
+  and sign out (which phones could not reach before). Today shows the rep's practice streak.
 - **Score flags** (spec 3.3 rule 4): a manager flags a rep's score with a reason (disagree, audio, scenario, other);
   the automated score never changes, the flag is permanent and the rep sees it next to the score.
 - **Audit log and export** (general manager): the audit log of session reads and changes to people, roles, store
@@ -104,10 +106,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 
 ## Numbers
 
-- 358 unit and database tests: rules 116, session 101 (including the 20-scenario release gate and the 30-day
+- 359 unit and database tests: rules 116, session 102 (including the 20-scenario release gate and the 30-day
   simulation), engine 60, database 35 (row-level security for reads and writes, sign-in, repository, assignments,
   coaching practice, Spanish review, usage, people), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
-- 19 browser tests (14 flows and 5 accessibility audits); each account signs in once per run, under the real limit
+- 20 browser tests (15 flows and 5 accessibility audits); each account signs in once per run, under the real limit
   of five codes per 15 minutes on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; the general manager edits store

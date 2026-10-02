@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { platformLibrary } from "@taptics/content";
 import {
-  certificationSeed, certificationState, certifiedForUps, dailyPlan, intervalDays, isDue, levelOneCertified, masteryFrom, onboardingOrder, recertificationSet, reminderTime,
+  certificationSeed, certificationState, certifiedForUps, dailyPlan, intervalDays, isDue, levelOneCertified, masteryFrom, onboardingOrder, practiceStreak, recertificationSet, reminderTime,
   type Observation, type ScenarioMeta,
 } from "../src/schedule.js";
 
@@ -146,5 +146,17 @@ describe("the plan after 90 days", () => {
     const recert = plan.filter((p) => p.reason.kind === "recertification");
     expect(recert.map((p) => p.scenarioCode).sort()).toEqual(recertificationSet("rep-a", "2027-Q1", scenarios).sort());
     expect(recert.every((p) => p.mode === "certification")).toBe(true);
+  });
+});
+
+describe("practice streak", () => {
+  it("counts consecutive days ending today or yesterday, in Miami time", () => {
+    const at = (iso: string) => new Date(iso);
+    const now = at("2026-10-07T15:00:00Z");
+    expect(practiceStreak([at("2026-10-07T13:00:00Z"), at("2026-10-06T22:00:00Z"), at("2026-10-05T12:00:00Z")], now)).toBe(3);
+    expect(practiceStreak([at("2026-10-06T22:00:00Z"), at("2026-10-05T12:00:00Z")], now)).toBe(2);
+    expect(practiceStreak([at("2026-10-04T12:00:00Z")], now)).toBe(0);
+    // 11:30 pm in Miami on the 6th is 03:30 UTC on the 7th: still the 6th for the rep.
+    expect(practiceStreak([at("2026-10-07T03:30:00Z")], at("2026-10-07T12:00:00Z"))).toBe(1);
   });
 });

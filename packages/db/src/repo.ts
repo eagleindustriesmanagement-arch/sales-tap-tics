@@ -849,3 +849,16 @@ export function toCsv(rows: Record<string, unknown>[], columns: string[]): strin
   };
   return [columns.join(","), ...rows.map((r) => columns.map((c) => cell(r[c])).join(","))].join("\r\n") + "\r\n";
 }
+
+// ---------------------------------------------------------------- personal settings (spec 18.1 Settings)
+
+export async function personalSettings(db: Queryable, userId: string) {
+  const r = await db.query("select to_char(reminder_time, 'HH24:MI') reminder_time from users where id = $1", [userId]);
+  return { reminderTime: (r.rows[0]?.reminder_time as string | null) ?? null };
+}
+
+/** A user sets their own daily reminder time (local "HH:MM"), or clears it. */
+export async function setReminderTime(db: Queryable, userId: string, time: string | null) {
+  if (time !== null && !/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) throw new Error("time must be HH:MM");
+  await db.query("update users set reminder_time = $2::time where id = $1", [userId, time]);
+}

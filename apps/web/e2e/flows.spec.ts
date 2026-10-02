@@ -418,3 +418,19 @@ test("a manager flags a score with a reason; the rep sees it; the general manage
   expect(body).toContain("Ana");
   expect((await page.request.get("/api/export")).status()).toBe(403);
 });
+
+test("settings: a reminder time, the privacy rule, and signing out on a phone", async ({ page }) => {
+  await signInReady(page, "rep@demo.test");
+  await expect(page.getByTestId("streak")).toHaveText("1-day practice streak");
+  await page.getByRole("link", { name: "Settings" }).click();
+  await page.getByLabel("Daily practice reminder").fill("08:30");
+  await page.getByRole("button", { name: "Save" }).click();
+  await expect(page.getByRole("status")).toHaveText("Saved.");
+  await expect(page.getByLabel("Daily practice reminder")).toHaveValue("08:30");
+  await expect(page.getByTestId("private-window")).toContainText("as soon as they end");
+  // The Pixel 7 viewport: sign out is reachable without the desktop header.
+  await page.getByRole("button", { name: "Sign out" }).click();
+  await expect(page).toHaveURL(/\/login$/);
+  await page.goto("/settings");
+  await expect(page).toHaveURL(/\/login$/);
+});

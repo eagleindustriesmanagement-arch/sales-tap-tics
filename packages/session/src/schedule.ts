@@ -289,3 +289,19 @@ export function reminderTime(opts: { chosen: string; weekday: number; nowLocal: 
   if (at >= 24 * 60 || at < minutes(opts.nowLocal)) return null;
   return `${String(Math.floor(at / 60)).padStart(2, "0")}:${String(at % 60).padStart(2, "0")}`;
 }
+
+// ---------------------------------------------------------------- streak (spec 18.1 Home)
+
+/** Consecutive days with practice, ending today or yesterday, in the store's time zone. */
+export function practiceStreak(dates: Date[], now: Date, timeZone = "America/New_York"): number {
+  const day = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone, year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
+  const days = new Set(dates.map(day));
+  let cursor = new Date(now);
+  if (!days.has(day(cursor))) cursor = new Date(cursor.getTime() - DAY);
+  let n = 0;
+  while (days.has(day(cursor))) {
+    n += 1;
+    cursor = new Date(cursor.getTime() - DAY);
+  }
+  return n;
+}
