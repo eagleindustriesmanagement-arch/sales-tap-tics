@@ -118,6 +118,7 @@ export type PlanReason =
   | { kind: "compliance"; rule: string }
   | { kind: "due"; items: number; daysSince: number | null }
   | { kind: "certification" }
+  | { kind: "recertification" }
   | { kind: "new" };
 
 export interface PlanItem {
@@ -136,6 +137,8 @@ export interface PlanInput {
   assignments: { scenarioCode: string; assignedBy: string | null; reason: string; dueAt: Date | null }[];
   /** Rubric item codes each scenario scores, to count how many due items a scenario covers. */
   itemsByScenario: Map<string, string[]>;
+  /** Keys the rep's quarterly recertification set. */
+  userId?: string;
 }
 
 const WEEK_ONE_OBJECTIONS = 5;
@@ -187,7 +190,12 @@ export function dailyPlan(input: PlanInput, size = 2): PlanItem[] {
     add({ scenarioCode: next.code, mode: "practice", reason: { kind: "onboarding", week } });
   }
 
-  if (day >= ONBOARDING_DAYS && untried.length === 0) {
+  // A rep certified before renews with the quarter's recertification set instead of redoing all 20 (spec 15.2).
+  const recertDue = input.userId ? certifiedForUps(input.userId, scenarios, history, now).recertDue : [];
+  for (const code of recertDue) add({ scenarioCode: code, mode: "certification", reason: { kind: "recertification" } });
+  const everCertified = scenarios.filter((s) => s.release1).every((s) => history.some((o) => o.scenarioCode === s.code && certificationPassed(o)));
+
+  if (day >= ONBOARDING_DAYS && untried.length === 0 && !everCertified) {
     for (const s of order) {
       if (certificationState(s.code, history, now).state === "eligible") add({ scenarioCode: s.code, mode: "certification", reason: { kind: "certification" } });
     }
@@ -215,4 +223,69 @@ export function dailyPlan(input: PlanInput, size = 2): PlanItem[] {
     if (fresh) add({ scenarioCode: fresh.code, mode: "practice", reason: { kind: "new" } });
   }
   return plan;
+}
+
+// ---------------------------------------------------------------- quarterly recertification (spec 15.2, 13.5)
+
+export const RECERT_PASS = 75;
+export const RECERT_SET = 3;
+
+function hashString(s: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i += 1) h = Math.imul(h ^ s.charCodeAt(i), 16777619);
+  return h >>> 0;
+}
+
+/** "2026-Q4": recertification sets change each calendar quarter. */
+export function quarterOf(d: Date): string {
+  return `${d.getUTCFullYear()}-Q${Math.floor(d.getUTCMonth() / 3) + 1}`;
+}
+
+/** The quarter's random set for one rep: fixed for the quarter, different between reps and quarters. */
+export function recertificationSet(userId: string, quarter: string, scenarios: ScenarioMeta[]): string[] {
+  const r1 = scenarios.filter((s) => s.release1).map((s) => s.code).sort();
+  return [...r1].sort((a, b) => hashString(`${userId}:${quarter}:${a}`) - hashString(`${userId}:${quarter}:${b}`)).slice(0, RECERT_SET);
+}
+
+/**
+ * Level 1 status with renewal: certified on every release 1 scenario within 90 days, or certified once and then
+ * renewed by passing the quarter's recertification set at level 2 (75) within the last 90 days (spec 15.4).
+ */
+export function certifiedForUps(userId: string, scenarios: ScenarioMeta[], history: Observation[], now: Date): { certified: boolean; recertDue: string[] } {
+  if (levelOneCertified(scenarios, history, now)) return { certified: true, recertDue: [] };
+  const everCertified = scenarios.filter((s) => s.release1).every((s) => history.some((o) => o.scenarioCode === s.code && certificationPassed(o)));
+  if (!everCertified) return { certified: false, recertDue: [] };
+  const set = recertificationSet(userId, quarterOf(now), scenarios);
+  const passedL2 = (code: string) =>
+    history.some((o) => o.scenarioCode === code && o.mode === "certification" && o.honestyPassed && !o.partial && (o.total ?? 0) >= RECERT_PASS && now.getTime() - o.at.getTime() < CERT_VALID_DAYS * DAY);
+  const recertDue = set.filter((c) => !passedL2(c));
+  return { certified: recertDue.length === 0, recertDue };
+}
+
+// ---------------------------------------------------------------- reminders (spec 15.3 item 5)
+
+export interface PeakWindow {
+  /** 0 = Sunday, in the store's time zone. */
+  day: number;
+  from: string;
+  to: string;
+}
+
+function minutes(hhmm: string): number {
+  const [h, m] = hhmm.split(":").map(Number);
+  return h! * 60 + (m ?? 0);
+}
+
+/**
+ * When to send today's one practice reminder: the rep's chosen time, moved to the end of the store's peak window if
+ * it falls inside one; null if a reminder already went out today or the time has passed. Times are local "HH:MM".
+ */
+export function reminderTime(opts: { chosen: string; weekday: number; nowLocal: string; sentToday: boolean; peaks: PeakWindow[] }): string | null {
+  if (opts.sentToday) return null;
+  let at = minutes(opts.chosen);
+  for (const p of opts.peaks.filter((x) => x.day === opts.weekday)) {
+    if (at >= minutes(p.from) && at < minutes(p.to)) at = minutes(p.to);
+  }
+  if (at >= 24 * 60 || at < minutes(opts.nowLocal)) return null;
+  return `${String(Math.floor(at / 60)).padStart(2, "0")}:${String(at % 60).padStart(2, "0")}`;
 }

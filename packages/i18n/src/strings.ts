@@ -39,6 +39,7 @@ export const STRINGS = {
   "plan.due": { en: "Due for review: {days} days since you practiced it.", es: "Toca repasar: hace {days} días que no lo practica." },
   "plan.dueItems": { en: "Covers {n} skills due for practice.", es: "Cubre {n} habilidades que toca practicar." },
   "plan.certification": { en: "Onboarding done: time to certify.", es: "Terminó la formación: hora de certificarse." },
+  "plan.recertification": { en: "Quarterly recertification: pass this one at 75 to stay certified.", es: "Recertificación trimestral: apruebe este con 75 para seguir certificado." },
   "plan.new": { en: "You have not tried this one yet.", es: "Todavía no ha probado este." },
   "cert.badge": { en: "Certification attempt", es: "Intento de certificación" },
   "cert.start": { en: "Start certification", es: "Empezar la certificación" },

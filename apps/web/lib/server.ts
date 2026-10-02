@@ -9,7 +9,7 @@ import {
 import { exitDrawFor } from "@taptics/engine";
 import { isLanguage, type Language } from "@taptics/i18n";
 import { chooseWeeklyCard, type ItemResult, type ScoreResult } from "@taptics/scoring";
-import { certificationSeed, certificationState, PracticeSession, type ScenarioMeta, type SessionResult } from "@taptics/session";
+import { certificationSeed, certificationState, certifiedForUps, PracticeSession, type ScenarioMeta, type SessionResult } from "@taptics/session";
 import { asUser, withClient } from "./db";
 
 export const library = () => platformLibrary();
@@ -76,7 +76,9 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
   if (mode === "certification") {
     // Offline scores are partial and can never certify, so certification needs the live judge (spec 15.4, decision 0004).
     if (!aiConfigured()) return { error: "needs_judge" as const };
-    if (certificationState(scenarioCode, history, new Date()).state !== "eligible") return { error: "not_eligible" as const };
+    const now = new Date();
+    const recert = certifiedForUps(user.id, scheduleInputs().scenarios, history, now).recertDue.includes(scenarioCode);
+    if (!recert && certificationState(scenarioCode, history, now).state !== "eligible") return { error: "not_eligible" as const };
   }
 
   const usage = new MemoryUsageSink();

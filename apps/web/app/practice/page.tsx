@@ -20,7 +20,7 @@ export default async function Practice() {
   const list = practiceList(lib);
   const now = new Date();
   const inputs = scheduleInputs(lib);
-  const next = dailyPlan({ now, startedAt: past.startedAt, history: past.history, assignments: assigned.map((a) => ({ scenarioCode: a.scenarioCode, assignedBy: a.assignedByName, reason: a.reason, dueAt: a.dueAt })), ...inputs })[0]?.scenarioCode;
+  const next = dailyPlan({ now, startedAt: past.startedAt, history: past.history, assignments: assigned.map((a) => ({ scenarioCode: a.scenarioCode, assignedBy: a.assignedByName, reason: a.reason, dueAt: a.dueAt })), ...inputs, userId: user.id })[0]?.scenarioCode;
   // Certification opens once onboarding has met every release 1 scenario (spec 15.2).
   const tried = new Set(past.history.map((o) => o.scenarioCode));
   const certOpen = onboardingDay({ now, startedAt: past.startedAt }) >= 30 || inputs.scenarios.filter((s) => s.release1).every((s) => tried.has(s.code));

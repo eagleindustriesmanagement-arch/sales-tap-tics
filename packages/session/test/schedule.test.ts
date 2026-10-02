@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { platformLibrary } from "@taptics/content";
 import {
-  certificationSeed, certificationState, dailyPlan, intervalDays, isDue, levelOneCertified, masteryFrom, onboardingOrder,
+  certificationSeed, certificationState, certifiedForUps, dailyPlan, intervalDays, isDue, levelOneCertified, masteryFrom, onboardingOrder, recertificationSet, reminderTime,
   type Observation, type ScenarioMeta,
 } from "../src/schedule.js";
 
@@ -101,5 +101,50 @@ describe("a simulated 30-day onboarding (M6 acceptance)", () => {
     const history = scenarios.filter((s) => s.release1).map((s) => obs(30, s.code, { mode: "certification", total: 80 }));
     expect(levelOneCertified(scenarios, history, d(31))).toBe(true);
     expect(levelOneCertified(scenarios, history.slice(1), d(31))).toBe(false);
+  });
+});
+
+describe("quarterly recertification (spec 15.2)", () => {
+  const r1 = scenarios.filter((s) => s.release1);
+  it("draws a fixed random set per rep and quarter", () => {
+    const a = recertificationSet("rep-a", "2026-Q4", scenarios);
+    expect(a).toHaveLength(3);
+    expect(recertificationSet("rep-a", "2026-Q4", scenarios)).toEqual(a);
+    expect(recertificationSet("rep-b", "2026-Q4", scenarios)).not.toEqual(a);
+    expect(recertificationSet("rep-a", "2027-Q1", scenarios)).not.toEqual(a);
+  });
+  it("renews level 1 by passing the quarter's set at 75 after the 90 days run out", () => {
+    const first = r1.map((s) => obs(0, s.code, { mode: "certification", total: 80 }));
+    const later = d(100);
+    const due = certifiedForUps("rep-a", scenarios, first, later);
+    expect(due.certified).toBe(false);
+    expect(due.recertDue).toHaveLength(3);
+    const at = (later.getTime() - d(0).getTime()) / DAY - 1;
+    const renewed = [...first, ...due.recertDue.map((c) => obs(at, c, { mode: "certification", total: 76 }))];
+    expect(certifiedForUps("rep-a", scenarios, renewed, later)).toEqual({ certified: true, recertDue: [] });
+    // 74 is a level 1 pass but not a level 2 recertification.
+    const short = [...first, ...due.recertDue.map((c) => obs(at, c, { mode: "certification", total: 74 }))];
+    expect(certifiedForUps("rep-a", scenarios, short, later).certified).toBe(false);
+  });
+});
+
+describe("reminders (spec 15.3 item 5)", () => {
+  const peaks = [{ day: 6, from: "11:00", to: "17:00" }];
+  it("sends at the chosen time, once a day, never during peak hours", () => {
+    expect(reminderTime({ chosen: "09:30", weekday: 6, nowLocal: "08:00", sentToday: false, peaks })).toBe("09:30");
+    expect(reminderTime({ chosen: "12:00", weekday: 6, nowLocal: "08:00", sentToday: false, peaks })).toBe("17:00");
+    expect(reminderTime({ chosen: "12:00", weekday: 5, nowLocal: "08:00", sentToday: false, peaks })).toBe("12:00");
+    expect(reminderTime({ chosen: "12:00", weekday: 5, nowLocal: "08:00", sentToday: true, peaks })).toBeNull();
+    expect(reminderTime({ chosen: "07:00", weekday: 5, nowLocal: "08:00", sentToday: false, peaks })).toBeNull();
+  });
+});
+
+describe("the plan after 90 days", () => {
+  it("asks for the quarter's recertification set", () => {
+    const history = scenarios.filter((s) => s.release1).map((s) => obs(0, s.code, { mode: "certification", total: 85 }));
+    const plan = dailyPlan({ startedAt: d(-30), now: d(100), scenarios, history, assignments: [], itemsByScenario, userId: "rep-a" }, 5);
+    const recert = plan.filter((p) => p.reason.kind === "recertification");
+    expect(recert.map((p) => p.scenarioCode).sort()).toEqual(recertificationSet("rep-a", "2027-Q1", scenarios).sort());
+    expect(recert.every((p) => p.mode === "certification")).toBe(true);
   });
 });

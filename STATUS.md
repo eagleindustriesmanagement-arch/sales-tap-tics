@@ -69,7 +69,8 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 | M5 | Assignments | Done (row-level security: reps see their own; managers assign only to their reps) |
 | M5 | Coach-the-coach roleplay | Done offline: the manager reads a scene, gives the floor check, and is scored on the four parts (the spec 14.2 example scores 100 in both languages); private to the manager, visible to the general manager. With a key, an AI rep reply can be added |
 | M6 | Mastery tracking, spaced scheduling, certification with fixed seeds | Done; a simulated 30-day onboarding schedules all 20 objections and offers certification from day 30 |
-| M6 | Quarterly recertification; reminders that respect peak hours | **Not started** (reminders need an SMS or push provider) |
+| M6 | Quarterly recertification | Done: a fixed random set of 3 per rep and quarter, passed at 75, renews level 1 for 90 days |
+| M6 | Reminders that respect peak hours | Timing done and tested (chosen time, once a day, moved past peak hours); **sending needs a push or SMS provider** |
 | M4 | Spanish reviewed by a Miami native speaker | **Blocked on people**: every Spanish line is a draft (`spanish_reviewed: false`) |
 
 ## Numbers
@@ -137,6 +138,6 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 
 1. M3: run the suite with both layers (`pnpm compliance:suite --with-classifier`) once `ANTHROPIC_API_KEY` is set,
    and work the critical misses to zero on dev, reporting holdout.
-2. M6: quarterly recertification on a random set; reminders once a provider is chosen.
+2. M6: send reminders once a push or SMS provider is chosen; a setting for the rep's reminder time.
 3. M4: content editor and the Spanish review workflow.
 4. Voice gateway with provider interfaces, once the bake-off candidates are chosen.

@@ -28,6 +28,7 @@ export default async function Today() {
     history: progress.history,
     assignments: assigned.map((a) => ({ scenarioCode: a.scenarioCode, assignedBy: a.assignedByName, reason: a.reason, dueAt: a.dueAt })),
     ...scheduleInputs(lib),
+    userId: user.id,
   });
   const top = plan[0];
   const next = top ? lib.scenarios.get(top.scenarioCode) : undefined;
@@ -97,6 +98,7 @@ function reasonText(r: PlanReason, lang: "en" | "es"): string {
     case "compliance": return t("plan.compliance", lang, { rule: r.rule });
     case "due": return r.daysSince === null ? t("plan.dueItems", lang, { n: r.items }) : t("plan.due", lang, { days: r.daysSince });
     case "certification": return t("plan.certification", lang);
+    case "recertification": return t("plan.recertification", lang);
     case "new": return t("plan.new", lang);
     default: return "";
   }
