@@ -21,7 +21,7 @@ async function say(s: PracticeSession, text: string) {
 }
 
 describe("offline practice session (spec 12.2, M2 thin slice)", () => {
-  it("runs the model conversation to a booked next step with a passing score", async () => {
+  it("runs the model conversation to a booked next step, with an honest partial score", async () => {
     const s = session();
     expect(s.start().text).toBe(scenario.opening.en);
     for (const line of scenario.demonstrations.good.script.en.filter((l) => l.speaker === "rep")) {
@@ -37,6 +37,10 @@ describe("offline practice session (spec 12.2, M2 thin slice)", () => {
     expect(r.score.items.find((i) => i.code === "O01-HIDDEN")!.points).toBe(15);
     expect(r.score.items.find((i) => i.code === "O01-NEXT")!.points).toBe(10);
     expect(r.score.total).toBe(100);
+    // ...but only 25 of 100 points were scorable offline, so it is partial and cannot pass (decision 0004).
+    expect(r.score.coverage).toBe(0.25); // text-mode exclusions count as unmeasured
+    expect(r.score.partial).toBe(true);
+    expect(r.score.passed).toBe(false);
     expect(r.debrief.hiddenTruth?.en).toContain("$60");
     expect(r.offline).toBe(true);
   });
@@ -46,7 +50,18 @@ describe("offline practice session (spec 12.2, M2 thin slice)", () => {
     expect(s.language).toBe("es");
     expect(s.start().text).toBe(scenario.opening.es);
     const { spoken } = await say(s, "Claro que sí. Cuando lo hablen esta noche, ¿qué cree que ella le va a preguntar primero?");
-    expect(spoken[0]).toMatch(/pago|sesenta/);
+    expect(spoken[0]).toBe("Seguro que por el pago.");
+  });
+
+  it("paces the reveal like the model conversation: hint first, then the concern when pressed", async () => {
+    const s = session();
+    s.start();
+    const replies: string[] = [];
+    for (const line of scenario.demonstrations.good.script.en.filter((l) => l.speaker === "rep").slice(0, 3)) {
+      replies.push((await say(s, line.text.replace(/\[[^\]]*\]\s*/g, ""))).spoken.join(" "));
+    }
+    const customer = scenario.demonstrations.good.script.en.filter((l) => l.speaker === "customer").slice(1, 4).map((l) => l.text);
+    expect(replies).toEqual(customer);
   });
 
   it("a rep who never asks loses the customer's real concern and the next step", async () => {

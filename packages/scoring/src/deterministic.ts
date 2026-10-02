@@ -131,9 +131,11 @@ function timing(item: RubricItem, input: DeterministicInput): ItemResult {
     });
   }
   if (item.code === "U-TALK") {
+    // Talk share is a timing measure (spec 11.6); typed words are not a stand-in for speaking time.
     const durations = input.transcript.map((t) => ({ t, d: durationMs(t) }));
-    const timed = durations.every((x) => x.d !== null);
-    const size = (t: ScoredTurn, d: number | null) => (timed ? d! : t.text.split(/\s+/).length);
+    if (durations.some((x) => x.d === null)) return result(item, input, { status: "not_scored" });
+    const timed = true;
+    const size = (_t: ScoredTurn, d: number | null) => d!;
     const total = durations.reduce((s, x) => s + size(x.t, x.d), 0);
     if (total === 0) return result(item, input, { status: "not_applicable" });
     const rep = durations.filter((x) => x.t.speaker === "rep").reduce((s, x) => s + size(x.t, x.d), 0);
@@ -146,8 +148,8 @@ function timing(item: RubricItem, input: DeterministicInput): ItemResult {
   }
   if (item.code === "U-MONO") {
     if (reps.length === 0) return result(item, input, { status: "not_applicable" });
-    const wpm = Number(p["text_mode_words_per_minute"] ?? 150);
-    const longest = reps.map((t) => ({ t, ms: durationMs(t) ?? (t.text.split(/\s+/).length / wpm) * 60_000 })).reduce((a, b) => (a.ms >= b.ms ? a : b));
+    if (reps.some((t) => durationMs(t) === null)) return result(item, input, { status: "not_scored" });
+    const longest = reps.map((t) => ({ t, ms: durationMs(t)! })).reduce((a, b) => (a.ms >= b.ms ? a : b));
     const max = Number(p["max_seconds"] ?? 60) * 1000;
     return result(item, input, {
       points: longest.ms < max ? item.points : 0,

@@ -12,3 +12,13 @@
   the total. Honesty is a gate on top of either mode.
 - **Consequence.** No weight in the spec was changed. The equal within-dimension points are a placeholder to be
   replaced by calibration against store outcomes (spec 19.2). **Needs owner confirmation.**
+
+## Addendum: partial scores
+
+- **Context.** Leaving unscorable items out of the denominator is right for an occasional unclear turn, but when a
+  whole pass is missing (the offline customer has no judge; text mode drops voice items) a total built on 25 of 100
+  points read as "100, passed".
+- **Decision.** Every score carries `coverage`, the share of applicable points that could be scored. Below 70% the
+  score is `partial`: shown with its coverage, never a pass, never counted toward certification.
+- **Consequence.** Offline and degraded sessions still give honest feedback on what was measured, without claiming a
+  result they cannot support. The 70% floor is a first value, to revisit with the pilot data.

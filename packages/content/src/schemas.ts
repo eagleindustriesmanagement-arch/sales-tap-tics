@@ -202,8 +202,15 @@ export const personaSchema = z
      */
     offline_lines: z
       .object({
+        /** Before an unlock. */
         deflect: z.array(bilingual).min(1),
+        /** The first answer after an unlock: points toward the concern without saying it. */
+        hint: bilingual,
+        /** If the rep's next turn does not press the concern. */
+        after_hint: bilingual,
         reveal: bilingual,
+        /** Once the concern is out. */
+        after_reveal: z.array(bilingual).min(1),
         agree_next_step: bilingual,
         not_now: bilingual,
         walk_away: bilingual,

@@ -73,6 +73,10 @@ export interface ScoreResult {
   level: 1 | 2 | 3;
   threshold: number;
   aggregation: "points" | "dimension_weights";
+  /** Share of the possible points that could be scored (0 to 1). Below MIN_COVERAGE the score is partial. */
+  coverage: number;
+  /** Too little was scorable (offline judge, text mode, unclear audio): shown as partial, never a pass. */
+  partial: boolean;
   dimensions: Record<Exclude<Dimension, "honesty">, number | null>;
   items: ItemResult[];
   autoFails: { code: string; description: BilingualText; evidence: Evidence | null }[];

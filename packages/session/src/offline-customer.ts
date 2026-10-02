@@ -27,6 +27,8 @@ export interface CustomerVoice {
  */
 export class OfflineCustomer implements CustomerVoice {
   private deflections = 0;
+  private afterReveal = 0;
+  private hinted = false;
   private revealed = false;
 
   constructor(private readonly scenario: Scenario, private readonly persona: Persona, private readonly language: Language) {
@@ -38,6 +40,10 @@ export class OfflineCustomer implements CustomerVoice {
     return { text, raw: text };
   }
 
+  /**
+   * Paced like a real customer (spec 10.3 item 1): the first answer after an unlock only hints; the concern comes
+   * out on the next turn that presses it, or when the engine says it is time.
+   */
   async *reply(_repText: string, d: CustomerDirective, signals?: RepTurnSignals): AsyncGenerator<CustomerSentence, CustomerTurnResult> {
     const lines = this.persona.offline_lines!;
     const say = (line: { en: string; es: string }) => line[this.language];
@@ -51,15 +57,22 @@ export class OfflineCustomer implements CustomerVoice {
       cue = " [agreed_next_step]";
     } else if (d.exit === "walk_away") text = say(lines.walk_away);
     else if (d.exit === "not_now") text = say(lines.not_now);
-    else if ((d.revealNow || d.mayReveal) && !this.revealed) {
+    else if (d.mayReveal && !this.revealed && !this.hinted && !d.revealNow) {
+      text = say(lines.hint);
+      this.hinted = true;
+    } else if (d.mayReveal && !this.revealed && (d.revealNow || (signals?.unlocks.length ?? 0) > 0)) {
       text = say(lines.reveal);
       cue = " [revealed]";
       this.revealed = true;
-    } else if (signals?.proposesTime) {
+    } else if (d.mayReveal && !this.revealed) text = say(lines.after_hint);
+    else if (signals?.proposesTime) {
       text = say(lines.agree_next_step);
       cue = " [agreed_next_step]";
     } else if (d.triggerJustHit) text = say(lines.react_to_pressure);
-    else {
+    else if (this.revealed) {
+      text = say(lines.after_reveal[this.afterReveal % lines.after_reveal.length]!);
+      this.afterReveal += 1;
+    } else {
       text = say(lines.deflect[this.deflections % lines.deflect.length]!);
       this.deflections += 1;
     }

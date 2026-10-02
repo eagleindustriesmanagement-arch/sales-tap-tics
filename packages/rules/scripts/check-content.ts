@@ -61,10 +61,10 @@ for (const s of library.scenarios.values()) {
   const persona = library.personas.get(s.persona);
   if (persona?.offline_lines) {
     const o = persona.offline_lines;
-    const all = [...o.deflect, o.reveal, o.agree_next_step, o.not_now, o.walk_away, o.goodbye, o.react_to_pressure];
+    const all = [...o.deflect, o.hint, o.after_hint, o.reveal, ...o.after_reveal, o.agree_next_step, o.not_now, o.walk_away, o.goodbye, o.react_to_pressure];
     for (const line of all) {
       for (const lang of ["en", "es"] as const) {
-        const issues = guardCustomerLine({ text: line[lang], language: lang, facts: s.facts, lexicon: library.lexicon!, hiddenTruthMarkers: persona.hidden_truth_markers, hiddenUnlocked: line === o.reveal });
+        const issues = guardCustomerLine({ text: line[lang], language: lang, facts: s.facts, lexicon: library.lexicon!, hiddenTruthMarkers: persona.hidden_truth_markers, hiddenUnlocked: line === o.reveal || o.after_reveal.includes(line) });
         for (const issue of issues) {
           critical += 1;
           console.error(`critical ${persona.code} offline line (${lang}) ${issue.kind}: "${issue.span.text}"`);

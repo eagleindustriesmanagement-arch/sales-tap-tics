@@ -2,7 +2,8 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const DIR = join(dirname(fileURLToPath(import.meta.url)), "../prompts");
+/** Apps that bundle this package set TAPTICS_PROMPTS_DIR, since bundlers move files. */
+const DIR = process.env.TAPTICS_PROMPTS_DIR ?? join(dirname(fileURLToPath(import.meta.url)), "../prompts");
 
 export interface PromptTemplate {
   id: string;

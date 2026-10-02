@@ -70,6 +70,7 @@ items:
       es: "Habló el 65% del tiempo o menos"
     dimension: discovery
     method: timing
+    voice_only: true
     points: 1
     evidence: "Gong: results suffered above 65%"
     params: { max_share: 0.65 }
@@ -79,9 +80,10 @@ items:
       es: "Su intervención más larga duró menos de 60 segundos"
     dimension: discovery
     method: timing
+    voice_only: true
     points: 1
     evidence: "Gong: shorter seller monologues in won deals"
-    params: { max_seconds: 60, text_mode_words_per_minute: 150 }
+    params: { max_seconds: 60 }
   - code: U-ADAPT
     behavior:
       en: "Changed approach after the customer signaled their style"

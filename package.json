@@ -14,7 +14,9 @@
     "content:validate": "tsx packages/content/scripts/validate.ts && tsx packages/rules/scripts/check-content.ts",
     "content:import-spec": "tsx packages/content/scripts/import-spec.ts",
     "i18n:check": "tsx packages/i18n/scripts/check.ts",
-    "check": "pnpm typecheck && pnpm test && pnpm content:validate && pnpm i18n:check"
+    "check": "pnpm typecheck && pnpm test && pnpm content:validate && pnpm i18n:check && pnpm web:typecheck",
+    "web:typecheck": "pnpm --filter @taptics/web typecheck",
+    "web:build": "pnpm --filter @taptics/web build"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

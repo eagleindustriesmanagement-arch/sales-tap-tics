@@ -26,7 +26,8 @@ import {
   type Technique,
 } from "./schemas.js";
 
-export const PLATFORM_LIBRARY = resolve(dirname(fileURLToPath(import.meta.url)), "../library");
+/** The platform library. Apps that bundle this package set TAPTICS_CONTENT_DIR, since bundlers move files. */
+export const PLATFORM_LIBRARY = process.env.TAPTICS_CONTENT_DIR ?? resolve(dirname(fileURLToPath(import.meta.url)), "../library");
 
 export interface Library {
   techniques: Map<string, Technique>;

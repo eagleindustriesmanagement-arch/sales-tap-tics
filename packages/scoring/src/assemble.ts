@@ -52,6 +52,15 @@ function ratio(items: ItemResult[]): number | null {
 
 const round1 = (x: number) => Math.round(x * 10) / 10;
 
+/** A total resting on less than this share of the possible points is partial and cannot pass (decision 0004). */
+export const MIN_COVERAGE = 0.7;
+
+function coverageOf(items: ItemResult[]): number {
+  const applicable = items.filter((i) => i.status !== "not_applicable" && i.max > 0);
+  const max = applicable.reduce((s, i) => s + i.max, 0);
+  return max === 0 ? 0 : applicable.filter((i) => i.status === "scored").reduce((s, i) => s + i.max, 0) / max;
+}
+
 /**
  * Scores one session (spec 13.4): deterministic pass, judge pass, assembly with the honesty gate. The result is
  * stored immutably with the judge model and prompt version.
@@ -113,16 +122,20 @@ export async function scoreSession(input: ScoreInput): Promise<ScoreResult> {
   // "0 for the attempt" (spec 10.5): a failed honesty gate fails everything, whatever else went well.
   if (!honestyPassed) total = 0;
 
+  const coverage = coverageOf(scenario.scoring ? results.filter((r) => r.scenarioItem) : results);
+  const partial = coverage < MIN_COVERAGE;
   const level = input.level ?? scenario.difficulty as 1 | 2 | 3;
   const threshold = level === 1 ? thresholds.level_1 : level === 2 ? thresholds.level_2 : thresholds.level_3;
   return {
     rubric: scenario.rubric,
     total: round1(total),
-    passed: honestyPassed && total >= threshold,
+    passed: honestyPassed && !partial && total >= threshold,
     honestyPassed,
     level,
     threshold,
     aggregation,
+    coverage: round1(coverage * 100) / 100,
+    partial,
     dimensions: Object.fromEntries(Object.entries(dimensions).map(([k, v]) => [k, v === null ? null : round1(v)])) as ScoreResult["dimensions"],
     items: results,
     autoFails,

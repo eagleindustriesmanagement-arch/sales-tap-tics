@@ -1,0 +1,26 @@
+import { notFound } from "next/navigation";
+import { aiConfigured, language, library } from "@/lib/server";
+import { PracticeRoom, type RoomScenario } from "@/components/practice-room";
+
+export default async function Practice({ params }: { params: Promise<{ code: string }> }) {
+  const { code } = await params;
+  const lib = library();
+  const s = lib.scenarios.get(code);
+  if (!s) notFound();
+  const lang = await language();
+  const scenario: RoomScenario = {
+    code: s.code,
+    title: s.title,
+    setting: s.setting,
+    languages: s.language_options,
+    targets: s.target_techniques.map((c) => {
+      const tech = lib.techniques.get(c)!;
+      return { code: c, name: tech.name, grade: tech.evidence.grade };
+    }),
+    demos: {
+      flawed: { notice: s.demonstrations.flawed.notice, script: s.demonstrations.flawed.script },
+      good: { notice: s.demonstrations.good.notice, script: s.demonstrations.good.script },
+    },
+  };
+  return <PracticeRoom scenario={scenario} uiLanguage={lang} live={aiConfigured()} />;
+}
