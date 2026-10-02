@@ -42,7 +42,7 @@ export default async function Team() {
           <tbody className="divide-y divide-line text-ink">
             {team.map((r) => (
               <tr key={r.id}>
-                <td className="py-2 pr-3 font-semibold">{r.first_name}</td>
+                <td className="py-2 pr-3 font-semibold"><Link href={`/manager/team/${r.id}`} className="text-brand underline">{r.first_name}</Link></td>
                 <td className="pr-3">{r.sessions_this_week}</td>
                 <td className="pr-3">{r.avg_score === null ? "—" : Math.round(r.avg_score)}</td>
                 <td className="pr-3">{r.card ? `${library().behaviorCards.get(r.card)?.title[lang] ?? r.card} (${r.card_status})` : "—"}</td>

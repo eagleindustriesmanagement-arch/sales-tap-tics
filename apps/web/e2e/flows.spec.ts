@@ -7,11 +7,22 @@ const db = () => new pg.Client({ connectionString: process.env.DATABASE_URL });
 /** The demo store (packages/db/scripts/seed-demo.ts); other tenants, such as the load test's, may share the database. */
 const DEMO_STORE = "22222222-2222-4222-8222-222222222222";
 
-/** Signs in and, when the consent notice shows (first sign-in), accepts it. */
+/** Session cookies by account: each account signs in once per run, which keeps the tests under the real limit of
+ *  five codes per account per 15 minutes. */
+const sessions = new Map<string, Awaited<ReturnType<ReturnType<Page["context"]>["cookies"]>>>();
+
+/** Signs in (or reuses this run's session) and, when the consent notice shows, accepts it. */
 async function signInReady(page: Page, email: string) {
+  const saved = sessions.get(email);
+  if (saved) {
+    await page.context().addCookies(saved);
+    await page.goto("/");
+    if (!/\/login$/.test(page.url())) return;
+  }
   await signIn(page, email);
   if (/\/consent$/.test(page.url())) await page.getByRole("button", { name: "I understand and agree" }).click();
   await expect(page).not.toHaveURL(/\/consent$/);
+  sessions.set(email, await page.context().cookies());
 }
 
 async function signIn(page: Page, email: string) {
@@ -339,4 +350,23 @@ test("the general manager adds a person who can sign in, then deactivates them",
   const manager = await browser.newPage();
   await signInReady(manager, "manager@demo.test");
   expect((await manager.request.post("/api/people", { data: { firstName: "X", email: "e2e-x@demo.test", language: "en", roles: ["rep"] } })).status()).toBe(403);
+});
+
+test("a rep sees their progress; a manager opens a rep's detail from the team view", async ({ page, browser }) => {
+  await signInReady(page, "rep@demo.test");
+  await page.getByRole("link", { name: "See my progress" }).click();
+  await expect(page.getByRole("heading", { name: "Progress" })).toBeVisible();
+  await expect(page.getByTestId("progress-certified")).toHaveText("0/20");
+  // Offline scores are partial, so no weekly dimension scores yet; that is said plainly.
+  await expect(page.getByTestId("progress-no-scores")).toBeVisible();
+
+  const manager = await browser.newPage();
+  await signInReady(manager, "manager@demo.test");
+  await manager.goto("/manager/team");
+  await manager.getByRole("link", { name: "Ana", exact: true }).click();
+  await expect(manager.getByRole("heading", { name: "Ana" })).toBeVisible();
+  await expect(manager.getByTestId("progress-cards")).toContainText("Checked on the floor: Yes");
+  // A rep cannot open another rep's detail.
+  await page.goto(`/manager/team/${(await manager.url()).split("/").pop()}`);
+  await expect(page).toHaveURL(/localhost:\d+\/$/);
 });

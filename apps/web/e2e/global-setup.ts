@@ -21,6 +21,10 @@ export default async function globalSetup() {
   );
   await c.query("update stores set settings = '{}' where id = $1", [store]);
   // People added by an earlier run step aside, so the same email can be added again.
+  await c.query(
+    `delete from memberships where user_id in (select id from users where tenant_id = '11111111-1111-4111-8111-111111111111'
+       and (email like 'e2e-%@demo.test' or (email is null and phone is null and status = 'inactive')))`,
+  );
   await c.query("update users set status = 'inactive', email = null where email like 'e2e-%@demo.test'");
   await c.end();
 }

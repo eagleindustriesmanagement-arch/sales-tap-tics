@@ -709,3 +709,50 @@ export async function setPersonStatus(db: Queryable, gm: UserContext, userId: st
   if (r.rowCount === 0) throw new Error("not in your store");
   await audit(db, gm, status === "inactive" ? "person.deactivate" : "person.reactivate", "user", userId);
 }
+
+// ---------------------------------------------------------------- progress and rep detail (spec 18.1 Progress, 18.2 Rep detail)
+
+export interface RepProgress {
+  /** Average of complete (not partial) scores per dimension, by week, last 8 weeks, oldest first. */
+  weeks: { week: string; sessions: number; dimensions: Record<string, number> }[];
+  /** Rubric items scored at least twice, weakest first. */
+  weakest: { code: string; ratio: number; times: number }[];
+  cards: { week: string; cardCode: string; status: string; observed: string | null; note: string | null }[];
+}
+
+/** One rep's progress. Row-level security decides who may see it, including the private window. */
+export async function progressFor(db: Queryable, userId: string): Promise<RepProgress> {
+  const weeks = await db.query(
+    `select to_char(date_trunc('week', s.started_at), 'YYYY-MM-DD') week, d.key, avg(d.value::text::float)::real avg, count(distinct s.id)::int n
+     from sessions s join scores sc on sc.session_id = s.id, jsonb_each(sc.dimensions) d
+     where s.user_id = $1 and s.started_at > now() - interval '56 days' and not coalesce((sc.dimensions->>'partial')::boolean, false)
+       and jsonb_typeof(d.value) = 'number' and d.key not in ('coverage')
+     group by 1, 2 order by 1`,
+    [userId],
+  );
+  const byWeek = new Map<string, { week: string; sessions: number; dimensions: Record<string, number> }>();
+  for (const r of weeks.rows) {
+    const w = byWeek.get(r.week) ?? { week: r.week as string, sessions: 0, dimensions: {} as Record<string, number> };
+    w.dimensions[r.key] = Math.round(r.avg);
+    w.sessions = Math.max(w.sessions, r.n);
+    byWeek.set(r.week, w);
+  }
+  const items = await db.query(
+    `select i->>'code' code, avg((i->>'points')::float / nullif((i->>'max')::float, 0))::real ratio, count(*)::int times
+     from sessions s join scores sc on sc.session_id = s.id, jsonb_array_elements(sc.items) i
+     where s.user_id = $1 and i->>'status' = 'scored' and (i->>'max')::float > 0
+     group by 1 having count(*) >= 2 order by 2, 1 limit 3`,
+    [userId],
+  );
+  const cards = await db.query(
+    `select c.due_week::text week, c.card_code, c.status, f.observed, f.note
+     from behavior_card_issues c left join floor_checks f on f.card_issue_id = c.id
+     where c.user_id = $1 order by c.due_week desc limit 12`,
+    [userId],
+  );
+  return {
+    weeks: [...byWeek.values()],
+    weakest: items.rows.map((r) => ({ code: r.code, ratio: r.ratio, times: r.times })),
+    cards: cards.rows.map((r) => ({ week: r.week, cardCode: r.card_code, status: r.status, observed: r.observed, note: r.note })),
+  };
+}

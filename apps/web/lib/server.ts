@@ -200,3 +200,16 @@ export function scheduleInputs(lib = library()) {
   const itemsByScenario = new Map([...lib.scenarios.values()].map((s) => [s.code, (s.scoring?.items ?? []).map((i) => i.code)]));
   return { scenarios, itemsByScenario };
 }
+
+/** Plain-language behavior for any rubric item code, universal or scenario-specific. */
+export function itemBehavior(code: string, lib = library()) {
+  for (const r of lib.rubrics.values()) {
+    const item = r.items.find((i) => i.code === code);
+    if (item) return item.behavior;
+  }
+  for (const s of lib.scenarios.values()) {
+    const item = s.scoring?.items.find((i) => i.code === code);
+    if (item) return item.behavior;
+  }
+  return null;
+}

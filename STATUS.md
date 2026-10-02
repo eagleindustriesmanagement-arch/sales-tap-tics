@@ -43,6 +43,9 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
   engine before it is saved; lines with numbers also need the compliance reviewer. `pnpm --filter @taptics/db
   apply-reviews --tenant=<id>` writes approved edits back into the YAML (only the edited values change) and marks a
   file reviewed when every line is approved.
+- **Progress and rep detail** (spec 18.1, 18.2): certification count, complete-score dimensions by week for 8
+  weeks, weakest skills, mastery by objection, and behavior cards with the floor-check result. The rep sees their
+  own; a manager opens any of their reps from the team view (row-level security keeps the private window).
 - **People** (spec 18.3 Users, general manager): add a person with an email or phone and roles, change roles,
   deactivate (sign-in stops on the next request), all audit-logged. A general manager cannot remove their own role.
 - **Coach the coach** (spec 14.3): managers practice a floor check and are scored on its four parts.
@@ -95,7 +98,8 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 - 353 unit and database tests: rules 116, session 99 (including the 20-scenario release gate and the 30-day
   simulation), engine 60, database 32 (row-level security for reads and writes, sign-in, repository, assignments,
   coaching practice, Spanish review, usage, people), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
-- 16 browser tests (11 flows and 5 accessibility audits) on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
+- 17 browser tests (12 flows and 5 accessibility audits); each account signs in once per run, under the real limit
+  of five codes per 15 minutes on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; the general manager edits store
   setup (a one-language consent text is refused), cannot sign it off, and the reviewer signs off and sees the flags;

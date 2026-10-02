@@ -35,7 +35,7 @@ test("the login page", async ({ page }) => {
 
 test("rep screens", async ({ page }) => {
   await signIn(page, "rep@demo.test");
-  for (const path of ["/", "/practice", "/practice/S-partner-check-L1", "/history", "/library", "/library/T002"]) await audit(page, path);
+  for (const path of ["/", "/practice", "/practice/S-partner-check-L1", "/history", "/progress", "/library", "/library/T002"]) await audit(page, path);
 });
 
 test("a live practice session and its debrief", async ({ page }) => {

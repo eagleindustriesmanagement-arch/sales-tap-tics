@@ -66,6 +66,7 @@ export default async function Today() {
           </div>
         </Card>
       )}
+      <Link href="/progress" className="inline-block font-semibold text-brand underline">{t("progress.link", lang)}</Link>
       <Card>
         <h2 className="font-semibold text-ink">{card ? t("card.issued", lang) : t("today.behaviorCard", lang)}</h2>
         {card ? (
