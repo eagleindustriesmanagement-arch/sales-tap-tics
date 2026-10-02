@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { t } from "@taptics/i18n";
+import { isManager } from "@taptics/db";
+import { currentUser } from "@/lib/auth";
 import { language } from "@/lib/server";
 import "./globals.css";
 
@@ -16,7 +18,12 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await language();
   const other = lang === "en" ? "es" : "en";
-  const links: [string, string][] = [["/", t("nav.today", lang)], ["/library", t("nav.library", lang)], ["/manager/floor", t("nav.floor", lang)]];
+  const user = await currentUser();
+  const links: [string, string][] = !user
+    ? []
+    : isManager(user)
+      ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/library", t("nav.library", lang)]]
+      : [["/", t("nav.today", lang)], ["/history", t("nav.history", lang)], ["/library", t("nav.library", lang)]];
   return (
     <html lang={lang}>
       <body className="min-h-dvh font-sans antialiased">
@@ -34,6 +41,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <Link key={href} className="whitespace-nowrap rounded-lg px-3 py-2 text-ink hover:bg-ground" href={href}>{label}</Link>
               ))}
             </nav>
+            {user && (
+              <form action="/api/auth/logout" method="post" className="ml-auto hidden sm:ml-0 sm:block">
+                <button className="min-h-11 rounded-lg px-3 text-sm font-medium text-muted hover:bg-ground">{t("login.signOut", lang)}</button>
+              </form>
+            )}
             <form action="/api/language" method="post" className="ml-auto sm:ml-0">
               <input type="hidden" name="lang" value={other} />
               <button className="min-h-11 rounded-lg border border-line px-3 text-sm font-medium text-ink hover:bg-ground" lang={other}>{t("language.switch", lang)}</button>
@@ -41,11 +53,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </div>
         </header>
         {/* Phones: thumb-reach tab bar (spec 18.4 rule 7). */}
-        <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-10 grid grid-cols-3 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] sm:hidden">
+        {links.length > 0 && <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-10 grid grid-cols-3 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] sm:hidden">
           {links.map(([href, label]) => (
             <Link key={href} href={href} className="flex min-h-14 items-center justify-center text-sm font-semibold text-ink">{label}</Link>
           ))}
-        </nav>
+        </nav>}
         <main id="main" className="mx-auto max-w-3xl px-4 py-6">{children}</main>
         <footer className="mx-auto max-w-3xl px-4 pb-24 text-xs text-muted sm:pb-10">{t("app.disclaimer", lang)}</footer>
       </body>

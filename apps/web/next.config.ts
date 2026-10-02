@@ -5,7 +5,8 @@ const root = resolve(process.cwd(), "../..");
 
 const config: NextConfig = {
   // Workspace packages ship TypeScript source.
-  transpilePackages: ["@taptics/ai", "@taptics/content", "@taptics/engine", "@taptics/i18n", "@taptics/rules", "@taptics/scoring", "@taptics/session"],
+  serverExternalPackages: ["pg"],
+  transpilePackages: ["@taptics/ai", "@taptics/db", "@taptics/content", "@taptics/engine", "@taptics/i18n", "@taptics/rules", "@taptics/scoring", "@taptics/session"],
   env: {
     TAPTICS_CONTENT_DIR: process.env.TAPTICS_CONTENT_DIR ?? resolve(root, "packages/content/library"),
     TAPTICS_PROMPTS_DIR: process.env.TAPTICS_PROMPTS_DIR ?? resolve(root, "packages/ai/prompts"),

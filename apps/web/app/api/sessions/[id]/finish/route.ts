@@ -1,19 +1,24 @@
 import { NextResponse } from "next/server";
-import { getSession } from "@/lib/server";
+import { apiUser } from "@/lib/auth";
+import { finishSession, liveSession } from "@/lib/server";
+import { debriefPayload } from "@/lib/payload";
 
 export async function POST(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const user = await apiUser();
+  if (user instanceof NextResponse) return user;
   const { id } = await params;
-  const live = getSession(id);
-  if (!live) return NextResponse.json({ error: "session not found" }, { status: 404 });
-  live.result ??= await live.session.finish();
-  const r = live.result;
-  return NextResponse.json({
-    language: r.language,
-    offline: r.offline,
-    endReason: r.engine.endReason,
-    nextStepSecured: r.engine.nextStepSecured,
-    debrief: r.debrief,
-    score: { total: r.score.total, passed: r.score.passed, partial: r.score.partial, coverage: r.score.coverage, threshold: r.score.threshold, honestyPassed: r.score.honestyPassed, dimensions: r.score.dimensions, items: r.score.items.map((i) => ({ code: i.code, points: i.points, max: i.max, status: i.status, explanation: i.explanation })) },
-    transcript: r.transcript.map((t) => ({ index: t.index, speaker: t.speaker, text: t.text })),
-  });
+  const s = liveSession(id, user);
+  if (!s) return NextResponse.json({ error: "session not found" }, { status: 404 });
+  const r = await finishSession(s, user);
+  return NextResponse.json(
+    debriefPayload({
+      language: r.language,
+      offline: r.offline,
+      endReason: r.engine.endReason,
+      nextStepSecured: r.engine.nextStepSecured,
+      score: r.score,
+      debrief: r.debrief,
+      transcript: r.transcript,
+    }),
+  );
 }

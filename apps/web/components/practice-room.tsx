@@ -194,7 +194,7 @@ export function PracticeRoom({ scenario, uiLanguage, live }: { scenario: RoomSce
               <button className={`${buttonClass} w-full`} onClick={finish}>{ui("practice.seeDebrief")}</button>
             </Card>
           ) : (
-            <form className="sticky bottom-16 flex gap-2 sm:bottom-2 rounded-2xl border border-line bg-surface p-2" onSubmit={(e) => { e.preventDefault(); void send(); }}>
+            <form data-testid="composer" data-busy={busy ? "true" : "false"} className="sticky bottom-16 flex gap-2 sm:bottom-2 rounded-2xl border border-line bg-surface p-2" onSubmit={(e) => { e.preventDefault(); void send(); }}>
               <label htmlFor="say" className="sr-only">{ui("practice.typeHere")}</label>
               <textarea id="say" rows={2} value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); void send(); } }} placeholder={ui("practice.typeHere")} className="min-h-12 flex-1 resize-none rounded-xl bg-ground px-3 py-2 text-ink" lang={lang} />
               <div className="flex flex-col gap-2">

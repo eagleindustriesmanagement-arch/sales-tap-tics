@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { t } from "@taptics/i18n";
 import { Card, Grade, Pill } from "@/components/ui";
+import { requireUser } from "@/lib/auth";
 import { language, library } from "@/lib/server";
 
 function Both({ label, value, quote = false }: { label: string; value: { en: string; es: string }; quote?: boolean }) {
@@ -16,6 +17,7 @@ function Both({ label, value, quote = false }: { label: string; value: { en: str
 }
 
 export default async function Detail({ params }: { params: Promise<{ code: string }> }) {
+  await requireUser();
   const { code } = await params;
   const lang = await language();
   const lib = library();

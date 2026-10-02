@@ -99,6 +99,17 @@ describe("exit policy (spec 1.3, 21.3 item 1)", () => {
     expect(o.events.some((x) => x.event === "not_now_triggered")).toBe(true);
   });
 
+  it("a leaving customer who agrees to a next step ends the conversation with it", () => {
+    const e = engine({ exitDraw: 0.2 }); // not-now band
+    e.onRepTurn(detectFromCues({ text: "Is the payment where you told her it would be?", language: "en", persona, lexicon }));
+    e.onCustomerTurn("Honestly, it is sixty bucks more. [revealed]");
+    const d = e.onRepTurn(detectFromCues({ text: "Does tomorrow at 5:30 work?", language: "en", persona, lexicon }));
+    expect(d.exit).toBe("not_now");
+    e.onCustomerTurn("Okay, that works for us. [agreed_next_step]");
+    expect(e.ended).toBe(true);
+    expect(e.outcome()).toMatchObject({ endReason: "not_now", nextStepSecured: true });
+  });
+
   it("customer-prep sessions never exit on their own", () => {
     expect(run(engine({ exitDraw: 0, mode: "customer_prep" }), AVERAGE_REP).exit).toBeNull();
   });

@@ -15,6 +15,7 @@ export interface UserContext {
   roles: Role[];
   storeId: string | null;
   privateWindowHours: number;
+  audioRetentionDays: number;
   stopOnCritical: boolean;
   consentVersion: string | null;
 }
@@ -29,8 +30,8 @@ export async function loadUser(db: Queryable, userId: string): Promise<UserConte
   const m = await db.query<{ role: Role; store_id: string }>("select role, store_id from memberships where user_id = $1 order by created_at", [userId]);
   const storeId = m.rows[0]?.store_id ?? null;
   const p = storeId
-    ? await db.query<{ private_window_hours: number; stop_on_critical: boolean }>("select private_window_hours, stop_on_critical from store_policies where store_id = $1", [storeId])
-    : { rows: [] as { private_window_hours: number; stop_on_critical: boolean }[] };
+    ? await db.query<{ private_window_hours: number; stop_on_critical: boolean; audio_retention_days: number }>("select private_window_hours, stop_on_critical, audio_retention_days from store_policies where store_id = $1", [storeId])
+    : { rows: [] as { private_window_hours: number; stop_on_critical: boolean; audio_retention_days: number }[] };
   const c = await db.query<{ version: string }>("select version from consents where user_id = $1 order by accepted_at desc limit 1", [userId]);
   return {
     id: user.id,
@@ -40,6 +41,7 @@ export async function loadUser(db: Queryable, userId: string): Promise<UserConte
     roles: [...new Set(m.rows.map((r) => r.role))],
     storeId,
     privateWindowHours: p.rows[0]?.private_window_hours ?? 24,
+    audioRetentionDays: p.rows[0]?.audio_retention_days ?? 180,
     stopOnCritical: p.rows[0]?.stop_on_critical ?? true,
     consentVersion: c.rows[0]?.version ?? null,
   };

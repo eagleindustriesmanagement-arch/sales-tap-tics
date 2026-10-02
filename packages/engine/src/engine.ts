@@ -255,7 +255,8 @@ export class ScenarioEngine {
     }
 
     if (this.exit) {
-      if (this.exitTurnsLeft <= 0 || CUSTOMER_CUES.leaving.test(raw)) this.end(this.exit);
+      // A leaving customer who agrees to a next step leaves with it; the exit still counts as the ending.
+      if (this.exitTurnsLeft <= 0 || CUSTOMER_CUES.leaving.test(raw) || this.nextStepSecured) this.end(this.exit);
     } else if (this.winMet()) {
       this.end(this.sale ? "sale" : "next_step");
     }

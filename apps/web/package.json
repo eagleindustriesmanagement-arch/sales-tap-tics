@@ -7,7 +7,8 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@taptics/ai": "workspace:*",
@@ -20,13 +21,17 @@
     "next": "16.3.8",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "server-only": "0.0.1"
+    "server-only": "0.0.1",
+    "@taptics/db": "workspace:*",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.3",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "tailwindcss": "4.3.3",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "@types/pg": "^8.11.10",
+    "@playwright/test": "1.56.1"
   }
 }

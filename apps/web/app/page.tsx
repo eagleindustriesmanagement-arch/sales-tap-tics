@@ -1,17 +1,27 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { isManager, listSessions, weekCards } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { Card, Grade, buttonClass } from "@/components/ui";
+import { principalOf, requireUser } from "@/lib/auth";
+import { asUser } from "@/lib/db";
 import { language, library } from "@/lib/server";
 
 export default async function Today() {
+  const user = await requireUser();
+  if (isManager(user)) redirect("/manager/floor");
   const lang = await language();
   const lib = library();
-  const scenarios = [...lib.scenarios.values()].filter((s) => s.status === "active");
-  const next = scenarios[0];
+  const { cards, recent } = await asUser(principalOf(user), async (db) => ({
+    cards: (await weekCards(db)).filter((c) => c.userId === user.id),
+    recent: await listSessions(db, { userId: user.id, limit: 3 }),
+  }));
+  const card = cards[0] ? lib.behaviorCards.get(cards[0].cardCode) : undefined;
+  const next = [...lib.scenarios.values()].find((s) => s.status === "active");
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-2xl font-bold text-ink">{t("today.title", lang)}</h1>
+        <h1 className="text-2xl font-bold text-ink">{t("today.title", lang)}{user.firstName ? `, ${user.firstName}` : ""}</h1>
         <p className="mt-1 text-muted">{t("app.tagline", lang)}</p>
       </div>
       {next && (
@@ -30,19 +40,32 @@ export default async function Today() {
               );
             })}
           </div>
-          <Link href={`/practice/${next.code}`} className={`${buttonClass} mt-4 w-full sm:w-auto`}>
-            {t("today.practiceNow", lang)}
-          </Link>
+          <Link href={`/practice/${next.code}`} className={`${buttonClass} mt-4 w-full sm:w-auto`}>{t("today.practiceNow", lang)}</Link>
         </Card>
       )}
       <Card>
-        <h2 className="font-semibold text-ink">{t("today.behaviorCard", lang)}</h2>
-        <p className="mt-1 text-muted">{t("today.noCard", lang)}</p>
+        <h2 className="font-semibold text-ink">{card ? t("card.issued", lang) : t("today.behaviorCard", lang)}</h2>
+        {card ? (
+          <div className="mt-2 space-y-2" data-testid="my-card">
+            <p className="text-lg font-semibold text-ink">{card.title[lang]}</p>
+            <p>{card.behavior[lang]}</p>
+            <p className="rounded-xl bg-ground p-3 text-ink">{card.floor_check_script.line[lang]}</p>
+            {cards[0]!.status === "checked" && <p className="font-semibold text-good">{t("card.checked", lang)}</p>}
+          </div>
+        ) : (
+          <p className="mt-1 text-muted">{t("today.noCard", lang)}</p>
+        )}
       </Card>
-      <Card>
-        <h2 className="font-semibold text-ink">{t("today.assignments", lang)}</h2>
-        <p className="mt-1 text-muted">{t("today.noAssignments", lang)}</p>
-      </Card>
+      {recent.length > 0 && (
+        <Card>
+          <h2 className="font-semibold text-ink">{t("history.title", lang)}</h2>
+          <ul className="mt-2 divide-y divide-line">
+            {recent.map((s) => (
+              <li key={s.id}><Link href={`/history/${s.id}`} className="flex min-h-12 items-center justify-between gap-3 text-ink"><span>{lib.scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode}</span><span className="font-mono">{s.total === null ? t("history.inProgress", lang) : Math.round(s.total)}</span></Link></li>
+            ))}
+          </ul>
+        </Card>
+      )}
     </div>
   );
 }

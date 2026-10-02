@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { t, type Language } from "@taptics/i18n";
 import { Card, Grade, Pill } from "@/components/ui";
+import { requireUser } from "@/lib/auth";
 import { language, library } from "@/lib/server";
 
 const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
 export default async function Library({ searchParams }: { searchParams: Promise<{ tab?: string; q?: string; grade?: string }> }) {
+  await requireUser();
   const lang: Language = await language();
   const { tab = "techniques", q = "", grade = "" } = await searchParams;
   const lib = library();

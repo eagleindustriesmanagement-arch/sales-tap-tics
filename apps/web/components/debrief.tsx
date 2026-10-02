@@ -10,6 +10,7 @@ export interface DebriefPayload {
   nextStepSecured: boolean;
   score: { total: number; passed: boolean; partial: boolean; coverage: number; threshold: number; honestyPassed: boolean; items: { code: string; points: number; max: number; status: string; explanation: Bilingual }[] };
   debrief: {
+    score?: { threshold: number };
     critical: { rule: string; quote: string; trueFact: Bilingual; compliantLine: Bilingual | null; explanation: Bilingual }[];
     autoFails: { code: string; description: Bilingual; quote: string | null }[];
     worked: { code: string; behavior: Bilingual; quote: string | null; explanation: Bilingual }[];

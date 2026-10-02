@@ -10,6 +10,25 @@ pnpm check                      # typecheck, tests, content CI, i18n check, web 
 pnpm --filter @taptics/web dev  # http://localhost:3000 (offline customer unless ANTHROPIC_API_KEY is set)
 ```
 
+Local app with a database:
+
+```bash
+export DATABASE_URL=postgresql://...          # Postgres 16
+pnpm db:seed                                  # migrations + demo tenant: rep@demo.test, rep2@, manager@, gm@
+pnpm db:publish-content                       # the content library as an immutable release
+TAPTICS_DEV_LOGIN=1 pnpm --filter @taptics/web dev   # sign-in codes shown on screen (development only)
+pnpm --filter @taptics/web e2e                # browser tests against the production build
+```
+
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL` | Postgres connection (required) |
+| `TAPTICS_SECRET` | 32+ characters; keys login-code hashes (required in production) |
+| `ANTHROPIC_API_KEY` | Live AI customer, classifier and judge; without it, the offline customer |
+| `RESEND_API_KEY`, `TAPTICS_EMAIL_FROM` | Email delivery of sign-in codes |
+| `TAPTICS_CODE_OUTBOX` | File that receives sign-in codes (staging, browser tests); set only on purpose |
+| `TAPTICS_DEV_LOGIN=1` | Shows sign-in codes on screen; ignored in production |
+
 Database tests need Postgres 16 (`DATABASE_URL`, or a local socket as a superuser). `SKIP_DB=1` skips them
 explicitly; they never pass silently without a database.
 

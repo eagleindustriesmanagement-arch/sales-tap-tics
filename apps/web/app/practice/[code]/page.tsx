@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
+import { requireUser } from "@/lib/auth";
 import { aiConfigured, language, library } from "@/lib/server";
 import { PracticeRoom, type RoomScenario } from "@/components/practice-room";
 
 export default async function Practice({ params }: { params: Promise<{ code: string }> }) {
+  await requireUser();
   const { code } = await params;
   const lib = library();
   const s = lib.scenarios.get(code);

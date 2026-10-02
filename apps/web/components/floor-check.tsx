@@ -13,7 +13,7 @@ export interface FloorCard {
 }
 
 /** A floor check recorded in under 60 seconds on a phone (spec 14.1, 22.1 M5). The timer starts on first tap. */
-export function FloorCheck({ card, language: lang }: { card: FloorCard; language: Language }) {
+export function FloorCheck({ card, issueId, repName, status, language: lang }: { card: FloorCard; issueId: string; repName: string; status: string; language: Language }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
   const started = useRef<number | null>(null);
   const [observed, setObserved] = useState<"yes" | "partly" | "no" | null>(null);
@@ -21,17 +21,20 @@ export function FloorCheck({ card, language: lang }: { card: FloorCard; language
   const [specific, setSpecific] = useState(false);
   const [modeled, setModeled] = useState(false);
   const [saved, setSaved] = useState<number | null>(null);
+  const [error, setError] = useState(false);
   const touch = () => (started.current ??= Date.now());
 
   async function save() {
     const seconds = Math.round((Date.now() - (started.current ?? Date.now())) / 1000);
-    const res = await fetch("/api/floor-checks", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ card: card.code, observed, note, specific, modeled, seconds }) });
+    const res = await fetch("/api/floor-checks", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ cardIssueId: issueId, observed, note, specific, modeled, seconds }) });
     if (res.ok) setSaved(seconds);
+    else setError(true);
   }
 
   const parts: [Parameters<typeof t>[0], Bilingual][] = [["floor.saw", card.script.saw], ["floor.oneBehavior", card.script.behavior], ["floor.exactLine", card.script.line], ["floor.checkAgain", card.script.check_again]];
   return (
     <Card className="space-y-3">
+      <p className="text-sm font-semibold uppercase tracking-wide text-muted">{repName}</p>
       <h2 className="text-lg font-bold text-ink">{card.title[lang]}</h2>
       <p className="text-ink">{card.behavior[lang]}</p>
       <details onToggle={touch}>
@@ -43,7 +46,10 @@ export function FloorCheck({ card, language: lang }: { card: FloorCard; language
           <div><dt className="text-sm font-semibold text-muted">{ui("floor.lookFor")}</dt><dd><ul className="list-disc pl-5">{card.lookFor[lang].map((x) => <li key={x}>{x}</li>)}</ul></dd></div>
         </dl>
       </details>
-      {saved !== null ? (
+      {error && <p role="alert" className="font-semibold text-bad">{ui("practice.error")}</p>}
+      {status !== "open" ? (
+        <p className="font-semibold text-good">{ui("card.checked")}</p>
+      ) : saved !== null ? (
         <p role="status" className="font-semibold text-good">{ui("floor.recorded", { seconds: saved })}</p>
       ) : (
         <>
