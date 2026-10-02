@@ -38,7 +38,7 @@ facts:
     other_quotes: "two, from other dealers; neither lists the dealer fee"
     financing: "his own credit union"
 numbers_sheet: false
-target_techniques: [T001, T002, T014]
+target_techniques: [T118, T062, T063, T001, T002, T014]
 rubric: R-phone
 scoring:
   items:

@@ -1,3 +1,3 @@
 export * from "./offline-customer.js";
 export * from "./session.js";
-export * from "./recommend.js";
+export * from "./schedule.js";

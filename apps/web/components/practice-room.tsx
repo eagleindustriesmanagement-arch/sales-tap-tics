@@ -20,7 +20,7 @@ type Phase = "intro" | "demo" | "live" | "debrief";
 
 const strip = (s: string) => s.replace(/\[[^\]]*\]\s*/g, "");
 
-export function PracticeRoom({ scenario, uiLanguage, live }: { scenario: RoomScenario; uiLanguage: Language; live: boolean }) {
+export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: { scenario: RoomScenario; uiLanguage: Language; live: boolean; mode?: "practice" | "certification" }) {
   const [phase, setPhase] = useState<Phase>("intro");
   const [choice, setChoice] = useState<Language | "follow">(uiLanguage);
   const [lang, setLang] = useState<Language>(uiLanguage);
@@ -40,7 +40,12 @@ export function PracticeRoom({ scenario, uiLanguage, live }: { scenario: RoomSce
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice }) });
+      const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice, mode }) });
+      if (res.status === 409) {
+        const body = (await res.json().catch(() => ({}))) as { error?: string };
+        setError(t(body.error === "needs_judge" ? "cert.needsJudge" : "cert.notEligible", lang));
+        return;
+      }
       if (!res.ok) throw new Error(String(res.status));
       const data = (await res.json()) as { id: string; language: Language; opening: string; preBrief: { brief: string; customerName: string } };
       setLang(data.language);
@@ -114,6 +119,7 @@ export function PracticeRoom({ scenario, uiLanguage, live }: { scenario: RoomSce
   return (
     <div className="space-y-4">
       <div>
+        {mode === "certification" && <p className="text-sm font-semibold uppercase tracking-wide text-brand" data-testid="cert-badge">{t("cert.badge", lang)}</p>}
         <h1 className="text-2xl font-bold text-ink">{scenario.title[lang]}</h1>
         <p className="text-muted">{scenario.setting[lang]}</p>
       </div>

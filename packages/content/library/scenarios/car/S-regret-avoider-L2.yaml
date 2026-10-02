@@ -41,7 +41,7 @@ facts:
     family_size: 5
     wife_free: Saturday morning
 numbers_sheet: false
-target_techniques: [T001, T003, T005, T014]
+target_techniques: [T091, T094, T001, T003, T093, T014, T005]
 rubric: R-objection
 # Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
 scoring:

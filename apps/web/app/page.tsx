@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { isManager, listAssignments, listSessions, scenarioProgress, weekCards } from "@taptics/db";
+import { isManager, listAssignments, listSessions, practiceHistory, weekCards } from "@taptics/db";
 import { t } from "@taptics/i18n";
-import { recommend } from "@taptics/session";
+import { dailyPlan, type PlanReason } from "@taptics/session";
 import { Card, Grade, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
-import { language, library, practiceList } from "@/lib/server";
+import { language, library, scheduleInputs } from "@/lib/server";
 
 export default async function Today() {
   const user = await requireUser();
@@ -17,14 +17,21 @@ export default async function Today() {
   const { cards, recent, progress, assigned } = await asUser(principalOf(user), async (db) => ({
     cards: (await weekCards(db)).filter((c) => c.userId === user.id),
     recent: await listSessions(db, { userId: user.id, limit: 3 }),
-    progress: await scenarioProgress(db, user.id),
+    progress: await practiceHistory(db, user.id),
     assigned: await listAssignments(db, { userId: user.id, open: true, limit: 5 }),
   }));
   const card = cards[0] ? lib.behaviorCards.get(cards[0].cardCode) : undefined;
-  // Manager assignments come first (spec 15.2 item 3), earliest due first; then the recommender.
-  const assignedNext = assigned.find((a) => lib.scenarios.has(a.scenarioCode));
-  const first = recommend(practiceList(lib), progress)[0];
-  const next = assignedNext ? lib.scenarios.get(assignedNext.scenarioCode) : first ? lib.scenarios.get(first.code) : undefined;
+  // Spec 15.3: assignments first, then compliance, onboarding, certification and due items.
+  const plan = dailyPlan({
+    now: new Date(),
+    startedAt: progress.startedAt,
+    history: progress.history,
+    assignments: assigned.map((a) => ({ scenarioCode: a.scenarioCode, assignedBy: a.assignedByName, reason: a.reason, dueAt: a.dueAt })),
+    ...scheduleInputs(lib),
+  });
+  const top = plan[0];
+  const next = top ? lib.scenarios.get(top.scenarioCode) : undefined;
+  const assignedNext = top?.reason.kind === "assigned" ? assigned.find((a) => a.scenarioCode === top.scenarioCode) : undefined;
   const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "long", month: "short", day: "numeric", timeZone: "America/New_York" });
   return (
     <div className="space-y-5">
@@ -35,6 +42,7 @@ export default async function Today() {
       {next && (
         <Card>
           <p className="text-sm font-semibold uppercase tracking-wide text-muted">{assignedNext ? t("today.assigned", lang, { name: assignedNext.assignedByName ?? "" }) : t("today.recommended", lang)}</p>
+          {top && top.reason.kind !== "assigned" && <p className="mt-1 text-sm text-ink" data-testid="plan-reason">{reasonText(top.reason, lang)}</p>}
           <h2 className="mt-1 text-xl font-bold text-ink">{next.title[lang]}</h2>
           <p className="mt-1">{next.setting[lang]}</p>
           {assignedNext?.reason && <p className="mt-2 rounded-xl bg-ground p-3 text-ink" data-testid="assignment-reason">“{assignedNext.reason}”</p>}
@@ -51,7 +59,7 @@ export default async function Today() {
             })}
           </div>
           <div className="mt-4 flex flex-wrap items-center gap-4">
-            <Link href={`/practice/${next.code}`} className={`${buttonClass} w-full sm:w-auto`}>{t("today.practiceNow", lang)}</Link>
+            <Link href={`/practice/${next.code}${top?.mode === "certification" ? "?mode=certification" : ""}`} className={`${buttonClass} w-full sm:w-auto`}>{top?.mode === "certification" ? t("cert.start", lang) : t("today.practiceNow", lang)}</Link>
             <Link href="/practice" className="font-semibold text-brand underline">{t("practice.all", lang)}</Link>
           </div>
         </Card>
@@ -81,4 +89,15 @@ export default async function Today() {
       )}
     </div>
   );
+}
+
+function reasonText(r: PlanReason, lang: "en" | "es"): string {
+  switch (r.kind) {
+    case "onboarding": return t("plan.onboarding", lang, { week: r.week });
+    case "compliance": return t("plan.compliance", lang, { rule: r.rule });
+    case "due": return r.daysSince === null ? t("plan.dueItems", lang, { n: r.items }) : t("plan.due", lang, { days: r.daysSince });
+    case "certification": return t("plan.certification", lang);
+    case "new": return t("plan.new", lang);
+    default: return "";
+  }
 }

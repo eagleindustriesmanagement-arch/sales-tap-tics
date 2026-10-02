@@ -108,7 +108,8 @@ export function crossReference(library: Library): Finding[] {
 
   for (const r of library.rules.values()) {
     if (r.compliant_technique && !technique(r.compliant_technique)) err(r.code, `compliant technique ${r.compliant_technique} does not exist`);
-    if (!r.attorney_reviewed) warn(r.code, "not yet reviewed by a Florida dealer attorney (spec 4.5)");
+    // Attorney review is optional for internal training (decision 0009); the flag stays visible until it happens.
+    if (!r.attorney_reviewed) warn(r.code, "self-verified only, no attorney review (decision 0009; revisit before a customer-facing pilot)");
   }
   if (!library.lexicon) err("lexicon", "rules/lexicon.yaml is missing");
 

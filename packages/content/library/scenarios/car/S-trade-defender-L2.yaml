@@ -44,7 +44,7 @@ facts:
     online_condition_picked: excellent
     reconditioning_cents: 135000
 numbers_sheet: true
-target_techniques: [T001, T002, T003, T014]
+target_techniques: [T029, T082, T096, T001, T003, T002, T014]
 rubric: R-objection
 scoring:
   items:

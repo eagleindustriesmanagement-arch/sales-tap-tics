@@ -49,7 +49,7 @@ facts:
     loan_months_left: 52
     free_after_work: Off at 6:00 on weekdays
 numbers_sheet: true
-target_techniques: [T001, T002, T003, T005, T014]
+target_techniques: [T002, T029, T096, T111, T001, T003, T014]
 rubric: R-objection
 scoring:
   items:

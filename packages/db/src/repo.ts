@@ -519,3 +519,46 @@ export async function assignableReps(db: Queryable, manager: UserContext): Promi
   );
   return r.rows.map((x) => ({ id: x.id, firstName: x.first_name }));
 }
+
+// ---------------------------------------------------------------- cadence and certification (spec 15)
+
+/** One rep's finished sessions, oldest first, as the scheduler reads them; and the rep's onboarding day 1. */
+export async function practiceHistory(db: Queryable, userId: string) {
+  const r = await db.query(
+    `select s.started_at, s.scenario_code, s.mode, sc.total, sc.items, coalesce(sc.honesty_passed, true) honesty_passed,
+            coalesce((sc.dimensions->>'partial')::boolean, false) partial,
+            coalesce((select array_agg(distinct v.rule_code) from violations v where v.session_id = s.id and v.severity = 'critical' and not v.uncertain), '{}') critical_rules
+     from sessions s join scores sc on sc.session_id = s.id
+     where s.user_id = $1 and s.ended_at is not null order by s.started_at`,
+    [userId],
+  );
+  const start = await db.query(
+    "select coalesce(u.hire_date::timestamptz, (select min(started_at) from sessions where user_id = u.id), u.created_at) started_at from users u where u.id = $1",
+    [userId],
+  );
+  type Item = { code: string; points: number; max: number; status: string };
+  const history = r.rows.map((x) => ({
+    at: x.started_at as Date,
+    scenarioCode: x.scenario_code as string,
+    mode: x.mode,
+    total: x.total === null ? null : Number(x.total),
+    items: ((x.items ?? []) as Item[]).filter((i) => i.status === "scored" && i.max > 0).map((i) => ({ code: i.code, ratio: i.points / i.max })),
+    honestyPassed: x.honesty_passed as boolean,
+    partial: x.partial as boolean,
+    criticalRules: x.critical_rules as string[],
+  }));
+  return { history, startedAt: (start.rows[0]?.started_at as Date | undefined) ?? new Date() };
+}
+
+/** Per rep: release 1 scenarios with a current certification pass (70+, honesty, complete score, last 90 days). */
+export async function teamCertification(db: Queryable, release1: string[]): Promise<Map<string, number>> {
+  const r = await db.query(
+    `select s.user_id, count(distinct s.scenario_code)::int certified
+     from sessions s join scores sc on sc.session_id = s.id
+     where s.mode = 'certification' and sc.total >= 70 and sc.honesty_passed and not coalesce((sc.dimensions->>'partial')::boolean, false)
+       and s.started_at > now() - interval '90 days' and s.scenario_code = any($1)
+     group by s.user_id`,
+    [release1],
+  );
+  return new Map(r.rows.map((x) => [x.user_id as string, x.certified as number]));
+}

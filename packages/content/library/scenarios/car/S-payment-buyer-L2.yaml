@@ -44,7 +44,7 @@ facts:
     cash_available_cents: 600000
     back_after_work: Off at 5:00 today, ten minutes away
 numbers_sheet: true
-target_techniques: [T001, T002, T005, T014]
+target_techniques: [T002, T110, T083, T121, T001, T005, T014]
 rubric: R-objection
 scoring:
   items:

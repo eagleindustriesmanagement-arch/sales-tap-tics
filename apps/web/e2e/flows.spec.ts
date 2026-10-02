@@ -33,6 +33,9 @@ test("a rep signs in, accepts the notice, practices, and the session is saved", 
   await page.getByRole("button", { name: "I understand and agree" }).click();
   await expect(page.getByRole("heading", { name: /Today, Luis/ })).toBeVisible();
   await expect(page.getByRole("link", { name: "Practice now" })).toBeVisible();
+  // A new rep starts onboarding: week 1, the first objection.
+  await expect(page.getByTestId("plan-reason")).toHaveText(/week 1/);
+  await expect(page.getByRole("link", { name: "Practice now" })).toHaveAttribute("href", "/practice/S-partner-check-L1");
 
   // Every scenario is listed by level; open the "talk to my wife" one.
   await page.getByRole("link", { name: "See all scenarios" }).click();
@@ -214,4 +217,22 @@ test("a manager assigns practice with a reason; the rep sees it first, practices
   await expect(page.getByTestId("assignments").getByText("Done")).toBeVisible();
   // A rep cannot assign.
   expect((await rep.request.post("/api/assignments", { data: { userIds: [], scenarioCode: "S-partner-check-L1", dueDate: null, reason: "" } })).status()).toBe(403);
+});
+
+test("certification is refused without the live judge, and the team view counts certifications", async ({ page }) => {
+  await signInReady(page, "rep@demo.test");
+  await page.goto("/practice/S-partner-check-L1?mode=certification");
+  await expect(page.getByTestId("cert-badge")).toHaveText("Certification attempt");
+  await page.getByRole("button", { name: "Start" }).click();
+  await expect(page.getByRole("alert").filter({ hasText: "Certification needs the live AI judge" })).toBeVisible();
+  const c = db();
+  await c.connect();
+  const cert = await c.query("select count(*)::int n from sessions where mode = 'certification'");
+  expect(cert.rows[0].n).toBe(0);
+  await c.end();
+
+  const manager = await page.context().browser()!.newPage();
+  await signInReady(manager, "manager@demo.test");
+  await manager.goto("/manager/team");
+  await expect(manager.getByTestId("cert-Luis")).toHaveText("0/20");
 });

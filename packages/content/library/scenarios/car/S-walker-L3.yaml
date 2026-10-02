@@ -44,7 +44,7 @@ facts:
     appraisal_shown_cents: 1750000
     online_estimate_source: An instant-offer website, "up to" range, no inspection yet
 numbers_sheet: true
-target_techniques: [T001, T002, T003, T014]
+target_techniques: [T093, T086, T014, T001, T003, T002, T009]
 rubric: R-objection
 # Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
 scoring:

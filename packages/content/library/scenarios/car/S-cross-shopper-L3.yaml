@@ -39,7 +39,7 @@ facts:
     other_quote_fine_print: Plus dealer fees (amount not stated)
     other_quote_vehicle: 2026 Equinox RS AWD, same color
 numbers_sheet: true
-target_techniques: [T001, T002, T003, T014]
+target_techniques: [T028, T086, T001, T003, T002, T014]
 rubric: R-objection
 # Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
 scoring:

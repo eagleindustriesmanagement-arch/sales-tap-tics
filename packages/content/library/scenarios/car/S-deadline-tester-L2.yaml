@@ -40,7 +40,7 @@ facts:
     back_at_work_by: "2:00 today"
     free_after: "5:00 today"
 numbers_sheet: false
-target_techniques: [T001, T003, T014]
+target_techniques: [T068, T014, T122, T001, T003, T107]
 rubric: R-objection
 scoring:
   items:

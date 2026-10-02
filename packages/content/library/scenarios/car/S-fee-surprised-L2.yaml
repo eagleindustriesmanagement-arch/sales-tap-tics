@@ -39,7 +39,7 @@ facts:
     listing_source: A third-party car-shopping website that showed the price without the dealer fee
     financing: His own credit union
 numbers_sheet: true
-target_techniques: [T001, T002, T003, T005, T014]
+target_techniques: [T001, T003, T002, T030, T118, T014, T005]
 rubric: R-objection
 # Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
 scoring:

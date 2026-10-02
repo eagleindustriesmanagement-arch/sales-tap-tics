@@ -3,9 +3,10 @@ import { requireUser } from "@/lib/auth";
 import { aiConfigured, language, library } from "@/lib/server";
 import { PracticeRoom, type RoomScenario } from "@/components/practice-room";
 
-export default async function Practice({ params }: { params: Promise<{ code: string }> }) {
+export default async function Practice({ params, searchParams }: { params: Promise<{ code: string }>; searchParams: Promise<{ mode?: string }> }) {
   await requireUser();
   const { code } = await params;
+  const mode = (await searchParams).mode === "certification" ? "certification" : "practice";
   const lib = library();
   const s = lib.scenarios.get(code);
   if (!s) notFound();
@@ -24,5 +25,5 @@ export default async function Practice({ params }: { params: Promise<{ code: str
       good: { notice: s.demonstrations.good.notice, script: s.demonstrations.good.script },
     },
   };
-  return <PracticeRoom scenario={scenario} uiLanguage={lang} live={aiConfigured()} />;
+  return <PracticeRoom scenario={scenario} uiLanguage={lang} live={aiConfigured()} mode={mode} />;
 }

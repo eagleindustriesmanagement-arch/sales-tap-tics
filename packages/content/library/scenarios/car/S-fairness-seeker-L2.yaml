@@ -39,7 +39,7 @@ facts:
     brother_discount_cents: 120000
     financing: Pre-approved at his credit union
 numbers_sheet: true
-target_techniques: [T001, T002, T005, T014]
+target_techniques: [T042, T106, T001, T002, T014, T005]
 rubric: R-objection
 scoring:
   items:

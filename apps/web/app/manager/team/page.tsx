@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { coachingQuality, listAssignments, listSessions, teamOverview } from "@taptics/db";
+import { coachingQuality, listAssignments, listSessions, teamCertification, teamOverview } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { Card, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
-import { language, library } from "@/lib/server";
+import { language, library, scheduleInputs } from "@/lib/server";
 
 /**
  * Team view (spec 14.5): each rep's practice, average of complete scores, this week's card and critical flags.
@@ -14,7 +14,9 @@ export default async function Team() {
   const user = await requireUser({ manager: true });
   const lang = await language();
   const gm = user.roles.includes("general_manager");
-  const { team, quality, sessions, assignments } = await asUser(principalOf(user), async (db) => ({
+  const release1 = scheduleInputs().scenarios.filter((s) => s.release1).map((s) => s.code);
+  const { team, quality, sessions, assignments, certified } = await asUser(principalOf(user), async (db) => ({
+    certified: await teamCertification(db, release1),
     assignments: await listAssignments(db, { limit: 30 }),
     team: await teamOverview(db),
     quality: (await coachingQuality(db)).filter((q) => gm || q.manager_id === user.id),
@@ -30,7 +32,7 @@ export default async function Team() {
       </div>
       <Card className="overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="text-muted"><tr><th className="py-2 pr-3">{t("team.rep", lang)}</th><th className="pr-3">{t("team.sessions", lang)}</th><th className="pr-3">{t("team.avg", lang)}</th><th className="pr-3">{t("team.card", lang)}</th><th>{t("team.flags", lang)}</th></tr></thead>
+          <thead className="text-muted"><tr><th className="py-2 pr-3">{t("team.rep", lang)}</th><th className="pr-3">{t("team.sessions", lang)}</th><th className="pr-3">{t("team.avg", lang)}</th><th className="pr-3">{t("team.card", lang)}</th><th className="pr-3">{t("cert.team", lang)}</th><th>{t("team.flags", lang)}</th></tr></thead>
           <tbody className="divide-y divide-line text-ink">
             {team.map((r) => (
               <tr key={r.id}>
@@ -38,6 +40,7 @@ export default async function Team() {
                 <td className="pr-3">{r.sessions_this_week}</td>
                 <td className="pr-3">{r.avg_score === null ? "—" : Math.round(r.avg_score)}</td>
                 <td className="pr-3">{r.card ? `${library().behaviorCards.get(r.card)?.title[lang] ?? r.card} (${r.card_status})` : "—"}</td>
+                <td className="pr-3" data-testid={`cert-${r.first_name}`}>{certified.get(r.id) ?? 0}/{release1.length}</td>
                 <td className={r.critical_flags > 0 ? "font-bold text-bad" : ""}>{r.critical_flags}</td>
               </tr>
             ))}

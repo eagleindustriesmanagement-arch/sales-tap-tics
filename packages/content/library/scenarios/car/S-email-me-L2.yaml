@@ -38,7 +38,7 @@ facts:
     past_experience: "last year another dealer quoted one price by phone and a higher one in person"
     financing: "her own bank"
 numbers_sheet: false
-target_techniques: [T001, T003, T014]
+target_techniques: [T062, T118, T001, T014, T076, T003]
 rubric: R-phone
 scoring:
   items:

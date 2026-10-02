@@ -42,7 +42,7 @@ facts:
     quoted_payment_cents: 58000
     wife_available: Off work at 5:00 tomorrow
 numbers_sheet: false
-target_techniques: [T001, T002, T003, T005, T013, T014, T092]
+target_techniques: [T001, T002, T005, T013, T014, T092, T003]
 rubric: R-objection
 # Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
 scoring:

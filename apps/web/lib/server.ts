@@ -4,12 +4,12 @@ import { cookies } from "next/headers";
 import { AiClient, ClaudeComplianceClassifier, ClaudeJudge, ClaudeUnlockDetector, MemoryUsageSink } from "@taptics/ai";
 import { platformLibrary } from "@taptics/content";
 import {
-  createPracticeSession, insertTurns, issueCard, latestPlatformRelease, loadStoreSetup, saveSessionResult, weekScoreItems, type UserContext,
+  createPracticeSession, insertTurns, issueCard, latestPlatformRelease, loadStoreSetup, practiceHistory, saveSessionResult, weekScoreItems, type UserContext,
 } from "@taptics/db";
 import { exitDrawFor } from "@taptics/engine";
 import { isLanguage, type Language } from "@taptics/i18n";
 import { chooseWeeklyCard, type ItemResult, type ScoreResult } from "@taptics/scoring";
-import { PracticeSession, type SessionResult } from "@taptics/session";
+import { certificationSeed, certificationState, PracticeSession, type ScenarioMeta, type SessionResult } from "@taptics/session";
 import { asUser, withClient } from "./db";
 
 export const library = () => platformLibrary();
@@ -54,17 +54,30 @@ const principal = (u: { tenantId: string; id: string }) => ({ tenantId: u.tenant
 /** Sessions a rep may start per minute (spec 20.4: rate limiting on session start). */
 const STARTS_PER_MINUTE = 4;
 
-export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow") {
+export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow", mode: "practice" | "certification" = "practice") {
   sweep();
   const id = randomUUID();
-  const { recent, attempt, release, store } = await asUser(principal(user), async (db) => {
-    const r = await db.query<{ recent: number; attempt: number }>(
-      "select count(*) filter (where started_at > now() - interval '1 minute')::int recent, count(*) filter (where scenario_code = $2)::int attempt from sessions where user_id = $1",
+  const { recent, attempt, certAttempt, release, store, history } = await asUser(principal(user), async (db) => {
+    const r = await db.query<{ recent: number; attempt: number; cert_attempt: number }>(
+      `select count(*) filter (where started_at > now() - interval '1 minute')::int recent, count(*) filter (where scenario_code = $2)::int attempt,
+              count(*) filter (where scenario_code = $2 and mode = 'certification')::int cert_attempt
+       from sessions where user_id = $1`,
       [user.id, scenarioCode],
     );
-    return { ...r.rows[0]!, release: await latestPlatformRelease(db), store: user.storeId ? await loadStoreSetup(db, user.storeId) : null };
+    return {
+      ...r.rows[0]!,
+      certAttempt: r.rows[0]!.cert_attempt,
+      release: await latestPlatformRelease(db),
+      store: user.storeId ? await loadStoreSetup(db, user.storeId) : null,
+      history: mode === "certification" ? (await practiceHistory(db, user.id)).history : [],
+    };
   });
   if (recent >= STARTS_PER_MINUTE) return { error: "rate_limited" as const };
+  if (mode === "certification") {
+    // Offline scores are partial and can never certify, so certification needs the live judge (spec 15.4, decision 0004).
+    if (!aiConfigured()) return { error: "needs_judge" as const };
+    if (certificationState(scenarioCode, history, new Date()).state !== "eligible") return { error: "not_eligible" as const };
+  }
 
   const usage = new MemoryUsageSink();
   let ai: ConstructorParameters<typeof PracticeSession>[0]["ai"];
@@ -79,17 +92,22 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
     };
   }
   // The exit draw follows the rep's attempt number on this scenario (decision 0005); the user id keys the sequence.
-  const exitDraw = exitDrawFor(user.id, scenarioCode, attempt);
+  // Certification uses a fixed set of seeds and exit draws, so every rep faces comparable customers (spec 15.4).
+  const certification = mode === "certification";
+  const seed = certification ? certificationSeed(scenarioCode, certAttempt) : `${user.id}:${scenarioCode}:${attempt}`;
+  const exitDraw = certification ? exitDrawFor("certification", scenarioCode, certAttempt % 3) : exitDrawFor(user.id, scenarioCode, attempt);
   const session = new PracticeSession({
     library: library(),
     scenarioCode,
     language: lang,
-    seed: `${user.id}:${scenarioCode}:${attempt}`,
+    seed,
     exitDraw,
+    mode: certification ? "certification" : "practice",
     tenantId: user.tenantId,
     sessionId: id,
     textMode: true,
-    stopOnCritical: user.stopOnCritical,
+    // Stop on critical is always on in certification (spec 15.4).
+    stopOnCritical: certification || user.stopOnCritical,
     // The store's real charges and policies drive the compliance checker (spec 3.4). Until the compliance reviewer
     // signs them off, the removal policy is treated as not configured: the strictest reading (spec 4.5).
     dealerFees: store?.fees.filter((f) => f.kind === "dealer_mandatory").map((f) => ({ code: f.code, cents: f.amountCents })),
@@ -101,7 +119,7 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
   });
   const opening = session.start();
   await asUser(principal(user), async (db) => {
-    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode: "practice", channel: session.scenario.channel, textMode: true, seed: `${user.id}:${scenarioCode}:${attempt}`, exitDraw });
+    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: true, seed, exitDraw });
     await insertTurns(db, user.tenantId, id, session.transcript.map((t) => ({ ...t, isObjection: t.isObjection })));
   });
   live.set(id, { id, session, userId: user.id, tenantId: user.tenantId, createdAt: Date.now(), persistedTurns: session.transcript.length, usage, result: null });
@@ -167,4 +185,16 @@ export function endOfDayInStore(date: string, timeZone = "America/New_York"): Da
   const hh = String(Math.abs(hours)).padStart(2, "0");
   const mm = String(m[2] ?? "0").padStart(2, "0");
   return new Date(`${date}T23:59:00${sign}${hh}:${mm}`);
+}
+
+/** The scheduler's view of the library: every active scenario and the rubric items it scores. */
+export function scheduleInputs(lib = library()) {
+  const scenarios: ScenarioMeta[] = [...lib.scenarios.values()]
+    .filter((s) => s.status === "active")
+    .map((s) => {
+      const o = lib.objections.get(s.objection);
+      return { code: s.code, objection: s.objection, difficulty: s.difficulty, weight: o?.frequency_weight ?? 1, release1: o?.release_1 ?? false };
+    });
+  const itemsByScenario = new Map([...lib.scenarios.values()].map((s) => [s.code, (s.scoring?.items ?? []).map((i) => i.code)]));
+  return { scenarios, itemsByScenario };
 }
