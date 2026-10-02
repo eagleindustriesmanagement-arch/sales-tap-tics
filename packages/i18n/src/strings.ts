@@ -122,6 +122,11 @@ export const STRINGS = {
   "floor.selfCheck.modeled": { en: "I modeled the line in person", es: "Modelé la frase en persona" },
   "floor.save": { en: "Record check", es: "Registrar revisión" },
 
+  "customer.fallback": {
+    en: "Hmm. Let me think about that for a second.",
+    es: "Mmm. Déjeme pensarlo un segundito.",
+  },
+
   "evidence.A": { en: "Law, regulator, binding decree or meta-analysis", es: "Ley, regulador, decreto vinculante o metaanálisis" },
   "evidence.B": { en: "Single peer-reviewed study or large dataset", es: "Un estudio revisado por pares o un conjunto grande de datos" },
   "evidence.C": { en: "Preprint, credible secondary source or industry survey", es: "Prepublicación, fuente secundaria confiable o encuesta de la industria" },

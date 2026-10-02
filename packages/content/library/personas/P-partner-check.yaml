@@ -38,6 +38,7 @@ unlock_conditions:
     cues:
       en:
         - '\bwhat (do you think )?(will|would|is) (she|he|your wife|your husband|your partner)\b.{0,25}\b(ask|want to know|say|think|worry)'
+        - '\bwhat (do you think )?(she|he|your wife|your husband)(''ll| will| would)\b.{0,25}\b(ask|want to know|say|think|worry)'
         - '\b(her|his) first question\b'
         - '\bwhat(''s| is) (she|he) going to (ask|say|want)'
         - '\bwhat will you tell (her|him)\b'
@@ -109,5 +110,5 @@ difficulty: 1
 variation:
   moods: [relaxed, a little tired, wants to get home for dinner]
   amount_ranges:
-    budget_told_spouse_cents: [51000, 53000]
+    budget_told_spouse_cents: [51500, 52500]  # keeps the gap at about $60, as the hidden truth says
 spanish_reviewed: false

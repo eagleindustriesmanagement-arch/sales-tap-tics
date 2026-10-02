@@ -1,0 +1,18 @@
+{
+  "name": "@taptics/ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@taptics/content": "workspace:*",
+    "@taptics/engine": "workspace:*",
+    "@taptics/i18n": "workspace:*",
+    "@taptics/rules": "workspace:*",
+    "@taptics/scoring": "workspace:*",
+    "zod": "^3.25.0"
+  }
+}
