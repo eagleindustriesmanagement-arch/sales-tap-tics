@@ -15,6 +15,8 @@ async function signIn(page: Page, email: string) {
   const code = sent.filter((m) => m.identifier === email).at(-1)!.code;
   await page.getByLabel("Six-digit code").fill(code);
   await page.getByRole("button", { name: "Sign in" }).click();
+  // Signed in only once the server has set the session and sent the browser on.
+  await expect(page).not.toHaveURL(/\/login$/);
 }
 
 
