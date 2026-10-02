@@ -559,6 +559,8 @@ export const lexiconSchema = z
       .strict(),
     all_in_markers: bilingualList,
     negations: bilingualList,
+    /** The speaker refusing to make a claim ("I'm not going to tell you"): a claim after it is not made. */
+    disclaimers: bilingualList.default({ en: [], es: [] }),
     question_markers: bilingualList,
     weekdays: bilingualList,
     months: bilingualList,

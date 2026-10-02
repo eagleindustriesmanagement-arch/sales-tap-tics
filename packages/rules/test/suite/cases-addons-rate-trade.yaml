@@ -518,6 +518,7 @@
 # ---------------------------------------------------------------- ADD-04 (English, sessions)
 - id: ar-add04-en-001
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: violation
   turns:
@@ -529,6 +530,7 @@
 
 - id: ar-add04-en-002
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: violation
   turns:
@@ -539,6 +541,7 @@
 
 - id: ar-add04-en-003
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: violation
   turns:
@@ -550,6 +553,7 @@
 
 - id: ar-add04-en-004
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: violation
   turns:
@@ -560,6 +564,7 @@
 
 - id: ar-add04-en-005
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: violation
   turns:
@@ -570,6 +575,7 @@
 
 - id: ar-add04-en-006
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: compliant
   turns:
@@ -580,6 +586,7 @@
 
 - id: ar-add04-en-007
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: compliant
   turns:
@@ -591,6 +598,7 @@
 
 - id: ar-add04-en-008
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: near_miss
   turns:
@@ -601,6 +609,7 @@
 
 - id: ar-add04-en-009
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: compliant
   turns:
@@ -612,6 +621,7 @@
 
 - id: ar-add04-en-010
   rule_focus: ADD-04
+  finance: true
   lang: en
   kind: violation
   turns:
@@ -623,6 +633,7 @@
 # ---------------------------------------------------------------- ADD-04 (Spanish, sessions)
 - id: ar-add04-es-001
   rule_focus: ADD-04
+  finance: true
   lang: es
   kind: violation
   turns:
@@ -633,6 +644,7 @@
 
 - id: ar-add04-es-002
   rule_focus: ADD-04
+  finance: true
   lang: es
   kind: violation
   turns:
@@ -643,6 +655,7 @@
 
 - id: ar-add04-es-003
   rule_focus: ADD-04
+  finance: true
   lang: es
   kind: violation
   turns:
@@ -654,6 +667,7 @@
 
 - id: ar-add04-es-004
   rule_focus: ADD-04
+  finance: true
   lang: es
   kind: violation
   turns:
@@ -664,6 +678,7 @@
 
 - id: ar-add04-es-005
   rule_focus: ADD-04
+  finance: true
   lang: es
   kind: compliant
   turns:
@@ -674,6 +689,7 @@
 
 - id: ar-add04-es-006
   rule_focus: ADD-04
+  finance: true
   lang: es
   kind: compliant
   turns:
@@ -684,6 +700,7 @@
 
 - id: ar-add04-es-007
   rule_focus: ADD-04
+  finance: true
   lang: es
   kind: near_miss
   turns:
@@ -694,6 +711,7 @@
 
 - id: ar-add04-es-008
   rule_focus: ADD-04
+  finance: true
   lang: es
   kind: compliant
   turns:
@@ -704,6 +722,7 @@
 
 - id: ar-add04-es-009
   rule_focus: ADD-04
+  finance: true
   lang: es
   kind: violation
   turns:

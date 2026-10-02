@@ -30,6 +30,8 @@ export interface CheckContext {
   channel: Channel;
   /** The language of the offer (the session language). */
   offerLanguage: Language;
+  /** A finance-office conversation (the scenario uses the R-finance rubric): ADD-04 applies only here (spec 4.3). */
+  finance?: boolean;
   lexicon: Lexicon;
   rules: Rule[];
   techniques?: Map<string, Technique>;
@@ -62,6 +64,8 @@ export interface SessionComplianceState {
   firstAddOnTurn: number | null;
   firstServiceContractTurn: number | null;
   firstVehicleTurn: number | null;
+  /** The rep's previous turn named the add-ons, so a payment in this turn can lean on that label (PAY-01). */
+  previousTurnNamedAddOns: boolean;
 }
 
 export function newSessionState(): SessionComplianceState {
@@ -78,5 +82,6 @@ export function newSessionState(): SessionComplianceState {
     firstAddOnTurn: null,
     firstServiceContractTurn: null,
     firstVehicleTurn: null,
+    previousTurnNamedAddOns: false,
   };
 }

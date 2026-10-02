@@ -22,10 +22,14 @@ parameters:
       - '\b(three|3)[- ]days?\b.{0,40}\b(cancel|return|change your mind|bring it back|cooling)'
       - '\b(cancel|return it|bring it back|change your mind|undo)\b.{0,40}\b(within|in|for) (three|3) (business )?days\b'
       - '\bcooling[- ]off (period|right|rule)\b'
+      - '\b(cancel|return|bring back|undo) (the car|the truck|the vehicle|the deal|the purchase|the sale|this car|this deal)\b.{0,30}\b(within|in|for) [\w-]+( [\w-]+)? (business )?(days|hours)\b'
+      - '\b(return|cancel|bring (it|the car) back)\b.{0,40}\bthe law (lets|allows|gives|says)\b'
     es:
       - '\b(tres|3) días\b.{0,40}\b(cancelar|devolver|devolverlo|devolverla|arrepentirse|echarse para atrás)'
       - '\b(cancelar|devolver|devolverlo|devolverla|arrepentirse|echarse para atrás)\b.{0,40}\b(en|dentro de|por) (tres|3) días\b'
       - '\bperíodo de (arrepentimiento|reflexión|enfriamiento)\b'
+      - '\b(días|horas)\b.{0,15}\bpara (devolverlo|devolverla|cancelar|devolver el carro|devolver la camioneta|deshacer el trato)\b'
+      - '\b(devolver\w*|devuelve|cancelar|cancela)\b.{0,40}\bla ley (se lo permite|lo permite|le da derecho|le permite)\b'
   fact:
     en: "Florida has no three-day cooling-off right for buying a vehicle at the dealership. Once signed, the contract is binding."
     es: "En Florida no hay un período de tres días para cancelar la compra de un vehículo en el concesionario. Una vez firmado, el contrato es válido."

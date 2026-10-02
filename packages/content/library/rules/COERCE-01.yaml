@@ -21,10 +21,16 @@ parameters:
       - '\b(you(''re| are) not|nobody(''s| is)|no one(''s| is)) (leaving|going anywhere)\b.{0,30}\b(until|till|unless)\b'
       - '\bcan''?t (leave|go)\b.{0,30}\b(until|till|unless) you (sign|buy|agree)'
       - '\b(won''?t|not going to|don''?t) (give|hand) (you )?(back )?(your|the) (keys|license)\b'
+      - '\b(hold|keep|holding|keeping|hang on to)\b.{0,15}\b(your|the|his|her) (keys|license|licence|id)\b.{0,30}\bwhile you\b'
+      - '\b(keys|license|licence|id)\b.{0,60}\b(back|bring (them|it) (out|back)|return)\b.{0,30}\b(once|when|after|until|till)\b.{0,30}\b(sign|done|wrap|finish|numbers|deal)'
+      - '\b(sit|stay|be) here\b.{0,20}\b(until|till) you (sign|buy|agree|say yes)\b'
     es:
       - '\b(guard|qued|ten)\w*\b.{0,15}\b(sus|las|su) (llaves|licencia)\b.{0,40}\bhasta (que|no)\b'
       - '\bno (se )?(puede|va a|se va a) (ir|salir)\b.{0,30}\bhasta (que|no) (firme|compre)'
       - '\bno le (devuelvo|voy a devolver|damos|vamos a dar) (sus|las|su) (llaves|licencia)'
+      - '\b(llaves|licencia)\b.{0,40}\b(devuelvo|devolvemos|entrego|entregamos|doy|damos)\b.{0,20}\b(cuando|hasta que|después de que) (firme|compre|terminemos|cerremos)'
+      - '\b(llaves|licencia)\b.{0,40}\bse (quedan|queda) (conmigo|aquí|con nosotros)\b'
+      - '\bno se (me |nos )?(va|vaya|puede ir)\b.{0,15}\bsin (firmar|comprar|cerrar)\b'
   fact:
     en: "Taking keys for an appraisal is fine; keeping them to stop someone from leaving is not."
     es: "Pedir las llaves para la tasación está bien; quedárselas para que el cliente no se vaya, no."

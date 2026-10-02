@@ -44,6 +44,10 @@ all_in_markers:
 negations:
   en: ["no", "not", "never", "isn't", "is not", "aren't", "don't", "doesn't", "won't", "can't", "nothing", "there's no", "there is no", "without"]
   es: ["no", "nunca", "nada", "ningún", "ninguna", "sin", "tampoco", "jamás"]
+# The speaker refusing to make a claim. Regular expressions; a claim later in the same sentence is not made.
+disclaimers:
+  en: ["\\b(I'?m|I am) not (going to|gonna) (tell|say|call|promise|pretend|lie)", "\\bI (won'?t|will not|refuse to) (tell|say|call|promise|pretend|lie)", "\\bI'?m not (telling|saying) (you )?(that|it'?s)"]
+  es: ["\\bno (se lo |se la |le |les )?(voy|vamos) a (decir|pintar|prometer|mentir|vender)", "\\bno (le )?(digo|estoy diciendo) que"]
 # Questions and conditionals: the speaker is asking or hypothesizing, not stating a fact.
 question_markers:
   en: ["\\?", "\\bif\\b", "\\bwhether\\b"]

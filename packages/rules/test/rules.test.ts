@@ -163,8 +163,12 @@ describe("session order and presence rules", () => {
     expect(finalizeSession(c, good)).toEqual([]);
   });
 
-  it("ADD-04: service contract without optional and 60-day disclosure", () => {
-    const c = ctx();
+  it("ADD-04: service contract without optional and 60-day disclosure, in finance only", () => {
+    const floor = ctx();
+    const onFloor = newSessionState();
+    checkUtterance({ text: "Ana will show you the service contract in finance.", language: "en", speaker: "rep" }, floor, onFloor);
+    expect(finalizeSession(floor, onFloor).map((v) => v.rule)).not.toContain("ADD-04");
+    const c = { ...ctx(), finance: true };
     const state = newSessionState();
     checkUtterance({ text: "Ana will show you the service contract in finance.", language: "en", speaker: "rep" }, c, state);
     expect(finalizeSession(c, state).map((v) => v.rule)).toContain("ADD-04");

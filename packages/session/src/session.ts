@@ -115,6 +115,7 @@ export class PracticeSession {
       store: options.store ?? STRICTEST_STORE,
       channel: scenario.channel,
       offerLanguage: this.language,
+      finance: scenario.rubric === "R-finance",
       lexicon: library.lexicon!,
       rules: [...library.rules.values()],
       techniques: library.techniques,

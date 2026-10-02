@@ -18,16 +18,30 @@ parameters:
   deadline_cues:
     en:
       - '\b(ends?|ending|expires?|expiring|runs out|goes away)\b'
-      - '\b(price|payment|rate|it)(''s| is)? (goes|going|will go) up\b'
       - '\b(good|valid) (until|through|till|thru)\b'
       - '\b(today only|only today|just for today|only good today|only for today)\b'
       - '\b(deadline|last day)\b'
+      - '\b(this weekend|tonight|this week|today) only\b'
+      - '\bonly (this weekend|tonight|this week|till tonight|until tonight)\b'
+      - '\b(hold|honor|keep|guarantee) (this|that|the|these) (number|numbers|price|deal|payment|rate)\b.{0,25}\b(until|till|through|thru|past|after)\b'
+      - '\b(tomorrow|after today)\b.{0,30}\b(can''?t|cannot|won''?t|no longer|not going to)\b.{0,20}\b(guarantee|hold|honor|promise|do|get)\b'
     es:
       - '\b(vence|se vence|termina|se termina|se acaba|caduca)\b'
-      - '\b(precio|pago|tasa)\b.{0,15}\b(sube|va a subir|aumenta)\b'
       - '\b(válid[oa]|vale|es buen[oa]|aplica) (hasta|solo)\b'
       - '\b(solo (por )?hoy|nada más (por )?hoy|únicamente hoy)\b'
       - '\b(fecha límite|último día)\b'
+      - '\b(nada más|nomás|solo|sólo|solamente) (pa''?|para|por) hoy\b'
+      - '\b(este fin de semana|esta noche|esta semana) (nada más|nomás|solamente|solo|sólo)\b'
+      - '\b(mañana|después de hoy)\b.{0,10}\bya no\b'
+      - '\b(le )?(aguanto|sostengo|mantengo|garantizo) (este|ese|el) (precio|número|pago|deal)\b.{0,25}\bhasta\b'
+  # A claim that the price, payment or rate is about to rise. The deal facts never include an increase, so the
+  # rep cannot know one: these break the rule even without a date.
+  increase_cues:
+    en:
+      - '\b(price|payment|rate|it)(''s| is)? (goes|going|will go) up\b'
+      - '\b(prices?|payments?|rates?|interest)\b.{0,10}\b(go(es)?|going|are going|will go) up\b'
+    es:
+      - '\b(precios?|pagos?|tasas?|intereses)\b.{0,15}\b(suben?|van a subir|aumentan?)\b'
   # Phrases that mean "no deadline" in a clause: the rep is removing pressure, which is allowed.
   no_deadline:
     en: ['\bno (rush|deadline|pressure)\b', '\btake your time\b']

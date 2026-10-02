@@ -17,10 +17,14 @@ parameters:
     en:
       - '\bI (grew up|was raised|live|lived) (in|off|near|by|on) ([\w\s]{2,30}?)(\.|,|!|$| too| also)'
       - '\bI''?m (also )?from ([\w\s]{2,30}?)(\.|,|!|$| too| also)'
-      - '\bI went to ([\w\s]{2,40}?)(\.|,|!|$| too| also)'
+      - '\bI went to ([\w\s]{0,30}?\b(?:high|high school|school|college|university|academy|prep|elementary|middle school)\b)'
+      - '\byou went to ([\w\s]{2,40}?\b(?:high|school|college|university|academy|prep))\b\??.{0,12}\b(?:so did I|me too|same here|I did too)\b'
+      - '\byou(?:''re| are) from ([\w\s]{2,30}?)\??\s*(?:so am I|me too|same here)\b'
     es:
       - '\b(yo )?me crié (en|por) ([\w\sáéíóúñ]{2,30}?)(\.|,|!|$| también)'
       - '\b(yo )?(también )?soy de ([\w\sáéíóúñ]{2,30}?)(\.|,|!|$| también)'
       - '\b(yo )?estudié en ([\w\sáéíóúñ]{2,40}?)(\.|,|!|$| también)'
+      - '\busted (?:estudió|fue) (?:en|a) ([\w\sáéíóúñ]{2,40}?)\??\s*¿?(?:yo también|igual que yo)\b'
+      - '\busted es de ([\w\sáéíóúñ]{2,30}?)\??\s*¿?(?:yo también)\b'
 legal_basis: Misuse of the unity principle (spec 4.2)
 attorney_reviewed: false

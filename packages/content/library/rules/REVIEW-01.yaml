@@ -21,10 +21,15 @@ parameters:
       - '\b(only|just) (happy|satisfied) customers\b.{0,30}\breview'
       - '\b(5|five)[- ]stars?\b.{0,40}\b(get|give you|gift|card|\$|discount|free)\b'
       - '\b(gift card|discount|\$\d+|reward)\b.{0,40}\b(for|if you leave) (a |an )?(good |great |positive |5-star |five-star )?review'
+      - '\b(leave|give|write) (us |me )?(a )?(5|five)[- ]stars?( review)?\b.{0,30}\b(and|for)\b.{0,30}\b(i''ll|we''ll|i will|we will|get)\b'
+      - '\bif (the|your) review(''s| is) (positive|good|great|five[- ]stars?|5[- ]stars?)\b'
+      - '\b(only|just) (send|give|ask)\b.{0,30}\b(review|survey)\b.{0,40}\b(happy|satisfied|a ten|a 10|five stars?|positive)\b'
     es:
       - '\bsi (quedó|está|queda) (content[oa]|satisfech[oa])\b.{0,40}\b(reseña|comentario|estrellas|review)'
       - '\b(cinco|5) estrellas\b.{0,40}\b(le doy|le damos|regalo|tarjeta|\$|descuento)'
       - '\b(tarjeta de regalo|descuento|regalo|\$\d+)\b.{0,40}\b(por|si deja) (una )?(buena )?(reseña|review|comentario)'
+      - '\b(le )?(regalo|doy|damos|regalamos)\b.{0,40}\bsi (me |nos )?(deja|pone|escribe) (una )?(reseña|review|comentario)?.{0,20}\b(cinco|5) estrellas'
+      - '\bsi (algo )?no le gustó\b.{0,40}\b(llám\w*|no (ponga|escriba|deje))\b'
   fact:
     en: "Ask every customer for an honest review and offer nothing in return for a positive one."
     es: "Pídale a cada cliente una reseña honesta y no ofrezca nada a cambio de una positiva."

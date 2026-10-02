@@ -46,10 +46,18 @@ function cueRegex(list: { en: string[]; es: string[] }, literal: boolean): RegEx
 }
 
 /** A negation in the matched words, or within four words before them in the same phrase. */
-export function isNegated(ctx: CheckContext, text: string, clause: Clause, start: number, end: number): boolean {
+export function isNegated(ctx: CheckContext, text: string, clause: Clause, start: number, end: number, insideCounts = true): boolean {
   const negation = cueRegex(ctx.lexicon.negations, true);
   if (!negation) return false;
-  if (negation.test(text.slice(start, end))) return true;
+  if (insideCounts && negation.test(text.slice(start, end))) return true;
+  // A disclaimed claim: "I'm not going to tell you it's the last one", "no se lo voy a pintar como gratis".
+  const disclaimer = cueRegex(ctx.lexicon.disclaimers, false);
+  if (disclaimer && disclaimer.test(sentenceBefore(text, start))) return true;
+  // A claim raised as a question and denied at once: "Three days to cancel? No, that doesn't exist."
+  if (isQuestion(clause)) {
+    const reply = text.slice(clause.end).replace(/^[\s?]+/, "").split(/\s+/).slice(0, 4).join(" ");
+    if (negation.test(reply)) return true;
+  }
   const before = text.slice(clause.start, start);
   const phrase = before.split(/[,;:]/).pop() ?? "";
   const words = phrase.trim().split(/\s+/).slice(-4).join(" ");
@@ -59,6 +67,13 @@ export function isNegated(ctx: CheckContext, text: string, clause: Clause, start
 export function isAttributed(ctx: CheckContext, text: string, clause: Clause, start: number): boolean {
   const attribution = cueRegex(ctx.lexicon.attributions, true);
   return attribution ? attribution.test(text.slice(clause.start, start)) : false;
+}
+
+/** The text from the start of the sentence that contains `start` up to it. */
+function sentenceBefore(text: string, start: number): string {
+  const head = text.slice(0, start);
+  const cut = Math.max(head.lastIndexOf(". "), head.lastIndexOf("! "), head.lastIndexOf("? "));
+  return head.slice(cut + 1);
 }
 
 function isQuestion(clause: Clause): boolean {
@@ -198,7 +213,11 @@ function matchOption(facts: ScenarioFacts, cents: number, tolerance: number) {
   return facts.payment_options.find((o) => Math.abs(o.cents - cents) <= tolerance) ?? null;
 }
 
-export function checkPayment(rule: Rule, utterance: Utterance, ctx: CheckContext, mentions: MoneyMention[]): Violation[] {
+export function namesAddOns(utterance: Utterance, ctx: CheckContext): boolean {
+  return addOnWords(ctx)?.test(utterance.text) ?? false;
+}
+
+export function checkPayment(rule: Rule, utterance: Utterance, ctx: CheckContext, mentions: MoneyMention[], previousTurnNamedAddOns = false): Violation[] {
   const facts = ctx.facts;
   if (!facts) return [];
   const tolerance = Number((rule.parameters as Params)["tolerance_cents"] ?? 100);
@@ -208,7 +227,7 @@ export function checkPayment(rule: Rule, utterance: Utterance, ctx: CheckContext
     const option = matchOption(facts, m.value, tolerance);
     if (!option || option.includes_add_ons.length === 0) continue;
     const clause = clauseAt(utterance.text, m.start);
-    const labeled = addOns ? addOns.test(clause.text) || addOns.test(utterance.text) : false;
+    const labeled = previousTurnNamedAddOns || (addOns ? addOns.test(clause.text) || addOns.test(utterance.text) : false);
     if (labeled) continue;
     const names = facts.add_ons.filter((a) => option.includes_add_ons.includes(a.code));
     out.push(
@@ -257,8 +276,11 @@ export function checkRate(rule: Rule, utterance: Utterance, ctx: CheckContext, m
   const min = facts.authority.min_payment_cents;
   if (facts.payment_options.length > 0 || min !== null) {
     const max = Math.max(0, ...facts.payment_options.map((o) => o.cents));
+    const lowest = Math.min(...facts.payment_options.map((o) => o.cents), min ?? Infinity);
     for (const m of claims(mentions, "payment")) {
       if (matchOption(facts, m.value, tolerance)) continue;
+      // A small monthly amount is the cost of a product or a gap between offers ("twenty bucks a month"), not a payment.
+      if (Number.isFinite(lowest) && m.value < lowest / 4) continue;
       if (min !== null && m.value >= min - tolerance && m.value <= max + tolerance) continue;
       const options = facts.payment_options.map((o) => formatDollars(o.cents, "en")).join(", ");
       out.push(
@@ -343,6 +365,19 @@ export function checkTradeConditions(rule: Rule, utterance: Utterance, ctx: Chec
 
 // ------------------------------------------------------------------ deadlines (DEAD-01)
 
+const GENERIC = new Set(["cash", "money", "rebate", "rebates", "incentive", "offer", "the", "a", "de", "del", "el", "la"]);
+
+/** The incentives a rep can name, with the words that identify each and its real end date (null: none). */
+function deadlineSubjects(facts: ScenarioFacts): { words: string[]; date: string | null }[] {
+  const words = (name: string) => fold(name).split(/[^\p{L}\p{N}]+/u).filter((w) => w && !GENERIC.has(w));
+  const out = facts.deadlines.map((d) => ({ words: words(d.what), date: d.date as string | null }));
+  for (const r of facts.rebates) {
+    const w = words(r.name);
+    if (!out.some((o) => o.words.join(" ") === w.join(" "))) out.push({ words: w, date: r.ends ?? null });
+  }
+  return out.filter((o) => o.words.length > 0);
+}
+
 export function checkDeadline(rule: Rule, utterance: Utterance, ctx: CheckContext): Violation[] {
   const facts = ctx.facts;
   if (!facts) return [];
@@ -358,12 +393,22 @@ export function checkDeadline(rule: Rule, utterance: Utterance, ctx: CheckContex
     : { en: "There is no real deadline in this deal.", es: "En este negocio no hay ninguna fecha límite real." };
   const out: Violation[] = [];
   const seen = new Set<number>();
+  for (const hit of patternHits(rule, utterance, ctx, "increase_cues")) {
+    if (seen.has(hit.clause.start)) continue;
+    seen.add(hit.clause.start);
+    if (noDeadline.some((p) => compile(p).test(hit.clause.text))) continue;
+    out.push(makeViolation(rule, ctx, utterance, spanOf(text, hit.clause.start, hit.clause.end), fact));
+  }
   for (const hit of patternHits(rule, utterance, ctx, "deadline_cues")) {
     if (seen.has(hit.clause.start)) continue;
     seen.add(hit.clause.start);
     if (noDeadline.some((p) => compile(p).test(hit.clause.text))) continue;
     const resolved = resolveDates(hit.clause.text, facts.session_date, ctx.lexicon);
-    const ok = resolved.dates.length === 0 && !resolved.today ? real.size > 0 : resolved.dates.some((d) => real.has(d));
+    // When the clause names an incentive, its dates must be that incentive's deadline, not another one's
+    // ("the first responder cash ends Monday" is false when only the bonus cash ends Monday).
+    const named = deadlineSubjects(facts).filter((s) => s.words.every((w) => new RegExp(`\\b${w}\\b`).test(fold(hit.clause.text))));
+    const allowed = named.length ? new Set(named.flatMap((s) => (s.date ? [s.date] : []))) : real;
+    const ok = resolved.dates.length === 0 && !resolved.today ? allowed.size > 0 : resolved.dates.every((d) => allowed.has(d));
     if (ok) continue;
     out.push(makeViolation(rule, ctx, utterance, spanOf(text, hit.clause.start, hit.clause.end), fact));
   }
@@ -481,9 +526,11 @@ function checkFree(rule: Rule, utterance: Utterance, ctx: CheckContext): Violati
   for (const m of text.matchAll(re)) {
     const start = m.index ?? 0;
     const clause = clauseAt(text, start);
-    if (params["negation_breaks"] && isNegated(ctx, text, clause, start, start + m[0].length)) continue;
+    // A free phrase can carry its own negation ("no charge", "no le cuesta nada"): only a negation before it counts.
+    if (params["negation_breaks"] && isNegated(ctx, text, clause, start, start + m[0].length, false)) continue;
     if (isAskingOrConditional(ctx, text, clause, start)) continue;
-    const before = text.slice(clause.start, start).trim().split(/\s+/).slice(-windowTokens).join(" ");
+    // The item can be named just before, across a clause break: "And the GAP? Don't worry, that's free."
+    const before = text.slice(0, start).trim().split(/\s+/).slice(-windowTokens).join(" ");
     const after = text.slice(start + m[0].length, clause.end).trim().split(/\s+/).slice(0, windowTokens).join(" ");
     if (!chargedRe.test(before) && !chargedRe.test(after)) continue;
     out.push(makeViolation(rule, ctx, utterance, spanOf(text, clause.start, clause.end), {
@@ -599,7 +646,7 @@ export function updatePresence(
 
   // ADD-04 service contract disclosure.
   const add04 = rules.get("ADD-04");
-  if (add04 && facts) {
+  if (add04 && facts && ctx.finance) {
     const p = add04.parameters as Params;
     const codes = (p["add_on_codes"] as string[]) ?? [];
     if (facts.add_ons.some((a) => codes.includes(a.code))) {

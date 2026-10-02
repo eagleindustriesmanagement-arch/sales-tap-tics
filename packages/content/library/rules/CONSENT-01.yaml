@@ -15,8 +15,8 @@ compliant_technique: T122
 parameters:
   presence: text_consent
   send_text:
-    en: ['\bI(''ll| will) (text|send you a text|send (it|that|you) by text|send (it|that) over by text|leave (you )?a voicemail)\b', '\b(texting|sending) you\b.{0,20}\b(text|video)\b']
-    es: ['\b(le )?(mando|envío|escribo|voy a mandar|voy a enviar)\b.{0,20}\b(texto|mensaje de texto|whatsapp)\b', '\ble dejo un (mensaje de voz|voicemail)\b']
+    en: ['\bI(''ll| will) (text|send you a text|send (it|that|you) by text|send (it|that) over by text|leave (you )?a voicemail)\b', '\b(texting|sending) you\b.{0,20}\b(text|video)\b', '\b(you''ll|you will) (get|receive) an? (automated|recorded|prerecorded) (voicemail|call|message)\b', '\bthe text I sent you\b', '\bI (texted|sent you a text)\b']
+    es: ['\b(le )?(mando|envío|escribo|voy a mandar|voy a enviar)\b.{0,20}\b(texto|mensaje de texto|whatsapp)\b', '\ble dejo un (mensaje de voz|voicemail)\b', '\b(le )?(voy a )?textear\b', '\ble (mandé|envié|escribí)\b.{0,15}\b(texto|mensaje|whatsapp)\b']
   fact:
     en: "Text and automated voicemail need documented consent under the store's process."
     es: "Los textos y los mensajes de voz automáticos necesitan un consentimiento documentado según el proceso de la tienda."

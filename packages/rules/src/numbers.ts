@@ -84,8 +84,49 @@ function isEsNumberWord(w: string): boolean {
   return w in ES_UNITS || w in ES_TENS || w in ES_HUNDREDS || w in ES_SCALES;
 }
 
+/**
+ * Splits English number words into the groups a speaker says them in ("fourteen" "eight" "fifty"), or null when a
+ * scale word ("hundred", "thousand") makes it an ordinary number.
+ */
+function englishGroups(words: string[]): number[] | null {
+  const groups: number[] = [];
+  let open = false; // the last group is a bare tens word that can still take a unit ("thirty" + "one")
+  for (const w of words) {
+    if (w === "and" || w === "a" || w === "an" || w in EN_SCALES) return null;
+    if (w in EN_TENS) {
+      groups.push(EN_TENS[w]!);
+      open = true;
+    } else if (w in EN_UNITS) {
+      const v = EN_UNITS[w]!;
+      if (open && v >= 1 && v <= 9) groups[groups.length - 1]! += v;
+      else groups.push(v);
+      open = false;
+    } else return null;
+  }
+  return groups;
+}
+
+/**
+ * Car-sales shorthand for thousands (spec 11.1 item 4): "fourteen eight fifty" is $14,850, "thirty-one three
+ * forty-nine" is $31,349, "fifteen-two" is $15,200, and "fourteen fifty" is $1,450. Null when the words are not in
+ * that shape.
+ */
+export function parseEnglishShorthand(words: string[]): number | null {
+  const g = englishGroups(words);
+  if (!g) return null;
+  const [a, b, c] = g;
+  const twoDigit = (n: number | undefined) => n !== undefined && n >= 10 && n <= 99;
+  const digit = (n: number | undefined) => n !== undefined && n >= 1 && n <= 9;
+  if (g.length === 3 && twoDigit(a) && digit(b) && (twoDigit(c) || c === 0)) return a! * 1000 + b! * 100 + c!;
+  if (g.length === 2 && twoDigit(a) && digit(b)) return a! * 1000 + b! * 100;
+  if (g.length === 2 && twoDigit(a) && twoDigit(b)) return a! * 100 + b!;
+  return null;
+}
+
 /** Parses a run of English number words. Supports the colloquial "five seventy-five" (575). */
 export function parseEnglishWords(words: string[]): number | null {
+  const shorthand = parseEnglishShorthand(words);
+  if (shorthand !== null) return shorthand;
   let total = 0;
   let current = 0;
   let lastUnit: number | null = null;
@@ -143,7 +184,14 @@ export function parseSpanishWords(words: string[]): number | null {
     if (w === "y") continue;
     if (w in ES_UNITS) current += ES_UNITS[w]!;
     else if (w in ES_TENS) current += ES_TENS[w]!;
-    else if (w in ES_HUNDREDS) current += ES_HUNDREDS[w]!;
+    else if (w in ES_HUNDREDS) {
+      // A number before the hundreds with no "mil" is spoken shorthand for thousands: "catorce ochocientos" (14,800).
+      if (current > 0 && current < 100 && total === 0) {
+        total = current * 1000;
+        current = 0;
+      }
+      current += ES_HUNDREDS[w]!;
+    }
     else if (w === "mil") {
       total += (current || 1) * 1000;
       current = 0;
@@ -191,7 +239,7 @@ export function findNumbers(input: string, language: Language): NumberMention[] 
   const digitRe = /(\$\s?)?(\d[\d,.]*\d|\d)(\s?(?:k|K)\b|\s(?:mil)\b)?(\s?%|\s(?:percent|por ciento|porciento)\b)?(\s(?:dollars?|bucks?|d[oó]lares|d[oó]lar|cents?|centavos?))?/gu;
   for (const m of text.matchAll(digitRe)) {
     const start = m.index ?? 0;
-    const end = start + m[0].length;
+    let end = start + m[0].length;
     if (overlaps(start, end)) continue;
     const before = text[start - 1] ?? "";
     const after = text[end] ?? "";
@@ -199,7 +247,15 @@ export function findNumbers(input: string, language: Language): NumberMention[] 
     const raw = m[2]!;
     let value = parseDigits(raw);
     if (value === null) continue;
-    if (m[3]) value *= 1000;
+    if (m[3]) {
+      value *= 1000;
+      // "32 mil 450": the hundreds follow the thousands as their own digits.
+      const rest = !m[4] && !m[5] ? /^\s+(\d{1,3})(?![\d.,]\d)/.exec(text.slice(end)) : null;
+      if (rest) {
+        value += Number(rest[1]);
+        end += rest[0].length;
+      }
+    }
     let unit: NumberUnit = "none";
     if (m[4]) unit = "percent";
     else if (m[5] && CENT_WORDS.test(m[5].trim())) unit = "cent";
@@ -215,7 +271,7 @@ export function findNumbers(input: string, language: Language): NumberMention[] 
       unit,
       start,
       end,
-      text: m[0],
+      text: text.slice(start, end),
       source: "digits",
       approximate: APPROX_BEFORE.test(text.slice(Math.max(0, start - 25), start)),
       placeholder: null,
@@ -242,6 +298,22 @@ export function findNumbers(input: string, language: Language): NumberMention[] 
       } else break;
     }
     if (words.length === 0) continue;
+    // A spoken decimal ("four point nine", "cinco punto nueve") is a rate in sales talk.
+    const point = tokens[j]?.word;
+    if ((point === "point" || point === "punto") && tokens[j + 1] && isNum(tokens[j + 1]!.word)) {
+      const whole = parseEnglishWords(words) ?? parseSpanishWords(words);
+      const tenth = EN_UNITS[tokens[j + 1]!.word] ?? ES_UNITS[tokens[j + 1]!.word];
+      if (whole !== null && whole < 30 && tenth !== undefined && tenth <= 9) {
+        let end = tokens[j + 1]!.end;
+        const after = tokens[j + 2]?.word ?? "";
+        if (PERCENT_WORDS.test(after)) end = tokens[j + 2]!.end;
+        else if (after === "por" && tokens[j + 3]?.word === "ciento") end = tokens[j + 3]!.end;
+        mentions.push({ value: Math.round((whole + tenth / 10) * 100), unit: "percent", start: t.start, end, text: text.slice(t.start, end), source: "words", approximate: APPROX_BEFORE.test(text.slice(Math.max(0, t.start - 25), t.start)), placeholder: null });
+        taken.push([t.start, end]);
+        i = j + 1;
+        continue;
+      }
+    }
     const spanish = words.some((w) => isEsNumberWord(w) && !isEnNumberWord(w));
     const value = spanish || language === "es" ? parseSpanishWords(words) ?? parseEnglishWords(words) : parseEnglishWords(words) ?? parseSpanishWords(words);
     if (value === null) continue;

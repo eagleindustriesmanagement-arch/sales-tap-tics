@@ -40,7 +40,7 @@ const outcomes: CaseOutcome[] = [];
 for (const c of cases) {
   let violations = runCase(c, base);
   if (withClassifier && c.text) {
-    const ctx = { ...base, facts: suiteFacts(c.variant), channel: c.channel, offerLanguage: c.offer_language ?? c.lang };
+    const ctx = { ...base, facts: suiteFacts(c.variant), channel: c.channel, offerLanguage: c.offer_language ?? c.lang, finance: c.finance };
     violations = await checkUtteranceFull({ text: c.text, language: c.lang, speaker: c.speaker, turnIndex: 0 }, ctx, classifier, { classifierTimeoutMs: 20_000 });
   }
   outcomes.push(outcome(c, violations));

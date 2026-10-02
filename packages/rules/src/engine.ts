@@ -8,6 +8,7 @@ import {
   checkParity,
   checkPattern,
   checkPayment,
+  namesAddOns,
   checkPrice,
   checkRate,
   checkTerm,
@@ -44,7 +45,7 @@ export function checkUtterance(utterance: Utterance, ctx: CheckContext, state?: 
         out.push(...checkPrice(rule, utterance, ctx, mentions));
         break;
       case "payment_compare":
-        out.push(...checkPayment(rule, utterance, ctx, mentions));
+        out.push(...checkPayment(rule, utterance, ctx, mentions, state?.previousTurnNamedAddOns ?? false));
         break;
       case "term_compare":
         out.push(...checkTerm(rule, utterance, ctx, mentions));
@@ -84,6 +85,7 @@ export function checkUtterance(utterance: Utterance, ctx: CheckContext, state?: 
   if (state) {
     out.push(...updateOrder(rules, utterance, ctx, mentions, state));
     out.push(...updatePresence(rules, utterance, ctx, mentions, state));
+    if (utterance.speaker !== "customer") state.previousTurnNamedAddOns = namesAddOns(utterance, ctx);
   }
   return sortViolations(out);
 }

@@ -19,6 +19,8 @@ export const suiteCaseSchema = z
     channel: z.enum(["floor", "phone", "text"]).default("floor"),
     variant: z.string().default("base"),
     offer_language: z.enum(["en", "es"]).optional(),
+    /** The conversation is in the finance office (an R-finance scenario), where ADD-04 applies. */
+    finance: z.boolean().default(false),
     text: z.string().optional(),
     turns: z.array(z.string().min(1)).optional(),
     expect: z.array(z.string()).default([]),
@@ -114,7 +116,7 @@ export function splitOf(id: string): "dev" | "holdout" {
  * so order and presence rules (PRICE-03, PRICE-05, PAY-02, ADD-04, AVAIL-02) apply.
  */
 export function runCase(c: SuiteCase, base: Omit<CheckContext, "facts" | "channel" | "offerLanguage">): Violation[] {
-  const ctx: CheckContext = { ...base, facts: suiteFacts(c.variant), channel: c.channel, offerLanguage: c.offer_language ?? c.lang, store: base.store ?? STRICTEST_STORE };
+  const ctx: CheckContext = { ...base, facts: suiteFacts(c.variant), channel: c.channel, offerLanguage: c.offer_language ?? c.lang, finance: c.finance, store: base.store ?? STRICTEST_STORE };
   if (c.text) return checkUtterance({ text: c.text, language: c.lang, speaker: c.speaker, turnIndex: 0 }, ctx);
   const state = newSessionState();
   const out: Violation[] = [];
