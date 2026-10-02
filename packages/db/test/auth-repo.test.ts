@@ -3,7 +3,7 @@ import type pg from "pg";
 import { randomUUID } from "node:crypto";
 import {
   coachingQuality, createPracticeSession, getSessionDetail, insertTurns, issueCard, listSessions, loadUser, markMissedCards, recordConsent,
-  approveSpanishCompliance, assignableReps, invitePerson, storeDashboard, listPeople, setPersonStatus, setRoles, usageSummary, coachPracticeSummary, listSpanishReviews, saveSpanishReview, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
+  addScoreOverride, approveSpanishCompliance, assignableReps, auditEntries, exportSessions, invitePerson, listScoreOverrides, storeDashboard, toCsv, listPeople, setPersonStatus, setRoles, usageSummary, coachPracticeSummary, listSpanishReviews, saveSpanishReview, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
 } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
@@ -294,5 +294,25 @@ describe.skipIf(SKIP)("store dashboard (spec 18.3)", () => {
     expect(thisWeek.sessions).toBeGreaterThanOrEqual(2);
     expect(thisWeek.criticalFlags).toBeGreaterThanOrEqual(1);
     expect(thisWeek.cardsChecked).toBeLessThanOrEqual(thisWeek.cardsIssued);
+  });
+});
+
+describe.skipIf(SKIP)("score flags, audit log and export (spec 3.3 rule 4, 18.3, 14.5)", () => {
+  it("a manager flags a score with a reason; the rep sees it; the score is unchanged and the flag is permanent", async () => {
+    const sessionId = (await db.query("select s.id from sessions s join scores sc on sc.session_id = s.id where s.user_id = $1 limit 1", [REP])).rows[0].id as string;
+    const manager = await as(MANAGER, async (q) => (await loadUser(q, MANAGER))!);
+    await as(MANAGER, (q) => addScoreOverride(q, manager, sessionId, { flag: "audio_problem", reason: "Mic cut out in turn 3." }));
+    expect(await as(REP, (q) => listScoreOverrides(q, sessionId))).toMatchObject([{ flag: "audio_problem", reason: "Mic cut out in turn 3.", manager: "Carlos" }]);
+    expect(await as(REP2, (q) => listScoreOverrides(q, sessionId))).toEqual([]);
+    await expect(as(MANAGER, (q) => q.query("update score_overrides set reason = 'x'"))).rejects.toThrow(/immutable|permission denied/);
+    const rep = await as(REP, async (q) => (await loadUser(q, REP))!);
+    await expect(as(REP, (q) => addScoreOverride(q, rep, sessionId, { flag: "other", reason: "x" }))).rejects.toThrow(/only managers/);
+  });
+  it("only the general manager reads the audit log; the export is CSV that spreadsheets cannot execute", async () => {
+    expect((await as(GM, (q) => auditEntries(q))).some((a) => a.action === "score.override" && a.actor === "Carlos")).toBe(true);
+    expect(await as(MANAGER, (q) => auditEntries(q))).toEqual([]);
+    const rows = await as(GM, (q) => exportSessions(q));
+    expect(rows.length).toBeGreaterThan(0);
+    expect(toCsv([{ a: "=HYPERLINK(1)", b: 'say "hi", ok' }], ["a", "b"])).toBe('a,b\r\n\'=HYPERLINK(1),"say ""hi"", ok"\r\n');
   });
 });

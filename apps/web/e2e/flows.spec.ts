@@ -382,3 +382,39 @@ test("the general manager's dashboard and the team view's coaching focus", async
   // Offline scores are partial, so nobody has complete scores to place them yet.
   await expect(page.getByTestId("focus-Luis")).toHaveText("Not enough scores");
 });
+
+test("a manager flags a score with a reason; the rep sees it; the general manager audits and exports", async ({ page, browser }) => {
+  const c = db();
+  await c.connect();
+  const s = await c.query("select s.id, sc.total from sessions s join scores sc on sc.session_id = s.id join users u on u.id = s.user_id where u.email = 'rep2@demo.test' order by s.started_at limit 1");
+  await c.end();
+  const { id, total } = s.rows[0];
+
+  await signInReady(page, "manager@demo.test");
+  await page.goto(`/history/${id}`);
+  await page.getByLabel("Why").selectOption("audio_problem");
+  await page.getByLabel("What you saw (the rep sees this)").fill("The mic cut out right after the opening.");
+  await page.getByRole("button", { name: "Add flag" }).click();
+  await expect(page.getByTestId("overrides")).toContainText("Audio or transcription problem · Carlos");
+
+  const ana = await browser.newPage();
+  await signInReady(ana, "rep2@demo.test");
+  await ana.goto(`/history/${id}`);
+  await expect(ana.getByTestId("overrides")).toContainText("The mic cut out right after the opening.");
+  await expect(ana.getByRole("button", { name: "Add flag" })).toHaveCount(0);
+  const after = db();
+  await after.connect();
+  expect((await after.query("select total from scores where session_id = $1", [id])).rows[0].total).toBe(total);
+  await after.end();
+
+  const gm = await browser.newPage();
+  await signInReady(gm, "gm@demo.test");
+  await gm.goto("/manager/audit");
+  await expect(gm.getByTestId("audit-rows")).toContainText("score.override");
+  const csv = await gm.request.get("/api/export");
+  expect(csv.headers()["content-type"]).toContain("text/csv");
+  const body = await csv.text();
+  expect(body.split("\r\n")[0]).toBe("started_at,rep,scenario_code,mode,language,end_reason,total,passed,honesty_passed,partial,critical_flags,overrides");
+  expect(body).toContain("Ana");
+  expect((await page.request.get("/api/export")).status()).toBe(403);
+});

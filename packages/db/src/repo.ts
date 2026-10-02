@@ -792,3 +792,60 @@ export async function storeDashboard(db: Queryable, release1: string[], weeks = 
     weeks: r.rows.map((x) => ({ week: x.week, sessions: x.sessions, repsPracticing: x.reps_practicing, cardsIssued: x.cards_issued, cardsChecked: x.cards_checked, criticalFlags: x.critical_flags })) as StoreWeek[],
   };
 }
+
+// ---------------------------------------------------------------- score overrides, audit log, export (spec 3.3, 18.3, 14.5)
+
+export const OVERRIDE_FLAGS = ["judge_disagrees", "audio_problem", "scenario_problem", "other"] as const;
+export type OverrideFlag = (typeof OVERRIDE_FLAGS)[number];
+
+/** A manager's flag and reason on a session's score; the score itself never changes (spec 3.3 rule 4). */
+export async function addScoreOverride(db: Queryable, manager: UserContext, sessionId: string, o: { flag: OverrideFlag; reason: string }) {
+  if (!isManager(manager)) throw new Error("only managers flag a score");
+  const sc = await db.query("select sc.id, s.user_id from scores sc join sessions s on s.id = sc.session_id where sc.session_id = $1", [sessionId]);
+  if (!sc.rows[0]) throw new Error("no score to flag");
+  if (sc.rows[0].user_id === manager.id) throw new Error("you cannot flag your own score");
+  await db.query("insert into score_overrides (tenant_id, score_id, manager_id, reason, flag) values ($1, $2, $3, $4, $5)", [manager.tenantId, sc.rows[0].id, manager.id, o.reason, o.flag]);
+  await audit(db, manager, "score.override", "session", sessionId, { flag: o.flag });
+}
+
+export async function listScoreOverrides(db: Queryable, sessionId: string) {
+  const r = await db.query(
+    `select o.flag, o.reason, o.created_at, app.colleague_first_name(o.manager_id) manager
+     from score_overrides o join scores sc on sc.id = o.score_id where sc.session_id = $1 order by o.created_at`,
+    [sessionId],
+  );
+  return r.rows as { flag: OverrideFlag; reason: string; created_at: Date; manager: string | null }[];
+}
+
+/** The latest audit entries, newest first (general manager only, by row-level security). */
+export async function auditEntries(db: Queryable, limit = 200) {
+  const r = await db.query(
+    `select a.at, a.action, a.target_type, a.target_id, a.detail, app.colleague_first_name(a.actor_id) actor,
+            case when a.target_type = 'user' then app.colleague_first_name(a.target_id) end target_name
+     from audit_log a order by a.at desc limit $1`,
+    [limit],
+  );
+  return r.rows as { at: Date; action: string; target_type: string; target_id: string | null; detail: Record<string, unknown>; actor: string | null; target_name: string | null }[];
+}
+
+/** Sessions and scores for the store's own records (spec 14.5 item 6). Visibility follows row-level security. */
+export async function exportSessions(db: Queryable) {
+  const r = await db.query(
+    `select s.started_at, app.colleague_first_name(s.user_id) rep, s.scenario_code, s.mode, s.language, s.end_reason,
+            sc.total, sc.passed, sc.honesty_passed, coalesce((sc.dimensions->>'partial')::boolean, false) partial,
+            (select count(*) from violations v where v.session_id = s.id and v.severity = 'critical' and not v.uncertain)::int critical_flags,
+            (select count(*) from score_overrides o where o.score_id = sc.id)::int overrides
+     from sessions s left join scores sc on sc.session_id = s.id where s.ended_at is not null order by s.started_at`,
+  );
+  return r.rows;
+}
+
+/** RFC 4180 CSV. Cells that a spreadsheet would run as a formula are prefixed with a quote. */
+export function toCsv(rows: Record<string, unknown>[], columns: string[]): string {
+  const cell = (v: unknown) => {
+    let s = v === null || v === undefined ? "" : v instanceof Date ? v.toISOString() : String(v);
+    if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
+    return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  return [columns.join(","), ...rows.map((r) => columns.map((c) => cell(r[c])).join(","))].join("\r\n") + "\r\n";
+}

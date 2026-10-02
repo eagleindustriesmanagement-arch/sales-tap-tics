@@ -49,6 +49,8 @@ export default async function Dashboard() {
         <Link href="/manager/compliance" className={link}>{t("nav.compliance.view", lang)}</Link>
         <Link href="/manager/people" className={link}>{t("people.title", lang)}</Link>
         <Link href="/manager/costs" className={link}>{t("costs.title", lang)}</Link>
+        <Link href="/manager/audit" className={link}>{t("audit.title", lang)}</Link>
+        <a href="/api/export" className={link} download>{t("dash.export", lang)}</a>
       </nav>
     </div>
   );

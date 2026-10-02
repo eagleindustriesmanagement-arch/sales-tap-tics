@@ -135,7 +135,7 @@ describe.skipIf(SKIP)("session visibility (spec 3.3 rule 3, 14.6)", () => {
 
   it("a manager records an override next to the score, never in it", async () => {
     const score = await db.query("select id from scores where session_id = $1", [A.session]);
-    await asUser(A.tenant, A.manager, (q) => q.query("insert into score_overrides (tenant_id, score_id, manager_id, reason, flag) values ($1, $2, $3, 'Recognition garbled the price', 'review')", [A.tenant, score.rows[0].id, A.manager]));
-    await expect(asUser(A.tenant, A.rep2, (q) => q.query("insert into score_overrides (tenant_id, score_id, manager_id, reason, flag) values ($1, $2, $3, 'x', 'y')", [A.tenant, score.rows[0].id, A.rep2]))).rejects.toThrow(/row-level security/);
+    await asUser(A.tenant, A.manager, (q) => q.query("insert into score_overrides (tenant_id, score_id, manager_id, reason, flag) values ($1, $2, $3, 'Recognition garbled the price', 'audio_problem')", [A.tenant, score.rows[0].id, A.manager]));
+    await expect(asUser(A.tenant, A.rep2, (q) => q.query("insert into score_overrides (tenant_id, score_id, manager_id, reason, flag) values ($1, $2, $3, 'x', 'other')", [A.tenant, score.rows[0].id, A.rep2]))).rejects.toThrow(/row-level security/);
   });
 });
