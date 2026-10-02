@@ -1,0 +1,31 @@
+code: T070
+slug: explain-how-buying-works-here
+name:
+  en: Explain how buying works here
+  es: Explicar cómo se compra aquí
+family: language_trust
+stages:
+  - greeting
+  - discovery
+when:
+  en: Early, first-time buyers
+  es: Al principio, con quienes compran por primera vez
+model_line_kind: spoken
+model_line:
+  en: "Here is how it works: drive, appraisal, numbers in writing, then the lender. Nothing is signed until you have seen everything."
+  es: "Le explico cómo funciona aquí: la prueba de manejo, la tasación, los números por escrito y luego el banco. Nada se firma hasta que usted lo haya visto todo."
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: HBR case
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

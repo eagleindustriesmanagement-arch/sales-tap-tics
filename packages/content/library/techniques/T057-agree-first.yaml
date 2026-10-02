@@ -1,0 +1,30 @@
+code: T057
+slug: agree-first
+name:
+  en: Agree first
+  es: Primero estar de acuerdo
+family: objection_sequence
+stages:
+  - objection
+when:
+  en: First words of any objection response
+  es: Las primeras palabras de cualquier respuesta a una objeción
+model_line_kind: spoken
+model_line:
+  en: I agree, it is a lot of money. That is why I want it to be exactly right.
+  es: Estoy de acuerdo, es bastante dinero; por eso quiero que sea exactamente lo que busca.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Grant Cardone
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

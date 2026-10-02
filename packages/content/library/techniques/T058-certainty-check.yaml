@@ -1,0 +1,30 @@
+code: T058
+slug: certainty-check
+name:
+  en: Certainty check
+  es: Medir qué tan seguro está
+family: closing
+stages:
+  - closing
+when:
+  en: After the drive, before numbers
+  es: Después de la prueba de manejo, antes de los números
+model_line_kind: spoken
+model_line:
+  en: From one to ten, how sure are you this is the right car? What would make it a ten?
+  es: Del uno al diez, ¿qué tan seguro está de que este es el carro? ¿Qué le faltaría para llegar a diez?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Belfort's three certainties, honest use only
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

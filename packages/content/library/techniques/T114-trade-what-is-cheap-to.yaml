@@ -1,0 +1,31 @@
+code: T114
+slug: trade-what-is-cheap-to
+name:
+  en: Trade what is cheap to give
+  es: Ofrecer lo que cuesta poco dar
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Closing the last gap
+  es: Al cerrar la última diferencia
+model_line_kind: spoken
+model_line:
+  en: I cannot move the price, but I can have it detailed with a full tank by four if we finish the paperwork now.
+  es: El precio no lo puedo mover, pero se lo tengo lavadito y con el tanque lleno para las cuatro si terminamos los papeles ahora.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Stuart Diamond
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

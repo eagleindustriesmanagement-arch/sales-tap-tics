@@ -1,0 +1,23 @@
+code: O38
+slug: my-son-will-translate-for
+module: car-language-trust
+says:
+  en: My son will translate for me
+  es: Mi hijo me traduce
+nonverbal: false
+behind:
+  en: Language barrier hiding confusion
+  es: La barrera del idioma esconde confusión
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Offer a bilingual staff member
+    es: Ofrecer a alguien del equipo que sea bilingüe
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

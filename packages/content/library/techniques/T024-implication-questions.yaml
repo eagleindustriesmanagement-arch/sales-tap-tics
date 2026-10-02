@@ -1,0 +1,30 @@
+code: T024
+slug: implication-questions
+name:
+  en: Implication questions
+  es: Preguntas de implicación
+family: discovery
+stages:
+  - discovery
+when:
+  en: Discovery
+  es: En el descubrimiento
+model_line_kind: spoken
+model_line:
+  en: When the van is in the shop, what does that do to your week?
+  es: Cuando la van está en el taller, ¿cómo le afecta la semana?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Rackham
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

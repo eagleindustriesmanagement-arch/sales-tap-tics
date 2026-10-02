@@ -1,0 +1,26 @@
+code: O51
+slug: estoy-al-reves-con-mi
+module: car-miami-indecision
+says:
+  en: ""
+  es: Estoy al revés con mi carro
+nonverbal: false
+behind:
+  en: Fear the shortfall is hidden in the new loan
+  es: Miedo de que la diferencia se esconda en el préstamo nuevo
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Payoff and value side by side
+    es: El payoff y el valor lado a lado
+release_1: false
+frequency_weight: 1
+see_also:
+  - O02
+language_specific:
+  language: es
+  reason: Spanish phrasing of O02 used by Miami customers
+spanish_reviewed: false
+status: active

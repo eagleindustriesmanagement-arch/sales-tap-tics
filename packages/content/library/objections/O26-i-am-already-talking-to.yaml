@@ -1,0 +1,23 @@
+code: O26
+slug: i-am-already-talking-to
+module: car-market-2026
+says:
+  en: I am already talking to another store
+  es: Ya estoy hablando con otro dealer
+nonverbal: false
+behind:
+  en: First responder set the frame
+  es: El primero que le contestó le marcó la pauta
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Ask what they were quoted; compare out-the-door
+    es: Preguntar qué le cotizaron; comparar el precio total final
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

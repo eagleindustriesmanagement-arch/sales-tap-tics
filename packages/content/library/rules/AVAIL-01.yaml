@@ -1,0 +1,28 @@
+code: AVAIL-01
+family: availability
+severity: critical
+description:
+  en: Scarcity or competing-buyer claims match the inventory facts.
+  es: Las afirmaciones de escasez o de otro comprador coinciden con el inventario.
+explanation:
+  en: "That availability claim does not match the inventory. {fact}"
+  es: "Eso de la disponibilidad no coincide con el inventario. {fact}"
+check_kind: inventory_compare
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T020
+parameters:
+  negation_breaks: true
+  attribution_breaks: false
+  last_one:
+    en: ['\b(the )?last one\b', '\bonly one (left|we have)\b', '\bthis is it\b.{0,20}\b(only|last)\b', '\bthe only one\b']
+    es: ['\b(el|la) últim[oa] que (nos )?queda\b', '\b(es|era) (el|la) últim[oa]\b', '\b(el|la) únic[oa] que (nos )?queda\b', '\bsolo (nos )?queda (uno|una)\b']
+  only_n_left:
+    en: ['\bonly (\w+) (left|on the lot|in stock)\b', '\b(\w+) left on the lot\b']
+    es: ['\bsolo (nos )?quedan (\w+)\b', '\bquedan (\w+) nada más\b']
+  competing_buyer:
+    en: ['\b(someone|somebody|another (customer|buyer|couple|guy|lady))\b.{0,30}\b(looking at|interested in|coming (back|in)|wants|is (on|about to))\b', '\b(has|have) (a|another) (deposit|hold|offer) on\b']
+    es: ['\b(otro cliente|otra persona|alguien más|otra pareja)\b.{0,30}\b(lo|la)? ?(quiere|está viendo|viene|anda mirando)\b', '\b(tiene|tienen) (un depósito|una oferta) (en|por)\b']
+legal_basis: FTC guidance (spec 4.2)
+attorney_reviewed: false

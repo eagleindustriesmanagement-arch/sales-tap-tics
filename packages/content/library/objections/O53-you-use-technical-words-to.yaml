@@ -1,0 +1,23 @@
+code: O53
+slug: you-use-technical-words-to
+module: car-miami-indecision
+says:
+  en: You use technical words to confuse people
+  es: Hablan con palabras técnicas para confundirlo a uno
+nonverbal: false
+behind:
+  en: A past bad experience
+  es: Una mala experiencia en el pasado
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Plain words; every number in writing
+    es: Palabras sencillas; cada número por escrito
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

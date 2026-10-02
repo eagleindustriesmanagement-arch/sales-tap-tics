@@ -1,0 +1,23 @@
+code: O35
+slug: i-only-have-an-itin
+module: car-language-trust
+says:
+  en: I only have an ITIN
+  es: Solo tengo ITIN, no tengo Social
+nonverbal: false
+behind:
+  en: Fear of rejection
+  es: Miedo a que lo rechacen
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Explain options privately; never claim only one lender approves
+    es: Explicar las opciones en privado; nunca decir que un solo banco aprueba
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

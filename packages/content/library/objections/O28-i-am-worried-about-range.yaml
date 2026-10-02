@@ -1,0 +1,22 @@
+code: O28
+slug: i-am-worried-about-range
+module: car-ev
+says:
+  en: I am worried about range
+  es: Me preocupa que no me alcance la carga
+nonverbal: false
+behind:
+  en: Fear of being stranded
+  es: Miedo de quedarse varado
+behind_source: null
+core_moves:
+  techniques:
+    - T065
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

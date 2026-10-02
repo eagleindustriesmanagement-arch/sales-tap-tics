@@ -1,0 +1,31 @@
+code: T084
+slug: starting-to-look-greeting
+name:
+  en: '"Starting to look" greeting'
+  es: Saludo de "apenas empezando a mirar"
+family: discovery
+stages:
+  - discovery
+when:
+  en: Lot greeting
+  es: Saludo en el lote
+model_line_kind: spoken
+model_line:
+  en: Welcome in. Are you just starting to look and shop around?
+  es: Bienvenidos. ¿Apenas están empezando a mirar y comparar?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Mark Tewart
+sources:
+  - https://tewart.com/giving-enough-trade/
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

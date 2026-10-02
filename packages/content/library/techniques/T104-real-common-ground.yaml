@@ -1,0 +1,34 @@
+code: T104
+slug: real-common-ground
+name:
+  en: Real common ground
+  es: Algo real en común
+family: discovery
+stages:
+  - discovery
+when:
+  en: Greeting and walkaround, only when true
+  es: En el saludo y el recorrido alrededor del carro, solo si es cierto
+model_line_kind: spoken
+model_line:
+  en: You are from Hialeah? I grew up off 49th Street.
+  es: ¿Usted es de Hialeah? Yo me crié por la 49.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Gremler and Gwinner 2008, 388 encounters
+sources:
+  - https://www.sciencedirect.com/science/article/abs/pii/S0022435908000511
+placeholders: []
+related: []
+rubric_items: []
+compliance:
+  - ID-01
+requires_store_policy: false
+use_only_when:
+  en: Only when true.
+  es: Solo si es cierto.
+spanish_reviewed: false
+status: active

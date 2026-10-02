@@ -1,0 +1,35 @@
+code: T005
+slug: isolate
+name:
+  en: Isolate
+  es: Aislar la objeción
+family: objection_sequence
+stages:
+  - objection
+when:
+  en: The stated objection may not be the real one
+  es: Puede que la objeción que dice no sea la verdadera
+model_line_kind: spoken
+model_line:
+  en: Other than talking it over at home, is anything about the car or the numbers holding you back?
+  es: Aparte de hablarlo en casa, ¿hay algo del carro o de los números que lo detenga?
+flawed_line:
+  en: So what can I do to get you into this car today?
+  es: ¿Y qué tengo que hacer para que se lleve este carro hoy?
+flawed_line_violates: []
+why:
+  en: The reason a customer gives for leaving is rarely the real one. Isolating separates the stated objection from what is actually holding them back.
+  es: La razón que da el cliente para irse casi nunca es la real. Aislar separa la objeción que dice de lo que de verdad lo detiene.
+evidence:
+  grade: D
+  note: supported by the stated-versus-real-reason data
+sources: []
+placeholders: []
+related: []
+rubric_items:
+  - U-ISOLATE
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

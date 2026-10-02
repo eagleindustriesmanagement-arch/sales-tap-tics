@@ -1,0 +1,31 @@
+code: T028
+slug: counter-a-low-anchor-by
+name:
+  en: Counter a low anchor by refocusing
+  es: Contrarrestar un ancla baja cambiando el enfoque
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: '"Another dealer is cheaper"'
+  es: '"Otro dealer está más barato"'
+model_line_kind: spoken
+model_line:
+  en: Set that number aside a second. Let's compare total out-the-door and what is on the lot today.
+  es: Dejemos ese número a un lado un momento. Comparemos el precio total y lo que hay en el lote hoy.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Galinsky and Mussweiler 2001
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

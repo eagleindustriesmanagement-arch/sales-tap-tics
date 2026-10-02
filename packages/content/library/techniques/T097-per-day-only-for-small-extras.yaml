@@ -1,0 +1,30 @@
+code: T097
+slug: per-day-only-for-small-extras
+name:
+  en: Per-day only for small extras
+  es: Por día solo para extras pequeños
+family: finance_handoff
+stages:
+  - finance
+when:
+  en: An optional, separately priced product
+  es: Un producto opcional con precio aparte
+model_line_kind: spoken
+model_line:
+  en: It is optional. It is $1,095 total over five years, about 60 cents a day.
+  es: Es opcional. Son $1,095 en total por cinco años, como 60 centavos al día.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Gourville 1998 and 2003; reverses for large amounts, so never for the car payment
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

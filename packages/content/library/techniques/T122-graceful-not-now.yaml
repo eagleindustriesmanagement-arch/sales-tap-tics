@@ -1,0 +1,33 @@
+code: T122
+slug: graceful-not-now
+name:
+  en: Graceful "not now"
+  es: Un "ahora no" con buena cara
+family: compliance
+stages:
+  - numbers
+when:
+  en: Customer leaving undecided
+  es: El cliente se va sin decidirse
+model_line_kind: spoken
+model_line:
+  en: Sounds like today is not the day, and that is fine. Can I text you the out-the-door number so you have it in writing?
+  es: Parece que hoy no es el día, y está bien. ¿Le envío por texto el precio total final para que lo tenga por escrito?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: AI-simulator study 2026; all-in price required
+sources:
+  - https://arxiv.org/abs/2606.20708
+placeholders: []
+related: []
+rubric_items:
+  - U-NEXT
+compliance:
+  - PRICE-01
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

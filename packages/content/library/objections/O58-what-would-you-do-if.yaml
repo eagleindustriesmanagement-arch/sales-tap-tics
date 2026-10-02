@@ -1,0 +1,22 @@
+code: O58
+slug: what-would-you-do-if
+module: car-miami-indecision
+says:
+  en: What would you do if you were me?
+  es: ¿Usted qué haría si fuera yo?
+nonverbal: false
+behind:
+  en: Wants someone to own the advice
+  es: Quiere que alguien se haga responsable del consejo
+behind_source: null
+core_moves:
+  techniques:
+    - T092
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

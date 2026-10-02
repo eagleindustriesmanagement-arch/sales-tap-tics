@@ -1,0 +1,31 @@
+code: T016
+slug: silence-after-the-number
+name:
+  en: Silence after the number
+  es: Silencio después del número
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Right after presenting figures
+  es: Justo después de presentar las cifras
+model_line_kind: direction
+model_line:
+  en: Present, then say nothing until the customer speaks.
+  es: Presentar y no decir nada hasta que el cliente hable.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

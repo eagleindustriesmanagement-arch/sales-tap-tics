@@ -1,0 +1,30 @@
+code: T032
+slug: mirror-the-last-words
+name:
+  en: Mirror the last words
+  es: Repetir las últimas palabras
+family: objection_sequence
+stages:
+  - objection
+when:
+  en: Any stall
+  es: Cuando el cliente se frena
+model_line_kind: spoken
+model_line:
+  en: "Customer: \"I just don't want to get stuck.\" Rep: \"Stuck?\""
+  es: 'Cliente: "No quiero quedarme atrapado." Vendedor: "¿Atrapado?"'
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: contested; a 2021 replication found no gain
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

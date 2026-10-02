@@ -1,0 +1,25 @@
+code: B-T003-acknowledge
+technique: T003
+title: { en: Acknowledge, es: Reconocer }
+behavior:
+  en: Right after the pause, say the concern is fair before anything else.
+  es: Justo después de la pausa, diga que la preocupación es válida antes de cualquier otra cosa.
+floor_check_script:
+  saw:
+    en: "I watched you with [the customer]. When they said [the objection], you pushed back before agreeing it was fair."
+    es: "Lo vi con [el cliente]. Cuando dijeron [la objeción], usted le llevó la contraria antes de reconocer que era válido."
+  behavior:
+    en: Next time, acknowledge it first.
+    es: La próxima vez, reconózcalo primero.
+  line:
+    en: "\"That is fair. It is a big decision.\""
+    es: "\"Tiene toda la razón. Es una decisión importante.\""
+  check_again:
+    en: Use it on your next objection. I'll check in before close of day.
+    es: Úselo en su próxima objeción. Le pregunto antes de terminar el día.
+look_for:
+  en: ["Agrees the concern is fair", "No \"but\" right after"]
+  es: ["Reconoce que la preocupación es válida", "Sin un \"pero\" justo después"]
+rubric_items: [O01-ACK]
+duration_seconds: 60
+spanish_reviewed: false

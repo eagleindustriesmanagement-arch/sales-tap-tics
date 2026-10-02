@@ -1,0 +1,34 @@
+code: T019
+slug: small-concessions-shrinking
+name:
+  en: Small concessions, shrinking
+  es: Concesiones pequeñas y cada vez menores
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Multiple rounds
+  es: Varias rondas
+model_line_kind: direction
+model_line:
+  en: Each move smaller than the last, with a reason; see T106.
+  es: Cada paso más pequeño que el anterior y con una razón; ver T106.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Kwon and Weingart 2004
+sources:
+  - https://pubmed.ncbi.nlm.nih.gov/15065974/
+placeholders: []
+related:
+  - T106
+rubric_items:
+  - U-CONCESS
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

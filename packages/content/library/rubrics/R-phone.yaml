@@ -1,0 +1,51 @@
+code: R-phone
+extends: R-core
+title: { en: Phone, es: Teléfono }
+weights: { composure: 0.15, discovery: 0.30, technique: 0.25, outcome: 0.30 }
+pass_threshold: { level_1: 70, level_2: 75, level_3: 80 }
+items:
+  - code: PH-OPENER
+    behavior:
+      en: "Said name, store and reason within 10 seconds"
+      es: "Dijo su nombre, la tienda y el motivo en menos de 10 segundos"
+    dimension: technique
+    method: judge
+    points: 1
+    evidence: "Gong, 300 million calls: stating the reason raised success 2.1 times"
+    technique: T075
+    params: { within_seconds: 10 }
+  - code: PH-ALLIN
+    behavior:
+      en: "Gave the all-in price when asked"
+      es: "Dio el precio total cuando se lo pidieron"
+    dimension: technique
+    method: rule
+    points: 1
+    evidence: FTC pricing guidance (September 15, 2026)
+    technique: T118
+    params: { rules: [PRICE-02], topic: price }
+  - code: PH-TWOTIMES
+    behavior:
+      en: "Offered two appointment times with a reason"
+      es: "Ofreció dos horarios para la cita con una razón"
+    dimension: outcome
+    method: judge
+    points: 1
+    evidence: Practitioner tradition (T063)
+    technique: T063
+  - code: PH-CONFIRM
+    behavior:
+      en: "Confirmed the appointment with the vehicle named"
+      es: "Confirmó la cita nombrando el vehículo"
+    dimension: outcome
+    method: judge
+    points: 1
+    evidence: Practitioner tradition (T076)
+    technique: T076
+  - code: PH-NOBADTIME
+    behavior: { en: "Did not open with \"Did I catch you at a bad time?\"", es: "No empezó con \"¿Lo agarré en mal momento?\"" }
+    dimension: technique
+    method: count
+    points: 1
+    evidence: "Gong: that opener cut booking odds 40%"
+    params: { max: 0, patterns: ['\bcatch you at a bad time\b', '\bis this a bad time\b', '\bagarr[ée] en (un )?mal momento\b', '\bes (un )?mal momento\b'] }

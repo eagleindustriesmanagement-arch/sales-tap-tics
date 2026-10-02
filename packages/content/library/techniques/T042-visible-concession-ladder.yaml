@@ -1,0 +1,32 @@
+code: T042
+slug: visible-concession-ladder
+name:
+  en: Visible concession ladder
+  es: Escalera de concesiones a la vista
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: '"¿Ese es su último precio?"'
+  es: '"¿Ese es su último precio?"'
+model_line_kind: spoken
+model_line:
+  en: I do not have much room, but let me show you what I can do and what I would need from you.
+  es: No tengo mucho margen, pero déjeme enseñarle lo que sí puedo hacer y qué necesitaría de su parte.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: Ogliastri, 1,500 business interviews; test, do not assume
+sources:
+  - https://www.redalyc.org/pdf/716/71602504.pdf
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

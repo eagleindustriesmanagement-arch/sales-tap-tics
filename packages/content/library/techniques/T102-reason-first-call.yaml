@@ -1,0 +1,31 @@
+code: T102
+slug: reason-first-call
+name:
+  en: Reason-first call
+  es: Llamada con la razón primero
+family: phone
+stages:
+  - phone
+when:
+  en: Old leads and past customers
+  es: Leads viejos y clientes anteriores
+model_line_kind: spoken
+model_line:
+  en: It's Carlos from Bomnin Chevrolet. I am calling because your lease ends in March. Can I take 30 seconds?
+  es: Le habla Carlos de Bomnin Chevrolet. Le llamo porque su lease se vence en marzo. ¿Me regala 30 segundos?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Gong, 300 million calls; stating the reason raised success 2.1 times (business-to-business)
+sources:
+  - https://www.gong.io/blog/the-best-and-worst-cold-call-openers-backed-by-data-from-300m-calls
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,26 @@
+code: B-T002-clarify
+technique: T002
+title: { en: Clarify with a question, es: Aclarar con una pregunta }
+behavior:
+  en: When a customer raises an objection, ask one question before offering any answer.
+  es: Cuando el cliente ponga una objeción, haga una pregunta antes de ofrecer cualquier respuesta.
+# Spec 14.2. Words in [brackets] are filled in by the manager from what they saw.
+floor_check_script:
+  saw:
+    en: "I watched your talk with [the customer]. When they said [the objection], you went straight to options."
+    es: "Vi su conversación con [el cliente]. Cuando dijeron [la objeción], usted fue directo a las opciones."
+  behavior:
+    en: Next time, ask first.
+    es: La próxima vez, pregunte primero.
+  line:
+    en: "\"What number did you have in mind?\""
+    es: "\"¿Qué número tenía en mente?\""
+  check_again:
+    en: Let's try it on your next up. I'll check back after lunch.
+    es: Probémoslo con su próximo cliente. Le pregunto después del almuerzo.
+look_for:
+  en: ["A question right after the objection", "No options or numbers before the customer answers"]
+  es: ["Una pregunta justo después de la objeción", "Nada de opciones ni números antes de que el cliente responda"]
+rubric_items: [U-QFIRST, O01-QFIRST]
+duration_seconds: 60
+spanish_reviewed: false

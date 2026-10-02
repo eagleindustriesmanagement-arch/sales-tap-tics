@@ -1,0 +1,30 @@
+code: T060
+slug: who-else-decides-asked-early
+name:
+  en: Who else decides, asked early
+  es: Quién más decide, preguntado temprano
+family: discovery
+stages:
+  - discovery
+when:
+  en: Greeting or discovery
+  es: En el saludo o el descubrimiento
+model_line_kind: spoken
+model_line:
+  en: Besides you, who else will be part of this decision?
+  es: Aparte de usted, ¿quién más va a participar en la decisión?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Andy Elliott (neutral use only)
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

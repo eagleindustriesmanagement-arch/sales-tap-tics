@@ -1,0 +1,32 @@
+code: T029
+slug: trade-value-walkthrough
+name:
+  en: Trade-value walkthrough
+  es: Explicar el valor del trade-in paso a paso
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: '"You are low on my trade"'
+  es: '"Me está dando poco por mi trade-in"'
+model_line_kind: spoken
+model_line:
+  en: Here are the three closest auction sales and the $1,100 in tires and brakes it needs.
+  es: Aquí tiene las tres ventas de subasta más parecidas y los $1,100 de gomas y frenos que necesita.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: J.D. Power 2025 SSI; deal satisfaction 800 when explained versus 672
+sources:
+  - https://www.jdpower.com/business/press-releases/2025-us-sales-satisfaction-index-ssi-study/
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

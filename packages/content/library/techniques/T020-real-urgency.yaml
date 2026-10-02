@@ -1,0 +1,35 @@
+code: T020
+slug: real-urgency
+name:
+  en: Real urgency
+  es: Urgencia real
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: A true, showable deadline or scarce unit
+  es: Una fecha límite verdadera que se puede mostrar, o una unidad escasa
+model_line_kind: spoken
+model_line:
+  en: The $1,500 rebate ends Monday. Here is the bulletin.
+  es: El reembolso de $1,500 vence el lunes. Aquí tiene el boletín.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Gino and Moore 2008 (real deadlines only)
+sources:
+  - https://ncmr.lps.library.cmu.edu/article/id/82/
+placeholders: []
+related:
+  - T107
+rubric_items:
+  - U-DEADLINE
+compliance:
+  - DEAD-01
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

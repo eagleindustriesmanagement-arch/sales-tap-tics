@@ -1,0 +1,25 @@
+code: B-T014-next-step
+technique: T014
+title: { en: Firm next step, es: Próximo paso firme }
+behavior:
+  en: Before any customer leaves, agree on a specific day and time together.
+  es: Antes de que se vaya cualquier cliente, acuerden juntos un día y una hora específicos.
+floor_check_script:
+  saw:
+    en: "I watched [the customer] leave with \"let me know.\" There was no day or time."
+    es: "Vi a [el cliente] irse con un \"me avisa\". No hubo día ni hora."
+  behavior:
+    en: Next time, offer two specific times.
+    es: La próxima vez, ofrezca dos horarios específicos.
+  line:
+    en: "\"Does tomorrow at 5:30 or Saturday at 10 work better for you both?\""
+    es: "\"¿Les queda mejor mañana a las 5:30 o el sábado a las 10?\""
+  check_again:
+    en: Do it with everyone who leaves today. I'll check your appointments at close.
+    es: Hágalo con todos los que se vayan hoy. Reviso sus citas al cierre.
+look_for:
+  en: ["Two specific times offered", "Customer agrees to one"]
+  es: ["Ofrece dos horarios específicos", "El cliente acepta uno"]
+rubric_items: [U-NEXT, O01-NEXT]
+duration_seconds: 60
+spanish_reviewed: false

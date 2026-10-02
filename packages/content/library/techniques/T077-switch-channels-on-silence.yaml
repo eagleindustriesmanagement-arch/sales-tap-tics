@@ -1,0 +1,31 @@
+code: T077
+slug: switch-channels-on-silence
+name:
+  en: Switch channels on silence
+  es: Cambiar de canal si no contesta
+family: phone
+stages:
+  - phone
+when:
+  en: After one or two unanswered contacts
+  es: Después de uno o dos contactos sin respuesta
+model_line_kind: spoken
+model_line:
+  en: Maybe email is not the best way to reach you. Want a 30-second video of the car by text?
+  es: Quizás el email no es lo más práctico. ¿Le mando por texto un video cortico del carro?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: requires text consent (CONSENT-01)
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance:
+  - CONSENT-01
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

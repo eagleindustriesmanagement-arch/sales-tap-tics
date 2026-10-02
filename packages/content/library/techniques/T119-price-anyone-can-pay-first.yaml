@@ -1,0 +1,32 @@
+code: T119
+slug: price-anyone-can-pay-first
+name:
+  en: Price anyone can pay first
+  es: Primero el precio que cualquiera puede pagar
+family: compliance
+stages:
+  - numbers
+when:
+  en: A rebate only some buyers qualify for
+  es: Un reembolso para el que solo califican algunos compradores
+model_line_kind: spoken
+model_line:
+  en: Anyone can drive this home for $X out the door. If you are a first responder, there is another $1,000 off.
+  es: Cualquier persona se lo puede llevar por $X precio total final. Si usted es socorrista, hay $1,000 adicionales de descuento.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: A
+  note: same
+sources: []
+placeholders:
+  - X
+related: []
+rubric_items: []
+compliance:
+  - PRICE-03
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

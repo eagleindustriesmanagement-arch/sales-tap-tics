@@ -1,0 +1,25 @@
+code: O05
+slug: i-need-to-think-about
+module: car-core
+says:
+  en: I need to think about it
+  es: Lo tengo que pensar
+nonverbal: false
+behind:
+  en: An unvoiced question; fear of choosing wrong
+  es: Una pregunta que no se ha dicho; miedo de escoger mal
+behind_source: null
+core_moves:
+  techniques:
+    - T091
+    - T092
+    - T093
+    - T115
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

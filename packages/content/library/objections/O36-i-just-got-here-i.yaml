@@ -1,0 +1,23 @@
+code: O36
+slug: i-just-got-here-i
+module: car-language-trust
+says:
+  en: I just got here, I have no credit yet
+  es: Acabo de llegar, todavía no tengo crédito
+nonverbal: false
+behind:
+  en: Thin file
+  es: Historial de crédito muy corto
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Real paths, such as a co-signer
+    es: Caminos reales, como un co-firmante
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

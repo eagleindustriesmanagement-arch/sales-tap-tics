@@ -1,0 +1,25 @@
+code: B-T005-isolate
+technique: T005
+title: { en: Isolate, es: Aislar }
+behavior:
+  en: Before solving, ask whether anything besides the stated objection is holding the customer back.
+  es: Antes de resolver, pregunte si hay algo aparte de la objeción que dijo que esté deteniendo al cliente.
+floor_check_script:
+  saw:
+    en: "I watched you with [the customer]. You solved [the objection] and then a new one came up."
+    es: "Lo vi con [el cliente]. Usted resolvió [la objeción] y después salió otra."
+  behavior:
+    en: Next time, isolate it before you solve it.
+    es: La próxima vez, aíslela antes de resolverla.
+  line:
+    en: "\"Other than that, is anything about the car or the numbers holding you back?\""
+    es: "\"Aparte de eso, ¿hay algo del carro o de los números que lo detenga?\""
+  check_again:
+    en: Try it on your next up. I'll ask you how it went after lunch.
+    es: Pruébelo con su próximo cliente. Le pregunto cómo le fue después del almuerzo.
+look_for:
+  en: ["An \"other than that\" question", "Waits for the answer before solving"]
+  es: ["Una pregunta de \"aparte de eso\"", "Espera la respuesta antes de resolver"]
+rubric_items: [U-ISOLATE, O01-ISOLATE, U-HIDDEN, O01-HIDDEN]
+duration_seconds: 60
+spanish_reviewed: false

@@ -1,0 +1,32 @@
+code: T116
+slug: ask-for-the-review-later
+name:
+  en: Ask for the review later
+  es: Pedir la reseña más adelante
+family: delivery
+stages:
+  - delivery
+when:
+  en: About ten days after delivery
+  es: Unos diez días después de la entrega
+model_line_kind: spoken
+model_line:
+  en: Now that you have had the Silverado a week or so, would you share how we did?
+  es: Ahora que ya lleva una semanita con la Silverado, ¿nos regala un comentario?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Jung and others 2023, about 300,000 consumers; later reminders raised posting 64%
+sources:
+  - https://www.ama.org/2023/01/10/asking-for-customer-reviews-at-the-right-time-sooner-is-not-always-better/
+placeholders: []
+related: []
+rubric_items: []
+compliance:
+  - REVIEW-01
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

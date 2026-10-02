@@ -1,0 +1,30 @@
+code: T035
+slug: word-picture-on-the-phone
+name:
+  en: Word picture on the phone
+  es: Pintarle la imagen por teléfono
+family: phone
+stages:
+  - phone
+when:
+  en: Phone and internet leads
+  es: Leads de teléfono e internet
+model_line_kind: spoken
+model_line:
+  en: Picture the cooled seats in August traffic on the Palmetto.
+  es: Imagínese los asientos ventilados en el tráfico de agosto en el Palmetto.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Peck, Barger and Webb 2013
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

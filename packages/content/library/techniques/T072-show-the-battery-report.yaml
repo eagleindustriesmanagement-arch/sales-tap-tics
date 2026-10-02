@@ -1,0 +1,31 @@
+code: T072
+slug: show-the-battery-report
+name:
+  en: Show the battery report
+  es: Mostrar el reporte de la batería
+family: ev
+stages:
+  - discovery
+  - objection
+when:
+  en: Used EV, battery worry
+  es: Eléctrico usado, preocupación por la batería
+model_line_kind: spoken
+model_line:
+  en: Here is the battery health report for this exact car. This copy is yours.
+  es: Aquí tiene el reporte de la batería de este carro. Esta copia es suya.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: battery testing data
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

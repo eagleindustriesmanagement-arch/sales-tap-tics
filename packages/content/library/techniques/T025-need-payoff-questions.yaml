@@ -1,0 +1,30 @@
+code: T025
+slug: need-payoff-questions
+name:
+  en: Need-payoff questions
+  es: Preguntas de necesidad-beneficio
+family: discovery
+stages:
+  - discovery
+when:
+  en: Late discovery
+  es: Al final del descubrimiento
+model_line_kind: spoken
+model_line:
+  en: If you never had to borrow your sister's car again, what would that be worth?
+  es: Si nunca más tuviera que pedirle el carro a su hermana, ¿cuánto valdría eso para usted?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Rackham
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,25 @@
+code: B-T013-include-partner
+technique: T013
+title: { en: Bring in the absent decision-maker, es: Incluir a quien falta en la decisión }
+behavior:
+  en: When a partner or parent is part of the decision, offer to bring them in now.
+  es: Cuando la pareja o un familiar es parte de la decisión, ofrezca incluirlo ahora.
+floor_check_script:
+  saw:
+    en: "I watched you with [the customer]. They said they had to talk to [the partner], and the talk ended there."
+    es: "Lo vi con [el cliente]. Dijo que tenía que hablarlo con [la pareja], y ahí se acabó la conversación."
+  behavior:
+    en: Next time, offer to include them.
+    es: La próxima vez, ofrezca incluirlos.
+  line:
+    en: "\"Want to video call them now so they can see it?\""
+    es: "\"¿Quiere hacerle una videollamada ahora para que lo vea?\""
+  check_again:
+    en: Use it the next time you hear it. Tell me how it went.
+    es: Úselo la próxima vez que lo escuche. Me cuenta cómo le fue.
+look_for:
+  en: ["Offers a call or a visit with the partner", "Never suggests deciding alone"]
+  es: ["Ofrece una llamada o una visita con la pareja", "Nunca sugiere decidir solo"]
+rubric_items: [O01-PARTNER]
+duration_seconds: 60
+spanish_reviewed: false

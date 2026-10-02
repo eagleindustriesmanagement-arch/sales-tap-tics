@@ -1,0 +1,24 @@
+code: O49
+slug: another-dealer-said-gap-was
+module: car-phone-finance
+says:
+  en: Another dealer said GAP was required
+  es: En otro dealer me dijeron que el GAP era obligatorio
+nonverbal: false
+behind:
+  en: Past misinformation
+  es: Le dieron información equivocada antes
+behind_source: null
+core_moves:
+  techniques:
+    - T121
+  rules: []
+  notes:
+    en: '"GAP is optional"'
+    es: '"El GAP es opcional"'
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

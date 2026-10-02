@@ -1,0 +1,22 @@
+code: O23
+slug: show-me-how-you-got
+module: car-market-2026
+says:
+  en: Show me how you got my trade number
+  es: Enséñeme cómo sacó el valor de mi trade-in
+nonverbal: false
+behind:
+  en: Wants fairness more than a higher figure
+  es: Quiere un trato justo más que una cifra más alta
+behind_source: null
+core_moves:
+  techniques:
+    - T029
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

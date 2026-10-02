@@ -1,0 +1,18 @@
+code: PAY-01
+family: payment
+severity: critical
+description:
+  en: Any payment that includes add-ons is labeled as including them.
+  es: Todo pago que incluya productos adicionales se identifica como que los incluye.
+explanation:
+  en: "That payment includes add-ons but was not labeled that way. {fact}"
+  es: "Ese pago incluye productos adicionales y no se dijo. {fact}"
+check_kind: payment_compare
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T121
+parameters:
+  tolerance_cents: 100
+legal_basis: FTC Asbury and Napleton complaints; Credit Acceptance consent decree
+attorney_reviewed: false

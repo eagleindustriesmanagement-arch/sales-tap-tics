@@ -1,0 +1,33 @@
+code: T012
+slug: true-third-party-story
+name:
+  en: True third-party story
+  es: Historia real de otro cliente
+family: indecision
+stages:
+  - objection
+  - closing
+when:
+  en: Fear of a mistake
+  es: Miedo a equivocarse
+model_line_kind: spoken
+model_line:
+  en: A customer last month had the same worry. Here is what she did.
+  es: Una clienta el mes pasado tenía la misma duda. Le cuento lo que hizo.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: social proof research
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when:
+  en: Real stories only.
+  es: Solo historias reales.
+spanish_reviewed: false
+status: active

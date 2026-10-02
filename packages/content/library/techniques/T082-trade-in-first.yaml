@@ -1,0 +1,31 @@
+code: T082
+slug: trade-in-first
+name:
+  en: Trade-in first
+  es: Primero el trade-in
+family: discovery
+stages:
+  - discovery
+when:
+  en: Right after the greeting, when there is a trade
+  es: Justo después del saludo, cuando hay trade-in
+model_line_kind: spoken
+model_line:
+  en: Before we look at anything new, let's walk around your Equinox. What do you love about it, and what drives you crazy?
+  es: Antes de ver algo nuevo, vamos a darle la vuelta a su Equinox. ¿Qué es lo que más le gusta y qué es lo que ya no aguanta?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Mark Tewart
+sources:
+  - https://tewart.com/giving-enough-trade/
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

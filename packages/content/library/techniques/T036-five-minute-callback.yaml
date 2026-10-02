@@ -1,0 +1,30 @@
+code: T036
+slug: five-minute-callback
+name:
+  en: Five-minute callback
+  es: Devolver la llamada en cinco minutos
+family: phone
+stages:
+  - phone
+when:
+  en: Every web lead
+  es: Cada lead de internet
+model_line_kind: spoken
+model_line:
+  en: Hi Maria, you just asked about the white Highlander. I am standing next to it. Got a minute?
+  es: Hola, María, usted acaba de preguntar por la Highlander blanca. Estoy al lado de ella. ¿Tiene un minuto?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: lead response study, 100,000+ call attempts (measured contact, not sales)
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

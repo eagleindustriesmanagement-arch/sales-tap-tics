@@ -1,0 +1,24 @@
+code: O32
+slug: evs-cost-too-much
+module: car-ev
+says:
+  en: EVs cost too much
+  es: Los eléctricos son muy caros
+nonverbal: false
+behind:
+  en: Comparing sticker only
+  es: Solo está comparando el precio de etiqueta
+behind_source: null
+core_moves:
+  techniques:
+    - T066
+  rules: []
+  notes:
+    en: Verified figures only
+    es: Solo cifras verificadas
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

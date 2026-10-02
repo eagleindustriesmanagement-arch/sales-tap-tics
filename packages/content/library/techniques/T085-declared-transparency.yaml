@@ -1,0 +1,36 @@
+code: T085
+slug: declared-transparency
+name:
+  en: Declared transparency
+  es: Transparencia anunciada
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Lot, then again at first numbers
+  es: En el lote, y otra vez con los primeros números
+model_line_kind: spoken
+model_line:
+  en: When we sit down you will see price, trade, payment and every fee on one sheet.
+  es: Cuando nos sentemos, usted va a ver el precio, el trade-in, el pago y cada cargo en una sola hoja.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Mark Tewart; only usable if true
+sources:
+  - https://tewart.com/giving-enough-trade/
+placeholders: []
+related:
+  - T030
+  - T118
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when:
+  en: Only when true.
+  es: Solo si es cierto.
+spanish_reviewed: false
+status: active

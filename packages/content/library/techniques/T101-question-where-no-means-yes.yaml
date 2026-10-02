@@ -1,0 +1,30 @@
+code: T101
+slug: question-where-no-means-yes
+name:
+  en: Question where "no" means yes
+  es: Pregunta donde el "no" significa sí
+family: closing
+stages:
+  - closing
+when:
+  en: Asking for a drive or next step
+  es: Al pedir la prueba de manejo o el siguiente paso
+model_line_kind: spoken
+model_line:
+  en: Would it be a bad idea to take it out for ten minutes right now?
+  es: ¿Sería mala idea darle una vuelta de diez minutos ahorita?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Chris Voss
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

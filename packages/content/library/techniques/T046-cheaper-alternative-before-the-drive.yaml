@@ -1,0 +1,31 @@
+code: T046
+slug: cheaper-alternative-before-the-drive
+name:
+  en: Cheaper alternative before the drive
+  es: Opción más barata antes de la prueba de manejo
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Budget-sensitive buyer
+  es: Comprador que cuida el presupuesto
+model_line_kind: spoken
+model_line:
+  en: Before we drive, look at the LX too, so you can compare.
+  es: Antes de manejar, mire también el LX, para que compare.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

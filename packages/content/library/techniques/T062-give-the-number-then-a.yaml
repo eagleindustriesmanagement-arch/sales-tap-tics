@@ -1,0 +1,31 @@
+code: T062
+slug: give-the-number-then-a
+name:
+  en: Give the number, then a reason to visit
+  es: Dar el número y luego una razón para venir
+family: phone
+stages:
+  - phone
+when:
+  en: '"Just email me the price"'
+  es: '"Nada más mándeme el precio por email"'
+model_line_kind: spoken
+model_line:
+  en: Sent. That is the full out-the-door number. The one thing I cannot email is your trade value. That takes ten minutes here.
+  es: Enviado; ese es el precio total con todos los cargos. Lo único que no puedo mandarle es el valor de su trade-in; eso toma diez minutos aquí.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: must satisfy PRICE-02
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance:
+  - PRICE-02
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

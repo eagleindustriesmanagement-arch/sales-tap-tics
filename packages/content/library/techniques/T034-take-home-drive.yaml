@@ -1,0 +1,30 @@
+code: T034
+slug: take-home-drive
+name:
+  en: Take-home drive
+  es: Llevárselo a casa de prueba
+family: closing
+stages:
+  - closing
+when:
+  en: Close but unsure
+  es: Cerca de decidirse, pero con dudas
+model_line_kind: direction
+model_line:
+  en: Extended or overnight drive with clear return terms.
+  es: Prueba extendida o de una noche con condiciones claras de devolución.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

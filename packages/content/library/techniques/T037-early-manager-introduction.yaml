@@ -1,0 +1,31 @@
+code: T037
+slug: early-manager-introduction
+name:
+  en: Early manager introduction
+  es: Presentar al gerente temprano
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: After the drive, before numbers
+  es: Después de la prueba de manejo, antes de los números
+model_line_kind: spoken
+model_line:
+  en: I would like you to meet Carlos, our sales manager.
+  es: Le quiero presentar a Carlos, nuestro gerente de ventas.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: consultant data, unaudited
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

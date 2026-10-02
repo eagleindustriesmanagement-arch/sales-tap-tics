@@ -1,0 +1,23 @@
+code: O17
+slug: i-will-wait-for-prices
+module: car-core
+says:
+  en: I will wait for prices or rates to drop
+  es: Mejor espero a que bajen los precios
+nonverbal: false
+behind:
+  en: Fear of overpaying
+  es: Miedo de pagar de más
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Share what is known; never predict the market
+    es: Compartir lo que se sabe; nunca predecir el mercado
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

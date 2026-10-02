@@ -1,0 +1,25 @@
+code: O03
+slug: the-payment-is-too-high
+module: car-core
+says:
+  en: The payment is too high
+  es: El pago está muy alto
+nonverbal: false
+behind:
+  en: A budget number not yet told
+  es: Un número de presupuesto que todavía no ha dicho
+behind_source: null
+core_moves:
+  techniques:
+    - T002
+    - T110
+    - T083
+    - T121
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

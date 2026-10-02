@@ -1,0 +1,32 @@
+code: T086
+slug: side-by-side-for-i-ve-got
+name:
+  en: Side-by-side for "I've got you beat"
+  es: Lado a lado para "aquí cerca me lo dejan más barato"
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Customer cites a lower quote
+  es: El cliente menciona una cotización más baja
+model_line_kind: spoken
+model_line:
+  en: That happens. Let's line both up out-the-door, same equipment, and see what each number buys you.
+  es: Eso pasa. Pongamos las dos ofertas lado a lado, precio final con todo, mismo equipo, y vemos qué le da cada una.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Jonathan Dawson
+sources:
+  - https://www.cbtnews.com/mastering-the-i-found-a-better-deal-objection-with-jonathan-dawson/
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

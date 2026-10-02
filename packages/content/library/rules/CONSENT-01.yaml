@@ -1,0 +1,24 @@
+code: CONSENT-01
+family: consent
+severity: major
+description:
+  en: Texts and voicemails reference documented consent in phone scenarios.
+  es: Los textos y los mensajes de voz se basan en un consentimiento documentado en los escenarios telefónicos.
+explanation:
+  en: "There is no documented consent to text or leave a voicemail. Ask first. {fact}"
+  es: "No hay consentimiento documentado para mandar textos o dejar mensajes de voz. Pregunte primero. {fact}"
+check_kind: presence
+classifier: true
+applies_to: [rep, demonstrator]
+channels: [phone, text]
+compliant_technique: T122
+parameters:
+  presence: text_consent
+  send_text:
+    en: ['\bI(''ll| will) (text|send you a text|send (it|that|you) by text|send (it|that) over by text|leave (you )?a voicemail)\b', '\b(texting|sending) you\b.{0,20}\b(text|video)\b']
+    es: ['\b(le )?(mando|envío|escribo|voy a mandar|voy a enviar)\b.{0,20}\b(texto|mensaje de texto|whatsapp)\b', '\ble dejo un (mensaje de voz|voicemail)\b']
+  fact:
+    en: "Text and automated voicemail need documented consent under the store's process."
+    es: "Los textos y los mensajes de voz automáticos necesitan un consentimiento documentado según el proceso de la tienda."
+legal_basis: TCPA (attorney to confirm)
+attorney_reviewed: false

@@ -1,0 +1,186 @@
+code: S-partner-check-L1
+module: car-core
+title:
+  en: "\"I need to talk to my wife\""
+  es: "\"Tengo que hablarlo con mi esposa\""
+setting:
+  en: Saturday afternoon, showroom floor, right after the test drive.
+  es: Sábado por la tarde, en el piso de ventas, justo después de la prueba de manejo.
+persona: P-partner-check
+objection: O01
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, came in for a midsize SUV and just drove the 2026 Equinox LT. He has a paid-off sedan to trade and good credit. You showed him a payment of $580 a month."
+  es: "{name}, de unos 45 años, vino buscando una SUV mediana y acaba de manejar la Equinox LT 2026. Tiene un sedán pagado para el trade-in y buen crédito. Usted le mostró un pago de $580 al mes."
+opening:
+  en: I like it, but I need to talk to my wife before I do anything.
+  es: Me gusta, pero tengo que hablarlo con mi esposa antes de hacer nada.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: LT, color: Summit White, stock: "4521", in_stock: true }
+  price_cents: 3245000
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3334900
+  rebates:
+    - { code: bonus_cash, name: Bonus cash, cents: 100000, eligibility: everyone, ends: "2026-10-31", proof: OEM bulletin 26-114 }
+  deadlines:
+    - { what: Bonus cash, date: "2026-10-31", proof: OEM bulletin 26-114 }
+  inventory_same_trim_color: 3
+  trade: { vehicle: 2015 Chevrolet Malibu, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options:
+    - { code: quoted, cents: 58000, term_months: 72 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    budget_told_spouse_cents: 52000
+    quoted_payment_cents: 58000
+    wife_available: Off work at 5:00 tomorrow
+numbers_sheet: false
+target_techniques: [T001, T002, T003, T005, T013, T014, T092]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O01-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O01-ACK
+      behavior:
+        en: "Acknowledged the joint decision without pushback"
+        es: "Reconoció la decisión en pareja sin presionar"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O01-QFIRST
+      behavior:
+        en: "Asked a clarifying question before offering any solution"
+        es: "Hizo una pregunta para aclarar antes de ofrecer cualquier solución"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O01-ISOLATE
+      behavior:
+        en: "Isolated the objection"
+        es: "Aisló la objeción"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O01-HIDDEN
+      behavior:
+        en: "Surfaced the hidden payment gap"
+        es: "Sacó a la luz la diferencia escondida en el pago"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O01-PARTNER
+      behavior:
+        en: "Offered to include the partner"
+        es: "Ofreció incluir a la pareja"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T013)"
+      technique: T013
+    - code: O01-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: belittled_partner
+      description:
+        en: "Belittled consulting a partner"
+        es: "Le restó importancia a consultar con la pareja"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he answered before asking a single question, pushed twice, and let the customer leave with no next step."
+      es: "Fíjese: respondió sin hacer una sola pregunta, insistió dos veces y dejó ir al cliente sin un próximo paso."
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but I need to talk to my wife before I do anything." }
+        - { speaker: rep, text: "Sure, but honestly, the payment is fine and the car is perfect for you. You already know you like it." }
+        - { speaker: customer, text: "I do. I still need to talk to her." }
+        - { speaker: rep, text: "What if we write it up now and you just tell her tonight? It's a really good deal." }
+        - { speaker: customer, text: "I'd rather talk to her first." }
+        - { speaker: rep, text: "Okay. Here's my card. Let me know." }
+        - { speaker: customer, text: "Sure. Thanks." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero tengo que hablarlo con mi esposa antes de hacer nada." }
+        - { speaker: rep, text: "Claro, pero la verdad, el pago está bien y el carro es perfecto para usted. Usted ya sabe que le gusta." }
+        - { speaker: customer, text: "Sí. Igual tengo que hablarlo con ella." }
+        - { speaker: rep, text: "¿Y si lo dejamos escrito ahora y usted se lo cuenta esta noche? Es un negocio muy bueno." }
+        - { speaker: customer, text: "Prefiero hablarlo con ella primero." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me avisa." }
+        - { speaker: customer, text: "Está bien. Gracias." }
+  good:
+    notice:
+      en: Notice the pause before the reply, and the question about what she will ask first.
+      es: Fíjese en la pausa antes de responder, y en la pregunta sobre lo que ella va a preguntar primero.
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but I need to talk to my wife before I do anything." }
+        - { speaker: rep, text: "[pause] Of course. It is a big purchase and you should both be comfortable. When you talk tonight, what do you think her first question will be?" }
+        - { speaker: customer, text: "Probably the payment." }
+        - { speaker: rep, text: "That makes sense. Setting the conversation with her aside for a second, is this the right car for you?" }
+        - { speaker: customer, text: "Yeah, I love the car." }
+        - { speaker: rep, text: "And the payment. Is it where you told her it would be?" }
+        - { speaker: customer, text: "Honestly, it is about sixty bucks higher than what I said." }
+        - { speaker: rep, text: "I appreciate you telling me. Let me show you two ways to close that gap, and then you will have real options to bring her. Would she be free for a quick video call so she can see the car, or is it better if you both come in tomorrow?" }
+        - { speaker: customer, text: "She is off at five tomorrow." }
+        - { speaker: rep, text: "Tomorrow at 5:30, then. I will have the car pulled up and both payment options printed for you to take home tonight." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero tengo que hablarlo con mi esposa antes de hacer nada." }
+        - { speaker: rep, text: "[pausa] Claro que sí. Es una decisión importante y los dos deben sentirse cómodos. Cuando lo hablen esta noche, ¿qué cree que ella le va a preguntar primero?" }
+        - { speaker: customer, text: "Seguro que por el pago." }
+        - { speaker: rep, text: "Tiene sentido. Dejando esa conversación a un lado un momento, ¿este es el carro para usted?" }
+        - { speaker: customer, text: "Sí, el carro me encanta." }
+        - { speaker: rep, text: "¿Y el pago está donde usted le dijo a ella que iba a estar?" }
+        - { speaker: customer, text: "La verdad, está como sesenta dólares por encima." }
+        - { speaker: rep, text: "Le agradezco que me lo diga. Déjeme enseñarle dos maneras de cerrar esa diferencia, y así le lleva opciones reales. ¿Ella podría atender una videollamada ahora para ver el carro, o prefieren venir los dos mañana?" }
+        - { speaker: customer, text: "Ella sale a las cinco mañana." }
+        - { speaker: rep, text: "Mañana a las cinco y media, entonces. Le tengo el carro listo y las dos opciones de pago impresas para que se las lleve esta noche." }
+spanish_reviewed: false

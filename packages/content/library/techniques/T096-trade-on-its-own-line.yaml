@@ -1,0 +1,32 @@
+code: T096
+slug: trade-on-its-own-line
+name:
+  en: Trade on its own line when strong
+  es: El trade-in en su propia línea cuando es fuerte
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Presenting the trade
+  es: Al presentar el trade-in
+model_line_kind: spoken
+model_line:
+  en: Your trade came in strong at $14,200. Here it is on its own line, and here is your net.
+  es: Su trade-in salió bien, en $14,200. Aquí lo tiene en su propia línea, y aquí está lo que le queda.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Kim and others 2022
+sources:
+  - https://myscp.onlinelibrary.wiley.com/doi/abs/10.1002/jcpy.1238
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

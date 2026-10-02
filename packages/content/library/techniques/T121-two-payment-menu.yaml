@@ -1,0 +1,38 @@
+code: T121
+slug: two-payment-menu
+name:
+  en: Two-payment menu
+  es: Menú de dos pagos
+family: compliance
+stages:
+  - numbers
+when:
+  en: Presenting any add-ons
+  es: Al presentar cualquier extra
+model_line_kind: spoken
+model_line:
+  en: With the protection products, $A a month. Without them, $B. They are optional. Which would you like?
+  es: Con los productos de protección, $A al mes. Sin ellos, $B. Son opcionales. ¿Cuál prefiere?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: A
+  note: Credit Acceptance consent decree
+sources:
+  - https://www.ir.creditacceptance.com/static-files/bc0ecc18-3976-42f0-95c6-da2a651aa771
+placeholders:
+  - A
+  - B
+related: []
+rubric_items:
+  - PAY-02-present
+  - offer-choice
+compliance:
+  - ADD-01
+  - PAY-01
+  - PAY-02
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

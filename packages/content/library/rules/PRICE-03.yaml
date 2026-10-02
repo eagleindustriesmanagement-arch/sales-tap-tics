@@ -1,0 +1,18 @@
+code: PRICE-03
+family: price
+severity: major
+description:
+  en: The first price stated is one any customer can pay; discounts only some buyers qualify for come after.
+  es: El primer precio que se dice es uno que cualquier cliente puede pagar; los descuentos para quienes califican van después.
+explanation:
+  en: "The first price included a discount not every buyer qualifies for. {fact}"
+  es: "El primer precio incluía un descuento para el que no todos califican. {fact}"
+check_kind: order
+classifier: false
+applies_to: [rep, demonstrator]
+channels: [floor, phone, text]
+compliant_technique: T119
+parameters:
+  order: first_price_anyone_can_pay
+legal_basis: FTC pricing guidance (September 15, 2026)
+attorney_reviewed: false

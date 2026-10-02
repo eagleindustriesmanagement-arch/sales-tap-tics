@@ -1,0 +1,30 @@
+code: T011
+slug: choice-of-two
+name:
+  en: Choice of two
+  es: Escoger entre dos
+family: closing
+stages:
+  - closing
+when:
+  en: Close but stuck
+  es: Cerca de decidirse, pero atascado
+model_line_kind: spoken
+model_line:
+  en: Would the 60 or the 72 month term sit better with your budget?
+  es: ¿Le acomoda más el plazo de 60 o el de 72 meses?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

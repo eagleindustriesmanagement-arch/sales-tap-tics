@@ -1,0 +1,37 @@
+code: RATE-01
+family: rate_and_approval
+severity: critical
+description:
+  en: Rates, payments and approvals match the scenario facts; no spot delivery on an approval that has not happened.
+  es: Las tasas, los pagos y las aprobaciones coinciden con los datos del escenario; no se entrega el carro con una aprobación que no existe.
+explanation:
+  en: "That rate, payment or approval does not match the facts. {fact}"
+  es: "Esa tasa, pago o aprobación no coincide con los datos. {fact}"
+check_kind: rate_compare
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T070
+parameters:
+  tolerance_cents: 100
+  tolerance_bps: 0
+  negation_breaks: true
+  attribution_breaks: true
+  rate_cues:
+    en: ['apr', 'rate', 'interest']
+    es: ['apr', 'tasa', 'interés']
+  approval_claims:
+    en:
+      - '\byou(''re| are)( already| pre)?[- ]?approved\b'
+      - '\byou (got|have been|were) approved\b'
+      - '\b(the bank|they|the lender) (approved|approves) you\b'
+      - '\byour (approval|loan) (is|came) (in|through|done)\b'
+      - '\btake it home (tonight|today)\b.{0,40}\b(bank|approval|financ\w*)\b.{0,30}\b(later|tomorrow|monday|next week)\b'
+    es:
+      - '\b(ya )?(está|esta|quedó) aprobad[oa]\b'
+      - '\b(ya )?lo aprobaron\b'
+      - '\bel banco (ya )?(lo|la) aprob[óo]\b'
+      - '\bya salió (la|su) aprobación\b'
+      - '\bllévese(lo|la)? hoy\b.{0,40}\b(banco|aprobación)\b.{0,30}\b(después|mañana|el lunes)\b'
+legal_basis: Agreed rule (spec 4.2); FTC dealer enforcement
+attorney_reviewed: false

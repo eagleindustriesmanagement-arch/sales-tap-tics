@@ -1,0 +1,18 @@
+code: TRADE-01
+family: trade
+severity: critical
+description:
+  en: The trade value and its basis match the appraisal.
+  es: El valor del trade-in y su base coinciden con la tasación.
+explanation:
+  en: "That trade number does not match the appraisal. {fact}"
+  es: "Ese valor del trade-in no coincide con la tasación. {fact}"
+check_kind: trade_compare
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T027
+parameters:
+  tolerance_cents: 100
+legal_basis: Agreed rule (spec 4.2)
+attorney_reviewed: false

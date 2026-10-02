@@ -1,0 +1,23 @@
+code: O10
+slug: another-dealer-is-cheaper
+module: car-core
+says:
+  en: Another dealer is cheaper
+  es: En otro dealer me lo dejan más barato
+nonverbal: false
+behind:
+  en: A quote that may not be like for like
+  es: Una cotización que quizás no es comparable
+behind_source: null
+core_moves:
+  techniques:
+    - T028
+    - T086
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,24 @@
+code: O14
+slug: just-give-me-your-best
+module: car-core
+says:
+  en: Just give me your best price (phone or online)
+  es: Deme su mejor precio
+nonverbal: false
+behind:
+  en: Comparing without visiting
+  es: Está comparando sin venir a la tienda
+behind_source: null
+core_moves:
+  techniques:
+    - T118
+    - T062
+    - T063
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,32 @@
+code: T088
+slug: missed-appointment-apology
+name:
+  en: Missed-appointment apology
+  es: Disculpa por la cita perdida
+family: phone
+stages:
+  - phone
+when:
+  en: After a no-show, only when true
+  es: Después de que el cliente no llegó a la cita, solo si es cierto
+model_line_kind: spoken
+model_line:
+  en: I owe you an apology. I got slammed yesterday and never confirmed with you. Can we set a time that works?
+  es: Le debo una disculpa. Ayer se me complicó el día y no le confirmé la cita. ¿Cuadramos una hora que le funcione?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Jerry Thibeau, secondhand
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when:
+  en: Only when true.
+  es: Solo si es cierto.
+spanish_reviewed: false
+status: active

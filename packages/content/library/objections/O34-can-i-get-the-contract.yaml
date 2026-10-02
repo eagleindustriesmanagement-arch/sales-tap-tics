@@ -1,0 +1,24 @@
+code: O34
+slug: can-i-get-the-contract
+module: car-language-trust
+says:
+  en: Can I get the contract in Spanish?
+  es: ¿Me puede dar el contrato en español?
+nonverbal: false
+behind:
+  en: Fear of hidden terms
+  es: Miedo a condiciones escondidas
+behind_source: null
+core_moves:
+  techniques:
+    - T041
+  rules: []
+  notes:
+    en: Store policy set with counsel
+    es: Política de la tienda definida con el abogado
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

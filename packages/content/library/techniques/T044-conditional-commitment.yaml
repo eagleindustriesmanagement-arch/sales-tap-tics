@@ -1,0 +1,30 @@
+code: T044
+slug: conditional-commitment
+name:
+  en: Conditional commitment
+  es: Compromiso condicional
+family: closing
+stages:
+  - closing
+when:
+  en: Buyer names one obstacle
+  es: El comprador menciona un solo obstáculo
+model_line_kind: spoken
+model_line:
+  en: If I can find it in blue, is that the one you take home today?
+  es: Si se lo consigo en azul, ¿es el que se llevaría hoy?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Alex Dey (summaries)
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,30 @@
+code: T069
+slug: ask-permission-before-answering
+name:
+  en: Ask permission before answering
+  es: Pedir permiso antes de contestar
+family: objection_sequence
+stages:
+  - objection
+when:
+  en: Price or trust objections
+  es: Objeciones de precio o de confianza
+model_line_kind: spoken
+model_line:
+  en: Can I share a couple of thoughts on that?
+  es: ¿Me permite compartirle un par de ideas sobre eso?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Gong, business-to-business
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

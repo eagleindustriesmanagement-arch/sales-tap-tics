@@ -1,0 +1,32 @@
+code: T039
+slug: scheduled-feature-follow-up
+name:
+  en: Scheduled feature follow-up
+  es: Seguimiento programado de funciones
+family: follow_up
+stages:
+  - follow_up
+when:
+  en: Two to three weeks after delivery
+  es: Dos o tres semanas después de la entrega
+model_line_kind: spoken
+model_line:
+  en: I will call on the 14th to set up the driver profiles we skipped.
+  es: Lo llamo el 14 para configurar los perfiles de conductor que nos faltaron.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: J.D. Power 2025; 22% want it and 53% of those never get it
+sources:
+  - https://www.jdpower.com/business/press-releases/2025-us-sales-satisfaction-index-ssi-study/
+placeholders: []
+related:
+  - T081
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

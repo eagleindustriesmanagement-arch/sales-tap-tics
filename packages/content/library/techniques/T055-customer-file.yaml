@@ -1,0 +1,30 @@
+code: T055
+slug: customer-file
+name:
+  en: Customer file
+  es: Ficha del cliente
+family: follow_up
+stages:
+  - follow_up
+when:
+  en: After every sale and walkout
+  es: Después de cada venta y de cada cliente que se va sin comprar
+model_line_kind: direction
+model_line:
+  en: Record family, work, interests and the reason they left; open the next contact with it.
+  es: Anotar familia, trabajo, intereses y la razón por la que se fue; empezar el próximo contacto con eso.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Girard
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

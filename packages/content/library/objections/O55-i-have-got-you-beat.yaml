@@ -1,0 +1,23 @@
+code: O55
+slug: i-have-got-you-beat
+module: car-miami-indecision
+says:
+  en: I have got you beat down the road
+  es: Aquí cerca me lo dejan más barato
+nonverbal: false
+behind:
+  en: Quote missing fees, or a test
+  es: Una cotización a la que le faltan cargos, o una prueba
+behind_source: null
+core_moves:
+  techniques:
+    - T086
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also:
+  - O10
+language_specific: null
+spanish_reviewed: false
+status: active

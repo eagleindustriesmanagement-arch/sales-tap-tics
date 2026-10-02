@@ -1,0 +1,34 @@
+code: T013
+slug: bring-in-the-absent-decision-maker
+name:
+  en: Bring in the absent decision-maker
+  es: Incluir a quien decide y no está
+family: objection_sequence
+stages:
+  - objection
+when:
+  en: Partner or parent not present
+  es: La pareja, el papá o la mamá no está presente
+model_line_kind: spoken
+model_line:
+  en: Want to video call them now so they can see it?
+  es: ¿Quiere hacerle una videollamada ahora para que lo vea?
+flawed_line:
+  en: Just tell her it's a great deal and call me tomorrow.
+  es: Dígale que es un buen negocio y me llama mañana.
+flawed_line_violates: []
+why:
+  en: A joint decision should be made jointly. Bringing the partner in now, by video or a visit, turns a polite exit into a real next step.
+  es: Una decisión de pareja se toma en pareja. Incluir a la pareja ahora, por videollamada o con una visita, convierte una salida amable en un próximo paso real.
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

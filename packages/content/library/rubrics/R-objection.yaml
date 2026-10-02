@@ -1,0 +1,12 @@
+code: R-objection
+extends: R-core
+title: { en: Objection, es: Objeción }
+weights: { composure: 0.15, discovery: 0.30, technique: 0.25, outcome: 0.30 }
+pass_threshold: { level_1: 70, level_2: 75, level_3: 80 }
+items:
+  - code: OBJ-SEQUENCE
+    behavior: { en: "Followed the sequence: pause, clarify, acknowledge, isolate, respond, confirm", es: "Siguió la secuencia: pausa, aclarar, reconocer, aislar, responder, confirmar" }
+    dimension: technique
+    method: judge
+    points: 1
+    evidence: Spec 8.2 core sequence

@@ -1,0 +1,22 @@
+code: O64
+slug: if-you-dropped-it-that
+module: car-miami-indecision
+says:
+  en: If you dropped it that fast, it is still too high
+  es: Si lo bajó tan rápido, es porque todavía está caro
+nonverbal: false
+behind:
+  en: A fast, unexplained concession
+  es: Una rebaja rápida y sin explicación
+behind_source: null
+core_moves:
+  techniques:
+    - T106
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

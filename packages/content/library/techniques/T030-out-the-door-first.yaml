@@ -1,0 +1,38 @@
+code: T030
+slug: out-the-door-first
+name:
+  en: Out-the-door first
+  es: Primero el precio total final
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Every price conversation
+  es: En cada conversación de precio
+model_line_kind: spoken
+model_line:
+  en: Out the door with doc fee, tag and tax, it is $38,912. Now, how do you want to pay for it?
+  es: El precio total con el cargo de documentación, placa e impuestos es $38,912. ¿Cómo lo quiere pagar?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: A
+  note: Florida s. 501.976; FTC 2026
+sources:
+  - https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0500-0599%2F0501%2FSections%2F0501.976.html
+  - https://www.ftc.gov/business-guidance/resources/automobile-industry-pricing-transparency-faqs
+placeholders: []
+related:
+  - T085
+  - T118
+rubric_items:
+  - U-TOTALFIRST
+compliance:
+  - PRICE-01
+  - PRICE-05
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

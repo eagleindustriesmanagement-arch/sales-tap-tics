@@ -1,0 +1,32 @@
+code: T108
+slug: apology-for-what-you-did
+name:
+  en: Apology for what you did not cause
+  es: Disculparse por lo que usted no causó
+family: language_trust
+stages:
+  - greeting
+  - discovery
+when:
+  en: Greeting and call-backs
+  es: En el saludo y al devolver llamadas
+model_line_kind: spoken
+model_line:
+  en: I am sorry you had to fight the Palmetto traffic to get here.
+  es: Qué pena que le tocó ese tráfico en el Palmetto para llegar hasta acá.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Brooks, Dai and Schweitzer 2014; trust rose from 65% to 77%
+sources:
+  - https://www.hbs.edu/ris/Publication%20Files/Brooks%20Dai%20Schweitzer%202013_d2f61dc9-ec1b-485d-a815-2cf25746de50.pdf
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,40 @@
+code: R-delivery
+extends: R-core
+title: { en: Delivery, es: Entrega }
+weights: { composure: 0.15, discovery: 0.30, technique: 0.25, outcome: 0.30 }
+pass_threshold: { level_1: 70, level_2: 75, level_3: 80 }
+items:
+  - code: DEL-CHECKLIST
+    behavior: { en: "Ran the close-out checklist and asked \"anything missing?\"", es: "Repasó la lista final y preguntó \"¿le falta algo?\"" }
+    dimension: technique
+    method: judge
+    points: 1
+    evidence: Service research (T117)
+    technique: T117
+  - code: DEL-SERVICE
+    behavior:
+      en: "Introduced the service department"
+      es: "Presentó al departamento de servicio"
+    dimension: technique
+    method: judge
+    points: 1
+    evidence: "Cox: 74% of service returners likely to repurchase versus 44%"
+    technique: T071
+  - code: DEL-FOLLOWUP
+    behavior:
+      en: "Scheduled the feature follow-up"
+      es: "Agendó la llamada de seguimiento de funciones"
+    dimension: outcome
+    method: judge
+    points: 1
+    evidence: J.D. Power 2025
+    technique: T039
+  - code: DEL-REFERRAL
+    behavior:
+      en: "Timed the referral or review request correctly"
+      es: "Pidió referidos o la reseña en el momento correcto"
+    dimension: technique
+    method: judge
+    points: 1
+    evidence: Jung and others 2023; Girard
+    technique: T116

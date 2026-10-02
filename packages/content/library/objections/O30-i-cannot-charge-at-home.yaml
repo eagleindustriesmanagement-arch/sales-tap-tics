@@ -1,0 +1,23 @@
+code: O30
+slug: i-cannot-charge-at-home
+module: car-ev
+says:
+  en: I cannot charge at home
+  es: No tengo dónde cargarlo en casa
+nonverbal: false
+behind:
+  en: A real barrier (34% of EV rejecters, YouGov 2026)
+  es: Una barrera real (el 34% de los que rechazan los eléctricos, YouGov 2026)
+behind_source: 34% of EV rejecters, YouGov 2026
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Be straight; show a hybrid
+    es: Hablarle claro; mostrarle un híbrido
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

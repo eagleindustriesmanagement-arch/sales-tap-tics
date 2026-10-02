@@ -1,0 +1,23 @@
+code: O45
+slug: what-will-it-be-worth
+module: car-phone-finance
+says:
+  en: What will it be worth when I trade it?
+  es: ¿Cuánto va a valer cuando lo cambie?
+nonverbal: false
+behind:
+  en: Resale fear; EVs lose 57.2% over five years versus 41.8% for all vehicles (iSeeCars 2026)
+  es: Miedo a la reventa; los eléctricos pierden el 57.2% en cinco años contra el 41.8% de todos los vehículos (iSeeCars 2026)
+behind_source: iSeeCars 2026
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Honest data; a hybrid or a lease
+    es: Datos honestos; un híbrido o un lease
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

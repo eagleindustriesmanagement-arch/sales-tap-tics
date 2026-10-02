@@ -1,0 +1,26 @@
+code: ID-01
+family: identity
+severity: major
+description:
+  en: No invented shared identity; claims of common ground match the rep's real profile.
+  es: No inventar cosas en común; lo que se diga en común coincide con el perfil real del vendedor.
+explanation:
+  en: "That shared background is not in your profile. {fact}"
+  es: "Eso que dijo tener en común no está en su perfil. {fact}"
+check_kind: identity_compare
+classifier: true
+applies_to: [rep, demonstrator]
+channels: [floor, phone, text]
+compliant_technique: T104
+parameters:
+  claims:
+    en:
+      - '\bI (grew up|was raised|live|lived) (in|off|near|by|on) ([\w\s]{2,30}?)(\.|,|!|$| too| also)'
+      - '\bI''?m (also )?from ([\w\s]{2,30}?)(\.|,|!|$| too| also)'
+      - '\bI went to ([\w\s]{2,40}?)(\.|,|!|$| too| also)'
+    es:
+      - '\b(yo )?me crié (en|por) ([\w\sáéíóúñ]{2,30}?)(\.|,|!|$| también)'
+      - '\b(yo )?(también )?soy de ([\w\sáéíóúñ]{2,30}?)(\.|,|!|$| también)'
+      - '\b(yo )?estudié en ([\w\sáéíóúñ]{2,40}?)(\.|,|!|$| también)'
+legal_basis: Misuse of the unity principle (spec 4.2)
+attorney_reviewed: false

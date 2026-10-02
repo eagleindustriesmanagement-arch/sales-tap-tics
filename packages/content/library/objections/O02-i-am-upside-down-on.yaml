@@ -1,0 +1,27 @@
+code: O02
+slug: i-am-upside-down-on
+module: car-core
+says:
+  en: I am upside down on my loan
+  es: Debo más de lo que vale mi carro / Estoy al revés
+nonverbal: false
+behind:
+  en: Fear the math cannot work; embarrassment. 29.6% of new-vehicle trade-ins were underwater in Q2 2026, by $6,884 on average (Edmunds)
+  es: Miedo de que los números no den; vergüenza. El 29.6% de los trade-ins de carros nuevos estaban al revés en el segundo trimestre de 2026, por $6,884 en promedio (Edmunds)
+behind_source: Edmunds
+core_moves:
+  techniques:
+    - T002
+    - T029
+    - T096
+    - T111
+  rules: []
+  notes:
+    en: Honest options, including waiting
+    es: Opciones honestas, incluyendo esperar
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

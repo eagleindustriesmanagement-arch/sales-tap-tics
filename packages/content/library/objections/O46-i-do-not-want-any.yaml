@@ -1,0 +1,24 @@
+code: O46
+slug: i-do-not-want-any
+module: car-phone-finance
+says:
+  en: I do not want any extras in finance
+  es: No quiero ningún extra en financiamiento
+nonverbal: false
+behind:
+  en: A past bad experience
+  es: Una mala experiencia en el pasado
+behind_source: null
+core_moves:
+  techniques:
+    - T121
+  rules: []
+  notes:
+    en: '"Nothing is added without your yes"'
+    es: '"No se agrega nada sin que usted diga que sí"'
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

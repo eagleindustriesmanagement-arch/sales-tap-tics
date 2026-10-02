@@ -1,0 +1,23 @@
+code: O25
+slug: i-need-a-hybrid-and
+module: car-market-2026
+says:
+  en: I need a hybrid and nobody has one
+  es: Necesito un híbrido y nadie tiene
+nonverbal: false
+behind:
+  en: Fuel cost worry; real scarcity
+  es: Le preocupa el gasto de gasolina; la escasez es real
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Real supply data; inbound units
+    es: Datos reales de inventario; unidades en camino
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

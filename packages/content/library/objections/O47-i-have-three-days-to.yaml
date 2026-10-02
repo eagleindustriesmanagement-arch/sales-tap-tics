@@ -1,0 +1,24 @@
+code: O47
+slug: i-have-three-days-to
+module: car-phone-finance
+says:
+  en: I have three days to cancel, right?
+  es: Tengo tres días para cancelar, ¿verdad?
+nonverbal: false
+behind:
+  en: Belief in a cooling-off right that does not apply
+  es: Cree que tiene un derecho de cancelación que no aplica
+behind_source: null
+core_moves:
+  techniques: []
+  rules:
+    - CANCEL-01
+  notes:
+    en: Correct it honestly; slow down
+    es: Corregirlo con honestidad; ir más despacio
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

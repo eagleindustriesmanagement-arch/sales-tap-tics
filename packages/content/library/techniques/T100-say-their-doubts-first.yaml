@@ -1,0 +1,31 @@
+code: T100
+slug: say-their-doubts-first
+name:
+  en: Say their doubts first
+  es: Decir primero sus dudas
+family: language_trust
+stages:
+  - greeting
+  - discovery
+when:
+  en: Distrustful or burned buyer
+  es: Comprador desconfiado o que ya se quemó antes
+model_line_kind: spoken
+model_line:
+  en: You are probably expecting me to play games with the numbers and keep you here four hours.
+  es: Seguramente usted piensa que le voy a jugar con los números y tenerlo aquí cuatro horas.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Chris Voss
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

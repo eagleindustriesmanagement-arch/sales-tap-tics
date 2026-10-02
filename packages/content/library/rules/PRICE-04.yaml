@@ -1,0 +1,31 @@
+code: PRICE-04
+family: price
+severity: critical
+description:
+  en: A price is never conditioned on dealer financing.
+  es: Un precio nunca depende de financiar con el concesionario.
+explanation:
+  en: "The price cannot depend on financing with the dealer. {fact}"
+  es: "El precio no puede depender de financiar con el concesionario. {fact}"
+check_kind: pattern
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T030
+parameters:
+  negation_breaks: true
+  patterns:
+    en:
+      - '\b(only|just)\b.{0,40}\bif you (finance|go through financing|use our (financing|lender|bank))'
+      - '\b(price|deal|discount|number)\b.{0,40}\b(requires|needs|depends on|is tied to|is for)\b.{0,20}\b(our|dealer|in-house) (financing|lender)'
+      - '\bif you (finance|go) (with|through) us\b.{0,40}\b(price|discount|deal|\$)'
+      - '\bwith (our|dealer) financing\b.{0,30}\b(price|it''s|it is|you get)\b'
+    es:
+      - '\b(solo|nada más|únicamente)\b.{0,40}\bsi (financia|lo financia|financian|usa nuestro (financiamiento|banco))'
+      - '\b(precio|descuento|oferta)\b.{0,40}\b(es solo|solo es|depende de|requiere)\b.{0,30}\b(financ|nuestro banco)'
+      - '\bsi (financia|lo financia) con nosotros\b.{0,40}\b(precio|descuento|\$)'
+  fact:
+    en: "The price stands the same with any financing, including the customer's own bank or cash."
+    es: "El precio es el mismo con cualquier financiamiento, incluyendo el banco del cliente o pago de contado."
+legal_basis: FTC pricing guidance (September 15, 2026); Lindsay settlement
+attorney_reviewed: false

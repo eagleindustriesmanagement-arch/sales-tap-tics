@@ -1,0 +1,32 @@
+code: T041
+slug: same-deal-in-both-languages
+name:
+  en: Same deal in both languages
+  es: El mismo negocio en los dos idiomas
+family: language_trust
+stages:
+  - greeting
+  - discovery
+when:
+  en: A wary Spanish-speaking buyer
+  es: Un comprador que habla español y desconfía
+model_line_kind: spoken
+model_line:
+  en: English or Spanish, it is the same price, same terms, same paperwork.
+  es: En inglés o en español, es el mismo precio, las mismas condiciones y los mismos papeles.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: FTC Cowboy Toyota order; dealer case
+sources:
+  - https://advertisinglaw.fkks.com/post/102enu8/ftc-settles-charges-with-car-dealership-over-spanish-language-ads-with-english-di
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

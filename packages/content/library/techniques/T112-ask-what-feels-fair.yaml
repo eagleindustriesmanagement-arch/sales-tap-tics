@@ -1,0 +1,31 @@
+code: T112
+slug: ask-what-feels-fair
+name:
+  en: Ask what feels fair
+  es: Preguntar qué le parece justo
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Stalemate over price
+  es: Estancados en el precio
+model_line_kind: spoken
+model_line:
+  en: Given what you have seen on other lots, what would feel fair to you?
+  es: Según lo que usted ha visto en otros dealers, ¿qué le parecería justo?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Stuart Diamond
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

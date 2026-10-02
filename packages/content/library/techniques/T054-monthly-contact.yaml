@@ -1,0 +1,30 @@
+code: T054
+slug: monthly-contact
+name:
+  en: Monthly contact
+  es: Contacto mensual
+family: follow_up
+stages:
+  - follow_up
+when:
+  en: Every sold customer
+  es: Cada cliente que compró
+model_line_kind: spoken
+model_line:
+  en: Happy one year with the Highlander. Does it need anything?
+  es: Feliz primer año con su Highlander. ¿Le hace falta algo?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Girard
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

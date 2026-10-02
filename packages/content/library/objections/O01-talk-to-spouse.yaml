@@ -1,0 +1,27 @@
+code: O01
+slug: talk-to-spouse
+module: car-core
+says:
+  en: I need to talk to my wife / husband
+  es: Tengo que hablarlo con mi esposa / esposo
+nonverbal: false
+behind:
+  en: A real joint decision, or a polite exit hiding a payment worry
+  es: Una decisión de verdad en pareja, o una salida amable que esconde una preocupación por el pago
+behind_source: null
+core_moves:
+  techniques:
+    - T001
+    - T002
+    - T005
+    - T013
+    - T014
+    - T092
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

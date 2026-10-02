@@ -1,0 +1,35 @@
+code: T014
+slug: firm-next-step
+name:
+  en: Firm next step
+  es: Un siguiente paso concreto
+family: closing
+stages:
+  - closing
+when:
+  en: Any customer who is leaving
+  es: Cualquier cliente que se está yendo
+model_line_kind: spoken
+model_line:
+  en: Does tomorrow at 5:30 or Saturday at 10 work better for you both?
+  es: ¿Les queda mejor mañana a las 5:30 o el sábado a las 10?
+flawed_line:
+  en: No problem, let me know when you're ready.
+  es: No hay problema, me avisa cuando esté listo.
+flawed_line_violates: []
+why:
+  en: "\"Let me know\" puts the next move in the customer's hands. A specific day and time, agreed together, gives you both a real next step."
+  es: '"Me avisa" deja el próximo paso en manos del cliente. Un día y una hora específicos, acordados juntos, les dan a los dos un próximo paso real.'
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items:
+  - U-NEXT
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

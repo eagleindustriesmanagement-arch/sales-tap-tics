@@ -1,0 +1,32 @@
+code: COERCE-01
+family: coercion
+severity: critical
+description:
+  en: No threat to hold keys, a license or the customer.
+  es: Nunca amenazar con quedarse con las llaves, la licencia o con retener al cliente.
+explanation:
+  en: "A customer is always free to leave with their keys and license. {fact}"
+  es: "El cliente siempre es libre de irse con sus llaves y su licencia. {fact}"
+check_kind: pattern
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T031
+parameters:
+  negation_breaks: false
+  attribution_breaks: true
+  patterns:
+    en:
+      - '\b(hold|keep|holding|keeping|hang on to)\b.{0,15}\b(your|the|his|her) (keys|license|licence|id)\b.{0,40}\b(until|till|unless)\b'
+      - '\b(you(''re| are) not|nobody(''s| is)|no one(''s| is)) (leaving|going anywhere)\b.{0,30}\b(until|till|unless)\b'
+      - '\bcan''?t (leave|go)\b.{0,30}\b(until|till|unless) you (sign|buy|agree)'
+      - '\b(won''?t|not going to|don''?t) (give|hand) (you )?(back )?(your|the) (keys|license)\b'
+    es:
+      - '\b(guard|qued|ten)\w*\b.{0,15}\b(sus|las|su) (llaves|licencia)\b.{0,40}\bhasta (que|no)\b'
+      - '\bno (se )?(puede|va a|se va a) (ir|salir)\b.{0,30}\bhasta (que|no) (firme|compre)'
+      - '\bno le (devuelvo|voy a devolver|damos|vamos a dar) (sus|las|su) (llaves|licencia)'
+  fact:
+    en: "Taking keys for an appraisal is fine; keeping them to stop someone from leaving is not."
+    es: "Pedir las llaves para la tasación está bien; quedárselas para que el cliente no se vaya, no."
+legal_basis: Agreed rule (spec 4.2)
+attorney_reviewed: false

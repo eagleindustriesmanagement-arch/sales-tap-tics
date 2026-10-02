@@ -1,0 +1,31 @@
+code: T099
+slug: how-question
+name:
+  en: '"How" question'
+  es: La pregunta del "cómo"
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Customer demands a number you cannot meet
+  es: El cliente exige un número al que usted no puede llegar
+model_line_kind: spoken
+model_line:
+  en: How am I supposed to get to that number and still give you this truck?
+  es: ¿Y cómo hago yo para llegar a ese número y todavía darle esta troca?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Chris Voss
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

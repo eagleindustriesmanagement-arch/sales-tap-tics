@@ -1,0 +1,18 @@
+code: PAY-02
+family: payment
+severity: major
+description:
+  en: When add-ons are presented, the payment is shown with and without them.
+  es: Cuando se presentan productos adicionales, se muestra el pago con ellos y sin ellos.
+explanation:
+  en: "Add-ons were presented without the payment both with and without them. {fact}"
+  es: "Se presentaron productos adicionales sin mostrar el pago con ellos y sin ellos. {fact}"
+check_kind: presence
+classifier: false
+applies_to: [rep, demonstrator]
+channels: [floor, phone, text]
+compliant_technique: T121
+parameters:
+  presence: two_payment_menu
+legal_basis: Credit Acceptance consent decree (effective November 2, 2026)
+attorney_reviewed: false

@@ -1,0 +1,22 @@
+code: O59
+slug: send-me-one-more-comparison
+module: car-miami-indecision
+says:
+  en: Send me one more comparison
+  es: Mándeme otra comparación
+nonverbal: false
+behind:
+  en: Stuck exploring
+  es: Está atascado comparando
+behind_source: null
+core_moves:
+  techniques:
+    - T093
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,22 @@
+code: O65
+slug: preinstalled-package
+module: car-miami-indecision
+says:
+  en: I did not ask for that package, and you say it is already on the car
+  es: Yo no pedí ese paquete y me dice que ya viene en el carro
+nonverbal: false
+behind:
+  en: Feels forced into extras
+  es: Se siente obligado a pagar extras
+behind_source: null
+core_moves:
+  techniques:
+    - T120
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

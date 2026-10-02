@@ -1,0 +1,197 @@
+# Universal rubric items (spec 13.2). Dimension weights are the spec's first draft (13.1), to be calibrated against
+# store outcomes (19.2). Points within a dimension are equal (1 each) until calibration says otherwise; see
+# docs/decisions/0004-scoring-aggregation.md.
+code: R-core
+title: { en: Core, es: Básico }
+weights: { composure: 0.15, discovery: 0.30, technique: 0.25, outcome: 0.30 }
+pass_threshold: { level_1: 70, level_2: 75, level_3: 80 }
+items:
+  - code: U-PAUSE
+    behavior:
+      en: "Paused at least two seconds before answering an objection"
+      es: "Hizo una pausa de al menos dos segundos antes de responder una objeción"
+    dimension: composure
+    method: timing
+    points: 1
+    voice_only: true
+    evidence: "Gong: top reps pause longer after objections"
+    technique: T001
+    params: { min_pause_ms: 2000, after: objection }
+  - code: U-PACE
+    behavior:
+      en: "Kept speaking rate within 8% of baseline after an objection"
+      es: "Mantuvo el ritmo al hablar dentro del 8% de lo normal después de una objeción"
+    dimension: composure
+    method: timing
+    points: 1
+    voice_only: true
+    evidence: "Gong: average reps sped up to about 188 words a minute, top reps held about 176"
+    technique: T001
+    params: { max_rate_increase: 0.08, after: objection, baseline_seconds: 60 }
+  - code: U-QFIRST
+    behavior:
+      en: "Asked a clarifying question before any solution after an objection"
+      es: "Hizo una pregunta para aclarar antes de cualquier solución después de una objeción"
+    dimension: discovery
+    method: judge
+    points: 1
+    evidence: "Gong: 54.3% versus 31.0%"
+    technique: T002
+  - code: U-ISOLATE
+    behavior:
+      en: "Isolated the real concern"
+      es: "Aisló la preocupación real"
+    dimension: discovery
+    method: judge
+    points: 1
+    evidence: Stated-versus-real reason data
+    technique: T005
+  - code: U-HIDDEN
+    behavior:
+      en: "Surfaced the hidden concern"
+      es: "Sacó a la luz la preocupación escondida"
+    dimension: discovery
+    method: engine
+    points: 1
+    evidence: Scenario design
+    params: { event: hidden_revealed }
+  - code: U-SUMMARY
+    behavior:
+      en: "Summarized and confirmed needs before numbers"
+      es: "Resumió y confirmó las necesidades antes de los números"
+    dimension: discovery
+    method: judge
+    points: 1
+    evidence: T007
+    technique: T007
+  - code: U-TALK
+    behavior:
+      en: "Kept talk share at or below 65%"
+      es: "Habló el 65% del tiempo o menos"
+    dimension: discovery
+    method: timing
+    points: 1
+    evidence: "Gong: results suffered above 65%"
+    params: { max_share: 0.65 }
+  - code: U-MONO
+    behavior:
+      en: "Kept the longest monologue under 60 seconds"
+      es: "Su intervención más larga duró menos de 60 segundos"
+    dimension: discovery
+    method: timing
+    points: 1
+    evidence: "Gong: shorter seller monologues in won deals"
+    params: { max_seconds: 60, text_mode_words_per_minute: 150 }
+  - code: U-ADAPT
+    behavior:
+      en: "Changed approach after the customer signaled their style"
+      es: "Cambió de enfoque cuando el cliente mostró su estilo"
+    dimension: discovery
+    method: judge
+    points: 1
+    evidence: "Verbeke 2011 (adaptiveness, β = .27); Franke and Park 2006"
+    technique: T103
+  - code: U-KNOW
+    behavior:
+      en: "Gave accurate, specific product answers"
+      es: "Dio respuestas del producto correctas y específicas"
+    dimension: technique
+    method: judge
+    points: 1
+    evidence: "Verbeke 2011 (knowledge, β = .28)"
+  - code: U-LANG
+    behavior:
+      en: "Followed the customer's language from the first turn and mixed only after the customer mixed"
+      es: "Siguió el idioma del cliente desde el primer turno y solo mezcló después de que el cliente mezcló"
+    dimension: technique
+    method: language
+    points: 1
+    evidence: Service-encounter research; Alvarez 2020
+    technique: T040
+  - code: U-ONECLOSE
+    behavior:
+      en: "Asked for the decision once at the right moment, no more than two closes"
+      es: "Pidió la decisión una vez en el momento correcto, no más de dos cierres"
+    dimension: technique
+    method: count
+    points: 1
+    evidence: Rackham
+    technique: T023
+    params: { max: 2, lexicon: close_questions }
+  - code: U-TIEDOWN
+    behavior:
+      en: "Used no more than two tie-downs"
+      es: "No usó más de dos amarres"
+    dimension: technique
+    method: count
+    points: 1
+    evidence: T048
+    technique: T048
+    params: { max: 2, lexicon: tie_downs }
+  - code: U-RECOMMEND
+    behavior:
+      en: "When the customer was torn, gave one specific recommendation with a reason"
+      es: "Cuando el cliente estaba indeciso, dio una recomendación específica con una razón"
+    dimension: technique
+    method: judge
+    points: 1
+    evidence: The JOLT Effect
+    technique: T092
+  - code: U-LIMIT
+    behavior:
+      en: "Kept no more than three vehicles in play"
+      es: "No tuvo más de tres vehículos en juego"
+    dimension: technique
+    method: count
+    points: 1
+    evidence: Choice overload meta-analysis
+    technique: T093
+    params: { max: 3, models: [Equinox, Silverado, Tahoe, Trax, Malibu, Blazer, Traverse, Colorado, Trailblazer, Suburban, Camaro, Corvette, Bolt, Highlander] }
+  - code: U-NEXT
+    behavior:
+      en: "Before any exit, secured a specific, consented next step"
+      es: "Antes de cualquier salida, consiguió un próximo paso específico y aceptado"
+    dimension: outcome
+    method: engine_and_judge
+    points: 1
+    evidence: T014, T122
+    technique: T014
+    params: { event: next_step }
+  - code: U-FIRSTNUM
+    behavior:
+      en: "Stated the first number with a reason"
+      es: "Dio el primer número con una razón"
+    dimension: technique
+    method: judge
+    points: 1
+    evidence: 2025 first-offer meta-analysis
+    technique: T015
+  - code: U-CONCESS
+    behavior:
+      en: "Made concessions in at least two shrinking steps, each with a reason and an ask"
+      es: "Hizo concesiones en al menos dos pasos cada vez más pequeños, cada uno con una razón y algo a cambio"
+    dimension: technique
+    method: judge
+    points: 1
+    evidence: Kwon and Weingart 2004
+    technique: T106
+  - code: U-DEADLINE
+    behavior:
+      en: "Backed every deadline with a showable source"
+      es: "Respaldó cada fecha límite con una fuente que se puede mostrar"
+    dimension: technique
+    method: rule
+    points: 1
+    evidence: Gino and Moore 2008
+    technique: T107
+    params: { rules: [DEAD-01], topic: deadline }
+  - code: U-TOTALFIRST
+    behavior:
+      en: "Stated the total before itemizing"
+      es: "Dijo el total antes de desglosar"
+    dimension: technique
+    method: rule
+    points: 1
+    evidence: Partitioned pricing meta-analysis
+    technique: T030
+    params: { rules: [PRICE-05], topic: price }

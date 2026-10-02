@@ -1,0 +1,30 @@
+code: T117
+slug: guard-the-ending
+name:
+  en: Guard the ending
+  es: Cuidar el final
+family: delivery
+stages:
+  - delivery
+when:
+  en: Delivery
+  es: En la entrega
+model_line_kind: spoken
+model_line:
+  en: Both keys, phone paired, tank full, first service booked. Anything missing?
+  es: Las dos llaves, el teléfono conectado, el tanque lleno y su primer servicio agendado. ¿Le falta algo?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: service research; a bad ending hurts more than a staged high point helps
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

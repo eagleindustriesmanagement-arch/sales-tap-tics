@@ -1,0 +1,5 @@
+code: M-onboarding-30
+title: { en: First 30 days, es: Primeros 30 días }
+scenarios: [S-partner-check-L1]
+certification: false
+level: 1

@@ -1,0 +1,25 @@
+code: B-T001-pause
+technique: T001
+title: { en: Pause and slow down, es: Hacer una pausa y bajar el ritmo }
+behavior:
+  en: When an objection lands, wait two to three seconds, then answer calmly at your normal pace.
+  es: Cuando llegue una objeción, espere dos o tres segundos y luego responda con calma, a su ritmo normal.
+floor_check_script:
+  saw:
+    en: "I watched you with [the customer]. When they said [the objection], you answered right away and sped up."
+    es: "Lo vi con [el cliente]. Cuando dijeron [la objeción], usted respondió enseguida y se aceleró."
+  behavior:
+    en: Next time, pause first. Count two seconds in your head.
+    es: La próxima vez, haga una pausa primero. Cuente dos segundos en su mente.
+  line:
+    en: "(Two seconds of silence.) \"That's fair. Help me understand...\""
+    es: "(Dos segundos de silencio.) \"Tiene razón. Ayúdeme a entender...\""
+  check_again:
+    en: Try it on your next up. I'll watch for it this afternoon.
+    es: Pruébelo con su próximo cliente. Lo voy a estar mirando esta tarde.
+look_for:
+  en: ["A visible pause after the objection", "Same pace and volume as before the objection"]
+  es: ["Una pausa visible después de la objeción", "El mismo ritmo y volumen que antes de la objeción"]
+rubric_items: [U-PAUSE, U-PACE, O01-PAUSE]
+duration_seconds: 60
+spanish_reviewed: false

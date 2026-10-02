@@ -1,0 +1,30 @@
+code: T059
+slug: yes-or-no-not-maybe
+name:
+  en: Yes or no, not maybe
+  es: Sí o no, no un tal vez
+family: closing
+stages:
+  - closing
+when:
+  en: Start of the write-up
+  es: Al empezar a escribir la propuesta
+model_line_kind: spoken
+model_line:
+  en: All I ask is that at the end you tell me yes or no. Either is fine. Fair?
+  es: Lo único que le pido es que al final me diga sí o no; cualquiera de las dos está bien. ¿Le parece?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: deferral research, not car-specific
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,33 @@
+code: T105
+slug: steady-voice-on-the-price
+name:
+  en: Steady voice on the price
+  es: Voz firme al dar el precio
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Saying any number
+  es: Al decir cualquier número
+model_line_kind: direction
+model_line:
+  en: Same volume and pace; no rising pitch; no speeding up.
+  es: Mismo volumen y ritmo; sin subir el tono ni acelerarse.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Van Zant and Berger 2020
+sources:
+  - https://faculty.wharton.upenn.edu/wp-content/uploads/2019/01/Voice-Persuades.pdf
+placeholders: []
+related: []
+rubric_items:
+  - U-PACE
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

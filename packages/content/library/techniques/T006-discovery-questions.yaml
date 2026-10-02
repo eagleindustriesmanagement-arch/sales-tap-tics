@@ -1,0 +1,30 @@
+code: T006
+slug: discovery-questions
+name:
+  en: Discovery questions
+  es: Preguntas de descubrimiento
+family: discovery
+stages:
+  - discovery
+when:
+  en: Discovery, and whenever guessing
+  es: En el descubrimiento, y siempre que esté adivinando
+model_line_kind: spoken
+model_line:
+  en: What do you like least about what you are driving now?
+  es: ¿Qué es lo que menos le gusta del carro que maneja ahora?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Rackham, 35,000 calls
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

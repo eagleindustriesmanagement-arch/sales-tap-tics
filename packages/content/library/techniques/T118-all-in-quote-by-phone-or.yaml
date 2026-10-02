@@ -1,0 +1,38 @@
+code: T118
+slug: all-in-quote-by-phone-or
+name:
+  en: All-in quote by phone or text
+  es: Precio con todo incluido por teléfono o texto
+family: compliance
+stages:
+  - numbers
+when:
+  en: Any price given outside the desk
+  es: Cualquier precio que se da fuera de la mesa
+model_line_kind: spoken
+model_line:
+  en: The price is $X, and that already includes our $Y dealer fee. Only taxes and the state tag and title fees are added.
+  es: El precio es $X, y ya incluye nuestro cargo de concesionario de $Y. Solo se suman los impuestos y los cargos de placa y título del estado.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: A
+  note: FTC pricing guidance, September 15, 2026
+sources:
+  - https://www.ftc.gov/business-guidance/resources/automobile-industry-pricing-transparency-faqs
+placeholders:
+  - X
+  - Y
+related:
+  - T030
+  - T085
+rubric_items:
+  - U-TOTALFIRST
+compliance:
+  - PRICE-01
+  - PRICE-02
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

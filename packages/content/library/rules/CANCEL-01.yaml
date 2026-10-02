@@ -1,0 +1,33 @@
+code: CANCEL-01
+family: cancellation
+severity: critical
+description:
+  en: No claim of a three-day right to cancel a vehicle purchase in Florida.
+  es: Nunca decir que hay tres días para cancelar la compra de un vehículo en Florida.
+explanation:
+  en: "There is no three-day right to cancel a car purchase at the dealership. {fact}"
+  es: "No existe un derecho de tres días para cancelar la compra de un carro en el concesionario. {fact}"
+check_kind: pattern
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: null
+parameters:
+  negation_breaks: true
+  attribution_breaks: true
+  # A rep repeating the customer's question back is not a claim; a rep's own tag question ("right?") is.
+  echo_breaks: true
+  patterns:
+    en:
+      - '\b(three|3)[- ]days?\b.{0,40}\b(cancel|return|change your mind|bring it back|cooling)'
+      - '\b(cancel|return it|bring it back|change your mind|undo)\b.{0,40}\b(within|in|for) (three|3) (business )?days\b'
+      - '\bcooling[- ]off (period|right|rule)\b'
+    es:
+      - '\b(tres|3) días\b.{0,40}\b(cancelar|devolver|devolverlo|devolverla|arrepentirse|echarse para atrás)'
+      - '\b(cancelar|devolver|devolverlo|devolverla|arrepentirse|echarse para atrás)\b.{0,40}\b(en|dentro de|por) (tres|3) días\b'
+      - '\bperíodo de (arrepentimiento|reflexión|enfriamiento)\b'
+  fact:
+    en: "Florida has no three-day cooling-off right for buying a vehicle at the dealership. Once signed, the contract is binding."
+    es: "En Florida no hay un período de tres días para cancelar la compra de un vehículo en el concesionario. Una vez firmado, el contrato es válido."
+legal_basis: No federal or Florida cooling-off right for dealership vehicle sales (FTC Cooling-Off Rule excludes them)
+attorney_reviewed: false

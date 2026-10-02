@@ -1,0 +1,33 @@
+code: T074
+slug: the-60-day-reassurance
+name:
+  en: The 60-day reassurance
+  es: La tranquilidad de los 60 días
+family: finance_handoff
+stages:
+  - finance
+when:
+  en: Hesitation on a service contract
+  es: Duda sobre un contrato de servicio
+model_line_kind: spoken
+model_line:
+  en: It is optional, it is not required for your loan, and in Florida you can cancel within 60 days.
+  es: Es opcional, no hace falta para el préstamo, y en Florida lo puede cancelar dentro de 60 días.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: A
+  note: Florida s. 634.121
+sources:
+  - https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0600-0699%2F0634%2FSections%2F0634.121.html
+placeholders: []
+related: []
+rubric_items: []
+compliance:
+  - ADD-01
+  - ADD-04
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

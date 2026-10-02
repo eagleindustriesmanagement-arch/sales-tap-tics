@@ -1,0 +1,31 @@
+code: T007
+slug: summarize-and-confirm
+name:
+  en: Summarize and confirm
+  es: Resumir y confirmar
+family: discovery
+stages:
+  - discovery
+when:
+  en: End of discovery, before numbers
+  es: Al final del descubrimiento, antes de los números
+model_line_kind: spoken
+model_line:
+  en: So you need three rows, under $600 a month, by the end of the month. Did I get that right?
+  es: Entonces necesita tres filas, menos de $600 al mes, para fin de mes. ¿Lo entendí bien?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items:
+  - U-SUMMARY
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

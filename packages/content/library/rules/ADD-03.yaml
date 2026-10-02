@@ -1,0 +1,25 @@
+code: ADD-03
+family: add_ons
+severity: critical
+description:
+  en: Nothing charged is called free.
+  es: Nada que se cobre se llama gratis.
+explanation:
+  en: "That item is charged, so it cannot be called free. {fact}"
+  es: "Ese producto se cobra, así que no se puede llamar gratis. {fact}"
+check_kind: pattern
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T097
+parameters:
+  negation_breaks: true
+  attribution_breaks: true
+  check: free_item_must_not_be_charged
+  window_tokens: 6
+  free_words:
+    en: ['free', 'no charge', 'no cost', 'on the house', 'complimentary', 'thrown in', 'at no extra']
+    es: ['gratis', 'de regalo', 'sin costo', 'sin cargo', 'de cortesía', 'regalado', 'regalada']
+  patterns: { en: [], es: [] }
+legal_basis: FTC guidance; Florida s. 501.976
+attorney_reviewed: false

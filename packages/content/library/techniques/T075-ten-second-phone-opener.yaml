@@ -1,0 +1,30 @@
+code: T075
+slug: ten-second-phone-opener
+name:
+  en: Ten-second phone opener
+  es: Apertura telefónica de diez segundos
+family: phone
+stages:
+  - phone
+when:
+  en: Every sales call
+  es: Cada llamada de ventas
+model_line_kind: spoken
+model_line:
+  en: Hi Maria, this is Luis at Bomnin Chevrolet West Kendall. I am calling about the Equinox you asked about. Do you have two minutes?
+  es: Buenas, señora María, le habla Luis, de Bomnin Chevrolet West Kendall. La llamo por la Equinox que usted consultó. ¿Tiene dos minutos?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Alan Ram
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

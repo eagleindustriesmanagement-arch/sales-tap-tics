@@ -1,0 +1,22 @@
+code: O62
+slug: goes-silent-after-two-options
+module: car-miami-indecision
+says:
+  en: (Goes silent after two options)
+  es: (Se queda callado después de ver dos opciones)
+nonverbal: true
+behind:
+  en: Choice difficulty, not price
+  es: Le cuesta escoger; no es el precio
+behind_source: null
+core_moves:
+  techniques:
+    - T092
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

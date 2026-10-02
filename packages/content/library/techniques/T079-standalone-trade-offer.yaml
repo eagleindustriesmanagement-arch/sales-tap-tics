@@ -1,0 +1,31 @@
+code: T079
+slug: standalone-trade-offer
+name:
+  en: Standalone trade offer
+  es: Oferta por el trade-in por separado
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Customer suspects the trade is being moved around
+  es: El cliente sospecha que le están moviendo el valor del trade-in
+model_line_kind: spoken
+model_line:
+  en: We will make you a written offer on your car either way.
+  es: Le hacemos una oferta por escrito por su carro, compre o no compre.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Bomnin store policy; confirm per store
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: true
+use_only_when: null
+spanish_reviewed: false
+status: needs_store_policy

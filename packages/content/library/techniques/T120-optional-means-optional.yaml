@@ -1,0 +1,33 @@
+code: T120
+slug: optional-means-optional
+name:
+  en: Optional means optional
+  es: Opcional quiere decir opcional
+family: compliance
+stages:
+  - numbers
+when:
+  en: Customer objects to a pre-installed package
+  es: El cliente objeta un paquete que ya viene instalado
+model_line_kind: spoken
+model_line:
+  en: That package is already on the car, but it is optional. If you do not want to pay for it, here is what we do.
+  es: Ese paquete ya viene instalado, pero es opcional. Si no lo quiere pagar, esto es lo que hacemos.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: A
+  note: same; requires store policy
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance:
+  - ADD-02
+requires_store_policy: true
+use_only_when:
+  en: Store policy fills the remedy.
+  es: La política de la tienda define la solución.
+spanish_reviewed: false
+status: needs_store_policy

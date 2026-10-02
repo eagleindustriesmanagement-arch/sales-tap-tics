@@ -1,0 +1,23 @@
+code: O33
+slug: is-that-really-your-best
+module: car-language-trust
+says:
+  en: Is that really your best price? You have not moved
+  es: ¿Ese es su último precio? No me ha rebajado nada
+nonverbal: false
+behind:
+  en: A deal with no visible give feels unfair
+  es: Un negocio donde no se ve ninguna rebaja se siente injusto
+behind_source: null
+core_moves:
+  techniques:
+    - T042
+    - T106
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

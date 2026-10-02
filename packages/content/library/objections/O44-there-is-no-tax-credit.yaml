@@ -1,0 +1,23 @@
+code: O44
+slug: there-is-no-tax-credit
+module: car-phone-finance
+says:
+  en: There is no tax credit anymore
+  es: Ya no hay crédito federal
+nonverbal: false
+behind:
+  en: True; wants to know what replaces it
+  es: Es verdad; quiere saber qué lo reemplaza
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Confirm it; current incentives in writing
+    es: Confirmarlo; los incentivos actuales por escrito
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

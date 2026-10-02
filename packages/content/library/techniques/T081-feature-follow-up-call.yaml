@@ -1,0 +1,32 @@
+code: T081
+slug: feature-follow-up-call
+name:
+  en: Feature follow-up call
+  es: Llamada de seguimiento de funciones
+family: follow_up
+stages:
+  - follow_up
+when:
+  en: Three weeks after delivery (phone version of T039)
+  es: Tres semanas después de la entrega (versión telefónica de T039)
+model_line_kind: spoken
+model_line:
+  en: I will call you in three weeks to walk you through anything you have not set up.
+  es: En tres semanas lo llamo para explicarle lo que todavía no haya configurado.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: J.D. Power 2025
+sources:
+  - https://www.jdpower.com/business/press-releases/2025-us-sales-satisfaction-index-ssi-study/
+placeholders: []
+related:
+  - T039
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

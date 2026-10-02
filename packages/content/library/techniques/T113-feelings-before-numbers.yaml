@@ -1,0 +1,31 @@
+code: T113
+slug: feelings-before-numbers
+name:
+  en: Feelings before numbers
+  es: Los sentimientos antes que los números
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Angry be-back
+  es: Cliente que regresa molesto
+model_line_kind: spoken
+model_line:
+  en: You came in expecting one number and got another. I would be upset too. Let me fix the part that is on us first.
+  es: Usted vino esperando un número y le dieron otro. Yo también estaría molesto. Déjeme arreglar primero lo que nos toca.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Stuart Diamond
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

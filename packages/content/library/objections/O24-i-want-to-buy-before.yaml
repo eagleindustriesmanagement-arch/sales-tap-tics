@@ -1,0 +1,23 @@
+code: O24
+slug: i-want-to-buy-before
+module: car-market-2026
+says:
+  en: I want to buy before prices go up
+  es: Quiero comprar antes de que suban los precios
+nonverbal: false
+behind:
+  en: Real urgency, regret risk later
+  es: Urgencia real, con riesgo de arrepentirse después
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Confirm the facts; keep within budget
+    es: Confirmar los datos; mantenerse en el presupuesto
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

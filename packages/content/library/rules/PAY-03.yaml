@@ -1,0 +1,21 @@
+code: PAY-03
+family: payment
+severity: critical
+description:
+  en: The term is not lengthened to absorb add-ons without saying so.
+  es: El plazo no se alarga para esconder productos adicionales sin decirlo.
+explanation:
+  en: "The term was stretched to fit the add-ons without saying so. {fact}"
+  es: "Se alargó el plazo para que cupieran los productos adicionales sin decirlo. {fact}"
+check_kind: term_compare
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T121
+parameters:
+  tolerance_cents: 100
+  term_disclosure:
+    en: ['\b\d{2}\s*(-|\s)?months?\b', '\b(longer|extend|stretch)\w*\b.{0,20}\b(term|loan)\b']
+    es: ['\b\d{2}\s*meses\b', '\b(alarg|extend)\w*\b.{0,20}\b(plazo|préstamo)\b']
+legal_basis: FTC Asbury and Napleton complaints; Credit Acceptance consent decree
+attorney_reviewed: false

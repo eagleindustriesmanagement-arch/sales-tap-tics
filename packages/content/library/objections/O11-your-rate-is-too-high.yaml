@@ -1,0 +1,24 @@
+code: O11
+slug: your-rate-is-too-high
+module: car-core
+says:
+  en: Your rate is too high; my credit union is better
+  es: Su tasa está alta; mi cooperativa me da mejor
+nonverbal: false
+behind:
+  en: Distrust of dealer financing
+  es: Desconfianza del financiamiento del dealer
+behind_source: null
+core_moves:
+  techniques: []
+  rules:
+    - PRICE-04
+  notes:
+    en: Welcome outside financing
+    es: Bienvenido su financiamiento de afuera
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

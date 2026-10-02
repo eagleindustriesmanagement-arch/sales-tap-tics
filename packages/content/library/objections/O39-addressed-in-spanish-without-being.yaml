@@ -1,0 +1,22 @@
+code: O39
+slug: addressed-in-spanish-without-being
+module: car-language-trust
+says:
+  en: (Addressed in Spanish without being asked; answers in English)
+  es: (Le hablan en español sin preguntarle; contesta en inglés)
+nonverbal: true
+behind:
+  en: Feels stereotyped
+  es: Se siente estereotipado
+behind_source: null
+core_moves:
+  techniques:
+    - T040
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

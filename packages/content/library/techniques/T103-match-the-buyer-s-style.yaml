@@ -1,0 +1,31 @@
+code: T103
+slug: match-the-buyer-s-style
+name:
+  en: Match the buyer's style
+  es: Adaptarse al estilo del comprador
+family: discovery
+stages:
+  - discovery
+when:
+  en: The current approach stalls
+  es: El enfoque actual no avanza
+model_line_kind: spoken
+model_line:
+  en: 'Practical buyer: "Here are the three numbers that matter."'
+  es: 'Al práctico: "Estos son los tres números que importan."'
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: McFarland, Challagalla and Shervani 2006
+sources: []
+placeholders: []
+related: []
+rubric_items:
+  - U-ADAPT
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

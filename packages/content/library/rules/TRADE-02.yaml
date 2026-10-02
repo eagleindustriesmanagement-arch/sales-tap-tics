@@ -1,0 +1,21 @@
+code: TRADE-02
+family: trade
+severity: major
+description:
+  en: Any condition on the trade number is stated explicitly, in the language of the offer.
+  es: Toda condición sobre el valor del trade-in se dice claramente, en el idioma de la oferta.
+explanation:
+  en: "The trade number has a condition that was not stated. {fact}"
+  es: "El valor del trade-in tiene una condición que no se dijo. {fact}"
+check_kind: presence
+classifier: true
+applies_to: [rep, demonstrator]
+channels: [floor, phone, text]
+compliant_technique: T111
+parameters:
+  presence: trade_conditions_stated
+  condition_markers:
+    en: ['\bif\b', '\bas long as\b', '\bprovided\b', '\bsubject to\b', '\bholds\b', '\bdepends on\b', '\bpayoff\b']
+    es: ['\bsi\b', '\bsiempre que\b', '\bsujeto a\b', '\bse mantiene\b', '\bdepende de\b', '\bpayoff\b']
+legal_basis: Agreed rule (spec 4.2); contingent terms must be explicit
+attorney_reviewed: false

@@ -1,0 +1,32 @@
+code: T043
+slug: package-trade
+name:
+  en: Package trade
+  es: Negociar todo en paquete
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Buyer keeps reopening single items
+  es: El comprador sigue reabriendo puntos sueltos
+model_line_kind: spoken
+model_line:
+  en: "Let's look at it all together: price, your trade and the extras."
+  es: "Veamos todo junto: el precio, su trade-in y los extras."
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: Ogliastri
+sources:
+  - https://www.redalyc.org/pdf/716/71602504.pdf
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

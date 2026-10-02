@@ -1,0 +1,31 @@
+code: T017
+slug: sell-value-before-discounting
+name:
+  en: Sell value before discounting
+  es: Vender el valor antes de rebajar
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: First price pushback
+  es: La primera objeción al precio
+model_line_kind: spoken
+model_line:
+  en: Compared to what? Walk me through what you are seeing elsewhere.
+  es: ¿Comparado con qué? Cuénteme lo que ha visto en otros lados.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

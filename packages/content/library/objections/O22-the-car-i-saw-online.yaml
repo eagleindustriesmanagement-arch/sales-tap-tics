@@ -1,0 +1,23 @@
+code: O22
+slug: the-car-i-saw-online
+module: car-market-2026
+says:
+  en: The car I saw online is gone
+  es: El carro que vi en internet ya no está
+nonverbal: false
+behind:
+  en: Bait-and-switch suspicion
+  es: Sospecha de que lo están cambiando por otro carro
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Show when it sold; offer the nearest real match
+    es: Mostrar cuándo se vendió; ofrecer el más parecido que sí hay
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

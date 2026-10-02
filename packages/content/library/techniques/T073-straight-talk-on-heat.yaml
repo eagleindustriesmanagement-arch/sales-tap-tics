@@ -1,0 +1,31 @@
+code: T073
+slug: straight-talk-on-heat
+name:
+  en: Straight talk on heat
+  es: Hablar claro sobre el calor
+family: ev
+stages:
+  - discovery
+  - objection
+when:
+  en: EV buyers in Miami
+  es: Compradores de eléctricos en Miami
+model_line_kind: spoken
+model_line:
+  en: Heat costs batteries a little down here. Charging at home is the best habit.
+  es: Aquí el calor afecta un poco la batería. Lo mejor es cargar en casa.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Geotab, 22,700 EVs; average loss 2.3% a year, hot climates about 0.4% faster
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

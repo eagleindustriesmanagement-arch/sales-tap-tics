@@ -1,0 +1,31 @@
+code: T065
+slug: daily-miles-reframe
+name:
+  en: Daily-miles reframe
+  es: Replantear con las millas diarias
+family: ev
+stages:
+  - discovery
+  - objection
+when:
+  en: EV range worry
+  es: Preocupación por la autonomía del eléctrico
+model_line_kind: spoken
+model_line:
+  en: How many miles is a normal day for you? Let's compare that to what this one covers.
+  es: ¿Cuántas millas maneja en un día normal? Vamos a compararlo con lo que este le cubre.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,31 @@
+code: T026
+slug: summary-close
+name:
+  en: Summary close
+  es: Cierre de resumen
+family: closing
+stages:
+  - closing
+when:
+  en: Default way to ask
+  es: La forma normal de pedir la venta
+model_line_kind: direction
+model_line:
+  en: Recap each need the car meets, then ask once.
+  es: Repasar cada necesidad que cumple el carro y preguntar una sola vez.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: ", consistent with Rackham"
+sources: []
+placeholders: []
+related: []
+rubric_items:
+  - U-ONECLOSE
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,32 @@
+code: T111
+slug: write-the-condition-in
+name:
+  en: Write the condition in
+  es: Poner la condición por escrito
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Trade value depends on an unconfirmed payoff
+  es: El valor del trade-in depende de un payoff sin confirmar
+model_line_kind: spoken
+model_line:
+  en: This number holds if the payoff letter matches the $14,200 you told me. If not, we redo it together, in writing.
+  es: Este valor se mantiene si la carta del payoff confirma los $14,200. Si sale distinto, lo rehacemos juntos, por escrito.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Malhotra and Bazerman; state it in the offer's language (LANG-01)
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance:
+  - LANG-01
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

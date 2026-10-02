@@ -1,0 +1,24 @@
+code: O04
+slug: the-price-is-too-high
+module: car-core
+says:
+  en: The price is too high
+  es: El precio está muy alto
+nonverbal: false
+behind:
+  en: A comparison you have not seen
+  es: Una comparación que usted todavía no ha visto
+behind_source: null
+core_moves:
+  techniques:
+    - T017
+    - T028
+    - T086
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

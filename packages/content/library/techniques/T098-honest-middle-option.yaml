@@ -1,0 +1,31 @@
+code: T098
+slug: honest-middle-option
+name:
+  en: Honest middle option
+  es: Una opción del medio honesta
+family: indecision
+stages:
+  - objection
+  - closing
+when:
+  en: Choosing trim or package
+  es: Al escoger versión o paquete
+model_line_kind: spoken
+model_line:
+  en: Most families land on the middle one. Here is what you give up going lower and add going higher.
+  es: La mayoría de las familias escoge la del medio. Le enseño lo que pierde si baja y lo que gana si sube.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Simonson and Tversky 1992 (decoys excluded; they failed a 91-attempt replication)
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

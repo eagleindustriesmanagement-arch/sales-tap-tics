@@ -1,0 +1,31 @@
+code: T066
+slug: cost-of-ownership-sheet
+name:
+  en: Cost-of-ownership sheet
+  es: Hoja de costo total de propiedad
+family: ev
+stages:
+  - discovery
+  - objection
+when:
+  en: '"EVs cost more"'
+  es: '"Los eléctricos cuestan más"'
+model_line_kind: spoken
+model_line:
+  en: You are right, the price is higher. Here is gas and service over five years, side by side.
+  es: Tiene razón, el precio es más alto. Aquí está la gasolina y el mantenimiento en cinco años, lado a lado.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: J.D. Power EVX; only 12% of first-time EV buyers were shown cost of ownership
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

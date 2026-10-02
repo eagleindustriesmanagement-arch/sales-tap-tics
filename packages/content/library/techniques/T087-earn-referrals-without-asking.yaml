@@ -1,0 +1,33 @@
+code: T087
+slug: earn-referrals-without-asking
+name:
+  en: Earn referrals without asking
+  es: Ganarse los referidos sin pedirlos
+family: follow_up
+stages:
+  - follow_up
+when:
+  en: Long-term book building
+  es: Construir la cartera de clientes a largo plazo
+model_line_kind: spoken
+model_line:
+  en: I do not ask for referrals. If I do my job, you will tell people without me asking.
+  es: Yo no le pido referidos. Si hago bien mi trabajo, usted solo le va a contar a la gente.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: Ali Reda, one documented case (1,582 sales reported in 2017)
+sources:
+  - https://lifelessons.co/personal-development/sales/
+placeholders: []
+related:
+  - T052
+  - T053
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

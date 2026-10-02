@@ -1,0 +1,23 @@
+code: O41
+slug: just-email-me-the-out-the-door
+module: car-phone-finance
+says:
+  en: Just email me the out-the-door price
+  es: Mándeme el precio final por email
+nonverbal: false
+behind:
+  en: Fear of bait and switch
+  es: Miedo a que le cambien el precio cuando llegue
+behind_source: null
+core_moves:
+  techniques:
+    - T062
+    - T118
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

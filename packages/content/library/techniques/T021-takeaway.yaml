@@ -1,0 +1,31 @@
+code: T021
+slug: takeaway
+name:
+  en: Takeaway
+  es: Takeaway (quitar la opción)
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Wants top trim at base price
+  es: Quiere la versión más alta al precio de la básica
+model_line_kind: spoken
+model_line:
+  en: Maybe this trim is more than you need. Want to see the one below it?
+  es: A lo mejor esta versión es más de lo que necesita. ¿Quiere ver la de abajo?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

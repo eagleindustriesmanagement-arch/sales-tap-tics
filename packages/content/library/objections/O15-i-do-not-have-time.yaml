@@ -1,0 +1,24 @@
+code: O15
+slug: i-do-not-have-time
+module: car-core
+says:
+  en: I do not have time for a test drive
+  es: No tengo tiempo para la prueba de manejo
+nonverbal: false
+behind:
+  en: Not sold on the car, or rushed
+  es: No está convencido del carro, o anda apurado
+behind_source: null
+core_moves:
+  techniques:
+    - T033
+  rules: []
+  notes:
+    en: Offer a short route
+    es: Ofrecer una ruta corta
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

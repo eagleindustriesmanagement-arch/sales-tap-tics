@@ -1,0 +1,23 @@
+code: O50
+slug: is-that-free-oil-change
+module: car-phone-finance
+says:
+  en: Is that free oil change really free?
+  es: ¿Ese cambio de aceite gratis de verdad es gratis?
+nonverbal: false
+behind:
+  en: Distrust after hidden charges
+  es: Desconfianza después de cargos escondidos
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Show it on the invoice
+    es: Enseñárselo en la factura
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

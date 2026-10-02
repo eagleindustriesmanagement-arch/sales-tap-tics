@@ -1,0 +1,23 @@
+code: O60
+slug: i-do-not-want-to
+module: car-miami-indecision
+says:
+  en: I do not want to regret it
+  es: No quiero arrepentirme
+nonverbal: false
+behind:
+  en: Doing nothing feels safer
+  es: No hacer nada se siente más seguro
+behind_source: null
+core_moves:
+  techniques:
+    - T091
+    - T094
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

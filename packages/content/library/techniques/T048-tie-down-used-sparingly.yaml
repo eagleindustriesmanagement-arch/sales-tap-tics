@@ -1,0 +1,31 @@
+code: T048
+slug: tie-down-used-sparingly
+name:
+  en: Tie-down, used sparingly
+  es: Amarre, usado con moderación
+family: closing
+stages:
+  - closing
+when:
+  en: After a benefit the buyer clearly values
+  es: Después de un beneficio que el comprador claramente valora
+model_line_kind: spoken
+model_line:
+  en: The third row makes the school run easier, doesn't it?
+  es: Con la tercera fila se le hace más fácil llevar a los niños, ¿verdad?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: sounds scripted if repeated, so scoring penalizes more than two per session
+sources: []
+placeholders: []
+related: []
+rubric_items:
+  - U-TIEDOWN
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

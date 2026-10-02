@@ -1,0 +1,31 @@
+code: T045
+slug: raise-the-known-objection-first
+name:
+  en: Raise the known objection first
+  es: Adelantarse a la objeción conocida
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: A fee or wait they will hit anyway
+  es: Un cargo o una espera con la que se va a topar de todos modos
+model_line_kind: spoken
+model_line:
+  en: You will see a dealer fee on the sheet. Let me explain it now so nothing surprises you.
+  es: En la hoja va a ver un cargo de concesionario. Se lo explico ahora para que no haya sorpresas.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,22 @@
+code: O54
+slug: are-you-going-to-slip
+module: car-miami-indecision
+says:
+  en: Are you going to slip in a warranty?
+  es: ¿Me van a meter una garantía sin decirme?
+nonverbal: false
+behind:
+  en: Awareness of packing
+  es: Sabe que a veces meten productos en el pago
+behind_source: null
+core_moves:
+  techniques:
+    - T121
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

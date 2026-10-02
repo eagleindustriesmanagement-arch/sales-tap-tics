@@ -1,0 +1,30 @@
+code: T063
+slug: two-appointment-times-with-a
+name:
+  en: Two appointment times with a reason
+  es: Dos horarios de cita con una razón
+family: phone
+stages:
+  - phone
+when:
+  en: Any phone or internet lead
+  es: Cualquier lead de teléfono o internet
+model_line_kind: spoken
+model_line:
+  en: I will have it pulled up and your trade appraised in fifteen minutes. Is 4:15 or 5:45 better?
+  es: Se lo tengo listo y le evaluamos su trade-in en quince minutos. ¿Le queda mejor a las 4:15 o a las 5:45?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

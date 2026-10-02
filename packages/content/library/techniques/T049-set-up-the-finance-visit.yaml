@@ -1,0 +1,30 @@
+code: T049
+slug: set-up-the-finance-visit
+name:
+  en: Set up the finance visit
+  es: Preparar la visita a financiamiento
+family: finance_handoff
+stages:
+  - finance
+when:
+  en: Customer agrees to numbers
+  es: El cliente acepta los números
+model_line_kind: spoken
+model_line:
+  en: Next you will sit with Ana in finance. She shows you every protection option with its price. You choose what you want, if anything.
+  es: Ahora va a pasar con Ana, de financiamiento. Ella le muestra todas las opciones de protección con su precio. Usted escoge lo que quiera, o nada.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: menu practice (300% rule) is disclosure
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

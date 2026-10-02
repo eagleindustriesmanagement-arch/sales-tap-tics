@@ -1,0 +1,24 @@
+code: O18
+slug: i-do-not-trust-dealers
+module: car-core
+says:
+  en: I do not trust dealers
+  es: No confío en los dealers
+nonverbal: false
+behind:
+  en: A bad past experience
+  es: Una mala experiencia en el pasado
+behind_source: null
+core_moves:
+  techniques:
+    - T100
+    - T085
+    - T009
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,24 @@
+code: O37
+slug: the-spanish-ad-said-something
+module: car-language-trust
+says:
+  en: The Spanish ad said something different
+  es: En el anuncio en español decía otra cosa
+nonverbal: false
+behind:
+  en: Limits not stated in Spanish
+  es: Las condiciones no se dijeron en español
+behind_source: null
+core_moves:
+  techniques: []
+  rules:
+    - LANG-01
+  notes:
+    en: Explain every condition in Spanish
+    es: Explicar cada condición en español
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

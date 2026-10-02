@@ -1,0 +1,31 @@
+code: AUTH-01
+family: authority
+severity: critical
+description:
+  en: Claims about a manager's limit match the scenario facts; no staged manager trip with a false story.
+  es: Lo que se diga del límite del gerente coincide con los datos; no hay viajes al gerente con una historia falsa.
+explanation:
+  en: "That claim about the manager's limit is not true. {fact}"
+  es: "Eso del límite del gerente no es cierto. {fact}"
+check_kind: authority_compare
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T042
+parameters:
+  negation_breaks: false
+  attribution_breaks: true
+  no_room_claims:
+    en:
+      - '\bwon''?t (go|come down|move|budge)\b.{0,20}\b(a (dollar|penny|cent)|any (lower|further|more))\b'
+      - '\b(this|that)(''s| is) (my|his|her|the manager''?s?|our) (bottom|lowest|final|absolute)\b'
+      - '\bcan''?t (go|come down) (any )?(lower|further|a dollar)\b'
+      - '\b(manager|boss|he|she)\b.{0,20}\b(won''?t|will not|refuses to) (approve|sign off|let me)\b'
+      - '\bnot a (dollar|penny|cent) (more|less|lower)\b'
+    es:
+      - '\b(no|ni) (puede|va a|quiere) (bajar|rebajar|moverse)\b.{0,20}\b(más|un dólar|un centavo)\b'
+      - '\bes lo (más bajo|último|mínimo|máximo)\b.{0,20}\b(que|del|de mi)\b'
+      - '\bni un (dólar|centavo|peso) más\b'
+      - '\b(mi )?gerente\b.{0,20}\bno (lo )?(aprueba|aprobó|va a aprobar|me deja)\b'
+legal_basis: Agreed rule (spec 4.2); Friedman's "To the Bone" close excluded
+attorney_reviewed: false

@@ -1,0 +1,30 @@
+code: T078
+slug: orphan-owner-call
+name:
+  en: Orphan-owner call
+  es: Llamada al cliente huérfano
+family: phone
+stages:
+  - phone
+when:
+  en: Owners whose salesperson left; buyers from about two years ago
+  es: Dueños cuyo vendedor se fue; compradores de hace unos dos años
+model_line_kind: spoken
+model_line:
+  en: Your salesperson moved on, so I am your contact now. I can check what you owe against what the car is worth.
+  es: Su vendedor ya no está con nosotros y ahora le atiendo yo. Le reviso cuánto debe contra lo que vale su carro.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,23 @@
+code: O13
+slug: i-have-no-money-down
+module: car-core
+says:
+  en: I have no money down
+  es: No tengo nada de inicial / de down
+nonverbal: false
+behind:
+  en: Cash is tight, or testing
+  es: Está corto de efectivo, o está probando
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Show both paths with real numbers
+    es: Mostrar los dos caminos con números reales
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

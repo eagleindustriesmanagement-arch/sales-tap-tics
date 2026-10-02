@@ -1,0 +1,19 @@
+code: PRICE-02
+family: price
+severity: critical
+description:
+  en: Phone and text prices follow PRICE-01; a price given outside the desk is the full walk-in price.
+  es: Los precios por teléfono y por texto siguen PRICE-01; un precio dado fuera de la mesa es el precio completo en tienda.
+explanation:
+  en: "A phone or text price must be the full all-in price a walk-in customer pays. {fact}"
+  es: "Un precio por teléfono o por texto tiene que ser el precio total que paga un cliente en la tienda. {fact}"
+check_kind: price_compare
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [phone, text]
+compliant_technique: T118
+parameters:
+  tolerance_cents: 100
+  approximate_tolerance_cents: 0
+legal_basis: FTC pricing guidance (September 15, 2026) treating calls and texts as advertising; Florida s. 501.976
+attorney_reviewed: false

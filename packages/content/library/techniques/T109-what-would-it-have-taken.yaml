@@ -1,0 +1,30 @@
+code: T109
+slug: what-would-it-have-taken
+name:
+  en: '"What would it have taken?"'
+  es: '"¿Qué hubiera hecho falta?"'
+family: closing
+stages:
+  - closing
+when:
+  en: After a firm no or lost deal
+  es: Después de un no firme o un negocio perdido
+model_line_kind: spoken
+model_line:
+  en: Before you go, honestly, what would it have taken for this to be a yes today?
+  es: "Antes de que se vaya, dígame con toda confianza: ¿qué hubiera hecho falta para que hoy me dijera que sí?"
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Malhotra and Bazerman
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

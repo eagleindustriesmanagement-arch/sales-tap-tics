@@ -1,0 +1,30 @@
+code: T076
+slug: two-touch-confirmation
+name:
+  en: Two-touch confirmation
+  es: Confirmación en dos contactos
+family: phone
+stages:
+  - phone
+when:
+  en: Day before and morning of
+  es: El día antes y la mañana de la cita
+model_line_kind: spoken
+model_line:
+  en: Confirming tomorrow at 4. The Silverado you liked is pulled up front.
+  es: Le confirmo para mañana a las 4. La Silverado que le gustó ya está separada al frente.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Alan Ram
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

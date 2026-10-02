@@ -1,0 +1,23 @@
+code: O57
+slug: the-ai-told-me-this
+module: car-miami-indecision
+says:
+  en: The AI told me this is the fair price
+  es: La inteligencia artificial me dijo que ese es el precio justo
+nonverbal: false
+behind:
+  en: A machine figure that may be wrong
+  es: Una cifra de una máquina que puede estar equivocada
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: See it, then compare line by line
+    es: Verla y comparar línea por línea
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,23 @@
+code: O27
+slug: i-still-cannot-work-half
+module: car-market-2026
+says:
+  en: I still cannot work half the features
+  es: Todavía no sé usar la mitad de las cosas
+nonverbal: false
+behind:
+  en: Overwhelmed at delivery
+  es: Se sintió abrumado en la entrega
+behind_source: null
+core_moves:
+  techniques:
+    - T039
+    - T081
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,23 @@
+code: O56
+slug: the-no-show-who-goes-quiet
+module: car-miami-indecision
+says:
+  en: (The no-show who goes quiet)
+  es: (El cliente que no llega a la cita y deja de contestar)
+nonverbal: true
+behind:
+  en: Embarrassment, or another store
+  es: Vergüenza, u otra tienda
+behind_source: null
+core_moves:
+  techniques:
+    - T088
+    - T077
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

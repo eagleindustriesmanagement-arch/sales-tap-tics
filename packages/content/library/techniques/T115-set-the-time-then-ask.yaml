@@ -1,0 +1,31 @@
+code: T115
+slug: set-the-time-then-ask
+name:
+  en: Set the time, then ask what to think over
+  es: Fijar la hora y luego preguntar qué quiere pensar
+family: indecision
+stages:
+  - objection
+  - closing
+when:
+  en: "\"I'll think about it\""
+  es: '"Lo voy a pensar"'
+model_line_kind: spoken
+model_line:
+  en: Thursday at six, then. What did you want to think over, so I have answers ready?
+  es: Perfecto, el jueves a las seis. ¿Qué es lo que quiere pensar, para tenerle las respuestas listas?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Jeremy Miner
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

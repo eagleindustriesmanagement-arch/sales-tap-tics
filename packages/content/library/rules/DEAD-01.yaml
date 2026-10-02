@@ -1,0 +1,36 @@
+code: DEAD-01
+family: deadlines
+severity: critical
+description:
+  en: Every stated deadline exists in the scenario's real deadlines, with proof.
+  es: Toda fecha límite que se diga existe en las fechas reales del escenario, con prueba.
+explanation:
+  en: "That deadline is not real. {fact}"
+  es: "Esa fecha límite no es real. {fact}"
+check_kind: deadline_compare
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T107
+parameters:
+  negation_breaks: true
+  attribution_breaks: true
+  deadline_cues:
+    en:
+      - '\b(ends?|ending|expires?|expiring|runs out|goes away)\b'
+      - '\b(price|payment|rate|it)(''s| is)? (goes|going|will go) up\b'
+      - '\b(good|valid) (until|through|till|thru)\b'
+      - '\b(today only|only today|just for today|only good today|only for today)\b'
+      - '\b(deadline|last day)\b'
+    es:
+      - '\b(vence|se vence|termina|se termina|se acaba|caduca)\b'
+      - '\b(precio|pago|tasa)\b.{0,15}\b(sube|va a subir|aumenta)\b'
+      - '\b(válid[oa]|vale|es buen[oa]|aplica) (hasta|solo)\b'
+      - '\b(solo (por )?hoy|nada más (por )?hoy|únicamente hoy)\b'
+      - '\b(fecha límite|último día)\b'
+  # Phrases that mean "no deadline" in a clause: the rep is removing pressure, which is allowed.
+  no_deadline:
+    en: ['\bno (rush|deadline|pressure)\b', '\btake your time\b']
+    es: ['\bsin (apuro|prisa|presión)\b', '\btómese su tiempo\b', '\bno hay (apuro|prisa)\b']
+legal_basis: Agreed rule (spec 4.2); Gino and Moore 2008 support only real deadlines
+attorney_reviewed: false

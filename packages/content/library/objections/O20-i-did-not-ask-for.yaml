@@ -1,0 +1,24 @@
+code: O20
+slug: i-did-not-ask-for
+module: car-market-2026
+says:
+  en: I did not ask for that add-on
+  es: Yo no pedí eso
+nonverbal: false
+behind:
+  en: Fear of being packed
+  es: Miedo de que le metan cosas en el pago
+behind_source: null
+core_moves:
+  techniques:
+    - T121
+  rules: []
+  notes:
+    en: Remove it and offer it as a priced option
+    es: Quitarlo y ofrecerlo como opción con su precio
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

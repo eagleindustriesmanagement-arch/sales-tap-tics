@@ -1,0 +1,22 @@
+code: O42
+slug: another-dealer-already-gave-me
+module: car-phone-finance
+says:
+  en: Another dealer already gave me a number
+  es: Ya otro dealer me dio un número
+nonverbal: false
+behind:
+  en: A quote missing fees or the trade
+  es: Una cotización a la que le faltan cargos o el trade-in
+behind_source: null
+core_moves:
+  techniques:
+    - T086
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

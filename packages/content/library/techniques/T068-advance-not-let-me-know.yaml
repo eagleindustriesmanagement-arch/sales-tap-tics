@@ -1,0 +1,30 @@
+code: T068
+slug: advance-not-let-me-know
+name:
+  en: Advance, not "let me know"
+  es: Avanzar, no "me avisa"
+family: closing
+stages:
+  - closing
+when:
+  en: End of every stage
+  es: Al final de cada etapa
+model_line_kind: spoken
+model_line:
+  en: Rather than leave it open, can we do the appraisal now so you have a real number to take home?
+  es: En vez de dejarlo en el aire, ¿hacemos la tasación de su carro ahora para que se lleve un número real?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Rackham
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

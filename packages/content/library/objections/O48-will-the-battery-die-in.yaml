@@ -1,0 +1,24 @@
+code: O48
+slug: will-the-battery-die-in
+module: car-phone-finance
+says:
+  en: Will the battery die in this heat?
+  es: ¿La batería se daña con este calor?
+nonverbal: false
+behind:
+  en: Climate worry
+  es: Le preocupa el clima
+behind_source: null
+core_moves:
+  techniques:
+    - T073
+  rules: []
+  notes:
+    en: Warranty
+    es: La garantía
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

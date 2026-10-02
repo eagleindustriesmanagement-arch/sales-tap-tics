@@ -1,0 +1,30 @@
+code: T071
+slug: service-introduction-at-delivery
+name:
+  en: Service introduction at delivery
+  es: Presentar a servicio en la entrega
+family: delivery
+stages:
+  - delivery
+when:
+  en: Delivery
+  es: En la entrega
+model_line_kind: spoken
+model_line:
+  en: Before you go, let me introduce Maria in service. She will handle your first oil change.
+  es: Antes de irse, le presento a María en servicio. Ella le va a atender el primer cambio de aceite.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: Cox; 74% of service returners likely to repurchase versus 44%
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

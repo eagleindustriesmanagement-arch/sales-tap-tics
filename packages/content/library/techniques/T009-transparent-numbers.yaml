@@ -1,0 +1,32 @@
+code: T009
+slug: transparent-numbers
+name:
+  en: Transparent numbers
+  es: Números transparentes
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Presenting figures
+  es: Al presentar las cifras
+model_line_kind: direction
+model_line:
+  en: Price, trade, fees and payment on one sheet, then stop talking.
+  es: Precio, trade-in, cargos y pago en una sola hoja, y luego silencio.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Cox Automotive satisfaction drivers
+sources:
+  - https://www.coxautoinc.com/news/cox-automotive-unveils-key-insights-into-successful-car-deals-in-new-study-drivers-of-car-shopping-satisfaction/
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

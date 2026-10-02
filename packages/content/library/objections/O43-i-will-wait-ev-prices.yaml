@@ -1,0 +1,23 @@
+code: O43
+slug: i-will-wait-ev-prices
+module: car-phone-finance
+says:
+  en: I will wait, EV prices keep dropping
+  es: Mejor espero; los eléctricos siguen bajando
+nonverbal: false
+behind:
+  en: Fear of losing value
+  es: Miedo a perder valor
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Be straight; show a lease or a used EV
+    es: Hablarle claro; mostrarle un lease o un eléctrico usado
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

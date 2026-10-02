@@ -1,0 +1,30 @@
+code: T010
+slug: trial-close
+name:
+  en: Trial close
+  es: Cierre de prueba
+family: closing
+stages:
+  - closing
+when:
+  en: After the drive and each resolved objection
+  es: Después de la prueba de manejo y de cada objeción resuelta
+model_line_kind: spoken
+model_line:
+  en: If we can get the numbers where you need them, is this the one?
+  es: Si logramos que los números le cuadren, ¿es este el carro?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

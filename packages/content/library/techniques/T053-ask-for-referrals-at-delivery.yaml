@@ -1,0 +1,32 @@
+code: T053
+slug: ask-for-referrals-at-delivery
+name:
+  en: Ask for referrals at delivery
+  es: Pedir referidos en la entrega
+family: follow_up
+stages:
+  - follow_up
+when:
+  en: Delivery and follow-ups
+  es: En la entrega y en los seguimientos
+model_line_kind: spoken
+model_line:
+  en: Who do you know that is looking for a car?
+  es: ¿A quién conoce que esté buscando carro?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Girard paid $25 per sold referral; any reward needs attorney approval (store setting)
+sources: []
+placeholders: []
+related:
+  - T052
+  - T087
+rubric_items: []
+compliance: []
+requires_store_policy: true
+use_only_when: null
+spanish_reviewed: false
+status: needs_store_policy

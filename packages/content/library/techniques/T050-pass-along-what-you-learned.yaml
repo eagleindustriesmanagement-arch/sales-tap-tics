@@ -1,0 +1,30 @@
+code: T050
+slug: pass-along-what-you-learned
+name:
+  en: Pass along what you learned
+  es: Pasar lo que aprendió
+family: finance_handoff
+stages:
+  - finance
+when:
+  en: Before finance
+  es: Antes de financiamiento
+model_line_kind: direction
+model_line:
+  en: Tell the finance manager the customer's miles and how long they keep cars.
+  es: Decirle al gerente de financiamiento cuántas millas maneja el cliente y cuánto tiempo se queda con sus carros.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

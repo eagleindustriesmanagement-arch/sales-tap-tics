@@ -1,0 +1,23 @@
+# Spec 16.2. Shared by content, speech recognition (custom vocabulary) and the judge.
+# verified: "yes" = confirmed in written Miami or federal Spanish sources; spoken use still needs the store's
+# bilingual staff to confirm. neutral_tokens are dealer terms that do not count as English inside Spanish (16.1.5).
+terms:
+  - { en: Down payment, es_standard: Pago inicial, es_miami: [la inicial, el down], avoid: [enganche, pronto, entrada], notes: "Regional terms: recognize, do not default", verified: "yes", neutral_tokens: [down] }
+  - { en: Trade-in, es_standard: Vehículo como parte de pago, es_miami: [el trade-in, el trade], avoid: [permuta], notes: "\"Permuta\" is formal and rarely spoken", verified: "yes", neutral_tokens: [trade, trade-in] }
+  - { en: Monthly payment, es_standard: Pago mensual, es_miami: [el pago mensual, la mensualidad], verified: "yes" }
+  - { en: APR / interest rate, es_standard: Tasa de porcentaje anual, es_miami: [el APR, la tasa], notes: "Do not call it only \"interés\"", verified: "yes", neutral_tokens: [apr] }
+  - { en: Upside down / negative equity, es_standard: Valor negativo, es_miami: [estar al revés, debo más de lo que vale], avoid: [equidad negativa], notes: "\"Equidad negativa\" is a calque; accept, do not require", verified: written }
+  - { en: Co-signer, es_standard: Cofirmante, es_miami: [co-firmante, co-signer, codeudor], notes: "Accept all three; \"fiador\" accepted, not modeled", verified: written, neutral_tokens: [co-signer] }
+  - { en: Out-the-door price, es_standard: Precio total con todos los cargos, es_miami: [precio total final, el precio final con todo], notes: Always spell out what is included, verified: partly }
+  - { en: Dealer fee, es_standard: Cargo del concesionario, es_miami: [el dealer fee], notes: "Use the store's exact document term", verified: store_setting, neutral_tokens: [dealer, fee] }
+  - { en: Lease, es_standard: Arrendamiento, es_miami: [el lease], avoid: [renta], notes: "\"Renta\" can be misheard as a rental", verified: partly, neutral_tokens: [lease] }
+  - { en: Service contract, es_standard: Contrato de servicio, es_miami: [contrato de servicio, garantía extendida], notes: "Do not call it a \"garantía\" without saying it is a service contract", verified: "yes" }
+  - { en: Test drive, es_standard: Prueba de manejo, es_miami: [la prueba de manejo, el test drive], avoid: [prueba de conducir], notes: "\"Prueba de conducir\" sounds Spanish from Spain", verified: "yes", neutral_tokens: [test, drive] }
+  - { en: Credit score, es_standard: Puntaje de crédito, es_miami: [el score, su crédito], verified: "yes", neutral_tokens: [score] }
+  - { en: Car, es_standard: Auto, es_miami: [carro, auto], avoid: [coche], notes: "\"Coche\" sounds foreign in Miami", verified: "yes" }
+  - { en: Truck, es_standard: Camioneta, es_miami: [la troca, la camioneta], notes: Confirm per speaker, verified: "no" }
+  - { en: Tire, es_standard: Neumático, es_miami: [la goma, la llanta], notes: "\"La goma\" is Cuban; recognize both", verified: "no" }
+  - { en: Payoff, es_standard: Saldo pendiente, es_miami: [el payoff], verified: "no", neutral_tokens: [payoff] }
+  - { en: First responder, es_standard: Socorrista, es_miami: [primer respondedor, socorrista], notes: Confirm, verified: "no" }
+  - { en: Dealership, es_standard: Concesionario, es_miami: [el dealer], verified: "yes", neutral_tokens: [dealer] }
+  - { en: GAP, es_standard: Seguro GAP, es_miami: [el GAP], notes: "Speech recognition vocabulary", verified: "no", neutral_tokens: [gap] }

@@ -1,0 +1,31 @@
+code: T056
+slug: value-redirect
+name:
+  en: Value redirect
+  es: Redirigir hacia el valor
+family: discovery
+stages:
+  - discovery
+when:
+  en: Price asked before a car is picked
+  es: Pregunta el precio antes de escoger un carro
+model_line_kind: spoken
+model_line:
+  en: Fair question, and you will get every number. First, is this one for you or the family?
+  es: "Claro, le doy todos los números. Primero: ¿este es para usted o para la familia?"
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Joe Verde
+sources:
+  - https://blog.joeverde.com/facts-about-buying-selling/
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

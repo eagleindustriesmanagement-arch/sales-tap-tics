@@ -1,0 +1,24 @@
+code: O07
+slug: i-am-not-buying-today
+module: car-core
+says:
+  en: I am not buying today
+  es: Hoy no voy a comprar
+nonverbal: false
+behind:
+  en: Wants control of the timeline
+  es: Quiere controlar sus propios tiempos
+behind_source: null
+core_moves:
+  techniques:
+    - T068
+    - T014
+    - T122
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

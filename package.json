@@ -1,0 +1,26 @@
+{
+  "name": "sales-tap-tics",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "content:validate": "tsx packages/content/scripts/validate.ts && tsx packages/rules/scripts/check-content.ts",
+    "content:import-spec": "tsx packages/content/scripts/import-spec.ts",
+    "i18n:check": "tsx packages/i18n/scripts/check.ts",
+    "ci": "pnpm typecheck && pnpm test && pnpm content:validate && pnpm i18n:check"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.4"
+  }
+}

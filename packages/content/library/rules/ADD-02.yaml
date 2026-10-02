@@ -1,0 +1,40 @@
+code: ADD-02
+family: add_ons
+severity: critical
+description:
+  en: No pre-installed option is described as impossible to remove; the store's removal policy is offered.
+  es: Ninguna opción preinstalada se presenta como imposible de quitar; se ofrece la política de la tienda.
+explanation:
+  en: "A pre-installed option can be declined. {fact}"
+  es: "Una opción preinstalada se puede rechazar. {fact}"
+check_kind: pattern
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T120
+parameters:
+  negation_breaks: false
+  attribution_breaks: true
+  patterns:
+    en:
+      - '\b(can''?t|cannot|can not|no way to|unable to|won''?t)\b.{0,15}\b(be )?(remove|removed|take (it|them|that) off|taken off|come off|pull (it|that) off)\b'
+      - '\b(comes with|is on) (the car|it|every car|all of them)\b.{0,30}\b(no way around|you have to (pay|take|keep))'
+      - '\b(it''?s|it is|they''?re|they are) (already )?(installed|on (the car|there))\b.{0,30}\b(so )?you (have|need) to (pay|keep|take)'
+      - '\bnon-?removable\b'
+    es:
+      - '\bno se (le )?(puede|pueden) (quitar|sacar|remover)\b'
+      - '\b(ya )?viene (instalad[oa]|con el carro)\b.{0,30}\b(tiene que|hay que) (pagarlo|pagarla|pagar|llevarlo|quedarse)'
+      - '\bno hay (manera|forma) de (quitar|sacar)'
+      - '\b(es|está) instalad[oa],? (así que )?(tiene|hay) que pagar'
+  fact_by_policy:
+    credit_price:
+      en: "Store policy: if the customer does not want it, the store credits its price."
+      es: "Política de la tienda: si el cliente no lo quiere, la tienda le acredita el precio."
+    show_alternative:
+      en: "Store policy: if the customer does not want it, the store shows the same model without it."
+      es: "Política de la tienda: si el cliente no lo quiere, la tienda le muestra el mismo modelo sin eso."
+    none_configured:
+      en: "Pre-installed options are optional. The store has not yet set its removal policy, so offer to find a solution with the manager."
+      es: "Las opciones preinstaladas son opcionales. La tienda todavía no ha definido su política, así que ofrezca buscar una solución con el gerente."
+legal_basis: FTC pricing guidance (September 15, 2026); requires store policy (spec 3.4)
+attorney_reviewed: false

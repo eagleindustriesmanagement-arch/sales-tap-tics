@@ -1,0 +1,24 @@
+code: O16
+slug: you-do-not-have-the
+module: car-core
+says:
+  en: You do not have the color or trim I want
+  es: No tienen el color / la versión que quiero
+nonverbal: false
+behind:
+  en: Real preference, or an easy exit
+  es: Una preferencia real, o una salida fácil
+behind_source: null
+core_moves:
+  techniques:
+    - T044
+  rules: []
+  notes:
+    en: Locate or order the vehicle
+    es: Localizar o pedir el vehículo
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

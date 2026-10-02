@@ -1,0 +1,24 @@
+code: O06
+slug: i-am-just-looking
+module: car-core
+says:
+  en: I am just looking
+  es: Solo estoy mirando
+nonverbal: false
+behind:
+  en: Guard up; fear of pressure
+  es: Está a la defensiva; miedo a la presión
+behind_source: null
+core_moves:
+  techniques:
+    - T084
+    - T031
+    - T033
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

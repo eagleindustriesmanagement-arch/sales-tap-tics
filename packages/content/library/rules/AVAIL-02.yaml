@@ -1,0 +1,21 @@
+code: AVAIL-02
+family: availability
+severity: major
+description:
+  en: In-transit or off-lot vehicles are disclosed when discussed.
+  es: Si el vehículo está en camino o fuera del lote, se dice cuando se habla de él.
+explanation:
+  en: "The vehicle is not on the lot, and that was not said. {fact}"
+  es: "El vehículo no está en el lote y no se dijo. {fact}"
+check_kind: presence
+classifier: false
+applies_to: [rep, demonstrator]
+channels: [floor, phone, text]
+compliant_technique: null
+parameters:
+  presence: off_lot_disclosure
+  disclosure:
+    en: ['\bin transit\b', '\bon (the|its) way\b', '\barriv(es|ing)\b', '\bnot (on|at) the lot\b', '\boff[- ]lot\b', '\bat (another|our other) (store|lot)\b', '\bcoming (in|from)\b']
+    es: ['\ben camino\b', '\bestá llegando\b', '\bllega el\b', '\bno está en el lote\b', '\ben otr[oa] (tienda|lote|dealer)\b', '\bviene (de|en camino)\b']
+legal_basis: FTC guidance (spec 4.2)
+attorney_reviewed: false

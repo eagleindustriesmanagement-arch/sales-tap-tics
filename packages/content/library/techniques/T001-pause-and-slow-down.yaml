@@ -1,0 +1,37 @@
+code: T001
+slug: pause-and-slow-down
+name:
+  en: Pause and slow down
+  es: Hacer una pausa y bajar el ritmo
+family: objection_sequence
+stages:
+  - objection
+when:
+  en: The instant any objection lands
+  es: En el instante en que llega cualquier objeción
+model_line_kind: direction
+model_line:
+  en: Two to three seconds of silence, then a calm reply at normal pace.
+  es: Dos o tres segundos de silencio y luego una respuesta tranquila, sin apurarse.
+flawed_line:
+  en: Answers the instant the objection lands, faster than before.
+  es: Contesta en el mismo instante en que llega la objeción, más rápido que antes.
+flawed_line_violates: []
+why:
+  en: Top reps slow down after an objection; average reps speed up. A pause shows you heard it and keeps you from defending.
+  es: Los mejores vendedores bajan el ritmo después de una objeción; los promedio se aceleran. La pausa muestra que escuchó y evita que se ponga a la defensiva.
+evidence:
+  grade: B
+  note: Gong, 67,000+ demos; top reps held about 176 words a minute after objections, average reps sped to about 188
+sources:
+  - https://www.gong.io/blog/here-are-the-7-best-objection-handling-techniques-youll-read-this-year
+placeholders: []
+related: []
+rubric_items:
+  - U-PAUSE
+  - U-PACE
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

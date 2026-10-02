@@ -1,0 +1,34 @@
+code: T003
+slug: acknowledge
+name:
+  en: Acknowledge
+  es: Reconocer
+family: objection_sequence
+stages:
+  - objection
+when:
+  en: Right after the pause
+  es: Justo después de la pausa
+model_line_kind: spoken
+model_line:
+  en: That is fair. It is a big decision.
+  es: Tiene toda la razón. Es una decisión importante.
+flawed_line:
+  en: Okay, but let's not overthink it.
+  es: Bueno, pero no lo piense tanto.
+flawed_line_violates: []
+why:
+  en: Saying the concern is fair shows respect, so the customer keeps talking instead of defending a position.
+  es: Decir que la preocupación es válida muestra respeto, y así el cliente sigue hablando en vez de defender una posición.
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

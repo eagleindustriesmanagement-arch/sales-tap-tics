@@ -1,0 +1,18 @@
+code: PRICE-05
+family: price
+severity: minor
+description:
+  en: The total is stated before itemizing charges.
+  es: El total se dice antes de desglosar los cargos.
+explanation:
+  en: "Say the all-in total first, then explain the parts. {fact}"
+  es: "Diga primero el precio total y luego explique las partes. {fact}"
+check_kind: order
+classifier: false
+applies_to: [rep, demonstrator]
+channels: [floor, phone, text]
+compliant_technique: T030
+parameters:
+  order: total_before_itemizing
+legal_basis: Partitioned pricing research; FTC pricing guidance (September 15, 2026)
+attorney_reviewed: false

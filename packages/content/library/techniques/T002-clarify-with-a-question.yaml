@@ -1,0 +1,36 @@
+code: T002
+slug: clarify-with-a-question
+name:
+  en: Clarify with a question
+  es: Aclarar con una pregunta
+family: objection_sequence
+stages:
+  - objection
+when:
+  en: Before answering any objection
+  es: Antes de contestar cualquier objeción
+model_line_kind: spoken
+model_line:
+  en: Help me understand. When you say the payment is high, what number were you expecting?
+  es: Ayúdeme a entender. Cuando dice que el pago está alto, ¿qué número tenía en mente?
+flawed_line:
+  en: No, the payment is not high, that is a great rate.
+  es: No, el pago no está alto, esa es una tasa excelente.
+flawed_line_violates: []
+why:
+  en: Top performers answered objections with a question more than half the time; average reps did it less than a third of the time. The question finds the real concern before you answer the wrong one.
+  es: Los mejores vendedores respondieron las objeciones con una pregunta más de la mitad de las veces; los promedio, menos de un tercio. La pregunta encuentra la preocupación real antes de que usted conteste la equivocada.
+evidence:
+  grade: B
+  note: Gong; top performers answered objections with a question 54.3% of the time, average 31.0%
+sources:
+  - https://www.gong.io/blog/here-are-the-7-best-objection-handling-techniques-youll-read-this-year
+placeholders: []
+related: []
+rubric_items:
+  - U-QFIRST
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

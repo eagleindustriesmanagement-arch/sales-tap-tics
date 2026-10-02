@@ -1,0 +1,28 @@
+code: ADD-04
+family: add_ons
+severity: major
+description:
+  en: Service contracts are described as optional and cancellable within 60 days in Florida.
+  es: Los contratos de servicio se presentan como opcionales y cancelables dentro de 60 días en Florida.
+explanation:
+  en: "A service contract was discussed without saying it is optional and cancellable within 60 days. {fact}"
+  es: "Se habló de un contrato de servicio sin decir que es opcional y que se puede cancelar dentro de 60 días. {fact}"
+check_kind: presence
+classifier: false
+applies_to: [rep, demonstrator]
+channels: [floor, phone, text]
+compliant_technique: T074
+parameters:
+  presence: service_contract_disclosure
+  add_on_codes: [service_contract]
+  trigger:
+    en: ['service contract', 'extended warranty', 'warranty']
+    es: ['contrato de servicio', 'garantía extendida', 'garantía']
+  required_all:
+    - { en: ['optional'], es: ['opcional'] }
+    - { en: ['60 days', 'sixty days'], es: ['60 días', 'sesenta días'] }
+  fact:
+    en: "In Florida a service contract is optional and can be cancelled within 60 days."
+    es: "En Florida un contrato de servicio es opcional y se puede cancelar dentro de 60 días."
+legal_basis: Florida s. 634.121
+attorney_reviewed: false

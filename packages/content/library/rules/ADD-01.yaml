@@ -1,0 +1,36 @@
+code: ADD-01
+family: add_ons
+severity: critical
+description:
+  en: No optional product is described as required for approval, rate or delivery.
+  es: Ningún producto opcional se presenta como requisito para la aprobación, la tasa o la entrega.
+explanation:
+  en: "Optional products cannot be presented as required. {fact}"
+  es: "Los productos opcionales no se pueden presentar como obligatorios. {fact}"
+check_kind: pattern
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T074
+parameters:
+  negation_breaks: true
+  attribution_breaks: true
+  patterns:
+    en:
+      - '\b(need|needs|have to|has to|must|required|requires|require|mandatory)\b.{0,40}\b(warranty|service contract|gap|protection|package|maintenance plan|tire and wheel|theft|etch|add-?ons?)\b.{0,50}\b(approv|rate|loan|financ|deliver|bank|lender|qualif)'
+      - '\b(warranty|service contract|gap|protection|package|add-?ons?)\b.{0,40}\b(is|are|was|were)\b.{0,10}\b(required|mandatory|needed|a must)\b'
+      - '\b(bank|lender|approval)\b.{0,40}\b(requires|needs|wants|insists on)\b.{0,30}\b(warranty|service contract|gap|protection|package)'
+      - '\bto (get|be) approved\b.{0,40}\b(need|have to|must|take)\b.{0,30}\b(warranty|service contract|gap|protection|package)'
+      # Pre-judging a product as the norm (spec 8.12 finance-handoff flawed pattern).
+      - '\beveryone (gets|takes|buys|needs) (it|the (warranty|gap|service contract|protection))\b'
+    es:
+      - '\b(necesita|hace falta|tiene que|tienen que|obligatori[oa]|requisito|se requiere|requiere|exige)\b.{0,40}\b(garantía|contrato de servicio|gap|protección|paquete|mantenimiento)\b.{0,50}\b(aprob|aprue|tasa|préstamo|financ|entreg|banco)'
+      - '\b(garantía|contrato de servicio|gap|protección|paquete)\b.{0,40}\b(es|son|era|eran)\b.{0,10}\b(obligatori[oa]s?|requisito|necesari[oa]s?)\b'
+      - '\bpara (que (le|lo|la) )?(aprueben|aprobar|la aprobación)\b.{0,40}\b(necesita|hace falta|tiene que)\b.{0,30}\b(garantía|gap|contrato de servicio|protección|paquete)'
+      - '\bel banco (pide|exige|requiere)\b.{0,30}\b(garantía|gap|contrato de servicio|protección|paquete)'
+      - '\btodo el mundo (la|lo) (compra|coge|lleva|toma)\b'
+  fact:
+    en: "Every protection product is optional. It is not required for approval, the rate or delivery."
+    es: "Todos los productos de protección son opcionales. No son requisito para la aprobación, la tasa ni la entrega."
+legal_basis: Florida s. 634.121 notice; FTC guidance; Manchester City Nissan
+attorney_reviewed: false

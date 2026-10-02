@@ -1,0 +1,24 @@
+code: O09
+slug: i-want-to-shop-other
+module: car-core
+says:
+  en: I want to shop other dealers
+  es: Quiero ver en otros dealers
+nonverbal: false
+behind:
+  en: Not convinced on price or store
+  es: No está convencido del precio o de la tienda
+behind_source: null
+core_moves:
+  techniques:
+    - T093
+    - T086
+    - T014
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

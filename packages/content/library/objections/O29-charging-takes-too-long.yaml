@@ -1,0 +1,23 @@
+code: O29
+slug: charging-takes-too-long
+module: car-ev
+says:
+  en: Charging takes too long
+  es: Cargarlo se demora mucho
+nonverbal: false
+behind:
+  en: Pictures waiting at a public charger
+  es: Se imagina esperando en un cargador público
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Ask where the car sleeps at night
+    es: Preguntar dónde duerme el carro de noche
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

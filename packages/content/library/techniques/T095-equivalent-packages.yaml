@@ -1,0 +1,33 @@
+code: T095
+slug: equivalent-packages
+name:
+  en: Equivalent packages
+  es: Paquetes equivalentes
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: First numbers, after discovery
+  es: Los primeros números, después del descubrimiento
+model_line_kind: spoken
+model_line:
+  en: I put together two ways to do this. Same deal for us, different for you. Which fits you better?
+  es: Le preparé dos opciones. Para nosotros es lo mismo, pero para usted es distinto. ¿Cuál le conviene más?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Leonardelli and others 2019, six experiments
+sources:
+  - https://www.sciencedirect.com/science/article/pii/S074959781630557X
+placeholders: []
+related:
+  - T061
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

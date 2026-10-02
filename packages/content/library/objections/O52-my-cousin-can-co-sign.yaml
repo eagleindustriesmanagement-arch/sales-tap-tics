@@ -1,0 +1,23 @@
+code: O52
+slug: my-cousin-can-co-sign
+module: car-miami-indecision
+says:
+  en: My cousin can co-sign
+  es: Mi primo me sirve de co-firmante
+nonverbal: false
+behind:
+  en: Thin credit, fear of rejection
+  es: Crédito corto, miedo a que lo rechacen
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Explain the process; never promise approval
+    es: Explicar el proceso; nunca prometer la aprobación
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

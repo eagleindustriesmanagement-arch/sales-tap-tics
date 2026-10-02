@@ -1,0 +1,31 @@
+code: T033
+slug: hands-on-the-car-early
+name:
+  en: Hands on the car early
+  es: Las manos en el carro desde temprano
+family: discovery
+stages:
+  - discovery
+when:
+  en: Greeting through drive
+  es: Desde el saludo hasta la prueba de manejo
+model_line_kind: spoken
+model_line:
+  en: Go ahead, set the seat and mirrors how you would have them.
+  es: Adelante, ajuste el asiento y los espejos como usted los tendría.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Peck and Shu 2009
+sources:
+  - https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1345908
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

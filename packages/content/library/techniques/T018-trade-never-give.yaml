@@ -1,0 +1,31 @@
+code: T018
+slug: trade-never-give
+name:
+  en: Trade, never give
+  es: Intercambiar, nunca regalar
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Any request for a concession
+  es: Cualquier pedido de una concesión
+model_line_kind: spoken
+model_line:
+  en: If I can get my manager to $575 a month, are you taking it home today?
+  es: Si consigo que mi gerente lo deje en $575 al mes, ¿se lo lleva hoy?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Practitioner tradition; the research named no source
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

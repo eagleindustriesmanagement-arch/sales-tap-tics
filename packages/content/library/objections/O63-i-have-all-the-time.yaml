@@ -1,0 +1,23 @@
+code: O63
+slug: i-have-all-the-time
+module: car-miami-indecision
+says:
+  en: I have all the time in the world
+  es: Yo no tengo ningún apuro
+nonverbal: false
+behind:
+  en: Often a bluff
+  es: Muchas veces es un farol
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Ask about their current car's situation
+    es: Preguntar cómo está su carro actual
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

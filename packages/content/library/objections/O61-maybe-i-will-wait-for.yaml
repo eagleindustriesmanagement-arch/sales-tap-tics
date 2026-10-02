@@ -1,0 +1,23 @@
+code: O61
+slug: maybe-i-will-wait-for
+module: car-miami-indecision
+says:
+  en: Maybe I will wait for the new model
+  es: A lo mejor espero al modelo nuevo
+nonverbal: false
+behind:
+  en: Waiting feels safe
+  es: Esperar se siente seguro
+behind_source: null
+core_moves:
+  techniques: []
+  rules: []
+  notes:
+    en: Facts on what waiting costs
+    es: Datos de lo que cuesta esperar
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

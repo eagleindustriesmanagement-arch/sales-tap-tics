@@ -1,0 +1,32 @@
+code: T051
+slug: do-not-pre-judge-products
+name:
+  en: Do not pre-judge products
+  es: No prejuzgar los productos
+family: finance_handoff
+stages:
+  - finance
+when:
+  en: '"Do I need the warranty?"'
+  es: '"¿Necesito la garantía?"'
+model_line_kind: spoken
+model_line:
+  en: That is your call. Ana will show you what it covers and what it costs so you can decide.
+  es: Eso lo decide usted. Ana le muestra qué cubre y cuánto cuesta para que decida.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: A
+  note: Florida s. 634.121 notice
+sources:
+  - https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&Search_String=&URL=0600-0699%2F0634%2FSections%2F0634.121.html
+placeholders: []
+related: []
+rubric_items: []
+compliance:
+  - ADD-01
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

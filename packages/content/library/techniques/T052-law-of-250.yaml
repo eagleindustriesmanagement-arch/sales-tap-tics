@@ -1,0 +1,32 @@
+code: T052
+slug: law-of-250
+name:
+  en: Law of 250
+  es: Ley de los 250
+family: follow_up
+stages:
+  - follow_up
+when:
+  en: Every customer, especially one leaving unsold
+  es: Cada cliente, sobre todo el que se va sin comprar
+model_line_kind: spoken
+model_line:
+  en: Whatever you decide, thank you for the chance. If anything comes up, call me directly.
+  es: Decida lo que decida, gracias por la oportunidad. Cualquier cosa, llámeme directamente a mí.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Joe Girard (verified in book text)
+sources: []
+placeholders: []
+related:
+  - T053
+  - T087
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

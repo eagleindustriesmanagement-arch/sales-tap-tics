@@ -1,0 +1,23 @@
+code: O40
+slug: in-my-country-the-dealer
+module: car-language-trust
+says:
+  en: In my country the dealer always gives a discount
+  es: En mi país siempre le rebajan a uno
+nonverbal: false
+behind:
+  en: Expects haggling; unfamiliar with U.S. fees
+  es: Espera regatear; no conoce los cargos de Estados Unidos
+behind_source: null
+core_moves:
+  techniques:
+    - T045
+    - T042
+  rules: []
+  notes: null
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

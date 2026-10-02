@@ -1,0 +1,31 @@
+code: T022
+slug: shrink-the-gap
+name:
+  en: Shrink the gap
+  es: Achicar la diferencia
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Small difference left
+  es: Queda una diferencia pequeña
+model_line_kind: spoken
+model_line:
+  en: We are $30 a month apart. That is about a dollar a day for the one you actually want.
+  es: Estamos a $30 al mes. Es como un dólar al día por el que de verdad quiere.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Gourville; per-day framing works only for small amounts
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

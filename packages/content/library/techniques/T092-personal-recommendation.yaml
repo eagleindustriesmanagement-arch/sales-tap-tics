@@ -1,0 +1,36 @@
+code: T092
+slug: personal-recommendation
+name:
+  en: Personal recommendation
+  es: Recomendación personal
+family: indecision
+stages:
+  - objection
+  - closing
+when:
+  en: Torn, or asks what you would do
+  es: Está indeciso, o pregunta qué haría usted
+model_line_kind: spoken
+model_line:
+  en: If I were in your shoes, with your commute and the kids, I would take the Equinox LT. Here is why.
+  es: Si yo estuviera en su lugar, con ese viaje diario y los niños, yo me llevaría la Equinox LT. Le explico por qué.
+flawed_line:
+  en: We have twelve more trims you could look at.
+  es: Tenemos doce versiones más que puede ver.
+flawed_line_violates: []
+why:
+  en: Torn buyers are often afraid of choosing wrong. One clear recommendation with a reason, tied to what they told you, makes the choice easier.
+  es: El cliente indeciso muchas veces tiene miedo de escoger mal. Una recomendación clara con una razón, basada en lo que le dijo, le facilita la decisión.
+evidence:
+  grade: B
+  note: same; win rate reported to rise from 18% to 44% (secondhand)
+sources: []
+placeholders: []
+related: []
+rubric_items:
+  - U-RECOMMEND
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

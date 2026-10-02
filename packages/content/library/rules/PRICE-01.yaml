@@ -1,0 +1,19 @@
+code: PRICE-01
+family: price
+severity: critical
+description:
+  en: Any stated vehicle price equals the all-in price (every mandatory dealer charge included; only government charges paid directly by the customer excluded).
+  es: Todo precio del vehículo que se diga es el precio total (con todos los cargos obligatorios del concesionario; solo se excluyen los cargos del gobierno que paga directamente el cliente).
+explanation:
+  en: "That price is not the all-in price. {fact}"
+  es: "Ese precio no es el precio total. {fact}"
+check_kind: price_compare
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor]
+compliant_technique: T030
+parameters:
+  tolerance_cents: 100
+  approximate_tolerance_cents: 10000
+legal_basis: Florida s. 501.976(16) and (11); FTC pricing guidance (September 15, 2026); Lindsay settlement
+attorney_reviewed: false

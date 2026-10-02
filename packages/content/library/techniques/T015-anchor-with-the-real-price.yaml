@@ -1,0 +1,34 @@
+code: T015
+slug: anchor-with-the-real-price
+name:
+  en: Anchor with the real price and a reason
+  es: Anclar con el precio real y una razón
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: First number
+  es: El primer número
+model_line_kind: spoken
+model_line:
+  en: This one is $38,450, everything included but tax and tags. Here is why it is priced there.
+  es: Este está en $38,450, todo incluido menos impuestos y placas. Le explico por qué tiene ese precio.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: A
+  note: 2025 meta-analysis of 90 studies; ambitious openings win about 75% of the time but cause more walkaways and worse feelings, and the effect shrinks in complex deals
+sources:
+  - https://ink.library.smu.edu.sg/lkcsb_research/7752
+placeholders: []
+related: []
+rubric_items:
+  - U-FIRSTNUM
+compliance:
+  - PRICE-01
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,19 @@
+code: FAIR-01
+family: fairness
+severity: critical
+description:
+  en: Same offer method and pricing regardless of language.
+  es: El mismo método de oferta y los mismos precios sin importar el idioma.
+explanation:
+  en: "The English and Spanish versions do not carry the same numbers. {fact}"
+  es: "Las versiones en inglés y en español no tienen los mismos números. {fact}"
+check_kind: parity
+classifier: false
+applies_to: [demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T041
+parameters:
+  compare: [money, percent, clock_time]
+  live_sessions: manager_review
+legal_basis: Asbury allegations; the app's equal-treatment rule (pending attorney review after 2026 federal changes)
+attorney_reviewed: false

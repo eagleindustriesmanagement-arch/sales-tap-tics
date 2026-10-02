@@ -1,0 +1,33 @@
+code: T027
+slug: precise-number-with-a-reason
+name:
+  en: Precise number with a reason
+  es: Número exacto con una razón
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: First pencil, trade offer
+  es: La primera propuesta de números, la oferta por el trade-in
+model_line_kind: spoken
+model_line:
+  en: Your trade comes in at $14,850. Here is the auction data behind it.
+  es: Su trade-in sale en $14,850. Aquí están los datos de subasta que lo respaldan.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Mason and others 2013
+sources:
+  - https://columbia.edu/~da358/publications/Precise_offers.pdf
+placeholders: []
+related: []
+rubric_items:
+  - U-FIRSTNUM
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

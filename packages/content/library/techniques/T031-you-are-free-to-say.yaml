@@ -1,0 +1,31 @@
+code: T031
+slug: you-are-free-to-say
+name:
+  en: '"You are free to say no"'
+  es: '"Usted está en libertad de decir que no"'
+family: closing
+stages:
+  - closing
+when:
+  en: Test-drive ask, close, takeaway
+  es: Al pedir la prueba de manejo, en el cierre, en el takeaway
+model_line_kind: spoken
+model_line:
+  en: Totally your call, and you are free to walk away. Would you take it around the block first?
+  es: Usted decide, y está en libertad de irse. ¿Le da una vuelta primero?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: A
+  note: meta-analysis of 42 studies (small effect)
+sources:
+  - https://www.researchgate.net/publication/234839851_A_Meta-Analysis_of_the_Effectiveness_of_the_But_You_Are_Free_Compliance-Gaining_Technique
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,33 @@
+code: T093
+slug: limit-the-exploration
+name:
+  en: Limit the exploration
+  es: Limitar la búsqueda
+family: indecision
+stages:
+  - objection
+  - closing
+when:
+  en: Wants one more comparison
+  es: Quiere hacer una comparación más
+model_line_kind: spoken
+model_line:
+  en: You have compared the three that fit your budget. The only open question is the payment. Let's settle that.
+  es: Usted ya comparó los tres que le cuadran en el presupuesto. Lo único que falta es el pago. Resolvamos eso.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: same; choice overload meta-analysis (Chernev 2015)
+sources:
+  - https://myscp.onlinelibrary.wiley.com/doi/abs/10.1016/j.jcps.2014.08.002
+placeholders: []
+related: []
+rubric_items:
+  - U-LIMIT
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

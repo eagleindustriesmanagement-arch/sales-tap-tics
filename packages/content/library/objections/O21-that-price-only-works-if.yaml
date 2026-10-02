@@ -1,0 +1,24 @@
+code: O21
+slug: that-price-only-works-if
+module: car-market-2026
+says:
+  en: That price only works if I finance with you
+  es: Ese precio es solo si financio con ustedes
+nonverbal: false
+behind:
+  en: Has outside financing
+  es: Ya tiene su propio financiamiento
+behind_source: null
+core_moves:
+  techniques: []
+  rules:
+    - PRICE-04
+  notes:
+    en: A price that stands with any financing
+    es: Un precio que se mantiene con cualquier financiamiento
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

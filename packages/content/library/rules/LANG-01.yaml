@@ -1,0 +1,23 @@
+code: LANG-01
+family: language
+severity: major
+description:
+  en: Conditions are stated in the same language as the offer.
+  es: Las condiciones se dicen en el mismo idioma de la oferta.
+explanation:
+  en: "A condition was stated in a different language from the offer. {fact}"
+  es: "Una condición se dijo en un idioma distinto al de la oferta. {fact}"
+check_kind: language
+classifier: false
+applies_to: [rep, demonstrator]
+channels: [floor, phone, text]
+compliant_technique: T111
+parameters:
+  condition_markers:
+    en: ['\bif\b', '\bas long as\b', '\bsubject to\b', '\bprovided\b', '\bonly if\b', '\bunless\b', '\bwith approved credit\b', '\bconditions? apply\b']
+    es: ['\bsi\b', '\bsiempre que\b', '\bsujeto a\b', '\bsolo si\b', '\ba menos que\b', '\bcon crédito aprobado\b', '\baplican condiciones\b']
+  fact:
+    en: "Every condition must be said in the language of the offer."
+    es: "Cada condición se tiene que decir en el idioma de la oferta."
+legal_basis: FTC Cowboy Toyota order; California Civil Code 1632 as reference
+attorney_reviewed: false

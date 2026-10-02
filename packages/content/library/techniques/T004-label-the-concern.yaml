@@ -1,0 +1,30 @@
+code: T004
+slug: label-the-concern
+name:
+  en: Label the concern
+  es: Ponerle nombre a la preocupación
+family: objection_sequence
+stages:
+  - objection
+when:
+  en: Emotion is ahead of logic
+  es: La emoción va por delante de la lógica
+model_line_kind: spoken
+model_line:
+  en: It sounds like the trade number caught you off guard.
+  es: Parece que el número del trade-in lo tomó por sorpresa.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Voss
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,30 @@
+code: T080
+slug: what-the-car-means
+name:
+  en: What the car means
+  es: Lo que significa el carro
+family: discovery
+stages:
+  - discovery
+when:
+  en: Discovery, first-car and family buyers
+  es: En el descubrimiento, con quien compra su primer carro o compra para la familia
+model_line_kind: spoken
+model_line:
+  en: Besides getting you to work, what does this car mean for you right now?
+  es: Aparte de llevarlo al trabajo, ¿qué significa este carro para usted en este momento?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Jürgen Klarić (summaries)
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

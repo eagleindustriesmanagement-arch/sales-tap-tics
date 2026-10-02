@@ -1,0 +1,32 @@
+code: T091
+slug: name-the-fear
+name:
+  en: Name the fear
+  es: Ponerle nombre al miedo
+family: indecision
+stages:
+  - objection
+  - closing
+when:
+  en: A stall with no clear objection
+  es: Se frena sin una objeción clara
+model_line_kind: spoken
+model_line:
+  en: A lot of people at this point worry about picking the wrong one and regretting it in a year. Is any of that going on for you?
+  es: Mucha gente en este punto tiene miedo de escoger el carro equivocado y arrepentirse después. ¿Le está pasando algo de eso?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: The JOLT Effect, 2.5 million calls (business-to-business)
+sources:
+  - https://www.jolteffect.com/
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

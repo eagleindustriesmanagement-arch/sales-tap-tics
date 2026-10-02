@@ -1,0 +1,24 @@
+code: O19
+slug: your-online-price-did-not
+module: car-market-2026
+says:
+  en: Your online price did not include these fees
+  es: El precio en internet no incluía estos cargos
+nonverbal: false
+behind:
+  en: Feels baited
+  es: Se siente engañado con el anuncio
+behind_source: null
+core_moves:
+  techniques: []
+  rules:
+    - PRICE-01
+  notes:
+    en: Apologize and show the full breakdown
+    es: Disculparse y mostrar el desglose completo
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

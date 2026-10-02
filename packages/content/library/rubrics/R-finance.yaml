@@ -1,0 +1,45 @@
+code: R-finance
+extends: R-core
+title: { en: Finance handoff, es: Paso a financiamiento }
+weights: { composure: 0.15, discovery: 0.30, technique: 0.25, outcome: 0.30 }
+pass_threshold: { level_1: 70, level_2: 75, level_3: 80 }
+items:
+  - code: FIN-MENU
+    behavior:
+      en: "Showed the two-payment menu"
+      es: "Mostró el menú de dos pagos"
+    dimension: technique
+    method: rule
+    points: 1
+    evidence: Credit Acceptance consent decree
+    technique: T121
+    params: { rules: [PAY-02], topic: add_on }
+  - code: FIN-NOREQ
+    behavior:
+      en: "Called no product required"
+      es: "No presentó ningún producto como obligatorio"
+    dimension: technique
+    method: rule
+    points: 1
+    evidence: Florida s. 634.121; FTC guidance
+    technique: T051
+    params: { rules: [ADD-01], topic: add_on }
+  - code: FIN-SC
+    behavior:
+      en: "Described the service contract as optional and cancellable within 60 days"
+      es: "Presentó el contrato de servicio como opcional y cancelable dentro de 60 días"
+    dimension: technique
+    method: rule
+    points: 1
+    evidence: Florida s. 634.121
+    technique: T074
+    params: { rules: [ADD-04], topic: add_on }
+  - code: FIN-SETUP
+    behavior:
+      en: "Set up the finance visit"
+      es: "Preparó la visita a financiamiento"
+    dimension: outcome
+    method: judge
+    points: 1
+    evidence: Practitioner tradition (T049)
+    technique: T049

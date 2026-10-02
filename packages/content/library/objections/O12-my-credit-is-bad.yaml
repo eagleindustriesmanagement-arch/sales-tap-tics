@@ -1,0 +1,24 @@
+code: O12
+slug: my-credit-is-bad
+module: car-core
+says:
+  en: My credit is bad
+  es: Tengo mal crédito
+nonverbal: false
+behind:
+  en: Shame; fear of a public decline
+  es: Vergüenza; miedo a que lo rechacen delante de otros
+behind_source: null
+core_moves:
+  techniques:
+    - T070
+  rules: []
+  notes:
+    en: Explain privately
+    es: Explicarle en privado
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

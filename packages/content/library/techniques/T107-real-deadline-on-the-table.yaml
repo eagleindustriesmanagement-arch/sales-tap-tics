@@ -1,0 +1,35 @@
+code: T107
+slug: real-deadline-on-the-table
+name:
+  en: Real deadline on the table
+  es: Fecha límite real sobre la mesa
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Only when a showable deadline exists
+  es: Solo cuando existe una fecha límite que se puede mostrar
+model_line_kind: spoken
+model_line:
+  en: This bonus cash ends on the 31st. Here is the bulletin.
+  es: Este bono vence el 31. Aquí tiene el boletín.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Gino and Moore 2008
+sources:
+  - https://ncmr.lps.library.cmu.edu/article/id/82/
+placeholders: []
+related:
+  - T020
+rubric_items:
+  - U-DEADLINE
+compliance:
+  - DEAD-01
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

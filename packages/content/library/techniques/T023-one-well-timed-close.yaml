@@ -1,0 +1,31 @@
+code: T023
+slug: one-well-timed-close
+name:
+  en: One well-timed close
+  es: Un solo cierre en el momento justo
+family: closing
+stages:
+  - closing
+when:
+  en: After needs are confirmed
+  es: Después de confirmar las necesidades
+model_line_kind: spoken
+model_line:
+  en: You said third row and under $650. This does both. Want me to get it ready?
+  es: Usted dijo tercera fila y menos de $650. Este cumple con las dos. ¿Se lo preparo?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Rackham photo-store study; closing training cut success on higher-value goods from 42% to 33%
+sources: []
+placeholders: []
+related: []
+rubric_items:
+  - U-ONECLOSE
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

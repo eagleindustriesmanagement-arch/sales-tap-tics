@@ -1,0 +1,32 @@
+code: T061
+slug: three-options-then-silence
+name:
+  en: Three options, then silence
+  es: Tres opciones y luego silencio
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: First numbers
+  es: Los primeros números
+model_line_kind: spoken
+model_line:
+  en: Here are three ways to do it. Which fits best?
+  es: Aquí tiene tres opciones. ¿Cuál le acomoda mejor?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: D
+  note: Paul Cummings; see T095 for the research version
+sources: []
+placeholders: []
+related:
+  - T095
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,80 @@
+# Cue words that tell the rule engine what role a spoken amount plays, and other bilingual cue lists.
+# Regular expressions, case-insensitive, matched on word boundaries by the engine. Content, not code: Spanish
+# reviewers add regional variants here (spec 16.3). "before" cues are searched in the words before an amount
+# (same clause), "after" cues in the words after it.
+money_roles:
+  payment:
+    before: { en: ["payment", "payments", "monthly", "pay"], es: ["pago", "pagos", "mensualidad", "cuota", "mensual"] }
+    after: { en: ["a month", "per month", "/mo", "monthly", "a mo", "every month"], es: ["al mes", "por mes", "mensual", "mensuales", "cada mes", "mensualmente"] }
+  per_day:
+    before: { en: [], es: [] }
+    after: { en: ["a day", "per day", "each day"], es: ["al día", "al dia", "por día", "por dia", "diarios"] }
+  fee:
+    before: { en: ["fee", "dealer fee", "doc fee", "charge", "pre-delivery", "electronic filing"], es: ["cargo", "cargo de concesionario", "dealer fee", "cargo de documentación"] }
+    after: { en: ["fee", "dealer fee", "doc fee", "charge"], es: ["de cargo", "de dealer fee", "en cargos"] }
+  rebate:
+    before: { en: ["rebate", "bonus cash", "bonus", "discount", "cash back", "incentive", "another", "additional"], es: ["reembolso", "bono", "descuento", "rebaja", "incentivo", "adicionales"] }
+    after: { en: ["off", "rebate", "discount", "bonus", "cash back", "less"], es: ["de descuento", "menos", "de rebaja", "de reembolso", "de bono", "adicionales de descuento"] }
+  trade:
+    before: { en: ["trade", "trade-in", "your car", "appraisal", "appraised", "comes in at", "worth"], es: ["trade", "trade-in", "su carro", "tasación", "tasado", "sale en", "vale"] }
+    after: { en: ["for your trade", "on your trade", "for the trade", "on the trade", "for your car"], es: ["por su carro", "por el trade", "por su trade-in", "por el trade-in"] }
+  payoff:
+    before: { en: ["payoff", "owe", "you owe", "balance"], es: ["payoff", "debe", "saldo"] }
+    after: { en: ["payoff", "left on the loan"], es: ["de payoff", "de deuda"] }
+  down:
+    before: { en: ["down", "down payment", "put down"], es: ["inicial", "down", "de entrada", "pago inicial"] }
+    after: { en: ["down", "as a down payment", "upfront"], es: ["de inicial", "de down", "de entrada"] }
+  budget:
+    before: { en: ["you told", "you said", "budget", "had in mind", "expecting", "you wanted", "she said", "he said", "told her", "told him"], es: ["le dijo", "usted dijo", "presupuesto", "tenía en mente", "esperaba", "quería"] }
+    after: { en: ["you told", "you mentioned", "budget"], es: ["que le dijo", "que usted dijo", "de presupuesto"] }
+  gap:
+    before: { en: ["apart", "difference", "gap", "higher by", "about"], es: ["diferencia", "estamos a"] }
+    after: { en: ["a month apart", "apart", "higher", "more than", "difference", "a month higher", "a month more"], es: ["al mes de diferencia", "de diferencia", "por encima", "más de lo que", "más alto", "más al mes"] }
+  add_on:
+    before: { en: ["warranty", "service contract", "gap", "protection", "package", "maintenance plan"], es: ["garantía", "contrato de servicio", "gap", "protección", "paquete", "plan de mantenimiento"] }
+    after: { en: ["for the warranty", "for the package", "for the protection"], es: ["por la garantía", "por el paquete", "por la protección"] }
+  price:
+    before: { en: ["price", "priced at", "out the door", "out-the-door", "it's", "it is", "this one is", "sells for", "asking", "total", "all-in", "all in", "drive this home for", "drive it home for", "for", "at", "do", "pay"], es: ["precio", "está en", "sale en", "cuesta", "por", "en", "total", "todo incluido", "llevar por", "lo dejo en", "se lo dejo en", "se lo puedo dejar en"] }
+    after: { en: ["out the door", "all in", "all-in", "everything included", "plus tax", "before tax"], es: ["precio total", "todo incluido", "más impuestos", "con todo", "precio total final"] }
+# Words that say a price already includes every dealer charge.
+all_in_markers:
+  en: ["out the door", "out-the-door", "all in", "all-in", "everything included", "already includes", "includes our", "including the", "with every fee", "plus (only )?tax"]
+  es: ["precio total", "todo incluido", "ya incluye", "incluye (nuestro|el)", "con todos los cargos", "con todo", "más impuestos", "precio final"]
+# Negations break a pattern match when they appear in the same clause before it.
+negations:
+  en: ["no", "not", "never", "isn't", "is not", "aren't", "don't", "doesn't", "won't", "can't", "nothing", "there's no", "there is no", "without"]
+  es: ["no", "nunca", "nada", "ningún", "ninguna", "sin", "tampoco", "jamás"]
+# Questions and conditionals: the speaker is asking or hypothesizing, not stating a fact.
+question_markers:
+  en: ["\\?", "\\bif\\b", "\\bwhether\\b"]
+  es: ["\\?", "¿", "\\bsi\\b"]
+weekdays:
+  en: ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+  es: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"]
+months:
+  en: ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+  es: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+relative_days:
+  today: { en: ["today", "tonight", "right now", "this afternoon"], es: ["hoy", "esta noche", "ahorita", "esta tarde"] }
+  tomorrow: { en: ["tomorrow"], es: ["(?<!(esta|la|en la|por la) )mañana(?! (en|por) la)"] }
+# Rep asking for the decision (U-ONECLOSE). Counted once per rep turn.
+close_questions:
+  en: ["want me to get it ready", "are we doing this", "is this the one", "ready to (go|do this|move forward)", "shall we (do|write)", "can we (do|write) (it|this|the paperwork)", "do you want to take it home", "are you taking it home", "let's do (it|the paperwork)", "would you like to (buy|go ahead)"]
+  es: ["se lo preparo", "lo hacemos", "es este el carro", "¿?es el que se lleva", "se lo lleva", "hacemos los papeles", "lo dejamos listo", "quiere llevárselo", "seguimos adelante"]
+# Tie-downs (U-TIEDOWN, T048).
+tie_downs:
+  en: ["doesn't it\\?", "isn't it\\?", "wouldn't it\\?", "won't it\\?", "don't you\\?", "right\\?", "wouldn't you\\?", "can't you\\?"]
+  es: [", ¿verdad\\?", ", ¿no\\?", ", ¿cierto\\?", "¿no es así\\?", "¿no cree\\?"]
+# A specific day and time for a next step (U-NEXT, T014).
+next_step_time:
+  en: ["\\b(at )?\\d{1,2}(:\\d{2})?\\s?(am|pm|a\\.m\\.|p\\.m\\.)?\\b.*\\b(today|tomorrow|tonight|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b", "\\b(today|tomorrow|tonight|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b.*\\b\\d{1,2}(:\\d{2})\\b", "\\b(today|tomorrow|monday|tuesday|wednesday|thursday|friday|saturday|sunday) at \\d{1,2}"]
+  es: ["\\b(hoy|mañana|lunes|martes|miércoles|jueves|viernes|sábado|domingo)\\b.*\\b(a las|las) \\d{1,2}(:\\d{2})?", "\\ba las \\d{1,2}(:\\d{2})?\\b.*\\b(hoy|mañana|lunes|martes|miércoles|jueves|viernes|sábado|domingo)\\b", "\\b(cinco|seis|siete|ocho|nueve|diez|once|doce|una|dos|tres|cuatro) y media\\b"]
+# Someone else's claim being reported or questioned ("another dealer told you GAP was required"). Breaks a pattern
+# match on rules with attribution_breaks, and stops a reported number from counting as the rep's own price.
+attributions:
+  en: ["told you", "did they tell you", "did they say", "they said", "said that", "another dealer", "other dealer", "the other store", "you heard", "you read", "they quoted", "quoted you", "you were quoted", "you said", "you told", "you mentioned", "online it said", "the ad said"]
+  es: ["le dijeron", "dijeron que", "otro dealer", "en otro dealer", "la otra tienda", "usted escuchó", "leyó", "le cotizaron", "le dieron", "usted dijo", "usted me dijo", "me dijo", "el anuncio decía", "en internet decía"]
+# An AI customer must never coach the rep (spec 1.2 item 2, 21.3 item 4).
+coaching:
+  en: ["you should (say|tell|ask|offer|mention|try|show)", "try (saying|asking|telling|offering)", "a good salesperson would", "if I were you I'd (say|tell|ask)", "what you need to do is", "the trick is to", "here's a tip"]
+  es: ["usted debería (decir|preguntar|ofrecer|mencionar|mostrar)", "debería (decirme|preguntarme|ofrecerme)", "pruebe (a )?(decir|preguntar)", "un buen vendedor (diría|haría|preguntaría)", "lo que tiene que hacer es", "el truco es", "le doy un consejo"]

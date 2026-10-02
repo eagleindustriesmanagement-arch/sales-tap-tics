@@ -1,0 +1,24 @@
+code: O08
+slug: you-are-low-on-my
+module: car-core
+says:
+  en: You are low on my trade
+  es: Me está dando muy poco por mi carro
+nonverbal: false
+behind:
+  en: An online estimate or attachment; 28% got less than expected (J.D. Power)
+  es: Un estimado de internet o cariño por su carro; al 28% le dieron menos de lo que esperaba (J.D. Power)
+behind_source: J.D. Power
+core_moves:
+  techniques:
+    - T029
+    - T082
+    - T096
+  rules: []
+  notes: null
+release_1: true
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

@@ -1,0 +1,31 @@
+code: T094
+slug: remove-real-risk
+name:
+  en: Remove real risk
+  es: Quitar el riesgo real
+family: indecision
+stages:
+  - objection
+  - closing
+when:
+  en: Fear of a lemon or the wrong choice
+  es: Miedo a que le salga malo el carro o a escoger mal
+model_line_kind: spoken
+model_line:
+  en: Here is the warranty booklet. Let me show you exactly what is covered.
+  es: Aquí está la garantía. Déjeme enseñarle exactamente lo que incluye.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: same; only real, showable protections
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

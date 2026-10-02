@@ -1,0 +1,24 @@
+code: O31
+slug: the-battery-will-not-last
+module: car-ev
+says:
+  en: The battery will not last
+  es: ¿Y si se daña la batería?
+nonverbal: false
+behind:
+  en: Fear of a huge repair bill
+  es: Miedo a una reparación carísima
+behind_source: null
+core_moves:
+  techniques:
+    - T072
+  rules: []
+  notes:
+    en: Warranty in writing
+    es: La garantía por escrito
+release_1: false
+frequency_weight: 1
+see_also: []
+language_specific: null
+spanish_reviewed: false
+status: active

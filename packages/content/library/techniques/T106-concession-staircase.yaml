@@ -1,0 +1,37 @@
+code: T106
+slug: concession-staircase
+name:
+  en: Concession staircase
+  es: Escalera de concesiones
+family: negotiation
+stages:
+  - numbers
+  - negotiation
+when:
+  en: Desk negotiation
+  es: Negociación en la mesa
+model_line_kind: spoken
+model_line:
+  en: I took this back to my manager and got you two hundred more on the trade. That one was tough to get.
+  es: Fui donde mi gerente y le conseguí doscientos más por el trade-in. Ese no fue fácil, se lo digo.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: Kwon and Weingart 2004; a 2025 study found big early concessions make the other side push harder
+sources:
+  - https://pubmed.ncbi.nlm.nih.gov/15065974/
+placeholders: []
+related:
+  - T019
+rubric_items:
+  - U-CONCESS
+compliance:
+  - AUTH-01
+requires_store_policy: false
+use_only_when:
+  en: Only when true.
+  es: Solo si es cierto.
+spanish_reviewed: false
+status: active

@@ -1,0 +1,30 @@
+code: T038
+slug: teach-something-new
+name:
+  en: Teach something new
+  es: Enseñarle algo nuevo
+family: discovery
+stages:
+  - discovery
+when:
+  en: Well-researched buyers
+  es: Compradores que investigaron bien
+model_line_kind: direction
+model_line:
+  en: Share one verified fact that changes how they compare two cars.
+  es: Compartir un dato verificado que cambie cómo comparan dos carros.
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: C
+  note: Challenger research, business-to-business
+sources: []
+placeholders: []
+related: []
+rubric_items: []
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

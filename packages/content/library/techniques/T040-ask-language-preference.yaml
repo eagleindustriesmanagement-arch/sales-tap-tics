@@ -1,0 +1,32 @@
+code: T040
+slug: ask-language-preference
+name:
+  en: Ask language preference
+  es: Preguntar el idioma preferido
+family: language_trust
+stages:
+  - greeting
+  - discovery
+when:
+  en: First two minutes, and before financing
+  es: En los primeros dos minutos, y antes del financiamiento
+model_line_kind: spoken
+model_line:
+  en: Happy to do this in English or Spanish. Which works better for you, paperwork included?
+  es: Con mucho gusto lo atendemos en español o en inglés. ¿Cómo prefiere que hagamos todo, incluyendo los papeles?
+flawed_line: null
+flawed_line_violates: []
+why: null
+evidence:
+  grade: B
+  note: service-encounter research; using the preferred language from the start beats switching later
+sources: []
+placeholders: []
+related: []
+rubric_items:
+  - U-LANG
+compliance: []
+requires_store_policy: false
+use_only_when: null
+spanish_reviewed: false
+status: active

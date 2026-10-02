@@ -1,0 +1,32 @@
+code: REVIEW-01
+family: reviews
+severity: major
+description:
+  en: Review requests are not limited to satisfied customers and offer no reward for positive reviews.
+  es: Las solicitudes de reseñas no se limitan a clientes satisfechos y no ofrecen premio por reseñas positivas.
+explanation:
+  en: "Reviews must be asked of every customer, with no reward for a positive one. {fact}"
+  es: "Las reseñas se le piden a todos los clientes, sin premio por una positiva. {fact}"
+check_kind: pattern
+classifier: true
+applies_to: [rep, demonstrator, debrief]
+channels: [floor, phone, text]
+compliant_technique: T116
+parameters:
+  negation_breaks: false
+  attribution_breaks: true
+  patterns:
+    en:
+      - '\bif you(''re| are| were)? (happy|satisfied|pleased)\b.{0,40}\b(review|rating|stars)\b'
+      - '\b(only|just) (happy|satisfied) customers\b.{0,30}\breview'
+      - '\b(5|five)[- ]stars?\b.{0,40}\b(get|give you|gift|card|\$|discount|free)\b'
+      - '\b(gift card|discount|\$\d+|reward)\b.{0,40}\b(for|if you leave) (a |an )?(good |great |positive |5-star |five-star )?review'
+    es:
+      - '\bsi (quedó|está|queda) (content[oa]|satisfech[oa])\b.{0,40}\b(reseña|comentario|estrellas|review)'
+      - '\b(cinco|5) estrellas\b.{0,40}\b(le doy|le damos|regalo|tarjeta|\$|descuento)'
+      - '\b(tarjeta de regalo|descuento|regalo|\$\d+)\b.{0,40}\b(por|si deja) (una )?(buena )?(reseña|review|comentario)'
+  fact:
+    en: "Ask every customer for an honest review and offer nothing in return for a positive one."
+    es: "Pídale a cada cliente una reseña honesta y no ofrezca nada a cambio de una positiva."
+legal_basis: Federal consumer review rules (attorney to confirm)
+attorney_reviewed: false
