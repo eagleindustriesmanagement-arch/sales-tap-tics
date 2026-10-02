@@ -15,5 +15,5 @@ compliant_technique: T041
 parameters:
   compare: [money, percent, clock_time]
   live_sessions: manager_review
-legal_basis: Asbury allegations; the app's equal-treatment rule (pending attorney review after 2026 federal changes)
+legal_basis: "ECOA 15 U.S.C. 1691(a) and Reg B 12 CFR 1002.4(a): no disparate treatment on national origin in any aspect of credit; language used as a proxy counts. Cash-price parity across languages is a house rule. Disparate-impact theories dropped by the CFPB (Reg B, effective July 21, 2026) and the FTC (August 2026)."
 attorney_reviewed: false

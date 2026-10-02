@@ -4,9 +4,9 @@ import { findNumbers } from "../src/numbers.js";
 import type { Utterance } from "../src/index.js";
 import { ctx } from "./fixtures.js";
 
-function hits(text: string, language: "en" | "es" = "en"): string[] {
+function hits(text: string, language: "en" | "es" = "en", opts: { channel?: "floor" | "phone" | "text" } = {}): string[] {
   const u: Utterance = { text, language, speaker: "rep" };
-  return [...new Set(checkUtterance(u, ctx({ language })).map((v) => v.rule))].sort();
+  return [...new Set(checkUtterance(u, ctx({ language, ...opts })).map((v) => v.rule))].sort();
 }
 const values = (text: string, language: "en" | "es") => findNumbers(text, language).map((n) => [n.value, n.unit]);
 
@@ -112,5 +112,47 @@ describe("ID-01 claims", () => {
   });
   it("agreeing with the customer's place is a claim", () => {
     expect(hits("You went to Miami Lakes High? Me too.")).toContain("ID-01");
+  });
+});
+
+describe("found while authoring scenarios", () => {
+  it("an appointment after the deadline is not a second deadline", () => {
+    expect(hits("The bonus cash ends Monday, so come in tomorrow at 10.")).not.toContain("DEAD-01");
+    expect(hits("El bono vence el lunes, así que venga mañana a las 10.", "es")).not.toContain("DEAD-01");
+    expect(hits("The bonus cash ends tomorrow, so come in today.")).toContain("DEAD-01");
+  });
+  it("'más los cargos' after a price is a price plus charges, in both channels", () => {
+    expect(hits("Son $32,450 más los cargos.", "es", { channel: "phone" })).toContain("PRICE-02");
+    expect(hits("Son $32,450 más los cargos.", "es")).toContain("PRICE-01");
+    expect(hits("Son como $45 más al mes.", "es")).not.toContain("PRICE-01");
+  });
+});
+
+describe("Spanish price lead-ins do not swallow payments", () => {
+  it("'son $580 al mes' is still a payment", () => {
+    expect(hits("Son $580 al mes a 72 meses.", "es")).toEqual([]);
+    expect(hits("Le queda en $33,349 con todo.", "es")).toEqual([]);
+  });
+});
+
+describe("a denied number is a correction", () => {
+  it("is not quoted as a price", () => {
+    expect(hits("No, it's not 32,450. The total is 33,349 with the dealer fee.")).not.toContain("PRICE-01");
+    expect(hits("No, señor, no son 32,450. El total es 33,349 con el dealer fee.", "es")).not.toContain("PRICE-01");
+    expect(hits("It's 32,450 and not a penny more.")).toContain("PRICE-01");
+  });
+});
+
+describe("'end up' is not a deadline", () => {
+  it("does not fire DEAD-01", () => {
+    expect(hits("Most people who skip the GAP end up wishing they had asked about it.")).not.toContain("DEAD-01");
+    expect(hits("The bonus cash ends tomorrow.")).toContain("DEAD-01");
+  });
+});
+
+describe("'end' as a noun is not a deadline", () => {
+  it("only the verb counts", () => {
+    expect(hits("In the end it's your call, and the total is at the end of the sheet.")).not.toContain("DEAD-01");
+    expect(hits("The bonus cash will end tomorrow.")).toContain("DEAD-01");
   });
 });

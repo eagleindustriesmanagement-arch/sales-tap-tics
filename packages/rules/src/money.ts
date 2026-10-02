@@ -17,7 +17,8 @@ export interface MoneyMention extends NumberMention {
   uncertain: boolean;
 }
 
-const DELTA_AFTER = /^[\s,]*(more|extra|additional|less|m[aá]s|adicional(es)?|de m[aá]s)(?![\p{L}\p{N}_])/iu;
+// "$45 más al mes" is a difference; "$47,850 más los cargos" is a price plus charges, not a difference.
+const DELTA_AFTER = /^[\s,]*(more|extra|additional|less|m[aá]s(?!\s+(?:los|las|el|la|lo|impuestos|cargos|fees|taxes|tax|tag|title|el tag|registro)\b)|adicional(es)?|de m[aá]s)(?![\p{L}\p{N}_])/iu;
 
 /** After-cues are checked first and in this order: a gap or a per-day amount is never a payment. */
 const AFTER_PRIORITY: MoneyRole[] = ["gap", "per_day", "payment", "rebate", "fee", "trade", "payoff", "down", "budget", "add_on", "price"];

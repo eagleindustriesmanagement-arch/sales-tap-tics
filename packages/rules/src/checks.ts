@@ -197,6 +197,8 @@ export function checkPrice(rule: Rule, utterance: Utterance, ctx: CheckContext, 
   const out: Violation[] = [];
   for (const m of claims(mentions, "price")) {
     if (m.value < facts.all_in_price_cents * minRatio) continue; // an add-on or fee price, not the vehicle
+    // A number the rep denies is a correction, not a quote: "No, it's not 32,450", "no son 32,450".
+    if (/(?<![\p{L}])(?:no|not|isn'?t|never|nunca)(?:\s+\p{L}+)?\s*\$?\s*$/iu.test(utterance.text.slice(Math.max(0, m.start - 16), m.start))) continue;
     const tol = m.approximate ? Math.max(tolerance, approxTolerance) : tolerance;
     if (within(m.value, valid, tol)) continue;
     const leavesOutFees = within(m.value, feeExcluded, tolerance);
@@ -367,6 +369,25 @@ export function checkTradeConditions(rule: Rule, utterance: Utterance, ctx: Chec
 
 const GENERIC = new Set(["cash", "money", "rebate", "rebates", "incentive", "offer", "the", "a", "de", "del", "el", "la"]);
 
+const CONNECTOR = /\b(?:so|then|but|and then|so that|así que|entonces|pero|y después|y entonces)\b|[,;:]\s*(?:and|y)\b/giu;
+
+/** The stretch of a clause around `at`, cut at connectors that start a new thought ("so", "but", "así que"). */
+function deadlineSegment(text: string, clause: Clause, at: number): string {
+  const body = text.slice(clause.start, clause.end);
+  const local = at - clause.start;
+  let start = 0;
+  let end = body.length;
+  for (const m of body.matchAll(CONNECTOR)) {
+    const i = m.index ?? 0;
+    if (i <= local) start = i + m[0].length;
+    else if (i < end) {
+      end = i;
+      break;
+    }
+  }
+  return body.slice(start, end);
+}
+
 /** The incentives a rep can name, with the words that identify each and its real end date (null: none). */
 function deadlineSubjects(facts: ScenarioFacts): { words: string[]; date: string | null }[] {
   const words = (name: string) => fold(name).split(/[^\p{L}\p{N}]+/u).filter((w) => w && !GENERIC.has(w));
@@ -403,10 +424,12 @@ export function checkDeadline(rule: Rule, utterance: Utterance, ctx: CheckContex
     if (seen.has(hit.clause.start)) continue;
     seen.add(hit.clause.start);
     if (noDeadline.some((p) => compile(p).test(hit.clause.text))) continue;
-    const resolved = resolveDates(hit.clause.text, facts.session_date, ctx.lexicon);
+    // Only the part of the clause that carries the deadline: "ends Monday, so come in tomorrow at 10" states one date.
+    const segment = deadlineSegment(text, hit.clause, hit.start);
+    const resolved = resolveDates(segment, facts.session_date, ctx.lexicon);
     // When the clause names an incentive, its dates must be that incentive's deadline, not another one's
     // ("the first responder cash ends Monday" is false when only the bonus cash ends Monday).
-    const named = deadlineSubjects(facts).filter((s) => s.words.every((w) => new RegExp(`\\b${w}\\b`).test(fold(hit.clause.text))));
+    const named = deadlineSubjects(facts).filter((s) => s.words.every((w) => new RegExp(`\\b${w}\\b`).test(fold(segment))));
     const allowed = named.length ? new Set(named.flatMap((s) => (s.date ? [s.date] : []))) : real;
     const ok = resolved.dates.length === 0 && !resolved.today ? allowed.size > 0 : resolved.dates.every((d) => allowed.has(d));
     if (ok) continue;

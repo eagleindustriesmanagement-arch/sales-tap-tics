@@ -2,11 +2,11 @@ code: ADD-04
 family: add_ons
 severity: major
 description:
-  en: Service contracts are described as optional and cancellable within 60 days in Florida.
-  es: Los contratos de servicio se presentan como opcionales y cancelables dentro de 60 días en Florida.
+  en: Service contracts are described as optional, with a full refund if cancelled within 60 days in Florida.
+  es: Los contratos de servicio se presentan como opcionales, con reembolso completo si se cancelan dentro de 60 días en Florida.
 explanation:
-  en: "A service contract was discussed without saying it is optional and cancellable within 60 days. {fact}"
-  es: "Se habló de un contrato de servicio sin decir que es opcional y que se puede cancelar dentro de 60 días. {fact}"
+  en: "A service contract was discussed without saying it is optional and fully refundable within 60 days. {fact}"
+  es: "Se habló de un contrato de servicio sin decir que es opcional y que dentro de 60 días se devuelve todo lo pagado. {fact}"
 check_kind: presence
 classifier: false
 applies_to: [rep, demonstrator]
@@ -19,10 +19,12 @@ parameters:
     en: ['service contract', 'extended warranty', 'warranty']
     es: ['contrato de servicio', 'garantía extendida', 'garantía']
   required_all:
-    - { en: ['optional'], es: ['opcional'] }
+    - { en: ['optional'], es: ['opcional', 'opcionales'] }
     - { en: ['60 days', 'sixty days'], es: ['60 días', 'sesenta días'] }
   fact:
-    en: "In Florida a service contract is optional and can be cancelled within 60 days."
-    es: "En Florida un contrato de servicio es opcional y se puede cancelar dentro de 60 días."
-legal_basis: Florida s. 634.121
+    en: "In Florida a service contract is optional: it is not required to buy or finance the car. The customer can cancel it. Within 60 days the refund is the full amount paid, minus any claims paid and an administrative fee of at most 5 percent. After 60 days the refund is prorated."
+    es: "En Florida un contrato de servicio es opcional: no hace falta para comprar ni para financiar el carro. El cliente lo puede cancelar. Dentro de 60 días se le devuelve todo lo pagado, menos los reclamos pagados y un cargo administrativo de hasta 5 por ciento. Después de 60 días, se le devuelve la parte proporcional."
+# Applies to motor vehicle service agreements (Fla. ch. 634 Part I). Check GAP, tire and wheel and coatings
+# contracts separately before applying the 60-day statement to them.
+legal_basis: "Fla. s. 634.121: written notice that the agreement is not required to buy or finance the vehicle; cancellable with a 100% refund (less claims and an administrative fee up to 5%) within 60 days, prorated after (docs/compliance/rule-verification.md)"
 attorney_reviewed: false

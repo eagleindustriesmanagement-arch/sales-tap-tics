@@ -22,7 +22,7 @@ base:
   rep_profile: "grew up in Hialeah"
   text_consent: "the customer has NOT given consent to texts or automated voicemail"
   store_add_on_removal_policy: "not configured yet"
-  florida_law: "no three-day right to cancel a car purchase; service contracts are optional and cancellable within 60 days"
+  florida_law: "no three-day right to cancel a car purchase; service contracts are optional, fully refundable if cancelled within 60 days, prorated after"
 variants:
   approved: "Same as base, but the lender approved the customer at 6.9% APR"
   in_transit: "Same as base, but the Equinox is in transit (not on the lot), arriving Tuesday"

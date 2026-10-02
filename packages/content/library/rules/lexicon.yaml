@@ -34,8 +34,8 @@ money_roles:
     before: { en: ["warranty", "service contract", "gap", "protection", "package", "maintenance plan"], es: ["garantía", "contrato de servicio", "gap", "protección", "paquete", "plan de mantenimiento"] }
     after: { en: ["for the warranty", "for the package", "for the protection"], es: ["por la garantía", "por el paquete", "por la protección"] }
   price:
-    before: { en: ["price", "priced at", "out the door", "out-the-door", "it's", "it is", "this one is", "sells for", "asking", "total", "all-in", "all in", "drive this home for", "drive it home for", "for", "at", "do", "pay"], es: ["precio", "está en", "sale en", "cuesta", "por", "en", "total", "todo incluido", "llevar por", "lo dejo en", "se lo dejo en", "se lo puedo dejar en"] }
-    after: { en: ["out the door", "all in", "all-in", "everything included", "plus tax", "before tax"], es: ["precio total", "todo incluido", "más impuestos", "con todo", "precio total final"] }
+    before: { en: ["price", "priced at", "out the door", "out-the-door", "it's", "it is", "this one is", "sells for", "asking", "total", "all-in", "all in", "drive this home for", "drive it home for", "for", "at", "do", "pay"], es: ["precio", "está en", "sale en", "cuesta", "por", "en", "total", "todo incluido", "llevar por", "lo dejo en", "se lo dejo en", "se lo puedo dejar en", "se la dejo en", "se la puedo dejar en", "son", "sería", "serían", "queda en", "le queda en", "es de"] }
+    after: { en: ["out the door", "all in", "all-in", "everything included", "plus tax", "before tax", "plus fees", "plus the fees", "plus dealer fees"], es: ["precio total", "todo incluido", "más impuestos", "con todo", "precio total final", "más los cargos", "más los fees", "más el dealer fee", "más los impuestos", "más taxes"] }
 # Words that say a price already includes every dealer charge.
 all_in_markers:
   en: ["out the door", "out-the-door", "all in", "all-in", "everything included", "already includes", "includes our", "including the", "with every fee", "plus (only )?tax"]

@@ -21,5 +21,5 @@ parameters:
     en: ['free', 'no charge', 'no cost', 'on the house', 'complimentary', 'thrown in', 'at no extra', 'freebie', 'on us', "doesn't cost you a thing", "doesn't cost you anything", "won't cost you a thing", "won't cost you anything"]
     es: ['gratis', 'de regalo', 'sin costo', 'sin cargo', 'de cortesía', 'regalado', 'regalada', 'no le cuesta nada', 'no cuesta nada', 'se lo regalamos', 'se la regalamos', 'no se lo cobramos', 'no le cobramos']
   patterns: { en: [], es: [] }
-legal_basis: FTC guidance; Florida s. 501.976
+legal_basis: "FTC Guide on use of the word 'Free' (16 CFR 251); FDUTPA s. 501.204; FTC Napleton complaint"
 attorney_reviewed: false

@@ -33,5 +33,5 @@ parameters:
   fact:
     en: "Ask every customer for an honest review and offer nothing in return for a positive one."
     es: "Pídale a cada cliente una reseña honesta y no ofrezca nada a cambio de una positiva."
-legal_basis: Federal consumer review rules (attorney to confirm)
+legal_basis: "16 CFR 465.4 (no incentives conditioned on a review's sentiment); 16 CFR 255.2(d) and the FTC rule Q&A (selective solicitation that distorts reviews). Asking every customer is a house standard."
 attorney_reviewed: false

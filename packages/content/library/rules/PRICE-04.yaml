@@ -25,7 +25,7 @@ parameters:
       - '\b(precio|descuento|oferta)\b.{0,40}\b(es solo|solo es|depende de|requiere)\b.{0,30}\b(financ|nuestro banco)'
       - '\bsi (financia|lo financia) con nosotros\b.{0,40}\b(precio|descuento|\$)'
   fact:
-    en: "The price stands the same with any financing, including the customer's own bank or cash."
-    es: "El precio es el mismo con cualquier financiamiento, incluyendo el banco del cliente o pago de contado."
-legal_basis: FTC pricing guidance (September 15, 2026); Lindsay settlement
+    en: "The price you quote must be one the customer can pay with any financing, including their own bank or cash. If the store offers a discount for financing with us, say it after that price and say it is conditional."
+    es: "El precio que usted da tiene que ser uno que el cliente pueda pagar con cualquier financiamiento, incluso con su propio banco o de contado. Si la tienda da un descuento por financiar con nosotros, dígalo después de ese precio y diga que es condicional."
+legal_basis: "FTC Automobile Industry Pricing Transparency FAQs (Sept 15, 2026): the price any consumer can pay with any financing must be the most prominent; a dealer-financing discount is allowed only below it. Lindsay settlement."
 attorney_reviewed: false

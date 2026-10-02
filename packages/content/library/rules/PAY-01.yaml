@@ -14,5 +14,5 @@ channels: [floor, phone, text]
 compliant_technique: T121
 parameters:
   tolerance_cents: 100
-legal_basis: FTC Asbury and Napleton complaints; Credit Acceptance consent decree
+legal_basis: "FTC Act s. 5 (deception); FTC Napleton order (2022) and Asbury complaint (pending); Credit Acceptance multistate judgment for deals assigned to Credit Acceptance"
 attorney_reviewed: false

@@ -5,8 +5,8 @@ description:
   en: No pre-installed option is described as impossible to remove; the store's removal policy is offered.
   es: Ninguna opción preinstalada se presenta como imposible de quitar; se ofrece la política de la tienda.
 explanation:
-  en: "A pre-installed option can be declined. {fact}"
-  es: "Una opción preinstalada se puede rechazar. {fact}"
+  en: "A pre-installed item is either optional, so the customer can decline paying for it, or already included in the advertised price. It cannot be charged on top of the price and also be impossible to remove. {fact}"
+  es: "Un producto preinstalado o es opcional, y el cliente puede no pagarlo, o ya está incluido en el precio anunciado. No se puede cobrar aparte y a la vez decir que no se puede quitar. {fact}"
 check_kind: pattern
 classifier: true
 applies_to: [rep, demonstrator, debrief]
@@ -34,7 +34,7 @@ parameters:
       en: "Store policy: if the customer does not want it, the store shows the same model without it."
       es: "Política de la tienda: si el cliente no lo quiere, la tienda le muestra el mismo modelo sin eso."
     none_configured:
-      en: "Pre-installed options are optional. The store has not yet set its removal policy, so offer to find a solution with the manager."
-      es: "Las opciones preinstaladas son opcionales. La tienda todavía no ha definido su política, así que ofrezca buscar una solución con el gerente."
-legal_basis: FTC pricing guidance (September 15, 2026); requires store policy (spec 3.4)
+      en: "The store has not set its policy for pre-installed items. Do not say the item cannot be removed. Offer to find a solution with the manager."
+      es: "La tienda todavía no ha definido su política para los productos preinstalados. No diga que no se puede quitar. Ofrezca buscar una solución con el gerente."
+legal_basis: "FTC Automobile Industry Pricing Transparency FAQs (Sept 15, 2026): no implying an installed option cannot be removed while charging for it; a non-removable item belongs in the advertised price. Requires store policy (spec 3.4)."
 attorney_reviewed: false

@@ -12,8 +12,13 @@
   the total. Honesty is a gate on top of either mode.
 - **Consequence.** No weight in the spec was changed. The equal within-dimension points are a placeholder to be
   replaced by calibration against store outcomes (spec 19.2).
-- **Status (2026-10-02).** Approved by the owner as the interim default. Still pending: Ernesto's confirmation and
-  calibration against the pilot store's outcome data. Changing it is a content edit in `rubrics/R-core.yaml`.
+- **Status (2026-10-02, confirmed).** Ernesto confirmed equal weighting within each category: "just do the smartest
+  way — just weigh them evenly, I guess, if there's not a smarter way to do it." With no outcome data yet, even
+  weights are the smartest available choice: unit-weighted scores predict nearly as well as fitted weights on new
+  cases and cannot overfit a small sample (Dawes 1979, "The robust beauty of improper linear models"). The smarter
+  way becomes available later: once the store has enough sessions linked to outcomes (close rate, gross, CSI), fit
+  the weights against them (spec 19.2) and keep the change only if it predicts better on held-out reps. Changing it
+  is a content edit in `rubrics/R-core.yaml`.
 
 ## Addendum: partial scores
 

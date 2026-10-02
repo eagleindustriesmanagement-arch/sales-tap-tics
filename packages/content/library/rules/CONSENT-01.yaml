@@ -15,10 +15,10 @@ compliant_technique: T122
 parameters:
   presence: text_consent
   send_text:
-    en: ['\bI(''ll| will) (text|send you a text|send (it|that|you) by text|send (it|that) over by text|leave (you )?a voicemail)\b', '\b(texting|sending) you\b.{0,20}\b(text|video)\b', '\b(you''ll|you will) (get|receive) an? (automated|recorded|prerecorded) (voicemail|call|message)\b', '\bthe text I sent you\b', '\bI (texted|sent you a text)\b']
+    en: ['\bI(''ll| will) (text|send you a text|send (it|that|you) by text|send (it|that) over by text|leave (you )?a voicemail)\b', '\b(texting|sending) you\b.{0,20}\b(text|video)\b', '\b(you''ll|you will) (get|receive) an? (automated|recorded|prerecorded) (voicemail|call|message)\b', '\bthe text I sent you\b', '\bI (texted|sent you a text)\b', '\bI(''ll| will)? ?(send|sent|message|text) you\b.{0,20}\b(on |by |a )?whats ?app\b']
     es: ['\b(le )?(mando|envío|escribo|voy a mandar|voy a enviar)\b.{0,20}\b(texto|mensaje de texto|whatsapp)\b', '\ble dejo un (mensaje de voz|voicemail)\b', '\b(le )?(voy a )?textear\b', '\ble (mandé|envié|escribí)\b.{0,15}\b(texto|mensaje|whatsapp)\b']
   fact:
     en: "Text and automated voicemail need documented consent under the store's process."
     es: "Los textos y los mensajes de voz automáticos necesitan un consentimiento documentado según el proceso de la tienda."
-legal_basis: TCPA (attorney to confirm)
+legal_basis: "Fla. s. 501.059 (FTSA): prior express written consent for automated, recorded or prerecorded sales calls and texts; TCPA 47 U.S.C. 227(b) and 47 CFR 64.1200(a); do-not-call rules 64.1200(c) and s. 501.059. Texting without consent on file is a house rule."
 attorney_reviewed: false

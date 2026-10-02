@@ -17,7 +17,9 @@ parameters:
   attribution_breaks: true
   deadline_cues:
     en:
-      - '\b(ends?|ending|expires?|expiring|runs out|goes away)\b'
+      # "end" only as a verb ("ends Monday", "will end"), never the noun ("in the end") or "end up".
+      - '\b(ends|ending|expires?|expiring|runs out|goes away)\b(?! up\b)'
+      - '\b(will|to|would|gonna|it''ll|going to) end\b(?! up\b)'
       - '\b(good|valid) (until|through|till|thru)\b'
       - '\b(today only|only today|just for today|only good today|only for today)\b'
       - '\b(deadline|last day)\b'

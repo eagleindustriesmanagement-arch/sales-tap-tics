@@ -31,7 +31,7 @@ parameters:
       - '\b(días|horas)\b.{0,15}\bpara (devolverlo|devolverla|cancelar|devolver el carro|devolver la camioneta|deshacer el trato)\b'
       - '\b(devolver\w*|devuelve|cancelar|cancela)\b.{0,40}\bla ley (se lo permite|lo permite|le da derecho|le permite)\b'
   fact:
-    en: "Florida has no three-day cooling-off right for buying a vehicle at the dealership. Once signed, the contract is binding."
-    es: "En Florida no hay un período de tres días para cancelar la compra de un vehículo en el concesionario. Una vez firmado, el contrato es válido."
+    en: "Florida has no three-day cooling-off right for buying a vehicle at the dealership. Once signed, the contract binds both sides unless it says otherwise."
+    es: "En Florida no hay un período de tres días para cancelar la compra de un vehículo en el concesionario. Una vez firmado, el contrato obliga a las dos partes, salvo que el contrato diga otra cosa."
 legal_basis: No federal or Florida cooling-off right for dealership vehicle sales (FTC Cooling-Off Rule excludes them)
 attorney_reviewed: false
