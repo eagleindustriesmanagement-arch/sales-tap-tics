@@ -316,7 +316,7 @@ test("the general manager sees model costs; a rep cannot", async ({ page, browse
   );
   await c.end();
   await signInReady(page, "gm@demo.test");
-  await page.goto("/manager/team");
+  await page.getByRole("link", { name: "Dashboard" }).first().click();
   await page.getByRole("link", { name: "AI costs" }).click();
   await expect(page.getByTestId("cost-total")).toHaveText("$0.25");
   await expect(page.getByTestId("cost-failures")).toHaveText("50%");
@@ -328,7 +328,7 @@ test("the general manager sees model costs; a rep cannot", async ({ page, browse
 
 test("the general manager adds a person who can sign in, then deactivates them", async ({ page, browser }) => {
   await signInReady(page, "gm@demo.test");
-  await page.goto("/manager/team");
+  await page.goto("/manager/dashboard");
   await page.getByRole("link", { name: "People", exact: true }).click();
   await page.getByLabel("First name").fill("Daniel");
   await page.getByLabel("Email").fill("e2e-daniel@demo.test");
@@ -369,4 +369,16 @@ test("a rep sees their progress; a manager opens a rep's detail from the team vi
   // A rep cannot open another rep's detail.
   await page.goto(`/manager/team/${(await manager.url()).split("/").pop()}`);
   await expect(page).toHaveURL(/localhost:\d+\/$/);
+});
+
+test("the general manager's dashboard and the team view's coaching focus", async ({ page }) => {
+  await signInReady(page, "gm@demo.test");
+  await page.getByRole("link", { name: "Dashboard" }).first().click();
+  await expect(page.getByRole("heading", { name: "Store dashboard" })).toBeVisible();
+  await expect(page.getByTestId("dash-certified")).toHaveText("0/2");
+  await expect(page.getByTestId("dash-practicing")).toHaveText("2/2");
+  await expect(page.getByTestId("dash-flags")).not.toHaveText("0");
+  await page.goto("/manager/team");
+  // Offline scores are partial, so nobody has complete scores to place them yet.
+  await expect(page.getByTestId("focus-Luis")).toHaveText("Not enough scores");
 });

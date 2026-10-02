@@ -22,7 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const links: [string, string][] = !user
     ? []
     : user.roles.includes("general_manager")
-      ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/manager/compliance", t("nav.compliance.view", lang)], ["/manager/store", t("nav.store", lang)]]
+      ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/manager/dashboard", t("nav.dashboard", lang)], ["/manager/store", t("nav.store", lang)]]
       : isManager(user)
         ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/manager/compliance", t("nav.compliance.view", lang)]]
         : user.roles.includes("compliance_reviewer")

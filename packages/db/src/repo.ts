@@ -319,6 +319,7 @@ export async function teamOverview(db: Queryable, week = weekOf()) {
      join memberships m on m.user_id = u.id and m.role in ('rep', 'bdc_agent')
      left join sessions s on s.user_id = u.id
      left join scores sc on sc.session_id = s.id
+     where u.status = 'active'
      group by u.id, u.first_name
      order by u.first_name`,
     [week],
@@ -754,5 +755,40 @@ export async function progressFor(db: Queryable, userId: string): Promise<RepPro
     weeks: [...byWeek.values()],
     weakest: items.rows.map((r) => ({ code: r.code, ratio: r.ratio, times: r.times })),
     cards: cards.rows.map((r) => ({ week: r.week, cardCode: r.card_code, status: r.status, observed: r.observed, note: r.note })),
+  };
+}
+
+// ---------------------------------------------------------------- store dashboard (spec 18.3)
+
+export interface StoreWeek { week: string; sessions: number; repsPracticing: number; cardsIssued: number; cardsChecked: number; criticalFlags: number }
+
+/** Return on training for the general manager: certification, practice, floor checks and compliance, by week. */
+export async function storeDashboard(db: Queryable, release1: string[], weeks = 8) {
+  const reps = await db.query(
+    `select count(distinct u.id)::int n from users u join memberships m on m.user_id = u.id and m.role in ('rep', 'bdc_agent') where u.status = 'active'`,
+  );
+  const certified = await db.query(
+    `select count(*)::int n from (
+       select s.user_id from sessions s join scores sc on sc.session_id = s.id join users u on u.id = s.user_id and u.status = 'active'
+       where s.mode = 'certification' and sc.total >= 70 and sc.honesty_passed and not coalesce((sc.dimensions->>'partial')::boolean, false)
+         and s.started_at > now() - interval '90 days' and s.scenario_code = any($1)
+       group by s.user_id having count(distinct s.scenario_code) = cardinality($1)) x`,
+    [release1],
+  );
+  const r = await db.query(
+    `with w as (select generate_series(date_trunc('week', now()) - make_interval(weeks => $1 - 1), date_trunc('week', now()), interval '1 week')::date week)
+     select to_char(w.week, 'YYYY-MM-DD') week,
+       (select count(*) from sessions s where date_trunc('week', s.started_at)::date = w.week)::int sessions,
+       (select count(distinct s.user_id) from sessions s where date_trunc('week', s.started_at)::date = w.week)::int reps_practicing,
+       (select count(*) from behavior_card_issues c where c.due_week = w.week)::int cards_issued,
+       (select count(*) from behavior_card_issues c where c.due_week = w.week and c.status = 'checked')::int cards_checked,
+       (select count(*) from violations v join sessions s on s.id = v.session_id where v.severity = 'critical' and not v.uncertain and date_trunc('week', s.started_at)::date = w.week)::int critical_flags
+     from w order by w.week`,
+    [weeks],
+  );
+  return {
+    reps: reps.rows[0].n as number,
+    certified: certified.rows[0].n as number,
+    weeks: r.rows.map((x) => ({ week: x.week, sessions: x.sessions, repsPracticing: x.reps_practicing, cardsIssued: x.cards_issued, cardsChecked: x.cards_checked, criticalFlags: x.critical_flags })) as StoreWeek[],
   };
 }

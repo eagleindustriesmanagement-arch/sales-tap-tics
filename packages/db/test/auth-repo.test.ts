@@ -3,7 +3,7 @@ import type pg from "pg";
 import { randomUUID } from "node:crypto";
 import {
   coachingQuality, createPracticeSession, getSessionDetail, insertTurns, issueCard, listSessions, loadUser, markMissedCards, recordConsent,
-  approveSpanishCompliance, assignableReps, invitePerson, listPeople, setPersonStatus, setRoles, usageSummary, coachPracticeSummary, listSpanishReviews, saveSpanishReview, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
+  approveSpanishCompliance, assignableReps, invitePerson, storeDashboard, listPeople, setPersonStatus, setRoles, usageSummary, coachPracticeSummary, listSpanishReviews, saveSpanishReview, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
 } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
@@ -282,5 +282,17 @@ describe.skipIf(SKIP)("people (spec 18.3 Users)", () => {
     const manager = await as(MANAGER, async (q) => (await loadUser(q, MANAGER))!);
     await expect(as(MANAGER, (q) => invitePerson(q, manager, { firstName: "X", email: "x@demo.test", language: "en", roles: ["rep"] }))).rejects.toThrow(/only a general manager/);
     await expect(as(MANAGER, (q) => q.query("insert into users (tenant_id, first_name, email) values ($1, 'X', 'x@demo.test')", [DEMO.tenant]))).rejects.toThrow(/row-level security/);
+  });
+});
+
+describe.skipIf(SKIP)("store dashboard (spec 18.3)", () => {
+  it("counts reps, practice, cards and critical flags by week for the general manager", async () => {
+    const d = await as(GM, (q) => storeDashboard(q, ["S-partner-check-L1"]));
+    expect(d.reps).toBe(2);
+    expect(d.weeks).toHaveLength(8);
+    const thisWeek = d.weeks.at(-1)!;
+    expect(thisWeek.sessions).toBeGreaterThanOrEqual(2);
+    expect(thisWeek.criticalFlags).toBeGreaterThanOrEqual(1);
+    expect(thisWeek.cardsChecked).toBeLessThanOrEqual(thisWeek.cardsIssued);
   });
 });

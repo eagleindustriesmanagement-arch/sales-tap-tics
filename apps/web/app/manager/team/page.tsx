@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { coachingQuality, coachPracticeSummary, listAssignments, listSessions, teamCertification, teamOverview } from "@taptics/db";
 import { t } from "@taptics/i18n";
+import { coachingFocus } from "@taptics/session";
 import { Card, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
@@ -24,6 +25,8 @@ export default async function Team() {
     sessions: (await listSessions(db, { limit: 20 })).filter((s) => s.userId !== user.id),
   }));
   const name = new Map(team.map((r) => [r.id, r.first_name]));
+  // Spec 14.4: middle performers first, low performers flagged for extra practice.
+  const focused = coachingFocus(team.map((r) => ({ ...r, avgScore: r.avg_score as number | null })));
   const pct = (x: number | null) => (x === null ? "—" : `${Math.round(x * 100)}%`);
   return (
     <div className="space-y-5">
@@ -32,19 +35,18 @@ export default async function Team() {
         <div className="flex flex-wrap gap-2">
           <Link href="/manager/assign" className={buttonClass}>{t("assign.title", lang)}</Link>
           <Link href="/manager/coach" className="inline-flex min-h-12 items-center rounded-xl border border-line px-4 font-semibold text-ink">{t("coach.title", lang)}</Link>
-          {gm && <Link href="/manager/people" className="inline-flex min-h-12 items-center rounded-xl border border-line px-4 font-semibold text-ink">{t("people.title", lang)}</Link>}
-          {gm && <Link href="/manager/costs" className="inline-flex min-h-12 items-center rounded-xl border border-line px-4 font-semibold text-ink">{t("costs.title", lang)}</Link>}
         </div>
       </div>
       <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("team.title", lang)}>
         <table className="w-full text-left text-sm">
-          <thead className="text-muted"><tr><th className="py-2 pr-3">{t("team.rep", lang)}</th><th className="pr-3">{t("team.sessions", lang)}</th><th className="pr-3">{t("team.avg", lang)}</th><th className="pr-3">{t("team.card", lang)}</th><th className="pr-3">{t("cert.team", lang)}</th><th>{t("team.flags", lang)}</th></tr></thead>
+          <thead className="text-muted"><tr><th className="py-2 pr-3">{t("team.rep", lang)}</th><th className="pr-3">{t("team.sessions", lang)}</th><th className="pr-3">{t("team.avg", lang)}</th><th className="pr-3">{t("team.focus", lang)}</th><th className="pr-3">{t("team.card", lang)}</th><th className="pr-3">{t("cert.team", lang)}</th><th>{t("team.flags", lang)}</th></tr></thead>
           <tbody className="divide-y divide-line text-ink">
-            {team.map((r) => (
+            {focused.map((r) => (
               <tr key={r.id}>
                 <td className="py-2 pr-3 font-semibold"><Link href={`/manager/team/${r.id}`} className="text-brand underline">{r.first_name}</Link></td>
                 <td className="pr-3">{r.sessions_this_week}</td>
                 <td className="pr-3">{r.avg_score === null ? "—" : Math.round(r.avg_score)}</td>
+                <td className="pr-3" data-testid={`focus-${r.first_name}`}>{t(`team.focus.${r.focus as "coach"}`, lang)}</td>
                 <td className="pr-3">{r.card ? `${library().behaviorCards.get(r.card)?.title[lang] ?? r.card} (${r.card_status})` : "—"}</td>
                 <td className="pr-3" data-testid={`cert-${r.first_name}`}>{certified.get(r.id) ?? 0}/{release1.length}</td>
                 <td className={r.critical_flags > 0 ? "font-bold text-bad" : ""}>{r.critical_flags}</td>

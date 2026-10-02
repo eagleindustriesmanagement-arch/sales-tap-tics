@@ -43,6 +43,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
   engine before it is saved; lines with numbers also need the compliance reviewer. `pnpm --filter @taptics/db
   apply-reviews --tenant=<id>` writes approved edits back into the YAML (only the edited values change) and marks a
   file reviewed when every line is approved.
+- **Store dashboard** (general manager, spec 18.3): certified for customers, reps practicing this week, floor-check
+  completion over 4 weeks, critical flags, and sessions, reps, cards and flags by week; links to compliance,
+  people and AI costs. The team view shows each rep's coaching focus (spec 14.4: middle performers first, extra
+  practice for the lowest third, stretch goals for the top third).
 - **Progress and rep detail** (spec 18.1, 18.2): certification count, complete-score dimensions by week for 8
   weeks, weakest skills, mastery by objection, and behavior cards with the floor-check result. The rep sees their
   own; a manager opens any of their reps from the team view (row-level security keeps the private window).
@@ -95,10 +99,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 
 ## Numbers
 
-- 353 unit and database tests: rules 116, session 99 (including the 20-scenario release gate and the 30-day
-  simulation), engine 60, database 32 (row-level security for reads and writes, sign-in, repository, assignments,
+- 356 unit and database tests: rules 116, session 101 (including the 20-scenario release gate and the 30-day
+  simulation), engine 60, database 33 (row-level security for reads and writes, sign-in, repository, assignments,
   coaching practice, Spanish review, usage, people), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
-- 17 browser tests (12 flows and 5 accessibility audits); each account signs in once per run, under the real limit
+- 18 browser tests (13 flows and 5 accessibility audits); each account signs in once per run, under the real limit
   of five codes per 15 minutes on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; the general manager edits store
