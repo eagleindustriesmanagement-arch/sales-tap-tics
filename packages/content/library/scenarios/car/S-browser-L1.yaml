@@ -1,0 +1,190 @@
+code: S-browser-L1
+module: car-core
+title:
+  en: "\"I'm just looking\""
+  es: "\"Solo estoy mirando\""
+setting:
+  en: Tuesday evening, on the lot, by the small SUVs. She walked up alone, without an appointment.
+  es: Martes por la tarde, en el lote, al lado de las SUV pequeñas. Llegó sola y sin cita.
+persona: P-browser
+objection: O06
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: greeting
+pre_brief:
+  en: "{name}, early 30s, is walking the lot after work, looking at the 2026 Trailblazer RS. She came alone and has not asked for anyone. You walk over and say hello."
+  es: "{name}, de unos 32 años, está caminando el lote después del trabajo, mirando la Trailblazer RS 2026. Vino sola y no ha pedido a nadie. Usted se acerca a saludarla."
+opening:
+  en: I'm just looking.
+  es: Solo estoy mirando.
+facts:
+  session_date: "2026-10-06"
+  vehicle: { year: 2026, make: Chevrolet, model: Trailblazer, trim: RS, color: Mosaic Black Metallic, stock: "7342", in_stock: true }
+  price_cents: 2749500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2839400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: { vehicle: "2023 Honda CR-V EX (leased, not owned)", appraisal_cents: null, payoff_cents: null, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    lease_turn_in: In five weeks, on November 10
+    lease_plan: Has not decided whether to buy, lease again or buy out the CR-V
+    free_evenings: Free after 5:30 on weekdays
+numbers_sheet: false
+target_techniques: [T001, T002, T003, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O06-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O06-NOPRESSURE
+      behavior:
+        en: "Took the pressure off and made it clear she was free to look on her own"
+        es: "Le quitó la presión y le dejó claro que estaba en libertad de mirar por su cuenta"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "But-you-are-free meta-analysis, 42 studies (T031)"
+      technique: T031
+    - code: O06-START
+      behavior:
+        en: "Asked where she is in her search instead of pitching a car"
+        es: "Preguntó en qué punto de la búsqueda está en vez de venderle un carro"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T084)"
+      technique: T084
+    - code: O06-QFIRST
+      behavior:
+        en: "Asked about her current car or timing before talking about features"
+        es: "Preguntó por su carro actual o sus tiempos antes de hablar de equipamiento"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O06-HIDDEN
+      behavior:
+        en: "Surfaced that her lease ends in five weeks"
+        es: "Sacó a la luz que el lease se le vence en cinco semanas"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O06-PLAN
+      behavior:
+        en: "Turned the lease timing into a calm plan, without using it as pressure"
+        es: "Convirtió la fecha del lease en un plan tranquilo, sin usarla para presionar"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Deadline research supports only real deadlines (Gino and Moore 2008)"
+    - code: O06-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: lease_timing_as_pressure
+      description:
+        en: "Used her lease timing to push for a purchase today"
+        es: "Usó la fecha del lease para presionarla a comprar hoy"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed off \"just looking,\" asked yes-or-no questions, pitched features she never asked about, and pushed for today. He never learned a thing about her."
+      es: "Fíjese: le restó importancia a que solo estaba mirando, hizo preguntas de sí o no, le habló de equipamiento que ella no pidió y presionó para hoy. Nunca supo nada de ella."
+    script:
+      en:
+        - { speaker: customer, text: "I'm just looking." }
+        - { speaker: rep, text: "Everybody's just looking! Do you like SUVs? Great, this Trailblazer has a great screen and a lot of room for its size." }
+        - { speaker: customer, text: "I'm fine, thanks. I'll find you if I need you." }
+        - { speaker: rep, text: "Do you want to drive it? Come on, let's take a quick spin." }
+        - { speaker: customer, text: "I just want to look around on my own for a bit." }
+        - { speaker: rep, text: "What can I do to get you into this car today?" }
+        - { speaker: customer, text: "Nothing. I'm going to keep walking. Thanks." }
+        - { speaker: rep, text: "Okay. Here's my card if you change your mind." }
+      es:
+        - { speaker: customer, text: "Solo estoy mirando." }
+        - { speaker: rep, text: "¡Todo el mundo está solo mirando! ¿Le gustan las SUV? Perfecto, esta Trailblazer tiene una pantalla buenísima y mucho espacio para su tamaño." }
+        - { speaker: customer, text: "Estoy bien, gracias. Si lo necesito, lo busco." }
+        - { speaker: rep, text: "¿Quiere manejarla? Dale, anímese, vamos a dar una vueltecita." }
+        - { speaker: customer, text: "Solo quiero mirar un rato por mi cuenta." }
+        - { speaker: rep, text: "¿Qué tengo que hacer para que se lleve este carro hoy?" }
+        - { speaker: customer, text: "Nada. Voy a seguir mirando por mi cuenta. Gracias." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta por si cambia de idea." }
+  good:
+    notice:
+      en: Notice how he takes the pressure off first, then asks about her current car, and turns the lease timing into a calm plan instead of a push.
+      es: Fíjese en cómo primero le quita la presión, después pregunta por su carro actual, y convierte la fecha del lease en un plan tranquilo en vez de presionarla.
+    script:
+      en:
+        - { speaker: customer, text: "I'm just looking." }
+        - { speaker: rep, text: "[pause] That's perfect. Take your time, and you're free to walk around on your own. Are you just starting to look, or have you narrowed it down a bit?" }
+        - { speaker: customer, text: "Just starting. I'm not buying anything today." }
+        - { speaker: rep, text: "Fair enough. No pressure from me. So I can point you to the right ones, what are you driving now?" }
+        - { speaker: customer, text: "Let's just say the car I'm in now isn't mine to keep." }
+        - { speaker: rep, text: "Got it. And what do you like about it, and what would you change?" }
+        - { speaker: customer, text: "It's been fine. I'm just seeing what's out there." }
+        - { speaker: rep, text: "That sounds like it might be a lease. When do you have to turn it in?" }
+        - { speaker: customer, text: "Okay, honestly? It's a lease, and it ends in five weeks. I haven't figured out what's next." }
+        - { speaker: rep, text: "Thanks for telling me. Five weeks is enough time to do this calmly. Here's an easy plan: you drive the two that fit you best, and I find out what your lease turn-in involves, so there are no surprises." }
+        - { speaker: customer, text: "That actually helps. I thought you'd jump on me for that." }
+        - { speaker: rep, text: "Could you come back Thursday at 6? I'll have the Trailblazer RS ready to drive. Bring your lease paperwork and we'll go through it together." }
+        - { speaker: customer, text: "Thursday at 6 works. I'll bring the paperwork." }
+      es:
+        - { speaker: customer, text: "Solo estoy mirando." }
+        - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y está en libertad de mirar por su cuenta. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
+        - { speaker: customer, text: "Apenas empezando. Hoy no voy a comprar nada." }
+        - { speaker: rep, text: "Me parece bien. Sin presión de mi parte. Para orientarla bien, ¿qué carro tiene ahora?" }
+        - { speaker: customer, text: "Digamos que el carro que tengo ahora no es mío para quedármelo." }
+        - { speaker: rep, text: "Entiendo. ¿Y qué le gusta de ese carro, y qué le cambiaría?" }
+        - { speaker: customer, text: "Ha estado bien. Solo estoy viendo qué hay." }
+        - { speaker: rep, text: "Suena como que puede ser un lease. ¿Cuándo tiene que entregarlo?" }
+        - { speaker: customer, text: "Bueno, la verdad, es un lease y se me vence en cinco semanas. Todavía no sé qué voy a hacer." }
+        - { speaker: rep, text: "Gracias por decírmelo. Cinco semanas alcanzan para hacer esto con calma. Le propongo algo fácil: usted maneja las dos que mejor le queden, y yo averiguo qué hace falta para entregar su lease, para que no haya sorpresas." }
+        - { speaker: customer, text: "Eso me ayuda. Pensé que me iba a caer encima con eso." }
+        - { speaker: rep, text: "¿Puede volver el jueves a las 6? Le tengo la Trailblazer RS lista para manejar. Traiga los papeles del lease y los revisamos juntos." }
+        - { speaker: customer, text: "El jueves a las 6 me queda bien. Traigo los papeles." }
+spanish_reviewed: false

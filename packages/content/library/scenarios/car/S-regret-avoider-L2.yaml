@@ -1,0 +1,193 @@
+code: S-regret-avoider-L2
+module: car-miami-indecision
+title:
+  en: "\"I don't want to regret it\""
+  es: "\"No quiero arrepentirme\""
+setting:
+  en: Wednesday evening, at the desk, on his third visit, right after another drive in the Tahoe LT.
+  es: Miércoles por la tarde, en el escritorio, en su tercera visita, justo después de volver a manejar la Tahoe LT.
+persona: P-regret-avoider
+objection: O60
+channel: floor
+language_options: [en, es]
+difficulty: 2
+start_state: objection
+pre_brief:
+  en: "{name}, mid-50s, owns a small air-conditioning business and has a paid-off 2014 Suburban to trade. This is his third visit. He just drove the 2026 Tahoe LT again, and you showed him the all-in price of $65,394 plus tax, tag and title. He says the family loves it."
+  es: "{name}, de unos 55 años, tiene un pequeño negocio de aire acondicionado y una Suburban 2014 pagada para el trade-in. Esta es su tercera visita. Acaba de volver a manejar la Tahoe LT 2026, y usted le enseñó el precio total de $65,394 más impuestos, tag y título. Dice que a la familia le encanta."
+opening:
+  en: I just don't want to regret it.
+  es: Es que no quiero arrepentirme.
+facts:
+  session_date: "2026-10-07"
+  vehicle: { year: 2026, make: Chevrolet, model: Tahoe, trim: LT, color: Black, stock: "8406", in_stock: true }
+  price_cents: 6449500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 6539400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  alternatives:
+    - { description: "2026 Chevrolet Tahoe LS, Black, stock 8391", all_in_price_cents: 6039400 }
+  trade: { vehicle: 2014 Chevrolet Suburban LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    torn_between: Tahoe LS and Tahoe LT
+    family_size: 5
+    wife_free: Saturday morning
+numbers_sheet: false
+target_techniques: [T001, T003, T005, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O60-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O60-ACK
+      behavior:
+        en: "Treated wanting to be sure as reasonable, without dismissing the worry"
+        es: "Trató como razonable que quiera estar seguro, sin quitarle importancia a la preocupación"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O60-NAMEFEAR
+      behavior:
+        en: "Named the fear of choosing wrong and asked about it"
+        es: "Le puso nombre al miedo de escoger mal y preguntó por él"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "The JOLT Effect, 2.5 million calls (T091)"
+      technique: T091
+    - code: O60-HIDDEN
+      behavior:
+        en: "Surfaced that he is stuck between the LS and the LT"
+        es: "Sacó a la luz que está trancado entre la LS y la LT"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O60-RISK
+      behavior:
+        en: "Took away real risk with facts he can check, never with promises"
+        es: "Quitó el riesgo real con datos que él puede comprobar, nunca con promesas"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "The JOLT Effect; only real, showable protections (T094)"
+      technique: T094
+    - code: O60-LIMIT
+      behavior:
+        en: "Kept the choice to the two trims in play"
+        es: "Mantuvo la decisión entre las dos versiones que estaban en juego"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Choice overload meta-analysis (T093)"
+      technique: T093
+    - code: O60-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_no_regret
+      description:
+        en: "Promised he would not regret it instead of removing real risk"
+        es: "Le prometió que no se iba a arrepentir en vez de quitarle el riesgo real"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he waved the worry away, threw four more trims at an anxious buyer, and pushed for today. The real fear never came out."
+      es: "Fíjese: le quitó importancia a la preocupación, le echó cuatro versiones más a un cliente nervioso y presionó para hoy. El miedo real nunca salió."
+    script:
+      en:
+        - { speaker: customer, text: "I just don't want to regret it." }
+        - { speaker: rep, text: "There's nothing to regret. Everybody loves the Tahoe." }
+        - { speaker: customer, text: "You're making me more nervous, not less." }
+        - { speaker: rep, text: "And if you're unsure, we've also got the RST, the Z71, the Premier and the High Country. Let me show you all of them." }
+        - { speaker: customer, text: "That's even more to think about." }
+        - { speaker: rep, text: "Or just take the LT today and stop worrying. You'll love it." }
+        - { speaker: customer, text: "Not today. I need more time." }
+        - { speaker: rep, text: "Okay. Take my card and give me a call." }
+      es:
+        - { speaker: customer, text: "Es que no quiero arrepentirme." }
+        - { speaker: rep, text: "No hay nada de qué arrepentirse. A todo el mundo le encanta la Tahoe." }
+        - { speaker: customer, text: "Así me pone más nervioso, no menos." }
+        - { speaker: rep, text: "Y si está indeciso, también tenemos la RST, la Z71, la Premier y la High Country. Déjeme enseñarle todas." }
+        - { speaker: customer, text: "Eso es todavía más para pensar." }
+        - { speaker: rep, text: "O llévese la LT hoy y deje de preocuparse. Le va a encantar." }
+        - { speaker: customer, text: "Hoy no. Necesito más tiempo." }
+        - { speaker: rep, text: "Bueno. Llévese mi tarjeta y me llama." }
+  good:
+    notice:
+      en: Notice the pause, how he names the fear of choosing wrong out loud, and how he removes the risk with things the customer can check, not with promises.
+      es: Fíjese en la pausa, en cómo le pone nombre en voz alta al miedo de escoger mal, y en cómo quita el riesgo con cosas que el cliente puede comprobar, no con promesas.
+    script:
+      en:
+        - { speaker: customer, text: "I just don't want to regret it." }
+        - { speaker: rep, text: "[pause] That's a smart thing to want. It's a lot of money, and you should feel sure. What part feels risky to you right now?" }
+        - { speaker: customer, text: "All of it. It's the most I've ever spent on anything." }
+        - { speaker: rep, text: "That makes sense. A lot of people at this point worry about picking the wrong one and regretting it in a year. Is any of that going on for you?" }
+        - { speaker: customer, text: "Maybe. It's not the Tahoe itself. I know I want a Tahoe." }
+        - { speaker: rep, text: "Okay. So the Tahoe is the right truck for your family, and the numbers aren't what's holding you back?" }
+        - { speaker: customer, text: "Right. The family fits, and the numbers work. That part I'm sure of." }
+        - { speaker: rep, text: "So is it which version to get? Are you torn between the LS and the LT?" }
+        - { speaker: customer, text: "Exactly. I keep going back and forth between the LS and the LT. If I pick the wrong trim, I'll think about it every time I get in." }
+        - { speaker: rep, text: "Thank you. That's a fair worry, and we can settle it with facts instead of guessing. Both come with the same factory warranty, so the real question is the features. Let's sit in both side by side and make a short list together: what you'd use every week, and what you'd never touch." }
+        - { speaker: customer, text: "Okay. That I can do. A list makes sense." }
+        - { speaker: rep, text: "Can you and your wife come in Saturday at 11? I'll have the LS and the LT parked side by side, with both all-in prices printed." }
+        - { speaker: customer, text: "Saturday at 11. We'll be here." }
+      es:
+        - { speaker: customer, text: "Es que no quiero arrepentirme." }
+        - { speaker: rep, text: "[pausa] Es muy sensato querer eso. Es mucho dinero, y usted tiene que sentirse seguro. ¿Qué parte le parece arriesgada ahora mismo?" }
+        - { speaker: customer, text: "Todo. Es lo más caro que he comprado en mi vida." }
+        - { speaker: rep, text: "Tiene sentido. Mucha gente en este punto tiene miedo de escoger el carro equivocado y arrepentirse en un año. ¿Le está pasando algo de eso?" }
+        - { speaker: customer, text: "Puede ser. No es la Tahoe en sí. Yo sé que quiero una Tahoe." }
+        - { speaker: rep, text: "Bien. Entonces la Tahoe es la camioneta para su familia, ¿y los números no son lo que lo frena?" }
+        - { speaker: customer, text: "Sí. La familia cabe, y los números funcionan. De eso estoy seguro." }
+        - { speaker: rep, text: "¿Entonces la duda es cuál versión llevarse? ¿Está entre la LS y la LT?" }
+        - { speaker: customer, text: "Exacto. Me la paso dándole vueltas entre la LS y la LT. Si escojo la versión equivocada, me voy a acordar cada vez que me monte." }
+        - { speaker: rep, text: "Gracias. Es una preocupación válida, y la podemos resolver con datos en vez de adivinar. Las dos traen la misma garantía de fábrica, así que la pregunta real es el equipamiento. Sentémonos en las dos, una al lado de la otra, y hagamos juntos una lista corta: lo que usaría todas las semanas y lo que nunca tocaría." }
+        - { speaker: customer, text: "Bueno. Eso sí lo puedo hacer. Una lista tiene sentido." }
+        - { speaker: rep, text: "¿Pueden venir usted y su esposa el sábado a las 11? Les tengo la LS y la LT estacionadas una al lado de la otra, con los dos precios totales impresos." }
+        - { speaker: customer, text: "El sábado a las 11. Ahí estaremos." }
+spanish_reviewed: false

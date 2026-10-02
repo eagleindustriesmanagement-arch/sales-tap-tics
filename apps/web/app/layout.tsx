@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/manager/compliance", t("nav.compliance.view", lang)]]
         : user.roles.includes("compliance_reviewer")
           ? [["/manager/compliance", t("nav.compliance.view", lang)], ["/manager/store", t("nav.store", lang)], ["/library", t("nav.library", lang)]]
-          : [["/", t("nav.today", lang)], ["/history", t("nav.history", lang)], ["/library", t("nav.library", lang)]];
+          : [["/", t("nav.today", lang)], ["/practice", t("nav.practice", lang)], ["/history", t("nav.history", lang)], ["/library", t("nav.library", lang)]];
   return (
     <html lang={lang}>
       <body className="min-h-dvh font-sans antialiased">

@@ -1,0 +1,126 @@
+code: P-phone-shopper
+name_pool:
+  en: [Kevin, Brian, Jason, Eric]
+  es: [Raúl, Osvaldo, Jorge, Reinier]
+age_range: 30-39
+temperament: [rushed, analytical]
+temperament_note:
+  en: Rushed and to the point. Calling from his truck between jobs, comparing dealers line by line.
+  es: Apurado y directo. Llama desde su camioneta entre un trabajo y otro, y compara dealers punto por punto.
+buyer_orientation: task
+situation:
+  en: Mid-30s contractor in Hialeah. Needs a Silverado 1500 for work. Calling three dealers today. Financing through his own credit union. No trade.
+  es: Contratista de unos 35 años en Hialeah. Necesita una Silverado 1500 para el trabajo. Hoy está llamando a tres dealers. Financia con su propia cooperativa de crédito. No tiene trade-in.
+stated_objection: O14
+stated_line:
+  en: I'm calling around on a Silverado 1500 LT. Just give me your best price.
+  es: Estoy llamando a varios dealers por una Silverado 1500 LT. Nada más deme su mejor precio.
+hidden_truth:
+  en: He already has two quotes from other dealers, and neither one says what the dealer fee is. He cannot compare them and wants one all-in number he can trust.
+  es: Ya tiene dos cotizaciones de otros dealers, y ninguna dice cuánto es el cargo del concesionario. No las puede comparar y quiere un número total en el que pueda confiar.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\btwo (other )?quotes\b'
+    - '\b(other|those|their) (quotes|numbers|prices)\b.{0,40}\b(fees?|out the door|all[- ]in)\b'
+    - '\bneither (one|of them)\b'
+    - '\bnumber I can trust\b'
+  es:
+    - '\bdos cotizaciones\b'
+    - '\b(otras|esas|sus) cotizaciones\b'
+    - '\bninguna (de las dos )?(dice|incluye|trae)\b'
+    - '\bnúmero (en el )?que (pueda )?confiar\b'
+unlock_conditions:
+  - code: gives_all_in_number
+    description:
+      en: Gives the full all-in price on the call and says it already includes the dealer fee (T118).
+      es: Da el precio total por teléfono y dice que ya incluye el cargo de concesionario (T118).
+    cues:
+      en:
+        - '\b(already )?includ(es|ing) (our|the) (\$[\d,]+ )?(dealer|doc|documentation) fee\b'
+        - '\b(only|just) (the )?(sales )?tax(es)?\b.{0,40}\b(tag|title)\b'
+        - '\b(full|whole|complete) (out[- ]the[- ]door|all[- ]in) (price|number)\b'
+        - '\bwith (every|all the|our) (dealer )?fees? (included|in it)\b'
+      es:
+        - '\b(ya )?incluye (nuestro|el) cargo (de concesionario|del concesionario|del dealer)\b'
+        - '\bsolo se (suman|agregan|añaden) (los )?impuestos\b'
+        - '\bcon todos los cargos (del concesionario )?incluidos\b'
+        - '\b(ya )?incluye (nuestro|el) dealer fee\b'
+  - code: asks_about_other_quotes
+    description:
+      en: Asks whether the numbers he is getting elsewhere are all-in.
+      es: Pregunta si los números que le dan en otros lados son con todo incluido.
+    cues:
+      en:
+        - '\b(other|those) (quotes?|numbers?|prices?|dealers?)\b.{0,50}\b(include|includes|have|show|list|come with)\b.{0,20}\b(dealer |doc )?fees?\b'
+        - '\b(quotes?|numbers?|prices?) (you''re|you are|you''ve been) (getting|given|quoted)\b.{0,50}\b(fees?|out[- ]the[- ]door|all[- ]in)\b'
+        - '\bare (the|those|your) other (quotes?|numbers?|prices?)\b.{0,30}\b(out[- ]the[- ]door|all[- ]in)\b'
+        - '\bwhat (are|were) you (quoted|comparing)\b'
+      es:
+        - '\b(precios?|números?|cotizaciones?)\b.{0,60}\b(otros dealers|otras tiendas|otros concesionarios|otro lado|otros lados)\b.{0,40}\b(incluyen|traen|tienen)\b'
+        - '\b(las|sus|esas) otras (cotizaciones|ofertas)\b.{0,40}\b(incluyen|traen|tienen|son con todo)\b'
+        - '\bqué (le )?(cotizaron|están cotizando|está comparando)\b'
+walk_out_triggers:
+  - code: dodges_price
+    description:
+      en: Refuses to give the price on the phone or answers with a question instead of the number.
+      es: No quiere dar el precio por teléfono o contesta con una pregunta en vez del número.
+    cues:
+      en:
+        - '\b(can''?t|cannot|don''?t|do not) (give|quote|do) (out )?(prices?|numbers?|quotes?) (over|on) the phone\b'
+        - '\byou (have|need|got) to come in\b.{0,40}\b(price|number)\b'
+        - '\bprices? (change|changes) (every day|daily|all the time)\b'
+        - '\bwhat (price|number) (are you|do you) (looking for|want to pay|have in mind)\b'
+      es:
+        - '\bno (le )?(puedo|podemos) dar (precios|el precio|números) por teléfono\b'
+        - '\btiene que venir\b.{0,40}\b(precio|número)\b'
+        - '\blos precios cambian (todos los días|a diario|cada día)\b'
+        - '\bqué (precio|número) (está buscando|quiere pagar|tiene en mente)\b'
+  - code: partial_price
+    description:
+      en: Quotes a price "plus fees" or before the dealer fee.
+      es: Da un precio "más cargos" o antes del cargo de concesionario.
+    cues:
+      en: ['\bplus (the )?(dealer |doc )?fees?\b', '\bbefore (the )?(dealer |doc )?fees?\b', '\bdoesn''?t include (the )?(dealer |doc )?fee\b']
+      es: ['\bmás (los )?cargos\b', '\bmás (el )?cargo de concesionario\b', '\bsin (el )?cargo de concesionario\b', '\bantes del cargo\b']
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+win_condition:
+  description:
+    en: He says why he really called (two quotes he cannot compare), plus an appointment with a day and time.
+    es: Él dice por qué llamó de verdad (dos cotizaciones que no puede comparar), más una cita con día y hora.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el dealer", "el dealer fee", "la troca"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-30s
+  es: tbd-es-miami-cuban-male-30s
+difficulty: 2
+variation:
+  moods: [driving between jobs, impatient, all business]
+offline_lines:
+  deflect:
+    - { en: "I just need a number. I'm calling a few places.", es: "Nada más necesito un número. Estoy llamando a varios lugares." }
+    - { en: "I don't have time to drive over just to get a price.", es: "No tengo tiempo de ir hasta allá nada más para que me den un precio." }
+    - { en: "Can you just tell me the price?", es: "¿Me puede decir el precio y ya?" }
+  hint: { en: "Huh. Okay. So the fee is already in that number.", es: "Ah, bueno. ¿O sea que el cargo ya está metido en ese número?" }
+  after_hint: { en: "Alright. Go on.", es: "Está bien. Siga." }
+  reveal: { en: "Honestly, I've got two other quotes and neither one shows the dealer fee. I just want one number I can trust.", es: "La verdad, tengo otras dos cotizaciones y ninguna dice cuánto es el cargo del dealer. Nada más quiero un número en el que pueda confiar." }
+  after_reveal:
+    - { en: "Okay. Can you put that number in an email?", es: "Bueno. ¿Me puede mandar ese número por email?" }
+    - { en: "That helps. What would I need to bring?", es: "Eso me ayuda. ¿Qué tendría que llevar?" }
+  agree_next_step: { en: "Alright, that works. I'll be there.", es: "Está bien, eso me sirve. Allí estaré." }
+  not_now: { en: "I'm going to keep calling around. Thanks.", es: "Voy a seguir llamando. Gracias." }
+  walk_away: { en: "Forget it. I'll call the next dealer.", es: "Olvídelo. Llamo al próximo dealer." }
+  goodbye: { en: "Thanks. Bye.", es: "Gracias. Hasta luego." }
+  react_to_pressure: { en: "Look, I asked a simple question.", es: "Mire, le hice una pregunta sencilla." }
+spanish_reviewed: false

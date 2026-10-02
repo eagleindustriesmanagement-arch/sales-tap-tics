@@ -1,0 +1,185 @@
+code: S-fairness-seeker-L2
+module: car-language-trust
+title:
+  en: "\"Is that really your best price?\""
+  es: "\"¿Ese es su último precio?\""
+setting:
+  en: Saturday, 1:50 p.m., at your desk, right after you presented the all-in price.
+  es: Sábado, 1:50 p.m., en su escritorio, justo después de que usted presentó el precio total.
+persona: P-fairness-seeker
+objection: O33
+channel: floor
+language_options: [en, es]
+difficulty: 2
+start_state: negotiation
+pre_brief:
+  en: "{name}, late 40s, is buying a 2026 Traverse LT for his family and financing through his credit union. You presented the all-in price, $44,799: the vehicle at $43,900 plus the $899 dealer fee, with only tax, tag and title on top. Your manager has authorized up to $750 off the all-in price, and expects something in return for it."
+  es: "{name}, de unos 48 años, está comprando una Traverse LT 2026 para la familia y financia con su cooperativa de crédito. Usted le presentó el precio total, $44,799: el vehículo en $43,900 más el dealer fee de $899, y solo se suman impuestos, chapa y título. Su gerente autorizó hasta $750 menos del precio total, y espera algo a cambio."
+opening:
+  en: Is that really your best price? You haven't moved at all.
+  es: ¿Ese es su último precio? No me ha rebajado nada.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Traverse, trim: LT, color: Lakeshore Blue Metallic, stock: "5108", in_stock: true }
+  price_cents: 4390000
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4479900
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  # Real room: the manager will go as low as $44,049 all-in ($750 off), traded for a commitment.
+  authority: { manager_has_room: true, min_all_in_price_cents: 4404900 }
+  text_consent: false
+  customer_knows:
+    brother_discount_cents: 120000
+    financing: Pre-approved at his credit union
+numbers_sheet: true
+target_techniques: [T001, T002, T005, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: O33-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O33-ANCHOR
+      behavior:
+        en: "Restated the real all-in price with a reason before moving"
+        es: "Repitió el precio total real con una razón antes de moverse"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "2025 first-offer meta-analysis (U-FIRSTNUM)"
+    - code: O33-QFIRST
+      behavior:
+        en: "Asked what would make the deal feel fair before offering anything"
+        es: "Preguntó qué haría que el negocio le pareciera justo antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O33-HIDDEN
+      behavior:
+        en: "Surfaced why a visible concession matters to him"
+        es: "Sacó a la luz por qué le importa ver una rebaja"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O33-TRADE
+      behavior:
+        en: "Traded the concession for a commitment"
+        es: "Cambió la rebaja por un compromiso"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Ogliastri, 1,500 business interviews (T042)"
+      technique: T042
+    - code: O33-EARNED
+      behavior:
+        en: "Gave one small, real concession with a reason, not the whole room at once"
+        es: "Dio una sola rebaja pequeña y real, con una razón, sin soltar todo el margen de una vez"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Kwon and Weingart 2004 (T106)"
+      technique: T106
+    - code: O33-NEXT
+      behavior:
+        en: "Set a specific time to sign"
+        es: "Fijó una hora específica para firmar"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: false_manager_story
+      description:
+        en: "Staged a manager trip or claimed a manager limit that is not real"
+        es: "Montó una ida al gerente o dijo que el gerente tenía un límite que no es real"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, authority]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he dropped the whole $750 at once with no reason and nothing asked in return, so the customer stopped trusting the price and pushed for more."
+      es: "Fíjese: soltó los $750 de una vez, sin razón y sin pedir nada a cambio, así que el cliente dejó de creer en el precio y quiso más."
+    script:
+      en:
+        - { speaker: customer, text: "Is that really your best price? You haven't moved at all." }
+        - { speaker: rep, text: "Okay, okay. I'll knock off $750 right now. $44,049 all-in." }
+        - { speaker: customer, text: "Wait, you could do that the whole time? What else is in there?" }
+        - { speaker: rep, text: "Honestly, that's already a great deal. Want me to get it ready?" }
+        - { speaker: customer, text: "I don't know anymore. I need to think about it." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me." }
+        - { speaker: customer, text: "Sure." }
+      es:
+        - { speaker: customer, text: "¿Ese es su último precio? No me ha rebajado nada." }
+        - { speaker: rep, text: "Bueno, bueno. Le quito $750 ahora mismo. $44,049 con todo incluido." }
+        - { speaker: customer, text: "¿Un momento, y eso lo podía hacer desde el principio? ¿Qué más hay ahí?" }
+        - { speaker: rep, text: "La verdad, ya eso es un negocio buenísimo. ¿Se lo preparo?" }
+        - { speaker: customer, text: "Ya no sé. Lo tengo que pensar." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me llama." }
+        - { speaker: customer, text: "Está bien." }
+  good:
+    notice:
+      en: Notice the real all-in price restated with a reason, the question about what fair means to him, and one small concession traded for a commitment.
+      es: Fíjese en el precio total real repetido con una razón, en la pregunta sobre qué es justo para él, y en una sola rebaja pequeña cambiada por un compromiso.
+    script:
+      en:
+        - { speaker: customer, text: "Is that really your best price? You haven't moved at all." }
+        - { speaker: rep, text: "[pause] Fair question. $44,799 is the all-in price, every dealer charge included, only tax, tag and title on top, because I'd rather show you a real number than play games. Help me understand: what would make this feel like a fair deal to you?" }
+        - { speaker: customer, text: "It's not really about the money. I just don't want to be the guy who paid full price." }
+        - { speaker: rep, text: "That makes sense. Apart from the price, is the Traverse the right car for your family?" }
+        - { speaker: customer, text: "Yeah, the car's right. That's not the problem." }
+        - { speaker: rep, text: "When you say you don't want to be the guy who paid full price, who are you thinking of?" }
+        - { speaker: customer, text: "My brother. He always gets something off, and the first thing he'll ask is what I got. If you didn't move at all, I can't even justify it to myself." }
+        - { speaker: rep, text: "I appreciate you telling me. I won't invent a discount, but I do have a little room. If I get my manager to take $500 off, making it $44,299 all-in, are you ready to sign on it?" }
+        - { speaker: customer, text: "If it's real and on paper, I'm in." }
+        - { speaker: rep, text: "It's real. I'll get his signature and print it with the $500 on its own line, so you can show your brother. Can we sit down at 2:30 today to sign?" }
+        - { speaker: customer, text: "2:30. Deal. I'll be here." }
+        - { speaker: rep, text: "See you at 2:30. It'll all be in writing." }
+      es:
+        - { speaker: customer, text: "¿Ese es su último precio? No me ha rebajado nada." }
+        - { speaker: rep, text: "[pausa] Buena pregunta. $44,799 es el precio total, con todos los cargos del dealer incluidos, y solo se suman impuestos, chapa y título, porque prefiero enseñarle un número real que andar con juegos. Ayúdeme a entender: ¿qué haría que esto le pareciera un negocio justo?" }
+        - { speaker: customer, text: "No es tanto por el dinero. Es que no quiero ser el que pagó el precio completo." }
+        - { speaker: rep, text: "Tiene sentido. Aparte del precio, ¿la Traverse es el carro para su familia?" }
+        - { speaker: customer, text: "Sí, el carro es el correcto. Ese no es el problema." }
+        - { speaker: rep, text: "Cuando dice que no quiere ser el que pagó el precio completo, ¿en quién está pensando?" }
+        - { speaker: customer, text: "Mi hermano. Él siempre consigue que le rebajen algo, y lo primero que me va a preguntar es cuánto me rebajaron. Si usted no se movió nada, ni yo mismo me lo justifico." }
+        - { speaker: rep, text: "Le agradezco que me lo diga. No le voy a inventar un descuento, pero sí tengo un poco de margen. Si consigo que mi gerente le quite $500, queda en $44,299 con todo incluido. ¿Está listo para firmar con ese número?" }
+        - { speaker: customer, text: "Si es real y está por escrito, cuente conmigo." }
+        - { speaker: rep, text: "Es real. Le consigo la firma del gerente y se lo imprimo con los $500 en su propia línea, para que se lo enseñe a su hermano. ¿Nos sentamos hoy a las 2:30 a firmar?" }
+        - { speaker: customer, text: "A las 2:30. Trato hecho. Aquí estaré." }
+        - { speaker: rep, text: "Nos vemos a las 2:30. Todo va a estar por escrito." }
+spanish_reviewed: false

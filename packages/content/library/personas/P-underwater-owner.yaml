@@ -1,0 +1,139 @@
+code: P-underwater-owner
+name_pool:
+  en: [Jessica, Ashley, Nicole, Vanessa]
+  es: [Yanelis, Daniela, Mariela, Lisandra]
+age_range: 30-39
+temperament: [anxious]
+temperament_note:
+  en: Anxious and a little ashamed. Talks fast, apologizes, expects to be judged. Relaxes when the rep stays calm and treats the loan as a math problem, not a mistake.
+  es: Nerviosa y un poco apenada. Habla rápido, se disculpa y espera que la juzguen. Se calma cuando el vendedor mantiene la calma y trata el préstamo como un problema de números, no como un error.
+buyer_orientation: relationship
+situation:
+  en: Early 30s, dental assistant in Kendall. Bought a 2022 Malibu LT on a long loan and now has 71,000 miles on it. Loves the 2026 Trailblazer LT she just drove. Fair credit, no cash saved for a down payment yet. Pays $489 a month now.
+  es: De unos 30 y pico, asistente dental en Kendall. Compró un Malibu LT 2022 con un préstamo largo y ya tiene 71,000 millas. Le encantó la Trailblazer LT 2026 que acaba de manejar. Crédito regular, todavía no tiene ahorrado para el down. Paga $489 al mes ahora.
+stated_objection: O02
+stated_line:
+  en: Before you go any further... I'm pretty sure I'm upside down on my loan. So this probably doesn't work.
+  es: Antes de que siga... yo creo que estoy al revés con el préstamo. Así que esto seguro no funciona.
+hidden_truth:
+  en: She owes about $7,000 more than the Malibu is worth ($21,400 payoff against a $14,400 appraisal) and is embarrassed to say how bad it is.
+  es: Debe como $7,000 más de lo que vale el Malibu ($21,400 de payoff contra una tasación de $14,400) y le da vergüenza decir lo mal que está.
+# Phrases that would give the size of the gap or the embarrassment away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\b(seven|7)\s?(thousand|grand|k)\b'
+    - '\$\s?7,?000\b'
+    - '\bembarrass'
+    - '\bashamed\b'
+    - '\btwenty-one thousand\b'
+    - '\b(owe|owing)\b.{0,25}\b(thousand|grand)\b'
+  es:
+    - '\bsiete mil\b'
+    - '\$\s?7[,.]?000\b'
+    - '\b(vergüenza|avergonzad[oa])\b'
+    - '\bme da (mucha )?pena\b'
+    - '\bveintiún mil\b'
+    - '\bdebo\b.{0,25}\bmil\b'
+unlock_conditions:
+  - code: asks_payoff_calmly
+    description:
+      en: Asks, without judgment, what she still owes or what the payoff shows.
+      es: Pregunta, sin juzgar, cuánto debe todavía o qué dice el payoff.
+    cues:
+      en:
+        - '\b(what|how much)\b.{0,30}\b(you )?(still )?(owe|left on (the|your) loan)\b'
+        - '\b(do|did) you (know|have)\b.{0,30}\b(what you (still )?owe|(the|your) payoff|what(''s| is) left)'
+        - '\b(pull up|check|look up|look at)\b.{0,20}\b(the|your) payoff\b'
+        - '\bwhat(''s| is) (the|your) payoff\b'
+        - '\bhow far (upside down|under(water)?) (are you|do you think)\b'
+      es:
+        - '\bcuánto\b.{0,25}\b(debe|le queda|le falta)\b'
+        - '\b(qué|cuál es) (dice |muestra )?(el|su) (payoff|saldo)\b'
+        - '\b(busque|buscar|mire|mirar|revise|revisar|chequee|chequear|saque|sacar)\b.{0,20}\b(el|su) (payoff|saldo)\b'
+        - '\bsabe (más o menos )?(cuánto debe|el payoff|su saldo|lo que debe)\b'
+        - '\bqué tan (al revés|abajo) está\b'
+  - code: asks_what_worries_her
+    description:
+      en: Asks what worries her most about the loan.
+      es: Pregunta qué es lo que más le preocupa del préstamo.
+    cues:
+      en: ['\bwhat (worries|concerns|scares) you (the )?most about (the|your) (loan|trade|car)\b']
+      es: ['\bqué (es lo que )?más le preocupa del? (préstamo|trade-in|carro)\b']
+walk_out_triggers:
+  - code: shames_customer
+    description:
+      en: Judges the old loan or the customer ("Why did you sign that?").
+      es: Juzga el préstamo viejo o a la clienta ("¿Por qué firmó eso?").
+    cues:
+      en:
+        - '\bwhy (did|would) you (sign|take|get|buy)\b'
+        - '\b(bad|terrible|awful|horrible|crazy) (loan|deal)\b'
+        - '\byou (should|shouldn''?t) have\b'
+        - '\bwho (sold|gave) you (that|this)\b'
+      es:
+        - '\bpor qué (firmó|aceptó|cogió|compró)\b'
+        - '\b(mal|pésimo|terrible) (préstamo|negocio)\b'
+        - '\bno debió\b'
+        - '\bquién le (vendió|dio) (eso|ese)\b'
+  - code: brushes_off
+    description:
+      en: Brushes the problem off and buries it in the new loan ("Don't worry, we'll just roll it in").
+      es: Le resta importancia y lo esconde en el préstamo nuevo ("No se preocupe, lo metemos en el préstamo").
+    cues:
+      en:
+        - '\bdon''?t worry about (it|that|the loan)\b'
+        - '\b(just|we''ll|we will) roll (it|that|the difference) (right )?in(to)?\b'
+        - '\beverybody(''s| is) upside down\b'
+      es:
+        - '\bno se preocupe por (eso|el préstamo)\b'
+        - '\blo metemos en el (préstamo|financiamiento)\b'
+        - '\btodo el mundo está al revés\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|appraisal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\bsi se va\b.{0,40}\b(precio|oferta|tasación)\b.{0,20}\b(se pierde|ya no|desaparece)']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The real size of the negative equity comes out, plus a firm time to go over honest options with the payoff letter in hand.
+    es: Sale a la luz cuánto debe de verdad por encima del valor, más una hora firme para ver opciones honestas con la carta del payoff en la mano.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el down", "el trade-in", "el payoff", "la app"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-30s
+  es: tbd-es-miami-cuban-female-30s
+difficulty: 2
+variation:
+  moods: [nervous, tired after work, keeps apologizing]
+offline_lines:
+  deflect:
+    - { en: "I really like it. I just don't think the numbers will work.", es: "Me gusta mucho. Es que no creo que los números den." }
+    - { en: "Sorry. I probably shouldn't have even come in.", es: "Perdón. Seguro que ni debí haber venido." }
+    - { en: "I'd rather not get into the loan, if that's okay.", es: "Prefiero no meterme en lo del préstamo, si no le molesta." }
+  hint: { en: "I'd have to check the app. It's... more than I'd like.", es: "Tendría que mirar en la app. Es... más de lo que quisiera." }
+  after_hint: { en: "Yeah. I really like it. That's what makes this hard.", es: "Sí. Me gusta mucho. Por eso es que esto me cuesta." }
+  reveal: { en: "It says twenty-one thousand four hundred. So I owe about seven thousand more than it's worth. Honestly, I'm embarrassed I let it get this bad.", es: "Dice veintiún mil cuatrocientos. O sea, que debo como siete mil más de lo que vale. La verdad, me da vergüenza haberlo dejado llegar a esto." }
+  after_reveal:
+    - { en: "Okay. What are my options, honestly?", es: "Está bien. ¿Cuáles son mis opciones, de verdad?" }
+    - { en: "Thank you for not making me feel stupid.", es: "Gracias por no hacerme sentir boba." }
+  agree_next_step: { en: "Okay. I can do that. I'll call the bank for the letter.", es: "Está bien. Puedo. Llamo al banco para lo de la carta." }
+  not_now: { en: "I think I need to sort this out first. Not today.", es: "Creo que primero tengo que resolver esto. Hoy no." }
+  walk_away: { en: "I'm sorry, I have to go.", es: "Perdón, me tengo que ir." }
+  goodbye: { en: "Thank you anyway. Bye.", es: "Gracias de todas formas. Chao." }
+  react_to_pressure: { en: "Please... I'm already stressed about this. Can we slow down?", es: "Por favor... ya estoy bastante estresada con esto. ¿Podemos ir más despacio?" }
+spanish_reviewed: false

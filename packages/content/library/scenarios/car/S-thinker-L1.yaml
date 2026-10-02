@@ -1,0 +1,188 @@
+code: S-thinker-L1
+module: car-core
+title:
+  en: "\"I need to think about it\""
+  es: "\"Lo tengo que pensar\""
+setting:
+  en: Saturday morning, at the desk, right after the test drive and the numbers.
+  es: Sábado por la mañana, en el escritorio, justo después de la prueba de manejo y los números.
+persona: P-thinker
+objection: O05
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-30s, has three kids and a paid-off 2017 Equinox the family has outgrown. He just drove the 2026 Traverse LT. You showed him the all-in price of $44,394 plus tax, tag and title, and a payment of $716 a month with $5,000 down. He read every review before he came in."
+  es: "{name}, de unos 35 años, tiene tres hijos y una Equinox 2017 pagada que a la familia ya le queda chiquita. Acaba de manejar la Traverse LT 2026. Usted le enseñó el precio total de $44,394 más impuestos, tag y título, y un pago de $716 al mes con $5,000 de down. Leyó todas las reseñas antes de venir."
+opening:
+  en: I need to think about it.
+  es: Lo tengo que pensar.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Traverse, trim: LT, color: Sterling Gray Metallic, stock: "6117", in_stock: true }
+  price_cents: 4349500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4439400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: { vehicle: 2017 Chevrolet Equinox LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options:
+    - { code: quoted, cents: 71600, term_months: 72, down_cents: 500000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    kids_in_car_seats: 2
+    sunday_riders: His parents ride in the second row on Sundays
+    free_tomorrow: Free after 10 tomorrow, Sunday
+numbers_sheet: false
+target_techniques: [T001, T002, T003, T005, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O05-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O05-RESPECT
+      behavior:
+        en: "Respected his need to think it over without pushing back"
+        es: "Respetó que lo quiera pensar, sin llevarle la contraria"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O05-QFIRST
+      behavior:
+        en: "Asked what specifically he wants to think over before offering anything"
+        es: "Preguntó qué es exactamente lo que quiere pensar antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O05-ISOLATE
+      behavior:
+        en: "Checked whether the price and payment were the issue, apart from the open question"
+        es: "Confirmó si el precio y el pago eran el problema, aparte de la duda que quedaba"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O05-HIDDEN
+      behavior:
+        en: "Surfaced the doubt about two car seats in the third row"
+        es: "Sacó a la luz la duda de las dos sillas de los niños en la tercera fila"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O05-PROOF
+      behavior:
+        en: "Offered to settle the doubt with a real test (install the seats) instead of a claim"
+        es: "Ofreció resolver la duda con una prueba real (instalar las sillas) en vez de una promesa"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "JOLT Effect; only real, showable protections (T094)"
+      technique: T094
+    - code: O05-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: claimed_unchecked_fit
+      description:
+        en: "Promised the car seats fit without checking"
+        es: "Aseguró que las sillas caben sin haberlo comprobado"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed off the need to think, piled on more vehicles, and pushed for today. He never asked what the customer wanted to think over."
+      es: "Fíjese: le quitó importancia a que lo quiera pensar, le echó más carros encima y presionó para hoy. Nunca preguntó qué era lo que el cliente quería pensar."
+    script:
+      en:
+        - { speaker: customer, text: "I need to think about it." }
+        - { speaker: rep, text: "What's there to think about? You drove it, you liked it, and the payment works." }
+        - { speaker: customer, text: "I'd rather not decide on the spot." }
+        - { speaker: rep, text: "Okay, if the Traverse isn't it, let me show you the Tahoe and the Blazer too. We've got a lot to choose from." }
+        - { speaker: customer, text: "That's more to think about, not less." }
+        - { speaker: rep, text: "Then let's just write it up on the Traverse and get it done." }
+        - { speaker: customer, text: "No. I'll be in touch." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me when you're ready." }
+      es:
+        - { speaker: customer, text: "Lo tengo que pensar." }
+        - { speaker: rep, text: "¿Pero qué hay que pensar? Usted la manejó, le gustó y el pago le funciona." }
+        - { speaker: customer, text: "Prefiero no decidir así de golpe." }
+        - { speaker: rep, text: "Bueno, si la Traverse no es, también le enseño la Tahoe y la Blazer. Tenemos mucho para escoger." }
+        - { speaker: customer, text: "Eso es más para pensar, no menos." }
+        - { speaker: rep, text: "Entonces dejemos escrita la Traverse de una vez y ya." }
+        - { speaker: customer, text: "No. Yo le aviso." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
+  good:
+    notice:
+      en: Notice the pause, the question about what he wants to think over, and how the doubt is settled with a real test instead of a promise.
+      es: Fíjese en la pausa, en la pregunta sobre qué es lo que quiere pensar, y en cómo la duda se resuelve con una prueba real en vez de una promesa.
+    script:
+      en:
+        - { speaker: customer, text: "I need to think about it." }
+        - { speaker: rep, text: "[pause] That makes sense. It's a big purchase, and you clearly did your homework. When you think it over tonight, what's the part you still want to be sure about?" }
+        - { speaker: customer, text: "It's not the price. It's more about how we'd actually use it." }
+        - { speaker: rep, text: "Okay. So setting that aside for a second, the price and the payment work for you?" }
+        - { speaker: customer, text: "The numbers are fine. I did the math at home." }
+        - { speaker: rep, text: "Good. Then walk me through a normal Sunday. Who rides in the back, and are any of the kids still in car seats?" }
+        - { speaker: customer, text: "Okay. On Sundays my parents sit in the second row, so both car seats would go in the third row. I'm not sure they fit back there." }
+        - { speaker: rep, text: "I'm glad you said it, because that's exactly what to check before you buy, not after. I'm not going to guess. Bring both seats, and we'll install them in the third row together, and you'll see how the kids get in and out." }
+        - { speaker: customer, text: "That would settle it. I don't want to find out after I buy it." }
+        - { speaker: rep, text: "Does tomorrow at 11 work? I'll have this same Traverse pulled up with the third row ready." }
+        - { speaker: customer, text: "Tomorrow at 11 works. I'll bring both seats." }
+      es:
+        - { speaker: customer, text: "Lo tengo que pensar." }
+        - { speaker: rep, text: "[pausa] Tiene sentido. Es una compra grande, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?" }
+        - { speaker: customer, text: "No es el precio. Es más bien cómo la vamos a usar de verdad." }
+        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el precio y el pago le funcionan?" }
+        - { speaker: customer, text: "Los números están bien. Ya hice las cuentas en la casa." }
+        - { speaker: rep, text: "Perfecto. Entonces cuénteme cómo es un domingo normal. ¿Quién va atrás, y alguno de los niños todavía va en silla de carro?" }
+        - { speaker: customer, text: "Bueno. Los domingos mis padres van en la segunda fila, así que las dos sillas de los niños irían en la tercera fila. No estoy seguro de que quepan." }
+        - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que comprobar antes de comprar, no después. No voy a adivinar. Traiga las dos sillas, las instalamos juntos en la tercera fila, y usted ve cómo suben y bajan los niños." }
+        - { speaker: customer, text: "Eso lo resolvería. No quiero enterarme después de comprarla." }
+        - { speaker: rep, text: "¿Le queda bien mañana a las 11? Le tengo esta misma Traverse lista con la tercera fila preparada." }
+        - { speaker: customer, text: "Mañana a las 11 me queda bien. Traigo las dos sillas." }
+spanish_reviewed: false

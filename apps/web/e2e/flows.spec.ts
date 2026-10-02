@@ -5,6 +5,13 @@ import { OUTBOX } from "../playwright.config";
 
 const db = () => new pg.Client({ connectionString: process.env.DATABASE_URL });
 
+/** Signs in and, when the consent notice shows (first sign-in), accepts it. */
+async function signInReady(page: Page, email: string) {
+  await signIn(page, email);
+  if (/\/consent$/.test(page.url())) await page.getByRole("button", { name: "I understand and agree" }).click();
+  await expect(page).not.toHaveURL(/\/consent$/);
+}
+
 async function signIn(page: Page, email: string) {
   await page.goto("/");
   await expect(page).toHaveURL(/\/login$/);
@@ -25,8 +32,12 @@ test("a rep signs in, accepts the notice, practices, and the session is saved", 
   await expect(page).toHaveURL(/\/consent$/);
   await page.getByRole("button", { name: "I understand and agree" }).click();
   await expect(page.getByRole("heading", { name: /Today, Luis/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Practice now" })).toBeVisible();
 
-  await page.getByRole("link", { name: "Practice now" }).click();
+  // Every scenario is listed by level; open the "talk to my wife" one.
+  await page.getByRole("link", { name: "See all scenarios" }).click();
+  await expect(page.getByRole("heading", { name: "Level 1" })).toBeVisible();
+  await page.getByTestId("scenario-S-partner-check-L1").click();
   await page.getByRole("button", { name: "Start" }).click();
   const say = page.getByLabel("Type what you would say");
   await expect(say).toBeVisible();
@@ -70,7 +81,7 @@ test("a rep signs in, accepts the notice, practices, and the session is saved", 
 test("a rep who makes up a deadline is stopped and the violation is stored", async ({ page }) => {
   await signIn(page, "rep2@demo.test");
   await page.getByRole("button", { name: "I understand and agree" }).click();
-  await page.getByRole("link", { name: "Practice now" }).click();
+  await page.goto("/practice/S-partner-check-L1");
   await page.getByRole("button", { name: "Start" }).click();
   await page.getByLabel("Type what you would say").fill("The bonus cash ends tomorrow, so you should decide today.");
   await page.getByRole("button", { name: "Send" }).click();
@@ -172,4 +183,35 @@ test("the general manager edits store setup, the reviewer signs it off and sees 
   const lenders = await c.query("select name, is_credit_acceptance from store_lenders order by name");
   expect(lenders.rows).toEqual([{ name: "Ally", is_credit_acceptance: false }, { name: "Credit Acceptance", is_credit_acceptance: true }]);
   await c.end();
+});
+
+test("a manager assigns practice with a reason; the rep sees it first, practices it, and it shows as done", async ({ page, browser }) => {
+  await signInReady(page, "manager@demo.test");
+  await page.goto("/manager/team");
+  await page.getByRole("link", { name: "Assign practice" }).click();
+  await page.getByLabel("Scenario").selectOption("S-partner-check-L1");
+  await page.getByLabel("Luis").check();
+  await page.getByLabel("Due date (optional)").fill("2026-12-31");
+  await page.getByLabel("Reason the rep will see").fill("Ask what she will ask first before you show options.");
+  await page.getByRole("button", { name: "Assign", exact: true }).click();
+  await expect(page.getByRole("status")).toHaveText("Assigned to 1.");
+
+  const rep = await browser.newPage();
+  await signInReady(rep, "rep@demo.test");
+  await expect(rep.getByText("Assigned by Carlos")).toBeVisible();
+  await expect(rep.getByTestId("assignment-reason")).toHaveText(/Ask what she will ask first/);
+  await rep.getByRole("link", { name: "Practice now" }).click();
+  await expect(rep).toHaveURL(/\/practice\/S-partner-check-L1$/);
+  await rep.getByRole("button", { name: "Start" }).click();
+  await rep.getByLabel("Type what you would say").fill("Of course. What do you think her first question will be?");
+  await rep.getByRole("button", { name: "Send" }).click();
+  await expect(rep.locator('[data-testid="composer"][data-busy="false"]')).toBeVisible();
+  await rep.getByRole("button", { name: /End session|See debrief/ }).first().click();
+  await expect(rep.getByRole("heading", { name: "Debrief" })).toBeVisible();
+
+  await page.goto("/manager/team");
+  await expect(page.getByTestId("assignments").getByText(/Luis · .*talk to my wife/)).toBeVisible();
+  await expect(page.getByTestId("assignments").getByText("Done")).toBeVisible();
+  // A rep cannot assign.
+  expect((await rep.request.post("/api/assignments", { data: { userIds: [], scenarioCode: "S-partner-check-L1", dueDate: null, reason: "" } })).status()).toBe(403);
 });

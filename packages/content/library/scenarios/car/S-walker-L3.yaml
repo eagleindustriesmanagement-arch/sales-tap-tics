@@ -1,0 +1,177 @@
+code: S-walker-L3
+module: car-core
+title:
+  en: "\"I want to shop other dealers\""
+  es: "\"Quiero ver en otros dealers\""
+setting:
+  en: Saturday afternoon. He has just stood up from your desk, keys in hand, and is heading for the door.
+  es: Sábado por la tarde. Se acaba de parar de su escritorio, con las llaves en la mano, y va camino a la puerta.
+persona: P-walker
+objection: O09
+channel: floor
+language_options: [en, es]
+difficulty: 3
+start_state: objection
+pre_brief:
+  en: "{name}, late 50s, retired firefighter, came in for a 2026 Traverse LT and loved the drive. You showed him the numbers sheet: $44,750 out the door with the $899 dealer fee included, and $17,500 for his paid-off 2021 Equinox LT, appraised by your used-car manager an hour ago. He looked at the sheet for a minute, then stood up."
+  es: "{name}, de unos 58 años, bombero retirado, vino por una Traverse LT 2026 y le encantó la prueba de manejo. Usted le enseñó la hoja de números: $44,750 con todo, con el cargo del dealer de $899 incluido, y $17,500 por su Equinox LT 2021 ya pagada, tasada por su gerente de usados hace una hora. Miró la hoja un minuto y se paró."
+opening:
+  en: You know what? Forget it. I'm going to shop other dealers.
+  es: ¿Sabe qué? Olvídese. Me voy a ver en otros dealers.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Traverse, trim: LT, color: Sterling Gray Metallic, stock: "6142", in_stock: true }
+  price_cents: 4385100
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4475000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade:
+    vehicle: 2021 Chevrolet Equinox LT, 48,000 miles
+    appraisal_cents: 1750000
+    payoff_cents: 0
+    basis: Auction average for a 2021 Equinox LT with 48,000 miles, less $900 for two front tires and a cracked windshield
+    conditions: []
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    online_estimate_cents: 1980000
+    appraisal_shown_cents: 1750000
+    online_estimate_source: An instant-offer website, "up to" range, no inspection yet
+numbers_sheet: true
+target_techniques: [T001, T002, T003, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O09-L3-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying, instead of chasing him"
+        es: "Hizo una pausa de al menos dos segundos antes de responder, en vez de perseguirlo"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O09-L3-CALM
+      behavior:
+        en: "Stayed calm and respected his right to shop; no chasing, pleading or blocking"
+        es: "Mantuvo la calma y respetó su derecho a comparar; sin perseguirlo, rogarle ni taparle el paso"
+      dimension: composure
+      method: judge
+      points: 20
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O09-L3-QUESTION
+      behavior:
+        en: "Asked one good question about what did not sit right"
+        es: "Hizo una buena pregunta sobre qué no le cuadró"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0% (T002); Malhotra and Bazerman (T109)"
+      technique: T002
+    - code: O09-L3-BASIS
+      behavior:
+        en: "Showed how the trade number was figured, with the exact appraisal and its basis, without inventing claims about the website"
+        es: "Enseñó cómo se calculó el valor del trade-in, con la tasación exacta y su base, sin inventar nada sobre la página de internet"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T009); spec 4.2 trade value"
+      technique: T009
+    - code: O09-L3-HIDDEN
+      behavior:
+        en: "Surfaced the real concern: the trade number"
+        es: "Sacó a la luz la preocupación real: el valor del trade-in"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O09-L3-NEXT
+      behavior:
+        en: "Set a specific time to walk through the appraisal, and he agreed to stay"
+        es: "Fijó una hora específica para revisar la tasación, y el cliente aceptó quedarse"
+      dimension: outcome
+      method: engine_and_judge
+      points: 20
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: chased_or_blocked
+      description:
+        en: "Chased him, blocked the door, or ran down other dealers"
+        es: "Lo persiguió, le tapó la puerta o habló mal de otros dealers"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number or the trade appraisal"
+        es: "Dijo un número o una tasación que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.25, not_now_base: 0.20, triggers_raise_by: 0.30 }
+max_turns: 20
+time_limit_seconds: 420
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he chased the customer, argued before asking a single question, and made a claim about other dealers he could not back up. The customer left with the real concern still hidden."
+      es: "Fíjese: persiguió al cliente, discutió antes de hacer una sola pregunta y dijo algo de otros dealers que no podía probar. El cliente se fue con la preocupación real todavía escondida."
+    script:
+      en:
+        - { speaker: customer, text: "You know what? Forget it. I'm going to shop other dealers." }
+        - { speaker: rep, text: "Wait, wait, don't go. Nobody in Miami is going to beat this deal. Sit down, let me get my manager." }
+        - { speaker: customer, text: "See, this is exactly why I'm leaving." }
+        - { speaker: rep, text: "Come on, the Traverse is perfect for you and the grandkids. What do I have to do to earn your business?" }
+        - { speaker: customer, text: "There are four Chevy dealers between here and Kendall." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me before you buy anywhere else." }
+        - { speaker: customer, text: "Yeah. Take care." }
+      es:
+        - { speaker: customer, text: "¿Sabe qué? Olvídese. Me voy a ver en otros dealers." }
+        - { speaker: rep, text: "Espérese, espérese, no se vaya. Nadie en Miami le va a ganar este negocio. Siéntese, déjeme buscar a mi gerente." }
+        - { speaker: customer, text: "¿Ve? Por esto mismo es que me voy." }
+        - { speaker: rep, text: "Ay, por favor, la Traverse es perfecta para usted y los nietos. ¿Qué tengo que hacer para ganarme su negocio?" }
+        - { speaker: customer, text: "Hay cuatro dealers de Chevrolet de aquí a Kendall." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Llámeme antes de comprar en otro lado." }
+        - { speaker: customer, text: "Sí. Cuídese." }
+  good:
+    notice:
+      en: "Notice that he lets the customer go, calmly, and then asks one question about what did not sit right. The answer was not about other dealers at all."
+      es: "Fíjese en que deja ir al cliente, con calma, y luego hace una sola pregunta sobre qué no le cuadró. La respuesta no tenía nada que ver con otros dealers."
+    script:
+      en:
+        - { speaker: customer, text: "You know what? Forget it. I'm going to shop other dealers." }
+        - { speaker: rep, text: "[pause] That's fair. You should compare; I'd do the same with this kind of money. Before you go, can I ask you one thing?" }
+        - { speaker: customer, text: "Go ahead, but I've made up my mind." }
+        - { speaker: rep, text: "What part of the numbers didn't sit right with you? The Traverse, the price, or something else?" }
+        - { speaker: customer, text: "It's not the Traverse. I like the Traverse. One number on that sheet didn't sit right with me." }
+        - { speaker: rep, text: "Was it the trade? The appraisal on your Equinox, is that what didn't feel right?" }
+        - { speaker: customer, text: "Fine. It's the trade. The website said up to $19,800 for my Equinox, you gave me $17,500, and nobody told me how you got there." }
+        - { speaker: rep, text: "Thank you for telling me. You deserve to see how we got there. The appraisal is $17,500. It starts from the auction average for a 2021 Equinox LT with 48,000 miles. Then we took $900 off for two front tires and the cracked windshield. I can't speak for the website, but you can ask them for a written offer after they inspect it and compare. Our used-car manager did the appraisal, and he can walk you through the auction report at 3:30 today. Does 3:30 work?" }
+        - { speaker: customer, text: "Okay. I'll stay for that." }
+      es:
+        - { speaker: customer, text: "¿Sabe qué? Olvídese. Me voy a ver en otros dealers." }
+        - { speaker: rep, text: "[pausa] Me parece justo. Hace bien en comparar; yo haría lo mismo con tanto dinero de por medio. Antes de que se vaya, ¿le puedo hacer una sola pregunta?" }
+        - { speaker: customer, text: "Dígame, pero ya yo me decidí." }
+        - { speaker: rep, text: "¿Qué parte de los números no le cuadró? ¿La Traverse, el precio, o algo más?" }
+        - { speaker: customer, text: "No es la Traverse. La Traverse me gusta. Hay un número en esa hoja que no me cuadró." }
+        - { speaker: rep, text: "¿Fue el trade-in? La tasación de su Equinox, ¿eso fue lo que no le cuadró?" }
+        - { speaker: customer, text: "Está bien. Es el trade-in. En la página decía hasta $19,800 por mi Equinox, ustedes me dieron $17,500, y nadie me explicó de dónde salió eso." }
+        - { speaker: rep, text: "Gracias por decírmelo. Usted merece ver cómo llegamos a ese número. La tasación es $17,500. Sale del promedio de subasta para una Equinox LT 2021 con 48,000 millas. Después le quitamos $900 por las dos gomas delanteras y el parabrisas rajado. Yo no puedo hablar por la página, pero usted les puede pedir una oferta por escrito después de que la inspeccionen, y comparar. Nuestro gerente de usados hizo la tasación, y le puede explicar el reporte de subasta a las 3:30 de hoy. ¿Le funcionan las 3:30?" }
+        - { speaker: customer, text: "Está bien. Por eso me quedo." }
+spanish_reviewed: false

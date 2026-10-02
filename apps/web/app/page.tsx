@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { isManager, listSessions, weekCards } from "@taptics/db";
+import { isManager, listAssignments, listSessions, scenarioProgress, weekCards } from "@taptics/db";
 import { t } from "@taptics/i18n";
+import { recommend } from "@taptics/session";
 import { Card, Grade, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
-import { language, library } from "@/lib/server";
+import { language, library, practiceList } from "@/lib/server";
 
 export default async function Today() {
   const user = await requireUser();
@@ -13,12 +14,18 @@ export default async function Today() {
   if (user.roles.includes("compliance_reviewer")) redirect("/manager/compliance");
   const lang = await language();
   const lib = library();
-  const { cards, recent } = await asUser(principalOf(user), async (db) => ({
+  const { cards, recent, progress, assigned } = await asUser(principalOf(user), async (db) => ({
     cards: (await weekCards(db)).filter((c) => c.userId === user.id),
     recent: await listSessions(db, { userId: user.id, limit: 3 }),
+    progress: await scenarioProgress(db, user.id),
+    assigned: await listAssignments(db, { userId: user.id, open: true, limit: 5 }),
   }));
   const card = cards[0] ? lib.behaviorCards.get(cards[0].cardCode) : undefined;
-  const next = [...lib.scenarios.values()].find((s) => s.status === "active");
+  // Manager assignments come first (spec 15.2 item 3), earliest due first; then the recommender.
+  const assignedNext = assigned.find((a) => lib.scenarios.has(a.scenarioCode));
+  const first = recommend(practiceList(lib), progress)[0];
+  const next = assignedNext ? lib.scenarios.get(assignedNext.scenarioCode) : first ? lib.scenarios.get(first.code) : undefined;
+  const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "long", month: "short", day: "numeric", timeZone: "America/New_York" });
   return (
     <div className="space-y-5">
       <div>
@@ -27,9 +34,11 @@ export default async function Today() {
       </div>
       {next && (
         <Card>
-          <p className="text-sm font-semibold uppercase tracking-wide text-muted">{t("today.recommended", lang)}</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-muted">{assignedNext ? t("today.assigned", lang, { name: assignedNext.assignedByName ?? "" }) : t("today.recommended", lang)}</p>
           <h2 className="mt-1 text-xl font-bold text-ink">{next.title[lang]}</h2>
           <p className="mt-1">{next.setting[lang]}</p>
+          {assignedNext?.reason && <p className="mt-2 rounded-xl bg-ground p-3 text-ink" data-testid="assignment-reason">“{assignedNext.reason}”</p>}
+          {assignedNext?.dueAt && <p className="mt-2 text-sm font-semibold text-ink">{t("assign.dueOn", lang, { date: fmt.format(new Date(assignedNext.dueAt)) })}</p>}
           <div className="mt-3 flex flex-wrap gap-2">
             {next.target_techniques.map((code) => {
               const tech = lib.techniques.get(code)!;
@@ -41,7 +50,10 @@ export default async function Today() {
               );
             })}
           </div>
-          <Link href={`/practice/${next.code}`} className={`${buttonClass} mt-4 w-full sm:w-auto`}>{t("today.practiceNow", lang)}</Link>
+          <div className="mt-4 flex flex-wrap items-center gap-4">
+            <Link href={`/practice/${next.code}`} className={`${buttonClass} w-full sm:w-auto`}>{t("today.practiceNow", lang)}</Link>
+            <Link href="/practice" className="font-semibold text-brand underline">{t("practice.all", lang)}</Link>
+          </div>
         </Card>
       )}
       <Card>

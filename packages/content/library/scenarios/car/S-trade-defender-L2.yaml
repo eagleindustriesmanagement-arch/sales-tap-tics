@@ -1,0 +1,187 @@
+code: S-trade-defender-L2
+module: car-core
+title:
+  en: "\"You're low on my trade\""
+  es: "\"Me está dando muy poco por mi carro\""
+setting:
+  en: Saturday, 1:30 p.m., at your desk, right after the used-car manager finished the appraisal.
+  es: Sábado, 1:30 p.m., en su escritorio, justo después de que el gerente de usados terminó la tasación.
+persona: P-trade-defender
+objection: O08
+channel: floor
+language_options: [en, es]
+difficulty: 2
+start_state: negotiation
+pre_brief:
+  en: "{name}, mid-40s contractor, wants a 2026 Silverado 1500 LT. His trade is a 2019 Silverado LT with 96,000 miles; he owes about $9,200 on it. The appraisal is $22,800: the three closest auction sales for the same truck and miles, less $1,350 for tires and a cracked windshield. Your manager has not authorized anything higher. You just showed him the number."
+  es: "{name}, contratista de unos 45 años, quiere una Silverado 1500 LT 2026. Su trade-in es una Silverado LT 2019 con 96,000 millas; debe como $9,200. La tasación es $22,800: las tres ventas de subasta más parecidas para la misma camioneta y millaje, menos $1,350 de gomas y un parabrisas rajado. Su gerente no ha autorizado nada más alto. Usted le acaba de enseñar el número."
+opening:
+  en: You're low on my trade. Way low.
+  es: Me está dando muy poco por mi camioneta. Demasiado poco.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Silverado 1500, trim: LT Crew Cab, color: Black, stock: "T2214", in_stock: true }
+  price_cents: 4795000
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4884900
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 4
+  trade:
+    vehicle: 2019 Chevrolet Silverado 1500 LT Crew Cab, 96,000 miles
+    appraisal_cents: 2280000
+    payoff_cents: 920000
+    basis: Three closest auction sales for the same truck, trim and miles in the last 30 days, less $1,350 for tires and a cracked windshield
+    conditions: []
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    online_estimate_cents: 2650000
+    online_condition_picked: excellent
+    reconditioning_cents: 135000
+numbers_sheet: true
+target_techniques: [T001, T002, T003, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: O08-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O08-ACK
+      behavior:
+        en: "Acknowledged his number without arguing or running down the truck"
+        es: "Reconoció su número sin discutir ni menospreciar la camioneta"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O08-QFIRST
+      behavior:
+        en: "Asked what number he expected and where it came from"
+        es: "Preguntó qué número esperaba y de dónde lo sacó"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O08-BASIS
+      behavior:
+        en: "Explained the real basis: the auction sales and the reconditioning cost"
+        es: "Explicó la base real: las ventas de subasta y el costo de reacondicionamiento"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "J.D. Power 2025 SSI: deal satisfaction 800 when explained versus 672"
+      technique: T029
+    - code: O08-HIDDEN
+      behavior:
+        en: "Surfaced the online estimate and the condition it assumed"
+        es: "Sacó a la luz el estimado de internet y la condición que suponía"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O08-HOLD
+      behavior:
+        en: "Held the appraisal without changing it, and kept the trade on its own line"
+        es: "Mantuvo la tasación sin cambiarla, y dejó el trade-in en su propia línea"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Kim and others 2022 (T096)"
+      technique: T096
+    - code: O08-NEXT
+      behavior:
+        en: "Set a specific day and time to go through the numbers"
+        es: "Fijó un día y una hora específicos para revisar los números"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: changed_appraisal
+      description:
+        en: "Changed the trade number without the manager's authority or a new, showable reason"
+        es: "Cambió el valor del trade-in sin autorización del gerente ni una razón nueva que se pueda enseñar"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.20, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he defended the number before asking a single question, pushed, and never learned where the customer's number came from."
+      es: "Fíjese: defendió el número sin hacer una sola pregunta, presionó y nunca supo de dónde salió el número del cliente."
+    script:
+      en:
+        - { speaker: customer, text: "You're low on my trade. Way low." }
+        - { speaker: rep, text: "No, honestly, that's a strong number for a truck with that many miles." }
+        - { speaker: customer, text: "It's way low and you know it." }
+        - { speaker: rep, text: "Look, it is what it is. The appraisal is $22,800. Do you want the new truck or not?" }
+        - { speaker: customer, text: "Not like this." }
+        - { speaker: rep, text: "Okay. Here's my card. Let me know if you change your mind." }
+        - { speaker: customer, text: "Yeah." }
+      es:
+        - { speaker: customer, text: "Me está dando muy poco por mi camioneta. Demasiado poco." }
+        - { speaker: rep, text: "No, la verdad ese es un buen número para una camioneta con tantas millas." }
+        - { speaker: customer, text: "Es muy poco y usted lo sabe." }
+        - { speaker: rep, text: "Mire, es lo que es. La tasación es $22,800. ¿Quiere la camioneta nueva o no?" }
+        - { speaker: customer, text: "Así no." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me avisa si cambia de idea." }
+        - { speaker: customer, text: "Sí." }
+  good:
+    notice:
+      en: Notice that he shows how the number was built before defending it, then asks where the customer's number came from, and never changes the appraisal.
+      es: Fíjese en que enseña cómo se armó el número antes de defenderlo, luego pregunta de dónde salió el número del cliente, y nunca cambia la tasación.
+    script:
+      en:
+        - { speaker: customer, text: "You're low on my trade. Way low." }
+        - { speaker: rep, text: "[pause] I hear you. I'd rather show you how we got there than argue about it. Help me understand: what number were you expecting?" }
+        - { speaker: customer, text: "I looked it up before I came in. Your number isn't even close." }
+        - { speaker: rep, text: "Smart to check first. Let me show you ours. Your trade-in comes in at $22,800. Here are the three closest auction sales for the same truck, trim and miles, and here's the $1,350 for tires and the cracked windshield. Nothing hidden." }
+        - { speaker: customer, text: "I know what I saw." }
+        - { speaker: rep, text: "I believe you. Where did the number you saw come from, and what condition did it ask you to pick?" }
+        - { speaker: customer, text: "One of those online sites said $26,500. I clicked excellent condition... I guess the tires and the windshield don't count as excellent." }
+        - { speaker: rep, text: "Thanks for being straight with me. Those tools are a fair place to start; they just priced a cleaner truck than yours. I won't change the number without a real reason, and I won't pretend it's higher than it is. I'll print all three sales with the trade on its own line, so you can check every one. Can we sit down today at 2:15 and go through them?" }
+        - { speaker: customer, text: "Fine. 2:15. But I'm checking every one." }
+        - { speaker: rep, text: "Please do. They'll be on my desk at 2:15." }
+      es:
+        - { speaker: customer, text: "Me está dando muy poco por mi camioneta. Demasiado poco." }
+        - { speaker: rep, text: "[pausa] Lo entiendo. Prefiero enseñarle cómo llegamos a ese número que ponernos a discutir. Ayúdeme a entender: ¿qué número esperaba usted?" }
+        - { speaker: customer, text: "Yo lo busqué antes de venir. Su número no se acerca ni de lejos." }
+        - { speaker: rep, text: "Bien hecho en averiguar primero. Déjeme enseñarle el nuestro. Su trade-in sale en $22,800. Aquí tiene las tres ventas de subasta más parecidas, misma camioneta, versión y millaje, y aquí están los $1,350 de gomas y el parabrisas rajado. Nada escondido." }
+        - { speaker: customer, text: "Yo sé lo que vi." }
+        - { speaker: rep, text: "Le creo. ¿De dónde salió el número que usted vio, y qué condición le pidió que marcara?" }
+        - { speaker: customer, text: "Una de esas páginas de internet decía $26,500. Yo marqué excelente condición... y bueno, con las gomas y el parabrisas así, excelente no está." }
+        - { speaker: rep, text: "Gracias por ser claro conmigo. Esas herramientas sirven para empezar; lo que pasa es que le pusieron precio a una camioneta más limpia que la suya. No voy a cambiar el número sin una razón real, y no le voy a decir que vale más de lo que vale. Le imprimo las tres ventas con el trade-in en su propia línea, para que las revise una por una. ¿Nos sentamos hoy a las 2:15 y las vemos juntos?" }
+        - { speaker: customer, text: "Está bien. A las 2:15. Pero las voy a revisar todas." }
+        - { speaker: rep, text: "Revíselas, por favor. Van a estar en mi escritorio a las 2:15." }
+spanish_reviewed: false

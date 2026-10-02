@@ -1,0 +1,178 @@
+code: S-email-me-L2
+module: car-phone-finance
+title:
+  en: "\"Just email me the out-the-door price\""
+  es: "\"Mándeme el precio final por email\""
+setting:
+  en: Tuesday at noon, inbound phone call about a vehicle on the store's website. She is on her break.
+  es: Martes al mediodía, llamada entrante por un vehículo de la página web de la tienda. Ella está en su descanso.
+persona: P-email-me
+objection: O41
+channel: phone
+language_options: [en, es]
+difficulty: 2
+start_state: objection
+pre_brief:
+  en: "Inbound call. {name}, early 50s, is asking about the 2026 Blazer LT in Radiant Red on the store's website. It is on the lot. The all-in price is $40,849: $39,950 plus the $899 dealer fee. Only tax, tag and title are added. She has no trade and her own bank financing. You have no consent to text her, and nothing in this deal lets you hold the car for her."
+  es: "Llamada entrante. {name}, de unos 50 años, pregunta por la Blazer LT 2026 en Radiant Red de la página web de la tienda. Está en el lote. El precio total es $40,849: $39,950 más el cargo de concesionario de $899. Solo se suman los impuestos, la placa y el título. No tiene trade-in y financia con su propio banco. No tiene permiso para mandarle textos, y nada en este negocio le permite apartarle el carro."
+opening:
+  en: Just email me the out-the-door price on the Blazer LT.
+  es: Nada más mándeme por email el precio final de la Blazer LT.
+facts:
+  session_date: "2026-10-06"
+  vehicle: { year: 2026, make: Chevrolet, model: Blazer, trim: LT, color: Radiant Red Tintcoat, stock: "5240", in_stock: true }
+  price_cents: 3995000
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4084900
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    past_experience: "last year another dealer quoted one price by phone and a higher one in person"
+    financing: "her own bank"
+numbers_sheet: false
+target_techniques: [T001, T003, T014]
+rubric: R-phone
+scoring:
+  items:
+    - code: O41-PAUSE
+      behavior:
+        en: "Paused before answering instead of rushing to get off the phone"
+        es: "Hizo una pausa antes de contestar en vez de apurarse a colgar"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O41-NOW
+      behavior:
+        en: "Said the all-in price on the call, not only in the email"
+        es: "Dijo el precio total en la llamada, no solo en el email"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "FTC pricing guidance, September 15, 2026 (T118)"
+      technique: T118
+    - code: O41-ALLIN
+      behavior:
+        en: "Every price said on the call was the all-in walk-in price, total first"
+        es: "Todo precio dicho por teléfono fue el precio total de la tienda, el total primero"
+      dimension: technique
+      method: rule
+      points: 15
+      evidence: "FTC pricing guidance, September 15, 2026 (PRICE-02)"
+      technique: T118
+      params: { rules: [PRICE-02, PRICE-05], topic: price }
+    - code: O41-WRITING
+      behavior:
+        en: "Agreed to send the same number in writing by email, and did not text without her consent"
+        es: "Aceptó mandar el mismo número por escrito por email, y no mandó textos sin su permiso"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T062); CONSENT-01"
+      technique: T062
+    - code: O41-HIDDEN
+      behavior:
+        en: "Surfaced why she wants it in writing"
+        es: "Sacó a la luz por qué lo quiere por escrito"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O41-NEXT
+      behavior:
+        en: "Booked a specific day and time she agreed to"
+        es: "Agendó un día y una hora específicos que ella aceptó"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014; two times with a reason (T063)"
+      technique: T014
+      params: { event: next_step }
+    - code: O41-CONFIRM
+      behavior:
+        en: "Confirmed the appointment with the vehicle and the same price named"
+        es: "Confirmó la cita nombrando el vehículo y el mismo precio"
+      dimension: outcome
+      method: judge
+      points: 10
+      evidence: Practitioner tradition (T076)
+      technique: T076
+  auto_fail:
+    - code: price_only_if_she_comes_in
+      description:
+        en: "Refused to give or send the price, or said the written price only counts if she comes in"
+        es: "Se negó a dar o mandar el precio, o dijo que el precio por escrito solo vale si ella viene"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 20
+time_limit_seconds: 360
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep only promised an email, would not say the number on the call, and hung up with no appointment."
+      es: "Fíjese: el vendedor solo prometió un email, no quiso decir el número en la llamada y colgó sin una cita."
+    script:
+      en:
+        - { speaker: customer, text: "Just email me the out-the-door price on the Blazer LT." }
+        - { speaker: rep, text: "Sure, what's your email? I'll send it over." }
+        - { speaker: customer, text: "Okay. And that's the real price?" }
+        - { speaker: rep, text: "It's a great price, trust me. Once you're here we'll go over everything." }
+        - { speaker: customer, text: "Hmm. Okay." }
+        - { speaker: rep, text: "Alright, it's on its way. Let me know if you have questions." }
+        - { speaker: customer, text: "Sure. Bye." }
+      es:
+        - { speaker: customer, text: "Nada más mándeme por email el precio final de la Blazer LT." }
+        - { speaker: rep, text: "Claro, ¿cuál es su email? Se lo mando." }
+        - { speaker: customer, text: "Bueno. ¿Y ese es el precio de verdad?" }
+        - { speaker: rep, text: "Es un buen precio, créame. Cuando esté aquí lo repasamos todo." }
+        - { speaker: customer, text: "Mmm. Bueno." }
+        - { speaker: rep, text: "Listo, ya va en camino. Me avisa si tiene preguntas." }
+        - { speaker: customer, text: "Está bien. Hasta luego." }
+  good:
+    notice:
+      en: Notice that the rep says the full number on the call, asks what happened before, puts the same number in writing by email, and books a time without promising anything the deal does not hold.
+      es: Fíjese en que el vendedor dice el número completo en la llamada, pregunta qué pasó antes, manda el mismo número por escrito por email, y agenda una hora sin prometer nada que el negocio no respalde.
+    script:
+      en:
+        - { speaker: customer, text: "Just email me the out-the-door price on the Blazer LT." }
+        - { speaker: rep, text: "[pause] I will. I'll also give it to you right now, so you hear it from me first. The 2026 Blazer LT is $40,849 out the door, because that is the same price anyone pays walking in. It already includes our $899 dealer fee; only tax, tag and title are added." }
+        - { speaker: customer, text: "Okay. And that's the same number I'll see when I walk in?" }
+        - { speaker: rep, text: "Yes, the same number, and you'll have it in writing. Can I ask, has a dealer ever changed the price on you when you got there?" }
+        - { speaker: customer, text: "Honestly? Last year a dealer quoted me one price on the phone, and it was a different number when I got there. That's why I want it in writing." }
+        - { speaker: rep, text: "I'm sorry that happened. You should have it in writing. I'll email you this exact number now, with the vehicle and the dealer fee listed, so you can bring it with you. Would today at 5:30 or tomorrow at 10 be better to come see it?" }
+        - { speaker: customer, text: "Tomorrow at 10. I'll bring the email." }
+        - { speaker: rep, text: "Tomorrow at 10, then. I'll have the Blazer LT up front, and the price will be the same $40,849 you have in your email." }
+      es:
+        - { speaker: customer, text: "Nada más mándeme por email el precio final de la Blazer LT." }
+        - { speaker: rep, text: "[pausa] Con gusto se lo mando. Y también se lo digo ahora mismo, para que lo oiga de mí primero. La Blazer LT 2026 está en $40,849 precio total, porque es el mismo precio que paga cualquiera que entre a la tienda. Ya incluye nuestro cargo de concesionario de $899; solo se suman los impuestos y los cargos de placa y título." }
+        - { speaker: customer, text: "Bueno. ¿Y ese es el mismo número que voy a ver cuando llegue?" }
+        - { speaker: rep, text: "Sí, el mismo número, y lo va a tener por escrito. ¿Le puedo preguntar algo? ¿Algún dealer le ha cambiado el precio cuando usted llegó?" }
+        - { speaker: customer, text: "¿La verdad? El año pasado un dealer me dio un precio por teléfono, y cuando llegué era otro número. Por eso lo quiero por escrito." }
+        - { speaker: rep, text: "Siento mucho que le haya pasado eso. Usted debe tenerlo por escrito. Ahora mismo le mando por email este mismo número, con el vehículo y el cargo de concesionario detallados, para que lo traiga. ¿Le queda mejor hoy a las 5:30 o mañana a las 10 para venir a verla?" }
+        - { speaker: customer, text: "Mañana a las 10. Voy a llevar el email." }
+        - { speaker: rep, text: "Mañana a las 10, entonces. Le tengo la Blazer LT al frente, y el precio va a ser el mismo de $40,849 que tiene en su email." }
+spanish_reviewed: false

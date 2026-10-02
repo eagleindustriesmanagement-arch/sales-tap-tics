@@ -1,0 +1,192 @@
+code: S-underwater-owner-L2
+module: car-core
+title:
+  en: "\"I'm upside down on my loan\""
+  es: "\"Estoy al revés con el préstamo\""
+setting:
+  en: Monday, 6:10 p.m., showroom floor, right after the test drive and the trade appraisal.
+  es: Lunes, 6:10 p.m., en el piso de ventas, justo después de la prueba de manejo y la tasación del trade-in.
+persona: P-underwater-owner
+objection: O02
+channel: floor
+language_options: [en, es]
+difficulty: 2
+start_state: objection
+pre_brief:
+  en: "{name}, early 30s, came in for a small SUV and loves the 2026 Trailblazer LT she just drove. Her trade is a 2022 Malibu LT with 71,000 miles; the appraisal is $14,400, from the three closest auction sales. She has not told you her payoff. Before you could show any numbers, she stopped you."
+  es: "{name}, de unos 30 y pico, vino buscando una SUV pequeña y le encantó la Trailblazer LT 2026 que acaba de manejar. Su trade-in es un Malibu LT 2022 con 71,000 millas; la tasación es $14,400, según las tres ventas de subasta más parecidas. No le ha dicho cuánto es su payoff. Antes de que usted pudiera enseñarle números, lo paró."
+opening:
+  en: Before you go any further... I'm pretty sure I'm upside down on my loan. So this probably doesn't work.
+  es: Antes de que siga... yo creo que estoy al revés con el préstamo. Así que esto seguro no funciona.
+facts:
+  session_date: "2026-10-05"
+  vehicle: { year: 2026, make: Chevrolet, model: Trailblazer, trim: LT, color: Mosaic Black Metallic, stock: "4702", in_stock: true }
+  price_cents: 2695000
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2784900
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  alternatives:
+    - { description: "2026 Chevrolet Trax LT, stock 4655", all_in_price_cents: 2398900 }
+  trade:
+    vehicle: 2022 Chevrolet Malibu LT, 71,000 miles
+    appraisal_cents: 1440000
+    payoff_cents: 2140000
+    basis: Three closest auction sales for the same car and miles in the last 30 days
+    conditions: ["Holds if the lender's payoff letter confirms $21,400"]
+  lender_state: not_applied
+  add_ons: []
+  # Estimates on the numbers sheet with the $7,000 of negative equity included and shown on its own line, subject to the lender's approval.
+  payment_options:
+    - { code: trailblazer_rolled, cents: 64900, term_months: 72, down_cents: 0 }
+    - { code: trax_rolled, cents: 59900, term_months: 72, down_cents: 0 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    current_payment_cents: 48900
+    loan_months_left: 52
+    free_after_work: Off at 6:00 on weekdays
+numbers_sheet: true
+target_techniques: [T001, T002, T003, T005, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: O02-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O02-ACK
+      behavior:
+        en: "Acknowledged it calmly, without judging the old loan"
+        es: "Lo reconoció con calma, sin juzgar el préstamo viejo"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003); Edmunds: 29.6% of new-vehicle trade-ins underwater in Q2 2026"
+      technique: T003
+    - code: O02-QFIRST
+      behavior:
+        en: "Asked about the payoff before offering any solution"
+        es: "Preguntó por el payoff antes de ofrecer cualquier solución"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O02-HIDDEN
+      behavior:
+        en: "Surfaced the real size of the negative equity"
+        es: "Sacó a la luz cuánto debe de verdad por encima del valor"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O02-CONDITION
+      behavior:
+        en: "Said the trade number holds only if the payoff letter matches"
+        es: "Dijo que el valor del trade-in se mantiene solo si la carta del payoff coincide"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Malhotra and Bazerman (T111); TRADE-02"
+      technique: T111
+    - code: O02-OPTIONS
+      behavior:
+        en: "Laid out honest options, including waiting, without hiding the negative equity in a payment"
+        es: "Presentó opciones honestas, incluyendo esperar, sin esconder lo que debe dentro de un pago"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "O02 core moves: honest options, including waiting"
+      technique: T029
+    - code: O02-NEXT
+      behavior:
+        en: "Set a specific day and time to meet with the payoff letter"
+        es: "Fijó un día y una hora específicos para reunirse con la carta del payoff"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: hid_negative_equity
+      description:
+        en: "Buried the negative equity in the payment without showing it"
+        es: "Escondió dentro del pago lo que debe de más, sin enseñarlo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed the problem off before asking a single question, never learned how far under she is, and let her leave with nothing scheduled."
+      es: "Fíjese: le restó importancia sin hacer una sola pregunta, nunca supo cuánto debe de más y la dejó ir sin nada agendado."
+    script:
+      en:
+        - { speaker: customer, text: "Before you go any further... I'm pretty sure I'm upside down on my loan. So this probably doesn't work." }
+        - { speaker: rep, text: "Don't worry about that. Everybody's upside down these days. We'll just roll it into the new loan and you drive the Trailblazer home." }
+        - { speaker: customer, text: "I don't know. That sounds like a lot." }
+        - { speaker: rep, text: "Trust me, we do this every day. Let me run your credit and see what the bank says." }
+        - { speaker: customer, text: "I'd rather not today." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me when you're ready." }
+        - { speaker: customer, text: "Sure. Thanks." }
+      es:
+        - { speaker: customer, text: "Antes de que siga... yo creo que estoy al revés con el préstamo. Así que esto seguro no funciona." }
+        - { speaker: rep, text: "No se preocupe por eso. Hoy en día todo el mundo está al revés. Lo metemos en el préstamo nuevo y usted se va en la Trailblazer." }
+        - { speaker: customer, text: "No sé. Eso me suena a mucho." }
+        - { speaker: rep, text: "Créame, esto lo hacemos todos los días. Déjeme correr su crédito a ver qué dice el banco." }
+        - { speaker: customer, text: "Prefiero que hoy no." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me llama cuando esté lista." }
+        - { speaker: customer, text: "Está bien. Gracias." }
+  good:
+    notice:
+      en: Notice the calm, no-judgment question about the payoff, the trade number stated with its condition, and the honest options, waiting included.
+      es: Fíjese en la pregunta tranquila, sin juzgar, sobre el payoff, en el valor del trade-in dicho con su condición, y en las opciones honestas, incluyendo esperar.
+    script:
+      en:
+        - { speaker: customer, text: "Before you go any further... I'm pretty sure I'm upside down on my loan. So this probably doesn't work." }
+        - { speaker: rep, text: "[pause] Thank you for telling me up front. That happens to a lot of people right now; nationally, about three in ten trade-ins are in the same spot. No judgment here. Do you have a rough idea of what you still owe on the Malibu?" }
+        - { speaker: customer, text: "I'd have to check the app. It's... more than I'd like." }
+        - { speaker: rep, text: "That's okay. Setting the loan aside for a second, is the Trailblazer the right car for you?" }
+        - { speaker: customer, text: "Yeah. I really like it. That's what makes this hard." }
+        - { speaker: rep, text: "Then let's look at it together. The appraisal on your Malibu is $14,400, from the three closest auction sales, and that number holds if your lender's payoff letter matches. Can you pull up the payoff in the app?" }
+        - { speaker: customer, text: "It says twenty-one thousand four hundred. So I owe about seven thousand more than it's worth. Honestly, I'm embarrassed I let it get this bad." }
+        - { speaker: rep, text: "Thank you for trusting me with that; there's nothing to be embarrassed about. So the difference is about $7,000, and I won't hide it inside a payment. Your honest options: cover part of it with cash down, look at the Trax, which costs less, or keep the Malibu a while and pay it down before you trade. Waiting is a real option too. Bring the payoff letter, and I'll have all three printed side by side. Can we sit down tomorrow at 6:30?" }
+        - { speaker: customer, text: "Okay. Tomorrow at 6:30. I'll call the bank for the letter in the morning." }
+        - { speaker: rep, text: "Perfect. I'll have the three options ready. See you tomorrow at 6:30." }
+      es:
+        - { speaker: customer, text: "Antes de que siga... yo creo que estoy al revés con el préstamo. Así que esto seguro no funciona." }
+        - { speaker: rep, text: "[pausa] Gracias por decírmelo de entrada. Eso le está pasando a mucha gente; a nivel nacional, como tres de cada diez trade-ins están igual. Aquí nadie la va a juzgar. ¿Tiene una idea más o menos de cuánto debe todavía del Malibu?" }
+        - { speaker: customer, text: "Tendría que mirar en la app. Es... más de lo que quisiera." }
+        - { speaker: rep, text: "No se preocupe. Dejando el préstamo a un lado un momento, ¿la Trailblazer es el carro para usted?" }
+        - { speaker: customer, text: "Sí. Me gusta mucho. Por eso es que esto me cuesta." }
+        - { speaker: rep, text: "Entonces vamos a verlo juntos. La tasación de su Malibu es $14,400, según las tres ventas de subasta más parecidas, y ese número se mantiene si la carta del payoff de su banco coincide. ¿Puede buscar el payoff en la app?" }
+        - { speaker: customer, text: "Dice veintiún mil cuatrocientos. O sea, que debo como siete mil más de lo que vale. La verdad, me da vergüenza haberlo dejado llegar a esto." }
+        - { speaker: rep, text: "Gracias por confiarme eso; no tiene por qué darle vergüenza. Entonces la diferencia es como $7,000, y no se la voy a esconder dentro de un pago. Sus opciones honestas: cubrir una parte con dinero de down, mirar la Trax, que cuesta menos, o quedarse con el Malibu un tiempo y bajar la deuda antes de cambiarlo. Esperar también es una opción real. Traiga la carta del payoff y le tengo las tres impresas lado a lado. ¿Nos sentamos mañana a las 6:30?" }
+        - { speaker: customer, text: "Está bien. Mañana a las 6:30. Llamo al banco por la mañana para lo de la carta." }
+        - { speaker: rep, text: "Perfecto. Le tengo las tres opciones listas. Nos vemos mañana a las 6:30." }
+spanish_reviewed: false

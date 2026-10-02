@@ -1,0 +1,218 @@
+code: S-no-extras-L2
+module: car-phone-finance
+title:
+  en: "\"I do not want any extras in finance\""
+  es: "\"No quiero ningún extra en financiamiento\""
+setting:
+  en: Saturday afternoon, the finance office. You are the finance manager; the deal and the approval are done.
+  es: Sábado por la tarde, en la oficina de financiamiento. Usted es el gerente de financiamiento; el negocio y la aprobación ya están hechos.
+persona: P-no-extras
+objection: O46
+channel: floor
+language_options: [en, es]
+difficulty: 2
+start_state: finance_handoff
+pre_brief:
+  en: "{name}, early 30s, agreed on a 2026 Blazer LT at $40,194 out the door plus tax, tag and title. The lender approved him with $1,000 down, 72 months. Your menu: no products, $723 a month; GAP only ($895), $738 a month; service contract ($2,495) and GAP, $781 a month. He sits down and speaks first."
+  es: "{name}, de unos 32 años, se puso de acuerdo en una Blazer LT 2026 por $40,194 precio total más impuestos, placa y título. El banco lo aprobó con $1,000 de inicial, a 72 meses. Su menú: sin productos, $723 al mes; solo GAP ($895), $738 al mes; contrato de servicio ($2,495) y GAP, $781 al mes. Se sienta y habla él primero."
+opening:
+  en: I do not want any extras in finance. No warranty, nothing.
+  es: No quiero ningún extra en financiamiento. Ni garantía, ni nada.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Blazer, trim: LT, color: Radiant Red Tintcoat, stock: "8820", in_stock: true }
+  price_cents: 3929500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4019400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: approved
+  approved_apr_bps: 699
+  add_ons:
+    - code: service_contract
+      name: { en: service contract, es: contrato de servicio }
+      cents: 249500
+      aliases:
+        en: [extended warranty, warranty]
+        es: [garantía extendida, garantía]
+    - code: gap
+      name: { en: GAP, es: GAP }
+      cents: 89500
+      aliases:
+        en: [GAP coverage, GAP insurance]
+        es: [seguro GAP, cobertura GAP]
+  payment_options:
+    - { code: no_products, cents: 72300, term_months: 72, apr_bps: 699, down_cents: 100000 }
+    - { code: gap_only, cents: 73800, term_months: 72, apr_bps: 699, down_cents: 100000, includes_add_ons: [gap] }
+    - { code: service_contract_and_gap, cents: 78100, term_months: 72, apr_bps: 699, down_cents: 100000, includes_add_ons: [service_contract, gap] }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    last_warranty_cents: 280000
+    down_payment_cents: 100000
+numbers_sheet: true
+target_techniques: [T001, T002, T003, T005, T014]
+rubric: R-finance
+# Spec 10.5 and 13.3 (R-finance). The scenario table defines the total; universal items still run for coaching.
+scoring:
+  items:
+    - code: O46-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O46-ACK
+      behavior:
+        en: "Accepted his no and promised nothing goes in without his yes"
+        es: "Aceptó su no y le aseguró que no entra nada sin que él diga que sí"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "O46 core move; Florida s. 634.121 notice (T051)"
+      technique: T051
+    - code: O46-QFIRST
+      behavior:
+        en: "Asked what happened before presenting any product"
+        es: "Preguntó qué le pasó antes de presentar cualquier producto"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O46-MENU
+      behavior:
+        en: "Showed the payment with and without the products, each one labeled"
+        es: "Mostró el pago con los productos y sin ellos, cada uno identificado"
+      dimension: technique
+      method: rule
+      points: 20
+      evidence: Credit Acceptance consent decree (T121)
+      technique: T121
+      params: { rules: [PAY-02, PAY-01, PAY-03], topic: add_on }
+    - code: O46-NOREQ
+      behavior:
+        en: "Called no product required for approval, rate or delivery"
+        es: "No presentó ningún producto como requisito para la aprobación, la tasa o la entrega"
+      dimension: technique
+      method: rule
+      points: 10
+      evidence: Florida s. 634.121; FTC guidance
+      technique: T051
+      params: { rules: [ADD-01], topic: add_on }
+    - code: O46-SC
+      behavior:
+        en: "Described the service contract as optional and cancellable, with the 60-day refund"
+        es: "Presentó el contrato de servicio como opcional y cancelable, con el reembolso de 60 días"
+      dimension: technique
+      method: rule
+      points: 10
+      evidence: Florida s. 634.121
+      technique: T074
+      params: { rules: [ADD-04], topic: add_on }
+    - code: O46-HIDDEN
+      behavior:
+        en: "Surfaced the warranty slipped into his last payment and his interest in GAP"
+        es: "Sacó a la luz la garantía que le metieron en el pago anterior y su interés en el GAP"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O46-NEXT
+      behavior:
+        en: "Set a specific delivery time he agreed to"
+        es: "Fijó una hora de entrega específica que él aceptó"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: prejudged_product
+      description:
+        en: "Pre-judged a product for him (\"you'll want it\", \"most people take it\") after he said no"
+        es: "Decidió por él sobre un producto (\"usted lo va a querer\", \"casi todos lo llevan\") después de que dijo que no"
+      method: judge
+    - code: misdescribed_add_on
+      description:
+        en: "Called a product required, impossible to remove, or free"
+        es: "Dijo que un producto era obligatorio, imposible de quitar o gratis"
+      method: rule_family
+      rule_families: [add_ons]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, or hid a product inside a payment"
+        es: "Dijo un número que no es real, o escondió un producto dentro de un pago"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the finance manager pre-judged the service contract, showed only the payment with both products, never said they were optional or cancellable, and never asked why he said no."
+      es: "Fíjese: el gerente de financiamiento decidió por él sobre el contrato de servicio, solo enseñó el pago con los dos productos, nunca dijo que eran opcionales ni cancelables, y nunca preguntó por qué dijo que no."
+    script:
+      en:
+        - { speaker: customer, text: "I do not want any extras in finance. No warranty, nothing." }
+        - { speaker: rep, text: "These are our protection products. Most of my customers take the service contract, and it gives you real peace of mind." }
+        - { speaker: customer, text: "I said no extras." }
+        - { speaker: rep, text: "I hear you, but your payment with the service contract and GAP is $781 a month. It's only $58 more, and you'll be glad you have it." }
+        - { speaker: customer, text: "No. Take it all out." }
+        - { speaker: rep, text: "Fine, I'll print it without them. Sign here and here." }
+        - { speaker: customer, text: "Okay." }
+      es:
+        - { speaker: customer, text: "No quiero ningún extra en financiamiento. Ni garantía, ni nada." }
+        - { speaker: rep, text: "Estos son nuestros productos de protección. La mayoría de mis clientes se llevan el contrato de servicio, y le da mucha tranquilidad." }
+        - { speaker: customer, text: "Le dije que sin extras." }
+        - { speaker: rep, text: "Lo entiendo, pero su pago con el contrato de servicio y GAP es $781 al mes. Son solo $58 más, y se va a alegrar de tenerlo." }
+        - { speaker: customer, text: "No. Quíteme todo eso." }
+        - { speaker: rep, text: "Está bien, se lo imprimo sin eso. Firme aquí y aquí." }
+        - { speaker: customer, text: "Está bien." }
+  good:
+    notice:
+      en: Notice the promise that nothing goes in without his yes, the question about last time before any product, and the menu where every payment says what it includes.
+      es: Fíjese en la promesa de que no entra nada sin que él diga que sí, en la pregunta sobre la última vez antes de cualquier producto, y en el menú donde cada pago dice lo que incluye.
+    script:
+      en:
+        - { speaker: customer, text: "I do not want any extras in finance. No warranty, nothing." }
+        - { speaker: rep, text: "[pause] Understood, and that is your decision. Nothing is added to your contract without your yes. Can I ask what happened last time that makes you say that?" }
+        - { speaker: customer, text: "Let's just say I've been burned before." }
+        - { speaker: rep, text: "I'm sorry. Did something get added to your payment without anyone explaining it?" }
+        - { speaker: customer, text: "Yes. On my last car a $2,800 warranty ended up in my payment, and nobody asked me. But I'm only putting $1,000 down, so I've wondered about GAP." }
+        - { speaker: rep, text: "Then let me show you everything side by side, and you choose. With the service contract and GAP, $781 a month. With GAP only, $738 a month. Without any products, $723 a month. Each product is optional, and neither one affects your approval or your rate." }
+        - { speaker: customer, text: "And what is each one?" }
+        - { speaker: rep, text: "The service contract is $2,495. It is optional. If you take it, you can cancel it: within the first 60 days for a full refund, less any claims paid and an administrative fee of up to 5%, and after that for a prorated refund. GAP is $895. It covers the difference between what you still owe and what your insurance pays if the car is totaled or stolen, and with $1,000 down that difference can be real." }
+        - { speaker: customer, text: "GAP only, then. Nothing else." }
+        - { speaker: rep, text: "GAP only: $738 a month for 72 months, the same term as without it. I'll print the contract with GAP only, and we'll go over every line before you sign. Your Blazer will be ready for delivery today at 4:30. Does that work?" }
+        - { speaker: customer, text: "Today at 4:30 works." }
+      es:
+        - { speaker: customer, text: "No quiero ningún extra en financiamiento. Ni garantía, ni nada." }
+        - { speaker: rep, text: "[pausa] Entendido, y eso lo decide usted. No se agrega nada a su contrato sin que usted diga que sí. ¿Le puedo preguntar qué le pasó la última vez para que me diga eso?" }
+        - { speaker: customer, text: "Digamos que ya me quemaron una vez." }
+        - { speaker: rep, text: "Lo siento. ¿Algo terminó en su pago sin que nadie se lo explicara?" }
+        - { speaker: customer, text: "Sí. En mi último carro me metieron una garantía de $2,800 en el pago y nadie me preguntó. Pero solo estoy dando $1,000 de inicial, así que he pensado en el GAP." }
+        - { speaker: rep, text: "Entonces le enseño todo lado a lado, y usted escoge. Con el contrato de servicio y GAP, $781 al mes. Con GAP solamente, $738 al mes. Sin ningún producto, $723 al mes. Cada producto es opcional, y ninguno de los dos afecta su aprobación ni su tasa." }
+        - { speaker: customer, text: "¿Y qué es cada uno?" }
+        - { speaker: rep, text: "El contrato de servicio cuesta $2,495. Es opcional. Si lo toma, lo puede cancelar: dentro de los primeros 60 días le devuelven todo, menos los reclamos pagados y un cargo administrativo de hasta 5%, y después, la parte proporcional. El GAP cuesta $895. Cubre la diferencia entre lo que usted todavía debe y lo que paga el seguro si el carro es pérdida total o se lo roban, y con $1,000 de inicial esa diferencia puede ser real." }
+        - { speaker: customer, text: "Entonces solo el GAP. Nada más." }
+        - { speaker: rep, text: "Solo el GAP: $738 al mes a 72 meses, el mismo plazo que sin él. Le imprimo el contrato con el GAP solamente, y repasamos cada línea antes de que firme. Su Blazer va a estar lista para la entrega hoy a las 4:30. ¿Le funciona?" }
+        - { speaker: customer, text: "Hoy a las cuatro y media me funciona." }
+spanish_reviewed: false

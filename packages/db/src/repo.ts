@@ -122,6 +122,13 @@ export interface SessionResultRow {
 /** Writes everything a finished session produced (spec 5.2 items 7 and 8). Scores are immutable once written. */
 export async function saveSessionResult(db: Queryable, tenantId: string, sessionId: string, r: SessionResultRow) {
   await db.query("update sessions set ended_at = now(), end_reason = $2 where id = $1 and ended_at is null", [sessionId, r.endReason]);
+  // Practicing an assigned scenario completes the assignment (spec 14.5 item 4).
+  await db.query(
+    `update assignments a set completed_at = now()
+     from sessions s where s.id = $1 and a.user_id = s.user_id and a.scenario_code = s.scenario_code
+       and a.completed_at is null and a.created_at <= s.started_at`,
+    [sessionId],
+  );
   for (const e of r.events) {
     await db.query("insert into scenario_state_events (tenant_id, session_id, turn_index, event, detail) values ($1, $2, $3, $4, $5)", [tenantId, sessionId, e.turnIndex, e.event, JSON.stringify(e.detail)]);
   }
@@ -172,6 +179,19 @@ export async function listSessions(db: Queryable, opts: { userId?: string; limit
     [opts.userId ?? null, opts.limit ?? 50],
   );
   return r.rows.map((x) => ({ id: x.id, userId: x.user_id, scenarioCode: x.scenario_code, language: x.language, mode: x.mode, startedAt: x.started_at, endedAt: x.ended_at, endReason: x.end_reason, total: x.total, passed: x.passed, partial: x.partial, privateUntil: x.private_until }));
+}
+
+/** Per-scenario progress for one user: attempts, best complete score, whether any attempt passed, last attempt. */
+export async function scenarioProgress(db: Queryable, userId: string) {
+  const r = await db.query(
+    `select s.scenario_code, count(*)::int attempts,
+            max(sc.total) filter (where not coalesce((sc.dimensions->>'partial')::boolean, false)) best,
+            coalesce(bool_or(sc.passed), false) passed, max(s.started_at) last_at
+     from sessions s left join scores sc on sc.session_id = s.id
+     where s.user_id = $1 group by s.scenario_code`,
+    [userId],
+  );
+  return new Map(r.rows.map((x) => [x.scenario_code as string, { attempts: x.attempts as number, best: x.best === null ? null : Number(x.best), passed: x.passed as boolean, lastAt: x.last_at as Date | null }]));
 }
 
 /** A session with its transcript and debrief. Reading someone else's session is audit-logged (spec 3.3 rule 5). */
@@ -440,4 +460,62 @@ export async function complianceFlags(db: Queryable, limit = 30) {
     [limit],
   );
   return { byRule: byRule.rows, byRep: byRep.rows, recent: recent.rows };
+}
+
+// ---------------------------------------------------------------- assignments (spec 14.5 item 4)
+
+export interface Assignment {
+  id: string;
+  userId: string;
+  firstName: string | null;
+  scenarioCode: string;
+  assignedBy: string;
+  assignedByName: string | null;
+  dueAt: Date | null;
+  reason: string;
+  completedAt: Date | null;
+  createdAt: Date;
+}
+
+const ASSIGNMENT_COLUMNS = `a.id, a.user_id, u.first_name, a.scenario_code, a.assigned_by, app.colleague_first_name(a.assigned_by) as assigned_by_name, a.due_at, a.reason, a.completed_at, a.created_at`;
+const toAssignment = (x: Record<string, unknown>): Assignment => ({
+  id: x.id as string, userId: x.user_id as string, firstName: x.first_name as string | null, scenarioCode: x.scenario_code as string,
+  assignedBy: x.assigned_by as string, assignedByName: x.assigned_by_name as string | null, dueAt: x.due_at as Date | null,
+  reason: x.reason as string, completedAt: x.completed_at as Date | null, createdAt: x.created_at as Date,
+});
+
+/** A manager assigns one scenario to several reps. Row-level security refuses reps outside the manager's scope. */
+export async function createAssignments(db: Queryable, manager: UserContext, input: { userIds: string[]; scenarioCode: string; dueAt: Date | null; reason: string }): Promise<string[]> {
+  if (!isManager(manager)) throw new Error("only a manager assigns practice");
+  const ids: string[] = [];
+  for (const userId of [...new Set(input.userIds)]) {
+    const r = await db.query(
+      "insert into assignments (tenant_id, user_id, scenario_code, assigned_by, due_at, reason) values ($1, $2, $3, $4, $5, $6) returning id",
+      [manager.tenantId, userId, input.scenarioCode, manager.id, input.dueAt, input.reason],
+    );
+    ids.push(r.rows[0].id);
+  }
+  return ids;
+}
+
+/** Assignments the viewer can see: their own, or their team's for a manager. Open ones first, by due date. */
+export async function listAssignments(db: Queryable, opts: { userId?: string; open?: boolean; limit?: number } = {}): Promise<Assignment[]> {
+  const r = await db.query(
+    `select ${ASSIGNMENT_COLUMNS}
+     from assignments a left join users u on u.id = a.user_id
+     where ($1::uuid is null or a.user_id = $1) and (not $2 or a.completed_at is null) and a.scenario_code is not null
+     order by a.completed_at is not null, a.due_at nulls last, a.created_at desc limit $3`,
+    [opts.userId ?? null, opts.open ?? false, opts.limit ?? 100],
+  );
+  return r.rows.map(toAssignment);
+}
+
+/** Reps the manager can assign to, by first name. */
+export async function assignableReps(db: Queryable, manager: UserContext): Promise<{ id: string; firstName: string | null }[]> {
+  const r = await db.query(
+    `select distinct u.id, u.first_name from users u join memberships m on m.user_id = u.id and m.role in ('rep', 'bdc_agent')
+     where u.id <> $1 and app.can_view_user(u.id) order by u.first_name`,
+    [manager.id],
+  );
+  return r.rows.map((x) => ({ id: x.id, firstName: x.first_name }));
 }

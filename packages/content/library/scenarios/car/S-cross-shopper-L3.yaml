@@ -1,0 +1,181 @@
+code: S-cross-shopper-L3
+module: car-core
+title:
+  en: "\"Another dealer is cheaper\""
+  es: "\"En otro dealer me lo dejan más barato\""
+setting:
+  en: Monday evening, at your desk. She has a printed quote from another Chevrolet dealer on the table.
+  es: Lunes por la tarde, en su escritorio. Ella tiene sobre la mesa una cotización impresa de otro dealer de Chevrolet.
+persona: P-cross-shopper
+objection: O10
+channel: floor
+language_options: [en, es]
+difficulty: 3
+start_state: objection
+pre_brief:
+  en: "{name}, early 30s, biomedical engineer, wants a 2026 Equinox RS for her commute. No trade; she is financing through her credit union. Your numbers sheet shows $32,849 out the door, which includes your $899 dealer fee; only tax, tag and title are added. Your manager has no room on this unit. She brought a printed quote from another dealer."
+  es: "{name}, de unos 32 años, ingeniera biomédica, quiere una Equinox RS 2026 para ir al trabajo. No tiene trade-in; financia con su cooperativa de crédito. Su hoja de números dice $32,849 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Su gerente no tiene margen en esta unidad. Ella trajo una cotización impresa de otro dealer."
+opening:
+  en: Another dealer quoted me $31,995 on the same Equinox. Why would I pay more here?
+  es: En otro dealer me cotizaron la misma Equinox en $31,995. ¿Por qué voy a pagar más aquí?
+facts:
+  session_date: "2026-10-05"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: RS AWD, color: Radiant Red Tintcoat, stock: "5207", in_stock: true }
+  price_cents: 3195000
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3284900
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    other_quote_cents: 3199500
+    other_quote_fine_print: Plus dealer fees (amount not stated)
+    other_quote_vehicle: 2026 Equinox RS AWD, same color
+numbers_sheet: true
+target_techniques: [T001, T002, T003, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O10-L3-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O10-L3-ACK
+      behavior:
+        en: "Acknowledged the other quote without arguing or running down the other dealer"
+        es: "Reconoció la otra cotización sin discutir ni hablar mal del otro dealer"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O10-L3-OTD
+      behavior:
+        en: "Moved the comparison to out-the-door, same vehicle and equipment"
+        es: "Llevó la comparación al precio total, mismo vehículo y mismo equipo"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Practitioner tradition (T028, T086)"
+      technique: T086
+    - code: O10-L3-QUOTE
+      behavior:
+        en: "Asked what the other quote includes before defending the price"
+        es: "Preguntó qué incluye la otra cotización antes de defender el precio"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0% (T002)"
+      technique: T002
+    - code: O10-L3-HONEST
+      behavior:
+        en: "Gave our all-in price with the fee already in, and claimed nothing about the other dealer that the customer had not shown"
+        es: "Dio nuestro precio total con el cargo ya incluido, y no afirmó nada del otro dealer que la clienta no hubiera mostrado"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "FTC pricing guidance, September 15, 2026 (T028)"
+      technique: T028
+    - code: O10-L3-HIDDEN
+      behavior:
+        en: "Surfaced that the other quote leaves out fees"
+        es: "Sacó a la luz que la otra cotización deja fuera los cargos"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O10-L3-NEXT
+      behavior:
+        en: "Set a specific day and time to compare both out-the-door numbers in writing"
+        es: "Fijó un día y una hora específicos para comparar los dos precios totales por escrito"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: disparaged_other_dealer
+      description:
+        en: "Ran down the other dealer or called their quote fake without proof"
+        es: "Habló mal del otro dealer o dijo que su cotización era falsa sin pruebas"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, matched a price without authority, or left the fee out of our price"
+        es: "Dijo un número que no es real, igualó un precio sin autorización o dejó el cargo fuera de nuestro precio"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, authority]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he argued before asking a single question, ran down the other dealer, and never asked what their quote included."
+      es: "Fíjese: discutió antes de hacer una sola pregunta, habló mal del otro dealer y nunca preguntó qué incluía la cotización."
+    script:
+      en:
+        - { speaker: customer, text: "Another dealer quoted me $31,995 on the same Equinox. Why would I pay more here?" }
+        - { speaker: rep, text: "That can't be right. Nobody sells this Equinox for that. Ours is $32,849, and it's a fair price." }
+        - { speaker: customer, text: "I can read. Theirs is lower." }
+        - { speaker: rep, text: "Look, if you want the cheapest number in town, go there. You get what you pay for." }
+        - { speaker: customer, text: "Then maybe I will." }
+        - { speaker: rep, text: "Okay. Here's my card. Let me know if they don't come through." }
+        - { speaker: customer, text: "Sure. Bye." }
+      es:
+        - { speaker: customer, text: "En otro dealer me cotizaron la misma Equinox en $31,995. ¿Por qué voy a pagar más aquí?" }
+        - { speaker: rep, text: "Eso no puede ser. Nadie vende esta Equinox en eso. La nuestra está en $32,849, y es un precio justo." }
+        - { speaker: customer, text: "Yo sé leer. El de ellos es más bajo." }
+        - { speaker: rep, text: "Mire, si lo que quiere es el número más barato del pueblo, váyase para allá. Lo barato sale caro." }
+        - { speaker: customer, text: "Entonces a lo mejor me voy." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me avisa si no le cumplen." }
+        - { speaker: customer, text: "Sí. Adiós." }
+  good:
+    notice:
+      en: "Notice that he never argues with her number. He puts both on the same out-the-door basis and asks what hers includes."
+      es: "Fíjese en que nunca le discute el número. Pone los dos sobre la misma base, precio total, y pregunta qué incluye el de ella."
+    script:
+      en:
+        - { speaker: customer, text: "Another dealer quoted me $31,995 on the same Equinox. Why would I pay more here?" }
+        - { speaker: rep, text: "[pause] That's a fair question, and you should ask it. Let's compare them side by side, same Equinox, out the door. Ours is $32,849 out the door because it already includes our $899 dealer fee; only tax, tag and title are added." }
+        - { speaker: customer, text: "I can read. Theirs is lower." }
+        - { speaker: rep, text: "It might be. They quoted you $31,995. Does that include their dealer fees, or is it just the vehicle? What does the quote say at the bottom?" }
+        - { speaker: customer, text: "There's a line at the bottom in small print. I figured it was standard." }
+        - { speaker: rep, text: "What does that line say? If it's their fees, we'd want them in their number before we compare." }
+        - { speaker: customer, text: "It says plus dealer fees. I never asked how much. So the $31,995 isn't really the whole price." }
+        - { speaker: rep, text: "Thanks for checking. Then here's the fair way to settle it. Ask them for their out-the-door number in writing, same Equinox RS, everything but tax, tag and title. Ours is $32,849 out the door, on that same basis. Bring both sheets tomorrow at 6:00, we'll go line by line, and you decide. Does tomorrow at 6:00 work?" }
+        - { speaker: customer, text: "That works. I'll bring both sheets." }
+      es:
+        - { speaker: customer, text: "En otro dealer me cotizaron la misma Equinox en $31,995. ¿Por qué voy a pagar más aquí?" }
+        - { speaker: rep, text: "[pausa] Es una pregunta justa, y hace bien en hacerla. Vamos a compararlas lado a lado, la misma Equinox, con todo. La nuestra está en $32,849 con todo, porque ya incluye nuestro cargo del dealer de $899; solo se suman impuestos, placa y título." }
+        - { speaker: customer, text: "Yo sé leer. El de ellos es más bajo." }
+        - { speaker: rep, text: "Puede ser. Le cotizaron $31,995. ¿Eso incluye los cargos del dealer de ellos, o es solo el carro? ¿Qué dice la cotización abajo?" }
+        - { speaker: customer, text: "Hay una línea abajo en letra chiquita. Pensé que era lo normal." }
+        - { speaker: rep, text: "¿Qué dice esa línea? Si son cargos de ellos, hay que sumárselos a su número antes de comparar." }
+        - { speaker: customer, text: "Dice más cargos del dealer. Nunca pregunté cuánto. Así que los $31,995 no son el precio completo." }
+        - { speaker: rep, text: "Gracias por revisarlo. Entonces, la manera justa de resolverlo: pídales el precio total por escrito, la misma Equinox RS, todo menos impuestos, placa y título. La nuestra está en $32,849 con todo, sobre esa misma base. Traiga las dos hojas mañana a las 6:00, las revisamos línea por línea, y usted decide. ¿Le funciona mañana a las 6:00?" }
+        - { speaker: customer, text: "Me funciona. Traigo las dos hojas." }
+spanish_reviewed: false

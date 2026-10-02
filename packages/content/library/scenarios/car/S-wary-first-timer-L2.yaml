@@ -1,0 +1,196 @@
+code: S-wary-first-timer-L2
+module: car-market-2026
+title:
+  en: "\"I did not ask for that add-on\""
+  es: "\"Yo no pedí eso\""
+setting:
+  en: Saturday afternoon, at the sales desk, while he reads the worksheet line by line.
+  es: Sábado por la tarde, en la mesa de ventas, mientras él lee la hoja de números línea por línea.
+persona: P-wary-first-timer
+objection: O20
+channel: floor
+language_options: [en, es]
+difficulty: 2
+start_state: objection
+pre_brief:
+  en: "{name}, early 20s, is buying his first car on his own: a 2026 Trax LT, $25,394 out the door plus tax, tag and title, with $2,500 down. The worksheet also shows nitrogen and wheel locks for $395, a dealer accessory that has not been installed yet. Estimated payment: $433 a month without it, $440 with it, 72 months."
+  es: "{name}, de unos 22 años, está comprando su primer carro por su cuenta: una Trax LT 2026, $25,394 precio total más impuestos, placa y título, con $2,500 de inicial. La hoja también trae nitrógeno y tuercas de seguridad por $395, un accesorio del concesionario que todavía no se ha instalado. Pago estimado: $433 al mes sin eso, $440 con eso, a 72 meses."
+opening:
+  en: I did not ask for that add-on. What is this $395 for nitrogen and wheel locks?
+  es: Yo no pedí eso. ¿Qué son estos $395 de nitrógeno y tuercas de seguridad?
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: LT, color: Mosaic Black Metallic, stock: "7342", in_stock: true }
+  price_cents: 2449500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2539400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 4
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    - code: nitrogen_wheel_locks
+      name: { en: nitrogen and wheel locks, es: nitrógeno y tuercas de seguridad }
+      cents: 39500
+      preinstalled: false
+      aliases:
+        en: [nitrogen, wheel locks]
+        es: [nitrógeno, tuercas de seguridad]
+  payment_options:
+    - { code: without_accessory, cents: 43300, term_months: 72, down_cents: 250000 }
+    - { code: with_accessory, cents: 44000, term_months: 72, down_cents: 250000, includes_add_ons: [nitrogen_wheel_locks] }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    down_payment_cents: 250000
+    first_car: true
+numbers_sheet: true
+target_techniques: [T001, T002, T003, T005, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O20-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O20-ACK
+      behavior:
+        en: "Treated the question as fair, without defending the item"
+        es: "Trató la pregunta como justa, sin defender el producto"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O20-QFIRST
+      behavior:
+        en: "Asked what worried him before explaining or removing anything"
+        es: "Preguntó qué le preocupaba antes de explicar o quitar nada"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O20-OPTIONAL
+      behavior:
+        en: "Said plainly the item is optional and took it off"
+        es: "Dijo claramente que el producto es opcional y lo quitó"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "FTC pricing guidance, September 15, 2026; O20 core move"
+      technique: T120
+    - code: O20-MENU
+      behavior:
+        en: "Showed the payment with and without the item, each one labeled"
+        es: "Mostró el pago con el producto y sin él, cada uno identificado"
+      dimension: technique
+      method: rule
+      points: 15
+      evidence: Credit Acceptance consent decree (T121)
+      technique: T121
+      params: { rules: [PAY-02, PAY-01], topic: add_on }
+    - code: O20-HIDDEN
+      behavior:
+        en: "Surfaced his fear of being packed like his friend"
+        es: "Sacó a la luz su miedo a que le metan extras como a su amiga"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O20-NEXT
+      behavior:
+        en: "Set a specific time to go over the clean sheet"
+        es: "Fijó una hora específica para repasar la hoja limpia"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: pushed_the_add_on
+      description:
+        en: "Defended the item as needed, or kept it on the deal after he said no"
+        es: "Defendió el producto como necesario, o lo dejó en el negocio después de que él dijo que no"
+      method: judge
+    - code: misdescribed_add_on
+      description:
+        en: "Called the item required, impossible to remove, or free"
+        es: "Dijo que el producto era obligatorio, imposible de quitar o gratis"
+      method: rule_family
+      rule_families: [add_ons]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep defended the item instead of asking why it bothered him, never said it was optional, showed only the payment with it, and let him walk."
+      es: "Fíjese: el vendedor defendió el producto en vez de preguntar por qué le molestaba, nunca dijo que era opcional, solo enseñó el pago con el producto y lo dejó irse."
+    script:
+      en:
+        - { speaker: customer, text: "I did not ask for that add-on. What is this $395 for nitrogen and wheel locks?" }
+        - { speaker: rep, text: "That's our nitrogen and wheel locks. It's only $395, and it's worth it. Nitrogen keeps your tire pressure steady, and the locks protect your wheels." }
+        - { speaker: customer, text: "I still didn't ask for it." }
+        - { speaker: rep, text: "I get it, but most people keep it. Your payment is $440 a month with the nitrogen and wheel locks, so let's get the paperwork going." }
+        - { speaker: customer, text: "I'm not comfortable with this. I'm going to look somewhere else." }
+        - { speaker: rep, text: "Okay. Here's my card if you change your mind." }
+        - { speaker: customer, text: "Thanks." }
+      es:
+        - { speaker: customer, text: "Yo no pedí eso. ¿Qué son estos $395 de nitrógeno y tuercas de seguridad?" }
+        - { speaker: rep, text: "Eso es el nitrógeno y las tuercas de seguridad. Son nada más $395, y valen la pena. El nitrógeno mantiene la presión de las gomas pareja, y las tuercas le protegen los rines." }
+        - { speaker: customer, text: "Igual yo no lo pedí." }
+        - { speaker: rep, text: "Lo entiendo, pero la mayoría de la gente se lo deja. Su pago es $440 al mes con el nitrógeno y las tuercas de seguridad, así que vamos a ir adelantando los papeles." }
+        - { speaker: customer, text: "No me siento cómodo con esto. Voy a mirar en otro lado." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta por si cambia de idea." }
+        - { speaker: customer, text: "Gracias." }
+  good:
+    notice:
+      en: Notice that the rep says "optional" in the first answer, asks what worries him before removing anything, and shows both payments, each one labeled.
+      es: Fíjese en que el vendedor dice "opcional" en la primera respuesta, pregunta qué le preocupa antes de quitar nada, y enseña los dos pagos, cada uno identificado.
+    script:
+      en:
+        - { speaker: customer, text: "I did not ask for that add-on. What is this $395 for nitrogen and wheel locks?" }
+        - { speaker: rep, text: "[pause] Good question, and thank you for asking before you sign anything. The nitrogen and wheel locks are optional, and they come off if you don't want them. Before I take them off, can I ask what worries you about seeing them on the sheet?" }
+        - { speaker: customer, text: "I've heard stories about first-time buyers." }
+        - { speaker: rep, text: "Has something like that happened to you, or to someone you know?" }
+        - { speaker: customer, text: "Honestly? My friend bought her first car last year and found out months later she was paying for extras she never said yes to. I don't want that to be me." }
+        - { speaker: rep, text: "I'm sorry that happened to her, and you're right to watch for it. Here is how it works with me: nothing goes on your deal without your yes. The price is $25,394 out the door, plus tax, tag and title. With the nitrogen and wheel locks, your payment would be $440 a month; without them, $433. They're optional, so I'm taking them off." }
+        - { speaker: customer, text: "Okay. That actually makes me feel better." }
+        - { speaker: rep, text: "I'll print a new sheet without them so you can read every line before you sign. Can we sit down together today at 3:30 to go over it?" }
+        - { speaker: customer, text: "Today at 3:30 works." }
+      es:
+        - { speaker: customer, text: "Yo no pedí eso. ¿Qué son estos $395 de nitrógeno y tuercas de seguridad?" }
+        - { speaker: rep, text: "[pausa] Buena pregunta, y gracias por preguntar antes de firmar nada. El nitrógeno y las tuercas de seguridad son opcionales, y se quitan si usted no los quiere. Antes de quitarlos, ¿le puedo preguntar qué le preocupa de verlos en la hoja?" }
+        - { speaker: customer, text: "He oído cuentos de gente que compra su primer carro." }
+        - { speaker: rep, text: "¿Le ha pasado algo así a usted, o a alguien que usted conoce?" }
+        - { speaker: customer, text: "¿La verdad? Mi amiga compró su primer carro el año pasado y se enteró meses después que estaba pagando extras que ella nunca aceptó. No quiero que me pase lo mismo." }
+        - { speaker: rep, text: "Siento mucho que le haya pasado eso a ella, y hace bien en cuidarse. Conmigo funciona así: no se agrega nada a su negocio sin que usted diga que sí. El precio total es $25,394, más impuestos, placa y título. Con el nitrógeno y las tuercas de seguridad, su pago sería $440 al mes; sin eso, $433. Son opcionales, así que se los quito." }
+        - { speaker: customer, text: "Está bien. Eso me tranquiliza." }
+        - { speaker: rep, text: "Le imprimo una hoja nueva sin eso para que lea cada línea antes de firmar. ¿Nos sentamos juntos hoy a las 3:30 para revisarla?" }
+        - { speaker: customer, text: "Hoy a las tres y media me funciona." }
+spanish_reviewed: false

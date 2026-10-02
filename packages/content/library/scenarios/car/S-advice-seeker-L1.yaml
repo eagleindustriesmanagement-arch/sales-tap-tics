@@ -1,0 +1,179 @@
+code: S-advice-seeker-L1
+module: car-miami-indecision
+title:
+  en: "\"What would you do if you were me?\""
+  es: "\"¿Usted qué haría si fuera yo?\""
+setting:
+  en: Monday evening, showroom floor, after she has driven both the Trax and the Equinox.
+  es: Lunes por la tarde, en el piso de ventas, después de que manejó la Trax y la Equinox.
+persona: P-advice-seeker
+objection: O58
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-50s, has a paid-off 2012 Corolla and good credit. She drove the 2026 Trax 2RS and the 2026 Equinox LT tonight. You showed her both all-in prices: $24,994 for the Trax and $32,794 for the Equinox, plus tax, tag and title. She turns to you with a question."
+  es: "{name}, de unos 55 años, tiene un Corolla 2012 pagado y buen crédito. Esta noche manejó la Trax 2RS 2026 y la Equinox LT 2026. Usted le enseñó los dos precios totales: $24,994 la Trax y $32,794 la Equinox, más impuestos, tag y título. Ella se voltea y le hace una pregunta."
+opening:
+  en: What would you do if you were me?
+  es: ¿Usted qué haría si fuera yo?
+facts:
+  session_date: "2026-10-05"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: LT, color: Sterling Gray Metallic, stock: "5208", in_stock: true }
+  price_cents: 3189500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3279400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 4
+  alternatives:
+    - { description: "2026 Chevrolet Trax 2RS, Mosaic Black Metallic, stock 5311", all_in_price_cents: 2499400 }
+  trade: { vehicle: 2012 Toyota Corolla LE, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    mother_wheelchair: Her mother uses a folding wheelchair and goes to dialysis Monday, Wednesday and Friday
+    free_saturday: Free Saturday morning
+numbers_sheet: false
+target_techniques: [T001, T002, T092, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O58-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O58-QFIRST
+      behavior:
+        en: "Asked about her real daily use before giving advice"
+        es: "Preguntó cómo va a usar el carro de verdad antes de dar un consejo"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O58-HIDDEN
+      behavior:
+        en: "Surfaced that her mother's wheelchair has to fit in the back"
+        es: "Sacó a la luz que la silla de ruedas de su mamá tiene que caber atrás"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O58-RECOMMEND
+      behavior:
+        en: "Gave one clear recommendation with a reason tied to what she said"
+        es: "Dio una recomendación clara con una razón basada en lo que ella dijo"
+      dimension: technique
+      method: judge
+      points: 25
+      evidence: "The JOLT Effect (T092)"
+      technique: T092
+    - code: O58-LIMIT
+      behavior:
+        en: "Kept the choice to the two vehicles she was already weighing"
+        es: "Mantuvo la decisión entre los dos carros que ella ya estaba comparando"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Choice overload meta-analysis (T093)"
+      technique: T093
+    - code: O58-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: claimed_unchecked_fit
+      description:
+        en: "Promised the wheelchair fits without checking it"
+        es: "Aseguró que la silla de ruedas cabe sin haberlo comprobado"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he answered before asking a single question, gave no reason, added two more cars to an already hard choice, and pushed for today."
+      es: "Fíjese: contestó sin hacer una sola pregunta, no dio ninguna razón, le agregó dos carros más a una decisión que ya era difícil, y presionó para hoy."
+    script:
+      en:
+        - { speaker: customer, text: "What would you do if you were me?" }
+        - { speaker: rep, text: "Easy. The Equinox. Everybody loves it." }
+        - { speaker: customer, text: "But why the Equinox?" }
+        - { speaker: rep, text: "It's just a great SUV. And if you're still torn, let me show you the Trailblazer and the Blazer too, so you can compare all four." }
+        - { speaker: customer, text: "Four? Now I'm more confused than when I came in." }
+        - { speaker: rep, text: "Then just trust me and take the Equinox today. Want me to write it up?" }
+        - { speaker: customer, text: "I think I'll go home and think about it." }
+        - { speaker: rep, text: "Okay. Here's my card. Let me know." }
+      es:
+        - { speaker: customer, text: "¿Usted qué haría si fuera yo?" }
+        - { speaker: rep, text: "Fácil. La Equinox. A todo el mundo le encanta." }
+        - { speaker: customer, text: "¿Pero por qué la Equinox?" }
+        - { speaker: rep, text: "Porque es una camioneta buenísima. Y si todavía está indecisa, también le enseño la Trailblazer y la Blazer, para que compare las cuatro." }
+        - { speaker: customer, text: "¿Cuatro? Ahora estoy más confundida que cuando llegué." }
+        - { speaker: rep, text: "Entonces confíe en mí y llévese la Equinox hoy. ¿Se la preparo?" }
+        - { speaker: customer, text: "Creo que me voy a la casa a pensarlo." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me avisa." }
+  good:
+    notice:
+      en: Notice that he promises an answer, asks about her real life first, and then owns one recommendation with a reason, and a way to prove it.
+      es: Fíjese en que promete una respuesta, primero pregunta por su vida real, y después se hace responsable de una recomendación con una razón, y de una manera de comprobarla.
+    script:
+      en:
+        - { speaker: customer, text: "What would you do if you were me?" }
+        - { speaker: rep, text: "[pause] I'll tell you exactly what I'd do, I promise. I just want my answer to be about your life, not mine. What will you use it for most, day to day?" }
+        - { speaker: customer, text: "Mostly errands and work. But I don't only drive for myself." }
+        - { speaker: rep, text: "That helps. And apart from the size, do the Trax and the Equinox both feel right when you drive them?" }
+        - { speaker: customer, text: "They both drive nice. That's why I can't decide." }
+        - { speaker: rep, text: "Then let's find what breaks the tie. Who usually rides with you, and what has to fit in the back?" }
+        - { speaker: customer, text: "It's my mom. I take her to dialysis three times a week, and her wheelchair has to go in the back. I don't know if it fits in the Trax." }
+        - { speaker: rep, text: "Thank you, that changes my answer. If I were you, I'd lean toward the Equinox, because it has more cargo room, and your mom's chair is the one thing you can't compromise on. But I don't want you to take my word for it." }
+        - { speaker: customer, text: "That's what I needed. Someone to just tell me straight." }
+        - { speaker: rep, text: "Bring the chair Saturday at 10. We'll fold it into the back of both, and you'll see it with your own eyes before you decide." }
+        - { speaker: customer, text: "Saturday at 10. I'll bring the chair." }
+      es:
+        - { speaker: customer, text: "¿Usted qué haría si fuera yo?" }
+        - { speaker: rep, text: "[pausa] Le voy a decir exactamente lo que yo haría, se lo prometo. Solo quiero que mi respuesta sea sobre su vida, no la mía. ¿Para qué la va a usar más, en el día a día?" }
+        - { speaker: customer, text: "Más que nada mandados y el trabajo. Pero yo no manejo solo para mí." }
+        - { speaker: rep, text: "Eso me ayuda. Y aparte del tamaño, ¿la Trax y la Equinox se sienten bien las dos cuando las maneja?" }
+        - { speaker: customer, text: "Las dos se manejan bien. Por eso es que no me decido." }
+        - { speaker: rep, text: "Entonces busquemos qué inclina la balanza. ¿Quién la acompaña normalmente, y qué tiene que caber atrás?" }
+        - { speaker: customer, text: "Es mi mamá. La llevo a diálisis tres veces por semana, y la silla de ruedas tiene que ir atrás. No sé si cabe en la Trax." }
+        - { speaker: rep, text: "Gracias, eso cambia mi respuesta. Si yo fuera usted, me inclinaría por la Equinox, porque tiene más espacio de carga, y la silla de su mamá es lo único en lo que no puede ceder. Pero no quiero que lo crea solo porque yo lo digo." }
+        - { speaker: customer, text: "Eso es lo que necesitaba. Que alguien me lo dijera claro." }
+        - { speaker: rep, text: "Traiga la silla el sábado a las 10. La doblamos, la metemos atrás en las dos, y usted lo ve con sus propios ojos antes de decidir." }
+        - { speaker: customer, text: "El sábado a las 10. Traigo la silla." }
+spanish_reviewed: false

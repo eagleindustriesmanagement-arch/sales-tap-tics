@@ -1,0 +1,178 @@
+code: S-phone-shopper-L2
+module: car-core
+title:
+  en: "\"Just give me your best price\" (phone)"
+  es: "\"Deme su mejor precio\" (por teléfono)"
+setting:
+  en: Thursday afternoon, inbound phone call. He is driving between jobs.
+  es: Jueves por la tarde, llamada entrante. Él va manejando entre un trabajo y otro.
+persona: P-phone-shopper
+objection: O14
+channel: phone
+language_options: [en, es]
+difficulty: 2
+start_state: objection
+pre_brief:
+  en: "Inbound call. {name}, mid-30s contractor, is asking about the 2026 Silverado 1500 LT in Summit White you have on the lot. The all-in price is $48,749: $47,850 plus the $899 dealer fee. Only tax, tag and title are added. He has no trade and is financing through his credit union. You have no consent to text him."
+  es: "Llamada entrante. {name}, contratista de unos 35 años, pregunta por la Silverado 1500 LT 2026 en Summit White que tienen en el lote. El precio total es $48,749: $47,850 más el cargo de concesionario de $899. Solo se suman los impuestos, la placa y el título. No tiene trade-in y financia con su cooperativa de crédito. No tiene permiso para mandarle textos."
+opening:
+  en: I'm calling around on a Silverado 1500 LT. Just give me your best price.
+  es: Estoy llamando a varios dealers por una Silverado 1500 LT. Nada más deme su mejor precio.
+facts:
+  session_date: "2026-10-01"
+  vehicle: { year: 2026, make: Chevrolet, model: Silverado 1500, trim: LT, color: Summit White, stock: "5172", in_stock: true }
+  price_cents: 4785000
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4874900
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    other_quotes: "two, from other dealers; neither lists the dealer fee"
+    financing: "his own credit union"
+numbers_sheet: false
+target_techniques: [T001, T002, T014]
+rubric: R-phone
+scoring:
+  items:
+    - code: O14-PAUSE
+      behavior:
+        en: "Paused before answering the price question instead of rushing"
+        es: "Hizo una pausa antes de contestar la pregunta del precio en vez de apurarse"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O14-NUMBER
+      behavior:
+        en: "Gave the full price on the call when asked, without dodging"
+        es: "Dio el precio completo por teléfono cuando se lo pidieron, sin esquivarlo"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "FTC pricing guidance, September 15, 2026 (T118)"
+      technique: T118
+    - code: O14-ALLIN
+      behavior:
+        en: "Every price said on the call was the all-in walk-in price, total first"
+        es: "Todo precio dicho por teléfono fue el precio total de la tienda, el total primero"
+      dimension: technique
+      method: rule
+      points: 15
+      evidence: "FTC pricing guidance, September 15, 2026 (PRICE-02)"
+      technique: T118
+      params: { rules: [PRICE-02, PRICE-05], topic: price }
+    - code: O14-CLARIFY
+      behavior:
+        en: "Asked whether the other numbers he has are all-in"
+        es: "Preguntó si los otros números que tiene son con todo incluido"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0% (T002)"
+      technique: T002
+    - code: O14-HIDDEN
+      behavior:
+        en: "Surfaced why he really called"
+        es: "Sacó a la luz por qué llamó de verdad"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O14-TWOTIMES
+      behavior:
+        en: "Offered two appointment times with a reason to come in"
+        es: "Ofreció dos horarios para la cita con una razón para venir"
+      dimension: outcome
+      method: judge
+      points: 10
+      evidence: Practitioner tradition (T063)
+      technique: T063
+    - code: O14-NEXT
+      behavior:
+        en: "Booked a specific day and time he agreed to"
+        es: "Agendó un día y una hora específicos que él aceptó"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: refused_phone_price
+      description:
+        en: "Refused to give a price on the phone or said prices are only given in person"
+        es: "Se negó a dar un precio por teléfono o dijo que los precios solo se dan en persona"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 20
+time_limit_seconds: 360
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep dodged the price twice and never asked for an appointment, so the customer kept calling around."
+      es: "Fíjese: el vendedor esquivó el precio dos veces y nunca pidió una cita, así que el cliente siguió llamando a otros."
+    script:
+      en:
+        - { speaker: customer, text: "I'm calling around on a Silverado 1500 LT. Just give me your best price." }
+        - { speaker: rep, text: "Prices change every day, so the best thing is to come in and we'll work something out." }
+        - { speaker: customer, text: "I just need a number. I'm calling a few places." }
+        - { speaker: rep, text: "I hear you. Honestly, the best thing is to come by whenever you can and ask for me." }
+        - { speaker: customer, text: "Yeah. I'll keep calling around." }
+        - { speaker: rep, text: "No problem. Let me know if you're in the area." }
+        - { speaker: customer, text: "Sure. Bye." }
+      es:
+        - { speaker: customer, text: "Estoy llamando a varios dealers por una Silverado 1500 LT. Nada más deme su mejor precio." }
+        - { speaker: rep, text: "Los precios cambian todos los días, así que lo mejor es que venga y le resolvemos." }
+        - { speaker: customer, text: "Nada más necesito un número. Estoy llamando a varios lugares." }
+        - { speaker: rep, text: "Lo entiendo. La verdad, lo mejor es que pase cuando pueda y pregunte por mí." }
+        - { speaker: customer, text: "Ya. Voy a seguir llamando." }
+        - { speaker: rep, text: "No hay problema. Me avisa si anda por la zona." }
+        - { speaker: customer, text: "Está bien. Hasta luego." }
+  good:
+    notice:
+      en: Notice that the rep gives the full all-in number right away, asks whether the other quotes include the fee, offers to email it, and books one of two times.
+      es: Fíjese en que el vendedor da el precio total enseguida, pregunta si las otras cotizaciones incluyen el cargo, ofrece mandarlo por email y agenda uno de dos horarios.
+    script:
+      en:
+        - { speaker: customer, text: "I'm calling around on a Silverado 1500 LT. Just give me your best price." }
+        - { speaker: rep, text: "[pause] Sure, I'll give you the full number right now. The 2026 Silverado 1500 LT in Summit White is $48,749 out the door, because that is the same price anyone pays walking in. It already includes our $899 dealer fee; only tax, tag and title are added." }
+        - { speaker: customer, text: "Huh. Okay. So the fee is already in that number." }
+        - { speaker: rep, text: "It is. The numbers you're getting from other dealers, do they include the dealer fee?" }
+        - { speaker: customer, text: "Honestly, I've got two other quotes and neither one shows the dealer fee. I just want one number I can trust." }
+        - { speaker: rep, text: "That makes sense, and that's why I gave you the full number. I'll email you this exact price in writing so you can compare it line by line. The truck is here on the lot, and I can have it ready for a drive in fifteen minutes. Is today at 5:30 or tomorrow at 10 better?" }
+        - { speaker: customer, text: "Tomorrow at 10 works. Send me that email." }
+        - { speaker: rep, text: "Tomorrow at 10, then. I'll email you the $48,749 out the door now, and the Silverado LT will be up front when you get here." }
+      es:
+        - { speaker: customer, text: "Estoy llamando a varios dealers por una Silverado 1500 LT. Nada más deme su mejor precio." }
+        - { speaker: rep, text: "[pausa] Claro, le doy el número completo ahora mismo. La Silverado 1500 LT 2026 en Summit White está en $48,749 precio total, porque es el mismo precio que paga cualquiera que entre a la tienda. Ya incluye nuestro cargo de concesionario de $899; solo se suman los impuestos y los cargos de placa y título." }
+        - { speaker: customer, text: "Ah, bueno. ¿O sea que el cargo ya está metido en ese número?" }
+        - { speaker: rep, text: "Así es. Los precios que le están dando en otros dealers, ¿incluyen el cargo de concesionario?" }
+        - { speaker: customer, text: "La verdad, tengo otras dos cotizaciones y ninguna dice cuánto es el cargo del dealer. Nada más quiero un número en el que pueda confiar." }
+        - { speaker: rep, text: "Tiene sentido, y por eso le di el número completo. Le mando este mismo precio por email, por escrito, para que lo compare punto por punto. La camioneta está aquí en el lote, y se la tengo lista para manejarla en quince minutos. ¿Le queda mejor hoy a las 5:30 o mañana a las 10?" }
+        - { speaker: customer, text: "Mañana a las 10 me sirve. Mándeme ese email." }
+        - { speaker: rep, text: "Mañana a las 10, entonces. Ahora mismo le mando por email el precio total de $48,749, y la Silverado LT va a estar al frente cuando llegue." }
+spanish_reviewed: false

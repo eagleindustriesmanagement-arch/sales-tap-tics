@@ -1,0 +1,155 @@
+code: P-regret-avoider
+name_pool:
+  en: [Steve, Mark, Paul, Greg]
+  es: [Orlando, Raúl, Reinaldo, Yosvany]
+age_range: 50-59
+temperament: [anxious]
+temperament_note:
+  en: Anxious and careful. Has been in three times. Likes the truck, but every question about the deal makes him more nervous. Talks himself out of decisions when he feels rushed.
+  es: Nervioso y cuidadoso. Ya ha venido tres veces. Le gusta la camioneta, pero cada pregunta sobre el negocio lo pone más nervioso. Si se siente apurado, termina convenciéndose de no hacer nada.
+buyer_orientation: self
+situation:
+  en: Mid-50s, Cuban-American, owns a small air-conditioning business in Hialeah. Married, three kids, five in the family. Has only ever bought used; this is the most he has ever spent. Trading a paid-off 2014 Suburban. Good credit. Has looked at the 2026 Tahoe LS and LT on earlier visits and just drove the LT again.
+  es: De unos 55 años, cubanoamericano, tiene un pequeño negocio de aire acondicionado en Hialeah. Casado, con tres hijos; son cinco en la familia. Siempre ha comprado usado; esta es la compra más grande de su vida. Tiene una Suburban 2014 pagada para el trade-in. Buen crédito. En visitas anteriores miró la Tahoe LS y la LT 2026, y acaba de volver a manejar la LT.
+stated_objection: O60
+stated_line:
+  en: I just don't want to regret it.
+  es: Es que no quiero arrepentirme.
+hidden_truth:
+  en: He is afraid of picking the wrong trim. He keeps going back and forth between the LS and the LT and fears paying for features he never uses, or saving and wishing he had not.
+  es: Tiene miedo de escoger la versión equivocada. Le da vueltas entre la LS y la LT, y teme pagar por cosas que nunca va a usar, o ahorrar y después arrepentirse.
+# Phrases that would give the hidden truth away before an unlock. Pre-unlock lines never name a trim.
+hidden_truth_markers:
+  en:
+    - '\btrims?\b'
+    - '\b(LS|LT)\b.{0,40}\b(LS|LT)\b'
+    - '\bwrong (trim|version|package)\b'
+    - '\b(back and forth|torn)\b.{0,40}\b(LS|LT|trims?|versions?)\b'
+  es:
+    - '\btrims?\b'
+    - '\bversi(ón|ones)\b'
+    - '\b(LS|LT)\b.{0,40}\b(LS|LT)\b'
+    - '\bpaquete equivocado\b'
+unlock_conditions:
+  - code: names_the_fear
+    description:
+      en: Names the fear of choosing wrong and asks about it, or asks what exactly he is afraid he would regret.
+      es: Le pone nombre al miedo de escoger mal y pregunta por él, o pregunta de qué exactamente teme arrepentirse.
+    cues:
+      en:
+        - '\b(worr(y|ies|ied)|afraid|scared|nervous)\b.{0,40}\b(pick(ing)?|choos(e|ing)|get(ting)?|end(ing)? up with)\b.{0,25}\bwrong\b'
+        - '\bwhat (would|might|could) you regret\b'
+        - '\bwhat do you think you(''d| would| might) regret\b'
+        - '\bwhat (are|would) you (be )?(most )?(afraid|worried|scared|nervous) (of|about)\b'
+        - '\bwhat would (regret|a mistake) look like\b'
+        - '\bwhat (part|piece|thing)\b.{0,25}\bregret\b'
+      es:
+        - '\b(miedo|preocupa\w*|nervios[oa]?)\b.{0,40}\b(escoger|elegir|equivocar\w*|quedarse con|comprar)\b.{0,30}\b(equivocad[oa]|mal|incorrect[oa])\b'
+        - '\bde qué (cree que )?se (arrepentiría|podría arrepentir|va a arrepentir)\b'
+        - '\bqué (es lo que )?(más )?(le )?(preocupa|da miedo|asusta)\b'
+        - '\bcómo (sería|se vería) (arrepentirse|un error)\b'
+  - code: asks_trim_choice
+    description:
+      en: Asks whether the doubt is about which trim to choose.
+      es: Pregunta si la duda es cuál versión escoger.
+    cues:
+      en:
+        - '\b(torn|going back and forth|deciding|stuck|split)\b.{0,30}\b(between|on)\b.{0,30}\b(trims?|LS|LT|RST|Z71|Premier|High Country|versions?|packages?)\b'
+        - '\b(which|what) (trim|version|package)\b'
+        - '\bis it the (trim|version|package)\b'
+        - '\b(the )?LS (or|versus|vs\.?) (the )?LT\b'
+        - '\b(the )?LT (or|versus|vs\.?) (the )?LS\b'
+      es:
+        - '\b(entre|indecis[oa]|dudando|decidiendo)\b.{0,30}\b(versiones?|trims?|paquetes?|la LS|la LT|el LS|el LT)\b'
+        - '\b(qué|cuál) (versión|trim|paquete)\b'
+        - '\bes (por )?(la versión|el trim|el paquete)\b'
+        - '\b(la |el )?LS (o|contra|versus) (la |el )?LT\b'
+walk_out_triggers:
+  - code: dismisses_fear
+    description:
+      en: Brushes the worry aside ("There's nothing to regret", "Stop worrying").
+      es: Le quita importancia a la preocupación ("No hay nada de qué arrepentirse", "Deje de preocuparse").
+    cues:
+      en:
+        - '\b(nothing|no reason) to (regret|worry about)\b'
+        - '\byou (won''?t|will not|aren''?t going to|are not going to) regret\b'
+        - '\b(don''?t|stop) (over ?think(ing)?|worrying)\b'
+      es:
+        - '\bno (hay|tiene) (nada )?(de )?qué (arrepentirse|preocuparse)\b'
+        - '\bno se va a arrepentir\b'
+        - '\bdeje de preocuparse\b'
+        - '\bno lo piense tanto\b'
+  - code: piles_on_trims
+    description:
+      en: Throws more trims at him when he is already stuck between two.
+      es: Le echa más versiones encima cuando ya está trancado entre dos.
+    cues:
+      en:
+        - '\blet me show you (all|every|the others|a few more)\b'
+        - '\b(we(''ve| have) )?also got the\b'
+        - '\b(all|every one) of (them|the trims)\b'
+      es:
+        - '\b(también|además) tenemos (la|el)\b'
+        - '\b(le enseño|enseñarle) (todas|todos|las otras)\b'
+        - '\btodas las versiones\b'
+  - code: pushes_today
+    description:
+      en: Pushes him to buy today while he is still unsure.
+      es: Lo presiona para que compre hoy cuando todavía no está seguro.
+    cues:
+      en:
+        - '\b(take|buy|get|sign for) (it|the \w+|one) (today|tonight|now)\b'
+        - '\bwhat (can|do) I (have to )?do to get you\b'
+      es:
+        - '\bllévese(lo|la)? (la \w+ )?(hoy|ya)\b'
+        - '\b(cómprela|cómprelo) (hoy|ya)\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The fear of picking the wrong trim comes out, plus a firm appointment with day and time to compare the two trims side by side.
+    es: Sale a la luz el miedo de escoger la versión equivocada, más una cita firme con día y hora para comparar las dos versiones una al lado de la otra.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: en
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el trade-in", "el down"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-50s
+  es: tbd-es-miami-cuban-male-50s
+difficulty: 2
+variation:
+  moods: [nervous, tired from a long workday, quiet and hesitant]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "All of it. It's the most I've ever spent on anything.", es: "Todo. Es lo más caro que he comprado en mi vida." }
+    - { en: "I just want to be sure. I've been burned before.", es: "Es que quiero estar seguro. Ya me han quemado antes." }
+    - { en: "Maybe I should wait a little.", es: "A lo mejor debería esperar un poco." }
+  hint: { en: "Maybe. It's not the Tahoe itself. I know I want a Tahoe.", es: "Puede ser. No es la Tahoe en sí. Yo sé que quiero una Tahoe." }
+  after_hint: { en: "Right. The family fits, and the numbers work. That part I'm sure of.", es: "Sí. La familia cabe, y los números funcionan. De eso estoy seguro." }
+  reveal: { en: "Exactly. I keep going back and forth between the LS and the LT. If I pick the wrong trim, I'll think about it every time I get in.", es: "Exacto. Me la paso dándole vueltas entre la LS y la LT. Si escojo la versión equivocada, me voy a acordar cada vez que me monte." }
+  after_reveal:
+    - { en: "Okay. That I can do. A list makes sense.", es: "Bueno. Eso sí lo puedo hacer. Una lista tiene sentido." }
+    - { en: "That helps. I just didn't want to guess.", es: "Eso me ayuda. Es que no quería adivinar." }
+  agree_next_step: { en: "Okay. We'll be here.", es: "Está bien. Ahí estaremos." }
+  not_now: { en: "Not today. I need more time.", es: "Hoy no. Necesito más tiempo." }
+  walk_away: { en: "I think I'm going to go. Sorry.", es: "Creo que me voy a ir. Disculpe." }
+  goodbye: { en: "Thanks. Have a good one.", es: "Gracias. Que le vaya bien." }
+  react_to_pressure: { en: "You're making me more nervous, not less.", es: "Así me pone más nervioso, no menos." }
+spanish_reviewed: false

@@ -1,0 +1,189 @@
+code: S-package-objector-L2
+module: car-miami-indecision
+title:
+  en: "\"I did not ask for that package, and you say it is already on the car\""
+  es: "\"Yo no pedí ese paquete y me dice que ya viene en el carro\""
+setting:
+  en: Saturday afternoon, at the sales desk, after he read the worksheet. The store has not set an add-on removal policy yet, so the strictest rule applies.
+  es: Sábado por la tarde, en la mesa de ventas, después de que leyó la hoja de números. La tienda todavía no ha definido su política para quitar accesorios, así que aplica la regla más estricta.
+persona: P-package-objector
+objection: O65
+channel: floor
+language_options: [en, es]
+difficulty: 2
+start_state: objection
+pre_brief:
+  en: "{name}, about 50, came in for a 2026 Trailblazer RS he picked online: $29,394 out the door plus tax, tag and title. He is paying with a check from his credit union. The car already has the dealer's $1,295 appearance package installed (window tint, door edge guards, all-weather mats), and it shows on the worksheet. Your store has no set remedy for pre-installed packages yet."
+  es: "{name}, de unos 50 años, vino por una Trailblazer RS 2026 que escogió por internet: $29,394 precio total más impuestos, placa y título. Paga con un cheque de su cooperativa de crédito. El carro ya tiene instalado el paquete de apariencia del concesionario de $1,295 (tinte de ventanas, protectores de puertas, alfombras de goma), y aparece en la hoja. Su tienda todavía no tiene una solución definida para los paquetes preinstalados."
+opening:
+  en: I did not ask for that package, and you say it is already on the car.
+  es: Yo no pedí ese paquete y me dice que ya viene en el carro.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trailblazer, trim: RS, color: Crimson Metallic, stock: "5509", in_stock: true }
+  price_cents: 2849500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2939400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    - code: appearance_package
+      name: { en: appearance package, es: paquete de apariencia }
+      cents: 129500
+      preinstalled: true
+      aliases:
+        en: [package, window tint, tint, door edge guards, all-weather mats]
+        es: [paquete, tinte, tinte de ventanas, protectores de puertas, alfombras de goma]
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    financing: Check from his credit union
+numbers_sheet: true
+target_techniques: [T001, T002, T003, T005, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O65-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O65-ACK
+      behavior:
+        en: "Agreed he did not ask for it, without defending the package"
+        es: "Le dio la razón de que no lo pidió, sin defender el paquete"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O65-OPTIONAL
+      behavior:
+        en: "Said the package is optional and offered to find a solution with the manager"
+        es: "Dijo que el paquete es opcional y ofreció buscar una solución con el gerente"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "FTC pricing guidance, September 15, 2026 (T120); no store policy set, so the strictest version applies"
+      technique: T120
+    - code: O65-HONEST
+      behavior:
+        en: "Never said the package cannot come off, and called nothing free"
+        es: "Nunca dijo que el paquete no se puede quitar, y no llamó gratis a nada"
+      dimension: technique
+      method: rule
+      points: 10
+      evidence: FTC pricing guidance; Manchester City Nissan
+      technique: T120
+      params: { rules: [ADD-02, ADD-03], topic: add_on }
+    - code: O65-WITHOUT
+      behavior:
+        en: "Gave the all-in price without the package, with the package priced separately"
+        es: "Dio el precio total sin el paquete, con el paquete con su precio aparte"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Partitioned pricing meta-analysis (T030)"
+      technique: T030
+    - code: O65-HIDDEN
+      behavior:
+        en: "Surfaced that he will buy today if the package is handled"
+        es: "Sacó a la luz que compra hoy si se resuelve lo del paquete"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O65-NEXT
+      behavior:
+        en: "Set a specific time today for the manager's answer"
+        es: "Fijó una hora específica hoy para la respuesta del gerente"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: sold_the_package
+      description:
+        en: "Kept selling the package's value after he said he did not want it"
+        es: "Siguió vendiendo el valor del paquete después de que él dijo que no lo quería"
+      method: judge
+    - code: misdescribed_add_on
+      description:
+        en: "Called the package required, impossible to remove, or free"
+        es: "Dijo que el paquete era obligatorio, imposible de quitar o gratis"
+      method: rule_family
+      rule_families: [add_ons]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep sold the package instead of answering, never said it was optional, never offered a solution or the price without it, and pushed for the paperwork. Saying it cannot come off would be worse still: that breaks a critical rule."
+      es: "Fíjese: el vendedor vendió el paquete en vez de responder, nunca dijo que era opcional, nunca ofreció una solución ni el precio sin el paquete, e insistió con los papeles. Decir que no se puede quitar sería todavía peor: eso rompe una regla crítica."
+    script:
+      en:
+        - { speaker: customer, text: "I did not ask for that package, and you say it is already on the car." }
+        - { speaker: rep, text: "It's a great package for Miami. The tint alone keeps the car cool, and the mats protect the floor." }
+        - { speaker: customer, text: "I didn't ask for it." }
+        - { speaker: rep, text: "I hear you, but it's already on the car, and honestly it's worth every penny. Most people are glad they have it." }
+        - { speaker: customer, text: "I'm not paying for something I didn't choose." }
+        - { speaker: rep, text: "It's a good deal with it or without it. So, can we write it up?" }
+        - { speaker: customer, text: "No. I'm going somewhere else." }
+      es:
+        - { speaker: customer, text: "Yo no pedí ese paquete y me dice que ya viene en el carro." }
+        - { speaker: rep, text: "Es un paquete buenísimo para Miami. Solo el tinte le mantiene el carro fresco, y las alfombras de goma le protegen el piso." }
+        - { speaker: customer, text: "Yo no lo pedí." }
+        - { speaker: rep, text: "Lo entiendo, pero ya viene en el carro, y la verdad vale cada centavo. A la mayoría de la gente le encanta tenerlo." }
+        - { speaker: customer, text: "Yo no voy a pagar por algo que no escogí." }
+        - { speaker: rep, text: "Es buen negocio con eso o sin eso. Entonces, ¿hacemos los papeles?" }
+        - { speaker: customer, text: "No. Me voy a otro lado." }
+  good:
+    notice:
+      en: Notice that the rep agrees he did not ask for it, says "optional" right away, gives the all-in price without the package, and offers to find a solution with the manager instead of promising one.
+      es: Fíjese en que el vendedor le da la razón de que no lo pidió, dice "opcional" enseguida, da el precio total sin el paquete, y ofrece buscar una solución con el gerente en vez de prometerla.
+    script:
+      en:
+        - { speaker: customer, text: "I did not ask for that package, and you say it is already on the car." }
+        - { speaker: rep, text: "[pause] You're right, you didn't ask for it, and I'm sorry it came as a surprise. The package is already on the car, but it is optional. Setting the package aside for a second, is this the Trailblazer you want?" }
+        - { speaker: customer, text: "I like the car. The package is the problem." }
+        - { speaker: rep, text: "Then here's what I'll do. The price without the package is $29,394 out the door, plus tax, tag and title. The package is $1,295, and you shouldn't pay for something you didn't choose. Let me sit down with my manager to find a solution for the package." }
+        - { speaker: customer, text: "Look, if that package comes off, or you make it right, I'll buy it today." }
+        - { speaker: rep, text: "That's fair, and thank you for telling me straight. Give me fifteen minutes with my manager. I'll come back today at 2:15 with the answer in writing, and the sheet with and without the package, side by side." }
+        - { speaker: customer, text: "Okay. I'll wait right here." }
+      es:
+        - { speaker: customer, text: "Yo no pedí ese paquete y me dice que ya viene en el carro." }
+        - { speaker: rep, text: "[pausa] Tiene razón, usted no lo pidió, y disculpe que le haya llegado de sorpresa. El paquete ya está instalado, pero es opcional. Dejando el paquete a un lado un momento, ¿esta es la Trailblazer que usted quiere?" }
+        - { speaker: customer, text: "El carro me gusta. El problema es el paquete." }
+        - { speaker: rep, text: "Entonces le propongo esto. El precio sin el paquete es $29,394 precio total, más impuestos, placa y título. El paquete cuesta $1,295, y usted no debería pagar por algo que no escogió. Déjeme sentarme con mi gerente para buscarle una solución al paquete." }
+        - { speaker: customer, text: "Mire, si ese paquete se quita, o me lo resuelven, me lo llevo hoy." }
+        - { speaker: rep, text: "Me parece justo, y gracias por decírmelo claro. Deme quince minutos con mi gerente. Vuelvo hoy a las 2:15 con la respuesta por escrito, y la hoja con el paquete y sin el paquete, lado a lado." }
+        - { speaker: customer, text: "Está bien. Lo espero aquí." }
+spanish_reviewed: false

@@ -1,0 +1,170 @@
+code: S-deadline-tester-L2
+module: car-core
+title:
+  en: "\"I'm not buying today\""
+  es: "\"Hoy no voy a comprar\""
+setting:
+  en: Friday at 1:15 in the afternoon, showroom floor, right after the test drive. He is on his lunch break.
+  es: Viernes a la 1:15 de la tarde, en el piso de ventas, justo después de la prueba de manejo. Está en su hora de almuerzo.
+persona: P-deadline-tester
+objection: O07
+channel: floor
+language_options: [en, es]
+difficulty: 2
+start_state: objection
+pre_brief:
+  en: "{name}, early 40s, just drove the 2026 Trailblazer RS on his lunch break and likes it. He has to be back at work by 2:00 and is free after 5:00. The all-in price is $28,349, or $27,349 with the $1,000 bonus cash anyone can get. The bonus cash ends Monday, October 5, and you have OEM bulletin 26-118 to prove it."
+  es: "{name}, de unos 40 años, acaba de manejar la Trailblazer RS 2026 en su hora de almuerzo y le gusta. Tiene que estar de vuelta en el trabajo a las 2:00 y está libre después de las 5:00. El precio total es $28,349, o $27,349 con el bono de $1,000 que cualquiera puede recibir. El bono vence el lunes 5 de octubre, y usted tiene el boletín 26-118 de la fábrica para probarlo."
+opening:
+  en: I'm not buying today. And that rebate you mentioned, is it really ending, or is that what you tell everybody?
+  es: Hoy no voy a comprar. Y ese bono que me mencionó, ¿de verdad se acaba, o eso se lo dicen a todo el mundo?
+facts:
+  session_date: "2026-10-02"
+  vehicle: { year: 2026, make: Chevrolet, model: Trailblazer, trim: RS, color: Mosaic Black Metallic, stock: "4630", in_stock: true }
+  price_cents: 2745000
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2834900
+  rebates:
+    - { code: bonus_cash, name: Bonus cash, cents: 100000, eligibility: everyone, ends: "2026-10-05", proof: OEM bulletin 26-118 }
+  deadlines:
+    - { what: Bonus cash, date: "2026-10-05", proof: OEM bulletin 26-118 }
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    back_at_work_by: "2:00 today"
+    free_after: "5:00 today"
+numbers_sheet: false
+target_techniques: [T001, T003, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: O07-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O07-RESPECT
+      behavior:
+        en: "Respected his timeline: told him he does not have to buy today, without pushing"
+        es: "Respetó sus tiempos: le dijo que no tiene que comprar hoy, sin presionar"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003); AI-simulator study 2026 (T122)"
+      technique: T003
+    - code: O07-PROOF
+      behavior:
+        en: "Showed the real deadline with its proof (the bulletin and its date) instead of asking him to trust it"
+        es: "Enseñó la fecha límite real con su prueba (el boletín y su fecha) en vez de pedirle que lo creyera"
+      dimension: technique
+      method: judge
+      points: 25
+      evidence: "Gino and Moore 2008: only real, showable deadlines help (T107)"
+      technique: T107
+    - code: O07-HIDDEN
+      behavior:
+        en: "Surfaced what \"not today\" really meant"
+        es: "Sacó a la luz lo que de verdad significaba el \"hoy no\""
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O07-ADVANCE
+      behavior:
+        en: "Offered a concrete next step instead of \"let me know\""
+        es: "Ofreció un paso concreto en vez de \"me avisa\""
+      dimension: outcome
+      method: judge
+      points: 10
+      evidence: "Rackham (T068)"
+      technique: T068
+    - code: O07-NEXT
+      behavior:
+        en: "Set a specific day and time he agreed to"
+        es: "Fijó un día y una hora específicos que él aceptó"
+      dimension: outcome
+      method: engine_and_judge
+      points: 20
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: pressured_with_false_urgency
+      description:
+        en: "Pushed for a decision today with urgency the facts do not hold (another buyer, a today-only price, a price going up)"
+        es: "Presionó para decidir hoy con una urgencia que los datos no respaldan (otro comprador, un precio solo por hoy, un precio que sube)"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep asked the customer to trust him but never showed the proof, pushed for today twice, and let him leave with \"let me know\"."
+      es: "Fíjese: el vendedor le pidió al cliente que le creyera pero nunca enseñó la prueba, insistió dos veces en que fuera hoy y lo dejó ir con un \"me avisa\"."
+    script:
+      en:
+        - { speaker: customer, text: "I'm not buying today. And that rebate you mentioned, is it really ending, or is that what you tell everybody?" }
+        - { speaker: rep, text: "Trust me, it's real. Deals like this don't last, and you'd be crazy to wait on a car this nice." }
+        - { speaker: customer, text: "That's what every dealer says." }
+        - { speaker: rep, text: "What would it take for you to do it today? I can go talk to my manager." }
+        - { speaker: customer, text: "I told you, I'm not buying today." }
+        - { speaker: rep, text: "Okay. Here's my card. Let me know when you're ready." }
+        - { speaker: customer, text: "Sure. Thanks." }
+      es:
+        - { speaker: customer, text: "Hoy no voy a comprar. Y ese bono que me mencionó, ¿de verdad se acaba, o eso se lo dicen a todo el mundo?" }
+        - { speaker: rep, text: "Créame, es real. Ofertas así no duran, y usted estaría loco de esperar con un carro tan bueno." }
+        - { speaker: customer, text: "Eso dicen todos los dealers." }
+        - { speaker: rep, text: "¿Qué hace falta para que lo haga hoy? Déjeme hablar con mi gerente." }
+        - { speaker: customer, text: "Ya le dije, hoy no voy a comprar." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me avisa cuando esté listo." }
+        - { speaker: customer, text: "Está bien. Gracias." }
+  good:
+    notice:
+      en: Notice that the rep never asks him to take the deadline on trust. The rep shows the bulletin and its date, says he does not have to buy today, and lets him pick the time.
+      es: Fíjese en que el vendedor nunca le pide que crea la fecha porque sí. Le enseña el boletín y su fecha, le dice que no tiene que comprar hoy, y deja que él escoja la hora.
+    script:
+      en:
+        - { speaker: customer, text: "I'm not buying today. And that rebate you mentioned, is it really ending, or is that what you tell everybody?" }
+        - { speaker: rep, text: "[pause] Fair question, and you don't have to buy anything today. You shouldn't have to take my word for it, either. Let me show you the bulletin from Chevrolet." }
+        - { speaker: customer, text: "Okay. Nobody has ever offered to show me the paperwork before." }
+        - { speaker: rep, text: "Here it is, OEM bulletin 26-118. The $1,000 bonus cash ends Monday, October 5th, and everyone qualifies. With it, the Trailblazer RS is $27,349 out the door, because the bonus cash comes off our $28,349 all-in price. That already includes our $899 dealer fee; only tax, tag and title are added." }
+        - { speaker: customer, text: "Honestly? If it's real, I'd rather do it today and be done shopping. I just didn't want to get played again." }
+        - { speaker: rep, text: "That makes sense, and there is no rush from me. The bulletin is yours to keep. I know you're on your lunch break, so would today at 5:30, after work, or tomorrow at 10 be better to sit down and do the paperwork?" }
+        - { speaker: customer, text: "Today at 5:30. Have everything ready." }
+        - { speaker: rep, text: "Today at 5:30, then. I'll have the bulletin printed, the Trailblazer up front, and the paperwork ready so it takes about an hour." }
+      es:
+        - { speaker: customer, text: "Hoy no voy a comprar. Y ese bono que me mencionó, ¿de verdad se acaba, o eso se lo dicen a todo el mundo?" }
+        - { speaker: rep, text: "[pausa] Buena pregunta, y usted no tiene que comprar nada hoy. Tampoco tiene por qué creerme a mí nada más. Déjeme enseñarle el boletín de Chevrolet." }
+        - { speaker: customer, text: "Bueno. Nadie me había ofrecido enseñarme el papel antes." }
+        - { speaker: rep, text: "Aquí está, el boletín 26-118 de la fábrica. El bono de $1,000 vence el lunes 5 de octubre, y califica todo el mundo. Con el bono, la Trailblazer RS le queda en $27,349 precio total, porque el bono se le resta a nuestro precio total de $28,349. Eso ya incluye nuestro cargo de concesionario de $899; solo se suman los impuestos y los cargos de placa y título." }
+        - { speaker: customer, text: "¿La verdad? Si es real, prefiero hacerlo hoy y terminar de buscar. Es que no quería que me volvieran a engañar." }
+        - { speaker: rep, text: "Tiene sentido, y de mi parte no hay apuro. El boletín es suyo, se lo puede llevar. Sé que está en su hora de almuerzo, así que ¿le queda mejor hoy a las 5:30, después del trabajo, o mañana a las 10 para sentarnos a hacer los papeles?" }
+        - { speaker: customer, text: "Hoy a las 5:30. Téngamelo todo listo." }
+        - { speaker: rep, text: "Hoy a las 5:30, entonces. Le tengo el boletín impreso, la Trailblazer al frente y los papeles listos para que tome como una hora." }
+spanish_reviewed: false

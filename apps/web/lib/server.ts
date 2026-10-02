@@ -149,3 +149,22 @@ export async function finishSession(s: Live, user: UserContext): Promise<Session
 }
 
 export { withClient };
+
+/** Every active scenario as the recommender sees it: level and how often reps meet its objection. */
+export function practiceList(lib = library()) {
+  return [...lib.scenarios.values()]
+    .filter((s) => s.status === "active")
+    .map((s) => ({ code: s.code, difficulty: s.difficulty, weight: lib.objections.get(s.objection)?.frequency_weight ?? 1 }));
+}
+
+/** 11:59 pm on a calendar day in the store's time zone (Miami), as an instant. */
+export function endOfDayInStore(date: string, timeZone = "America/New_York"): Date {
+  const noon = new Date(`${date}T12:00:00Z`);
+  const offset = new Intl.DateTimeFormat("en-US", { timeZone, timeZoneName: "shortOffset" }).formatToParts(noon).find((p) => p.type === "timeZoneName")!.value;
+  const m = /GMT([+-]\d+)?(?::(\d+))?/.exec(offset)!;
+  const hours = Number(m[1] ?? 0);
+  const sign = hours < 0 || m[1]?.startsWith("-") ? "-" : "+";
+  const hh = String(Math.abs(hours)).padStart(2, "0");
+  const mm = String(m[2] ?? "0").padStart(2, "0");
+  return new Date(`${date}T23:59:00${sign}${hh}:${mm}`);
+}

@@ -3,7 +3,7 @@ import type pg from "pg";
 import { randomUUID } from "node:crypto";
 import {
   coachingQuality, createPracticeSession, getSessionDetail, insertTurns, issueCard, listSessions, loadUser, markMissedCards, recordConsent,
-  recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
+  assignableReps, createAssignments, listAssignments, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
 } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
@@ -147,5 +147,45 @@ describe.skipIf(SKIP)("repository (spec 6.3, 14)", () => {
     expect(luis).toMatchObject({ sessions_this_week: 1, card: "B-T002-clarify", card_status: "checked", critical_flags: 1 });
     await as(MANAGER, (q) => issueCard(q, DEMO.tenant, REP2, { code: "B-T001-pause", itemCode: "U-PAUSE", sessionId: null }, "2026-01-05"));
     expect(await withTenant(db, { tenantId: DEMO.tenant, role: "app_worker" }, () => markMissedCards(db, weekOf()))).toBe(1);
+  });
+});
+
+describe.skipIf(SKIP)("assignments (spec 14.5 item 4)", () => {
+  const ROSA = DEMO.users[4]!.id;
+  it("a manager assigns to their reps; each rep sees only their own", async () => {
+    const reps = await as(MANAGER, async (q) => assignableReps(q, (await loadUser(q, MANAGER))!));
+    expect(reps.map((r) => r.firstName)).toEqual(["Ana", "Luis"]);
+    const ids = await as(MANAGER, async (q) =>
+      createAssignments(q, (await loadUser(q, MANAGER))!, { userIds: [REP, REP2], scenarioCode: "S-partner-check-L1", dueAt: new Date("2026-10-09T21:00:00Z"), reason: "You pitched before asking twice this week." }),
+    );
+    expect(ids).toHaveLength(2);
+    const luis = await as(REP, (q) => listAssignments(q));
+    expect(luis.map((a) => [a.firstName, a.assignedByName, a.reason])).toEqual([["Luis", "Carlos", "You pitched before asking twice this week."]]);
+    expect(await as(MANAGER, (q) => listAssignments(q))).toHaveLength(2);
+    expect(await as(ROSA, (q) => listAssignments(q))).toEqual([]);
+  });
+
+  it("a rep cannot assign, and cannot change what was assigned", async () => {
+    await expect(as(REP, async (q) => createAssignments(q, (await loadUser(q, REP))!, { userIds: [REP2], scenarioCode: "S-partner-check-L1", dueAt: null, reason: "" }))).rejects.toThrow(/only a manager/);
+    await expect(as(REP, (q) => q.query("insert into assignments (tenant_id, user_id, scenario_code, assigned_by) values ($1, $2, 'S-partner-check-L1', $3)", [DEMO.tenant, REP2, REP]))).rejects.toThrow(/row-level security/);
+    await expect(as(REP, (q) => q.query("update assignments set due_at = now() + interval '30 days' where user_id = $1", [REP]))).rejects.toThrow(/only the assigning manager/);
+    // Another rep's assignment is invisible, so an update touches nothing.
+    const r = await as(REP, (q) => q.query("update assignments set completed_at = now() where user_id = $1", [REP2]));
+    expect(r.rowCount).toBe(0);
+  });
+
+  it("practicing the assigned scenario completes it", async () => {
+    const id = randomUUID();
+    await as(REP2, async (q) => {
+      const user = (await loadUser(q, REP2))!;
+      await createPracticeSession(q, user, { id, scenarioCode: "S-partner-check-L1", releaseId: null, language: "es", mode: "practice", channel: "floor", textMode: true, seed: "a", exitDraw: 0.5 });
+      await saveSessionResult(q, DEMO.tenant, id, {
+        endReason: "not_now", events: [], violations: [],
+        score: { rubric: "R-objection", total: 40, passed: false, honestyPassed: true, dimensions: {}, items: [], judgeModel: null, judgePromptVersion: null, partial: false, coverage: 1 },
+        debrief: {}, usage: [],
+      });
+    });
+    expect((await as(REP2, (q) => listAssignments(q, { open: true })))).toEqual([]);
+    expect((await as(REP, (q) => listAssignments(q, { open: true })))).toHaveLength(1);
   });
 });

@@ -1,0 +1,157 @@
+code: P-advice-seeker
+name_pool:
+  en: [Linda, Patricia, Donna, Carol]
+  es: [Gladys, Marisol, Mirtha, Zuleima]
+age_range: 50-59
+temperament: [warm]
+temperament_note:
+  en: Warm, talkative, a little worn out by the choice. Trusts people more than brochures and wants someone to take a stand with her. Goes quiet when she feels sold to.
+  es: Cálida, conversadora, un poco cansada de tanto decidir. Confía más en la gente que en los folletos y quiere que alguien se comprometa con ella. Se queda callada cuando siente que le están vendiendo.
+buyer_orientation: relationship
+situation:
+  en: Mid-50s, Venezuelan, works as an office manager in Weston. Her mother lives with her, uses a folding wheelchair, and goes to dialysis three times a week. Driving a paid-off 2012 Toyota Corolla. Good credit. Has driven the 2026 Trax 2RS and the 2026 Equinox LT and keeps going back and forth.
+  es: De unos 55 años, venezolana, trabaja como gerente de oficina en Weston. Su mamá vive con ella, usa una silla de ruedas plegable y va a diálisis tres veces por semana. Maneja un Toyota Corolla 2012 pagado. Buen crédito. Ya manejó la Trax 2RS 2026 y la Equinox LT 2026, y no termina de decidirse.
+stated_objection: O58
+stated_line:
+  en: What would you do if you were me?
+  es: ¿Usted qué haría si fuera yo?
+hidden_truth:
+  en: Her mother's folding wheelchair has to fit in the back three times a week for dialysis, and she does not know if it fits in the Trax, the one she can more easily afford.
+  es: La silla de ruedas plegable de su mamá tiene que caber atrás tres veces por semana para la diálisis, y no sabe si cabe en la Trax, que es la que le cuadra mejor en el presupuesto.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\bwheel ?chair\b'
+    - '\bdialysis\b'
+    - '\b(mom|mother|mama)(''s)?\b.{0,40}\b(chair|walker)\b'
+  es:
+    - '\bsilla de ruedas\b'
+    - '\bdiálisis\b'
+    - '\b(mamá|madre|mami)\b.{0,40}\b(silla|andador)\b'
+unlock_conditions:
+  - code: asks_about_daily_use
+    description:
+      en: Asks how she will really use the car, who rides with her, or what has to fit in it.
+      es: Pregunta cómo va a usar de verdad el carro, quién va con ella o qué tiene que caber.
+    cues:
+      en:
+        - '\b(who|what) (else )?(rides|goes|will ride|will go|travels|usually rides|usually goes)\b.{0,30}\b(with you|in (the )?(back|car|cargo|trunk))\b'
+        - '\bwhat (do|will|would) you (use|be using|need) (it|the car|this|the SUV) (for|most)\b'
+        - '\b(walk|tell) me (through|about) (a |your )?(normal|typical|regular) (week|day)\b'
+        - '\bwhat (do|will|would) you (carry|haul|put|load)\b'
+        - '\bwhat (has|needs|will need) to (fit|go) in (the )?(back|trunk|cargo)\b'
+        - '\bwhat(''s| is) (most important|the most important thing|the one thing)\b.{0,30}\b(to you|for you|you need)\b'
+      es:
+        - '\bquién(es)? (más )?(va|van|anda|andan|se monta|se montan|viaja|viajan|la acompaña|lo acompaña)\b.{0,30}\b(con usted|en el carro|en la camioneta|atrás)\b'
+        - '\bquién (la|lo) acompaña\b'
+        - '\bpara qué (lo|la) (va a usar|usaría|necesita|usa)\b'
+        - '\b(cuénteme|dígame) cómo es (una|su) semana (normal|típica)\b'
+        - '\bqué (va a|necesita|tiene que) (cargar|llevar|meter|poner) atrás\b'
+        - '\bqué (tiene|va|necesita) que (caber|entrar|ir) atrás\b'
+        - '\bqué es lo (más importante|que más le importa)\b'
+  - code: asks_what_makes_it_hard
+    description:
+      en: Asks what is making the choice hard, or what pulls her toward each one.
+      es: Pregunta qué le hace difícil la decisión, o qué la atrae de cada una.
+    cues:
+      en:
+        - '\bwhat(''s| is) (making|keeping) (it|this|the choice|the decision) (so )?(hard|tough|difficult)\b'
+        - '\bwhat(''s| is) (pulling|pushing|drawing) you (toward|to)\b'
+        - '\bwhat (makes|made) you (hesitate|unsure|torn)\b'
+        - '\bwhat would make (one|either|it) (clearly )?(the )?(right|better|obvious)\b'
+      es:
+        - '\bqué (es lo que )?(le )?(hace|está haciendo) (tan )?(difícil|complicad[oa]) (decidir|escoger|elegir|la decisión)\b'
+        - '\bqué (le )?(jala|atrae|tira) (hacia|de) (cada|una|la otra)\b'
+        - '\bqué (la|lo) tiene (indecis[oa]|dudando)\b'
+        - '\bqué haría que (una|alguna) (fuera|sea) (la correcta|mejor)\b'
+walk_out_triggers:
+  - code: pressures_decision
+    description:
+      en: Tells her to just trust him and buy now, instead of owning the advice with a reason.
+      es: Le dice que confíe en él y compre ya, en vez de hacerse responsable del consejo con una razón.
+    cues:
+      en:
+        - '\b(just )?trust me\b'
+        - '\b(take|buy|get) (it|the \w+|one) (today|tonight|now)\b'
+        - '\b(want|shall) (me|I) to write it up\b'
+      es:
+        - '\bconfíe en mí\b'
+        - '\bllévese(lo|la)? (hoy|ya|ahora)\b'
+        - '\bse (lo|la) (preparo|dejo escrit[oa])\b'
+  - code: piles_on_options
+    description:
+      en: Adds more vehicles to compare when she is already torn between two.
+      es: Le agrega más carros para comparar cuando ya está indecisa entre dos.
+    cues:
+      en:
+        - '\bcompare (all|them all|every|the (three|four|five))\b'
+        - '\blet me show you (all|every|a few more|some more|the others)\b'
+        - '\bshow you the \w+ and the \w+ too\b'
+      es:
+        - '\bcompare (las|los) (tres|cuatro|cinco|todas|todos)\b'
+        - '\b(también|además) le (enseño|muestro)\b'
+  - code: refuses_to_advise
+    description:
+      en: Refuses to give an opinion ("That's not for me to say").
+      es: Se niega a dar una opinión ("Eso no me toca a mí decirlo").
+    cues:
+      en:
+        - '\bI can''?t (tell|answer) (you )?that\b'
+        - '\bthat''?s not (for me|my place) to (say|decide)\b'
+        - '\bit doesn''?t matter what I(''d| would) do\b'
+        - '\bonly you can (decide|answer|know)\b'
+      es:
+        - '\beso no (se )?(lo )?(le )?puedo (decir|contestar)\b'
+        - '\bno me toca (a mí )?(decir|decidir)\b'
+        - '\bsolo usted (puede|sabe)\b'
+        - '\bno importa lo que yo haría\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The wheelchair need comes out, the rep gives one recommendation with a reason, and they set a day and time to test the chair in both.
+    es: Sale a la luz lo de la silla de ruedas, el vendedor da una recomendación con una razón, y fijan día y hora para probar la silla en las dos.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el trade-in", "el down"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-50s
+  es: tbd-es-miami-venezuelan-female-50s
+difficulty: 1
+variation:
+  moods: [chatty, tired after work, a little overwhelmed]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I'm asking you. You do this every day.", es: "Le estoy preguntando a usted. Usted hace esto todos los días." }
+    - { en: "They both look good to me. That's the problem.", es: "Las dos me parecen bien. Ese es el problema." }
+    - { en: "I just don't want to choose wrong.", es: "Es que no quiero escoger mal." }
+  hint: { en: "Mostly errands and work. But I don't only drive for myself.", es: "Más que nada mandados y el trabajo. Pero yo no manejo solo para mí." }
+  after_hint: { en: "They both drive nice. That's why I can't decide.", es: "Las dos se manejan bien. Por eso es que no me decido." }
+  reveal: { en: "It's my mom. I take her to dialysis three times a week, and her wheelchair has to go in the back. I don't know if it fits in the Trax.", es: "Es mi mamá. La llevo a diálisis tres veces por semana, y la silla de ruedas tiene que ir atrás. No sé si cabe en la Trax." }
+  after_reveal:
+    - { en: "That's what I needed. Someone to just tell me straight.", es: "Eso es lo que necesitaba. Que alguien me lo dijera claro." }
+    - { en: "Okay. That makes sense to me.", es: "Bueno. Eso tiene sentido." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  not_now: { en: "Not today. Thank you, though.", es: "Hoy no. Pero gracias." }
+  walk_away: { en: "I think I'll go home and think about it.", es: "Creo que me voy a la casa a pensarlo." }
+  goodbye: { en: "Thank you. Take care.", es: "Gracias. Que le vaya bien." }
+  react_to_pressure: { en: "I asked what you would do. That's not an answer.", es: "Le pregunté qué haría usted. Eso no es una respuesta." }
+spanish_reviewed: false

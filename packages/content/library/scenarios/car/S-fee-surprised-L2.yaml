@@ -1,0 +1,182 @@
+code: S-fee-surprised-L2
+module: car-market-2026
+title:
+  en: "\"Your online price did not include these fees\""
+  es: "\"El precio en internet no incluía estos cargos\""
+setting:
+  en: Saturday afternoon, at the sales desk, right after he read the worksheet.
+  es: Sábado por la tarde, en la mesa de ventas, justo después de que leyó la hoja de números.
+persona: P-fee-surprised
+objection: O19
+channel: floor
+language_options: [en, es]
+difficulty: 2
+start_state: objection
+pre_brief:
+  en: "{name}, late 30s, drove in for a 2026 Equinox LT he saw on a car-shopping website listed at $32,795. He is financing through his own credit union. You just handed him the worksheet: $33,694 out the door, which includes the $899 dealer fee, plus tax, tag and title."
+  es: "{name}, de unos 38 años, vino por una Equinox LT 2026 que vio en una página de carros anunciada en $32,795. Va a financiar con su propia cooperativa de crédito. Usted le acaba de dar la hoja de números: $33,694 precio total, que incluye el cargo de concesionario de $899, más impuestos, placa y título."
+opening:
+  en: Your online price did not include these fees. The listing said $32,795.
+  es: El precio en internet no incluía estos cargos. El anuncio decía $32,795.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: LT, color: Sterling Gray Metallic, stock: "6187", in_stock: true }
+  price_cents: 3279500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3369400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    online_listing_cents: 3279500
+    listing_source: A third-party car-shopping website that showed the price without the dealer fee
+    financing: His own credit union
+numbers_sheet: true
+target_techniques: [T001, T002, T003, T005, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O19-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O19-ACK
+      behavior:
+        en: "Apologized for the surprise without blaming the website or anyone else"
+        es: "Se disculpó por la sorpresa sin echarle la culpa a la página ni a nadie"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003); FTC pricing guidance, September 15, 2026"
+      technique: T003
+    - code: O19-QFIRST
+      behavior:
+        en: "Asked what bothered him before explaining any charge"
+        es: "Preguntó qué le molestaba antes de explicar cualquier cargo"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O19-TOTALFIRST
+      behavior:
+        en: "Stated the all-in total before itemizing"
+        es: "Dijo el precio total antes de desglosar"
+      dimension: technique
+      method: rule
+      points: 20
+      evidence: Partitioned pricing meta-analysis; FTC pricing guidance, September 15, 2026
+      technique: T030
+      params: { rules: [PRICE-05], topic: price }
+    - code: O19-ITEMIZE
+      behavior:
+        en: "Explained every line, including what the dealer fee covers, without inventing anything"
+        es: "Explicó cada línea, incluyendo qué cubre el cargo de concesionario, sin inventar nada"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "FTC pricing guidance, September 15, 2026 (T118)"
+      technique: T118
+    - code: O19-HIDDEN
+      behavior:
+        en: "Surfaced that the total was fine and the unexplained lines were the real problem"
+        es: "Sacó a la luz que el total estaba bien y que el problema real eran las líneas sin explicar"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O19-NEXT
+      behavior:
+        en: "Set a specific day and time to go over the full sheet"
+        es: "Fijó un día y una hora específicos para repasar la hoja completa"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: blamed_or_invented
+      description:
+        en: "Blamed the website or other dealers, or made up a reason for the fee"
+        es: "Le echó la culpa a la página o a otros dealers, o inventó una razón para el cargo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep blamed the website, listed the fee before giving any total, never asked a question, and let the customer leave with no next step."
+      es: "Fíjese: el vendedor le echó la culpa a la página, mencionó el cargo antes de dar ningún total, nunca hizo una pregunta y dejó ir al cliente sin un próximo paso."
+    script:
+      en:
+        - { speaker: customer, text: "Your online price did not include these fees. The listing said $32,795." }
+        - { speaker: rep, text: "That's just how dealer fees work. Online prices never show them." }
+        - { speaker: customer, text: "So the price I saw was not real." }
+        - { speaker: rep, text: "It's the same car. The $899 dealer fee is standard, and then tax, tag and title go on top. Do you want to go ahead?" }
+        - { speaker: customer, text: "I need to think about it." }
+        - { speaker: rep, text: "Okay. Here's my card. Let me know." }
+        - { speaker: customer, text: "Sure." }
+      es:
+        - { speaker: customer, text: "El precio en internet no incluía estos cargos. El anuncio decía $32,795." }
+        - { speaker: rep, text: "Así es como funcionan los cargos de concesionario. Los precios en internet nunca los enseñan." }
+        - { speaker: customer, text: "O sea que el precio que yo vi no era real." }
+        - { speaker: rep, text: "Es el mismo carro. El cargo de concesionario de $899 es normal, y después se suman impuestos, placa y título. ¿Seguimos adelante?" }
+        - { speaker: customer, text: "Lo tengo que pensar." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me avisa." }
+        - { speaker: customer, text: "Está bien." }
+  good:
+    notice:
+      en: Notice the apology without blame, the question before any explanation, and the all-in total said before a single line is itemized.
+      es: Fíjese en la disculpa sin echarle la culpa a nadie, en la pregunta antes de explicar nada, y en el precio total dicho antes de desglosar una sola línea.
+    script:
+      en:
+        - { speaker: customer, text: "Your online price did not include these fees. The listing said $32,795." }
+        - { speaker: rep, text: "[pause] I'm sorry that number surprised you. You should see the full price first, every time. Before I explain anything, can I ask: is it the total itself that bothers you, or not knowing what each line on this sheet is for?" }
+        - { speaker: customer, text: "I don't like surprises. That's all." }
+        - { speaker: rep, text: "Fair enough. Here is the total first: $33,694 out the door, plus only tax, tag and title. That already includes our $899 dealer fee, which is the difference from the listing you saw. Do you want me to go through every line with you?" }
+        - { speaker: customer, text: "Honestly, the total is fine. I can afford it. I just need every line explained, and the total first, so I know nothing else shows up when I sign." }
+        - { speaker: rep, text: "That's how we'll do it. The $899 dealer fee covers costs and profit to the dealer for things like inspecting, cleaning and adjusting the car and preparing the documents. The other lines are the sales tax, the tag and the title, which go to the state and the county, and I'll print each one with its exact amount. Nothing else goes on this sheet unless you ask for it." }
+        - { speaker: customer, text: "Okay. That's what I wanted to hear." }
+        - { speaker: rep, text: "I'll print the full sheet now so you can take it home and check every line. Can you come back Monday at 6:30 so we go over it together?" }
+        - { speaker: customer, text: "Monday at 6:30 works." }
+      es:
+        - { speaker: customer, text: "El precio en internet no incluía estos cargos. El anuncio decía $32,795." }
+        - { speaker: rep, text: "[pausa] Disculpe que ese número lo haya sorprendido. Usted debe ver el precio completo primero, siempre. Antes de explicarle nada, déjeme preguntarle: ¿lo que le molesta es el total en sí, o no saber para qué es cada línea de esta hoja?" }
+        - { speaker: customer, text: "No me gustan las sorpresas. Eso es todo." }
+        - { speaker: rep, text: "Me parece justo. Primero el total: $33,694 precio total, y solo se suman los impuestos, la placa y el título. Eso ya incluye nuestro cargo de concesionario de $899, que es la diferencia con el anuncio que usted vio. ¿Quiere que repasemos cada línea juntos?" }
+        - { speaker: customer, text: "La verdad, el total está bien. Lo puedo pagar. Lo que necesito es ver cada línea explicada, y el total primero, para saber que no aparezca nada más cuando firme." }
+        - { speaker: rep, text: "Así mismo lo vamos a hacer. El cargo de concesionario de $899 cubre costos y ganancia del concesionario por cosas como inspeccionar, limpiar y ajustar el carro y preparar los documentos. Las otras líneas son el impuesto de venta, la placa y el título, que van al estado y al condado, y le imprimo cada una con su cantidad exacta. A esta hoja no se le agrega nada más a menos que usted lo pida." }
+        - { speaker: customer, text: "Está bien. Eso es lo que quería oír." }
+        - { speaker: rep, text: "Le imprimo la hoja completa ahora para que se la lleve y revise cada línea en su casa. ¿Puede volver el lunes a las 6:30 para repasarla juntos?" }
+        - { speaker: customer, text: "El lunes a las seis y media me funciona." }
+spanish_reviewed: false

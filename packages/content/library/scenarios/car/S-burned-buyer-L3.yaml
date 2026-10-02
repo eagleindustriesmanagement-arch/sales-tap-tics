@@ -1,0 +1,171 @@
+code: S-burned-buyer-L3
+module: car-core
+title:
+  en: "\"I don't trust dealers\""
+  es: "\"No confío en los dealers\""
+setting:
+  en: Wednesday evening, showroom floor, before any numbers. She walked in after a shift and sat down with her arms crossed.
+  es: Miércoles por la tarde, en el piso de ventas, antes de hablar de números. Llegó después de un turno y se sentó con los brazos cruzados.
+persona: P-burned-buyer
+objection: O18
+channel: floor
+language_options: [en, es]
+difficulty: 3
+start_state: objection
+pre_brief:
+  en: "{name}, late 40s, ICU nurse, needs a 2026 Blazer 2LT to replace a car with 140,000 miles. She will finance. The Blazer on the lot is $40,550 out the door, which includes your $899 dealer fee; only tax, tag and title are added. It has no add-ons installed. You have not shown her any numbers yet."
+  es: "{name}, de unos 48 años, enfermera de cuidados intensivos, necesita una Blazer 2LT 2026 para reemplazar un carro con 140,000 millas. Va a financiar. La Blazer del lote está en $40,550 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. No tiene ningún extra instalado. Usted todavía no le ha enseñado ningún número."
+opening:
+  en: "Let me tell you something up front: I don't trust dealers."
+  es: "Le voy a decir algo de entrada: yo no confío en los dealers."
+facts:
+  session_date: "2026-10-07"
+  vehicle: { year: 2026, make: Chevrolet, model: Blazer, trim: 2LT, color: Iridescent Pearl Tricoat, stock: "3864", in_stock: true }
+  price_cents: 3965100
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4055000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    last_time_add_ons_cents: 240000
+    last_time_add_ons: Paint protection, nitrogen in the tires, a service contract; found at signing, 2021, another dealer
+numbers_sheet: true
+target_techniques: [T001, T002, T003, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O18-L3-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O18-L3-DOUBTS
+      behavior:
+        en: "Named her doubts out loud before she had to, without saying \"trust me\""
+        es: "Dijo en voz alta las dudas de ella antes de que ella tuviera que decirlas, sin decir \"confíe en mí\""
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T100)"
+      technique: T100
+    - code: O18-L3-ASK
+      behavior:
+        en: "Asked what happened last time before defending the store"
+        es: "Preguntó qué le pasó la última vez antes de defender la tienda"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0% (T002)"
+      technique: T002
+    - code: O18-L3-SHEET
+      behavior:
+        en: "Put the whole deal on one sheet: all-in price with the fee in it, no add-ons she did not ask for, optional products shown as optional"
+        es: "Puso todo el negocio en una sola hoja: precio total con el cargo incluido, sin extras que ella no pidió, y los productos opcionales como opcionales"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Practitioner tradition (T085, T009); Credit Acceptance decree (T121)"
+      technique: T085
+    - code: O18-L3-HIDDEN
+      behavior:
+        en: "Surfaced what happened at her last signing"
+        es: "Sacó a la luz lo que le pasó en su última firma"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O18-L3-NEXT
+      behavior:
+        en: "Set a specific day and time to sign against the written sheet"
+        es: "Fijó un día y una hora específicos para firmar contra la hoja por escrito"
+      dimension: outcome
+      method: engine_and_judge
+      points: 20
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: brushed_off_past
+      description:
+        en: "Brushed off her bad experience (\"trust me\", \"we're not like other dealers\")"
+        es: "Le restó importancia a su mala experiencia (\"confíe en mí\", \"no somos como los otros dealers\")"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number or described an add-on as required or free"
+        es: "Dijo un número que no es real o presentó un extra como obligatorio o gratis"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, add_ons]
+exit_policy: { walk_away_base: 0.20, not_now_base: 0.25, triggers_raise_by: 0.30 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he reassured instead of asking, said \"trust me\", and pushed toward paperwork. She heard the last dealer all over again."
+      es: "Fíjese: prometió en vez de preguntar, dijo \"confíe en mí\" y la empujó a los papeles. Ella oyó al último dealer otra vez."
+    script:
+      en:
+        - { speaker: customer, text: "Let me tell you something up front: I don't trust dealers." }
+        - { speaker: rep, text: "Oh, don't worry, we're not like other dealers. Trust me, we're the good guys here." }
+        - { speaker: customer, text: "That's exactly what the last one said." }
+        - { speaker: rep, text: "Everybody loves this Blazer. Let's just get the paperwork started and you'll see." }
+        - { speaker: customer, text: "I've heard all of this before." }
+        - { speaker: rep, text: "Okay. Here's my card in case you change your mind." }
+        - { speaker: customer, text: "Mm-hm. Bye." }
+      es:
+        - { speaker: customer, text: "Le voy a decir algo de entrada: yo no confío en los dealers." }
+        - { speaker: rep, text: "Ay, no se preocupe, nosotros no somos como los otros dealers. Confíe en mí, aquí somos los buenos." }
+        - { speaker: customer, text: "Eso mismo me dijo el último." }
+        - { speaker: rep, text: "A todo el mundo le encanta esta Blazer. Vamos a empezar los papeles ya y usted va a ver." }
+        - { speaker: customer, text: "Todo eso ya lo he oído." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta, por si cambia de idea." }
+        - { speaker: customer, text: "Ajá. Adiós." }
+  good:
+    notice:
+      en: "Notice that he says her doubts before she does, asks what happened instead of defending the store, and answers with one written sheet."
+      es: "Fíjese en que él dice las dudas de ella antes que ella, pregunta qué pasó en vez de defender la tienda, y responde con una sola hoja por escrito."
+    script:
+      en:
+        - { speaker: customer, text: "Let me tell you something up front: I don't trust dealers." }
+        - { speaker: rep, text: "[pause] That's fair, and I'd rather hear it now than find out later. You're probably expecting me to play games with the numbers and keep you here four hours." }
+        - { speaker: customer, text: "Something like that. I've heard the speech before." }
+        - { speaker: rep, text: "Then I'll skip the speech. What happened the last time you bought a car?" }
+        - { speaker: customer, text: "Let's just say the paper I signed wasn't the deal we shook hands on." }
+        - { speaker: rep, text: "What was on the paper that wasn't in the handshake?" }
+        - { speaker: customer, text: "About $2,400 in add-ons I never asked for: paint protection, nitrogen in the tires, a service contract. It was ten at night, and I just signed." }
+        - { speaker: rep, text: "I'm sorry that happened to you. Here's how this one works. The Blazer is $40,550 out the door, because that already includes our $899 dealer fee; only tax, tag and title are added. There are no add-ons on this Blazer, and nothing gets added that you don't ask for. If you want a service contract, finance will show you the payment with it and without it, and no is a fine answer. Take this sheet home tonight. Come back Saturday at 10:00, and before you sign, we'll check the contract against this sheet, line by line. Does Saturday at 10:00 work?" }
+        - { speaker: customer, text: "Okay. I'll be there, and I'm bringing this sheet." }
+      es:
+        - { speaker: customer, text: "Le voy a decir algo de entrada: yo no confío en los dealers." }
+        - { speaker: rep, text: "[pausa] Me parece justo, y prefiero oírlo ahora y no enterarme después. Seguramente usted piensa que le voy a jugar con los números y tenerla aquí cuatro horas." }
+        - { speaker: customer, text: "Algo así. Ese discurso ya me lo sé." }
+        - { speaker: rep, text: "Entonces me salto el discurso. ¿Qué le pasó la última vez que compró carro?" }
+        - { speaker: customer, text: "Digamos que el papel que firmé no era el trato que hicimos de palabra." }
+        - { speaker: rep, text: "¿Qué había en el papel que no estaba en el trato de palabra?" }
+        - { speaker: customer, text: "Como $2,400 en extras que yo nunca pedí: protección de pintura, nitrógeno en las gomas, un contrato de servicio. Eran las diez de la noche y firmé y ya." }
+        - { speaker: rep, text: "Siento mucho que le haya pasado eso. Así es como funciona aquí. La Blazer está en $40,550 con todo, porque ya incluye nuestro cargo del dealer de $899; solo se suman impuestos, placa y título. Esta Blazer no tiene ningún extra, y no se le agrega nada que usted no pida. Si quiere un contrato de servicio, en financiamiento le enseñan el pago con él y sin él, y decir que no está bien. Llévese esta hoja a su casa esta noche. Vuelva el sábado a las 10:00, y antes de firmar, revisamos el contrato contra esta hoja, línea por línea. ¿Le funciona el sábado a las 10:00?" }
+        - { speaker: customer, text: "Está bien. Allí estaré, y traigo esta hoja." }
+spanish_reviewed: false
