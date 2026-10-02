@@ -43,6 +43,8 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
   engine before it is saved; lines with numbers also need the compliance reviewer. `pnpm --filter @taptics/db
   apply-reviews --tenant=<id>` writes approved edits back into the YAML (only the edited values change) and marks a
   file reviewed when every line is approved.
+- **People** (spec 18.3 Users, general manager): add a person with an email or phone and roles, change roles,
+  deactivate (sign-in stops on the next request), all audit-logged. A general manager cannot remove their own role.
 - **Coach the coach** (spec 14.3): managers practice a floor check and are scored on its four parts.
 - **Library**: all 122 techniques and 65 objections with grade, evidence note, sources, both languages, search
   and grade filter.
@@ -52,7 +54,7 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 | Milestone | Item | State |
 | --- | --- | --- |
 | M1 | Monorepo, TypeScript strict, CI | Done; CI green on every push |
-| M1 | Tenant and store schema with row-level security | Done; cross-tenant tests on every tenant table pass against Postgres 16 |
+| M1 | Tenant and store schema with row-level security | Done for reads and writes: every tenant table isolates tenants, and writes are limited by role in the database (people and roles by the general manager, store settings by the general manager with sign-off only by the compliance reviewer, session results only into the rep's own session, login tables only through their functions) |
 | M1 | i18n package with bilingual completeness check | Done |
 | M1 | Authentication | Done: one-time code sign-in, hashed sessions, rate limits, role checks (email delivery needs `RESEND_API_KEY`; SMS not yet) |
 | M1 | Speech provider interfaces, two implementations each | **Not started**: waiting on the bake-off to choose candidates |
@@ -90,10 +92,10 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 
 ## Numbers
 
-- 349 unit and database tests: rules 116, session 99 (including the 20-scenario release gate and the 30-day
-  simulation), engine 60, database 28 (row-level security, sign-in, repository, assignments, coaching practice,
-  Spanish review, usage), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
-- 15 browser tests (10 flows and 5 accessibility audits) on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
+- 353 unit and database tests: rules 116, session 99 (including the 20-scenario release gate and the 30-day
+  simulation), engine 60, database 32 (row-level security for reads and writes, sign-in, repository, assignments,
+  coaching practice, Spanish review, usage, people), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
+- 16 browser tests (11 flows and 5 accessibility audits) on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; the general manager edits store
   setup (a one-language consent text is refused), cannot sign it off, and the reviewer signs off and sees the flags;

@@ -314,3 +314,29 @@ test("the general manager sees model costs; a rep cannot", async ({ page, browse
   await rep.goto("/manager/costs");
   await expect(rep).toHaveURL(/localhost:\d+\/$/);
 });
+
+test("the general manager adds a person who can sign in, then deactivates them", async ({ page, browser }) => {
+  await signInReady(page, "gm@demo.test");
+  await page.goto("/manager/team");
+  await page.getByRole("link", { name: "People", exact: true }).click();
+  await page.getByLabel("First name").fill("Daniel");
+  await page.getByLabel("Email").fill("e2e-daniel@demo.test");
+  await page.getByLabel("Language").selectOption("es");
+  await page.getByRole("button", { name: "Add to the store" }).click();
+  await expect(page.getByRole("status")).toHaveText("Daniel was added and can sign in now.");
+  await expect(page.getByTestId("person-Daniel")).toContainText("Active");
+
+  const daniel = await browser.newPage();
+  await signInReady(daniel, "e2e-daniel@demo.test");
+  await expect(daniel.getByRole("heading", { name: /Daniel/ })).toBeVisible();
+
+  await page.getByTestId("person-Daniel").getByRole("button", { name: "Deactivate" }).click();
+  await expect(page.getByTestId("person-Daniel")).toContainText("Deactivated");
+  // Their next request is refused, whatever session they still hold.
+  await daniel.goto("/");
+  await expect(daniel).toHaveURL(/\/login$/);
+  // The same email can't be added twice while active, and a manager cannot add people.
+  const manager = await browser.newPage();
+  await signInReady(manager, "manager@demo.test");
+  expect((await manager.request.post("/api/people", { data: { firstName: "X", email: "e2e-x@demo.test", language: "en", roles: ["rep"] } })).status()).toBe(403);
+});

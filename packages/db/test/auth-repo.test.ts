@@ -3,7 +3,7 @@ import type pg from "pg";
 import { randomUUID } from "node:crypto";
 import {
   coachingQuality, createPracticeSession, getSessionDetail, insertTurns, issueCard, listSessions, loadUser, markMissedCards, recordConsent,
-  approveSpanishCompliance, assignableReps, usageSummary, coachPracticeSummary, listSpanishReviews, saveSpanishReview, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
+  approveSpanishCompliance, assignableReps, invitePerson, listPeople, setPersonStatus, setRoles, usageSummary, coachPracticeSummary, listSpanishReviews, saveSpanishReview, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
 } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
@@ -237,5 +237,50 @@ describe.skipIf(SKIP)("model usage and cost (M7)", () => {
     expect(row.costUsd).toBeCloseTo(0.03);
     expect((await as(REP, (q) => usageSummary(q))).rows).toEqual([]);
     expect((await as(MANAGER, (q) => usageSummary(q))).rows).toEqual([]);
+  });
+});
+
+describe.skipIf(SKIP)("write rules in the database (spec 3.3 rule 2)", () => {
+  const ROSA = DEMO.users[4]!.id;
+  it("a rep cannot grant themselves a role, change their status, or write into someone else's session", async () => {
+    await expect(as(REP, (q) => q.query("insert into memberships (tenant_id, user_id, store_id, role) values ($1, $2, $3, 'general_manager')", [DEMO.tenant, REP, DEMO.store]))).rejects.toThrow(/row-level security/);
+    await expect(as(REP, (q) => q.query("update users set status = 'inactive' where id = $1", [REP]))).rejects.toThrow(/only the general manager/);
+    // Their own preferences are fine.
+    await as(REP, (q) => q.query("update users set preferred_language = 'es' where id = $1", [REP]));
+    const other = await db.query("select id from sessions where user_id <> $1 limit 1", [REP]);
+    if (other.rows[0]) {
+      await expect(as(REP, (q) => q.query("insert into turns (tenant_id, session_id, index, speaker, text) values ($1, $2, 99, 'rep', 'x')", [DEMO.tenant, other.rows[0].id]))).rejects.toThrow(/row-level security/);
+    }
+    await expect(as(REP, (q) => q.query("update store_fees set amount_cents = 1"))).resolves.toMatchObject({ rowCount: 0 });
+  });
+  it("the compliance reviewer signs off store settings but cannot change them; a general manager cannot remove their own role", async () => {
+    await expect(as(ROSA, (q) => q.query("update store_policies set private_window_hours = 72"))).rejects.toThrow(/does not change them/);
+    await as(ROSA, (q) => q.query("update store_policies set approved_at = now(), approved_by = $1", [ROSA]));
+    const gone = await as(GM, (q) => q.query("delete from memberships where user_id = $1 and role = 'general_manager'", [GM]));
+    expect(gone.rowCount).toBe(0);
+  });
+});
+
+describe.skipIf(SKIP)("people (spec 18.3 Users)", () => {
+  it("the general manager invites someone who can then sign in, changes roles, and deactivates them", async () => {
+    const gm = await as(GM, async (q) => (await loadUser(q, GM))!);
+    const id = await as(GM, (q) => invitePerson(q, gm, { firstName: "Daniel", email: "Daniel@Demo.test", language: "es", roles: ["rep"] }));
+    const req = await requestLoginCode(db, "daniel@demo.test", SECRET);
+    expect(req.status).toBe("sent");
+    expect((await as(GM, (q) => listPeople(q, DEMO.store))).find((p) => p.id === id)).toMatchObject({ firstName: "Daniel", roles: ["rep"], status: "active", language: "es" });
+    await as(GM, (q) => setRoles(q, gm, id, ["rep", "manager"]));
+    expect((await as(GM, (q) => listPeople(q, DEMO.store))).find((p) => p.id === id)!.roles).toEqual(["manager", "rep"]);
+    await as(GM, (q) => setPersonStatus(q, gm, id, "inactive"));
+    expect((await requestLoginCode(db, "daniel@demo.test", SECRET)).status).toBe("unknown");
+    const log = await as(GM, (q) => q.query("select action from audit_log where target_id = $1 order by at", [id]));
+    expect(log.rows.map((r) => r.action)).toEqual(["person.invite", "person.roles", "person.deactivate"]);
+  });
+  it("guards against lockout and refuses everyone but the general manager", async () => {
+    const gm = await as(GM, async (q) => (await loadUser(q, GM))!);
+    await expect(as(GM, (q) => setRoles(q, gm, GM, ["manager"]))).rejects.toThrow(/your own general manager role/);
+    await expect(as(GM, (q) => setPersonStatus(q, gm, GM, "inactive"))).rejects.toThrow(/deactivate yourself/);
+    const manager = await as(MANAGER, async (q) => (await loadUser(q, MANAGER))!);
+    await expect(as(MANAGER, (q) => invitePerson(q, manager, { firstName: "X", email: "x@demo.test", language: "en", roles: ["rep"] }))).rejects.toThrow(/only a general manager/);
+    await expect(as(MANAGER, (q) => q.query("insert into users (tenant_id, first_name, email) values ($1, 'X', 'x@demo.test')", [DEMO.tenant]))).rejects.toThrow(/row-level security/);
   });
 });

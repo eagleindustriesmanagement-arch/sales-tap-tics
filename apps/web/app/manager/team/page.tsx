@@ -32,6 +32,7 @@ export default async function Team() {
         <div className="flex flex-wrap gap-2">
           <Link href="/manager/assign" className={buttonClass}>{t("assign.title", lang)}</Link>
           <Link href="/manager/coach" className="inline-flex min-h-12 items-center rounded-xl border border-line px-4 font-semibold text-ink">{t("coach.title", lang)}</Link>
+          {gm && <Link href="/manager/people" className="inline-flex min-h-12 items-center rounded-xl border border-line px-4 font-semibold text-ink">{t("people.title", lang)}</Link>}
           {gm && <Link href="/manager/costs" className="inline-flex min-h-12 items-center rounded-xl border border-line px-4 font-semibold text-ink">{t("costs.title", lang)}</Link>}
         </div>
       </div>

@@ -20,5 +20,7 @@ export default async function globalSetup() {
     [store],
   );
   await c.query("update stores set settings = '{}' where id = $1", [store]);
+  // People added by an earlier run step aside, so the same email can be added again.
+  await c.query("update users set status = 'inactive', email = null where email like 'e2e-%@demo.test'");
   await c.end();
 }

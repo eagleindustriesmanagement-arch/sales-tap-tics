@@ -650,3 +650,62 @@ export async function usageSummary(db: Queryable, days = 30): Promise<{ rows: Us
     sessions: s.rows[0].n,
   };
 }
+
+// ---------------------------------------------------------------- people (spec 18.3 "Users")
+
+export const ROLES: Role[] = ["rep", "bdc_agent", "manager", "general_manager", "content_editor", "compliance_reviewer"];
+
+export interface Person { id: string; firstName: string | null; lastName: string | null; email: string | null; phone: string | null; status: "active" | "inactive" | "anonymized"; roles: Role[]; language: "en" | "es" }
+
+/** Everyone in the general manager's store, with their roles. */
+export async function listPeople(db: Queryable, storeId: string): Promise<Person[]> {
+  const r = await db.query(
+    `select u.id, u.first_name, u.last_name, u.email, u.phone, u.status, u.preferred_language,
+            coalesce(array_agg(m.role order by m.role) filter (where m.role is not null), '{}') roles
+     from users u left join memberships m on m.user_id = u.id and m.store_id = $1
+     where exists (select 1 from memberships x where x.user_id = u.id and x.store_id = $1)
+     group by u.id order by u.status, u.first_name`,
+    [storeId],
+  );
+  return r.rows.map((x) => ({ id: x.id, firstName: x.first_name, lastName: x.last_name, email: x.email, phone: x.phone, status: x.status, roles: x.roles, language: x.preferred_language }));
+}
+
+function requireGm(gm: UserContext) {
+  if (!gm.roles.includes("general_manager") || !gm.storeId) throw new Error("only a general manager manages people");
+}
+
+/** Adds a person to the store. They sign in with a one-time code to the email or phone given. */
+export async function invitePerson(db: Queryable, gm: UserContext, p: { firstName: string; lastName?: string; email?: string; phone?: string; language: "en" | "es"; roles: Role[] }): Promise<string> {
+  requireGm(gm);
+  if (!p.email && !p.phone) throw new Error("an email or a phone number is needed to sign in");
+  if (p.roles.length === 0) throw new Error("at least one role");
+  const u = await db.query(
+    "insert into users (tenant_id, first_name, last_name, email, phone, preferred_language) values ($1, $2, $3, $4, $5, $6) returning id",
+    [gm.tenantId, p.firstName, p.lastName ?? null, p.email?.toLowerCase() ?? null, p.phone ?? null, p.language],
+  );
+  const id = u.rows[0].id as string;
+  for (const role of new Set(p.roles)) await db.query("insert into memberships (tenant_id, user_id, store_id, role) values ($1, $2, $3, $4)", [gm.tenantId, id, gm.storeId, role]);
+  await audit(db, gm, "person.invite", "user", id, { roles: p.roles });
+  return id;
+}
+
+/** Replaces a person's roles in the store. A general manager cannot remove their own general manager role. */
+export async function setRoles(db: Queryable, gm: UserContext, userId: string, roles: Role[]) {
+  requireGm(gm);
+  if (roles.length === 0) throw new Error("at least one role; deactivate the person instead");
+  if (userId === gm.id && !roles.includes("general_manager")) throw new Error("you cannot remove your own general manager role");
+  const before = await db.query("select role from memberships where user_id = $1 and store_id = $2", [userId, gm.storeId]);
+  const had = new Set(before.rows.map((r) => r.role as Role));
+  for (const role of had) if (!roles.includes(role)) await db.query("delete from memberships where user_id = $1 and store_id = $2 and role = $3", [userId, gm.storeId, role]);
+  for (const role of new Set(roles)) if (!had.has(role)) await db.query("insert into memberships (tenant_id, user_id, store_id, role) values ($1, $2, $3, $4)", [gm.tenantId, userId, gm.storeId, role]);
+  await audit(db, gm, "person.roles", "user", userId, { from: [...had], to: roles });
+}
+
+/** Deactivating blocks sign-in at once (every request checks the status); their history stays. */
+export async function setPersonStatus(db: Queryable, gm: UserContext, userId: string, status: "active" | "inactive") {
+  requireGm(gm);
+  if (userId === gm.id) throw new Error("you cannot deactivate yourself");
+  const r = await db.query("update users set status = $2 where id = $1 and exists (select 1 from memberships where user_id = $1 and store_id = $3)", [userId, status, gm.storeId]);
+  if (r.rowCount === 0) throw new Error("not in your store");
+  await audit(db, gm, status === "inactive" ? "person.deactivate" : "person.reactivate", "user", userId);
+}
