@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm test)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm content:validate)",
+      "Bash(pnpm content:validate:*)",
+      "Bash(pnpm i18n:check)",
+      "Bash(pnpm compliance:suite)",
+      "Bash(pnpm compliance:suite:*)",
+      "Bash(pnpm secret:scan)",
+      "Bash(pnpm web:typecheck)",
+      "Bash(pnpm web:build)",
+      "Bash(pnpm db:seed:*)",
+      "Bash(pnpm --filter @taptics/web e2e:*)",
+      "Bash(pnpm --filter @taptics/web dev)",
+      "Bash(npx vitest run:*)",
+      "Bash(npx tsc --noEmit:*)",
+      "Bash(npx tsx:*)",
+      "Bash(python3 scripts/stop-port.py:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./apps/web/.env)",
+      "Read(./apps/web/.env.*)"
+    ]
+  }
+}

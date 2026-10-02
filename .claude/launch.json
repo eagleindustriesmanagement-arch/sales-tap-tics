@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "sales-tap-tics", "runtimeExecutable": "pnpm", "runtimeArgs": ["--filter", "@taptics/web", "dev"], "port": 3000, "autoPort": true }
+  ]
+}

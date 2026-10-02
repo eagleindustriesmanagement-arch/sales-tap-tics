@@ -7,3 +7,9 @@
   Nothing outside the folder is changed except one CI workflow file. Internal packages use the `@taptics/` scope.
 - **Consequence.** Once an empty `sales-tap-tics` repository exists on GitHub, the folder moves there with its
   history: `git subtree split --prefix sales-tap-tics -b tap-tics-only`, then push that branch as `main`.
+
+## Addendum, 2026-10-02: moved to its own repository
+
+The owner asked to move the project out of `requote-insurance-app`. The folder was split with its full history
+(`git subtree split --prefix sales-tap-tics`, 23 commits) and its CI workflow moved to `.github/workflows/ci.yml`
+at the new root. The copy on branch `claude/sales-tap-tics` of `requote-insurance-app` is frozen.

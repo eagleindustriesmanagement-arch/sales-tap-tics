@@ -1,0 +1,40 @@
+name: ci
+on:
+  push:
+  pull_request:
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm content:validate
+      - run: pnpm i18n:check
+      - run: pnpm compliance:suite
+      - run: pnpm secret:scan
+      - run: pnpm audit --prod --audit-level=high
+      - run: pnpm web:typecheck
+      - run: pnpm web:build
+      - name: Browser tests (rep and manager flows, spec 21.1; accessibility audit)
+        run: |
+          pnpm db:seed --private-window-hours=0
+          pnpm db:publish-content
+          pnpm --filter @taptics/web exec playwright install --with-deps chromium
+          pnpm --filter @taptics/web e2e
