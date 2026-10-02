@@ -15,7 +15,9 @@ model_line:
   es: Bienvenidos. ¿Apenas están empezando a mirar y comparar?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Mark Tewart, not a tested finding. People on the lot often expect pressure; asking if they are just starting to look lets them relax and keeps the conversation going.
+  es: Viene del entrenador Mark Tewart, no de un hallazgo comprobado. La gente en el lote muchas veces espera presión; preguntar si apenas están empezando a mirar los deja relajarse y mantiene la conversación.
 evidence:
   grade: D
   note: Mark Tewart

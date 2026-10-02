@@ -15,7 +15,9 @@ model_line:
   es: Le acabo de grabar un video de un minuto del carro exacto que preguntó.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: The only support is vendor claims, so treat this as floor practice. A short video of the exact car shows it is real and waiting, which gives the customer a reason to keep the appointment.
+  es: El único respaldo es lo que dicen los proveedores, así que tómelo como práctica de piso. Un video corto del carro exacto muestra que es real y que lo está esperando, y eso le da al cliente una razón para cumplir la cita.
 evidence:
   grade: D
   note: vendor claims only

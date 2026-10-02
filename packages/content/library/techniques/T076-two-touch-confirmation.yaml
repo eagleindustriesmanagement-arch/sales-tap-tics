@@ -15,7 +15,9 @@ model_line:
   es: Le confirmo para mañana a las 4. La Silverado que le gustó ya está separada al frente.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Alan Ram, not a tested finding. Confirming the day before and the morning of, with the car already pulled up, makes the appointment feel real and easy to keep.
+  es: Viene del entrenador Alan Ram, no de un hallazgo comprobado. Confirmar el día antes y la misma mañana, con el carro ya separado, hace que la cita se sienta real y fácil de cumplir.
 evidence:
   grade: D
   note: Alan Ram

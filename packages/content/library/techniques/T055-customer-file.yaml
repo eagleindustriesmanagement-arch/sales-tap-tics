@@ -15,7 +15,9 @@ model_line:
   es: Anotar familia, trabajo, intereses y la razón por la que se fue; empezar el próximo contacto con eso.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is Joe Girard's method, not a tested finding. Opening the next contact with something personal they told you shows you remember them, and the reason they left tells you what to fix.
+  es: Es el método de Joe Girard, no un hallazgo comprobado. Empezar el próximo contacto con algo personal que le contaron demuestra que usted se acuerda de ellos, y la razón por la que se fueron le dice qué arreglar.
 evidence:
   grade: D
   note: Girard

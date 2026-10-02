@@ -16,7 +16,9 @@ model_line:
   es: Según lo que usted ha visto en otros dealers, ¿qué le parecería justo?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Stuart Diamond's negotiation method, not a tested finding. Asking what feels fair puts the customer's own standard on the table, so you work from their reasoning instead of arguing.
+  es: Viene del método de negociación de Stuart Diamond, no de un hallazgo comprobado. Preguntar qué le parece justo pone sobre la mesa el criterio del cliente, y usted trabaja con su propio razonamiento en vez de discutir.
 evidence:
   grade: D
   note: Stuart Diamond

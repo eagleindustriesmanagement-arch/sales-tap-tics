@@ -16,7 +16,9 @@ model_line:
   es: Precio, trade-in, cargos y pago en una sola hoja, y luego silencio.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Cox Automotive's research on what drives car-shopping satisfaction. With price, trade, fees and payment on one sheet, the customer sees the whole deal and has less reason to suspect a trick.
+  es: Se basa en el estudio de Cox Automotive sobre lo que hace que el cliente quede satisfecho con la compra. Con precio, trade-in, cargos y pago en una sola hoja, el cliente ve todo el negocio y tiene menos razones para desconfiar.
 evidence:
   grade: B
   note: Cox Automotive satisfaction drivers

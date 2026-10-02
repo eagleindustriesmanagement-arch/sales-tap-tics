@@ -16,7 +16,9 @@ model_line:
   es: Le preparé dos opciones. Para nosotros es lo mismo, pero para usted es distinto. ¿Cuál le conviene más?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Leonardelli and others (2019), six experiments. Two packages that are equal for the store but different for the customer let them pick what they value most, so the choice feels like theirs.
+  es: Se basa en Leonardelli y otros (2019), seis experimentos. Dos opciones que para la tienda son iguales pero para el cliente son distintas le dejan escoger lo que más valora, y la decisión se siente suya.
 evidence:
   grade: B
   note: Leonardelli and others 2019, six experiments

@@ -16,7 +16,9 @@ model_line:
   es: "Pongámoslo en papel: a favor y en contra. Usted escribe y yo me quedo callado."
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. An analytical buyer trusts a list they wrote themselves, and seeing it on paper often makes the choice clear.
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Un cliente analítico confía en una lista que escribió él mismo, y verla en papel muchas veces le aclara la decisión.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

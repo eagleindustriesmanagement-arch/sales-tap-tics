@@ -15,7 +15,9 @@ model_line:
   es: Lo llamo el 14 para configurar los perfiles de conductor que nos faltaron.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: In J.D. Power's 2025 study, 22% of buyers wanted a follow-up on features and 53% of those never got one. Putting the date on the calendar at delivery makes sure your customer does.
+  es: En el estudio de J.D. Power de 2025, el 22% de los compradores quería un seguimiento sobre las funciones del carro, y el 53% de ellos nunca lo recibió. Poner la fecha en el calendario al entregar el carro asegura que su cliente sí lo reciba.
 evidence:
   grade: B
   note: J.D. Power 2025; 22% want it and 53% of those never get it

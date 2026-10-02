@@ -16,7 +16,9 @@ model_line:
   es: La mayoría de las familias escoge la del medio. Le enseño lo que pierde si baja y lo que gana si sube.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Simonson and Tversky (1992). Showing what you give up going lower and gain going higher makes the middle option easy to weigh. Fake decoy options are out; they failed a 91-attempt replication.
+  es: Se basa en Simonson y Tversky (1992). Enseñar lo que se pierde al bajar y lo que se gana al subir hace fácil comparar la opción del medio. Las opciones señuelo están descartadas; fallaron en una réplica de 91 intentos.
 evidence:
   grade: B
   note: Simonson and Tversky 1992 (decoys excluded; they failed a 91-attempt replication)

@@ -16,7 +16,9 @@ model_line:
   es: En la hoja va a ver un cargo de concesionario. Se lo explico ahora para que no haya sorpresas.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. When you explain a fee before the customer finds it, it reads as honesty instead of a surprise.
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Cuando usted explica un cargo antes de que el cliente lo encuentre, se ve como honestidad y no como una sorpresa.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

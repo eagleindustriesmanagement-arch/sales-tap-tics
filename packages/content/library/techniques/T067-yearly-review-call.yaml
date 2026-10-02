@@ -15,7 +15,9 @@ model_line:
   es: Ya pasó un año; me gustaría revisar cuánto vale su carro hoy.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. A yearly check on what their car is worth is a useful reason to call, and it keeps you their contact when they are ready to trade.
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Revisar cada año cuánto vale su carro es una razón útil para llamar, y lo mantiene a usted como su contacto cuando esté listo para cambiarlo.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

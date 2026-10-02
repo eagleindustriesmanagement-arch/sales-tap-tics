@@ -16,7 +16,9 @@ model_line:
   es: Con mucho gusto lo atendemos en español o en inglés. ¿Cómo prefiere que hagamos todo, incluyendo los papeles?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: Service-encounter research found that using the customer's preferred language from the start works better than switching later. Asking up front, paperwork included, lets them follow every step in the language they trust.
+  es: La investigación sobre la atención al cliente encontró que usar el idioma preferido desde el principio funciona mejor que cambiar después. Preguntar de entrada, incluyendo los papeles, le permite seguir cada paso en el idioma en que se siente seguro.
 evidence:
   grade: B
   note: service-encounter research; using the preferred language from the start beats switching later

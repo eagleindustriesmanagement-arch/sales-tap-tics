@@ -15,7 +15,9 @@ model_line:
   es: "Antes de que se vaya, dígame con toda confianza: ¿qué hubiera hecho falta para que hoy me dijera que sí?"
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Malhotra and Bazerman's negotiation method, not a tested sales finding. After a firm no, the customer can answer honestly, and the answer tells you what to fix or whether the deal can still be saved.
+  es: Viene del método de negociación de Malhotra y Bazerman, no de un hallazgo comprobado en ventas. Después de un no firme, el cliente puede contestar con franqueza, y la respuesta le dice qué arreglar o si el negocio todavía se puede salvar.
 evidence:
   grade: D
   note: Malhotra and Bazerman

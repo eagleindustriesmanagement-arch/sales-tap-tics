@@ -16,7 +16,9 @@ model_line:
   es: Le hacemos una oferta por escrito por su carro, compre o no compre.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a store policy, not a tested finding, so confirm your store offers it. A written offer on the car whether they buy or not shows the trade value is not being moved around to hide the real price.
+  es: Es una política de la tienda, no un hallazgo comprobado, así que confirme que su tienda la ofrece. Una oferta por escrito por su carro, compre o no compre, muestra que el valor del trade-in no se está moviendo para esconder el precio real.
 evidence:
   grade: D
   note: Bomnin store policy; confirm per store

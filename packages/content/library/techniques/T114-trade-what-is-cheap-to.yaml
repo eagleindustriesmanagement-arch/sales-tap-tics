@@ -16,7 +16,9 @@ model_line:
   es: El precio no lo puedo mover, pero se lo tengo lavadito y con el tanque lleno para las cuatro si terminamos los papeles ahora.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Stuart Diamond's negotiation method, not a tested finding. Something that costs the store little, like a detail and a full tank, can mean a lot to the customer and close the gap without moving the price.
+  es: Viene del método de negociación de Stuart Diamond, no de un hallazgo comprobado. Algo que a la tienda le cuesta poco, como lavarlo y llenarle el tanque, puede valer mucho para el cliente y cerrar la diferencia sin mover el precio.
 evidence:
   grade: D
   note: Stuart Diamond

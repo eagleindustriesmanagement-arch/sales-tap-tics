@@ -15,7 +15,9 @@ model_line:
   es: Quizás el email no es lo más práctico. ¿Le mando por texto un video cortico del carro?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is floor practice, not a tested finding. Some people never answer email but will watch a short video by text, so a new channel can restart the conversation. Text only customers who have given consent.
+  es: Es una práctica de piso, no un hallazgo comprobado. Hay gente que nunca contesta un email pero sí ve un video corto por texto, así que cambiar de vía puede revivir la conversación. Mande textos solo a clientes que hayan dado su consentimiento.
 evidence:
   grade: D
   note: requires text consent (CONSENT-01)

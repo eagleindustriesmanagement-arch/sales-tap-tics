@@ -15,7 +15,9 @@ model_line:
   es: Con la tercera fila se le hace más fácil llevar a los niños, ¿verdad?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is floor tradition, not a tested finding. One tie-down after a benefit the customer clearly values confirms it; repeated, it sounds scripted, which is why scoring flags more than two in a session.
+  es: Es una tradición del piso de ventas, no un hallazgo comprobado. Una sola pregunta de confirmación después de un beneficio que el cliente valora lo reafirma; repetida, suena a libreto, y por eso la puntuación marca más de dos por sesión.
 evidence:
   grade: D
   note: sounds scripted if repeated, so scoring penalizes more than two per session

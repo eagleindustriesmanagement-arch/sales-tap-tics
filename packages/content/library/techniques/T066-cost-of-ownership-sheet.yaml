@@ -16,7 +16,9 @@ model_line:
   es: Tiene razón, el precio es más alto. Aquí está la gasolina y el mantenimiento en cinco años, lado a lado.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: J.D. Power found only 12% of first-time EV buyers were shown cost of ownership. Putting gas and service over five years side by side answers "EVs cost more" with numbers instead of opinion.
+  es: J.D. Power encontró que solo al 12% de los que compraron su primer eléctrico les enseñaron el costo total de tenerlo. Poner gasolina y mantenimiento de cinco años lado a lado responde "los eléctricos cuestan más" con números, no con opiniones.
 evidence:
   grade: B
   note: J.D. Power EVX; only 12% of first-time EV buyers were shown cost of ownership

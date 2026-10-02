@@ -15,7 +15,9 @@ model_line:
   es: Lo único que le pido es que al final me diga sí o no; cualquiera de las dos está bien. ¿Le parece?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on research about putting off decisions, though not with car buyers. Asking for a clear yes or no up front, and saying either is fine, keeps "maybe" from being the easy way out.
+  es: Se basa en investigaciones sobre posponer decisiones, aunque no con compradores de carros. Pedir desde el principio un sí o un no claro, y decir que cualquiera está bien, evita que el "tal vez" sea la salida fácil.
 evidence:
   grade: B
   note: deferral research, not car-specific

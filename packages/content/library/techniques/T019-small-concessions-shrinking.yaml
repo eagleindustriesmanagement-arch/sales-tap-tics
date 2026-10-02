@@ -16,7 +16,9 @@ model_line:
   es: Cada paso más pequeño que el anterior y con una razón; ver T106.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Kwon and Weingart (2004). Each move smaller than the last, with a reason, tells the customer you are getting close to your limit instead of inviting them to keep pushing.
+  es: Se basa en Kwon y Weingart (2004). Cada paso más pequeño que el anterior, con una razón, le dice al cliente que usted está llegando a su límite en vez de invitarlo a seguir apretando.
 evidence:
   grade: B
   note: Kwon and Weingart 2004

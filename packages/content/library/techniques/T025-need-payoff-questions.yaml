@@ -15,7 +15,9 @@ model_line:
   es: Si nunca más tuviera que pedirle el carro a su hermana, ¿cuánto valdría eso para usted?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Rackham's research on sales questions. When the customer says in their own words what solving the problem is worth, they are convincing themselves instead of hearing your pitch.
+  es: Viene de la investigación de Rackham sobre las preguntas en ventas. Cuando el cliente dice con sus propias palabras cuánto vale resolver el problema, se está convenciendo él mismo en vez de oír su discurso.
 evidence:
   grade: B
   note: Rackham

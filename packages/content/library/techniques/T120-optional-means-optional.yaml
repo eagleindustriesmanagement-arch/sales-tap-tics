@@ -15,7 +15,9 @@ model_line:
   es: Ese paquete ya viene instalado, pero es opcional. Si no lo quiere pagar, esto es lo que hacemos.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: Under the FTC's pricing guidance, an optional package cannot be presented as impossible to remove. Offering the store's policy lets the customer choose for real, so they do not feel forced to pay for something they did not want.
+  es: Según la guía de precios de la FTC, un paquete opcional no se puede presentar como imposible de quitar. Ofrecer la política de la tienda deja que el cliente decida de verdad, y no siente que lo obligaron a pagar algo que no quería.
 evidence:
   grade: A
   note: same; requires store policy

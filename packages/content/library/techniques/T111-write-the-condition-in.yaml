@@ -16,7 +16,9 @@ model_line:
   es: Este valor se mantiene si la carta del payoff confirma los $14,200. Si sale distinto, lo rehacemos juntos, por escrito.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Malhotra and Bazerman's negotiation method, not a tested sales finding. Writing the condition in, in the same language as the offer, means a payoff surprise gets redone together instead of feeling like a broken promise.
+  es: Viene del método de negociación de Malhotra y Bazerman, no de un hallazgo comprobado en ventas. Poner la condición por escrito, en el mismo idioma de la oferta, hace que si el payoff sale distinto se rehaga juntos y no se sienta como una promesa rota.
 evidence:
   grade: D
   note: Malhotra and Bazerman; state it in the offer's language (LANG-01)

@@ -16,7 +16,9 @@ model_line:
   es: Ayúdeme a entender esos cuatrocientos. ¿Qué es lo que usted está cuidando con ese número?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Malhotra and Bazerman's negotiation method, not a tested sales finding. A firm number usually protects something, like a budget or a fear, and once you know what, you may find other ways to meet it.
+  es: Viene del método de negociación de Malhotra y Bazerman, no de un hallazgo comprobado en ventas. Un número firme casi siempre protege algo, como un presupuesto o un miedo, y cuando usted sabe qué es, puede encontrar otras formas de cumplirlo.
 evidence:
   grade: D
   note: Malhotra and Bazerman

@@ -16,7 +16,9 @@ model_line:
   es: Su trade-in salió bien, en $14,200. Aquí lo tiene en su propia línea, y aquí está lo que le queda.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Kim and others (2022). When the trade value is strong, showing it on its own line lets the customer see the good news instead of losing it inside the net.
+  es: Se basa en Kim y otros (2022). Cuando el trade-in salió bien, ponerlo en su propia línea deja que el cliente vea la buena noticia en vez de que se pierda dentro del total.
 evidence:
   grade: B
   note: Kim and others 2022

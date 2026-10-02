@@ -15,7 +15,9 @@ model_line:
   es: "Claro, le doy todos los números. Primero: ¿este es para usted o para la familia?"
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Joe Verde, not a tested finding. A price means little before you know which car fits; promising every number, then asking one question, keeps trust while you find the right car.
+  es: Viene del entrenador Joe Verde, no de un hallazgo comprobado. Un precio dice poco antes de saber qué carro le sirve; prometer todos los números y hacer una pregunta mantiene la confianza mientras usted encuentra el carro correcto.
 evidence:
   grade: D
   note: Joe Verde

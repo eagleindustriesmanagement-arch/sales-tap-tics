@@ -15,7 +15,9 @@ model_line:
   es: Hola, María, usted acaba de preguntar por la Highlander blanca. Estoy al lado de ella. ¿Tiene un minuto?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: A lead response study of more than 100,000 call attempts backs calling fast; it measured reaching the customer, not sales. The sooner you call, the more likely the car is still on their mind.
+  es: Un estudio de respuesta a leads con más de 100,000 intentos de llamada respalda llamar rápido; midió si se lograba contactar al cliente, no las ventas. Mientras antes llame, más probable es que el cliente todavía tenga el carro en la mente.
 evidence:
   grade: B
   note: lead response study, 100,000+ call attempts (measured contact, not sales)

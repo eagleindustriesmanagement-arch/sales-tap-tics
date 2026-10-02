@@ -16,7 +16,9 @@ model_line:
   es: Dejemos ese número a un lado un momento. Comparemos el precio total y lo que hay en el lote hoy.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Galinsky and Mussweiler (2001). Setting the low quote aside and comparing total out-the-door and what is on the lot keeps the other number from steering the whole talk.
+  es: Se basa en Galinsky y Mussweiler (2001). Dejar a un lado la cotización baja y comparar el precio total y lo que hay en el lote evita que ese otro número dirija toda la conversación.
 evidence:
   grade: B
   note: Galinsky and Mussweiler 2001

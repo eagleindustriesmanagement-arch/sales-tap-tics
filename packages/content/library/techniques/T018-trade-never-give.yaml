@@ -16,7 +16,9 @@ model_line:
   es: Si consigo que mi gerente lo deje en $575 al mes, ¿se lo lleva hoy?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. A concession given for nothing invites the next ask; tying it to a commitment makes every move count toward the sale.
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Lo que se regala sin pedir nada a cambio invita a pedir más; amarrarlo a un compromiso hace que cada paso lo acerque a la venta.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

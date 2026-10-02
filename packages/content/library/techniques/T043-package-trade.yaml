@@ -16,7 +16,9 @@ model_line:
   es: "Veamos todo junto: el precio, su trade-in y los extras."
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Ogliastri's negotiation research, a credible but indirect source. Putting price, trade and extras together stops the deal from being reopened one piece at a time and lets you trade across items.
+  es: Se basa en la investigación de negociación de Ogliastri, una fuente seria pero indirecta. Poner juntos el precio, el trade-in y los extras evita que el negocio se reabra pedazo por pedazo y le permite negociar entre una cosa y otra.
 evidence:
   grade: C
   note: Ogliastri

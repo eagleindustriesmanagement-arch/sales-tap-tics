@@ -16,7 +16,9 @@ model_line:
   es: Mismo volumen y ritmo; sin subir el tono ni acelerarse.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Van Zant and Berger (2020). Saying the price at the same volume and pace sounds confident, while a rising pitch or speeding up sounds like you doubt the number yourself.
+  es: Se basa en Van Zant y Berger (2020). Decir el precio con el mismo volumen y ritmo suena seguro, mientras que subir el tono o acelerarse suena a que usted mismo duda del número.
 evidence:
   grade: B
   note: Van Zant and Berger 2020

@@ -16,7 +16,9 @@ model_line:
   es: ¿Y cómo hago yo para llegar a ese número y todavía darle esta troca?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Chris Voss's negotiation method, not a tested finding. Asking how you could reach their number makes the customer look at the gap themselves, without you having to say no.
+  es: Viene del método de negociación de Chris Voss, no de un hallazgo comprobado. Preguntar cómo podría usted llegar a ese número hace que el cliente mire la diferencia por sí mismo, sin que usted tenga que decir que no.
 evidence:
   grade: D
   note: Chris Voss

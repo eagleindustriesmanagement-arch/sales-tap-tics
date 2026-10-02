@@ -15,7 +15,9 @@ model_line:
   es: Su vendedor ya no está con nosotros y ahora le atiendo yo. Le reviso cuánto debe contra lo que vale su carro.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. Owners whose salesperson left often have no one at the store; a new contact with a useful reason, like what they owe against what the car is worth, fills that gap.
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Los dueños cuyo vendedor se fue muchas veces no tienen a nadie en el dealer; un nuevo contacto con una razón útil, como cuánto deben contra lo que vale el carro, llena ese vacío.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

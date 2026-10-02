@@ -16,7 +16,9 @@ model_line:
   es: Aquí tiene el reporte de la batería de este carro. Esta copia es suya.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on battery testing data. A report on this exact car's battery replaces worry with a fact the customer can see and take home.
+  es: Se basa en datos de pruebas de baterías. Un reporte de la batería de este mismo carro cambia la preocupación por un dato que el cliente puede ver y llevarse.
 evidence:
   grade: B
   note: battery testing data

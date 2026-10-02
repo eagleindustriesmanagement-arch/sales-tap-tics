@@ -15,7 +15,9 @@ model_line:
   es: Enviado; ese es el precio total con todos los cargos. Lo único que no puedo mandarle es el valor de su trade-in; eso toma diez minutos aquí.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is floor practice, not a tested finding, and the number you send must be the full walk-in price. Giving it freely earns trust, and the trade appraisal is a real reason to come in.
+  es: Es una práctica de piso, no un hallazgo comprobado, y el número que mande tiene que ser el precio completo en tienda. Darlo sin rodeos gana confianza, y la tasación del trade-in es una razón real para venir.
 evidence:
   grade: D
   note: must satisfy PRICE-02

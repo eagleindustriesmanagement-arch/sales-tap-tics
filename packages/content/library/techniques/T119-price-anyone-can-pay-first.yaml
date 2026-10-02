@@ -15,7 +15,9 @@ model_line:
   es: Cualquier persona se lo puede llevar por $X precio total final. Si usted es socorrista, hay $1,000 adicionales de descuento.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: Under the FTC's pricing guidance, the first price must be one any customer can pay, with special rebates after. That way no one is drawn in by a number they do not qualify for.
+  es: Según la guía de precios de la FTC, el primer precio tiene que ser uno que cualquier cliente pueda pagar, y los descuentos especiales van después. Así nadie llega atraído por un número para el que no califica.
 evidence:
   grade: A
   note: same

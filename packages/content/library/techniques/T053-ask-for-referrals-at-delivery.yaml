@@ -15,7 +15,9 @@ model_line:
   es: ¿A quién conoce que esté buscando carro?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is Joe Girard's method, a trainer's practice rather than a tested finding. Delivery, with a happy customer, is the easiest moment to ask. Girard paid $25 per sold referral, but any reward here needs the store attorney's approval.
+  es: Es el método de Joe Girard, una práctica de entrenador y no un hallazgo comprobado. La entrega, con el cliente contento, es el momento más fácil para pedir. Girard pagaba $25 por cada referido que compraba, pero cualquier premio aquí necesita la aprobación del abogado de la tienda.
 evidence:
   grade: D
   note: Girard paid $25 per sold referral; any reward needs attorney approval (store setting)

@@ -15,7 +15,9 @@ model_line:
   es: Es opcional, no hace falta para el préstamo, y en Florida lo puede cancelar dentro de 60 días.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: In Florida a service contract is optional, is not required for the loan, and can be cancelled within 60 days for a full refund. Saying so up front lets the customer decide without fear of being locked in.
+  es: En Florida el contrato de servicio es opcional, no hace falta para el préstamo y se puede cancelar dentro de 60 días con reembolso completo. Decirlo de entrada deja que el cliente decida sin miedo a quedarse amarrado.
 evidence:
   grade: A
   note: Florida s. 634.121

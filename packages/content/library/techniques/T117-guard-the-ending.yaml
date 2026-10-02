@@ -15,7 +15,9 @@ model_line:
   es: Las dos llaves, el teléfono conectado, el tanque lleno y su primer servicio agendado. ¿Le falta algo?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: Service research found that a bad ending hurts more than a staged high point helps. Checking keys, phone, tank and first service before they leave makes sure the last moment of the sale is a good one.
+  es: La investigación sobre servicio encontró que un mal final hace más daño del que ayuda un momento especial preparado. Revisar las llaves, el teléfono, el tanque y el primer servicio antes de que se vaya asegura que el último momento de la venta sea bueno.
 evidence:
   grade: B
   note: service research; a bad ending hurts more than a staged high point helps

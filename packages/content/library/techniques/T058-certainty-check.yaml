@@ -15,7 +15,9 @@ model_line:
   es: Del uno al diez, ¿qué tan seguro está de que este es el carro? ¿Qué le faltaría para llegar a diez?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Belfort's method, used here only in its honest form; it is not a tested finding. The one-to-ten scale shows where the customer stands, and the follow-up tells you exactly what is missing.
+  es: Viene del método de Belfort y aquí se usa solo de forma honesta; no es un hallazgo comprobado. La escala del uno al diez muestra dónde está el cliente, y la segunda pregunta le dice exactamente qué falta.
 evidence:
   grade: D
   note: Belfort's three certainties, honest use only

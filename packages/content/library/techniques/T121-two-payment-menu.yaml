@@ -15,7 +15,9 @@ model_line:
   es: Con los productos de protección, $A al mes. Sin ellos, $B. Son opcionales. ¿Cuál prefiere?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This rule comes from the Credit Acceptance consent decree. Showing the payment with and without add-ons, and saying they are optional, lets the customer see exactly what the extras cost each month and choose freely.
+  es: Esta regla viene del acuerdo legal (consent decree) de Credit Acceptance. Enseñar el pago con y sin los productos adicionales, y decir que son opcionales, deja que el cliente vea exactamente cuánto le cuestan al mes y escoja libremente.
 evidence:
   grade: A
   note: Credit Acceptance consent decree

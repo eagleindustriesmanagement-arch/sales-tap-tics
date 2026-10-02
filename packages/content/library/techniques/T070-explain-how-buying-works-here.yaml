@@ -16,7 +16,9 @@ model_line:
   es: "Le explico cómo funciona aquí: la prueba de manejo, la tasación, los números por escrito y luego el banco. Nada se firma hasta que usted lo haya visto todo."
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: The support is a Harvard Business Review case, a credible but secondhand source. Laying out the steps, and that nothing is signed until they have seen everything, takes the fear of the unknown away from first-time buyers.
+  es: El respaldo es un caso de Harvard Business Review, una fuente seria pero indirecta. Explicar los pasos, y que nada se firma hasta que lo haya visto todo, le quita el miedo a lo desconocido a quien compra por primera vez.
 evidence:
   grade: C
   note: HBR case

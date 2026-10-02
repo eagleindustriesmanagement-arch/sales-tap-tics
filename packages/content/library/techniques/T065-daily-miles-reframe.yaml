@@ -16,7 +16,9 @@ model_line:
   es: ¿Cuántas millas maneja en un día normal? Vamos a compararlo con lo que este le cubre.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is floor practice rather than a tested finding. Range sounds abstract; comparing the miles in the customer's normal day with what the car covers puts it in their own terms.
+  es: Es una práctica de piso, no un hallazgo comprobado. Hablar de autonomía suena abstracto; comparar las millas de un día normal del cliente con lo que cubre el carro lo pone en sus propios términos.
 evidence:
   grade: C
   note: Practitioner tradition; the research named no source

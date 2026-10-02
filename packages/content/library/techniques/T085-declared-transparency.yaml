@@ -16,7 +16,9 @@ model_line:
   es: Cuando nos sentemos, usted va a ver el precio, el trade-in, el pago y cada cargo en una sola hoja.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Mark Tewart, not a tested finding, and only works if your store really does it. Promising one sheet with every number before you sit down lowers the guard of a customer braced for games.
+  es: Viene del entrenador Mark Tewart, no de un hallazgo comprobado, y solo sirve si su tienda de verdad lo hace. Prometer una sola hoja con todos los números antes de sentarse baja la guardia del cliente que viene preparado para trucos.
 evidence:
   grade: D
   note: Mark Tewart; only usable if true

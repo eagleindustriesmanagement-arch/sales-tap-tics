@@ -16,7 +16,9 @@ model_line:
   es: Le quiero presentar a Carlos, nuestro gerente de ventas.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: The only support is unaudited consultant data, so treat this as floor practice. Meeting the manager before numbers means the person who may join the desk later is not a stranger.
+  es: El único respaldo son datos de consultores sin auditar, así que tómelo como práctica de piso. Conocer al gerente antes de los números hace que la persona que quizás se siente después en la mesa no sea un extraño.
 evidence:
   grade: D
   note: consultant data, unaudited

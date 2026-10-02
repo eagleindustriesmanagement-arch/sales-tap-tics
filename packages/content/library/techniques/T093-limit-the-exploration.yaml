@@ -16,7 +16,9 @@ model_line:
   es: Usted ya comparó los tres que le cuadran en el presupuesto. Lo único que falta es el pago. Resolvamos eso.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: The JOLT research and a 2015 meta-analysis on choice overload (Chernev) both support this. More comparisons can deepen indecision; closing the search and settling the one open question helps the customer decide.
+  es: La investigación de JOLT y un metaanálisis de 2015 sobre el exceso de opciones (Chernev) respaldan esto. Más comparaciones pueden aumentar la indecisión; cerrar la búsqueda y resolver la única duda pendiente ayuda al cliente a decidir.
 evidence:
   grade: B
   note: same; choice overload meta-analysis (Chernev 2015)

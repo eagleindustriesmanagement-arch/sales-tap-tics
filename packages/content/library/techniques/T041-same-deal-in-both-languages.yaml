@@ -16,7 +16,9 @@ model_line:
   es: En inglés o en español, es el mismo precio, las mismas condiciones y los mismos papeles.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: The FTC issued an order against a dealer, Cowboy Toyota, over its Spanish-language ads. Saying plainly that the price, terms and paperwork are the same in both languages answers the doubt a wary buyer may already have.
+  es: La FTC emitió una orden contra un concesionario, Cowboy Toyota, por sus anuncios en español. Decir claramente que el precio, las condiciones y los papeles son los mismos en los dos idiomas responde la duda que un cliente desconfiado quizás ya trae.
 evidence:
   grade: B
   note: FTC Cowboy Toyota order; dealer case

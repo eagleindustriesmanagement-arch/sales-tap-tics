@@ -15,7 +15,9 @@ model_line:
   es: Parece que hoy no es el día, y está bien. ¿Le envío por texto el precio total final para que lo tenga por escrito?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: The support is a 2026 AI-simulator study, a preprint, so treat it as early evidence. Letting the customer go without pressure keeps the door open, and the all-in price in writing gives them a real number to come back to.
+  es: El respaldo es un estudio de 2026 con un simulador de IA, todavía sin revisión formal, así que tómelo como evidencia preliminar. Dejar ir al cliente sin presión deja la puerta abierta, y el precio total por escrito le da un número real para regresar.
 evidence:
   grade: C
   note: AI-simulator study 2026; all-in price required

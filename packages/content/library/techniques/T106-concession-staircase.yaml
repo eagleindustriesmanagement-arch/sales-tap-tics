@@ -16,7 +16,9 @@ model_line:
   es: Fui donde mi gerente y le conseguí doscientos más por el trade-in. Ese no fue fácil, se lo digo.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This builds on Kwon and Weingart (2004), and a 2025 study found big early concessions make the other side push harder. Small, hard-won steps show you are near the limit; describe a manager trip only as it really happened.
+  es: Se basa en Kwon y Weingart (2004), y un estudio de 2025 encontró que ceder mucho al principio hace que la otra parte apriete más. Pasos pequeños y bien ganados muestran que usted está cerca del límite; cuente la ida al gerente solo como de verdad pasó.
 evidence:
   grade: B
   note: Kwon and Weingart 2004; a 2025 study found big early concessions make the other side push harder

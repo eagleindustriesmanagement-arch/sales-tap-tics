@@ -15,7 +15,9 @@ model_line:
   es: Imagínese los asientos ventilados en el tráfico de agosto en el Palmetto.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Peck, Barger and Webb (2013). On the phone the customer cannot touch the car, so a specific picture of using it in their own life does that work for them.
+  es: Se basa en Peck, Barger y Webb (2013). Por teléfono el cliente no puede tocar el carro, así que una imagen concreta de usarlo en su propia vida hace ese trabajo por él.
 evidence:
   grade: B
   note: Peck, Barger and Webb 2013

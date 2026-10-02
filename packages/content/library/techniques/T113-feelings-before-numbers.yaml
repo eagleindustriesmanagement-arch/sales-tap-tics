@@ -16,7 +16,9 @@ model_line:
   es: Usted vino esperando un número y le dieron otro. Yo también estaría molesto. Déjeme arreglar primero lo que nos toca.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Stuart Diamond's negotiation method, not a tested finding. An upset customer cannot hear numbers yet; owning the part that is on the store first calms things so the deal can move.
+  es: Viene del método de negociación de Stuart Diamond, no de un hallazgo comprobado. Un cliente molesto todavía no puede oír números; reconocer primero lo que le toca a la tienda calma las cosas para que el negocio avance.
 evidence:
   grade: D
   note: Stuart Diamond

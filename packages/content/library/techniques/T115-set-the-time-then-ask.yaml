@@ -16,7 +16,9 @@ model_line:
   es: Perfecto, el jueves a las seis. ¿Qué es lo que quiere pensar, para tenerle las respuestas listas?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Jeremy Miner, not a tested finding. Locking in the time first gives a real next step, and asking what they want to think over brings out the real concern while you can still answer it.
+  es: Viene del entrenador Jeremy Miner, no de un hallazgo comprobado. Fijar la hora primero da un próximo paso real, y preguntar qué quiere pensar saca la preocupación verdadera mientras usted todavía puede contestarla.
 evidence:
   grade: D
   note: Jeremy Miner

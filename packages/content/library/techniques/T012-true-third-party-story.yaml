@@ -16,7 +16,9 @@ model_line:
   es: Una clienta el mes pasado tenía la misma duda. Le cuento lo que hizo.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: The support here is general social proof research, not a car-sales study. Hearing that someone in the same spot decided and was fine makes the fear of a mistake smaller. Use real stories only.
+  es: El respaldo es la investigación general sobre la prueba social, no un estudio de venta de carros. Saber que alguien en la misma situación decidió y le fue bien hace más pequeño el miedo a equivocarse. Solo historias reales.
 evidence:
   grade: C
   note: social proof research

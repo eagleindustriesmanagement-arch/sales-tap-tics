@@ -15,7 +15,9 @@ model_line:
   es: Yo no le pido referidos. Si hago bien mi trabajo, usted solo le va a contar a la gente.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This rests on one documented case, Ali Reda, who reported 1,582 sales in 2017, so it is not a tested finding. Doing the job well gives customers their own reason to send people to you.
+  es: Se basa en un solo caso documentado, Ali Reda, que reportó 1,582 ventas en 2017, así que no es un hallazgo comprobado. Hacer bien su trabajo le da al cliente su propia razón para mandarle gente.
 evidence:
   grade: C
   note: Ali Reda, one documented case (1,582 sales reported in 2017)

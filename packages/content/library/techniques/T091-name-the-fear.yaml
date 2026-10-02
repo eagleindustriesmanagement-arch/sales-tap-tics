@@ -16,7 +16,9 @@ model_line:
   es: Mucha gente en este punto tiene miedo de escoger el carro equivocado y arrepentirse después. ¿Le está pasando algo de eso?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: Research behind The JOLT Effect, from 2.5 million business sales calls, found that a stall is usually fear of choosing wrong, and pressure makes it worse. Naming the fear calmly lets the customer talk about it.
+  es: La investigación de The JOLT Effect, con 2.5 millones de llamadas de ventas entre empresas, encontró que la indecisión casi siempre es miedo a escoger mal, y que la presión la empeora. Nombrar ese miedo con calma deja que el cliente hable de él.
 evidence:
   grade: B
   note: The JOLT Effect, 2.5 million calls (business-to-business)

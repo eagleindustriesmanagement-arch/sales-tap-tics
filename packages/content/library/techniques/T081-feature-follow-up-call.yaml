@@ -15,7 +15,9 @@ model_line:
   es: En tres semanas lo llamo para explicarle lo que todavía no haya configurado.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on J.D. Power's 2025 sales satisfaction research. Three weeks in, the customer has used the car and knows what they have not set up, so your call solves a real problem and keeps you their contact.
+  es: Se basa en el estudio de satisfacción de ventas de J.D. Power de 2025. A las tres semanas el cliente ya usó el carro y sabe lo que no ha configurado, así que su llamada le resuelve algo real y lo mantiene a usted como su contacto.
 evidence:
   grade: B
   note: J.D. Power 2025

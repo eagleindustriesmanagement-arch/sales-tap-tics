@@ -15,7 +15,9 @@ model_line:
   es: Ahora va a pasar con Ana, de financiamiento. Ella le muestra todas las opciones de protección con su precio. Usted escoge lo que quiera, o nada.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is floor practice, not a tested finding. Telling the customer that finance shows every option with its price, and that they choose, sets honest expectations so the menu feels like information, not a pitch.
+  es: Es una práctica de piso, no un hallazgo comprobado. Decirle al cliente que en financiamiento le van a enseñar cada opción con su precio, y que él escoge, crea expectativas honestas para que el menú se sienta como información y no como presión.
 evidence:
   grade: D
   note: menu practice (300% rule) is disclosure

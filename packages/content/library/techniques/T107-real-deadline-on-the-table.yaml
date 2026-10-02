@@ -16,7 +16,9 @@ model_line:
   es: Este bono vence el 31. Aquí tiene el boletín.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Gino and Moore (2008). A real deadline backed by the bulletin gives the customer an honest reason to decide now, and showing the proof keeps it from sounding like a pressure line.
+  es: Se basa en Gino y Moore (2008). Una fecha límite real, con el boletín en la mano, le da al cliente una razón honesta para decidir ahora, y enseñar la prueba evita que suene a táctica de presión.
 evidence:
   grade: B
   note: Gino and Moore 2008

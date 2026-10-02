@@ -16,7 +16,9 @@ model_line:
   es: No tengo mucho margen, pero déjeme enseñarle lo que sí puedo hacer y qué necesitaría de su parte.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Ogliastri's 1,500 business interviews, a credible but indirect source, so test it with each customer rather than assume. Showing what you can do and what you would need back makes the bargaining feel fair.
+  es: Se basa en las 1,500 entrevistas de negocios de Ogliastri, una fuente seria pero indirecta, así que pruébelo con cada cliente en vez de darlo por hecho. Enseñar lo que usted puede hacer y lo que necesitaría a cambio hace que el regateo se sienta justo.
 evidence:
   grade: C
   note: Ogliastri, 1,500 business interviews; test, do not assume

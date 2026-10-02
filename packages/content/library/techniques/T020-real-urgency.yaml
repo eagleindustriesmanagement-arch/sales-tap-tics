@@ -16,7 +16,9 @@ model_line:
   es: El reembolso de $1,500 vence el lunes. Aquí tiene el boletín.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Gino and Moore (2008) and applies to real deadlines only. A true deadline the customer can see on paper gives a reason to decide now; a made-up one breaks trust and the rules.
+  es: Se basa en Gino y Moore (2008) y aplica solo a fechas límite reales. Una fecha verdadera que el cliente puede ver en papel le da una razón para decidir ahora; una inventada rompe la confianza y las reglas.
 evidence:
   grade: B
   note: Gino and Moore 2008 (real deadlines only)

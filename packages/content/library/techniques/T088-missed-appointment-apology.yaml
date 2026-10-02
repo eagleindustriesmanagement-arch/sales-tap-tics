@@ -15,7 +15,9 @@ model_line:
   es: Le debo una disculpa. Ayer se me complicó el día y no le confirmé la cita. ¿Cuadramos una hora que le funcione?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes secondhand from trainer Jerry Thibeau, not a tested finding, and is only for when the miss really was yours. Owning the mistake removes the awkwardness of the no-show and makes it easy to set a new time.
+  es: Viene de segunda mano del entrenador Jerry Thibeau, no de un hallazgo comprobado, y solo se usa cuando la falla de verdad fue suya. Reconocer el error quita la incomodidad de la cita perdida y hace fácil cuadrar otra hora.
 evidence:
   grade: D
   note: Jerry Thibeau, secondhand

@@ -15,7 +15,9 @@ model_line:
   es: En vez de dejarlo en el aire, ¿hacemos la tasación de su carro ahora para que se lleve un número real?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Rackham's research on sales calls. Agreeing on a concrete next action, like the appraisal now, moves the sale forward, while "let me know" leaves it to chance.
+  es: Se basa en la investigación de Rackham sobre llamadas de ventas. Acordar una acción concreta, como hacer la tasación ahora, hace avanzar la venta, mientras que un "me avisa" la deja a la suerte.
 evidence:
   grade: B
   note: Rackham

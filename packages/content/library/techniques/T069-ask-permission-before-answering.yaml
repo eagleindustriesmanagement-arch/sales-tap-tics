@@ -15,7 +15,9 @@ model_line:
   es: ¿Me permite compartirle un par de ideas sobre eso?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Gong's data from business-to-business calls, not car sales. Asking first means the customer agrees to hear you out, so your answer lands as advice instead of a counterattack.
+  es: Se basa en datos de Gong de llamadas de ventas entre empresas, no de venta de carros. Pedir permiso primero hace que el cliente acepte escucharlo, y su respuesta llega como consejo y no como contraataque.
 evidence:
   grade: B
   note: Gong, business-to-business

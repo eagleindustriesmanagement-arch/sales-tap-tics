@@ -15,7 +15,9 @@ model_line:
   es: El precio es $X, y ya incluye nuestro cargo de concesionario de $Y. Solo se suman los impuestos y los cargos de placa y título del estado.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: Under the FTC's 2026 pricing guidance, a price given by phone or text must be the full walk-in price, with only government charges added. The customer hears the real number first, so nothing changes when they arrive.
+  es: Según la guía de precios de la FTC de 2026, el precio que se da por teléfono o texto tiene que ser el precio completo en tienda, y solo se suman los cargos del gobierno. El cliente oye el número real primero, y nada cambia cuando llega.
 evidence:
   grade: A
   note: FTC pricing guidance, September 15, 2026

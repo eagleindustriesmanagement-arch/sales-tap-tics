@@ -16,7 +16,9 @@ model_line:
   es: Su trade-in sale en $14,850. Aquí están los datos de subasta que lo respaldan.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Mason and others (2013). An exact number like $14,850 sounds worked out rather than rounded off, and the auction data shows the customer where it came from.
+  es: Se basa en Mason y otros (2013). Un número exacto como $14,850 suena calculado y no redondeado, y los datos de subasta le muestran al cliente de dónde salió.
 evidence:
   grade: B
   note: Mason and others 2013

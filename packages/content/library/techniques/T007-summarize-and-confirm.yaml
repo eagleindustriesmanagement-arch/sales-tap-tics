@@ -15,7 +15,9 @@ model_line:
   es: Entonces necesita tres filas, menos de $600 al mes, para fin de mes. ¿Lo entendí bien?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. Playing back what you heard catches mistakes before the numbers, and the customer hears that you listened.
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Repetirle lo que usted entendió corrige errores antes de los números, y el cliente siente que lo escucharon.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

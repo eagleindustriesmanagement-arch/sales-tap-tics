@@ -16,7 +16,9 @@ model_line:
   es: Aquí está la garantía. Déjeme enseñarle exactamente lo que incluye.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on the JOLT research on indecision, where fear of a wrong choice is what stalls buyers. Showing exactly what a real warranty covers makes that risk smaller; use only protections you can show.
+  es: Se basa en la investigación de JOLT sobre la indecisión, donde el miedo a escoger mal es lo que frena al cliente. Enseñarle exactamente lo que cubre una garantía real hace ese riesgo más pequeño; use solo protecciones que pueda enseñar.
 evidence:
   grade: B
   note: same; only real, showable protections

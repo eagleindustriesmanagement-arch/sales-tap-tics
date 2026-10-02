@@ -15,7 +15,9 @@ model_line:
   es: Decida lo que decida, gracias por la oportunidad. Cualquier cosa, llámeme directamente a mí.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is Joe Girard's rule from his book, a trainer's method rather than a tested finding. Every customer knows a lot of people, so even one who leaves unsold should leave thinking well of you.
+  es: Es la regla de Joe Girard en su libro, un método de entrenador y no un hallazgo comprobado. Cada cliente conoce a mucha gente, así que hasta el que se va sin comprar debe irse con una buena impresión de usted.
 evidence:
   grade: D
   note: Joe Girard (verified in book text)

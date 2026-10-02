@@ -16,7 +16,9 @@ model_line:
   es: Antes de manejar, mire también el LX, para que compare.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is floor tradition, not a tested finding. Showing the cheaper option before the drive lets a budget-minded buyer compare calmly, so if they pick the higher one it is their own choice.
+  es: Es una tradición del piso de ventas, no un hallazgo comprobado. Enseñar la opción más económica antes de manejar deja que el cliente que cuida su presupuesto compare con calma, y si escoge la más cara es por decisión propia.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

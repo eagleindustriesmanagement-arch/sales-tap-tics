@@ -15,7 +15,9 @@ model_line:
   es: Feliz primer año con su Highlander. ¿Le hace falta algo?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is Joe Girard's method, not a tested finding. Regular, friendly contact keeps you the person the customer thinks of when they or someone they know needs a car.
+  es: Es el método de Joe Girard, no un hallazgo comprobado. Un contacto regular y amable hace que usted sea la persona en quien piensa el cliente cuando él o un conocido necesita carro.
 evidence:
   grade: D
   note: Girard

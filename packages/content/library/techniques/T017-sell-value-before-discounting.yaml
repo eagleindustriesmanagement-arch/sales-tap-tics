@@ -16,7 +16,9 @@ model_line:
   es: ¿Comparado con qué? Cuénteme lo que ha visto en otros lados.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is floor tradition, not a tested finding. Asking what they are comparing to shows whether the other deal is really the same car and terms, so you do not cut price to beat something that is not equal.
+  es: Es una tradición del piso de ventas, no un hallazgo comprobado. Preguntar con qué lo está comparando muestra si la otra oferta es de verdad el mismo carro y las mismas condiciones, y así usted no baja el precio para ganarle a algo que no es igual.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

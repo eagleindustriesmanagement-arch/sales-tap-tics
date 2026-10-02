@@ -15,7 +15,9 @@ model_line:
   es: Adelante, ajuste el asiento y los espejos como usted los tendría.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Peck and Shu (2009). Setting the seat and mirrors the way they would have them helps the customer picture the car as already theirs.
+  es: Se basa en Peck y Shu (2009). Ajustar el asiento y los espejos a su gusto ayuda al cliente a ver el carro como si ya fuera suyo.
 evidence:
   grade: B
   note: Peck and Shu 2009

@@ -16,7 +16,9 @@ model_line:
   es: Aquí tiene las tres ventas de subasta más parecidas y los $1,100 de gomas y frenos que necesita.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: In J.D. Power's 2025 sales satisfaction study, deal satisfaction scored 800 when things were explained versus 672 when they were not. Walking through auction sales and needed repairs shows why the trade number is what it is.
+  es: En el estudio de satisfacción de ventas de J.D. Power de 2025, la satisfacción con el negocio fue de 800 cuando se explicó, contra 672 cuando no. Repasar las ventas de subasta y las reparaciones muestra por qué el trade-in vale lo que vale.
 evidence:
   grade: C
   note: J.D. Power 2025 SSI; deal satisfaction 800 when explained versus 672

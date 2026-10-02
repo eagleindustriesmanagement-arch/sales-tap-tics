@@ -15,7 +15,9 @@ model_line:
   es: O sea, la van se está comiendo la gasolina, la tercera fila no sirve y los sábados son un caos. Mire lo que le cambia eso.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Iosu Lázcoz, not a tested finding. Retelling the customer's problems in their own words first makes them feel heard, so the car lands as the answer to their story.
+  es: Viene del entrenador Iosu Lázcoz, no de un hallazgo comprobado. Contar primero los problemas del cliente con sus propias palabras lo hace sentirse escuchado, y el carro llega como la respuesta a su historia.
 evidence:
   grade: D
   note: Iosu Lázcoz

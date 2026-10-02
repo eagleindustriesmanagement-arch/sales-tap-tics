@@ -16,7 +16,9 @@ model_line:
   es: Eso pasa. Pongamos las dos ofertas lado a lado, precio final con todo, mismo equipo, y vemos qué le da cada una.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Jonathan Dawson, not a tested finding. Lining both offers up out-the-door with the same equipment shows whether the lower quote is really cheaper, without telling the customer they are wrong.
+  es: Viene del entrenador Jonathan Dawson, no de un hallazgo comprobado. Poner las dos ofertas lado a lado, con precio total y el mismo equipo, muestra si la cotización más baja de verdad es más barata, sin decirle al cliente que está equivocado.
 evidence:
   grade: D
   note: Jonathan Dawson

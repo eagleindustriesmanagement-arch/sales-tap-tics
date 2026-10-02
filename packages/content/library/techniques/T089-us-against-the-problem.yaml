@@ -16,7 +16,9 @@ model_line:
   es: Esto no es usted contra mí. Somos usted y yo contra el problema del pago.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Helios Herrera, not a tested finding. Putting you and the customer on the same side against the payment gap turns a standoff into a problem you solve together.
+  es: Viene del entrenador Helios Herrera, no de un hallazgo comprobado. Ponerse del mismo lado que el cliente contra la diferencia en el pago convierte el pulso en un problema que resuelven juntos.
 evidence:
   grade: D
   note: Helios Herrera

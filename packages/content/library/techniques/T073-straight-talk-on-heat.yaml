@@ -16,7 +16,9 @@ model_line:
   es: Aquí el calor afecta un poco la batería. Lo mejor es cargar en casa.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: Geotab data on 22,700 EVs showed batteries lose about 2.3% a year on average, about 0.4% faster in hot climates. Being straight about Miami heat now earns trust instead of a surprise later.
+  es: Datos de Geotab sobre 22,700 carros eléctricos mostraron que las baterías pierden como un 2.3% al año en promedio, y como un 0.4% más rápido en climas calientes. Hablar claro sobre el calor de Miami ahora gana confianza y evita sorpresas después.
 evidence:
   grade: B
   note: Geotab, 22,700 EVs; average loss 2.3% a year, hot climates about 0.4% faster

@@ -15,7 +15,9 @@ model_line:
   es: Le habla Carlos de Bomnin Chevrolet. Le llamo porque su lease se vence en marzo. ¿Me regala 30 segundos?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: Gong's data on 300 million business calls found that stating the reason for the call raised success 2.1 times. A real reason, like a lease ending, tells the customer right away why the call is worth their time.
+  es: Los datos de Gong sobre 300 millones de llamadas entre empresas encontraron que decir el motivo de la llamada multiplicó el éxito 2.1 veces. Una razón real, como un lease que se vence, le dice al cliente de inmediato por qué vale la pena escucharlo.
 evidence:
   grade: B
   note: Gong, 300 million calls; stating the reason raised success 2.1 times (business-to-business)

@@ -15,7 +15,9 @@ model_line:
   es: 'Al práctico: "Estos son los tres números que importan."'
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on McFarland, Challagalla and Shervani (2006). When your approach stalls, switching to the way this buyer likes to decide, such as giving a practical buyer just the key numbers, gets things moving again.
+  es: Se basa en McFarland, Challagalla y Shervani (2006). Cuando su forma de vender se estanca, cambiar a la manera en que este cliente prefiere decidir, por ejemplo darle al práctico solo los números clave, pone las cosas en marcha otra vez.
 evidence:
   grade: B
   note: McFarland, Challagalla and Shervani 2006

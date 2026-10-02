@@ -15,7 +15,9 @@ model_line:
   es: 'Cliente: "No quiero quedarme atrapado." Vendedor: "¿Atrapado?"'
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: The evidence here is contested; a 2021 replication found no gain from mirroring, so use it lightly. Repeating their last word invites the customer to keep talking, so you hear what is behind the stall.
+  es: La evidencia es discutida; una réplica de 2021 no encontró ninguna ventaja en repetir las palabras, así que úselo con moderación. Repetir su última palabra invita al cliente a seguir hablando, y usted oye lo que hay detrás de la duda.
 evidence:
   grade: C
   note: contested; a 2021 replication found no gain

@@ -15,7 +15,9 @@ model_line:
   es: ¿Sería mala idea darle una vuelta de diez minutos ahorita?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Chris Voss's negotiation method, not a tested finding. People feel safer saying no, so a question where "no" moves things forward lowers the pressure of the ask.
+  es: Viene del método de negociación de Chris Voss, no de un hallazgo comprobado. La gente se siente más segura diciendo que no, así que una pregunta donde el "no" hace avanzar las cosas le quita presión al pedido.
 evidence:
   grade: D
   note: Chris Voss

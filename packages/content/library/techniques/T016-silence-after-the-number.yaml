@@ -16,7 +16,9 @@ model_line:
   es: Presentar y no decir nada hasta que el cliente hable.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. Talking right after the number fills the gap with nerves or a discount; staying quiet lets the customer react first.
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Hablar justo después del número llena el silencio con nervios o con un descuento; quedarse callado deja que el cliente reaccione primero.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

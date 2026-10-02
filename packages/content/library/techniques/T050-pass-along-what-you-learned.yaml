@@ -15,7 +15,9 @@ model_line:
   es: Decirle al gerente de financiamiento cuántas millas maneja el cliente y cuánto tiempo se queda con sus carros.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. When finance already knows the customer's miles and how long they keep cars, the customer does not have to repeat it and gets options that fit.
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Cuando financiamiento ya sabe cuántas millas maneja el cliente y cuánto tiempo se queda con sus carros, el cliente no tiene que repetirlo y recibe opciones que le sirven.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

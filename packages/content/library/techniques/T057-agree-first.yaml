@@ -15,7 +15,9 @@ model_line:
   es: Estoy de acuerdo, es bastante dinero; por eso quiero que sea exactamente lo que busca.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Grant Cardone, not a tested finding. Agreeing first takes the fight out of it, so the customer listens to what you say next instead of defending their point.
+  es: Viene del entrenador Grant Cardone, no de un hallazgo comprobado. Estar de acuerdo primero quita la pelea, y el cliente escucha lo que usted dice después en vez de defender su punto.
 evidence:
   grade: D
   note: Grant Cardone

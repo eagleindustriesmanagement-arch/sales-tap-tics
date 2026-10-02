@@ -16,7 +16,9 @@ model_line:
   es: Seguramente usted piensa que le voy a jugar con los números y tenerlo aquí cuatro horas.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Chris Voss's negotiation method, not a tested finding. Saying out loud what a burned buyer expects takes the sting out of it and shows you are not hiding anything.
+  es: Viene del método de negociación de Chris Voss, no de un hallazgo comprobado. Decir en voz alta lo que espera un cliente que ya salió quemado le quita fuerza a esa idea y muestra que usted no esconde nada.
 evidence:
   grade: D
   note: Chris Voss

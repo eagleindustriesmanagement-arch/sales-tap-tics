@@ -15,7 +15,9 @@ model_line:
   es: Antes de irse, le presento a María en servicio. Ella le va a atender el primer cambio de aceite.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: Cox found 74% of customers who return for service are likely to buy again, versus 44% of those who do not. A personal introduction to service makes that first visit more likely.
+  es: Cox encontró que el 74% de los clientes que regresan para servicio probablemente vuelvan a comprar, contra el 44% de los que no regresan. Presentarle a alguien de servicio en persona hace más probable esa primera visita.
 evidence:
   grade: C
   note: Cox; 74% of service returners likely to repurchase versus 44%

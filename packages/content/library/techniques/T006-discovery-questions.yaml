@@ -15,7 +15,9 @@ model_line:
   es: ¿Qué es lo que menos le gusta del carro que maneja ahora?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This rests on Rackham's research on 35,000 sales calls. Asking instead of guessing tells you what the customer actually needs, so you show the right car.
+  es: Se basa en la investigación de Rackham sobre 35,000 llamadas de ventas. Preguntar en vez de adivinar le dice lo que el cliente de verdad necesita, y así usted le enseña el carro correcto.
 evidence:
   grade: B
   note: Rackham, 35,000 calls

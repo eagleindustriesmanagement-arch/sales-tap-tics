@@ -15,7 +15,9 @@ model_line:
   es: ¿Usted es de Hialeah? Yo me crié por la 49.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This draws on Gremler and Gwinner's 2008 study of 388 encounters. Real common ground builds a quick personal connection, but only if it is true; an invented one breaks trust and the rules.
+  es: Se basa en el estudio de Gremler y Gwinner de 2008 con 388 encuentros. Algo en común que sea real crea una conexión rápida, pero solo si es verdad; inventarlo rompe la confianza y las reglas.
 evidence:
   grade: B
   note: Gremler and Gwinner 2008, 388 encounters

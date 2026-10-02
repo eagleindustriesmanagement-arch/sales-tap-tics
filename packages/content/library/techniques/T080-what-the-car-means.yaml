@@ -15,7 +15,9 @@ model_line:
   es: Aparte de llevarlo al trabajo, ¿qué significa este carro para usted en este momento?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Jürgen Klarić, known here only through summaries, so it is not a tested finding. For first-car and family buyers the car often means more than transport, and hearing that tells you what really matters to them.
+  es: Viene de Jürgen Klarić, conocido aquí solo por resúmenes, así que no es un hallazgo comprobado. Para quien compra su primer carro o compra para la familia, el carro muchas veces significa más que transporte, y oírlo le dice qué es lo que de verdad le importa.
 evidence:
   grade: D
   note: Jürgen Klarić (summaries)

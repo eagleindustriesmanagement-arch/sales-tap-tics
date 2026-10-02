@@ -16,7 +16,9 @@ model_line:
   es: El precio total con el cargo de documentación, placa e impuestos es $38,912. ¿Cómo lo quiere pagar?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: The rules require any price you quote to include every dealer charge, with the total said before the breakdown. The customer knows the real number up front, so nothing surprises them at signing.
+  es: Las reglas exigen que todo precio que usted diga incluya todos los cargos del concesionario, y que el total vaya antes del desglose. El cliente sabe el número real desde el principio y nada lo sorprende al firmar.
 evidence:
   grade: A
   note: Florida s. 501.976; FTC 2026

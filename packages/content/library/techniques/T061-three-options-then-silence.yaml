@@ -16,7 +16,9 @@ model_line:
   es: Aquí tiene tres opciones. ¿Cuál le acomoda mejor?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Paul Cummings, not a tested finding; T095 is the research-backed version. Three options let the customer choose instead of reacting to one number, and silence gives them room to pick.
+  es: Viene del entrenador Paul Cummings, no de un hallazgo comprobado; T095 es la versión respaldada por investigación. Tres opciones dejan que el cliente escoja en vez de reaccionar a un solo número, y el silencio le da espacio para decidir.
 evidence:
   grade: D
   note: Paul Cummings; see T095 for the research version

@@ -15,7 +15,9 @@ model_line:
   es: Repasar cada necesidad que cumple el carro y preguntar una sola vez.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a floor practice, not a tested finding, though it fits Rackham's research on sales calls. Recapping each need the car meets reminds the customer why it fits, so one ask is enough.
+  es: Es una práctica de piso, no un hallazgo comprobado, aunque cuadra con la investigación de Rackham sobre llamadas de ventas. Repasar cada necesidad que el carro cumple le recuerda al cliente por qué le sirve, y basta con preguntar una vez.
 evidence:
   grade: D
   note: ", consistent with Rackham"

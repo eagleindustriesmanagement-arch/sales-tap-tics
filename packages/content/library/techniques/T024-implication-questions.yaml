@@ -15,7 +15,9 @@ model_line:
   es: Cuando la van está en el taller, ¿cómo le afecta la semana?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Rackham's research on how successful sellers ask questions. Asking what a problem does to the customer's week makes it real to them, so solving it starts to matter more than the price.
+  es: Viene de la investigación de Rackham sobre cómo preguntan los vendedores exitosos. Preguntar cómo le afecta un problema al cliente lo hace real para él, y resolverlo empieza a importarle más que el precio.
 evidence:
   grade: B
   note: Rackham

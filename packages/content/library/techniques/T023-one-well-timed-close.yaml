@@ -15,7 +15,9 @@ model_line:
   es: Usted dijo tercera fila y menos de $650. Este cumple con las dos. ¿Se lo preparo?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: In Rackham's photo-store study, training staff in closing techniques cut success on higher-value goods from 42% to 33%. One clear ask, once the needs are confirmed, avoids that pressure.
+  es: En el estudio de Rackham en tiendas de fotografía, entrenar al personal en técnicas de cierre bajó el éxito en productos más caros del 42% al 33%. Una sola pregunta clara, después de confirmar las necesidades, evita esa presión.
 evidence:
   grade: B
   note: Rackham photo-store study; closing training cut success on higher-value goods from 42% to 33%

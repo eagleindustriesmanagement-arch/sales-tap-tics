@@ -15,7 +15,9 @@ model_line:
   es: Antes de ver algo nuevo, vamos a darle la vuelta a su Equinox. ¿Qué es lo que más le gusta y qué es lo que ya no aguanta?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Mark Tewart, not a tested finding. Starting with the customer's own car shows what they love and what they want to get away from, which points you to the right new one.
+  es: Viene del entrenador Mark Tewart, no de un hallazgo comprobado. Empezar por el carro del cliente muestra lo que le encanta y lo que ya no aguanta, y eso le indica cuál carro nuevo le conviene.
 evidence:
   grade: D
   note: Mark Tewart

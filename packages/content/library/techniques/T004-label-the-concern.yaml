@@ -15,7 +15,9 @@ model_line:
   es: Parece que el número del trade-in lo tomó por sorpresa.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from Chris Voss's negotiation method, not a tested sales study. Naming the feeling out loud makes the customer feel understood, which usually cools the emotion so you can talk numbers.
+  es: Viene del método de negociación de Chris Voss, no de un estudio de ventas comprobado. Ponerle nombre a lo que siente el cliente lo hace sentirse entendido, y eso suele calmar la emoción para poder hablar de números.
 evidence:
   grade: D
   note: Voss

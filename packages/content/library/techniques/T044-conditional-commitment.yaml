@@ -15,7 +15,9 @@ model_line:
   es: Si se lo consigo en azul, ¿es el que se llevaría hoy?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This comes from trainer Alex Dey, known here only through summaries, so it is tradition, not a tested finding. Tying the one obstacle to a yes shows whether it is truly the last thing in the way.
+  es: Viene del entrenador Alex Dey, conocido aquí solo por resúmenes, así que es tradición, no un hallazgo comprobado. Amarrar el único obstáculo a un sí muestra si de verdad es lo último que falta.
 evidence:
   grade: D
   note: Alex Dey (summaries)

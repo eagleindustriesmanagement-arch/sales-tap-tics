@@ -15,7 +15,9 @@ model_line:
   es: Usted me dijo que a su mamá le cuesta subirse. Mire lo bajito que está este escalón.
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is floor tradition, not a tested finding. A feature only matters to a customer when it solves something they told you, so tie each one to their own words.
+  es: Es una tradición del piso de ventas, no un hallazgo comprobado. Un detalle del carro solo le importa al cliente cuando resuelve algo que él mismo le dijo, así que conéctelo con sus propias palabras.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

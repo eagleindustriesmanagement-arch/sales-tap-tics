@@ -15,7 +15,9 @@ model_line:
   es: Se lo tengo listo y le evaluamos su trade-in en quince minutos. ¿Le queda mejor a las 4:15 o a las 5:45?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. A reason makes the visit worth the trip, and two set times are easier to commit to than "come by whenever."
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Una razón hace que la visita valga el viaje, y dos horas fijas comprometen más que un "pase cuando quiera".
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

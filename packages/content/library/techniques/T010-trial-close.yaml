@@ -15,7 +15,9 @@ model_line:
   es: Si logramos que los números le cuadren, ¿es este el carro?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: This is a long-standing floor practice rather than a tested finding. A low-pressure check tells you whether this is the car or something is still in the way, before you go to numbers.
+  es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Una pregunta sin presión le dice si este es el carro o si todavía hay algo en el camino, antes de pasar a los números.
 evidence:
   grade: D
   note: Practitioner tradition; the research named no source

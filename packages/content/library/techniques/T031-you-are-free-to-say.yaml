@@ -15,7 +15,9 @@ model_line:
   es: Usted decide, y está en libertad de irse. ¿Le da una vuelta primero?
 flawed_line: null
 flawed_line_violates: []
-why: null
+why:
+  en: A meta-analysis of 42 studies found that telling people they are free to say no makes a yes somewhat more likely, though the effect is small. Taking the pressure off lets the customer decide without feeling pushed.
+  es: Un metaanálisis de 42 estudios encontró que decirle a la persona que es libre de decir que no hace un poco más probable el sí, aunque el efecto es pequeño. Quitar la presión deja que el cliente decida sin sentirse empujado.
 evidence:
   grade: A
   note: meta-analysis of 42 studies (small effect)
