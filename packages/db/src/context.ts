@@ -1,6 +1,6 @@
 import type { Client, PoolClient } from "pg";
 
-type Queryable = Pick<Client | PoolClient, "query">;
+export type Queryable = Pick<Client | PoolClient, "query">;
 
 /**
  * Runs work as the app role inside one transaction with the request's tenant and user set, so row-level security

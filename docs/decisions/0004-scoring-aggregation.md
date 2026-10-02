@@ -11,7 +11,9 @@
   items always run, for dimension reporting, mastery and behavior-card selection, even when the scenario table sets
   the total. Honesty is a gate on top of either mode.
 - **Consequence.** No weight in the spec was changed. The equal within-dimension points are a placeholder to be
-  replaced by calibration against store outcomes (spec 19.2). **Needs owner confirmation.**
+  replaced by calibration against store outcomes (spec 19.2).
+- **Status (2026-10-02).** Approved by the owner as the interim default. Still pending: Ernesto's confirmation and
+  calibration against the pilot store's outcome data. Changing it is a content edit in `rubrics/R-core.yaml`.
 
 ## Addendum: partial scores
 

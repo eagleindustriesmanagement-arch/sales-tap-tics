@@ -114,6 +114,9 @@ importers:
 
   packages/db:
     dependencies:
+      '@taptics/content':
+        specifier: workspace:*
+        version: link:../content
       pg:
         specifier: ^8.13.1
         version: 8.23.1

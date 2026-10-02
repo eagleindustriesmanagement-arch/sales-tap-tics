@@ -5,8 +5,19 @@
   "type": "module",
   "main": "src/index.ts",
   "types": "src/index.ts",
-  "exports": { ".": "./src/index.ts" },
-  "scripts": { "migrate": "tsx src/migrate-cli.ts" },
-  "dependencies": { "pg": "^8.13.1" },
-  "devDependencies": { "@types/pg": "^8.11.10" }
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "migrate": "tsx src/migrate-cli.ts",
+    "seed": "tsx scripts/seed-demo.ts",
+    "publish-content": "tsx scripts/publish-content.ts"
+  },
+  "dependencies": {
+    "pg": "^8.13.1",
+    "@taptics/content": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.10"
+  }
 }

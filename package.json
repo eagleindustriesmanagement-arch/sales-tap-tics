@@ -16,7 +16,10 @@
     "i18n:check": "tsx packages/i18n/scripts/check.ts",
     "check": "pnpm typecheck && pnpm test && pnpm content:validate && pnpm i18n:check && pnpm web:typecheck",
     "web:typecheck": "pnpm --filter @taptics/web typecheck",
-    "web:build": "pnpm --filter @taptics/web build"
+    "web:build": "pnpm --filter @taptics/web build",
+    "db:migrate": "pnpm --filter @taptics/db migrate",
+    "db:seed": "pnpm --filter @taptics/db seed",
+    "db:publish-content": "pnpm --filter @taptics/db publish-content"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

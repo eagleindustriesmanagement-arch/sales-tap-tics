@@ -34,7 +34,7 @@ beforeAll(async () => {
     await q("insert into stores (id, tenant_id, name) values ($1, $2, 'Store')", [t.store, t.tenant]);
     await q("insert into store_policies (tenant_id, store_id) values ($1, $2)", [t.tenant, t.store]);
     await q("insert into store_fees (tenant_id, store_id, code, name_en, name_es, amount_cents, kind) values ($1, $2, 'dealer_fee', 'Dealer fee', 'Cargo de concesionario', 89900, 'dealer_mandatory')", [t.tenant, t.store]);
-    await q("insert into users (id, tenant_id, first_name, email) values ($1, $2, 'Rep', 'rep@example.com')", [t.rep, t.tenant]);
+    await q("insert into users (id, tenant_id, first_name, email) values ($1, $2, 'Rep', $3)", [t.rep, t.tenant, `rep@${t === A ? "a" : "b"}.test`]);
     await q("insert into memberships (tenant_id, user_id, store_id, role) values ($1, $2, $3, 'rep')", [t.tenant, t.rep, t.store]);
     await q("insert into sessions (id, tenant_id, user_id, store_id, scenario_code, language, mode, channel, seed) values ($1, $2, $3, $4, 'S-partner-check-L1', 'en', 'practice', 'floor', 'x')", [t.session, t.tenant, t.rep, t.store]);
     await q("insert into turns (tenant_id, session_id, index, speaker, text) values ($1, $2, 0, 'customer', 'I need to talk to my wife.')", [t.tenant, t.session]);

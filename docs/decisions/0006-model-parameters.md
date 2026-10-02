@@ -12,3 +12,6 @@
   overridable by environment variable, with a kill switch per purpose and per model.
 - **Consequence.** The latency budget for the customer (first token under 400 ms median) must be measured once a key
   is available; if Sonnet 5.5 at `low` misses it, the customer model is a one-line configuration change.
+
+- **Status (2026-10-02).** Approved by the owner: closest supported settings, refusal fallback on. Ernesto may ask to
+  turn the fallback off; that is `fallbacks: false` per purpose in `packages/ai/src/models.ts`.
