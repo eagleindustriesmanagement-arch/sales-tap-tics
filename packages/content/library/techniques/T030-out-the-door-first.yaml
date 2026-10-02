@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Out the door with doc fee, tag and tax, it is $38,912. Now, how do you want to pay for it?
   es: El precio total con el cargo de documentación, placa e impuestos es $38,912. ¿Cómo lo quiere pagar?
-flawed_line: null
+flawed_line:
+  en: Let's not worry about the price yet. What monthly payment do you want to be at?
+  es: No se preocupe por el precio todavía. ¿En cuánto quiere que le quede el pago mensual?
 flawed_line_violates: []
 why:
   en: The rules require any price you quote to include every dealer charge, with the total said before the breakdown. The customer knows the real number up front, so nothing surprises them at signing.

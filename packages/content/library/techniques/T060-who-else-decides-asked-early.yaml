@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Besides you, who else will be part of this decision?
   es: Aparte de usted, ¿quién más va a participar en la decisión?
-flawed_line: null
+flawed_line:
+  en: You're the one making the decision, right?
+  es: Usted es el que decide, ¿verdad?
 flawed_line_violates: []
 why:
   en: This comes from trainer Andy Elliott, used here only in a neutral way; it is not a tested finding. Knowing early who else decides lets you include them, instead of hearing "I have to ask my wife" at the desk.

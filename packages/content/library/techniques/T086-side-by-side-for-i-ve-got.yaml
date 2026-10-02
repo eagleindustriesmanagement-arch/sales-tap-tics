@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: That happens. Let's line both up out-the-door, same equipment, and see what each number buys you.
   es: Eso pasa. Pongamos las dos ofertas lado a lado, precio final con todo, mismo equipo, y vemos qué le da cada una.
-flawed_line: null
+flawed_line:
+  en: No way, that's impossible. Nobody can sell it for that.
+  es: Imposible, nadie se lo puede vender en eso.
 flawed_line_violates: []
 why:
   en: This comes from trainer Jonathan Dawson, not a tested finding. Lining both offers up out-the-door with the same equipment shows whether the lower quote is really cheaper, without telling the customer they are wrong.

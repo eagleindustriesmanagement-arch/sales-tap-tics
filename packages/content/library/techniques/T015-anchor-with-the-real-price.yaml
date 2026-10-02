@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: This one is $38,450, everything included but tax and tags. Here is why it is priced there.
   es: Este está en $38,450, todo incluido menos impuestos y placas. Le explico por qué tiene ese precio.
-flawed_line: null
+flawed_line:
+  en: I know, the sticker's a little high, but don't worry, we can come way down from there.
+  es: Ya sé, el precio está un poco alto, pero no se preocupe, de ahí lo bajamos bastante.
 flawed_line_violates: []
 why:
   en: A 2025 review of 90 studies found ambitious opening numbers win about 75% of the time but cause more walkaways and worse feelings. Opening with the real all-in price and a reason keeps the anchor honest and avoids that backlash.

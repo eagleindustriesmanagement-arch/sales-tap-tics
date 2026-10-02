@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: We are $30 a month apart. That is about a dollar a day for the one you actually want.
   es: Estamos a $30 al mes. Es como un dólar al día por el que de verdad quiere.
-flawed_line: null
+flawed_line:
+  en: We're $30 apart, so let me go ask my manager to drop it again.
+  es: Estamos a $30, así que déjeme pedirle a mi gerente que lo baje otra vez.
 flawed_line_violates: []
 why:
   en: Gourville's research found that breaking a cost into a per-day amount works only for small sums. A small gap shown as about a dollar a day feels manageable; never do this with the whole payment.

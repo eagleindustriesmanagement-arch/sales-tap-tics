@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Fair question, and you will get every number. First, is this one for you or the family?
   es: "Claro, le doy todos los números. Primero: ¿este es para usted o para la familia?"
-flawed_line: null
+flawed_line:
+  en: We'll get to price later. Trust me, we'll make it work.
+  es: Del precio hablamos después. Créame, que se lo resolvemos.
 flawed_line_violates: []
 why:
   en: This comes from trainer Joe Verde, not a tested finding. A price means little before you know which car fits; promising every number, then asking one question, keeps trust while you find the right car.

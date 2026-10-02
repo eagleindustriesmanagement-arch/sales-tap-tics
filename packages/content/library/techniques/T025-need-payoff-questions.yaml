@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: If you never had to borrow your sister's car again, what would that be worth?
   es: Si nunca más tuviera que pedirle el carro a su hermana, ¿cuánto valdría eso para usted?
-flawed_line: null
+flawed_line:
+  en: You'll never have to borrow your sister's car again, so let's get you in this one today.
+  es: Con este no va a tener que pedirle el carro a su hermana nunca más, así que vamos a hacer el negocio hoy.
 flawed_line_violates: []
 why:
   en: This comes from Rackham's research on sales questions. When the customer says in their own words what solving the problem is worth, they are convincing themselves instead of hearing your pitch.

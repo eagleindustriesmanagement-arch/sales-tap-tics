@@ -14,7 +14,9 @@ model_line_kind: direction
 model_line:
   en: Price, trade, fees and payment on one sheet, then stop talking.
   es: Precio, trade-in, cargos y pago en una sola hoja, y luego silencio.
-flawed_line: null
+flawed_line:
+  en: Let's just focus on the monthly payment for now. Don't worry about the price or the fees, we'll get to those later, and honestly...
+  es: Por ahora fijémonos solo en el pago mensual. No se preocupe por el precio ni por los cargos, eso lo vemos después, y la verdad...
 flawed_line_violates: []
 why:
   en: This draws on Cox Automotive's research on what drives car-shopping satisfaction. With price, trade, fees and payment on one sheet, the customer sees the whole deal and has less reason to suspect a trick.

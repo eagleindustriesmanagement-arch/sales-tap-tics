@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Can I share a couple of thoughts on that?
   es: ¿Me permite compartirle un par de ideas sobre eso?
-flawed_line: null
+flawed_line:
+  en: Okay, here's the thing. You have to understand how this works...
+  es: Mire, lo que pasa es esto. Usted tiene que entender cómo funciona esto...
 flawed_line_violates: []
 why:
   en: This draws on Gong's data from business-to-business calls, not car sales. Asking first means the customer agrees to hear you out, so your answer lands as advice instead of a counterattack.

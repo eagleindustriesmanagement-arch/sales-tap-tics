@@ -14,7 +14,9 @@ model_line_kind: direction
 model_line:
   en: Present, then say nothing until the customer speaks.
   es: Presentar y no decir nada hasta que el cliente hable.
-flawed_line: null
+flawed_line:
+  en: So there it is. I know it seems like a lot, but honestly it's a great price, and we can always look at...
+  es: Ahí lo tiene. Ya sé que parece mucho, pero la verdad es un buen precio, y siempre podemos ver...
 flawed_line_violates: []
 why:
   en: This is a long-standing floor practice rather than a tested finding. Talking right after the number fills the gap with nerves or a discount; staying quiet lets the customer react first.

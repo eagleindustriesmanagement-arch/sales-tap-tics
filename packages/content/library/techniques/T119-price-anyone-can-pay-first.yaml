@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Anyone can drive this home for $X out the door. If you are a first responder, there is another $1,000 off.
   es: Cualquier persona se lo puede llevar por $X precio total final. Si usted es socorrista, hay $1,000 adicionales de descuento.
-flawed_line: null
+flawed_line:
+  en: Great news, there's $1,000 off for first responders! Are you a first responder?
+  es: ¡Buenas noticias! Hay $1,000 de descuento para socorristas. ¿Usted es socorrista?
 flawed_line_violates: []
 why:
   en: Under the FTC's pricing guidance, the first price must be one any customer can pay, with special rebates after. That way no one is drawn in by a number they do not qualify for.

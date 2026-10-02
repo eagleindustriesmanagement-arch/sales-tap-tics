@@ -12,6 +12,7 @@ export default async function Today() {
   const user = await requireUser();
   if (isManager(user)) redirect("/manager/floor");
   if (user.roles.includes("compliance_reviewer")) redirect("/manager/compliance");
+  if (user.roles.includes("content_editor")) redirect("/review");
   const lang = await language();
   const lib = library();
   const { cards, recent, progress, assigned } = await asUser(principalOf(user), async (db) => ({

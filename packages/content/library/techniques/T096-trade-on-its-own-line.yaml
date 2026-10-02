@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Your trade came in strong at $14,200. Here it is on its own line, and here is your net.
   es: Su trade-in salió bien, en $14,200. Aquí lo tiene en su propia línea, y aquí está lo que le queda.
-flawed_line: null
+flawed_line:
+  en: With your trade, your payment comes out to $549 a month.
+  es: Con su trade-in, el pago le queda en $549 al mes.
 flawed_line_violates: []
 why:
   en: This draws on Kim and others (2022). When the trade value is strong, showing it on its own line lets the customer see the good news instead of losing it inside the net.

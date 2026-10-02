@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Would the 60 or the 72 month term sit better with your budget?
   es: ¿Le acomoda más el plazo de 60 o el de 72 meses?
-flawed_line: null
+flawed_line:
+  en: So, what do you think? Do you want to think about it?
+  es: Entonces, ¿qué le parece? ¿Lo quiere pensar?
 flawed_line_violates: []
 why:
   en: This is floor tradition, not a tested finding. Two concrete options are easier to answer than an open question, so a stuck customer can move forward without feeling cornered.

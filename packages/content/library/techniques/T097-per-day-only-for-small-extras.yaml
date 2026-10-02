@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: It is optional. It is $1,095 total over five years, about 60 cents a day.
   es: Es opcional. Son $1,095 en total por cinco años, como 60 centavos al día.
-flawed_line: null
+flawed_line:
+  en: It's only a couple of dollars a day. You won't even notice it.
+  es: Es nada más un par de dólares al día. Ni lo va a sentir.
 flawed_line_violates: []
 why:
   en: Gourville's research (1998 and 2003) found per-day framing helps with small amounts but backfires with large ones. About 60 cents a day makes a small optional product easy to judge; never use it for the car payment.

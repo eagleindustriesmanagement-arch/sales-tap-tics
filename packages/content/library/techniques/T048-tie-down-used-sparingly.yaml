@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: The third row makes the school run easier, doesn't it?
   es: Con la tercera fila se le hace más fácil llevar a los niños, ¿verdad?
-flawed_line: null
+flawed_line:
+  en: Nice, right? Smooth, isn't it? You can see yourself in it, can't you? Great price, right?
+  es: Bonita, ¿verdad? Suavecita, ¿no? Ya se ve manejándola, ¿cierto? Buen precio, ¿verdad?
 flawed_line_violates: []
 why:
   en: This is floor tradition, not a tested finding. One tie-down after a benefit the customer clearly values confirms it; repeated, it sounds scripted, which is why scoring flags more than two in a session.

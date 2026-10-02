@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: It's Carlos from Bomnin Chevrolet. I am calling because your lease ends in March. Can I take 30 seconds?
   es: Le habla Carlos de Bomnin Chevrolet. Le llamo porque su lease se vence en marzo. ¿Me regala 30 segundos?
-flawed_line: null
+flawed_line:
+  en: Hi, how are you? It's been a while! Just calling to see how everything's going.
+  es: ¡Hola! ¿Cómo está? ¡Cuánto tiempo! Lo llamaba para ver cómo va todo.
 flawed_line_violates: []
 why:
   en: Gong's data on 300 million business calls found that stating the reason for the call raised success 2.1 times. A real reason, like a lease ending, tells the customer right away why the call is worth their time.

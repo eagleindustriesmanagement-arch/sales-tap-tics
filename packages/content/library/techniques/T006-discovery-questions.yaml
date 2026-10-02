@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: What do you like least about what you are driving now?
   es: ¿Qué es lo que menos le gusta del carro que maneja ahora?
-flawed_line: null
+flawed_line:
+  en: Do you like SUVs? Great, this Equinox has a panoramic sunroof.
+  es: ¿A usted le gustan las SUV? Perfecto, esta Equinox tiene techo panorámico.
 flawed_line_violates: []
 why:
   en: This rests on Rackham's research on 35,000 sales calls. Asking instead of guessing tells you what the customer actually needs, so you show the right car.

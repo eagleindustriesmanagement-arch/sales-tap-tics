@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: I do not ask for referrals. If I do my job, you will tell people without me asking.
   es: Yo no le pido referidos. Si hago bien mi trabajo, usted solo le va a contar a la gente.
-flawed_line: null
+flawed_line:
+  en: Give me three names of people who need a car. Come on, everybody knows somebody.
+  es: Déme tres nombres de gente que necesite carro. Dale, todo el mundo conoce a alguien.
 flawed_line_violates: []
 why:
   en: This rests on one documented case, Ali Reda, who reported 1,582 sales in 2017, so it is not a tested finding. Doing the job well gives customers their own reason to send people to you.

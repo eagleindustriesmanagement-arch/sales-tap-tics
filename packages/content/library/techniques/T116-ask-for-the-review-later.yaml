@@ -13,8 +13,11 @@ model_line_kind: spoken
 model_line:
   en: Now that you have had the Silverado a week or so, would you share how we did?
   es: Ahora que ya lleva una semanita con la Silverado, ¿nos regala un comentario?
-flawed_line: null
-flawed_line_violates: []
+flawed_line:
+  en: Before you drive off, if you're happy with everything, leave us a five-star review on Google.
+  es: Antes de irse, si quedó contento con todo, déjenos una reseña de cinco estrellas en Google.
+flawed_line_violates:
+  - REVIEW-01
 why:
   en: In a 2023 study of about 300,000 consumers (Jung and others), later reminders raised review posting by 64%. After a week or so the customer has real experience to share; ask every customer, with no reward for good reviews.
   es: En un estudio de 2023 con unos 300,000 consumidores (Jung y otros), los recordatorios más tardíos subieron un 64% las reseñas publicadas. Después de una semana con el carro, el cliente tiene experiencia real que contar; pídaselo a todos, sin premio por reseñas buenas.

@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: It sounds like the trade number caught you off guard.
   es: Parece que el número del trade-in lo tomó por sorpresa.
-flawed_line: null
+flawed_line:
+  en: Look, that's what the book says your car is worth. It's nothing personal.
+  es: Mire, eso es lo que dice el libro que vale su carro. No es nada personal.
 flawed_line_violates: []
 why:
   en: This comes from Chris Voss's negotiation method, not a tested sales study. Naming the feeling out loud makes the customer feel understood, which usually cools the emotion so you can talk numbers.

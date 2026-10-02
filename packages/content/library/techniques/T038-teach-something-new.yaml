@@ -13,7 +13,9 @@ model_line_kind: direction
 model_line:
   en: Share one verified fact that changes how they compare two cars.
   es: Compartir un dato verificado que cambie cómo comparan dos carros.
-flawed_line: null
+flawed_line:
+  en: So, as you probably saw online, it has Apple CarPlay, a backup camera and a touchscreen.
+  es: Como seguro ya vio en internet, tiene Apple CarPlay, cámara de reversa y pantalla táctil.
 flawed_line_violates: []
 why:
   en: This comes from the Challenger research, which studied business-to-business sales, not car buyers. A researched buyer already knows the basics; one verified fact they did not know earns their attention and trust.

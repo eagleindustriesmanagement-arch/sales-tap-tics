@@ -582,3 +582,49 @@ export async function coachPracticeSummary(db: Queryable) {
   );
   return r.rows as { manager_id: string; first_name: string | null; sessions: number; avg_score: number; last_at: Date }[];
 }
+
+// ---------------------------------------------------------------- Spanish review (spec 16.3, decision 0010)
+
+export interface SpanishReview {
+  contentCode: string;
+  lineKey: string;
+  enText: string;
+  esOriginal: string;
+  esFinal: string;
+  needsCompliance: boolean;
+  reviewedBy: string;
+  reviewedAt: Date;
+  complianceBy: string | null;
+}
+
+export async function listSpanishReviews(db: Queryable, codes?: string[]): Promise<SpanishReview[]> {
+  const r = await db.query(
+    `select content_code, line_key, en_text, es_original, es_final, needs_compliance, reviewed_by, reviewed_at, compliance_by
+     from spanish_reviews where ($1::text[] is null or content_code = any($1))`,
+    [codes ?? null],
+  );
+  return r.rows.map((x) => ({
+    contentCode: x.content_code, lineKey: x.line_key, enText: x.en_text, esOriginal: x.es_original, esFinal: x.es_final,
+    needsCompliance: x.needs_compliance, reviewedBy: x.reviewed_by, reviewedAt: x.reviewed_at, complianceBy: x.compliance_by,
+  }));
+}
+
+/** The Spanish reviewer approves a line as is, or with an edit. Re-reviewing replaces the earlier decision. */
+export async function saveSpanishReview(db: Queryable, reviewer: UserContext, r: { kind: "scenario" | "persona"; code: string; lineKey: string; en: string; esOriginal: string; esFinal: string; needsCompliance: boolean }) {
+  if (!reviewer.roles.includes("content_editor")) throw new Error("only a Spanish reviewer approves Spanish lines");
+  await db.query(
+    `insert into spanish_reviews (tenant_id, content_kind, content_code, line_key, en_text, es_original, es_final, needs_compliance, reviewed_by)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+     on conflict (tenant_id, content_code, line_key) do update set en_text = excluded.en_text, es_original = excluded.es_original,
+       es_final = excluded.es_final, needs_compliance = excluded.needs_compliance, reviewed_by = excluded.reviewed_by, reviewed_at = now()`,
+    [reviewer.tenantId, r.kind, r.code, r.lineKey, r.en, r.esOriginal, r.esFinal, r.needsCompliance, reviewer.id],
+  );
+  await audit(db, reviewer, "spanish.review", r.kind, null, { code: r.code, line: r.lineKey, edited: r.esFinal !== r.esOriginal });
+}
+
+/** The compliance reviewer signs off a reviewed line that carries numbers, fees or conditions. */
+export async function approveSpanishCompliance(db: Queryable, reviewer: UserContext, code: string, lineKey: string) {
+  if (!reviewer.roles.includes("compliance_reviewer")) throw new Error("only the compliance reviewer signs off");
+  const r = await db.query("update spanish_reviews set compliance_by = $3, compliance_at = now() where content_code = $1 and line_key = $2 and needs_compliance", [code, lineKey, reviewer.id]);
+  if (r.rowCount === 0) throw new Error("no reviewed line with numbers to sign off");
+}

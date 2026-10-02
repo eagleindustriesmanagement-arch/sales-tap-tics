@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Before we look at anything new, let's walk around your Equinox. What do you love about it, and what drives you crazy?
   es: Antes de ver algo nuevo, vamos a darle la vuelta a su Equinox. ¿Qué es lo que más le gusta y qué es lo que ya no aguanta?
-flawed_line: null
+flawed_line:
+  en: Let's go look at the new ones first. We'll deal with your trade later.
+  es: Vamos a ver los nuevos primero. Lo de su trade-in lo vemos después.
 flawed_line_violates: []
 why:
   en: This comes from trainer Mark Tewart, not a tested finding. Starting with the customer's own car shows what they love and what they want to get away from, which points you to the right new one.

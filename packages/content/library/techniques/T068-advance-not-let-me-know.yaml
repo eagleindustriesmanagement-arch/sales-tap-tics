@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Rather than leave it open, can we do the appraisal now so you have a real number to take home?
   es: En vez de dejarlo en el aire, ¿hacemos la tasación de su carro ahora para que se lleve un número real?
-flawed_line: null
+flawed_line:
+  en: Sounds good. Just let me know what you decide.
+  es: Perfecto. Me avisa lo que decida.
 flawed_line_violates: []
 why:
   en: This draws on Rackham's research on sales calls. Agreeing on a concrete next action, like the appraisal now, moves the sale forward, while "let me know" leaves it to chance.

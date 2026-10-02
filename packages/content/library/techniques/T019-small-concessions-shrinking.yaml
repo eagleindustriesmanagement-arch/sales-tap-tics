@@ -14,7 +14,9 @@ model_line_kind: direction
 model_line:
   en: Each move smaller than the last, with a reason; see T106.
   es: Cada paso más pequeño que el anterior y con una razón; ver T106.
-flawed_line: null
+flawed_line:
+  en: Okay, $500 off. Still too much? Fine, another $1,000, just tell me yes.
+  es: Bueno, le quito $500. ¿Todavía es mucho? Está bien, $1,000 más, nada más dígame que sí.
 flawed_line_violates: []
 why:
   en: This draws on Kwon and Weingart (2004). Each move smaller than the last, with a reason, tells the customer you are getting close to your limit instead of inviting them to keep pushing.

@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Here are the three closest auction sales and the $1,100 in tires and brakes it needs.
   es: Aquí tiene las tres ventas de subasta más parecidas y los $1,100 de gomas y frenos que necesita.
-flawed_line: null
+flawed_line:
+  en: That's what it's worth. The market is the market.
+  es: Eso es lo que vale. El mercado es el mercado.
 flawed_line_violates: []
 why:
   en: In J.D. Power's 2025 sales satisfaction study, deal satisfaction scored 800 when things were explained versus 672 when they were not. Walking through auction sales and needed repairs shows why the trade number is what it is.

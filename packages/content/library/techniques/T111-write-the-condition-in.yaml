@@ -14,8 +14,11 @@ model_line_kind: spoken
 model_line:
   en: This number holds if the payoff letter matches the $14,200 you told me. If not, we redo it together, in writing.
   es: Este valor se mantiene si la carta del payoff confirma los $14,200. Si sale distinto, lo rehacemos juntos, por escrito.
-flawed_line: null
-flawed_line_violates: []
+flawed_line:
+  en: Your trade is $14,200, done deal. Y si la carta del payoff sale diferente, se cambia el número.
+  es: Su trade-in le queda en $14,200, trato hecho. If the payoff letter comes back different, the number changes.
+flawed_line_violates:
+  - LANG-01
 why:
   en: This comes from Malhotra and Bazerman's negotiation method, not a tested sales finding. Writing the condition in, in the same language as the offer, means a payoff surprise gets redone together instead of feeling like a broken promise.
   es: Viene del método de negociación de Malhotra y Bazerman, no de un hallazgo comprobado en ventas. Poner la condición por escrito, en el mismo idioma de la oferta, hace que si el payoff sale distinto se rehaga juntos y no se sienta como una promesa rota.

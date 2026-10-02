@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: You have compared the three that fit your budget. The only open question is the payment. Let's settle that.
   es: Usted ya comparó los tres que le cuadran en el presupuesto. Lo único que falta es el pago. Resolvamos eso.
-flawed_line: null
+flawed_line:
+  en: Sure, let's go look at a few more. We've got a whole lot out back.
+  es: Claro, vamos a ver unos cuantos más. Allá atrás tenemos un montón.
 flawed_line_violates: []
 why:
   en: The JOLT research and a 2015 meta-analysis on choice overload (Chernev) both support this. More comparisons can deepen indecision; closing the search and settling the one open question helps the customer decide.

@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: When we sit down you will see price, trade, payment and every fee on one sheet.
   es: Cuando nos sentemos, usted va a ver el precio, el trade-in, el pago y cada cargo en una sola hoja.
-flawed_line: null
+flawed_line:
+  en: Let's not get into numbers yet. First let's find a car you fall in love with.
+  es: Todavía no hablemos de números. Primero vamos a encontrarle un carro que lo enamore.
 flawed_line_violates: []
 why:
   en: This comes from trainer Mark Tewart, not a tested finding, and only works if your store really does it. Promising one sheet with every number before you sit down lowers the guard of a customer braced for games.

@@ -3,7 +3,7 @@ import type pg from "pg";
 import { randomUUID } from "node:crypto";
 import {
   coachingQuality, createPracticeSession, getSessionDetail, insertTurns, issueCard, listSessions, loadUser, markMissedCards, recordConsent,
-  assignableReps, coachPracticeSummary, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
+  approveSpanishCompliance, assignableReps, coachPracticeSummary, listSpanishReviews, saveSpanishReview, createAssignments, listAssignments, recordCoachPractice, recordFloorCheck, requestLoginCode, resolveLogin, revokeLogin, saveSessionResult, teamOverview, verifyLoginCode, weekCards, weekOf, withTenant,
 } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
@@ -200,5 +200,25 @@ describe.skipIf(SKIP)("coach the coach (spec 14.3)", () => {
     await expect(as(REP, async (q) => recordCoachPractice(q, (await loadUser(q, REP))!, result))).rejects.toThrow(/only managers/);
     // No update grant, and an immutability trigger behind it.
     await expect(as(MANAGER, (q) => q.query("update coach_practice set score = 100"))).rejects.toThrow(/permission denied|immutable/);
+  });
+});
+
+describe.skipIf(SKIP)("Spanish review (spec 16.3, decision 0010)", () => {
+  const ROSA = DEMO.users[4]!.id;
+  const YESENIA = DEMO.users[5]!.id;
+  const line = { kind: "scenario" as const, code: "S-partner-check-L1", lineKey: "demo.good.6", en: "Honestly, it is about sixty bucks higher than what I said.", esOriginal: "La verdad, está como sesenta dólares por encima.", needsCompliance: true };
+  it("the Spanish reviewer approves or edits; reps and managers cannot", async () => {
+    await as(YESENIA, async (q) => saveSpanishReview(q, (await loadUser(q, YESENIA))!, { ...line, esFinal: "La verdad, está como sesenta dólares más de lo que le dije." }));
+    await expect(as(MANAGER, async (q) => saveSpanishReview(q, (await loadUser(q, MANAGER))!, { ...line, esFinal: "x" }))).rejects.toThrow(/only a Spanish reviewer/);
+    await expect(as(REP, (q) => q.query("insert into spanish_reviews (tenant_id, content_kind, content_code, line_key, en_text, es_original, es_final, needs_compliance, reviewed_by) values ($1, 'scenario', 'x', 'y', 'a', 'b', 'c', false, $2)", [DEMO.tenant, REP]))).rejects.toThrow(/row-level security/);
+    expect(await as(REP, (q) => listSpanishReviews(q))).toEqual([]);
+    expect((await as(GM, (q) => listSpanishReviews(q))).map((r) => r.lineKey)).toEqual(["demo.good.6"]);
+  });
+  it("a line with numbers needs the compliance reviewer, who cannot rewrite it; a new edit clears the sign-off", async () => {
+    await as(ROSA, async (q) => approveSpanishCompliance(q, (await loadUser(q, ROSA))!, line.code, line.lineKey));
+    expect((await as(ROSA, (q) => listSpanishReviews(q)))[0]!.complianceBy).toBe(ROSA);
+    await expect(as(ROSA, (q) => q.query("update spanish_reviews set es_final = 'otra cosa'"))).rejects.toThrow(/only the Spanish reviewer/);
+    await as(YESENIA, async (q) => saveSpanishReview(q, (await loadUser(q, YESENIA))!, { ...line, esFinal: "La verdad, son como sesenta dólares más de lo que le dije." }));
+    expect((await as(ROSA, (q) => listSpanishReviews(q)))[0]!.complianceBy).toBeNull();
   });
 });

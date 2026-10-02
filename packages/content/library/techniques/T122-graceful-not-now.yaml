@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Sounds like today is not the day, and that is fine. Can I text you the out-the-door number so you have it in writing?
   es: Parece que hoy no es el día, y está bien. ¿Le envío por texto el precio total final para que lo tenga por escrito?
-flawed_line: null
+flawed_line:
+  en: Hold on, don't leave yet. Let me grab my manager, I'm sure we can do something today.
+  es: Espérese, no se vaya todavía. Déjeme buscar a mi gerente, que seguro hoy le podemos hacer algo.
 flawed_line_violates: []
 why:
   en: The support is a 2026 AI-simulator study, a preprint, so treat it as early evidence. Letting the customer go without pressure keeps the door open, and the all-in price in writing gives them a real number to come back to.

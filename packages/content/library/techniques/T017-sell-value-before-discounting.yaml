@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Compared to what? Walk me through what you are seeing elsewhere.
   es: ¿Comparado con qué? Cuénteme lo que ha visto en otros lados.
-flawed_line: null
+flawed_line:
+  en: Okay, okay, let me go see how much more I can take off.
+  es: Okay, okay, déjeme ir a ver cuánto más le puedo rebajar.
 flawed_line_violates: []
 why:
   en: This is floor tradition, not a tested finding. Asking what they are comparing to shows whether the other deal is really the same car and terms, so you do not cut price to beat something that is not equal.

@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: We will make you a written offer on your car either way.
   es: Le hacemos una oferta por escrito por su carro, compre o no compre.
-flawed_line: null
+flawed_line:
+  en: Don't worry about the trade, I'll take care of it in the numbers.
+  es: No se preocupe por el trade-in, yo se lo acomodo en los números.
 flawed_line_violates: []
 why:
   en: This is a store policy, not a tested finding, so confirm your store offers it. A written offer on the car whether they buy or not shows the trade value is not being moved around to hide the real price.

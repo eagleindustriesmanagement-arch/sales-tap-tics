@@ -13,8 +13,11 @@ model_line_kind: spoken
 model_line:
   en: With the protection products, $A a month. Without them, $B. They are optional. Which would you like?
   es: Con los productos de protección, $A al mes. Sin ellos, $B. Son opcionales. ¿Cuál prefiere?
-flawed_line: null
-flawed_line_violates: []
+flawed_line:
+  en: With the protection package it comes to $A a month. The bank requires the package for that rate.
+  es: Con el paquete de protección le queda en $A al mes. El banco exige el paquete para esa tasa.
+flawed_line_violates:
+  - ADD-01
 why:
   en: This rule comes from the Credit Acceptance consent decree. Showing the payment with and without add-ons, and saying they are optional, lets the customer see exactly what the extras cost each month and choose freely.
   es: Esta regla viene del acuerdo legal (consent decree) de Credit Acceptance. Enseñar el pago con y sin los productos adicionales, y decir que son opcionales, deja que el cliente vea exactamente cuánto le cuestan al mes y escoja libremente.

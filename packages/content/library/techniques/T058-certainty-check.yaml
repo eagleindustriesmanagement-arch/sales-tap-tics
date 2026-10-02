@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: From one to ten, how sure are you this is the right car? What would make it a ten?
   es: Del uno al diez, ¿qué tan seguro está de que este es el carro? ¿Qué le faltaría para llegar a diez?
-flawed_line: null
+flawed_line:
+  en: You loved it, right? Great, let's go do the numbers.
+  es: Le encantó, ¿verdad? Perfecto, vamos a sacar los números.
 flawed_line_violates: []
 why:
   en: This comes from Belfort's method, used here only in its honest form; it is not a tested finding. The one-to-ten scale shows where the customer stands, and the follow-up tells you exactly what is missing.

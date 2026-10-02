@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Your trade comes in at $14,850. Here is the auction data behind it.
   es: Su trade-in sale en $14,850. Aquí están los datos de subasta que lo respaldan.
-flawed_line: null
+flawed_line:
+  en: Your trade? We can give you around fifteen for it.
+  es: ¿Su trade-in? Por ese le podemos dar como quince.
 flawed_line_violates: []
 why:
   en: This draws on Mason and others (2013). An exact number like $14,850 sounds worked out rather than rounded off, and the auction data shows the customer where it came from.

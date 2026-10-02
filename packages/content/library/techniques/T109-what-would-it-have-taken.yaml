@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Before you go, honestly, what would it have taken for this to be a yes today?
   es: "Antes de que se vaya, dígame con toda confianza: ¿qué hubiera hecho falta para que hoy me dijera que sí?"
-flawed_line: null
+flawed_line:
+  en: Alright, no problem. Thanks for coming in.
+  es: Bueno, no hay problema. Gracias por venir.
 flawed_line_violates: []
 why:
   en: This comes from Malhotra and Bazerman's negotiation method, not a tested sales finding. After a firm no, the customer can answer honestly, and the answer tells you what to fix or whether the deal can still be saved.

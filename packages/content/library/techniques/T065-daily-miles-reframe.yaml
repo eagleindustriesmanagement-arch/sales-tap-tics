@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: How many miles is a normal day for you? Let's compare that to what this one covers.
   es: ¿Cuántas millas maneja en un día normal? Vamos a compararlo con lo que este le cubre.
-flawed_line: null
+flawed_line:
+  en: Range isn't a problem anymore, trust me. You'll be fine.
+  es: La autonomía ya no es problema, créame. Va a estar bien.
 flawed_line_violates: []
 why:
   en: This is floor practice rather than a tested finding. Range sounds abstract; comparing the miles in the customer's normal day with what the car covers puts it in their own terms.

@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Here are three ways to do it. Which fits best?
   es: Aquí tiene tres opciones. ¿Cuál le acomoda mejor?
-flawed_line: null
+flawed_line:
+  en: Here's your payment. Honestly, it's a really good deal, and with rates the way they are...
+  es: Aquí está su pago. La verdad, es un muy buen negocio, y con las tasas como están...
 flawed_line_violates: []
 why:
   en: This comes from trainer Paul Cummings, not a tested finding; T095 is the research-backed version. Three options let the customer choose instead of reacting to one number, and silence gives them room to pick.

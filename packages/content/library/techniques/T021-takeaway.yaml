@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Maybe this trim is more than you need. Want to see the one below it?
   es: A lo mejor esta versión es más de lo que necesita. ¿Quiere ver la de abajo?
-flawed_line: null
+flawed_line:
+  en: Let me see what I can do to get you the top trim at your number.
+  es: Déjeme ver qué puedo hacer para dejarle la versión más equipada en su número.
 flawed_line_violates: []
 why:
   en: This is floor tradition, not a tested finding. Offering the lower trim takes the pressure off, so the customer either finds one that fits the budget or decides on their own that the top trim is worth it.

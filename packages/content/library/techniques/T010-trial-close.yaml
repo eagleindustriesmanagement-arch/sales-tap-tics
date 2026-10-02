@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: If we can get the numbers where you need them, is this the one?
   es: Si logramos que los números le cuadren, ¿es este el carro?
-flawed_line: null
+flawed_line:
+  en: So, that's the car. Any other questions?
+  es: Bueno, ese es el carro. ¿Tiene alguna otra pregunta?
 flawed_line_violates: []
 why:
   en: This is a long-standing floor practice rather than a tested finding. A low-pressure check tells you whether this is the car or something is still in the way, before you go to numbers.

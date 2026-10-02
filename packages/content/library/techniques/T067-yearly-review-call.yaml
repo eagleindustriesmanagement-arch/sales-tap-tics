@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: It has been a year. I would like to check what your car is worth today.
   es: Ya pasó un año; me gustaría revisar cuánto vale su carro hoy.
-flawed_line: null
+flawed_line:
+  en: Hi, it's Luis. Just checking in. Let me know if you need anything.
+  es: Hola, le habla Luis. Solo para saludarlo. Cualquier cosa, me avisa.
 flawed_line_violates: []
 why:
   en: This is a long-standing floor practice rather than a tested finding. A yearly check on what their car is worth is a useful reason to call, and it keeps you their contact when they are ready to trade.

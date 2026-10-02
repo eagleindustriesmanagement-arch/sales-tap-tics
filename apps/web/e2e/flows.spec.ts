@@ -255,3 +255,40 @@ test("a manager practices a floor check and is scored on the four parts", async 
   await page.goto("/manager/team");
   await expect(page.getByTestId("coach-Carlos")).toHaveText("2 · 75");
 });
+
+test("the Spanish reviewer approves and edits lines; an edit that breaks a rule is refused; numbers need compliance", async ({ page, browser }) => {
+  await signInReady(page, "es@demo.test");
+  await expect(page).toHaveURL(/\/review$/);
+  await expect(page.getByTestId("review-total")).toHaveText(/^0 of \d{3} lines approved$/);
+  await page.getByTestId("review-S-partner-check-L1").click();
+
+  // Approve the opening as written.
+  const opening = page.getByTestId("line-opening");
+  await opening.getByRole("button", { name: "Approve" }).click();
+  await expect(opening.getByTestId("status")).toHaveText("Approved");
+
+  // An edit to a rep line that invents a deadline is refused by the compliance engine.
+  const rep = page.getByTestId("line-demo.good.1");
+  await rep.getByLabel("Spanish").fill("Claro que sí. Pero este precio es solo por hoy, así que decídase ya.");
+  await rep.getByRole("button", { name: "Approve" }).click();
+  await expect(rep.getByRole("alert")).toHaveText(/breaks DEAD-01/);
+  await expect(rep.getByTestId("status")).toHaveText("Not reviewed");
+
+  // A line with an amount is approved by the Spanish reviewer, then needs the compliance reviewer.
+  const amount = page.getByTestId("line-demo.good.6");
+  await amount.getByLabel("Spanish").fill("La verdad, son como sesenta dólares más de lo que le dije.");
+  await amount.getByRole("button", { name: "Approve" }).click();
+  await expect(amount.getByTestId("status")).toHaveText("Needs compliance sign-off");
+
+  const rosa = await browser.newPage();
+  await signInReady(rosa, "review@demo.test");
+  await rosa.goto("/review/S-partner-check-L1");
+  const line = rosa.getByTestId("line-demo.good.6");
+  await expect(line.getByText("La verdad, son como sesenta dólares más de lo que le dije.")).toBeVisible();
+  await line.getByRole("button", { name: "Sign off the numbers" }).click();
+  await expect(line.getByTestId("status")).toHaveText("Approved");
+  await rosa.goto("/review");
+  await expect(rosa.getByTestId("review-total")).toHaveText(/^2 of \d{3} lines approved$/);
+  // A rep cannot review.
+  expect((await page.context().request.post("/api/review/compliance", { data: { code: "S-partner-check-L1", lineKey: "opening" } })).status()).toBe(403);
+});

@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: I am sorry you had to fight the Palmetto traffic to get here.
   es: Qué pena que le tocó ese tráfico en el Palmetto para llegar hasta acá.
-flawed_line: null
+flawed_line:
+  en: Okay, so what are we looking at today?
+  es: Bueno, ¿qué estamos buscando hoy?
 flawed_line_violates: []
 why:
   en: In Brooks, Dai and Schweitzer's 2014 study, apologizing for something you did not cause raised trust from 65% to 77%. Saying sorry about their traffic shows you care before any selling starts.

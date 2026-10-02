@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Hi Maria, this is Luis at Bomnin Chevrolet West Kendall. I am calling about the Equinox you asked about. Do you have two minutes?
   es: Buenas, señora María, le habla Luis, de Bomnin Chevrolet West Kendall. La llamo por la Equinox que usted consultó. ¿Tiene dos minutos?
-flawed_line: null
+flawed_line:
+  en: Hi, how's it going? Did I catch you at a bad time?
+  es: Hola, ¿cómo le va? ¿Lo agarré en mal momento?
 flawed_line_violates: []
 why:
   en: This comes from trainer Alan Ram, not a tested finding. Saying who you are, where you are calling from and why in the first seconds, then asking for time, shows respect and keeps the customer from hanging up on a mystery call.

@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Help me understand the four hundred. What is that number protecting for you?
   es: Ayúdeme a entender esos cuatrocientos. ¿Qué es lo que usted está cuidando con ese número?
-flawed_line: null
+flawed_line:
+  en: $400? That's not happening on this truck.
+  es: ¿$400? Eso no va a pasar con esta troca.
 flawed_line_violates: []
 why:
   en: This comes from Malhotra and Bazerman's negotiation method, not a tested sales finding. A firm number usually protects something, like a budget or a fear, and once you know what, you may find other ways to meet it.

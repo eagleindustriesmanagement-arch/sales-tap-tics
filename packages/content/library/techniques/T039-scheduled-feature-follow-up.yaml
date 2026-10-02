@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: I will call on the 14th to set up the driver profiles we skipped.
   es: Lo llamo el 14 para configurar los perfiles de conductor que nos faltaron.
-flawed_line: null
+flawed_line:
+  en: If you have any questions about the features, just give me a call.
+  es: Si tiene alguna pregunta sobre las funciones, me llama.
 flawed_line_violates: []
 why:
   en: In J.D. Power's 2025 study, 22% of buyers wanted a follow-up on features and 53% of those never got one. Putting the date on the calendar at delivery makes sure your customer does.

@@ -38,6 +38,12 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
   live judge: offline scores are partial and cannot certify, and the app says so.
 - **Assignments** (spec 14.5): a manager assigns a scenario to reps with a due date and a reason; it comes first on
   the rep's Today screen and is marked done when practiced.
+- **Spanish review** (spec 16.3, decision 0010): the store's bilingual reviewer reads every Spanish line of the 20
+  scenarios side by side with the English (897 lines) and approves or edits it; an edit is checked by the compliance
+  engine before it is saved; lines with numbers also need the compliance reviewer. `pnpm --filter @taptics/db
+  apply-reviews --tenant=<id>` writes approved edits back into the YAML (only the edited values change) and marks a
+  file reviewed when every line is approved.
+- **Coach the coach** (spec 14.3): managers practice a floor check and are scored on its four parts.
 - **Library**: all 122 techniques and 65 objections with grade, evidence note, sources, both languages, search
   and grade filter.
 
@@ -65,26 +71,29 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 | M3 | Store setup wizard and compliance reviewer sign-off; compliance view | Done |
 | M4 | 122 techniques, 65 objections as content | Done (imported from the spec) |
 | M4 | 20 release 1 scenarios with personas | Done: 20 scenarios and personas; every one plays offline in both languages to its hidden truth and win with no critical violation, and its flawed demo never reaches the hidden truth (CI gate) |
-| M4 | Every technique shows its grade, source and why | Done: all 122 have a "why"; 67 are honestly marked as tradition or weak evidence |
+| M4 | Every technique shows its grade, source and why | Done: all 122 have a "why" (67 honestly marked as tradition or weak evidence) and a flawed model line |
+| M4 | Content editor with Spanish review workflow | Done for review (approve, edit with compliance check, numbers sign-off, write-back to YAML). Audio preview waits on the speech provider |
 | M5 | Assignments | Done (row-level security: reps see their own; managers assign only to their reps) |
 | M5 | Coach-the-coach roleplay | Done offline: the manager reads a scene, gives the floor check, and is scored on the four parts (the spec 14.2 example scores 100 in both languages); private to the manager, visible to the general manager. With a key, an AI rep reply can be added |
 | M6 | Mastery tracking, spaced scheduling, certification with fixed seeds | Done; a simulated 30-day onboarding schedules all 20 objections and offers certification from day 30 |
 | M6 | Quarterly recertification | Done: a fixed random set of 3 per rep and quarter, passed at 75, renews level 1 for 90 days |
 | M6 | Reminders that respect peak hours | Timing done and tested (chosen time, once a day, moved past peak hours); **sending needs a push or SMS provider** |
-| M4 | Spanish reviewed by a Miami native speaker | **Blocked on people**: every Spanish line is a draft (`spanish_reviewed: false`) |
+| M4 | Spanish reviewed by a Miami native speaker | **Needs a person**: the review screen is ready; 0 of 897 release 1 lines reviewed |
 
 ## Numbers
 
-- 338 unit and database tests: rules 116, session 95 (including the 20-scenario release gate and the 30-day
-  simulation), engine 60, database 25 (row-level security, sign-in, repository, assignments, coaching practice),
-  scoring 19, AI client 15 (fake SDK), i18n 8.
-- 8 browser tests on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
+- 347 unit and database tests: rules 116, session 99 (including the 20-scenario release gate and the 30-day
+  simulation), engine 60, database 27 (row-level security, sign-in, repository, assignments, coaching practice,
+  Spanish review), scoring 19, AI client 15 (fake SDK), i18n 8, content 3.
+- 9 browser tests on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; the general manager edits store
   setup (a one-language consent text is refused), cannot sign it off, and the reviewer signs off and sees the flags;
   a manager assigns practice with a reason, the rep sees it first, practices it, and it shows done; certification
   is refused without the live judge and the team view counts certifications; a manager practices a floor check, a
-  weak one scores 50 with the card's wording for what was missing, the spec example scores 100.
+  weak one scores 50 with the card's wording for what was missing, the spec example scores 100; the Spanish reviewer
+  approves a line, an edit that invents a deadline is refused, and a line with an amount waits for and gets the
+  compliance reviewer's sign-off.
 - Compliance suite, deterministic layer (CI fails if any number gets worse):
 
   | Half | Cases | Violations missed | Critical missed | False positives |
@@ -139,5 +148,7 @@ Updated 2026-10-02 (fourth pass). Build plan: spec section 22. Decisions: `docs/
 1. M3: run the suite with both layers (`pnpm compliance:suite --with-classifier`) once `ANTHROPIC_API_KEY` is set,
    and work the critical misses to zero on dev, reporting holdout.
 2. M6: send reminders once a push or SMS provider is chosen; a setting for the rep's reminder time.
-3. M4: content editor and the Spanish review workflow.
+3. Content checks for technique lines run without scenario facts, so a technique's flawed line cannot demonstrate a
+   fact-based violation (a price without the fee, an invented deadline). Checking them against a fixed example deal
+   would let those lessons show the real violation.
 4. Voice gateway with provider interfaces, once the bake-off candidates are chosen.

@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: "Let me sketch every way people set this up: cash, finance, lease, shorter, longer. Then you pick what fits."
   es: "Déjeme dibujarle todas las formas de armar este negocio: contado, financiado, lease, más corto o más largo. Usted escoge lo que le conviene."
-flawed_line: null
+flawed_line:
+  en: It is what it is. $599 a month for 72 months.
+  es: Es lo que hay. $599 al mes, a 72 meses.
 flawed_line_violates: []
 why:
   en: This comes from trainer Mark Tewart, not a tested finding. Laying out every way to structure the deal moves a price-fixated customer from one number to choosing the setup that fits them.

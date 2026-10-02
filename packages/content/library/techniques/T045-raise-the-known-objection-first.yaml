@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: You will see a dealer fee on the sheet. Let me explain it now so nothing surprises you.
   es: En la hoja va a ver un cargo de concesionario. Se lo explico ahora para que no haya sorpresas.
-flawed_line: null
+flawed_line:
+  en: Don't worry about the fees, we'll go over all that in the office.
+  es: No se preocupe por los cargos, eso lo vemos todo en la oficina.
 flawed_line_violates: []
 why:
   en: This is a long-standing floor practice rather than a tested finding. When you explain a fee before the customer finds it, it reads as honesty instead of a surprise.

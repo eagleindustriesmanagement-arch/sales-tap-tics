@@ -13,7 +13,9 @@ model_line_kind: direction
 model_line:
   en: Record family, work, interests and the reason they left; open the next contact with it.
   es: Anotar familia, trabajo, intereses y la razón por la que se fue; empezar el próximo contacto con eso.
-flawed_line: null
+flawed_line:
+  en: Hi, sorry, remind me, which car were you looking at again?
+  es: Hola, perdone, recuérdeme, ¿qué carro era el que estaba mirando?
 flawed_line_violates: []
 why:
   en: This is Joe Girard's method, not a tested finding. Opening the next contact with something personal they told you shows you remember them, and the reason they left tells you what to fix.

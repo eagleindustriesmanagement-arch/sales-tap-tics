@@ -7,7 +7,7 @@ export default async function globalSetup() {
   writeFileSync(OUTBOX, "");
   const c = new pg.Client({ connectionString: process.env.DATABASE_URL });
   await c.connect();
-  await c.query("truncate coach_practice, assignments, floor_checks, manager_check_quality, behavior_card_issues, debriefs, scores, violations, scenario_state_events, turns, model_usage, sessions, consents, auth_sessions, login_codes, audit_log cascade");
+  await c.query("truncate spanish_reviews, coach_practice, assignments, floor_checks, manager_check_quality, behavior_card_issues, debriefs, scores, violations, scenario_state_events, turns, model_usage, sessions, consents, auth_sessions, login_codes, audit_log cascade");
   // Put the store setup back to the seeded state, since one test edits it.
   await c.query("delete from store_lenders");
   await c.query("delete from store_fees where code <> 'dealer_fee'");

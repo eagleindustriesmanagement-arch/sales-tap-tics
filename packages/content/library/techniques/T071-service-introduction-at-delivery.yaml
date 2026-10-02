@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Before you go, let me introduce Maria in service. She will handle your first oil change.
   es: Antes de irse, le presento a María en servicio. Ella le va a atender el primer cambio de aceite.
-flawed_line: null
+flawed_line:
+  en: Here are your keys, congrats, see you.
+  es: Aquí tiene sus llaves, felicidades, nos vemos.
 flawed_line_violates: []
 why:
   en: Cox found 74% of customers who return for service are likely to buy again, versus 44% of those who do not. A personal introduction to service makes that first visit more likely.

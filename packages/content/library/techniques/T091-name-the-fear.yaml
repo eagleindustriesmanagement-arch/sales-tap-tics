@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: A lot of people at this point worry about picking the wrong one and regretting it in a year. Is any of that going on for you?
   es: Mucha gente en este punto tiene miedo de escoger el carro equivocado y arrepentirse después. ¿Le está pasando algo de eso?
-flawed_line: null
+flawed_line:
+  en: What's the problem? It's a great car. What more do you want?
+  es: ¿Cuál es el problema? Es un carrazo. ¿Qué más quiere?
 flawed_line_violates: []
 why:
   en: Research behind The JOLT Effect, from 2.5 million business sales calls, found that a stall is usually fear of choosing wrong, and pressure makes it worse. Naming the fear calmly lets the customer talk about it.

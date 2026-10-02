@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Both keys, phone paired, tank full, first service booked. Anything missing?
   es: Las dos llaves, el teléfono conectado, el tanque lleno y su primer servicio agendado. ¿Le falta algo?
-flawed_line: null
+flawed_line:
+  en: Okay, you're all set. The manual has everything else. Drive safe!
+  es: Bueno, ya está todo. Lo demás está en el manual. ¡Maneje con cuidado!
 flawed_line_violates: []
 why:
   en: Service research found that a bad ending hurts more than a staged high point helps. Checking keys, phone, tank and first service before they leave makes sure the last moment of the sale is a good one.

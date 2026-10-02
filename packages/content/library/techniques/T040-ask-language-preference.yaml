@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Happy to do this in English or Spanish. Which works better for you, paperwork included?
   es: Con mucho gusto lo atendemos en español o en inglés. ¿Cómo prefiere que hagamos todo, incluyendo los papeles?
-flawed_line: null
+flawed_line:
+  en: Let's just do it in English, it's faster.
+  es: Hagámoslo en inglés, que es más rápido.
 flawed_line_violates: []
 why:
   en: Service-encounter research found that using the customer's preferred language from the start works better than switching later. Asking up front, paperwork included, lets them follow every step in the language they trust.

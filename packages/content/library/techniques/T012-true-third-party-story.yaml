@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: A customer last month had the same worry. Here is what she did.
   es: Una clienta el mes pasado tenía la misma duda. Le cuento lo que hizo.
-flawed_line: null
+flawed_line:
+  en: Trust me, you're not making a mistake. It's a great car.
+  es: Créame, no se está equivocando. Es un carrazo.
 flawed_line_violates: []
 why:
   en: The support here is general social proof research, not a car-sales study. Hearing that someone in the same spot decided and was fine makes the fear of a mistake smaller. Use real stories only.

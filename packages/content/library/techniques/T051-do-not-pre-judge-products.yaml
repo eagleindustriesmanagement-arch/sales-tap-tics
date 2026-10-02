@@ -13,8 +13,11 @@ model_line_kind: spoken
 model_line:
   en: That is your call. Ana will show you what it covers and what it costs so you can decide.
   es: Eso lo decide usted. Ana le muestra qué cubre y cuánto cuesta para que decida.
-flawed_line: null
-flawed_line_violates: []
+flawed_line:
+  en: You'll want the warranty, everyone gets it.
+  es: Usted va a querer la garantía, todo el mundo la compra.
+flawed_line_violates:
+  - ADD-01
 why:
   en: The rules say no optional product can be presented as required. Letting finance show what it covers and costs, and leaving the call to the customer, keeps the decision theirs, so they never feel talked into it.
   es: Las reglas dicen que ningún producto opcional se puede presentar como obligatorio. Dejar que financiamiento muestre lo que cubre y lo que cuesta, y que el cliente decida, mantiene la decisión en sus manos y nunca siente que lo convencieron.

@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Would it be a bad idea to take it out for ten minutes right now?
   es: ¿Sería mala idea darle una vuelta de diez minutos ahorita?
-flawed_line: null
+flawed_line:
+  en: Do you want to take it for a test drive?
+  es: ¿Quiere darle una vuelta?
 flawed_line_violates: []
 why:
   en: This comes from Chris Voss's negotiation method, not a tested finding. People feel safer saying no, so a question where "no" moves things forward lowers the pressure of the ask.

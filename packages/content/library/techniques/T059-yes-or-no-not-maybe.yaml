@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: All I ask is that at the end you tell me yes or no. Either is fine. Fair?
   es: Lo único que le pido es que al final me diga sí o no; cualquiera de las dos está bien. ¿Le parece?
-flawed_line: null
+flawed_line:
+  en: No rush at all. Just let me know whatever you decide.
+  es: Sin apuro ninguno. Usted me avisa lo que decida.
 flawed_line_violates: []
 why:
   en: This draws on research about putting off decisions, though not with car buyers. Asking for a clear yes or no up front, and saying either is fine, keeps "maybe" from being the easy way out.

@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Heat costs batteries a little down here. Charging at home is the best habit.
   es: Aquí el calor afecta un poco la batería. Lo mejor es cargar en casa.
-flawed_line: null
+flawed_line:
+  en: Oh, don't worry about the heat. Let's go take it for a drive.
+  es: Ay, no se preocupe por el calor. Vamos a darle una vuelta.
 flawed_line_violates: []
 why:
   en: Geotab data on 22,700 EVs showed batteries lose about 2.3% a year on average, about 0.4% faster in hot climates. Being straight about Miami heat now earns trust instead of a surprise later.

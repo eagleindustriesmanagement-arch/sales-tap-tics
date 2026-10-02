@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: I will have it pulled up and your trade appraised in fifteen minutes. Is 4:15 or 5:45 better?
   es: Se lo tengo listo y le evaluamos su trade-in en quince minutos. ¿Le queda mejor a las 4:15 o a las 5:45?
-flawed_line: null
+flawed_line:
+  en: Come by whenever you get a chance. I'm here all day.
+  es: Pase cuando pueda. Yo estoy aquí todo el día.
 flawed_line_violates: []
 why:
   en: This is a long-standing floor practice rather than a tested finding. A reason makes the visit worth the trip, and two set times are easier to commit to than "come by whenever."

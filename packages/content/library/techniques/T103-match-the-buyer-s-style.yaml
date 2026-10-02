@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: 'Practical buyer: "Here are the three numbers that matter."'
   es: 'Al práctico: "Estos son los tres números que importan."'
-flawed_line: null
+flawed_line:
+  en: 'Practical buyer: "Let me tell you the whole story of how they designed this model..."'
+  es: 'Al práctico: "Déjeme contarle toda la historia de cómo diseñaron este modelo..."'
 flawed_line_violates: []
 why:
   en: This draws on McFarland, Challagalla and Shervani (2006). When your approach stalls, switching to the way this buyer likes to decide, such as giving a practical buyer just the key numbers, gets things moving again.

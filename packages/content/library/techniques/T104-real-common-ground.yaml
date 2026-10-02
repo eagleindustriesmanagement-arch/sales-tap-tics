@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: You are from Hialeah? I grew up off 49th Street.
   es: ¿Usted es de Hialeah? Yo me crié por la 49.
-flawed_line: null
+flawed_line:
+  en: Hialeah, okay. So, are you looking to buy today?
+  es: Hialeah, okay. Bueno, ¿usted piensa comprar hoy?
 flawed_line_violates: []
 why:
   en: This draws on Gremler and Gwinner's 2008 study of 388 encounters. Real common ground builds a quick personal connection, but only if it is true; an invented one breaks trust and the rules.

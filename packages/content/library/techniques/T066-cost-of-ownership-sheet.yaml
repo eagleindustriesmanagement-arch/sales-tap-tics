@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: You are right, the price is higher. Here is gas and service over five years, side by side.
   es: Tiene razón, el precio es más alto. Aquí está la gasolina y el mantenimiento en cinco años, lado a lado.
-flawed_line: null
+flawed_line:
+  en: No, they don't, not when you really think about it. Trust me, you'll save a ton.
+  es: No, no es así, cuando uno lo piensa bien. Créame, se va a ahorrar un montón.
 flawed_line_violates: []
 why:
   en: J.D. Power found only 12% of first-time EV buyers were shown cost of ownership. Putting gas and service over five years side by side answers "EVs cost more" with numbers instead of opinion.

@@ -14,7 +14,9 @@ model_line_kind: direction
 model_line:
   en: Same volume and pace; no rising pitch; no speeding up.
   es: Mismo volumen y ritmo; sin subir el tono ni acelerarse.
-flawed_line: null
+flawed_line:
+  en: So the price is, um... I know, it's kind of a lot? But that's just a starting point, we can totally move...
+  es: Entonces el precio es, eh... ya sé, es un poco caro, ¿no? Pero eso es solo para empezar, lo podemos mover...
 flawed_line_violates: []
 why:
   en: This draws on Van Zant and Berger (2020). Saying the price at the same volume and pace sounds confident, while a rising pitch or speeding up sounds like you doubt the number yourself.

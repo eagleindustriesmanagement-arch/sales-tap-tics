@@ -13,7 +13,9 @@ model_line_kind: direction
 model_line:
   en: Extended or overnight drive with clear return terms.
   es: Prueba extendida o de una noche con condiciones claras de devolución.
-flawed_line: null
+flawed_line:
+  en: Sure, take it home and bring it back whenever. Don't worry about it.
+  es: Claro, lléveselo a la casa y me lo trae cuando pueda. No se preocupe por eso.
 flawed_line_violates: []
 why:
   en: This is floor tradition rather than a tested finding. Living with the car overnight answers questions a short drive cannot, and clear return terms keep it fair for both sides.

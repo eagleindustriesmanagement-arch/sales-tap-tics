@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Hi Maria, you just asked about the white Highlander. I am standing next to it. Got a minute?
   es: Hola, María, usted acaba de preguntar por la Highlander blanca. Estoy al lado de ella. ¿Tiene un minuto?
-flawed_line: null
+flawed_line:
+  en: Hi, is this Maria? How are you doing today? This is Luis, just following up on an internet inquiry you sent us yesterday about one of our vehicles...
+  es: ¿Hola, hablo con María? ¿Cómo está hoy? Le habla Luis, solo le estoy dando seguimiento a una consulta que nos mandó ayer por internet sobre uno de nuestros vehículos...
 flawed_line_violates: []
 why:
   en: A lead response study of more than 100,000 call attempts backs calling fast; it measured reaching the customer, not sales. The sooner you call, the more likely the car is still on their mind.

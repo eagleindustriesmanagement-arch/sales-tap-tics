@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Thursday at six, then. What did you want to think over, so I have answers ready?
   es: Perfecto, el jueves a las seis. ¿Qué es lo que quiere pensar, para tenerle las respuestas listas?
-flawed_line: null
+flawed_line:
+  en: What's there to think about? It's a great deal.
+  es: ¿Pero qué hay que pensar? Es un negocio buenísimo.
 flawed_line_violates: []
 why:
   en: This comes from trainer Jeremy Miner, not a tested finding. Locking in the time first gives a real next step, and asking what they want to think over brings out the real concern while you can still answer it.

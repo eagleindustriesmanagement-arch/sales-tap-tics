@@ -14,7 +14,9 @@ model_line_kind: spoken
 model_line:
   en: Here is the battery health report for this exact car. This copy is yours.
   es: Aquí tiene el reporte de la batería de este carro. Esta copia es suya.
-flawed_line: null
+flawed_line:
+  en: The battery's in great shape, don't worry about it.
+  es: La batería está perfecta, no se preocupe por eso.
 flawed_line_violates: []
 why:
   en: This draws on battery testing data. A report on this exact car's battery replaces worry with a fact the customer can see and take home.

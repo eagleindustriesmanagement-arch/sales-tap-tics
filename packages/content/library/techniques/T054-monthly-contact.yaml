@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Happy one year with the Highlander. Does it need anything?
   es: Feliz primer año con su Highlander. ¿Le hace falta algo?
-flawed_line: null
+flawed_line:
+  en: Hi, just checking in. Are you thinking about trading up yet?
+  es: Hola, solo lo llamo para ver si ya está pensando en cambiar de carro.
 flawed_line_violates: []
 why:
   en: This is Joe Girard's method, not a tested finding. Regular, friendly contact keeps you the person the customer thinks of when they or someone they know needs a car.

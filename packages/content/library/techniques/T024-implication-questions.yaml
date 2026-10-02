@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: When the van is in the shop, what does that do to your week?
   es: Cuando la van está en el taller, ¿cómo le afecta la semana?
-flawed_line: null
+flawed_line:
+  en: Is the van giving you trouble? Okay, well, this one's brand new, so no more problems.
+  es: ¿La van le está dando problemas? Bueno, este es nuevecito, así que se acabaron los problemas.
 flawed_line_violates: []
 why:
   en: This comes from Rackham's research on how successful sellers ask questions. Asking what a problem does to the customer's week makes it real to them, so solving it starts to matter more than the price.

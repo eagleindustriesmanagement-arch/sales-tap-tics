@@ -13,7 +13,9 @@ model_line_kind: direction
 model_line:
   en: Recap each need the car meets, then ask once.
   es: Repasar cada necesidad que cumple el carro y preguntar una sola vez.
-flawed_line: null
+flawed_line:
+  en: So, do you want it? What do you say? Come on, let's do it.
+  es: Entonces, ¿lo quiere? ¿Qué me dice? Dale, vamos a hacerlo.
 flawed_line_violates: []
 why:
   en: This is a floor practice, not a tested finding, though it fits Rackham's research on sales calls. Recapping each need the car meets reminds the customer why it fits, so one ask is enough.

@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: You said third row and under $650. This does both. Want me to get it ready?
   es: Usted dijo tercera fila y menos de $650. Este cumple con las dos. ¿Se lo preparo?
-flawed_line: null
+flawed_line:
+  en: So, are we doing it? Come on, what do I have to do? Should I start the paperwork?
+  es: Entonces, ¿lo hacemos? Dígame, ¿qué tengo que hacer? ¿Empiezo los papeles?
 flawed_line_violates: []
 why:
   en: In Rackham's photo-store study, training staff in closing techniques cut success on higher-value goods from 42% to 33%. One clear ask, once the needs are confirmed, avoids that pressure.

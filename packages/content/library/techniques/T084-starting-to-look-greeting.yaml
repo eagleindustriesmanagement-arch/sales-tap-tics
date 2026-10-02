@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: Welcome in. Are you just starting to look and shop around?
   es: Bienvenidos. ¿Apenas están empezando a mirar y comparar?
-flawed_line: null
+flawed_line:
+  en: Hi there! What can I put you in today?
+  es: ¡Buenas! ¿En qué carro lo monto hoy?
 flawed_line_violates: []
 why:
   en: This comes from trainer Mark Tewart, not a tested finding. People on the lot often expect pressure; asking if they are just starting to look lets them relax and keeps the conversation going.

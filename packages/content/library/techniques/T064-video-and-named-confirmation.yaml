@@ -13,7 +13,9 @@ model_line_kind: spoken
 model_line:
   en: I just recorded a one-minute video of the exact one you asked about.
   es: Le acabo de grabar un video de un minuto del carro exacto que preguntó.
-flawed_line: null
+flawed_line:
+  en: Hi, this is the dealership calling to confirm your appointment tomorrow.
+  es: Hola, le llamamos del dealer para confirmar su cita de mañana.
 flawed_line_violates: []
 why:
   en: The only support is vendor claims, so treat this as floor practice. A short video of the exact car shows it is real and waiting, which gives the customer a reason to keep the appointment.
