@@ -42,7 +42,7 @@ unlock_conditions:
         - '\bwhat(''s| is) (she|he) going to (ask|say|want)'
         - '\bwhat will you tell (her|him)\b'
       es:
-        - '\bqué (cree que )?(le )?va a (preguntar|decir|querer saber)\b'
+        - '\bqué (cree que |piensa que )?((ella|él|su esposa|su esposo|su pareja) )?(le )?(va|van) a (preguntar|decir|querer saber)\b'
         - '\bsu primera pregunta\b'
         - '\bqué (le )?va a (preguntar|decir) (ella|su esposa|él)\b'
         - '\bqué (le )?(va a|piensa) decir(le)?\b'

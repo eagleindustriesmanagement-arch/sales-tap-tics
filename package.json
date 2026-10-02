@@ -14,7 +14,7 @@
     "content:validate": "tsx packages/content/scripts/validate.ts && tsx packages/rules/scripts/check-content.ts",
     "content:import-spec": "tsx packages/content/scripts/import-spec.ts",
     "i18n:check": "tsx packages/i18n/scripts/check.ts",
-    "ci": "pnpm typecheck && pnpm test && pnpm content:validate && pnpm i18n:check"
+    "check": "pnpm typecheck && pnpm test && pnpm content:validate && pnpm i18n:check"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
