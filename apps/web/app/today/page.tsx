@@ -69,6 +69,13 @@ export default async function Today() {
         )}
       </header>
 
+      {/* Honest about what exists (decision 0032): the techniques are universal; the customers are car buyers for now. */}
+      {user.industry !== "cars" && (
+        <p className="liquid-glass-inset rounded-[0.875rem] p-3 text-[15px] text-ink" data-testid="industry-note">
+          {t("industry.comingSoon", lang, { industry: t(`industry.${user.industry}` as "industry.homes", lang).toLowerCase() })}
+        </p>
+      )}
+
       <div className="grid grid-cols-2 gap-3">
         <Card className="flex items-center gap-3 p-3.5">
           <Ring value={doneToday / DAILY_GOAL} size={52} stroke={6} tone={goalMet ? "good" : "brand"} label={t("today.goalValue", lang, { done: Math.min(doneToday, DAILY_GOAL), goal: DAILY_GOAL })}>

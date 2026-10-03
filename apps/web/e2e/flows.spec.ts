@@ -183,9 +183,9 @@ test("a rep cannot open manager screens or another rep's session", async ({ page
   expect(api.status()).toBe(403);
 });
 
-test("the general manager edits store setup, the reviewer signs it off and sees the compliance flags", async ({ page, browser }) => {
-  await signIn(page, "gm@demo.test");
-  await page.getByRole("button", { name: "I understand and agree" }).click();
+test("a manager with admin access edits store setup, the reviewer signs it off and sees the compliance flags", async ({ page, browser }) => {
+  await signInReady(page, "manager@demo.test");
+  await page.goto("/manager/floor");
   await page.getByRole("link", { name: "Store", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Store setup" })).toBeVisible();
   await expect(page.getByTestId("approval")).toHaveText(/Not signed off yet/);
@@ -376,7 +376,7 @@ test("the general manager sees model costs; a rep cannot", async ({ page, browse
             ('11111111-1111-4111-8111-111111111111', 'judge', 'claude-opus-5-5', 'judge@1', 5000, 800, 0.13, 11000, false)`,
   );
   await c.end();
-  await signInReady(page, "gm@demo.test");
+  await signInReady(page, "manager@demo.test");
   await page.getByRole("link", { name: "Dashboard" }).first().click();
   await page.getByRole("link", { name: "AI costs" }).click();
   await expect(page.getByTestId("cost-total")).toHaveText("$0.25");
@@ -396,7 +396,7 @@ test("the general manager sees model costs; a rep cannot", async ({ page, browse
 });
 
 test("the general manager adds a person who can sign in, then deactivates them", async ({ page, browser }) => {
-  await signInReady(page, "gm@demo.test");
+  await signInReady(page, "manager@demo.test");
   await page.goto("/manager/dashboard");
   await page.getByRole("link", { name: "People", exact: true }).click();
   await page.getByLabel("First name").fill("Daniel");
@@ -415,9 +415,9 @@ test("the general manager adds a person who can sign in, then deactivates them",
   // Their next request is refused, whatever session they still hold.
   await daniel.goto("/today");
   await expect(daniel).toHaveURL(/\/login$/);
-  // The same email can't be added twice while active, and a manager cannot add people.
+  // A manager without admin access cannot add people (decision 0032: admin is a privilege, not a role).
   const manager = await browser.newPage();
-  await signInReady(manager, "manager@demo.test");
+  await signInReady(manager, "manager2@demo.test");
   expect((await manager.request.post("/api/people", { data: { firstName: "X", email: "e2e-x@demo.test", language: "en", roles: ["rep"] } })).status()).toBe(403);
 });
 
@@ -441,7 +441,7 @@ test("a rep sees their progress; a manager opens a rep's detail from the team vi
 });
 
 test("the general manager's dashboard and the team view's coaching focus", async ({ page }) => {
-  await signInReady(page, "gm@demo.test");
+  await signInReady(page, "manager@demo.test");
   await page.getByRole("link", { name: "Dashboard" }).first().click();
   await expect(page.getByRole("heading", { name: "Store dashboard" })).toBeVisible();
   await expect(page.getByTestId("dash-certified")).toHaveText("0/2");
@@ -477,7 +477,7 @@ test("a manager flags a score with a reason; the rep sees it; the general manage
   await after.end();
 
   const gm = await browser.newPage();
-  await signInReady(gm, "gm@demo.test");
+  await signInReady(gm, "manager@demo.test");
   await gm.goto("/manager/audit");
   await expect(gm.getByTestId("audit-rows")).toContainText("Changed a score");
   const csv = await gm.request.get("/api/export");
@@ -485,7 +485,10 @@ test("a manager flags a score with a reason; the rep sees it; the general manage
   const body = await csv.text();
   expect(body.split("\r\n")[0]).toBe("started_at,rep,scenario_code,mode,language,end_reason,total,passed,honesty_passed,partial,critical_flags,overrides");
   expect(body).toContain("Ana");
-  expect((await page.request.get("/api/export")).status()).toBe(403);
+  // A manager without admin access cannot export (decision 0032).
+  const plain = await browser.newPage();
+  await signInReady(plain, "manager2@demo.test");
+  expect((await plain.request.get("/api/export")).status()).toBe(403);
 });
 
 test("settings: a reminder time, the privacy rule, and signing out on a phone", async ({ page }) => {
@@ -505,7 +508,7 @@ test("settings: a reminder time, the privacy rule, and signing out on a phone", 
 });
 
 test("the general manager uploads the store's numbers; a bad file is refused by line; a rep cannot upload", async ({ page, browser }) => {
-  await signInReady(page, "gm@demo.test");
+  await signInReady(page, "manager@demo.test");
   await page.getByRole("link", { name: "Dashboard" }).first().click();
   await page.getByRole("link", { name: "Store numbers" }).click();
   await expect(page.getByText("No numbers uploaded yet.")).toBeVisible();

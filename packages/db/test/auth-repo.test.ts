@@ -11,7 +11,8 @@ import { scratchDatabase, SKIP } from "./helpers.js";
 const SECRET = "test-secret-not-for-production";
 let db: pg.Client;
 let drop: () => Promise<void>;
-const [REP, REP2, MANAGER, GM] = DEMO.users.map((u) => u.id) as [string, string, string, string];
+// Decision 0032: Carlos (index 2) holds admin access; Marta (index 3) is a manager without it.
+const [REP, REP2, GM, MANAGER] = DEMO.users.map((u) => u.id) as [string, string, string, string];
 
 beforeAll(async () => {
   if (SKIP) return;
@@ -66,7 +67,7 @@ describe.skipIf(SKIP)("login with a one-time code (spec 18.1)", () => {
 
   it("rate-limits code requests per identifier (spec 20.4)", async () => {
     const statuses = [];
-    for (let i = 0; i < 6; i += 1) statuses.push((await requestLoginCode(db, "gm@demo.test", SECRET)).status);
+    for (let i = 0; i < 6; i += 1) statuses.push((await requestLoginCode(db, "manager2@demo.test", SECRET)).status);
     expect(statuses.slice(0, 5)).toEqual(["sent", "sent", "sent", "sent", "sent"]);
     expect(statuses[5]).toBe("rate_limited");
   });
@@ -160,7 +161,7 @@ describe.skipIf(SKIP)("assignments (spec 14.5 item 4)", () => {
     );
     expect(ids).toHaveLength(2);
     const luis = await as(REP, (q) => listAssignments(q));
-    expect(luis.map((a) => [a.firstName, a.assignedByName, a.reason])).toEqual([["Luis", "Carlos", "You pitched before asking twice this week."]]);
+    expect(luis.map((a) => [a.firstName, a.assignedByName, a.reason])).toEqual([["Luis", "Marta", "You pitched before asking twice this week."]]);
     expect(await as(MANAGER, (q) => listAssignments(q))).toHaveLength(2);
     expect(await as(ROSA, (q) => listAssignments(q))).toEqual([]);
   });
@@ -203,8 +204,8 @@ describe.skipIf(SKIP)("coach the coach (spec 14.3)", () => {
   it("is private to the manager, visible to the general manager, immutable, and refused to reps", async () => {
     const result = { cardCode: "B-T002-clarify", language: "en" as const, text: "I saw...", parts: { saw: true, behavior: true, line: true, check_again: false }, oneBehavior: true, score: 75 };
     await as(MANAGER, async (q) => recordCoachPractice(q, (await loadUser(q, MANAGER))!, result));
-    expect((await as(MANAGER, (q) => coachPracticeSummary(q))).map((r) => [r.first_name, r.sessions, r.avg_score])).toEqual([["Carlos", 1, 75]]);
-    expect((await as(GM, (q) => coachPracticeSummary(q))).map((r) => r.first_name)).toEqual(["Carlos"]);
+    expect((await as(MANAGER, (q) => coachPracticeSummary(q))).map((r) => [r.first_name, r.sessions, r.avg_score])).toEqual([["Marta", 1, 75]]);
+    expect((await as(GM, (q) => coachPracticeSummary(q))).map((r) => r.first_name)).toEqual(["Marta"]);
     expect(await as(REP, (q) => coachPracticeSummary(q))).toEqual([]);
     await expect(as(REP, async (q) => recordCoachPractice(q, (await loadUser(q, REP))!, result))).rejects.toThrow(/only managers/);
     // No update grant, and an immutability trigger behind it.
@@ -311,14 +312,14 @@ describe.skipIf(SKIP)("score flags, audit log and export (spec 3.3 rule 4, 18.3,
     const sessionId = (await db.query("select s.id from sessions s join scores sc on sc.session_id = s.id where s.user_id = $1 limit 1", [REP])).rows[0].id as string;
     const manager = await as(MANAGER, async (q) => (await loadUser(q, MANAGER))!);
     await as(MANAGER, (q) => addScoreOverride(q, manager, sessionId, { flag: "audio_problem", reason: "Mic cut out in turn 3." }));
-    expect(await as(REP, (q) => listScoreOverrides(q, sessionId))).toMatchObject([{ flag: "audio_problem", reason: "Mic cut out in turn 3.", manager: "Carlos" }]);
+    expect(await as(REP, (q) => listScoreOverrides(q, sessionId))).toMatchObject([{ flag: "audio_problem", reason: "Mic cut out in turn 3.", manager: "Marta" }]);
     expect(await as(REP2, (q) => listScoreOverrides(q, sessionId))).toEqual([]);
     await expect(as(MANAGER, (q) => q.query("update score_overrides set reason = 'x'"))).rejects.toThrow(/immutable|permission denied/);
     const rep = await as(REP, async (q) => (await loadUser(q, REP))!);
     await expect(as(REP, (q) => addScoreOverride(q, rep, sessionId, { flag: "other", reason: "x" }))).rejects.toThrow(/only managers/);
   });
   it("only the general manager reads the audit log; the export is CSV that spreadsheets cannot execute", async () => {
-    expect((await as(GM, (q) => auditEntries(q))).some((a) => a.action === "score.override" && a.actor === "Carlos")).toBe(true);
+    expect((await as(GM, (q) => auditEntries(q))).some((a) => a.action === "score.override" && a.actor === "Marta")).toBe(true);
     expect(await as(MANAGER, (q) => auditEntries(q))).toEqual([]);
     const rows = await as(GM, (q) => exportSessions(q));
     expect(rows.length).toBeGreaterThan(0);

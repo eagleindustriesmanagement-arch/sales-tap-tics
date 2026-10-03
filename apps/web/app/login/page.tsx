@@ -31,7 +31,7 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
         language={lang}
         demoFirst={demoFirst}
         demo={demoOn
-          ? [{ identifier: "rep@demo.test", label: t("login.demoRep", lang) }, { identifier: "manager@demo.test", label: t("login.demoManager", lang) }, { identifier: "gm@demo.test", label: t("login.demoGm", lang) }]
+          ? [{ identifier: "rep@demo.test", label: t("login.demoRep", lang) }, { identifier: "manager@demo.test", label: t("login.demoManager", lang) }]
           : []}
       />
     </AuthShell>

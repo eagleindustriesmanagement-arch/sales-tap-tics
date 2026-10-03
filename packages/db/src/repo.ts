@@ -1,3 +1,5 @@
+import { randomBytes } from "node:crypto";
+import { hashToken } from "./auth.js";
 import type { Queryable } from "./context.js";
 import { withDeployLock } from "./migrate.js";
 
@@ -19,7 +21,13 @@ export interface UserContext {
   audioRetentionDays: number;
   stopOnCritical: boolean;
   consentVersion: string | null;
+  /** A manager's team, or an individual practicing on their own (decision 0032). */
+  accountKind: "team" | "individual";
+  industry: "cars" | "homes" | "solar" | "furniture" | "other";
 }
+
+/** Admin access (decision 0032): a privilege any member can hold, stored as the 'general_manager' membership. */
+export const isAdmin = (u: Pick<UserContext, "roles">) => u.roles.includes("general_manager");
 
 export async function loadUser(db: Queryable, userId: string): Promise<UserContext | null> {
   const u = await db.query<{ id: string; tenant_id: string; first_name: string | null; preferred_language: "en" | "es" }>(
@@ -34,6 +42,7 @@ export async function loadUser(db: Queryable, userId: string): Promise<UserConte
     ? await db.query<{ private_window_hours: number; stop_on_critical: boolean; audio_retention_days: number }>("select private_window_hours, stop_on_critical, audio_retention_days from store_policies where store_id = $1", [storeId])
     : { rows: [] as { private_window_hours: number; stop_on_critical: boolean; audio_retention_days: number }[] };
   const c = await db.query<{ version: string }>("select version from consents where user_id = $1 order by accepted_at desc limit 1", [userId]);
+  const t = await db.query<{ kind: "team" | "individual"; industry: UserContext["industry"] }>("select kind, industry from tenants where id = $1", [user.tenant_id]);
   return {
     id: user.id,
     tenantId: user.tenant_id,
@@ -45,6 +54,8 @@ export async function loadUser(db: Queryable, userId: string): Promise<UserConte
     audioRetentionDays: p.rows[0]?.audio_retention_days ?? 180,
     stopOnCritical: p.rows[0]?.stop_on_critical ?? true,
     consentVersion: c.rows[0]?.version ?? null,
+    accountKind: t.rows[0]?.kind ?? "team",
+    industry: t.rows[0]?.industry ?? "cars",
   };
 }
 
@@ -759,6 +770,33 @@ export async function invitePerson(db: Queryable, gm: UserContext, p: { firstNam
   for (const role of new Set(p.roles)) await db.query("insert into memberships (tenant_id, user_id, store_id, role) values ($1, $2, $3, $4)", [gm.tenantId, id, gm.storeId, role]);
   await audit(db, gm, "person.invite", "user", id, { roles: p.roles });
   return id;
+}
+
+// ---------------------------------------------------------------- invite links (decision 0032)
+
+export interface InviteLink { id: string; role: "rep" | "manager"; uses: number; createdAt: Date }
+
+/** A new link that joins whoever signs up through it to the team. Returns the raw token, shown once. */
+export async function createInviteLink(db: Queryable, manager: UserContext, role: "rep" | "manager" = "rep"): Promise<{ id: string; token: string }> {
+  if (!isManager(manager) || !manager.storeId) throw new Error("only a manager makes invite links");
+  if (role === "manager" && !isAdmin(manager)) throw new Error("only admins invite managers");
+  const token = randomBytes(24).toString("base64url");
+  const r = await db.query("insert into invite_links (tenant_id, store_id, token_hash, role, created_by) values ($1, $2, $3, $4, $5) returning id", [manager.tenantId, manager.storeId, hashToken(token), role, manager.id]);
+  await audit(db, manager, "invite.create", "invite", r.rows[0].id, { role });
+  return { id: r.rows[0].id as string, token };
+}
+
+/** The team's live links. The raw tokens are never stored, so a lost link is replaced, not recovered. */
+export async function listInviteLinks(db: Queryable, storeId: string): Promise<InviteLink[]> {
+  const r = await db.query("select id, role, uses, created_at from invite_links where store_id = $1 and revoked_at is null order by created_at desc", [storeId]);
+  return r.rows.map((x) => ({ id: x.id, role: x.role, uses: x.uses, createdAt: x.created_at }));
+}
+
+export async function revokeInviteLink(db: Queryable, manager: UserContext, id: string): Promise<void> {
+  if (!isManager(manager)) throw new Error("only a manager revokes invite links");
+  const r = await db.query("update invite_links set revoked_at = now() where id = $1 and revoked_at is null", [id]);
+  if (r.rowCount === 0) throw new Error("no such link");
+  await audit(db, manager, "invite.revoke", "invite", id);
 }
 
 /** Replaces a person's roles in the store. A general manager cannot remove their own general manager role. */

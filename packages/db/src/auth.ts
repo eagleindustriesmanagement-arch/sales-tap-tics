@@ -75,31 +75,48 @@ export async function verifyLoginCode(db: Queryable, identifier: string, code: s
   });
 }
 
+export type SignupKind = "team" | "individual" | "join";
+export const INDUSTRIES = ["cars", "homes", "solar", "furniture", "other"] as const;
+export type Industry = (typeof INDUSTRIES)[number];
+
 export interface SignupInput {
+  /** A manager's team, an individual on their own, or someone joining a team through its invite link. */
+  kind?: SignupKind;
   email: string;
-  storeName: string;
+  /** The team's name; required for a team, ignored otherwise. */
+  storeName?: string;
   firstName?: string;
   language: "en" | "es";
+  industry?: Industry;
+  /** The raw invite token from the link, for a join. */
+  inviteToken?: string;
 }
 
-export type SignupRequest = { status: "sent"; code: string } | { status: "exists" } | { status: "rate_limited" } | { status: "invalid" };
+export type SignupRequest = { status: "sent"; code: string } | { status: "exists" } | { status: "rate_limited" } | { status: "invalid" } | { status: "invalid_link" };
 
 /**
- * Starts a dealership sign-up (decision 0029): stores the store name and a code for the work email. "exists" means
+ * Starts a sign-up (decisions 0029, 0032): a team, an individual, or a join through an invite link. "exists" means
  * an active account already uses that email: the caller sends an ordinary sign-in code instead and answers the
  * same way, so sign-up does not reveal who has an account.
  */
 export async function requestSignup(db: Queryable, input: SignupInput, secret: string): Promise<SignupRequest> {
+  const kind = input.kind ?? "team";
   const email = normalizeIdentifier(input.email);
-  const storeName = input.storeName.trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200 || storeName.length < 2 || storeName.length > 120) return { status: "invalid" };
+  const storeName = input.storeName?.trim() ?? "";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200) return { status: "invalid" };
+  if (kind === "team" && (storeName.length < 2 || storeName.length > 120)) return { status: "invalid" };
+  if (kind === "join" && !input.inviteToken) return { status: "invalid_link" };
+  const industry = input.industry && (INDUSTRIES as readonly string[]).includes(input.industry) ? input.industry : "cars";
   const code = String(randomInt(0, 1_000_000)).padStart(6, "0");
   const r = await asApp(db, () =>
-    db.query<{ status: string }>("select app.signup_request($1, $2, $3, $4, $5, $6, $7, $8) as status", [
+    db.query<{ status: string }>("select app.signup_request($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) as status", [
+      kind,
       email,
-      storeName,
+      kind === "team" ? storeName : null,
       input.firstName?.trim().slice(0, 60) || null,
       input.language,
+      industry,
+      input.inviteToken ? hashToken(input.inviteToken) : null,
       hashCode(email, code, secret),
       AUTH.codeTtlSeconds,
       AUTH.codesPerWindow,
@@ -107,10 +124,17 @@ export async function requestSignup(db: Queryable, input: SignupInput, secret: s
     ]),
   );
   const status = r.rows[0]!.status;
-  return status === "sent" ? { status: "sent", code } : { status: status as "exists" | "rate_limited" };
+  return status === "sent" ? { status: "sent", code } : { status: status as "exists" | "rate_limited" | "invalid_link" };
 }
 
-export type SignupCheck = { status: "ok"; token: string; userId: string; tenantId: string } | { status: "none" | "invalid" | "expired" | "locked" };
+/** What a join page may show before sign-in: the team's name and the role the link grants. Null for a dead link. */
+export async function inviteLookup(db: Queryable, token: string): Promise<{ team: string; role: "rep" | "manager" } | null> {
+  if (!token || token.length < 20 || token.length > 200) return null;
+  const r = await asApp(db, () => db.query<{ team: string; role: "rep" | "manager" }>("select * from app.invite_lookup($1)", [hashToken(token)]));
+  return r.rows[0] ?? null;
+}
+
+export type SignupCheck = { status: "ok"; token: string; userId: string; tenantId: string } | { status: "none" | "invalid" | "expired" | "locked" | "invalid_link" };
 
 /**
  * Verifies a sign-up code. On success the tenant, its store and the owner (the store's general manager) now exist,
@@ -125,7 +149,7 @@ export async function verifySignup(db: Queryable, email: string, code: string, s
       AUTH.maxAttempts,
     ]);
     const row = r.rows[0]!;
-    if (row.status !== "ok") return { status: row.status as "none" | "invalid" | "expired" | "locked" };
+    if (row.status !== "ok") return { status: row.status as "none" | "invalid" | "expired" | "locked" | "invalid_link" };
     const token = randomBytes(32).toString("base64url");
     await db.query("select app.auth_create_session($1, $2, $3)", [row.user_id, hashToken(token), AUTH.sessionTtlSeconds]);
     return { status: "ok", token, userId: row.user_id!, tenantId: row.tenant_id! };

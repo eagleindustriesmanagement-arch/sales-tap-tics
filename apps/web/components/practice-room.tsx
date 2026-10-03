@@ -8,7 +8,7 @@ import { Debrief, type DebriefPayload } from "@/components/debrief";
 import { IconAlert, IconEye, IconMessage, IconMic, IconPlay, IconSend, IconTrophy, IconX } from "@/components/icons";
 import { Lesson, LessonSteps, type LessonView } from "@/components/lesson";
 import { Recover } from "@/components/recover";
-import { Avatar, Card, Chip, Grade, Inset, buttonClass, ghostButtonClass } from "@/components/ui";
+import { Avatar, Card, Chip, Grade, Inset, SEGMENT_INPUT, buttonClass, ghostButtonClass } from "@/components/ui";
 import { VoiceStage } from "@/components/voice-stage";
 import { DeviceSpeechToText, DeviceTextToSpeech } from "@/lib/voice/device";
 
@@ -30,8 +30,6 @@ export interface RoomScenario {
 type Phase = "lesson" | "intro" | "demo" | "live" | "debrief";
 type AnswerBy = "talk" | "type";
 const ANSWER_KEY = "taptics.answerBy";
-/** A segmented choice: the real radio covers its whole segment, invisible, so a tap anywhere picks it. */
-const SEGMENT_INPUT = "absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-[0.85rem] opacity-0 disabled:cursor-not-allowed";
 
 const strip = (s: string) => s.replace(/\[[^\]]*\]\s*/g, "");
 

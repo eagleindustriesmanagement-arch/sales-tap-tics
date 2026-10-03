@@ -6,7 +6,7 @@ import { scratchDatabase, SKIP } from "./helpers.js";
 
 let db: pg.Client;
 let drop: () => Promise<void>;
-const [REP, REP2, , GM] = DEMO.users.map((u) => u.id) as [string, string, string, string];
+const [REP, REP2, GM] = DEMO.users.map((u) => u.id) as [string, string, string, string];
 const as = <T>(userId: string, work: (q: pg.Client) => Promise<T>) => withTenant(db, { tenantId: DEMO.tenant, userId }, () => work(db));
 const worker = <T>(work: (q: pg.Client) => Promise<T>) => withTenant(db, { tenantId: DEMO.tenant, role: "app_worker" }, () => work(db));
 const sub = (n: number) => ({ endpoint: `https://push.example.test/${n}`, p256dh: `key${n}`, auth: `auth${n}` });

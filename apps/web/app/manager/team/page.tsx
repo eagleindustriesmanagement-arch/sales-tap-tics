@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { coachingQuality, coachPracticeSummary, listAssignments, listSessions, teamCertification, teamOverview } from "@taptics/db";
+import { coachingQuality, coachPracticeSummary, isAdmin, listAssignments, listInviteLinks, listSessions, teamCertification, teamOverview } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { coachingFocus } from "@taptics/session";
 import { IconChevronRight, IconClipboard, IconTarget, IconUsers } from "@/components/icons";
+import { InvitePanel } from "@/components/invite-panel";
 import { Avatar, Card, Chip, Empty, ListRow, PageHeader, RowGroup, ScoreBadge, SectionTitle, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
@@ -15,13 +16,15 @@ const FOCUS_TONE = { coach: "brand", extra_practice: "warn", stretch: "good", ne
  * a manager can scan on a phone. Coaching quality is private to each manager and visible to the general manager
  * (spec 14.3).
  */
-export default async function Team() {
+export default async function Team({ searchParams }: { searchParams: Promise<{ welcome?: string }> }) {
   const user = await requireUser({ manager: true });
+  const welcome = (await searchParams).welcome === "1";
   const lang = await language();
   const gm = user.roles.includes("general_manager");
   const lib = library();
   const release1 = scheduleInputs().scenarios.filter((s) => s.release1).map((s) => s.code);
-  const { team, quality, sessions, assignments, certified, coachPractice } = await asUser(principalOf(user), async (db) => ({
+  const { team, quality, sessions, assignments, certified, coachPractice, invites } = await asUser(principalOf(user), async (db) => ({
+    invites: user.storeId ? await listInviteLinks(db, user.storeId) : [],
     certified: await teamCertification(db, release1),
     coachPractice: await coachPracticeSummary(db),
     assignments: await listAssignments(db, { limit: 30 }),
@@ -41,6 +44,14 @@ export default async function Team() {
         <Link href="/manager/coach" className="liquid-glass liquid-glass-flat flex min-h-[52px] items-center justify-center gap-1.5 rounded-full px-4 py-1.5 text-center text-[15px] leading-tight font-semibold [&>svg]:shrink-0 text-ink"><IconClipboard size={18} />{t("coach.title", lang)}</Link>
       </div>
 
+      {welcome && focused.length === 0 && (
+        <Card className="space-y-1.5" data-testid="welcome">
+          <h2 className="font-display text-[26px] leading-tight text-ink">{t("team.welcomeTitle", lang)}</h2>
+          <p className="text-body">{t("team.welcomeBody", lang)}</p>
+        </Card>
+      )}
+      {/* Invite links (decision 0032): first thing a new team sees, always one tap away after that. */}
+      {focused.length === 0 && <InvitePanel language={lang} links={invites} canInviteManagers={isAdmin(user)} />}
       <section className="space-y-2.5">
         <SectionTitle>{t("team.reps", lang)}</SectionTitle>
         <RowGroup>
@@ -135,6 +146,7 @@ export default async function Team() {
           </Card>
         ))}
       </section>}
+      {focused.length > 0 && <InvitePanel language={lang} links={invites} canInviteManagers={isAdmin(user)} />}
     </div>
   );
 }

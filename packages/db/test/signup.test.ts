@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type pg from "pg";
-import { invitePerson, listPeople, listSessions, loadUser, requestLoginCode, requestSignup, resolveLogin, verifyLoginCode, verifySignup, withTenant } from "../src/index.js";
+import { createInviteLink, inviteLookup, invitePerson, listInviteLinks, listPeople, listSessions, loadUser, requestLoginCode, requestSignup, resolveLogin, revokeInviteLink, verifyLoginCode, verifySignup, withTenant } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
 
@@ -30,7 +30,9 @@ describe.skipIf(SKIP)("a dealership signs up (decision 0029)", () => {
     const ok = await signUp("Owner@Sunrise-Chevy.test", "Sunrise Chevrolet");
     expect(await resolveLogin(db, ok.token)).toMatchObject({ userId: ok.userId, tenantId: ok.tenantId });
     const gm = await withTenant(db, { tenantId: ok.tenantId, userId: ok.userId }, () => loadUser(db, ok.userId));
-    expect(gm).toMatchObject({ tenantId: ok.tenantId, firstName: "Ana", roles: ["general_manager"], stopOnCritical: true, privateWindowHours: 24 });
+    expect(gm).toMatchObject({ tenantId: ok.tenantId, firstName: "Ana", stopOnCritical: true, privateWindowHours: 24, accountKind: "team", industry: "cars" });
+    // The owner manages the team and holds admin access (decision 0032).
+    expect([...gm!.roles].sort()).toEqual(["general_manager", "manager"]);
     const store = await db.query("select s.name, t.name tenant, t.default_language from stores s join tenants t on t.id = s.tenant_id where s.id = $1", [gm!.storeId]);
     expect(store.rows[0]).toEqual({ name: "Sunrise Chevrolet", tenant: "Sunrise Chevrolet", default_language: "en" });
     const audit = await db.query("select action from audit_log where tenant_id = $1", [ok.tenantId]);
@@ -50,7 +52,7 @@ describe.skipIf(SKIP)("a dealership signs up (decision 0029)", () => {
       expect(users.rows.map((r) => r.email)).toEqual(["gm@bayside.test"]); // row-level security: no demo users
       await invitePerson(db, gm, { firstName: "Luis", email: "Luis@Bayside.test", language: "es", roles: ["rep"] });
     });
-    const demoGm = DEMO.users[3]!.id;
+    const demoGm = DEMO.users[2]!.id; // the manager with admin access (decision 0032)
     await withTenant(db, { tenantId: DEMO.tenant, userId: demoGm }, async () => {
       const seen = await db.query("select email from users where email like '%bayside%'");
       expect(seen.rowCount).toBe(0);
@@ -98,3 +100,70 @@ describe.skipIf(SKIP)("a dealership signs up (decision 0029)", () => {
     await db.query("rollback");
   });
 });
+
+describe.skipIf(SKIP)("individuals and invite links (decision 0032)", () => {
+  it("an individual signs up alone, for any high-ticket sale, with no team", async () => {
+    const req = await requestSignup(db, { kind: "individual", email: "solo@solar.test", firstName: "Iris", language: "en", industry: "solar" }, SECRET);
+    if (req.status !== "sent") throw new Error(req.status);
+    const ok = await verifySignup(db, "solo@solar.test", req.code, SECRET);
+    if (ok.status !== "ok") throw new Error(ok.status);
+    const me = (await withTenant(db, { tenantId: ok.tenantId, userId: ok.userId }, () => loadUser(db, ok.userId)))!;
+    expect(me).toMatchObject({ roles: ["rep"], accountKind: "individual", industry: "solar", firstName: "Iris" });
+    const store = await db.query("select s.name from stores s where s.tenant_id = $1", [ok.tenantId]);
+    expect(store.rows[0].name).toBe("Iris's practice");
+    // Alone: an individual cannot make invite links.
+    await expect(withTenant(db, { tenantId: ok.tenantId, userId: ok.userId }, () => createInviteLink(db, me))).rejects.toThrow(/only a manager/);
+  });
+
+  it("a manager's link joins whoever signs up through it to that team, as a rep", async () => {
+    const owner = await signUp("boss@linktest.test", "Link Test Motors");
+    const boss = (await withTenant(db, { tenantId: owner.tenantId, userId: owner.userId }, () => loadUser(db, owner.userId)))!;
+    const link = await withTenant(db, { tenantId: owner.tenantId, userId: owner.userId }, () => createInviteLink(db, boss));
+    expect(await inviteLookup(db, link.token)).toEqual({ team: "Link Test Motors", role: "rep" });
+    expect(await inviteLookup(db, "not-a-real-token-at-all-xxxxxxxx")).toBeNull();
+
+    const req = await requestSignup(db, { kind: "join", email: "newrep@linktest.test", firstName: "Nico", language: "es", inviteToken: link.token }, SECRET);
+    if (req.status !== "sent") throw new Error(req.status);
+    const ok = await verifySignup(db, "newrep@linktest.test", req.code, SECRET);
+    if (ok.status !== "ok") throw new Error(ok.status);
+    expect(ok.tenantId).toBe(owner.tenantId);
+    const rep = (await withTenant(db, { tenantId: ok.tenantId, userId: ok.userId }, () => loadUser(db, ok.userId)))!;
+    expect(rep).toMatchObject({ roles: ["rep"], storeId: boss.storeId, accountKind: "team" });
+    // The manager sees the new rep on the team, and the link counts the use.
+    await withTenant(db, { tenantId: owner.tenantId, userId: owner.userId }, async () => {
+      expect((await listPeople(db, boss.storeId!)).map((p) => p.email).sort()).toEqual(["boss@linktest.test", "newrep@linktest.test"]);
+      expect((await listInviteLinks(db, boss.storeId!))[0]).toMatchObject({ role: "rep", uses: 1 });
+    });
+  });
+
+  it("a revoked link joins no one, even with a code already sent", async () => {
+    const owner = await signUp("boss2@linktest.test", "Revoke Motors");
+    const boss = (await withTenant(db, { tenantId: owner.tenantId, userId: owner.userId }, () => loadUser(db, owner.userId)))!;
+    const link = await withTenant(db, { tenantId: owner.tenantId, userId: owner.userId }, () => createInviteLink(db, boss));
+    const req = await requestSignup(db, { kind: "join", email: "late@linktest.test", language: "en", inviteToken: link.token }, SECRET);
+    if (req.status !== "sent") throw new Error(req.status);
+    await withTenant(db, { tenantId: owner.tenantId, userId: owner.userId }, () => revokeInviteLink(db, boss, link.id));
+    expect((await verifySignup(db, "late@linktest.test", req.code, SECRET)).status).toBe("invalid_link");
+    expect(await inviteLookup(db, link.token)).toBeNull();
+    expect((await requestSignup(db, { kind: "join", email: "later@linktest.test", language: "en", inviteToken: link.token }, SECRET)).status).toBe("invalid_link");
+    expect((await db.query("select count(*)::int n from users where email like 'late%@linktest.test'")).rows[0].n).toBe(0);
+  });
+
+  it("only admins make manager links; reps make none; another team cannot see a team's links", async () => {
+    const owner = await signUp("boss3@linktest.test", "Scope Motors");
+    const boss = (await withTenant(db, { tenantId: owner.tenantId, userId: owner.userId }, () => loadUser(db, owner.userId)))!;
+    const mgrLink = await withTenant(db, { tenantId: owner.tenantId, userId: owner.userId }, () => createInviteLink(db, boss, "manager"));
+    expect(await inviteLookup(db, mgrLink.token)).toMatchObject({ role: "manager" });
+    // A plain manager (no admin access) of the demo store may make rep links only.
+    const demoManager = DEMO.users.find((u) => u.email === "manager2@demo.test")!.id;
+    const m = (await withTenant(db, { tenantId: DEMO.tenant, userId: demoManager }, () => loadUser(db, demoManager)))!;
+    await expect(withTenant(db, { tenantId: DEMO.tenant, userId: demoManager }, () => createInviteLink(db, m, "manager"))).rejects.toThrow(/only admins/);
+    const rep = DEMO.users[0]!.id;
+    const r = (await withTenant(db, { tenantId: DEMO.tenant, userId: rep }, () => loadUser(db, rep)))!;
+    await expect(withTenant(db, { tenantId: DEMO.tenant, userId: rep }, () => createInviteLink(db, r))).rejects.toThrow(/only a manager/);
+    await withTenant(db, { tenantId: DEMO.tenant, userId: demoManager }, async () => {
+      expect((await db.query("select count(*)::int n from invite_links where tenant_id = $1", [owner.tenantId])).rows[0].n).toBe(0);
+    });
+  });
+});
+

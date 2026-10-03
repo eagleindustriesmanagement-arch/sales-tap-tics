@@ -9,7 +9,8 @@ import { scratchDatabase, SKIP } from "./helpers.js";
 
 let db: pg.Client;
 let drop: () => Promise<void>;
-const [REP, REP2, MANAGER, GM] = DEMO.users.map((u) => u.id) as [string, string, string, string];
+// Decision 0032: Carlos (index 2) holds admin access; Marta (index 3) is a manager without it.
+const [REP, REP2, GM, MANAGER] = DEMO.users.map((u) => u.id) as [string, string, string, string];
 const as = <T>(userId: string, work: (q: pg.Client) => Promise<T>) => withTenant(db, { tenantId: DEMO.tenant, userId }, () => work(db));
 const importAs = (userId: string, kind: Parameters<typeof importStoreMetrics>[2], csv: string) =>
   as(userId, async (q) => importStoreMetrics(q, (await loadUser(q, userId))!, kind, csv));

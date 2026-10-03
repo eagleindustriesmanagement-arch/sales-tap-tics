@@ -9,9 +9,11 @@ import { language } from "@/lib/server";
 
 export const metadata: Metadata = { title: "Start a pilot · Sales Taptics" };
 
-/** A dealership signs itself up (decision 0029): store name, first name, work email, then the emailed code. */
-export default async function Signup() {
+/** Sign-up (decisions 0029, 0032): a team or an individual, then the emailed code. */
+export default async function Signup({ searchParams }: { searchParams: Promise<{ for?: string }> }) {
   if (await currentUser()) redirect("/today");
+  // Two ways in (decision 0032): a team (the default) or an individual (?for=me, from "Just for me" and pricing).
+  const initialKind = (await searchParams).for === "me" ? "individual" : "team";
   const lang = await language();
   return (
     <AuthShell
@@ -25,7 +27,7 @@ export default async function Signup() {
         </p>
       }
     >
-      <SignupForm language={lang} />
+      <SignupForm language={lang} initialKind={initialKind} />
     </AuthShell>
   );
 }

@@ -36,14 +36,21 @@ export function PeopleManager({ language: lang, people, me }: { language: Langua
   }
 
   const roleBoxes = (chosen: Role[], onChange: (r: Role[]) => void, name: string) => (
-    <fieldset className="flex flex-wrap gap-x-4">
+    <fieldset className="space-y-1">
       <legend className="sr-only">{ui("people.roles")}</legend>
-      {ROLES.map((r) => (
-        <label key={r} className="inline-flex min-h-11 items-center gap-2 text-sm text-ink">
-          <input type="checkbox" className="h-5 w-5" name={name} checked={chosen.includes(r)} onChange={(e) => onChange(e.target.checked ? [...chosen, r] : chosen.filter((x) => x !== r))} />
-          {ui(`role.${r}`)}
-        </label>
-      ))}
+      <div className="flex flex-wrap gap-x-4">
+        {ROLES.filter((r) => r !== "general_manager").map((r) => (
+          <label key={r} className="inline-flex min-h-11 items-center gap-2 text-sm text-ink">
+            <input type="checkbox" className="h-5 w-5" name={name} checked={chosen.includes(r)} onChange={(e) => onChange(e.target.checked ? [...chosen, r] : chosen.filter((x) => x !== r))} />
+            {ui(`role.${r}`)}
+          </label>
+        ))}
+      </div>
+      {/* Admin access is a privilege any member can hold, not a job title (decision 0032). */}
+      <label className="flex min-h-11 items-start gap-2 border-t border-line-soft pt-2 text-sm text-ink">
+        <input type="checkbox" className="mt-0.5 h-5 w-5" name={`${name}-admin`} checked={chosen.includes("general_manager")} onChange={(e) => onChange(e.target.checked ? [...chosen, "general_manager"] : chosen.filter((x) => x !== "general_manager"))} />
+        <span><span className="font-semibold">{ui("role.general_manager")}</span><span className="block text-[13px] text-muted">{ui("people.adminHint")}</span></span>
+      </label>
     </fieldset>
   );
 

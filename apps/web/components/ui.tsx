@@ -197,3 +197,6 @@ export const linkClass = "font-semibold text-brand";
 
 /** A quoted line in curly quotes, whether or not the text already carries its own quote marks. */
 export const quoted = (s: string) => `“${s.trim().replace(/^["“”'‘’]+|["“”'‘’]+$/g, "")}”`;
+
+/** A segmented choice: the real radio covers its whole segment, invisible, so a tap anywhere picks it. */
+export const SEGMENT_INPUT = "absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-[0.85rem] opacity-0 disabled:cursor-not-allowed";

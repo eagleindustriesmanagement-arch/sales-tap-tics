@@ -14,7 +14,7 @@ const ICONS: Record<TabIcon, (p: { size?: number }) => ReactNode> = {
 };
 
 /** Screens that own the whole display: the public home page, a live practice room, sign-up, sign-in and the first-run notice. */
-const immersive = (path: string) => /^\/practice\/[^/]+/.test(path) || ["/", "/login", "/signup", "/consent"].includes(path);
+const immersive = (path: string) => /^\/(practice|join)\/[^/]+/.test(path) || ["/", "/login", "/signup", "/consent", "/pricing"].includes(path);
 
 function active(path: string, href: string) {
   return href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`);

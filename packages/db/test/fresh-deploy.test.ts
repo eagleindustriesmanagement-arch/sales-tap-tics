@@ -49,7 +49,7 @@ describe.skipIf(SKIP)("deploying to a fresh, shared database (decision 0025)", (
   it("three demo seeds at once leave one of each row", async () => {
     await Promise.all(clients.map((c) => seedDemo(c, 0)));
     const memberships = await clients[0]!.query("select count(*)::int n from memberships where tenant_id = $1", [DEMO.tenant]);
-    expect(memberships.rows[0].n).toBe(DEMO.users.length);
+    expect(memberships.rows[0].n).toBe(DEMO.users.reduce((n, u) => n + u.roles.length, 0)); // one row per role (decision 0032)
     const fees = await clients[0]!.query("select count(*)::int n from store_fees where store_id = $1", [DEMO.store]);
     expect(fees.rows[0].n).toBe(1);
   });

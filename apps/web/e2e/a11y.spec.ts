@@ -88,7 +88,7 @@ test("a spoken practice session", async ({ page }) => {
 });
 
 test("manager screens", async ({ page }) => {
-  await signIn(page, "gm@demo.test");
+  await signIn(page, "manager@demo.test");
   for (const path of ["/manager/floor", "/manager/team", "/manager/assign", "/manager/coach", "/manager/compliance", "/manager/store", "/manager/costs", "/manager/people", "/manager/dashboard", "/manager/audit", "/manager/baseline", "/manager/usage"]) await audit(page, path);
 });
 

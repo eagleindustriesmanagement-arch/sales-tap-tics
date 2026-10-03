@@ -10,10 +10,9 @@ async function pastLesson(page: Page) {
   if (await skip.isVisible()) await skip.click();
 }
 
-
 /** The newest code mailed to an address (the outbox also holds invitations, which carry no code). */
 function lastCode(email: string) {
-  const sent = readFileSync(OUTBOX, "utf8").trim().split("\n").map((l) => JSON.parse(l) as { identifier: string; code?: string; subject?: string });
+  const sent = readFileSync(OUTBOX, "utf8").trim().split("\n").map((l) => JSON.parse(l) as { identifier: string; code?: string });
   return sent.filter((m) => m.identifier === email && m.code).at(-1)!.code!;
 }
 
@@ -23,19 +22,29 @@ async function axe(page: Page, label: string) {
   expect(r.violations.map((v) => `${label}: ${v.id} ${v.nodes.map((n) => n.target.join(" ")).slice(0, 3).join(", ")}`)).toEqual([]);
 }
 
-test("a dealership signs up, the owner invites a rep, and the rep practices in the new store only", async ({ page, browser }) => {
+async function codeStep(page: Page, email: string, button: string) {
+  await expect(page.getByLabel("Six-digit code")).toBeVisible();
+  await page.getByLabel("Six-digit code").fill(lastCode(email));
+  await page.getByRole("button", { name: button }).click();
+  await expect(page).toHaveURL(/\/consent$/);
+  await page.getByRole("button", { name: "I understand and agree" }).click();
+}
+
+test("a manager signs up a team, sends an invite link, and whoever joins through it practices on that team", async ({ page, browser }) => {
   const run = Date.now();
   const owner = `owner-${run}@pilot.test`;
   const repEmail = `rep-${run}@pilot.test`;
+  const team = `Coral Gables Chevrolet ${run}`;
 
-  // Sign-in offers the pilot; the pilot form asks for the store and a work email.
+  // Sign-in offers sign-up; sign-up offers a team or just me.
   await page.goto("/login");
   await axe(page, "/login");
-  await page.getByRole("link", { name: "Start a pilot" }).click();
+  await page.getByRole("link", { name: "Get started" }).click();
   await expect(page).toHaveURL(/\/signup$/);
-  await expect(page.getByRole("heading", { level: 1, name: "Start a pilot" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Get started" })).toBeVisible();
+  await expect(page.getByRole("radio", { name: "For my team" })).toBeChecked();
   await axe(page, "/signup");
-  await page.getByLabel("Store name").fill(`Coral Gables Chevrolet ${run}`);
+  await page.getByLabel("Team or company name").fill(team);
   await page.getByLabel("Your first name").fill("Marisol");
   await page.getByLabel("Work email").fill(owner.toUpperCase());
   await page.getByRole("button", { name: "Email me a code" }).click();
@@ -44,49 +53,26 @@ test("a dealership signs up, the owner invites a rep, and the rep practices in t
   await page.getByLabel("Six-digit code").fill(lastCode(owner) === "000000" ? "111111" : "000000");
   await page.getByRole("button", { name: "Open my store" }).click();
   await expect(page.getByText("That code is not right.")).toBeVisible();
-  await page.getByLabel("Six-digit code").fill(lastCode(owner));
-  await page.getByRole("button", { name: "Open my store" }).click();
+  await codeStep(page, owner, "Open my store");
 
-  // The owner accepts the notice and lands on People, welcomed, alone in the new store.
-  await expect(page).toHaveURL(/\/consent$/);
-  await page.getByRole("button", { name: "I understand and agree" }).click();
-  await expect(page).toHaveURL(/\/manager\/people\?welcome=1$/);
-  await expect(page.getByTestId("welcome")).toContainText("Your store is open");
-  await expect(page.getByText(owner)).toBeVisible();
-  await expect(page.getByText("rep@demo.test")).toHaveCount(0);
-  // An empty team says what to do next instead of showing an empty list.
-  await page.goto("/manager/team");
-  await expect(page.getByRole("link", { name: "Add your team" })).toHaveAttribute("href", "/manager/people");
-  await page.goto("/manager/people");
-  // A wrong address is a real 404 with a way back, not a bare error page.
-  const missing = await page.goto("/no-such-page");
-  expect(missing?.status()).toBe(404);
-  await expect(page.getByRole("heading", { name: "Wrong lot." })).toBeVisible();
-  await page.goto("/manager/people");
+  // The owner lands on Team, welcomed, with the invite link first; admin screens are theirs too.
+  await expect(page).toHaveURL(/\/manager\/team\?welcome=1$/);
+  await expect(page.getByTestId("welcome")).toContainText("Your team is open");
+  await page.getByRole("button", { name: "Make a link for reps" }).click();
+  const url = (await page.getByTestId("invite-url").textContent())!.trim();
+  expect(url).toMatch(/\/join\/[A-Za-z0-9_-]{30,}$/);
+  await expect(page.getByTestId("invite-panel")).toContainText("Rep link · 0 joined");
 
-  // The owner adds a rep; the rep is told by email.
-  await page.getByLabel("First name").fill("Yoel");
-  await page.getByLabel("Email").fill(repEmail);
-  await page.getByRole("button", { name: "Add to the store" }).click();
-  await expect(page.getByRole("status")).toHaveText("Yoel was added and can sign in now.");
-  const outbox = readFileSync(OUTBOX, "utf8");
-  expect(outbox).toContain(`"identifier":"${repEmail}","subject":"Coral Gables Chevrolet ${run} added you to Sales Taptics"`);
-
-  // The owner's team is the new store's: the demo reps are not there.
-  await page.goto("/manager/team");
-  await expect(page.getByText("Luis")).toHaveCount(0);
-
-  // The rep signs in with their own code and practices in the new store.
+  // A rep opens the link, joins with their own email, and practices on this team.
   const ctx = await browser.newContext();
   const rep = await ctx.newPage();
-  await rep.goto("/login");
-  await rep.getByLabel("Email or mobile number").fill(repEmail);
-  await rep.getByRole("button", { name: "Send me a code" }).click();
-  await expect(rep.getByLabel("Six-digit code")).toBeVisible();
-  await rep.getByLabel("Six-digit code").fill(lastCode(repEmail));
-  await rep.getByRole("button", { name: "Sign in" }).click();
-  await expect(rep).toHaveURL(/\/consent$/);
-  await rep.getByRole("button", { name: "I understand and agree" }).click();
+  await rep.goto(url);
+  await expect(rep.getByRole("heading", { level: 1, name: `Join ${team}` })).toBeVisible();
+  await axe(rep, "/join");
+  await rep.getByLabel("Your first name").fill("Yoel");
+  await rep.getByLabel("Email").fill(repEmail);
+  await rep.getByRole("button", { name: "Email me a code" }).click();
+  await codeStep(rep, repEmail, "Join the team");
   await expect(rep).toHaveURL(/\/today$/);
   await expect(rep.getByRole("heading", { name: /Yoel/ })).toBeVisible();
   await rep.goto("/practice/S-partner-check-L1");
@@ -98,16 +84,37 @@ test("a dealership signs up, the owner invites a rep, and the rep practices in t
   await expect(rep.getByTestId("line-customer")).toHaveCount(2);
   await ctx.close();
 
-  // Signing up again with an email that has an account just signs in: no second store.
-  const again = await browser.newContext();
-  const p2 = await again.newPage();
-  await p2.goto("/signup");
-  await p2.getByLabel("Store name").fill("Another store");
-  await p2.getByLabel("Work email").fill(owner);
-  await p2.getByRole("button", { name: "Email me a code" }).click();
-  await expect(p2.getByLabel("Six-digit code")).toBeVisible();
-  await p2.getByLabel("Six-digit code").fill(lastCode(owner));
-  await p2.getByRole("button", { name: "Open my store" }).click();
-  await expect(p2).toHaveURL(/\/(today|manager\/floor)$/);
-  await again.close();
+  // The manager sees the new rep on the team, and the link counts them; turning it off closes it.
+  await page.goto("/manager/team");
+  await expect(page.getByRole("link", { name: "Yoel" })).toBeVisible();
+  await expect(page.getByTestId("invite-panel")).toContainText("Rep link · 1 joined");
+  await page.getByRole("button", { name: "Turn off" }).click();
+  await expect(page.getByTestId("invite-panel")).not.toContainText("Rep link");
+  const late = await browser.newPage();
+  await late.goto(url);
+  await expect(late.getByRole("heading", { level: 1, name: "This link has expired" })).toBeVisible();
+  await late.close();
+
+  // A wrong address is a real 404 with a way back.
+  const missing = await page.goto("/no-such-page");
+  expect(missing?.status()).toBe(404);
+  await expect(page.getByRole("heading", { name: "Wrong lot." })).toBeVisible();
+});
+
+test("an individual signs up alone for any high-ticket sale; no team screens", async ({ page }) => {
+  const email = `solo-${Date.now()}@solar.test`;
+  await page.goto("/signup?for=me");
+  await expect(page.getByRole("radio", { name: "Just for me" })).toBeChecked();
+  await expect(page.getByLabel("Team or company name")).toHaveCount(0);
+  await page.getByLabel("Your first name").fill("Iris");
+  await page.getByLabel("Email").fill(email);
+  await page.getByLabel("What do you sell?").selectOption("solar");
+  await page.getByRole("button", { name: "Email me a code" }).click();
+  await codeStep(page, email, "Start practicing");
+  await expect(page).toHaveURL(/\/today$/);
+  await expect(page.getByTestId("industry-note")).toContainText("solar");
+  // Alone: the rep's tabs, and manager screens send them home.
+  await expect(page.getByRole("link", { name: "Team" })).toHaveCount(0);
+  await page.goto("/manager/team");
+  await expect(page).toHaveURL(/\/today$/);
 });
