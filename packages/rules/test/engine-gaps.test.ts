@@ -192,3 +192,13 @@ describe("\"termina pagando más\" next to a day stays a deadline claim (stricte
     expect(hits("Si no decide hoy, termina pagando más.", "es")).toContain("DEAD-01");
   });
 });
+
+describe("\"I'm not going to lie\" means \"honestly\": it never excuses the claim after it", () => {
+  it("still breaks the rule the claim breaks, in both languages", () => {
+    expect(hits("I'm not going to lie, this price is only good today.")).toContain("DEAD-01");
+    expect(hits("I'm not gonna lie, this price is only good today.")).toContain("DEAD-01");
+    expect(hits("No le voy a mentir, este precio es solo por hoy.", "es")).toContain("DEAD-01");
+    // A real refusal to make the claim still counts as not making it.
+    expect(hits("I'm not going to tell you this price is only good today.")).not.toContain("DEAD-01");
+  });
+});
