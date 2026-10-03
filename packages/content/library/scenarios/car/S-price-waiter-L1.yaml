@@ -1,0 +1,179 @@
+code: S-price-waiter-L1
+module: car-core
+title:
+  en: "\"I'll wait for prices or rates to drop\""
+  es: "\"Mejor espero a que bajen los precios\""
+setting:
+  en: Saturday afternoon, at your desk, right after the test drive and the numbers.
+  es: Sábado por la tarde, en su escritorio, justo después de la prueba de manejo y los números.
+persona: P-price-waiter
+objection: O17
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 40s, is an electrician from Kendall with a paid-off 2016 Colorado. He just drove the 2026 Colorado LT and liked it. You showed him the all-in price of $38,794 plus tax, tag and title, and a payment of $629 a month for 72 months with $5,000 down. There are no add-ons on this truck. He reads car news every morning."
+  es: "{name}, de unos 40 y pico, es electricista de Kendall y tiene una Colorado 2016 pagada. Acaba de manejar la Colorado LT 2026 y le gustó. Usted le enseñó el precio total de $38,794 más impuestos, tag y título, y un pago de $629 al mes a 72 meses con $5,000 de down. Esta camioneta no tiene ningún extra. Él lee noticias de carros todas las mañanas."
+opening:
+  en: I think I'll wait for prices or rates to drop.
+  es: Mejor espero a que bajen los precios o las tasas.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Colorado, trim: LT Crew Cab, color: Summit White, stock: "C4417", in_stock: true }
+  price_cents: 3789500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3879400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: { vehicle: "2016 Chevrolet Colorado LT, 141,000 miles", appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options:
+    - { code: quoted, cents: 62900, term_months: 72, down_cents: 500000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    overpaid_2022_cents: 400000
+    wife_car: 2022 Chevrolet Equinox, bought at $4,000 over the window sticker after the salesman said waiting would cost more
+    free_tuesday: Free after 5:30 on Tuesday
+numbers_sheet: true
+target_techniques: [T001, T003, T002, T091, T030, T009, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O17-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O17-NOFORECAST
+      behavior:
+        en: "Acknowledged the fear of overpaying and made no prediction about prices or rates"
+        es: "Reconoció el miedo a pagar de más y no hizo ninguna predicción sobre precios ni tasas"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Objection O17 core move: share what is known; never predict the market"
+      technique: T003
+    - code: O17-QFIRST
+      behavior:
+        en: "Asked what he would need to see to know the price is fair before showing anything"
+        es: "Preguntó qué necesitaría ver para saber que el precio es justo antes de enseñarle nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O17-HIDDEN
+      behavior:
+        en: "Surfaced the 2022 purchase where he paid over sticker"
+        es: "Sacó a la luz la compra del 2022 en la que pagó por encima del sticker"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O17-KNOWN
+      behavior:
+        en: "Shared what is known: the all-in price first, the dealer fee inside it, on a sheet he can check anywhere"
+        es: "Compartió lo que se sabe: primero el precio total, con el cargo de concesionario incluido, en una hoja que él puede comparar donde quiera"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "J.D. Power 2025 SSI: deal satisfaction 800 when explained versus 672 (T009)"
+      technique: T030
+    - code: O17-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: predicted_market
+      description:
+        en: "Predicted that prices or rates will rise, or will not fall"
+        es: "Predijo que los precios o las tasas van a subir, o que no van a bajar"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed off the wait, piled on another truck, and pushed for today. He never asked what would make the price feel fair, so he never learned why the customer is afraid of overpaying."
+      es: "Fíjese: le quitó importancia a la espera, le echó otra camioneta encima y presionó para hoy. Nunca preguntó qué haría que el precio se sintiera justo, así que nunca supo por qué el cliente tiene miedo de pagar de más."
+    script:
+      en:
+        - { speaker: customer, text: "I think I'll wait for prices or rates to drop." }
+        - { speaker: rep, text: "Rates? Come on, nobody can time the market. Waiting is a mistake." }
+        - { speaker: customer, text: "I've read enough to know I should wait. Prices have to come down sometime." }
+        - { speaker: rep, text: "Let me show you the Silverado too, so you see what else is out there. Then let's just write it up." }
+        - { speaker: customer, text: "Another truck? I came in for this one." }
+        - { speaker: rep, text: "Come on. Sign it today and stop worrying about it." }
+        - { speaker: customer, text: "Not today. I'll keep an eye on prices." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me when you're ready." }
+      es:
+        - { speaker: customer, text: "Mejor espero a que bajen los precios o las tasas." }
+        - { speaker: rep, text: "¿Las tasas? Por favor, nadie le puede adivinar al mercado. Esperar es un error." }
+        - { speaker: customer, text: "Ya leí lo suficiente para saber que debo esperar. Algún día tienen que bajar los precios." }
+        - { speaker: rep, text: "También le enseño la Silverado, para que vea qué más hay. Y después dejemos escrito el negocio de una vez." }
+        - { speaker: customer, text: "¿Otra camioneta? Yo vine por esta." }
+        - { speaker: rep, text: "Dele. Firme hoy y no se preocupe más por eso." }
+        - { speaker: customer, text: "Hoy no. Voy a estar pendiente de los precios." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
+  good:
+    notice:
+      en: Notice that she makes no prediction at all, asks what a fair number would look like to him, learns why he is afraid of overpaying, and answers with what is known, on paper he can check.
+      es: Fíjese en que ella no hace ninguna predicción, le pregunta qué sería para él un número justo, descubre por qué tiene miedo de pagar de más, y le responde con lo que se sabe, en papel que él puede revisar.
+    script:
+      en:
+        - { speaker: customer, text: "I think I'll wait for prices or rates to drop." }
+        - { speaker: rep, text: "[pause] That's fair. Nobody wants to overpay, and I can't tell you where prices or rates are headed; anyone who says they know is guessing. Can I ask, what would you need to see to know today's number is a fair one?" }
+        - { speaker: customer, text: "I've been on the wrong end of a deal before. I'm not doing that again." }
+        - { speaker: rep, text: "Okay. Setting the market aside for a second, is this the right truck for you, the one you'd pick if the number felt right?" }
+        - { speaker: customer, text: "The truck is fine. It's the number I don't trust yet." }
+        - { speaker: rep, text: "Understood. If you don't mind me asking, what happened the last time?" }
+        - { speaker: customer, text: "In 2022 I paid $4,000 over sticker for my wife's Equinox, because the salesman said waiting would cost me more. I've felt like a fool ever since." }
+        - { speaker: rep, text: "Thank you for telling me. I won't do that to you, and I won't tell you what the market is going to do. Here's what I do know: this truck is $38,794 out the door, plus only tax, tag and title. That already includes our $899 dealer fee, and there are no add-ons on it. Take this sheet and the window sticker home and check them against any dealer you like." }
+        - { speaker: customer, text: "That I can work with. A number I can check myself." }
+        - { speaker: rep, text: "Would Tuesday at 6 work to go over what you find? Bring any other all-in number you get, and we'll look at it line by line." }
+        - { speaker: customer, text: "Tuesday at 6 works. I'll bring what I find." }
+      es:
+        - { speaker: customer, text: "Mejor espero a que bajen los precios o las tasas." }
+        - { speaker: rep, text: "[pausa] Es justo. Nadie quiere pagar de más, y yo no le puedo decir para dónde van los precios ni las tasas; el que le diga que lo sabe está adivinando. Déjeme preguntarle: ¿qué necesitaría ver para saber que el número de hoy es justo?" }
+        - { speaker: customer, text: "Ya una vez salí perdiendo en un negocio. Eso no me vuelve a pasar." }
+        - { speaker: rep, text: "Entiendo. Dejando el mercado a un lado un momento, ¿esta es la camioneta para usted, la que escogería si el número le pareciera bien?" }
+        - { speaker: customer, text: "La camioneta está bien. Es el número lo que todavía no me convence." }
+        - { speaker: rep, text: "Tiene sentido. Si no le molesta que le pregunte, ¿qué pasó la última vez?" }
+        - { speaker: customer, text: "En el 2022 pagué $4,000 por encima del sticker por la Equinox de mi esposa, porque el vendedor me dijo que esperar me iba a salir más caro. Desde entonces me siento como un bobo." }
+        - { speaker: rep, text: "Gracias por contármelo. Eso no se lo voy a hacer, y no le voy a decir lo que va a hacer el mercado. Esto es lo que sí sé: esta camioneta está en $38,794 precio total, y solo se suman los impuestos, el tag y el título. Eso ya incluye nuestro cargo de concesionario de $899, y no tiene ningún extra. Llévese esta hoja y el sticker de la ventana a la casa, y compárelos con el dealer que usted quiera." }
+        - { speaker: customer, text: "Con eso sí puedo trabajar. Un número que yo mismo puedo revisar." }
+        - { speaker: rep, text: "¿Le queda bien el martes a las 6 para repasar lo que encuentre? Traiga cualquier otro precio total que le den, y lo vemos línea por línea." }
+        - { speaker: customer, text: "El martes a las 6 me queda bien. Traigo lo que encuentre." }
+spanish_reviewed: false

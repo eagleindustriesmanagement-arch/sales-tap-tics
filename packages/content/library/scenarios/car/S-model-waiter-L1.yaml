@@ -1,0 +1,179 @@
+code: S-model-waiter-L1
+module: car-miami-indecision
+title:
+  en: "\"Maybe I'll wait for the new model\""
+  es: "\"A lo mejor espero al modelo nuevo\""
+setting:
+  en: Thursday evening, showroom floor, after the test drive and the numbers.
+  es: Jueves por la tarde, en el piso de ventas, después de la prueba de manejo y los números.
+persona: P-model-waiter
+objection: O61
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 20s, is a dental hygienist with a paid-off 2014 Cruze. She just drove the 2026 Trax LT and liked it. You showed her the all-in price of $24,894 plus tax, tag and title, and a payment of $425 a month for 72 months with $2,000 down. You have nothing official on the next model year: no date, no price, no features."
+  es: "{name}, de unos 28 años, es higienista dental y tiene un Cruze 2014 pagado. Acaba de manejar la Trax LT 2026 y le gustó. Usted le enseñó el precio total de $24,894 más impuestos, tag y título, y un pago de $425 al mes a 72 meses con $2,000 de down. Usted no tiene nada oficial sobre el próximo año modelo: ni fecha, ni precio, ni equipo."
+opening:
+  en: I like it. Maybe I'll wait for the new model, though.
+  es: Me gusta. Pero a lo mejor espero al modelo nuevo.
+facts:
+  session_date: "2026-10-01"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: LT, color: Cacti Green, stock: "5740", in_stock: true }
+  price_cents: 2399500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2489400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: { vehicle: "2014 Chevrolet Cruze LT, 168,000 miles", appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options:
+    - { code: quoted, cents: 42500, term_months: 72, down_cents: 200000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    ac_repair_quote_cents: 185000
+    ac_problem: The Cruze's air conditioning died last week; the shop quoted $1,850 for a compressor
+    new_model_source: A coworker said a new model is coming; she has no date or price
+    free_saturday: Off on Saturday morning
+numbers_sheet: false
+target_techniques: [T001, T002, T024, T047, T031, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O61-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O61-NOGUESS
+      behavior:
+        en: "Made no claims about the new model's timing, price or features"
+        es: "No dijo nada sobre la fecha, el precio o el equipo del modelo nuevo"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Spec 4: hardball yes, lies about facts no"
+    - code: O61-QFIRST
+      behavior:
+        en: "Asked what she is waiting for, or how her current car is holding up, before offering anything"
+        es: "Preguntó qué está esperando, o cómo está su carro actual, antes de ofrecerle nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T024
+    - code: O61-HIDDEN
+      behavior:
+        en: "Surfaced the broken air conditioning and the repair quote"
+        es: "Sacó a la luz el aire roto y la cotización del taller"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O61-COST
+      behavior:
+        en: "Laid out what waiting costs with her own facts, side by side on paper, and left the choice to her"
+        es: "Puso lo que cuesta esperar con los datos de ella, uno al lado del otro en papel, y le dejó la decisión"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Objection O61 core move: facts on what waiting costs (T047)"
+      technique: T047
+    - code: O61-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: guessed_new_model
+      description:
+        en: "Made a claim about the new model's date, price or features"
+        es: "Dijo algo sobre la fecha, el precio o el equipo del modelo nuevo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he waved off the new model as talk, called waiting an excuse, and piled on more cars. He never asked what she was waiting for or how her current car was doing."
+      es: "Fíjese: despachó el modelo nuevo como puro cuento, dijo que esperar era una excusa y le echó más carros encima. Nunca preguntó qué estaba esperando ella ni cómo estaba su carro actual."
+    script:
+      en:
+        - { speaker: customer, text: "I like it. Maybe I'll wait for the new model, though." }
+        - { speaker: rep, text: "The new one? That's just talk. Just get this one." }
+        - { speaker: customer, text: "Maybe. I'd still rather wait and see." }
+        - { speaker: rep, text: "Waiting is just a way to put off a decision. What's there to wait for?" }
+        - { speaker: customer, text: "I said I might wait. Please don't push me." }
+        - { speaker: rep, text: "Let me show you the Trailblazer and the Equinox too, and we'll find you something today." }
+        - { speaker: customer, text: "Now I really want to wait." }
+        - { speaker: rep, text: "Okay. Here's my card. Let me know." }
+      es:
+        - { speaker: customer, text: "Me gusta. Pero a lo mejor espero al modelo nuevo." }
+        - { speaker: rep, text: "¿El nuevo? Eso es puro cuento. Llévese esta." }
+        - { speaker: customer, text: "Puede ser. Pero igual prefiero esperar a ver." }
+        - { speaker: rep, text: "Esperar es nada más dejarlo para después. ¿Qué hay que esperar?" }
+        - { speaker: customer, text: "Le dije que a lo mejor espero. No me presione, por favor." }
+        - { speaker: rep, text: "También le enseño la Trailblazer y la Equinox, y vamos a encontrarle algo hoy." }
+        - { speaker: customer, text: "Ahora sí que voy a esperar." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Me avisa." }
+  good:
+    notice:
+      en: Notice that she makes no claim about the new model, asks what waiting would get the customer and how her car is holding up, then lays out what waiting really costs, on paper, and leaves the choice to her.
+      es: Fíjese en que ella no dice nada sobre el modelo nuevo, pregunta qué ganaría la clienta con esperar y cómo está su carro, y después pone en papel lo que de verdad cuesta esperar, y le deja la decisión a ella.
+    script:
+      en:
+        - { speaker: customer, text: "I like it. Maybe I'll wait for the new model, though." }
+        - { speaker: rep, text: "[pause] That's a fair thought. I don't have anything official on the next one, no date and no price, and I won't guess. What are you hoping the new model will have that this one doesn't?" }
+        - { speaker: customer, text: "Nothing in particular. I just figured I'd hold off as long as I can." }
+        - { speaker: rep, text: "Okay. Setting the new model aside, is the Trax the right size and price for you?" }
+        - { speaker: customer, text: "I like the Trax. That's not the problem." }
+        - { speaker: rep, text: "Got it. How's your Cruze holding up in the meantime?" }
+        - { speaker: customer, text: "Honestly? The AC died last week. The shop wants $1,850 for a compressor, and I've been driving to work with the windows down." }
+        - { speaker: rep, text: "In this heat, that's rough. Here's what I know, no guessing: if you wait, it's the shop's $1,850 quote or months without AC, in a car you want to replace anyway. This Trax is $24,894 out the door, plus only tax, tag and title. I'll put both on one sheet, and you decide. If you'd rather wait, that's okay too." }
+        - { speaker: customer, text: "When you put it like that, waiting isn't free." }
+        - { speaker: rep, text: "Can you bring the shop's quote Saturday at 10, so we look at both side by side?" }
+        - { speaker: customer, text: "Okay. Saturday at 10. I'll bring the quote." }
+      es:
+        - { speaker: customer, text: "Me gusta. Pero a lo mejor espero al modelo nuevo." }
+        - { speaker: rep, text: "[pausa] Es lógico pensarlo. No tengo nada oficial del próximo, ni fecha ni precio, y no voy a adivinar. ¿Qué espera que tenga el modelo nuevo que esta no tenga?" }
+        - { speaker: customer, text: "Nada en especial. Pensaba aguantar lo más que pueda." }
+        - { speaker: rep, text: "Bien. Dejando el modelo nuevo a un lado, ¿la Trax es del tamaño y del precio que usted necesita?" }
+        - { speaker: customer, text: "La Trax me gusta. Ese no es el problema." }
+        - { speaker: rep, text: "Entiendo. ¿Y cómo está su Cruze mientras tanto?" }
+        - { speaker: customer, text: "La verdad, el aire se me rompió la semana pasada. El taller quiere $1,850 por un compresor, y he estado yendo al trabajo con las ventanillas abajo." }
+        - { speaker: rep, text: "Con este calor, eso es duro. Le digo lo que sé, sin adivinar: si espera, son los $1,850 que le cotizó el taller o meses sin aire, en un carro que de todas formas quiere cambiar. Esta Trax está en $24,894 precio total, y solo se suman los impuestos, el tag y el título. Le pongo las dos cosas en una hoja, y usted decide. Si prefiere esperar, también está bien." }
+        - { speaker: customer, text: "Visto así, esperar no me sale gratis." }
+        - { speaker: rep, text: "¿Puede traer la cotización del taller el sábado a las 10, y vemos las dos cosas juntas?" }
+        - { speaker: customer, text: "Está bien. El sábado a las 10. Le traigo la cotización." }
+spanish_reviewed: false

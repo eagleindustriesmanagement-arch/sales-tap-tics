@@ -1,0 +1,152 @@
+code: P-rush-buyer
+name_pool:
+  en: [Dave, Marcus, Jeff, Nick]
+  es: [Yunior, Alexis, Osmany, Yoel]
+age_range: 30-39
+temperament: [rushed]
+temperament_note:
+  en: Rushed and keyed up. Talks fast, checks the time, wants the paperwork now. Slows down when someone takes his side instead of feeding the hurry.
+  es: Apurado y acelerado. Habla rápido, mira la hora, quiere los papeles ya. Se calma cuando alguien se pone de su lado en vez de echarle más leña al apuro.
+buyer_orientation: self
+situation:
+  en: Early 30s ER nurse from Westchester, married, one kid. Drives a paid-off 2015 Cruze with 150,000 miles. Good credit. Heard on the radio that car prices are going up and came in to buy today. Just drove the 2026 Equinox RS and wants to sign.
+  es: Enfermero de emergencias de unos 30 y pico, de Westchester, casado, con un hijo. Maneja un Cruze 2015 pagado, con 150,000 millas. Buen crédito. Oyó en la radio que los carros van a subir y vino a comprar hoy. Acaba de manejar la Equinox RS 2026 y quiere firmar.
+stated_objection: O24
+stated_line:
+  en: I want to buy before prices go up. Let's do this today.
+  es: Quiero comprar antes de que suban los precios. Vamos a hacerlo hoy.
+hidden_truth:
+  en: He and his wife agreed on $575 a month as the most they can pay. The RS is $629. In his hurry to beat a price increase he only heard about, he was going to sign anyway and explain it to her later, and he would regret it.
+  es: Él y su esposa acordaron $575 al mes como lo máximo que pueden pagar. La RS sale en $629. Con el apuro de ganarle a una subida de precios que solo oyó en la radio, iba a firmar de todas formas y explicárselo a ella después, y se iba a arrepentir.
+# Phrases that would give the agreed budget away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\$\s?575\b'
+    - '\bfive (hundred )?seventy[- ]five\b'
+    - '\b(my wife|she and I|we)\b.{0,30}\b(agreed|decided|set)\b'
+    - '\b(max|maximum|tops|ceiling|limit)\b'
+    - '\bover (budget|what we)\b'
+    - '\btell her (later|after)\b'
+  es:
+    - '\$\s?575\b'
+    - '\bquinientos setenta y cinco\b'
+    - '\b(mi esposa|ella y yo|nosotros)\b.{0,30}\b(acordamos|quedamos|decidimos)\b'
+    - '\b(máximo|tope|límite)\b'
+    - '\bpor encima de lo que (acordamos|quedamos)\b'
+    - '\bexplicárselo (después|luego)\b'
+unlock_conditions:
+  - code: asks_budget
+    description:
+      en: Asks what payment or budget he and his family planned on before writing anything up.
+      es: Pregunta qué pago o presupuesto planearon él y su familia antes de escribir nada.
+    cues:
+      en:
+        - '\bwhat (payment|budget|monthly)\b.{0,50}\b(plan|planned|planning|agree|agreed|talk|talked|had in mind|comfortable|work for|set)\b'
+        - '\bwhat did you (and your (wife|family|spouse) )?(plan|budget|agree|decide)\b.{0,30}\b(pay|spend|payment|month)\b'
+        - '\bhow much (did you|do you want to|were you planning to|can you comfortably) (plan to )?(spend|pay)\b'
+        - '\bwhere does (the|that|this) payment need to be\b'
+      es:
+        - '\bqué (pago|presupuesto|mensualidad)\b.{0,50}\b(planearon|pensaron|acordaron|hablaron|tenían en mente|le queda cómodo|les funciona)\b'
+        - '\bcuánto (pensaban|piensan|querían|pueden|acordaron)\b.{0,30}\b(pagar|gastar)\b'
+        - '\bdónde (tiene|necesita) que quedar el pago\b'
+  - code: asks_family_view
+    description:
+      en: Asks whether his wife is on board with this car and this payment, or what she would say about it.
+      es: Pregunta si su esposa está de acuerdo con este carro y este pago, o qué diría ella.
+    cues:
+      en:
+        - '\b(wife|spouse|family)\b.{0,40}\b(on board|agree|okay with|feel about|say about|think about)\b'
+        - '\bwhat (would|will) (your wife|she) (say|think)\b'
+      es:
+        - '\b(esposa|familia)\b.{0,40}\b(de acuerdo|está bien con|qué opina|qué diría|qué piensa)\b'
+        - '\bqué (diría|va a decir|opina) (su esposa|ella)\b'
+walk_out_triggers:
+  - code: fans_the_hurry
+    description:
+      en: Feeds the urgency instead of checking the facts ("Smart, buy now", "Don't overthink it").
+      es: Le echa leña al apuro en vez de confirmar los datos ("Bien pensado, compre ya", "No lo piense tanto").
+    cues:
+      en:
+        - '\b(smart|good) (move|call|idea)\b.{0,30}\b(buy|buying|now|today)\b'
+        - '\bdoing the right thing buying now\b'
+        - '\bdon''?t overthink (it|this)\b'
+        - '\bbefore (it''?s too late|anything changes|they change)\b'
+      es:
+        - '\b(bien pensado|buena idea|buena movida)\b.{0,30}\b(comprar|ahora|hoy|ya)\b'
+        - '\bno lo piense (tanto|más)\b'
+        - '\bantes de que (sea tarde|cambie algo|cambien)\b'
+  - code: upsells_past_budget
+    description:
+      en: Pushes a bigger or pricier car ("for a little more a month") without asking about the budget.
+      es: Empuja un carro más grande o más caro ("por un poquito más al mes") sin preguntar por el presupuesto.
+    cues:
+      en:
+        - '\b(a little|just a bit|only a little|a few bucks) more a month\b'
+        - '\b(also|too) (look at|see|show you)\b.{0,30}\b(Blazer|Traverse|Tahoe|others?)\b'
+        - '\blet me show you (all|every|a few more|some more|the others)\b'
+      es:
+        - '\b(un poquito|un poco|unos pesos) más al mes\b'
+        - '\b(también|además) (le )?(enseño|muestro|puede ver)\b.{0,30}\b(Blazer|Traverse|Tahoe|otr[oa]s?)\b'
+  - code: belittles_budget
+    description:
+      en: Brushes off the budget or his wife's part in it ("You only live once", "She'll get over it").
+      es: Le quita importancia al presupuesto o a la opinión de su esposa ("Se vive una sola vez", "A ella se le pasa").
+    cues:
+      en:
+        - '\byou only live once\b'
+        - '\b(she''ll|she will) (get over it|understand|love it)\b'
+        - '\bdon''?t worry about the (payment|budget)\b'
+      es:
+        - '\bse vive una sola vez\b'
+        - '\ba ella se le pasa\b'
+        - '\bno se preocupe por el (pago|presupuesto)\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or a price increase.
+      es: Inventa un precio solo para hoy o una subida de precio.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b', '\b(prices?|it)\b.{0,15}\b(going up|go up)\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\b(precios?|eso)\b.{0,15}\b(van a subir|suben)\b']
+  - code: third_push
+    description:
+      en: Pushes for a signature a third time before the open question is settled.
+      es: Insiste por tercera vez en que firme antes de resolver la duda que queda.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight|right now)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwrite it up\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bllévese(lo|la)? hoy\b', '\bdejemos (escrito|los papeles)\b', '\bpreparo los papeles\b']
+win_condition:
+  description:
+    en: The agreed $575 ceiling comes out, plus a firm time today for him and his wife to look at a car that fits it.
+    es: Sale a la luz el tope de $575 que acordaron, más una hora firme hoy para que él y su esposa vean un carro que quepa ahí.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: en
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el down", "el dealer", "los papeles"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-30s
+  es: tbd-es-miami-cuban-male-30s
+difficulty: 1
+variation:
+  moods: [keyed up, checking his watch, just got off a night shift]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I heard it on the radio. Prices are going up. I want to get in first.", es: "Lo oí en la radio. Los precios van a subir. Quiero entrar primero." }
+    - { en: "I don't have all day. Can we get the paperwork going?", es: "No tengo todo el día. ¿Podemos empezar con los papeles?" }
+    - { en: "I like the RS. Let's just move.", es: "Me gusta la RS. Vamos a movernos." }
+  hint: { en: "Honestly? I'm trying not to think about the payment too hard.", es: "La verdad, estoy tratando de no pensar mucho en el pago." }
+  after_hint: { en: "I just want to get it done before it costs more.", es: "Yo lo que quiero es resolver antes de que cueste más." }
+  reveal: { en: "My wife and I agreed on $575 a month, max. The RS is $629. I was going to sign anyway and tell her later that prices made me do it.", es: "Mi esposa y yo acordamos $575 al mes como máximo. La RS sale en $629. Yo iba a firmar de todas formas y explicárselo después, que los precios me obligaron." }
+  after_reveal:
+    - { en: "That's one I could actually say yes to at home.", es: "Ese sí lo puedo defender en la casa." }
+    - { en: "Okay. I don't want to start this car with a fight.", es: "Está bien. No quiero estrenar el carro con una pelea." }
+  agree_next_step: { en: "Yeah. She gets off at 5. We'll be here.", es: "Sí. Ella sale a las 5. Aquí estamos." }
+  not_now: { en: "Forget it. Not today.", es: "Olvídese. Hoy no." }
+  walk_away: { en: "I'm going somewhere they'll just let me buy.", es: "Me voy a donde me dejen comprar y ya." }
+  goodbye: { en: "Gotta go. Thanks.", es: "Me tengo que ir. Gracias." }
+  react_to_pressure: { en: "Hold on. This is getting bigger than I came in for.", es: "Espérese. Esto se está poniendo más grande de lo que vine a buscar." }
+spanish_reviewed: false
