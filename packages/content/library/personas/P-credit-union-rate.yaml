@@ -1,0 +1,150 @@
+code: P-credit-union-rate
+name_pool:
+  en: [Daniel, Chris, Robert, Anthony]
+  es: [Ernesto, Orlando, Alexis, Yoel]
+age_range: 40-49
+temperament: [skeptical]
+temperament_note:
+  en: Skeptical and steady. Polite, but he has made up his mind about dealer financing and is not going to be talked out of it. Respects straight answers; shuts down at a sales pitch.
+  es: Desconfiado y tranquilo. Es educado, pero ya tiene su idea del financiamiento en los dealers y no se la van a quitar con palabras. Respeta las respuestas directas; se cierra si le hacen un discurso de ventas.
+buyer_orientation: task
+situation:
+  en: Early 40s, an electrician, married, no trade. Has banked with the same credit union for nine years. Good credit and $4,000 down. Just drove the 2026 Colorado LT and has the numbers sheet in hand, with an estimated payment built on an estimated rate. Nothing has been sent to a lender.
+  es: De unos 42 años, electricista, casado, sin trade-in. Lleva nueve años con la misma cooperativa de crédito. Buen crédito y $4,000 de down. Acaba de manejar la Colorado LT 2026 y tiene la hoja de números en la mano, con un pago estimado calculado con una tasa estimada. No se ha mandado nada a ningún banco.
+stated_objection: O11
+stated_line:
+  en: Your rate is too high. My credit union is better.
+  es: Su tasa está alta. Mi cooperativa me da mejor.
+hidden_truth:
+  en: His sister financed at a dealer last year and found out later that her rate had been marked up above what the bank approved. He assumes every dealer rate is padded, so he will only trust a rate he can put side by side, in writing, against his credit union's. He has not applied at the credit union yet.
+  es: Su hermana financió en un dealer el año pasado y después se enteró de que le habían subido la tasa por encima de lo que el banco le aprobó. Él da por hecho que todos los dealers inflan la tasa, así que solo confía en una tasa que pueda poner lado a lado, por escrito, con la de su cooperativa. Todavía no ha aplicado en la cooperativa.
+# Phrases that would give the sister's story and the side-by-side test away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\bmy sister\b'
+    - '\bmarked? ?up\b'
+    - '\bpadd(ed|ing)\b'
+    - '\bside by side\b'
+    - '\bin writing\b'
+    - '\bhaven''?t (even )?applied\b'
+  es:
+    - '\bmi hermana\b'
+    - '\b(le )?(subieron|subió|inflaron|infló) la tasa\b'
+    - '\binflan la tasa\b'
+    - '\blado a lado\b'
+    - '\bpor escrito\b'
+    - '\b(ni|no) he aplicado\b'
+unlock_conditions:
+  - code: asks_why_trusts_credit_union
+    description:
+      en: Asks what makes him trust his credit union more than a dealer, or what happened with dealer financing before.
+      es: Pregunta qué le hace confiar más en su cooperativa que en un dealer, o qué le pasó antes con el financiamiento de un dealer.
+    cues:
+      en:
+        - '\bwhat (makes|made) you (trust|prefer|like|feel better about)\b'
+        - '\bwhy (do you )?(trust|prefer) (your|the) credit union\b'
+        - '\bwhat happened\b.{0,60}\b(dealer|financ\w*|before|last time|rate)\b'
+        - '\b(been|got|gotten|get) (burned|burnt)\b'
+        - '\bbad experience\b.{0,40}\b(financ\w*|dealer|rate)\b'
+      es:
+        - '\bqué (es lo que )?(le )?(hace|da) (confiar|preferir|sentirse)\b'
+        - '\bpor qué (confía|prefiere)\b.{0,30}\b(cooperativa|credit union)\b'
+        - '\bqué (le )?pasó\b.{0,60}\b(dealer|financ\w*|antes|la última vez|tasa)\b'
+        - '\b(quemaron|quemado|quemó)\b'
+        - '\bmala experiencia\b.{0,40}\b(financ\w*|dealer|tasa)\b'
+  - code: asks_what_fair_looks_like
+    description:
+      en: Asks what he would need to see to know a rate is fair.
+      es: Pregunta qué necesitaría ver para saber que una tasa es justa.
+    cues:
+      en:
+        - '\bwhat (would|will|do) you (need|want) to see\b.{0,40}\b(rate|financ\w*|fair|trust|comfortable)\b'
+        - '\bhow (would|will|could) you know\b.{0,40}\b(rate|fair)\b'
+      es:
+        - '\bqué (necesitaría|tendría que|le gustaría|quisiera) ver\b.{0,40}\b(tasa|financ\w*|justa?|confiar|tranquilo)\b'
+        - '\bcómo (sabría|sabe|sabría usted)\b.{0,40}\b(tasa|justa?)\b'
+walk_out_triggers:
+  - code: runs_down_credit_union
+    description:
+      en: Runs down his credit union ("credit unions are slow", "they take forever").
+      es: Le habla mal de su cooperativa ("las cooperativas son lentas", "se demoran una eternidad").
+    cues:
+      en:
+        - '\bcredit unions? (are|is) (slow|a hassle|a pain|a headache|not worth)\b'
+        - '\b(take|takes) (forever|weeks)\b'
+        - '\b(don''?t|no need to) (bother|go) (with )?(the|your) credit union\b'
+      es:
+        - '\b(las cooperativas|el credit union|la cooperativa|su cooperativa)\b.{0,20}\b(se demora|se demoran|tarda|tardan|es un lío|son un lío|un dolor de cabeza|son lentas|es lenta)\b'
+        - '\bno (se )?(moleste|pierda tiempo)\b.{0,30}\b(cooperativa|credit union)\b'
+  - code: argues_rate
+    description:
+      en: Argues the dealer rate is fine instead of asking ("our rate is competitive").
+      es: Discute que la tasa del dealer está bien en vez de preguntar ("nuestra tasa es competitiva").
+    cues:
+      en:
+        - '\b(our|the|that|this) rate (is|isn''?t|is not) (actually |really )?(not )?(that |really )?(high|bad|great|good|competitive|fine)\b'
+        - '\b(great|good|fair|competitive) rate\b'
+      es:
+        - '\b(nuestra|la|esa|esta) tasa (no )?(está|es) (muy )?(buena|bien|alta|mala|competitiva)\b'
+        - '\b(buena|excelente|muy buena) tasa\b'
+  - code: insists_on_dealer_financing
+    description:
+      en: Tells him to forget his credit union or that he has to finance with the store.
+      es: Le dice que se olvide de su cooperativa o que tiene que financiar con la tienda.
+    cues:
+      en:
+        - '\bforget (about )?(the|your) credit union\b'
+        - '\byou (have|need|got) to (finance|go) (with|through) us\b'
+      es:
+        - '\bolvídese de (la|su) (cooperativa|credit union)\b'
+        - '\btiene que financiar con nosotros\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price, rate or deadline.
+      es: Inventa un precio, una tasa o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|rate)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b', '\bif you (leave|walk)\b.{0,40}\b(price|deal|offer|rate)\b.{0,20}\b(gone|go away|disappear)']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\bsi se va\b.{0,40}\b(precio|oferta|tasa)\b.{0,20}\b(se pierde|ya no|desaparece)']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The sister's story and his need to compare in writing come out, plus a firm day and time to bring the credit union's offer and compare.
+    es: Sale a la luz lo de su hermana y que necesita comparar por escrito, más un día y una hora firmes para traer la oferta de la cooperativa y comparar.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: en
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el down", "el dealer", "la tasa"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-40s
+  es: tbd-es-miami-cuban-male-40s
+difficulty: 1
+variation:
+  moods: [arms crossed, calm but firm, keeps tapping the rate on the sheet]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "My credit union is better. I've been with them for years.", es: "Mi cooperativa me da mejor. Llevo años con ellos." }
+    - { en: "I'll just finance it through them.", es: "Yo lo financio con ellos y ya." }
+    - { en: "Dealer rates are always higher. Everybody knows that.", es: "Las tasas de los dealers siempre son más altas. Eso lo sabe todo el mundo." }
+  hint: { en: "It's not you personally. I've just seen how dealer financing goes.", es: "No es con usted. Es que ya he visto cómo es el financiamiento en los dealers." }
+  after_hint: { en: "The truck's right and the price is fine. It's the financing I don't trust.", es: "La camioneta está bien y el precio también. Es el financiamiento lo que no me da confianza." }
+  reveal: { en: "My sister financed at a dealer last year and found out later her rate was marked up over what the bank approved. So I don't trust a dealer rate unless I can put it side by side, in writing, with my credit union's. I haven't even applied there yet.", es: "Mi hermana financió en un dealer el año pasado y después se enteró de que le habían subido la tasa por encima de lo que el banco le aprobó. Así que no confío en una tasa de dealer si no la puedo poner lado a lado, por escrito, con la de mi cooperativa. Y todavía ni he aplicado allá." }
+  after_reveal:
+    - { en: "That's all I want. Two offers on paper, and I choose.", es: "Eso es todo lo que quiero. Dos ofertas en papel, y yo escojo." }
+    - { en: "Fair is fair. If yours is better in writing, I'll take it.", es: "Lo justo es justo. Si la de ustedes sale mejor por escrito, me quedo con esa." }
+  agree_next_step: { en: "Okay, that works. I'll bring it.", es: "Está bien, me sirve. La traigo." }
+  not_now: { en: "Not today. I'll talk to my credit union first.", es: "Hoy no. Primero hablo con mi cooperativa." }
+  walk_away: { en: "I'm going to head out.", es: "Me voy a ir yendo." }
+  goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }
+  react_to_pressure: { en: "Don't push me. That's exactly how dealer financing goes.", es: "No me presione. Así mismo es como trabajan los dealers." }
+spanish_reviewed: false

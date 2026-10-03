@@ -1,0 +1,194 @@
+code: S-credit-union-rate-L1
+module: car-core
+title:
+  en: "\"Your rate is too high; my credit union is better\""
+  es: "\"Su tasa está alta; mi cooperativa me da mejor\""
+setting:
+  en: Saturday afternoon, at the sales desk, right after the test drive and the first numbers sheet.
+  es: Sábado por la tarde, en el escritorio de ventas, justo después de la prueba de manejo y la primera hoja de números.
+persona: P-credit-union-rate
+objection: O11
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 40s, an electrician, has banked with the same credit union for nine years. He just drove the 2026 Colorado LT. Your numbers sheet shows the all-in price of $38,894 plus tax, tag and title, and an estimated payment of $655 a month on 72 months with $4,000 down, built on an estimated rate. Nothing has been sent to a lender, so no rate is real yet."
+  es: "{name}, de unos 42 años, electricista, lleva nueve años con la misma cooperativa de crédito. Acaba de manejar la Colorado LT 2026. Su hoja de números muestra el precio total de $38,894 más impuestos, tag y título, y un pago estimado de $655 al mes a 72 meses con $4,000 de down, calculado con una tasa estimada. No se ha mandado nada a ningún banco, así que todavía no hay ninguna tasa real."
+opening:
+  en: Your rate is too high. My credit union is better.
+  es: Su tasa está alta. Mi cooperativa me da mejor.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Colorado, trim: LT, color: Summit White, stock: "5391", in_stock: true }
+  price_cents: 3799500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3889400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  # An estimate on the numbers sheet, built on an estimated rate; nothing is real until a lender approves. No add-ons.
+  payment_options:
+    - { code: estimate, cents: 65500, term_months: 72, apr_bps: 749, down_cents: 400000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    down_payment_cents: 400000
+    credit_union_years: 9
+    applied_at_credit_union: false
+    sister_rate_story: His sister learned after signing that a dealer had marked up her rate over the bank's approval
+    free_thursday: Off at 5 on Thursday
+numbers_sheet: true
+target_techniques: [T001, T003, T002, T005, T009, T030, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O11-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O11-WELCOME
+      behavior:
+        en: "Welcomed his credit union and said the price stays the same either way"
+        es: "Le dio la bienvenida a su cooperativa y dijo que el precio es el mismo de cualquier manera"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "O11 core move; FTC pricing guidance (PRICE-04)"
+      technique: T003
+    - code: O11-QFIRST
+      behavior:
+        en: "Asked what makes him trust the credit union more before defending any rate"
+        es: "Preguntó qué le hace confiar más en la cooperativa antes de defender cualquier tasa"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O11-HIDDEN
+      behavior:
+        en: "Surfaced his sister's marked-up rate and his need to compare in writing"
+        es: "Sacó a la luz la tasa inflada de su hermana y que necesita comparar por escrito"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O11-HONEST
+      behavior:
+        en: "Never stated a rate or an approval that does not exist, and never tied the price to financing with us"
+        es: "Nunca dijo una tasa ni una aprobación que no existe, y nunca amarró el precio a financiar con nosotros"
+      dimension: technique
+      method: rule
+      points: 15
+      evidence: "RATE-01; PRICE-04; FTC pricing guidance"
+      technique: T030
+      params: { rules: [RATE-01, PRICE-04] }
+    - code: O11-COMPARE
+      behavior:
+        en: "Offered both offers side by side in writing and let him choose, without promising to beat his credit union"
+        es: "Ofreció poner las dos ofertas lado a lado por escrito y dejarlo escoger, sin prometer que le ganan a su cooperativa"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Cox Automotive satisfaction research (T009)"
+      technique: T009
+    - code: O11-NEXT
+      behavior:
+        en: "Set a specific day and time to bring the credit union's offer"
+        es: "Fijó un día y una hora específicos para traer la oferta de la cooperativa"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_rate_or_approval
+      description:
+        en: "Promised a rate, an approval, or that the store will beat his credit union"
+        es: "Prometió una tasa, una aprobación, o que la tienda le gana a su cooperativa"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, a rate or an approval, or tied the price to financing with us"
+        es: "Dijo un número, una tasa o una aprobación que no es real, o amarró el precio a financiar con nosotros"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he ran down the credit union, argued the rate instead of asking, and pushed to write it up. He never asked why the customer trusts his credit union more."
+      es: "Fíjese: le habló mal de la cooperativa, discutió la tasa en vez de preguntar y presionó para dejarlo escrito. Nunca preguntó por qué el cliente confía más en su cooperativa."
+    script:
+      en:
+        - { speaker: customer, text: "Your rate is too high. My credit union is better." }
+        - { speaker: rep, text: "Credit unions are a hassle, and they take forever. Our rate is competitive, and everything gets done right here." }
+        - { speaker: customer, text: "Don't push me. That's exactly how dealer financing goes." }
+        - { speaker: rep, text: "Forget the credit union. Let's just write it up here and get it done." }
+        - { speaker: customer, text: "Not today. I'll talk to my credit union first." }
+        - { speaker: rep, text: "You're overthinking a rate. Want me to get it ready?" }
+        - { speaker: customer, text: "No. I said not today." }
+        - { speaker: rep, text: "Alright. Here's my card." }
+        - { speaker: customer, text: "Thanks for your time." }
+      es:
+        - { speaker: customer, text: "Su tasa está alta. Mi cooperativa me da mejor." }
+        - { speaker: rep, text: "Las cooperativas son un lío y se demoran una eternidad. Nuestra tasa es competitiva, y aquí mismo se resuelve todo." }
+        - { speaker: customer, text: "No me presione. Así mismo es como trabajan los dealers." }
+        - { speaker: rep, text: "Olvídese de la cooperativa. Dejémoslo escrito aquí y ya." }
+        - { speaker: customer, text: "Hoy no. Primero hablo con mi cooperativa." }
+        - { speaker: rep, text: "Le está dando demasiadas vueltas a una tasa. ¿Se la preparo?" }
+        - { speaker: customer, text: "No. Ya le dije que hoy no." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta." }
+        - { speaker: customer, text: "Gracias por su tiempo." }
+  good:
+    notice:
+      en: Notice the pause, the welcome for his credit union, the question about why he trusts it, and how he gets a price that holds with any financing and two written offers to compare, with no rate promised.
+      es: Fíjese en la pausa, en la bienvenida a su cooperativa, en la pregunta de por qué confía en ella, y en cómo recibe un precio que vale con cualquier financiamiento y dos ofertas por escrito para comparar, sin prometerle ninguna tasa.
+    script:
+      en:
+        - { speaker: customer, text: "Your rate is too high. My credit union is better." }
+        - { speaker: rep, text: "[pause] That's fair, and you're welcome to use your credit union. The price is the same either way. Can I ask what makes you trust their rate more than a dealer's?" }
+        - { speaker: customer, text: "It's not you personally. I've just seen how dealer financing goes." }
+        - { speaker: rep, text: "Okay. Apart from the financing, is the Colorado the right truck for you?" }
+        - { speaker: customer, text: "The truck's right and the price is fine. It's the financing I don't trust." }
+        - { speaker: rep, text: "Then tell me what happened. Has someone close to you been burned on a dealer rate?" }
+        - { speaker: customer, text: "My sister financed at a dealer last year and found out later her rate was marked up over what the bank approved. So I don't trust a dealer rate unless I can put it side by side, in writing, with my credit union's. I haven't even applied there yet." }
+        - { speaker: rep, text: "I'm glad you told me, and that's a smart way to do it. Here's what I can do. The truck is $38,894 out the door plus tax, tag and title, and that price stays the same whether you finance with your credit union, with us, or pay cash. Get their offer in writing. If you want, we'll also apply with our lenders, you'll get that offer in writing too, and you choose. I'm not going to promise we beat them." }
+        - { speaker: customer, text: "That's all I want. Two offers on paper, and I choose." }
+        - { speaker: rep, text: "Can you bring the credit union's offer Thursday at 6? I'll have the truck and our numbers ready." }
+        - { speaker: customer, text: "Thursday at 6 works. I'll bring it." }
+      es:
+        - { speaker: customer, text: "Su tasa está alta. Mi cooperativa me da mejor." }
+        - { speaker: rep, text: "[pausa] Me parece bien, y si quiere usar su cooperativa, bienvenido. El precio es el mismo de cualquier manera. ¿Le puedo preguntar qué es lo que le hace confiar más en la tasa de ellos que en la de un dealer?" }
+        - { speaker: customer, text: "No es con usted. Es que ya he visto cómo es el financiamiento en los dealers." }
+        - { speaker: rep, text: "Bien. Aparte del financiamiento, ¿la Colorado es la camioneta para usted?" }
+        - { speaker: customer, text: "La camioneta está bien y el precio también. Es el financiamiento lo que no me da confianza." }
+        - { speaker: rep, text: "Entonces cuénteme qué pasó. ¿A alguien cercano lo quemaron con una tasa de dealer?" }
+        - { speaker: customer, text: "Mi hermana financió en un dealer el año pasado y después se enteró de que le habían subido la tasa por encima de lo que el banco le aprobó. Así que no confío en una tasa de dealer si no la puedo poner lado a lado, por escrito, con la de mi cooperativa. Y todavía ni he aplicado allá." }
+        - { speaker: rep, text: "Qué bueno que me lo dice, y esa es una manera inteligente de hacerlo. Esto es lo que puedo hacer. La camioneta cuesta $38,894 precio total más impuestos, tag y título, y ese precio es el mismo si financia con su cooperativa, con nosotros o si paga cash. Pida la oferta de ellos por escrito. Si quiere, también aplicamos con nuestros bancos, le damos esa oferta por escrito también, y usted escoge. No le voy a prometer que les ganamos." }
+        - { speaker: customer, text: "Eso es todo lo que quiero. Dos ofertas en papel, y yo escojo." }
+        - { speaker: rep, text: "¿Puede traer la oferta de la cooperativa el jueves a las 6? Le tengo la camioneta y nuestros números listos." }
+        - { speaker: customer, text: "El jueves a las 6 me sirve. La traigo." }
+spanish_reviewed: false

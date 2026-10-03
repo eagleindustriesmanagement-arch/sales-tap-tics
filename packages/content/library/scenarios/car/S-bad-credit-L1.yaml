@@ -1,0 +1,192 @@
+code: S-bad-credit-L1
+module: car-core
+title:
+  en: "\"My credit is bad\""
+  es: "\"Tengo mal crédito\""
+setting:
+  en: A busy Saturday afternoon, at a sales desk on the open floor, with customers at the next desk.
+  es: Un sábado lleno, por la tarde, en un escritorio de ventas en pleno salón, con clientes en el escritorio de al lado.
+persona: P-bad-credit
+objection: O12
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 30s, a line cook on Miami Beach, needs a car to get to work; his old one just died. He liked the 2026 Trax 1RS, $24,494 out the door plus tax, tag and title, and has $2,000 down. No credit application yet. As you sit down at your desk on the open floor, he leans in and says it quietly."
+  es: "{name}, de unos 38 años, cocinero en Miami Beach, necesita un carro para ir a trabajar; el suyo se le acaba de morir. Le gustó la Trax 1RS 2026, $24,494 precio total más impuestos, tag y título, y tiene $2,000 de down. Todavía no ha llenado ninguna solicitud de crédito. Cuando ustedes se sientan en su escritorio, en pleno salón, él se acerca y se lo dice bajito."
+opening:
+  en: My credit is bad.
+  es: Tengo mal crédito.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: 1RS, color: Summit White, stock: "3108", in_stock: true }
+  price_cents: 2359500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2449400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: null
+  # No application yet, so there is no rate, approval or payment to quote.
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    down_payment_cents: 200000
+    months_out_of_work_2024: 6
+    months_caught_up_same_job: 18
+    last_dealer_declined_in_public: true
+    off_mondays: Off on Mondays; free after 5
+numbers_sheet: false
+target_techniques: [T001, T003, T002, T070, T005, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O12-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O12-PRIVATE
+      behavior:
+        en: "Took it seriously and moved the credit talk somewhere private"
+        es: "Lo tomó en serio y llevó la conversación del crédito a un lugar privado"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "O12 core move: explain privately"
+      technique: T003
+    - code: O12-QFIRST
+      behavior:
+        en: "Asked what worries him, or what happened before, before explaining or running anything"
+        es: "Preguntó qué le preocupa, o qué le pasó antes, antes de explicar o correr nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O12-HIDDEN
+      behavior:
+        en: "Surfaced the public decline at the last dealer and his real work history"
+        es: "Sacó a la luz el rechazo delante de la gente en el último dealer y su historial real de trabajo"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O12-EXPLAIN
+      behavior:
+        en: "Explained how it works: he applies, the lender decides, he hears the answer in private, and nothing is signed until he has seen every number"
+        es: "Le explicó cómo funciona: él aplica, el banco decide, la respuesta se la dan en privado y no se firma nada hasta que haya visto todos los números"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Harvard Business Review case (T070)"
+      technique: T070
+    - code: O12-NOPROMISE
+      behavior:
+        en: "Never promised an approval or a rate"
+        es: "Nunca prometió una aprobación ni una tasa"
+      dimension: technique
+      method: rule
+      points: 10
+      evidence: "RATE-01"
+      params: { rules: [RATE-01] }
+    - code: O12-NEXT
+      behavior:
+        en: "Set a specific day and time to apply in private"
+        es: "Fijó un día y una hora específicos para aplicar en privado"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_approval
+      description:
+        en: "Promised an approval, or said the store gets everybody approved"
+        es: "Prometió una aprobación, o dijo que en la tienda aprueban a todo el mundo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, a rate or an approval"
+        es: "Dijo un número, una tasa o una aprobación que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed off the customer's shame, asked for his Social out on the floor, and pushed. He never offered privacy and never asked what worried him."
+      es: "Fíjese: le quitó importancia a la vergüenza del cliente, le pidió el Social en pleno salón y presionó. Nunca le ofreció privacidad y nunca le preguntó qué le preocupaba."
+    script:
+      en:
+        - { speaker: customer, text: "My credit is bad." }
+        - { speaker: rep, text: "Don't worry about it. Everybody's got bad credit these days. It's not a big deal." }
+        - { speaker: customer, text: "Please keep your voice down. I'm not doing this out here." }
+        - { speaker: rep, text: "Let me just run your credit real quick and we'll see where you're at. What's your Social?" }
+        - { speaker: customer, text: "I'd rather not get into it out here." }
+        - { speaker: rep, text: "It only takes a minute. Want me to get it ready?" }
+        - { speaker: customer, text: "Not today. Thanks anyway." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me when you're ready." }
+        - { speaker: customer, text: "Thanks." }
+      es:
+        - { speaker: customer, text: "Tengo mal crédito." }
+        - { speaker: rep, text: "No se preocupe por eso. Hoy en día todo el mundo tiene mal crédito. No es nada." }
+        - { speaker: customer, text: "Baje la voz, por favor. Aquí afuera no voy a hablar de eso." }
+        - { speaker: rep, text: "Déjeme correrle el crédito rapidito y vemos cómo está. ¿Cuál es su Social?" }
+        - { speaker: customer, text: "Prefiero no hablar de eso aquí afuera." }
+        - { speaker: rep, text: "Es un minutico nada más. ¿Se lo preparo?" }
+        - { speaker: customer, text: "Hoy no. Gracias de todas formas." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
+        - { speaker: customer, text: "Gracias." }
+  good:
+    notice:
+      en: Notice the pause, the offer of privacy before anything else, the question about what happened, and the plain explanation of how it works with no approval promised.
+      es: Fíjese en la pausa, en que ofrece privacidad antes que nada, en la pregunta de qué le pasó, y en la explicación clara de cómo funciona, sin prometer ninguna aprobación.
+    script:
+      en:
+        - { speaker: customer, text: "My credit is bad." }
+        - { speaker: rep, text: "[pause] Thank you for telling me. That stays between us. Would you rather talk about it in my office, just the two of us?" }
+        - { speaker: customer, text: "That would be better. It hasn't gone well for me before." }
+        - { speaker: rep, text: "Of course. Apart from the credit, is the Trax the car you want?" }
+        - { speaker: customer, text: "The car's right. It's the credit part that scares me." }
+        - { speaker: rep, text: "Okay. What happened last time, if you don't mind me asking?" }
+        - { speaker: customer, text: "I was out of work for six months in 2024 and fell behind. I've been caught up and at the same job for a year and a half. But at the last dealer, the finance manager told me I was turned down from across the showroom, with other customers listening. I'd rather walk out than go through that again." }
+        - { speaker: rep, text: "I'm sorry that happened. Here's how it works with me. We sit in my office, you fill out the application, and the lender decides, not me. I can't promise an approval, and I won't. Whatever the answer is, you hear it from me, in private, and nothing gets signed until you've seen every number. Bring a couple of recent pay stubs so the lender can see your steady job." }
+        - { speaker: customer, text: "That's all I'm asking. Just not out on the floor." }
+        - { speaker: rep, text: "Can you come back Monday at 6? We'll sit in my office and do it right." }
+        - { speaker: customer, text: "Monday at 6 works. I'll bring the pay stubs." }
+      es:
+        - { speaker: customer, text: "Tengo mal crédito." }
+        - { speaker: rep, text: "[pausa] Gracias por decírmelo. Eso queda entre nosotros. ¿Prefiere que lo hablemos en mi oficina, los dos solos?" }
+        - { speaker: customer, text: "Eso sería mejor. Antes no me ha ido bien con esto." }
+        - { speaker: rep, text: "Claro. Aparte del crédito, ¿la Trax es el carro que usted quiere?" }
+        - { speaker: customer, text: "El carro está bien. Lo que me da miedo es lo del crédito." }
+        - { speaker: rep, text: "Bien. ¿Qué le pasó la última vez, si no le molesta que le pregunte?" }
+        - { speaker: customer, text: "Estuve seis meses sin trabajo en 2024 y me atrasé. Ya llevo un año y medio al día y en el mismo trabajo. Pero en el último dealer, el de financiamiento me dijo desde el otro lado del salón, con otros clientes oyendo, que me habían rechazado. Prefiero irme antes que pasar por eso otra vez." }
+        - { speaker: rep, text: "Siento mucho que le haya pasado eso. Conmigo funciona así. Nos sentamos en mi oficina, usted llena la solicitud, y el banco decide, no yo. No le puedo prometer una aprobación, y no se la voy a prometer. Sea cual sea la respuesta, se la digo yo, en privado, y no se firma nada hasta que usted haya visto todos los números. Traiga un par de pay stubs recientes para que el banco vea que tiene trabajo fijo." }
+        - { speaker: customer, text: "Eso es todo lo que pido. Nada más que no sea aquí afuera." }
+        - { speaker: rep, text: "¿Puede volver el lunes a las 6? Nos sentamos en mi oficina y lo hacemos bien." }
+        - { speaker: customer, text: "El lunes a las 6 me sirve. Traigo los pay stubs." }
+spanish_reviewed: false
