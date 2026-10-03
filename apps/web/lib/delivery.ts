@@ -30,7 +30,7 @@ export async function deliverCode(identifier: string, code: string, language: La
       method: "POST",
       headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
       body: JSON.stringify({
-        from: process.env.TAPTICS_EMAIL_FROM ?? "Sales Tap-tics <login@example.com>",
+        from: process.env.TAPTICS_EMAIL_FROM ?? "Sales Taptics <login@salestaptics.com>",
         to: [identifier],
         subject: t("login.emailSubject", language),
         text: t("login.emailBody", language, { code }),

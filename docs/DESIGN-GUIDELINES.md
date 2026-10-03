@@ -1,8 +1,8 @@
-# Sales Tap-tics design guidelines
+# Sales Taptics design guidelines
 
 Every UI change follows this file. The material is Liquid Glass, ported from BookFlows
 (`docs/LIQUID-GLASS.md` is that file, unchanged; it is written to be portable). This file is the
-Sales Tap-tics policy on top of it. Spec 18.4 rule 7 still governs: calm, high contrast, large
+Sales Taptics policy on top of it. Spec 18.4 rule 7 still governs: calm, high contrast, large
 touch targets for a showroom floor.
 
 ## 1. Who this is for

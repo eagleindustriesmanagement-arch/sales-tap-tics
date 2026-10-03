@@ -6,7 +6,7 @@
   in release 2 (`apps/mobile`).
 - **Decision.**
   - The web app adopts BookFlows' Liquid Glass material with its shipped values
-    (`docs/LIQUID-GLASS.md`) and Sales Tap-tics tokens (`docs/DESIGN-GUIDELINES.md`). Every value
+    (`docs/LIQUID-GLASS.md`) and Sales Taptics tokens (`docs/DESIGN-GUIDELINES.md`). Every value
     that differs in dark mode is a token, so the material is written once.
   - The rep flow follows learning-app patterns: one "Up next" with one Start button, a daily goal
     and streak, a connected path by level, an immersive session, a results screen, and Progress

@@ -7,7 +7,7 @@ import type { Bilingual } from "./types.js";
  * Placeholders use {name} and are filled by `t()`.
  */
 export const STRINGS = {
-  "app.name": { en: "Sales Tap-tics", es: "Sales Tap-tics" },
+  "app.name": { en: "Sales Taptics", es: "Sales Taptics" },
   "app.disclaimer": {
     en: "This is a training tool, not legal advice. Its compliance rules follow the strictest reading of the laws and FTC guidance they cite.",
     es: "Esta es una herramienta de entrenamiento, no asesoría legal. Sus reglas de cumplimiento siguen la lectura más estricta de las leyes y guías de la FTC que citan.",
@@ -452,7 +452,7 @@ export const STRINGS = {
   "login.demoGm": { en: "The general manager", es: "Gerente general" },
   "login.demoCode": { en: "Demo account: your code is {code}. It is filled in for you.", es: "Cuenta de demostración: su código es {code}. Ya está escrito." },
   "login.otherIdentifier": { en: "Use a different email or number", es: "Usar otro correo o número" },
-  "login.emailSubject": { en: "Your Sales Tap-tics code", es: "Su código de Sales Tap-tics" },
+  "login.emailSubject": { en: "Your Sales Taptics code", es: "Su código de Sales Taptics" },
   "login.emailBody": {
     en: "Your sign-in code is {code}. It works for 10 minutes. If you did not ask for it, ignore this email.",
     es: "Su código para entrar es {code}. Sirve por 10 minutos. Si usted no lo pidió, ignore este correo.",

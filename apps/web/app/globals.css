@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* =======================================================================
- * Sales Tap-tics design system. Rules: docs/DESIGN-GUIDELINES.md.
+ * Sales Taptics design system. Rules: docs/DESIGN-GUIDELINES.md.
  * The material is BookFlows' Liquid Glass (docs/LIQUID-GLASS.md), ported with
  * its shipped values. One structural change: every value that differs between
  * light and dark is a token below, so the material is written once and dark

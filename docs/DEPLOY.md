@@ -1,6 +1,45 @@
 # Deploying Sales Taptics to salestaptics.com
 
-About 10 minutes in the Vercel dashboard, once. After that, every push to `main` deploys by itself.
+Two ways: Claude does it (section A, needs one token), or the owner clicks through the dashboard (section B, about
+10 minutes). Either way, after the first deploy every push to `main` deploys by itself.
+
+## A. Claude deploys (automated)
+
+What the owner provides, once, in the cloud environment's settings. Claude never asks for a token in chat.
+
+- **Network access:** add `api.vercel.com`, `vercel.com`, `*.vercel.app`, `salestaptics.com` and
+  `www.salestaptics.com` to Allowed domains (keep the default package-manager list).
+- **Environment variable `VERCEL_TOKEN`:** a Vercel access token (vercel.com → Account Settings → Tokens, scope:
+  the account or team that owns salestaptics.com). If the domain is under a team, also set `VERCEL_SCOPE` to the
+  team's slug.
+- Then start a **new** session on this repository (environment changes apply to new sessions) and say "deploy to
+  Vercel per docs/DEPLOY.md".
+
+What Claude runs (from the repository root; `V="npx vercel@latest --token $VERCEL_TOKEN ${VERCEL_SCOPE:+--scope $VERCEL_SCOPE}"`):
+
+1. `$V whoami`: the token works.
+2. `$V link --yes --project sales-taptics`: creates or links the project. Then set the root directory and
+   framework: `PATCH https://api.vercel.com/v9/projects/sales-taptics` with
+   `{"rootDirectory":"apps/web","framework":"nextjs"}` (add `?teamId=` for a team).
+3. `$V integration add neon`: Neon Postgres from the Vercel Marketplace, region US East, connected to
+   Production, Preview and Development. If Vercel asks for the marketplace terms to be accepted in a browser,
+   that one click is the owner's.
+4. Environment variables, Production and Preview:
+   - `TAPTICS_SECRET`: `openssl rand -hex 32` piped straight into `$V env add`, never printed.
+   - `TAPTICS_DEMO_LOGIN=1` and `TAPTICS_DEMO_SEED=1`.
+5. `$V git connect https://github.com/eagleindustriesmanagement-arch/sales-tap-tics`: deploys on every push to
+   `main`. Needs the Vercel GitHub app to have access to the repository; if it does not, deploy with step 6 and
+   tell the owner.
+6. `$V deploy --prod`. The build log must show the migrations applied, `demo store seeded` and the content release.
+7. `$V domains add salestaptics.com sales-taptics` and `www.salestaptics.com` (redirect to the apex).
+8. Verify on the live site, in a phone-sized browser:
+   - the sign-in screen with the logo;
+   - each demo role signs in;
+   - a typed practice session runs to the debrief;
+   - Progress, Team and Dashboard load.
+   Report the results with screenshots.
+
+## B. The owner deploys (dashboard)
 
 ## 1. Import the repository
 

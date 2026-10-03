@@ -1,4 +1,4 @@
-# Sales Tap-tics
+# Sales Taptics
 
 Voice roleplay practice for car salespeople, in English and Miami Spanish: an AI customer with a hidden concern,
 a compliance engine that allows hardball and forbids lies about facts, behavior scoring, and a weekly floor check

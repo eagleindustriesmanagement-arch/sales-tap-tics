@@ -15,7 +15,7 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
   blue comes from it.
 
 - **The app, redesigned for phones** (decision 0012, `docs/DESIGN-GUIDELINES.md`). BookFlows' Liquid Glass material
-  with the Sales Tap-tics blue and amber, light and dark. The rep flow is laid out like a learning app:
+  with the Sales Taptics blue and amber, light and dark. The rep flow is laid out like a learning app:
   - **Today:** the daily goal ring, the streak, the certified count, and one "Up next" card with one Start button.
   - **Practice:** a connected path by level, each scenario marked passed, certified, up next, tried or new.
   - **Session:** a full-screen briefing, then a chat-style conversation with a turns-left bar and a "customer is

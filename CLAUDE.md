@@ -1,4 +1,4 @@
-# Sales Tap-tics — guide for Claude
+# Sales Taptics — guide for Claude
 
 Bilingual (English / Miami Spanish) role-play trainer for car salespeople. The owner's spec is `SPEC.md`; what is
 built and what is open is `STATUS.md`; every deviation from the spec is a decision in `docs/decisions/`. Read
@@ -22,6 +22,12 @@ STATUS.md first.
 Use the building blocks in `apps/web/components/ui.tsx` and the icons in `components/icons.tsx`; never put a
 `bg-*` or `border-*` utility on an element with a `liquid-glass` class. Review 390px screenshots in light and dark
 before calling a screen done; the accessibility suite audits both themes.
+
+## Deploying
+
+The site is Sales Taptics at salestaptics.com on Vercel with Neon Postgres (decision 0014). To deploy, follow
+`docs/DEPLOY.md` section A: it needs `VERCEL_TOKEN` in the environment and Vercel's hosts allowed. Never print a
+token or the generated `TAPTICS_SECRET`, and never ask the owner to paste one into chat.
 
 ## Commands
 
