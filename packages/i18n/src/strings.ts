@@ -540,6 +540,7 @@ export const STRINGS = {
   "error.title": { en: "This screen hit a problem", es: "Esta pantalla tuvo un problema" },
   "error.body": { en: "It has been reported. Try again, or go back to Today.", es: "Ya se reportó. Intente de nuevo, o vuelva a Hoy." },
   "error.retry": { en: "Try again", es: "Intentar de nuevo" },
+  "error.details": { en: "Details", es: "Detalles" },
 
   "debrief.loading": { en: "Scoring your session…", es: "Calificando su sesión…" },
   "debrief.transcript": { en: "Transcript", es: "Transcripción" },

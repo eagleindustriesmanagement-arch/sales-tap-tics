@@ -8,7 +8,8 @@ export function reportClientError(area: string, error: unknown, digest?: string)
   if (typeof window === "undefined" || reported >= 5) return;
   reported += 1;
   const e = error instanceof Error ? error : new Error(String(error));
-  const frame = e.stack?.split("\n").map((s) => s.trim()).find((s) => s.startsWith("at ") || s.includes("@"));
+  // The first few frames, not just one: the frame that throws is often inside React, the cause a step or two up.
+  const frame = e.stack?.split("\n").map((s) => s.trim()).filter((s) => s.startsWith("at ") || s.includes("@")).slice(0, 6).join(" | ");
   const ua = navigator.userAgent;
   const body = JSON.stringify({
     area,

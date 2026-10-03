@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     area: text(b.area, 40),
     name: text(b.name, 60),
     message: text(b.message, 200),
-    frame: text(b.frame, 200),
+    frame: text(b.frame, 900),
     digest: text(b.digest, 60),
     path: text(b.path, 120),
     browser: text(b.browser, 20),

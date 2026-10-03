@@ -16,6 +16,9 @@ export default function GlobalError({ error }: { error: Error & { digest?: strin
           <button type="button" className="liquid-glass liquid-glass-accent min-h-[52px] w-full rounded-full px-6 text-[17px] font-semibold" onClick={() => location.reload()}>
             {es ? "Cargar de nuevo" : "Reload"}
           </button>
+          <p data-testid="error-details" className="pt-2 text-[12px] break-words text-muted select-all">
+            {error.name}: {error.message || "—"}{error.digest ? ` · ${error.digest}` : ""}
+          </p>
         </div>
       </body>
     </html>

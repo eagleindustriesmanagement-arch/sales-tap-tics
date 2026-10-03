@@ -19,6 +19,10 @@ export default function ScreenError({ error, reset }: { error: Error & { digest?
         <p className="text-[16px] text-body">{t("error.body", lang)}</p>
         <button type="button" className={`${buttonClass} w-full`} onClick={reset}>{t("error.retry", lang)}</button>
         <Link href="/today" className={`${ghostButtonClass} w-full`}>{t("nav.today", lang)}</Link>
+        {/* The error itself, small: the person who hits it can read it out, so the real cause is never a guess. */}
+        <p data-testid="error-details" className="pt-2 text-[12px] break-words text-muted select-all">
+          {t("error.details", lang)}: {error.name}: {error.message || "—"}{error.digest ? ` · ${error.digest}` : ""}
+        </p>
       </div>
     </div>
   );
