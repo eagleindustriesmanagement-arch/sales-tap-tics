@@ -44,9 +44,9 @@ token or the generated `TAPTICS_SECRET`, and never ask the owner to paste one in
     pnpm compliance:suite                # 689 labelled cases; fails if any number gets worse than the baseline
     pnpm secret:scan
     pnpm web:typecheck && pnpm web:build
-    pnpm db:seed --private-window-hours=0 && pnpm --filter @taptics/web e2e   # 16 flows + 5 accessibility audits
-    pnpm --filter @taptics/web dev       # http://localhost:3000; demo logins: rep@ / rep2@ / manager@ / gm@ /
-                                         # review@ / es@demo.test (codes print to the server log in development)
+    pnpm db:seed --private-window-hours=0 && pnpm --filter @taptics/web e2e   # flows, accessibility audits, accounts and marketing
+    pnpm --filter @taptics/web dev       # http://localhost:3000; demo logins: rep@ / rep2@ / manager@ (admin) /
+                                         # manager2@ / review@ / es@demo.test (codes print to the server log in development)
 
 Environment variables are listed in README.md. Without `ANTHROPIC_API_KEY` the app runs the offline customer and
 marks scores partial; certification needs the key.

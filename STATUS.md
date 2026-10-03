@@ -1,6 +1,6 @@
 # Status
 
-Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, one luxury theme). Build plan: spec section 22. Decisions: `docs/decisions/`. Plan: `docs/plans/`.
+Updated 2026-10-03 (eighth pass: teams and individuals, admin access as a privilege, a home page that sells, pricing, industries). Build plan: spec section 22. Decisions: `docs/decisions/`. Plan: `docs/plans/`.
 
 ## What runs today
 
@@ -9,14 +9,20 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
   and Miami Spanish, 60 to 90 seconds of reading. Then the demonstration, then the role-play; the debrief names the
   lesson concept behind the one change and each scored behavior. Lessons are content
   (`packages/content/library/lessons/`), validated and compliance-checked; Spanish awaits a native review.
-- **Public home page at `/`** (decision 0028): cinematic hero (WebGL gold-light shader with a CSS fallback, floating
-  glass cards, scroll parallax, a live-typing phone of the practice room), how it works, the objection library rail
-  (from the content), scoring and the compliance engine, the manager floor check, Miami Spanish, the pilot offer.
-  English and Spanish; reduced motion honoured; axe-clean. Signed-in people go to the app, whose home is `/today`.
-- **Real accounts** (decision 0029): a dealership signs up at `/signup` (store name, work email, emailed code);
-  the code creates the tenant, its store and the owner as general manager. The owner lands on People and adds the
-  team, who get an invitation email and sign in with their own codes. "Try the demo" (`/login?demo=1`) is the
-  second path. **Production needs `RESEND_API_KEY` for any real email.**
+- **Public home page at `/` and pricing at `/pricing`** (decisions 0028, 0032): "Simple to use. Deep to learn."
+  The hero names every high-ticket sale; a research strip (Rackham, Gong Labs, The JOLT Effect, negotiation
+  research); the ROI section ("Trained sales floors sold 12% more per day", Prada, Rucci & Urzúa, IZA DP 12447,
+  2019, with its caveat; CEB's "up to 19%" as a second figure) and a calculator labelled as an illustration; how it
+  works in four steps; 122 techniques in 12 families with featured cards; industries; scoring and compliance;
+  managers; Miami Spanish. Pricing has three per-seat tiers (Solo, Team, Dealership) with **placeholder prices** for
+  Ernesto to set, a monthly/annual switch and an FAQ. **The 12% and 19% wording must be checked against the primary
+  papers before launch** (sources in `docs/research/selling-sales-training.md`).
+- **Teams and individuals** (decisions 0029, 0032): sign up at `/signup` "For my team" (the owner becomes the
+  team's manager with admin access, then sends invite links from Team) or "Just for me" (an individual in any
+  industry, rep screens only). Anyone who joins through `/join/<link>` lands on that team with the link's role;
+  links are hashed, counted and can be turned off. **Admin access** is a switch on People, not a role. Every path
+  uses an emailed code. "Try the demo" (`/login?demo=1`) is the second path. **Production needs `RESEND_API_KEY`
+  for any real email.**
 - **One luxury theme across the app** (decision 0028): charcoal, champagne gold, ivory; Instrument Serif headlines;
   glass throughout; page transitions; an animated score reveal on the debrief. The logo is the owner's second version (green on near-black).
 - **A customer for every objection: 65 scenarios** (decision 0017).
@@ -46,7 +52,7 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
   to the reps' real close rate and add-ons kept, with sample sizes and a plain warning that correlation is not
   proof. It lists scores that relate to nothing as candidates for less weight, and waits for 5 reps with enough
   practice and ups.
-- **Usage** (spec 19.4, decision 0020): the general manager sees counts only, private windows included, with no
+- **Usage** (spec 19.4, decision 0020): an admin sees counts only, private windows included, with no
   rows, names or text:
   - sessions started and finished;
   - reps practicing this week and per day;
@@ -121,13 +127,13 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
 - **Floor mode** for managers from the database: this week's team cards grouped by behavior, the four-part script,
   yes/partly/no, note, the two self-checks, timed; writes the check and its coaching-quality row and closes the card.
 - **Team view**: practice this week, average of complete scores, this week's card and status, critical flags,
-  recent sessions; coaching quality (private to each manager, all managers for the general manager).
+  recent sessions; coaching quality (private to each manager, all managers for an admin).
 - **History**: the rep's saved sessions and debriefs; managers open team sessions from the team view.
-- **Store setup** (general manager): fees, add-on removal policy, lenders, referral reward, bilingual text-consent
+- **Store setup** (admin): fees, add-on removal policy, lenders, referral reward, bilingual text-consent
   wording, private window, audio retention, stop-on-critical, walk-in metric, languages, Spanish register. Any save
   clears the sign-off; only the compliance reviewer signs off. Practice uses the store's real dealer fees, and its
   removal policy only once signed off; until then the strictest rules apply.
-- **Compliance view** (managers, general manager, compliance reviewer): flags by rule and by rep, and recent flags
+- **Compliance view** (managers, admins, compliance reviewer): flags by rule and by rep, and recent flags
   with the line, the true fact and a link to the session.
 - **Practice plan** (spec 15): Today picks the next scenario and says why: manager assignment, a compliance
   failure to redo, onboarding (week 1 the first five objections, then one new objection a day), certification
@@ -146,23 +152,23 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
   and sign out (which phones could not reach before). Today shows the rep's practice streak.
 - **Score flags** (spec 3.3 rule 4): a manager flags a rep's score with a reason (disagree, audio, scenario, other);
   the automated score never changes, the flag is permanent and the rep sees it next to the score.
-- **Audit log and export** (general manager): the audit log of session reads and changes to people, roles, store
-  settings and scores (readable only by the general manager); sessions and scores as CSV, safe to open in a
+- **Audit log and export** (admin): the audit log of session reads and changes to people, roles, store
+  settings and scores (readable only by an admin); sessions and scores as CSV, safe to open in a
   spreadsheet.
-- **Store dashboard** (general manager, spec 18.3): certified for customers, reps practicing this week, floor-check
+- **Store dashboard** (admin, spec 18.3): certified for customers, reps practicing this week, floor-check
   completion over 4 weeks, critical flags, and sessions, reps, cards and flags by week; links to compliance,
   people and AI costs. The team view shows each rep's coaching focus (spec 14.4: middle performers first, extra
   practice for the lowest third, stretch goals for the top third).
 - **Progress and rep detail** (spec 18.1, 18.2): certification count, complete-score dimensions by week for 8
   weeks, weakest skills, mastery by objection, and behavior cards with the floor-check result. The rep sees their
   own; a manager opens any of their reps from the team view (row-level security keeps the private window).
-- **People** (spec 18.3 Users, general manager): add a person with an email or phone and roles, change roles,
-  deactivate (sign-in stops on the next request), all audit-logged. A general manager cannot remove their own role.
-- **Store numbers** (general manager, spec 19.1): CSV upload of ups and sales by rep, lost-deal reasons, be-backs
+- **People** (spec 18.3 Users, admin): add a person with an email or phone and roles, change roles,
+  deactivate (sign-in stops on the next request), all audit-logged. An admin cannot remove their own admin access.
+- **Store numbers** (admin, spec 19.1): CSV upload of ups and sales by rep, lost-deal reasons, be-backs
   and walk-aways, phone and internet leads, and add-ons sold and cancelled, by month. A file is accepted whole or
   not at all, with every problem listed by line; re-uploading a month replaces it; reps are matched by email or
   name and unmatched names are kept and reported. Shows the close rate by month and by rep over the last 3 months,
-  the baseline for spec 19.2's calibration. Only the general manager reads or writes it (row-level security).
+  the baseline for spec 19.2's calibration. Only an admin reads or writes it (row-level security).
 - **Exit-rate calibration** (spec 19.2 item 1, decision 0011): each ups upload sets the month's practice exit
   multiplier from the real unsold share against the practice exit share. It moves by at most ×0.5 to ×2 a month,
   keeps each scenario's authored difficulty, never lets exits pass 90%, and waits for 50 real ups and 30
@@ -176,7 +182,7 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
 | Milestone | Item | State |
 | --- | --- | --- |
 | M1 | Monorepo, TypeScript strict, CI | Done; CI green on every push |
-| M1 | Tenant and store schema with row-level security | Done for reads and writes: every tenant table isolates tenants, and writes are limited by role in the database (people and roles by the general manager, store settings by the general manager with sign-off only by the compliance reviewer, session results only into the rep's own session, login tables only through their functions) |
+| M1 | Tenant and store schema with row-level security | Done for reads and writes: every tenant table isolates tenants, and writes are limited by role in the database (people and roles by an admin, store settings by an admin with sign-off only by the compliance reviewer, session results only into the rep's own session, login tables only through their functions) |
 | M1 | i18n package with bilingual completeness check | Done |
 | M1 | Authentication | Done: one-time code sign-in, hashed sessions, rate limits, role checks (email delivery needs `RESEND_API_KEY`; SMS not yet) |
 | M1 | Speech provider interfaces, two implementations each | **Half done**: the interfaces (`@taptics/voice`) and the device implementation of each; the cloud implementations wait on the bake-off to choose providers (decision 0013) |
@@ -188,7 +194,7 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
 | M2 | Scoring deterministic and judge passes; debrief; behavior card | Done |
 | M2 | Rep completes the scenario on a phone in under 15 minutes | Done in text mode (browser test at 390 px wide) |
 | M2 | Debrief within 90 seconds | Offline: instant. Live judge: needs a key to measure |
-| M5 | Floor check recorded in under 60 s on a phone; completion and timing on the general manager's view | Done (browser test on a Pixel 7 viewport records it in about a second) |
+| M5 | Floor check recorded in under 60 s on a phone; completion and timing on an admin's view | Done (browser test on a Pixel 7 viewport records it in about a second) |
 | M3 | 600-utterance labeled suite | Done: 689 cases (344 English, 345 Spanish) from four independent authors, dev/holdout split |
 | M3 | Under 5% false positives, both languages | Met by the deterministic layer alone: 1.6% overall (English 1.5%, Spanish 1.7%; holdout 2.9%) |
 | M3 | Zero critical false negatives | **Not met.** The deterministic layer misses 116 critical cases; the target is for both layers together, and the classifier needs `ANTHROPIC_API_KEY` (decision 0008) |
@@ -200,14 +206,14 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
 | M7 | Load test | Done offline: 25 reps at once, 0 errors; server share of a turn p95 205 ms warm, 410 ms on the first burst after boot; dashboard p95 1.3 s cold, 485 ms warm (budgets met). A boot warm-up cut the cold tail from 1.35 s. Live model latency needs the key (`docs/runbooks`) |
 | M7 | Backup restore drill | Done: `scripts/backup-drill.sh` restores into a scratch database and proves every table's rows, 50 policies, forced RLS on 31 tables and 33 triggers match |
 | M7 | Incident response runbook | Done (`docs/runbooks/README.md`) |
-| M7 | Cost dashboard | Done: the general manager sees 30-day model spend, cost per session, failure rate, and cost and latency by day, purpose and model; only the general manager can read usage (row-level security) |
+| M7 | Cost dashboard | Done: an admin sees 30-day model spend, cost per session, failure rate, and cost and latency by day, purpose and model; only an admin can read usage (row-level security) |
 | M7 | Observability (traces, alerting) | Done without a vendor (decision 0021): structured logs with no personal data, server errors, turn timing, `/api/health`. Alerting is a Vercel log alert or an uptime monitor on `/api/health`: the owner's account choice |
 | M4 | 20 release 1 scenarios with personas | Done: 20 scenarios and personas; every one plays offline in both languages to its hidden truth and win with no critical violation, and its flawed demo never reaches the hidden truth (CI gate) |
 | M4+ | One level 1 customer per objection (65, spec 7 and 9, release 2) | Done: 45 more scenarios and personas, all through the same release gate in both languages (decision 0017). Spanish and claims to review: `docs/content/release-2-review-notes.md` |
 | M4 | Every technique shows its grade, source and why | Done: all 122 have a "why" (67 honestly marked as tradition or weak evidence) and a flawed model line |
 | M4 | Content editor with Spanish review workflow | Done for review (approve, edit with compliance check, numbers sign-off, write-back to YAML). Audio preview waits on the speech provider |
 | M5 | Assignments | Done (row-level security: reps see their own; managers assign only to their reps) |
-| M5 | Coach-the-coach roleplay | Done offline: the manager reads a scene, gives the floor check, and is scored on the four parts (the spec 14.2 example scores 100 in both languages); private to the manager, visible to the general manager. With a key, an AI rep reply can be added |
+| M5 | Coach-the-coach roleplay | Done offline: the manager reads a scene, gives the floor check, and is scored on the four parts (the spec 14.2 example scores 100 in both languages); private to the manager, visible to an admin. With a key, an AI rep reply can be added |
 | M6 | Mastery tracking, spaced scheduling, certification with fixed seeds | Done; a simulated 30-day onboarding schedules all 20 objections and offers certification from day 30 |
 | M6 | Quarterly recertification | Done: a fixed random set of 3 per rep and quarter, passed at 75, renews level 1 for 90 days |
 | M6 | Reminders that respect peak hours | Done by Web Push (decision 0022). The timing and the job are tested; the sender was checked against a local push endpoint, and the browser suite runs the job against the database. Real phones need the VAPID keys and an hourly schedule in the deployment |
@@ -223,13 +229,13 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
 - 24 browser tests (18 flows and 6 accessibility audits, every main screen audited in light and dark); each account signs in once per run, under the real limit
   of five codes per 15 minutes on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
-  refused from manager screens, another rep's session and the floor-check API; the general manager edits store
+  refused from manager screens, another rep's session and the floor-check API; an admin edits store
   setup (a one-language consent text is refused), cannot sign it off, and the reviewer signs off and sees the flags;
   a manager assigns practice with a reason, the rep sees it first, practices it, and it shows done; certification
   is refused without the live judge and the team view counts certifications; a manager practices a floor check, a
   weak one scores 50 with the card's wording for what was missing, the spec example scores 100; the Spanish reviewer
   approves a line, an edit that invents a deadline is refused, and a line with an amount waits for and gets the
-  compliance reviewer's sign-off; the general manager uploads store numbers, a bad file is refused line by line,
+  compliance reviewer's sign-off; an admin uploads store numbers, a bad file is refused line by line,
   a good one shows a 23% close rate and the exit calibration waiting for 30 practice sessions, lost-deal reasons
   put "the payment is too high" first and list the reason they could not match, and a rep is refused; the Usage
   page counts the run's sessions and read debriefs; the reminder job refuses calls without its secret, then sends
