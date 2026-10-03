@@ -27,11 +27,18 @@ parameters:
       - '\b(the bank|they|the lender) (approved|approves) you\b'
       - '\byour (approval|loan) (is|came) (in|through|done)\b'
       - '\btake it home (tonight|today)\b.{0,40}\b(bank|approval|financ\w*)\b.{0,30}\b(later|tomorrow|monday|next week)\b'
+      # A promise of a future approval is still an approval claim (industry packs: "the lender will approve you").
+      - '\b(the bank|they|the lender|the finance company)( will|''ll| are going to| is going to)( definitely| for sure| easy)? approve you\b'
+      - '\byou(''ll| will| are going to|''re going to)( definitely| for sure| easy)? (get|be) approved\b'
+      - '\b(approval|getting approved|the approval) (is|will be) (guaranteed|a sure thing|no problem|not a problem)\b'
     es:
       - '\b(ya )?(está|esta|quedó) aprobad[oa]\b'
       - '\b(ya )?lo aprobaron\b'
       - '\bel banco (ya )?(lo|la) aprob[óo]\b'
       - '\bya salió (la|su) aprobación\b'
       - '\bllévese(lo|la)? hoy\b.{0,40}\b(banco|aprobación)\b.{0,30}\b(después|mañana|el lunes)\b'
+      - '\b(lo|la|le|los) (van|va) a aprobar\b'
+      - '\b(va|van) a salir aprobad[oa]s?\b'
+      - '\bla aprobación (es segura|está garantizada|no es problema)\b'
 legal_basis: Agreed rule (spec 4.2); FTC dealer enforcement
 attorney_reviewed: false

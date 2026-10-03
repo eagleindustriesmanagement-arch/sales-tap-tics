@@ -276,15 +276,17 @@ export function checkRate(rule: Rule, utterance: Utterance, ctx: CheckContext, m
   const text = utterance.text;
   const out: Violation[] = [];
 
-  // Payments must come from the facts (the numbers sheet) or the manager's real authority.
+  // Payments must come from the facts (the numbers sheet) or the manager's real authority. With neither, no payment
+  // has been quoted, so any payment the rep states is made up (a home buyer's mortgage, a cash deal).
   const min = facts.authority.min_payment_cents;
-  if (facts.payment_options.length > 0 || min !== null) {
+  {
     const max = Math.max(0, ...facts.payment_options.map((o) => o.cents));
     const lowest = Math.min(...facts.payment_options.map((o) => o.cents), min ?? Infinity);
     for (const m of claims(mentions, "payment")) {
       if (matchOption(facts, m.value, tolerance)) continue;
       // A small monthly amount is the cost of a product or a gap between offers ("twenty bucks a month"), not a payment.
-      if (Number.isFinite(lowest) && m.value < lowest / 4) continue;
+      // With no quoted payment to compare, anything under $50 a month is treated as that kind of small cost.
+      if (m.value < (Number.isFinite(lowest) ? lowest / 4 : 5000)) continue;
       if (min !== null && m.value >= min - tolerance && m.value <= max + tolerance) continue;
       const options = facts.payment_options.map((o) => formatDollars(o.cents, "en")).join(", ");
       out.push(

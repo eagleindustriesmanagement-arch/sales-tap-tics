@@ -48,8 +48,8 @@ negations:
 # Not "I'm not going to lie" / "no le voy a mentir": those are idioms for "honestly" and come before a claim, never
 # instead of one ("I'm not gonna lie, this price is only good today" is a made-up deadline).
 disclaimers:
-  en: ["\\b(I'?m|I am) not (going to|gonna) (tell|say|call|promise|pretend)", "\\bI (won'?t|will not|refuse to) (tell|say|call|promise|pretend)", "\\bI'?m not (telling|saying) (you )?(that|it'?s)"]
-  es: ["\\bno (se lo |se la |le |les )?(voy|vamos) a (decir|pintar|prometer|vender)", "\\bno (le )?(digo|estoy diciendo) que"]
+  en: ["\\b(I'?m|I am) not (going to|gonna) (tell|say|call|promise|pretend)", "\\bI (won'?t|will not|refuse to) (tell|say|call|promise|pretend)", "\\bI'?m not (telling|saying) (you )?(that|it'?s)", "\\bI (can'?t|cannot|can not) (promise|guarantee)"]
+  es: ["\\bno (se lo |se la |le |les )?(voy|vamos) a (decir|pintar|prometer|vender)", "\\bno (le )?(digo|estoy diciendo) que", "\\bno (le |se lo |se la )?(puedo|podemos) (prometer|garantizar|asegurar)"]
 # Questions and conditionals: the speaker is asking or hypothesizing, not stating a fact.
 question_markers:
   en: ["\\?", "\\bif\\b", "\\bwhether\\b"]

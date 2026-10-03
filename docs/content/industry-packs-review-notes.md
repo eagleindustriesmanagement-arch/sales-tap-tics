@@ -34,11 +34,18 @@ unreviewed and the customers practice but never certify.
   white-glove, performance, top-grain, el link, el down, condo; gavetas, volante (flyer), enchapado, roble macizo,
   "terciopelo performance color marfil", brackets (braces), calladito.
 
-## Engine gaps the authors found (not yet fixed; the live judge is the backstop)
+## Engine gaps the authors found
 
-- A monthly payment stated when the deal has no payment options ("your payment would be about $3,900 a month") is
-  not flagged by the deterministic check.
-- Future approval promises ("the lender will approve you") are not caught; only "you're pre-approved" is.
+Fixed (RATE-01, with regression tests in `packages/rules/test/engine-gaps.test.ts`):
+
+- A monthly payment stated when nothing was quoted (no payment options, no manager authority on payments) is made
+  up and flagged; the customer's own budget ("you said under $3,900 a month") and small monthly costs under $50 are
+  not.
+- A promised approval ("the lender will approve you", "lo van a aprobar") is an approval claim; "I can't promise",
+  "no le puedo prometer", a question or a condition is not.
+
+Still open (the live judge is the backstop):
+
 - "Free" in Spanish for a charged fee ("La entrega es gratis") is not caught when the fee code is English.
 - "Ours is $9,498 with delivery" is not read as a price claim.
 - "You need the plan to get approved" is not tied to the protection plan add-on.

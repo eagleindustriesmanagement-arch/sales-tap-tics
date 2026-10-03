@@ -11,8 +11,8 @@ when:
   es: Al final del descubrimiento, antes de los números
 model_line_kind: spoken
 model_line:
-  en: So you need three rows, under $600 a month, by the end of the month. Did I get that right?
-  es: Entonces necesita tres filas, menos de $600 al mes, para fin de mes. ¿Lo entendí bien?
+  en: So you need three rows, you said under $600 a month, and the car by the end of the month. Did I get that right?
+  es: Entonces necesita tres filas, usted dijo menos de $600 al mes, y el carro para fin de mes. ¿Lo entendí bien?
 flawed_line:
   en: Got it. Let me grab the keys to the Equinox and run you some numbers.
   es: Perfecto. Déjeme buscar las llaves de la Equinox y le saco unos números.

@@ -18,6 +18,10 @@ flawed_line:
   en: Okay, I'll get my manager to drop it to $575 a month.
   es: Está bien, voy a hacer que mi gerente se lo baje a $575 al mes.
 flawed_line_violates: []
+# The manager really can go to $575 here: the concession is true, the question is what it is traded for.
+example_deal:
+  payment_options: [{ code: finance_72, cents: 61900, term_months: 72, apr_bps: null, down_cents: 0, includes_add_ons: [] }]
+  authority: { min_all_in_price_cents: null, min_payment_cents: 57500, max_trade_cents: null, manager_has_room: true }
 why:
   en: This is a long-standing floor practice rather than a tested finding. A concession given for nothing invites the next ask; tying it to a commitment makes every move count toward the sale.
   es: Es una práctica de piso de toda la vida, no un hallazgo comprobado. Lo que se regala sin pedir nada a cambio invita a pedir más; amarrarlo a un compromiso hace que cada paso lo acerque a la venta.

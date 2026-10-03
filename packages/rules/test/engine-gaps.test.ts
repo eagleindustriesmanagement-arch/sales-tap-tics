@@ -230,3 +230,38 @@ describe("rules apply to the sales they govern (decision 0033)", () => {
     expect(rulesFor("This price is only good today.", "cars")).toContain("DEAD-01");
   });
 });
+
+describe("a payment nobody quoted is made up (industry packs, decision 0033)", () => {
+  // A home buyer's mortgage or a cash deal: no payment options on the sheet and no manager authority on payments.
+  const noPayments = () => {
+    const base = ctx();
+    return { ...base, facts: { ...base.facts!, payment_options: [], authority: { ...base.facts!.authority, min_payment_cents: null } } };
+  };
+  const rulesFor = (text: string, language: "en" | "es" = "en") =>
+    [...new Set(checkUtterance({ text, language, speaker: "rep" }, noPayments()).map((v) => v.rule))];
+  it("flags a monthly payment the rep states", () => {
+    expect(rulesFor("Your payment would be about $3,900 a month.")).toContain("RATE-01");
+    expect(rulesFor("Le queda en unos $3,900 al mes.", "es")).toContain("RATE-01");
+  });
+  it("leaves the customer's own budget and small monthly costs alone", () => {
+    expect(rulesFor("You said you want to stay under $3,900 a month.")).not.toContain("RATE-01");
+    expect(rulesFor("Monitoring is $15 a month if you want it.")).not.toContain("RATE-01");
+  });
+});
+
+describe("a promised approval is an approval claim (industry packs, decision 0033)", () => {
+  const rate = (text: string, language: "en" | "es" = "en") =>
+    checkUtterance({ text, language, speaker: "rep" }, ctx({ language })).some((v) => v.rule === "RATE-01");
+  it("flags a future approval said as a sure thing", () => {
+    expect(rate("Don't worry, the lender will approve you for the Ceiba.")).toBe(true);
+    expect(rate("You'll definitely get approved.")).toBe(true);
+    expect(rate("Tranquilo, el banco lo va a aprobar.", "es")).toBe(true);
+    expect(rate("Usted va a salir aprobado, no se preocupe.", "es")).toBe(true);
+  });
+  it("leaves an honest hedge, a question or a condition alone", () => {
+    expect(rate("I can't promise the lender will approve you; the lender decides.")).toBe(false);
+    expect(rate("If the lender approves you, we close on the 15th.")).toBe(false);
+    expect(rate("Do you think they will approve you?")).toBe(false);
+    expect(rate("No le puedo prometer que lo van a aprobar; eso lo decide el banco.", "es")).toBe(false);
+  });
+});

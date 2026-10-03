@@ -17,7 +17,7 @@ model_line:
 flawed_line:
   en: It is what it is. $599 a month for 72 months.
   es: Es lo que hay. $599 al mes, a 72 meses.
-flawed_line_violates: []
+flawed_line_violates: [RATE-01]
 why:
   en: This comes from trainer Mark Tewart, not a tested finding. Laying out every way to structure the deal moves a price-fixated customer from one number to choosing the setup that fits them.
   es: Viene del entrenador Mark Tewart, no de un hallazgo comprobado. Enseñar todas las formas de armar el negocio hace que el cliente obsesionado con un número pase a escoger la opción que le conviene.

@@ -17,7 +17,7 @@ model_line:
 flawed_line:
   en: With your trade, your payment comes out to $549 a month.
   es: Con su trade-in, el pago le queda en $549 al mes.
-flawed_line_violates: []
+flawed_line_violates: [RATE-01]
 why:
   en: This draws on Kim and others (2022). When the trade value is strong, showing it on its own line lets the customer see the good news instead of losing it inside the net.
   es: Se basa en Kim y otros (2022). Cuando el trade-in salió bien, ponerlo en su propia línea deja que el cliente vea la buena noticia en vez de que se pierda dentro del total.
