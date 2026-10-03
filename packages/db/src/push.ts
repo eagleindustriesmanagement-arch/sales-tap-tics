@@ -29,6 +29,8 @@ export interface ReminderCandidate {
   sentToday: boolean;
   practicedToday: boolean;
   subscriptions: PushSubscriptionRow[];
+  /** The store's peak hours, when the person belongs to a store with settings (spec 15.3 item 5). */
+  peaks: { day: number; from: string; to: string }[] | null;
 }
 
 /**
@@ -36,16 +38,17 @@ export interface ReminderCandidate {
  * reminder already went out today and whether they already practiced today, in the store's time zone.
  */
 export async function reminderCandidates(db: Queryable, day: string, timeZone = "America/New_York"): Promise<ReminderCandidate[]> {
-  const r = await db.query<{ user_id: string; preferred_language: "en" | "es"; reminder_time: string; sent_today: boolean; practiced_today: boolean; subs: PushSubscriptionRow[] }>(
+  const r = await db.query<{ user_id: string; preferred_language: "en" | "es"; reminder_time: string; sent_today: boolean; practiced_today: boolean; subs: PushSubscriptionRow[]; peaks: ReminderCandidate["peaks"] }>(
     `select u.id user_id, u.preferred_language, to_char(u.reminder_time, 'HH24:MI') reminder_time,
             exists (select 1 from reminders_sent r where r.user_id = u.id and r.day = $1::date) sent_today,
             exists (select 1 from sessions s where s.user_id = u.id and (s.started_at at time zone $2)::date = $1::date) practiced_today,
-            (select json_agg(json_build_object('endpoint', p.endpoint, 'p256dh', p.p256dh, 'auth', p.auth)) from push_subscriptions p where p.user_id = u.id) subs
+            (select json_agg(json_build_object('endpoint', p.endpoint, 'p256dh', p.p256dh, 'auth', p.auth)) from push_subscriptions p where p.user_id = u.id) subs,
+            (select sp.peak_hours from memberships m join store_policies sp on sp.store_id = m.store_id where m.user_id = u.id order by m.created_at limit 1) peaks
      from users u
      where u.status = 'active' and u.reminder_time is not null and exists (select 1 from push_subscriptions p where p.user_id = u.id)`,
     [day, timeZone],
   );
-  return r.rows.map((row) => ({ userId: row.user_id, language: row.preferred_language, reminderTime: row.reminder_time, sentToday: row.sent_today, practicedToday: row.practiced_today, subscriptions: row.subs ?? [] }));
+  return r.rows.map((row) => ({ userId: row.user_id, language: row.preferred_language, reminderTime: row.reminder_time, sentToday: row.sent_today, practicedToday: row.practiced_today, subscriptions: row.subs ?? [], peaks: row.peaks }));
 }
 
 /** Records today's reminder, so a person never gets two in a day. Returns false if one was already recorded. */

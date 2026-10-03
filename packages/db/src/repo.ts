@@ -417,6 +417,8 @@ export interface StoreSetup {
   walkInMetric: "all_logged_ups" | "qualified_ups";
   languages: ("en" | "es")[];
   spanishRegister: "usted" | "tu";
+  /** No reminders in these windows (spec 15.3 item 5); 0 = Sunday, store time. */
+  peakHours: { day: number; from: string; to: string }[];
   approvedBy: string | null;
   approvedAt: Date | null;
 }
@@ -443,6 +445,7 @@ export async function loadStoreSetup(db: Queryable, storeId: string): Promise<St
     walkInMetric: p.walk_in_metric ?? "all_logged_ups",
     languages: (store.settings["languages"] as ("en" | "es")[]) ?? ["en", "es"],
     spanishRegister: (store.settings["spanish_register"] as "usted" | "tu") ?? "usted",
+    peakHours: (p.peak_hours as StoreSetup["peakHours"] | undefined) ?? [{ day: 6, from: "11:00", to: "17:00" }],
     approvedBy: p.approved_by ?? null,
     approvedAt: p.approved_at ?? null,
   };
@@ -452,7 +455,7 @@ export async function loadStoreSetup(db: Queryable, storeId: string): Promise<St
  * Saves the setup wizard (general manager only). Any change clears the compliance sign-off, because scripts and the
  * compliance checker read these settings (spec 3.4). Every save is audit-logged with what changed.
  */
-export async function saveStoreSetup(db: Queryable, user: UserContext, input: Omit<StoreSetup, "storeName" | "approvedBy" | "approvedAt">) {
+export async function saveStoreSetup(db: Queryable, user: UserContext, input: Omit<StoreSetup, "storeName" | "approvedBy" | "approvedAt" | "peakHours"> & { peakHours?: StoreSetup["peakHours"] }) {
   if (!user.roles.includes("general_manager")) throw new Error("only a general manager changes store settings");
   const before = await loadStoreSetup(db, input.storeId);
   if (!before) throw new Error("store not found");
@@ -465,6 +468,7 @@ export async function saveStoreSetup(db: Queryable, user: UserContext, input: Om
        stop_on_critical = excluded.stop_on_critical, walk_in_metric = excluded.walk_in_metric, approved_by = null, approved_at = null`,
     [user.tenantId, input.storeId, input.addOnRemoval, input.referralReward, input.textConsentEn || null, input.textConsentEs || null, input.privateWindowHours, input.audioRetentionDays, input.stopOnCritical, input.walkInMetric],
   );
+  if (input.peakHours) await db.query("update store_policies set peak_hours = $2 where store_id = $1", [input.storeId, JSON.stringify(input.peakHours)]);
   await db.query("update stores set settings = settings || $2::jsonb where id = $1", [input.storeId, JSON.stringify({ languages: input.languages, spanish_register: input.spanishRegister })]);
   await db.query("delete from store_fees where store_id = $1", [input.storeId]);
   for (const f of input.fees) {

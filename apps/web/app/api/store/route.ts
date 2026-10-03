@@ -23,6 +23,11 @@ const SetupInput = z
     walkInMetric: z.enum(["all_logged_ups", "qualified_ups"]),
     languages: z.array(z.enum(["en", "es"])).min(1),
     spanishRegister: z.enum(["usted", "tu"]),
+    // No reminders in these windows (spec 15.3 item 5). Optional: a save without it keeps the store's current hours.
+    peakHours: z
+      .array(z.object({ day: z.number().int().min(0).max(6), from: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/), to: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/) }).strict().refine((w) => w.from < w.to, "a window ends after it starts"))
+      .max(14)
+      .optional(),
   })
   .strict()
   // Bilingual parity (spec 1.2 item 3): consent wording exists in both languages or in neither.

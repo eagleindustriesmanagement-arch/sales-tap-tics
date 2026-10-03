@@ -31,7 +31,7 @@ export async function sendDueReminders(now = new Date(), everyMinutes = 60) {
     await withClient((client) =>
       withTenant(client, { tenantId: tenant.id, role: "app_worker" }, async (db) => {
         for (const c of await reminderCandidates(db, clock.day, TZ)) {
-          if (!reminderDue({ chosen: c.reminderTime, weekday: clock.weekday, nowLocal: clock.time, sentToday: c.sentToday, practicedToday: c.practicedToday, everyMinutes })) continue;
+          if (!reminderDue({ chosen: c.reminderTime, weekday: clock.weekday, nowLocal: clock.time, sentToday: c.sentToday, practicedToday: c.practicedToday, peaks: c.peaks ?? undefined, everyMinutes })) continue;
           // Claim the day first, so two overlapping runs never send twice.
           if (!(await markReminderSent(db, tenant.id, c.userId, clock.day, c.subscriptions.length))) continue;
           people += 1;
