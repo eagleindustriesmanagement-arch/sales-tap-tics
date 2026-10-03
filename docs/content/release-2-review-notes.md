@@ -17,7 +17,9 @@ review screen (decision 0010). Release 1 does not wait on these.
 | --- | --- |
 | O47 three-day cancel | Florida has no three-day cooling-off period for a car bought at the dealership (the CANCEL-01 rule's own statement). |
 | O49 GAP, O54 warranty | GAP is optional and not required for approval (ADD-01). A Florida service contract can be cancelled within 60 days for a full refund, less claims paid and an admin fee of up to 5%, and prorated after that (ADD-04). The GAP definition is copied from S-no-extras-L2. |
-| O44 tax credit | The federal new-EV credit ended for vehicles acquired after September 30, 2025. The good rep confirms the customer is right. |
+| O44 tax credit | The federal new-EV credit ended for vehicles acquired after September 30, 2025 (the pre-brief's wording). The rep says "bought after September 30, 2025", which simplifies the IRS binding-contract-and-payment test. The rep confirms the customer is right and implies no replacement incentive (`rebates: []`). |
+| O48 battery heat | Heat ages batteries a little more than cooler places do, and charging at home is the best habit (T073's line and its source). The rep offers to print Chevrolet's battery warranty and states no years, miles or figures. |
+| O26, O42 competitors | The other store's numbers live only in `customer_knows`. The rep never repeats or guesses them, and never states a trade value without an appraisal. |
 | O28 to O32, O48 (EVs) | The rep states no range, charging or warranty figure from memory. Instead the rep reads the window sticker, has an electrician check the panel, pulls a battery report on the car, and looks up the factory battery warranty by VIN. Heat, air conditioning and highway speed lower range. |
 | O53 plain words | APR in plain words: "what the loan costs you per year, as a percentage" (a simplification). |
 | O45, O17, O24, O43, O61 | No price, rate, resale or new-model prediction anywhere. A closed-end lease sets its end value in the contract. |
@@ -72,7 +74,12 @@ review screen (decision 0010). Release 1 does not wait on these.
     período de arrepentimiento; materiales del taller; una respuesta derecha.
 - **Openers to hear aloud:** "Tranquilo. Yo no tengo ningún apuro." (O63); "Mmm. Bueno." (O62); "Bien, gracias.
   Pero... English is fine." (O39).
-- **Voices:** some female first names in the name pools need a female voice: Yanelis, Daymí, Mileidy. One good rep
+- **Batch for O26, O42, O43, O44, O48:** la Trax parqueada al frente, el parqueo (the parking lot), parqueo en el
+  último piso descubierto, no quiero quedar mal con ella, esa gente de internet dice cualquier cosa, me la iban a
+  tasar bajo, comparar lo mismo con lo mismo, un lease, los cargos al final del lease, no me vino con cuentos, que me
+  estiraran ni que me llevaran por donde no quiero, me cansé de las gasolineras, se cocine todo el día, no le quite
+  importancia, después de clases.
+- **Voices:** some female first names in the name pools need a female voice: Yanelis, Daymí, Mileidy, Yusimí, Dailyn, Lianet. One good rep
   is a woman ("sincera", "juntas", in O61).
 
 ## Engine notes the authors hit

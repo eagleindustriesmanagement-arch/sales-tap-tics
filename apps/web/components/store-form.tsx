@@ -19,6 +19,7 @@ export interface StoreFormValue {
   walkInMetric: "all_logged_ups" | "qualified_ups";
   languages: ("en" | "es")[];
   spanishRegister: "usted" | "tu";
+  peakHours: { day: number; from: string; to: string }[];
   approvedAt: string | null;
 }
 
@@ -36,9 +37,9 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove }: { in
   async function save(e: React.FormEvent) {
     e.preventDefault();
     // Only the editable settings: the server refuses anything else.
-    const { fees, addOnRemoval, referralReward, textConsentEn, textConsentEs, privateWindowHours, audioRetentionDays, stopOnCritical, walkInMetric, languages, spanishRegister } = v;
+    const { fees, addOnRemoval, referralReward, textConsentEn, textConsentEs, privateWindowHours, audioRetentionDays, stopOnCritical, walkInMetric, languages, spanishRegister, peakHours } = v;
     const body = {
-      fees, addOnRemoval, referralReward, textConsentEn, textConsentEs, privateWindowHours, audioRetentionDays, stopOnCritical, walkInMetric, languages, spanishRegister,
+      fees, addOnRemoval, referralReward, textConsentEn, textConsentEs, privateWindowHours, audioRetentionDays, stopOnCritical, walkInMetric, languages, spanishRegister, peakHours,
       lenders: lenders.split("\n").map((l) => l.trim()).filter(Boolean).map((l) => ({ name: l.replace(/\s*\*$/, ""), isCreditAcceptance: l.endsWith("*") })),
     };
     const res = await fetch("/api/store", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
@@ -57,6 +58,9 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove }: { in
   }
 
   const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { dateStyle: "medium", timeZone: "America/New_York" });
+  // 2026-10-04 was a Sunday: day n of that week names weekday n in the rep's language.
+  const dayName = (n: number) => new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "long", timeZone: "UTC" }).format(new Date(Date.UTC(2026, 9, 4 + n)));
+  const setPeak = (i: number, patch: Partial<StoreFormValue["peakHours"][number]>) => set("peakHours", v.peakHours.map((p, j) => (i === j ? { ...p, ...patch } : p)));
   return (
     <form onSubmit={save} className="space-y-4">
       <Card>
@@ -114,6 +118,22 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove }: { in
             {(["en", "es"] as const).map((l) => (
               <label key={l} className="mr-4 inline-flex min-h-11 items-center gap-2 text-ink"><input type="checkbox" className="h-5 w-5" checked={v.languages.includes(l)} onChange={(e) => set("languages", e.target.checked ? [...v.languages, l] : v.languages.filter((x) => x !== l))} />{ui(`scenario.language.${l}`)}</label>
             ))}
+          </fieldset>
+          <fieldset className="space-y-2 text-sm" data-testid="peak-hours"><legend>{ui("store.peaks")}</legend>
+            <p className="text-muted">{ui("store.peaksHelp")}</p>
+            {v.peakHours.map((p, i) => (
+              <div key={i} className="grid grid-cols-[1fr_auto_auto_auto] items-end gap-2">
+                <label className="block">{ui("store.peakDay")}
+                  <select className={input} value={p.day} onChange={(e) => setPeak(i, { day: Number(e.target.value) })}>
+                    {[0, 1, 2, 3, 4, 5, 6].map((d) => <option key={d} value={d}>{dayName(d)}</option>)}
+                  </select>
+                </label>
+                <label className="block">{ui("store.peakFrom")}<input className={input} type="time" value={p.from} onChange={(e) => setPeak(i, { from: e.target.value })} /></label>
+                <label className="block">{ui("store.peakTo")}<input className={input} type="time" value={p.to} onChange={(e) => setPeak(i, { to: e.target.value })} /></label>
+                <button type="button" className="min-h-12 rounded-full px-3 font-semibold text-bad" onClick={() => set("peakHours", v.peakHours.filter((_, j) => j !== i))}>{ui("store.peakRemove")}</button>
+              </div>
+            ))}
+            {v.peakHours.length < 14 && <button type="button" className={ghostButtonClass} onClick={() => set("peakHours", [...v.peakHours, { day: 6, from: "11:00", to: "17:00" }])}>{ui("store.peakAdd")}</button>}
           </fieldset>
           <label className="block text-sm">{ui("store.register")}
             <select className={input} value={v.spanishRegister} onChange={(e) => set("spanishRegister", e.target.value as "usted" | "tu")}><option value="usted">usted</option><option value="tu">tú</option></select>

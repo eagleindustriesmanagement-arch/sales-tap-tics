@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type pg from "pg";
-import { loadUser, markReminderSent, reminderCandidates, removePushSubscription, savePushSubscription, withTenant } from "../src/index.js";
+import { loadStoreSetup, loadUser, markReminderSent, saveStoreSetup, reminderCandidates, removePushSubscription, savePushSubscription, withTenant } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
 
@@ -46,6 +46,15 @@ describe.skipIf(SKIP)("practice reminders by Web Push (spec 15.3 item 5)", () =>
     expect((await worker((q) => reminderCandidates(q, day)))[0]!.sentToday).toBe(true);
     // The send log is the job's alone.
     expect((await as(GM, (q) => q.query("select * from reminders_sent"))).rowCount).toBe(0);
+    // The store's peak hours reach the job; a save without them keeps them.
+    expect((await worker((q) => reminderCandidates(q, day)))[0]!.peaks).toEqual([{ day: 6, from: "11:00", to: "17:00" }]);
+    const gm = (await as(GM, (q) => loadUser(q, GM)))!;
+    const setup = (await as(GM, (q) => loadStoreSetup(q, DEMO.store)))!;
+    const { storeName: _n, approvedBy: _b, approvedAt: _a, ...input } = setup;
+    await as(GM, (q) => saveStoreSetup(q, gm, { ...input, peakHours: [{ day: 0, from: "12:00", to: "16:00" }] }));
+    const { peakHours: _p, ...withoutPeaks } = input;
+    await as(GM, (q) => saveStoreSetup(q, gm, withoutPeaks));
+    expect((await worker((q) => reminderCandidates(q, day)))[0]!.peaks).toEqual([{ day: 0, from: "12:00", to: "16:00" }]);
     await removePushSubscriptionAs(REP);
     expect(await worker((q) => reminderCandidates(q, day))).toEqual([]);
   });

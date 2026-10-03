@@ -538,6 +538,13 @@ export const STRINGS = {
   "card.checked": { en: "Checked by your manager", es: "Revisada por su gerente" },
 
   "nav.store": { en: "Store", es: "Tienda" },
+  "store.peaks": { en: "Peak hours", es: "Horas de más movimiento" },
+  "store.peaksHelp": { en: "No practice reminders go out during these hours.", es: "En estas horas no se mandan recordatorios de práctica." },
+  "store.peakDay": { en: "Day", es: "Día" },
+  "store.peakFrom": { en: "From", es: "Desde" },
+  "store.peakTo": { en: "To", es: "Hasta" },
+  "store.peakRemove": { en: "Remove", es: "Quitar" },
+  "store.peakAdd": { en: "Add peak hours", es: "Agregar horas de movimiento" },
   "store.title": { en: "Store setup", es: "Configuración de la tienda" },
   "store.intro": {
     en: "Scripts and the compliance checker read these settings. Any change needs the compliance reviewer's sign-off again.",
