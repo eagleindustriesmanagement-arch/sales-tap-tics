@@ -277,7 +277,8 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
             )}
           </ol>
           {error && <p role="alert" className="mt-4 flex items-center justify-center gap-2 font-semibold text-bad"><IconAlert size={18} />{error}</p>}
-          <div ref={bottom} />
+          {/* Scrolling to the end keeps the last line clear of the fixed composer or end panel below it. */}
+          <div ref={bottom} className="scroll-mb-48" />
         </div>
 
         <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
@@ -403,7 +404,11 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       {/* Primary actions live in the bottom 40% (guidelines §7). */}
       <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
         <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4">
-          <button className={`${buttonClass} w-full`} onClick={start} disabled={busy}><IconPlay size={18} className="fill-current" />{ui("scenario.start")}</button>
+          <button className={`${buttonClass} w-full`} onClick={start} disabled={busy} aria-busy={busy}>
+            {busy
+              ? <><span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true" />{ui("scenario.starting")}</>
+              : <><IconPlay size={18} className="fill-current" />{ui("scenario.start")}</>}
+          </button>
           {phase === "intro" && <button className={`${ghostButtonClass} w-full`} onClick={() => setPhase("demo")}><IconEye size={18} />{ui("scenario.watchDemo")}</button>}
         </div>
       </div>

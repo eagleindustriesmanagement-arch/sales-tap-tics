@@ -2,8 +2,8 @@ import Link from "next/link";
 import { coachingQuality, coachPracticeSummary, listAssignments, listSessions, teamCertification, teamOverview } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { coachingFocus } from "@taptics/session";
-import { IconChevronRight, IconClipboard, IconTarget } from "@/components/icons";
-import { Avatar, Card, Chip, ListRow, PageHeader, RowGroup, ScoreBadge, SectionTitle } from "@/components/ui";
+import { IconChevronRight, IconClipboard, IconTarget, IconUsers } from "@/components/icons";
+import { Avatar, Card, Chip, Empty, ListRow, PageHeader, RowGroup, ScoreBadge, SectionTitle, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library, scheduleInputs } from "@/lib/server";
@@ -44,6 +44,12 @@ export default async function Team() {
       <section className="space-y-2.5">
         <SectionTitle>{t("team.reps", lang)}</SectionTitle>
         <RowGroup>
+          {/* A new store has nobody yet: say what to do next rather than show an empty list. */}
+          {focused.length === 0 && (
+            <Empty icon={<IconUsers size={22} />} action={gm ? <Link href="/manager/people" className={buttonClass}>{t("team.addPeople", lang)}</Link> : undefined}>
+              {t(gm ? "team.emptyGm" : "team.emptyManager", lang)}
+            </Empty>
+          )}
           {focused.map((r) => (
             <Link key={r.id} href={`/manager/team/${r.id}`} aria-label={r.first_name ?? ""} aria-describedby={`rep-${r.id}`} className="row-hover flex min-h-[72px] items-center gap-3 px-4 py-3">
               <Avatar name={r.first_name ?? "?"} size={44} />

@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { t } from "@taptics/i18n";
 import { isManager } from "@taptics/db";
+import { Suspense } from "react";
 import { AppChrome, type Tab } from "@/components/app-chrome";
+import { NavProgress } from "@/components/nav-progress";
 import { currentUser } from "@/lib/auth";
 import { language } from "@/lib/server";
 import "./globals.css";
@@ -55,6 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-surface focus:px-4 focus:py-2 focus:text-ink">
           {lang === "es" ? "Ir al contenido" : "Skip to content"}
         </a>
+        <Suspense fallback={null}><NavProgress /></Suspense>
         <AppChrome
           tabs={tabs}
           appName={t("app.name", lang)}

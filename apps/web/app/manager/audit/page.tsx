@@ -1,5 +1,5 @@
 import { auditEntries } from "@taptics/db";
-import { t } from "@taptics/i18n";
+import { STRINGS, t } from "@taptics/i18n";
 import { Card, PageHeader } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
@@ -14,15 +14,21 @@ export default async function Audit() {
   return (
     <div className="space-y-4">
       <PageHeader title={t("audit.title", lang)} subtitle={t("audit.intro", lang)} />
-      <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("audit.title", lang)}>
-        <table className="w-full text-left text-sm">
-          <thead className="border-b border-line text-[13px] text-muted [&_th]:font-medium"><tr><th className="py-2 pr-3">{t("audit.when", lang)}</th><th className="pr-3">{t("audit.who", lang)}</th><th className="pr-3">{t("audit.what", lang)}</th><th>{t("audit.target", lang)}</th></tr></thead>
-          <tbody className="divide-y divide-line-soft text-ink" data-testid="audit-rows">
-            {entries.map((e, i) => (
-              <tr key={i}><td className="py-2 pr-3 whitespace-nowrap">{fmt.format(new Date(e.at))}</td><td className="pr-3">{e.actor ?? "—"}</td><td className="pr-3 font-mono text-xs">{e.action}</td><td>{e.target_name ?? e.target_type}</td></tr>
-            ))}
-          </tbody>
-        </table>
+      {/* One entry per row, in plain words: who did what, to whom, when. Unknown codes show as they are. */}
+      <Card className="p-0" role="region" aria-label={t("audit.title", lang)}>
+        <ul className="divide-y divide-line-soft" data-testid="audit-rows">
+          {entries.map((e, i) => {
+            const key = `audit.action.${e.action}`;
+            const what = key in STRINGS ? t(key as keyof typeof STRINGS, lang) : e.action;
+            const target = e.target_name && e.target_name !== e.actor ? e.target_name : null;
+            return (
+              <li key={i} className="px-4 py-3">
+                <p className="text-[15px] text-ink"><span className="font-semibold">{e.actor ?? "—"}</span> · {what}{target ? <span className="text-body"> · {target}</span> : null}</p>
+                <p className="text-[13px] text-muted">{fmt.format(new Date(e.at))}</p>
+              </li>
+            );
+          })}
+        </ul>
       </Card>
     </div>
   );

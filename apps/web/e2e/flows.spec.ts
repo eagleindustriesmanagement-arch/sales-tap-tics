@@ -78,6 +78,10 @@ test("a rep signs in, accepts the notice, practices, and the session is saved", 
   await page.getByRole("button", { name: /See debrief|End session/ }).first().click();
   await expect(page.getByRole("heading", { name: "Debrief" })).toBeVisible();
   await expect(page.getByText("Partial", { exact: true })).toBeVisible();
+  // A partial score is out of what could be scored, never "out of 100"; each behavior is named, not its status.
+  await expect(page.getByText(/on the \d+% that could be scored/)).toBeVisible();
+  await page.getByText("Every behavior scored").click();
+  await expect(page.getByTestId("scored-item").first()).not.toContainText(/^Not scored in text mode/);
   await expect(page.getByText(/The payment is about \$60 a month above/)).toBeVisible();
 
   const c = db();
@@ -408,7 +412,7 @@ test("a rep sees their progress; a manager opens a rep's detail from the team vi
   await signInReady(manager, "manager@demo.test");
   await manager.goto("/manager/team");
   await manager.getByRole("link", { name: "Ana", exact: true }).click();
-  await expect(manager.getByRole("heading", { name: "Ana" })).toBeVisible();
+  await expect(manager.getByRole("heading", { name: "Ana", exact: true })).toBeVisible();
   await expect(manager.getByTestId("progress-cards")).toContainText("Checked on the floor: Yes");
   // A rep cannot open another rep's detail.
   await page.goto(`/manager/team/${(await manager.url()).split("/").pop()}`);
@@ -454,7 +458,7 @@ test("a manager flags a score with a reason; the rep sees it; the general manage
   const gm = await browser.newPage();
   await signInReady(gm, "gm@demo.test");
   await gm.goto("/manager/audit");
-  await expect(gm.getByTestId("audit-rows")).toContainText("score.override");
+  await expect(gm.getByTestId("audit-rows")).toContainText("Changed a score");
   const csv = await gm.request.get("/api/export");
   expect(csv.headers()["content-type"]).toContain("text/csv");
   const body = await csv.text();

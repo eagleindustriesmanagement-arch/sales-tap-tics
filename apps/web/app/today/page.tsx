@@ -4,7 +4,7 @@ import { currentObjectionWeights, isManager, listAssignments, listSessions, prac
 import { t } from "@taptics/i18n";
 import { certificationState, dailyPlan, practiceStreak, type PlanReason } from "@taptics/session";
 import { IconBulb, IconCheck, IconClock, IconFlame, IconPlay, IconTarget, IconTrophy } from "@/components/icons";
-import { Card, Chip, Inset, ListRow, Ring, RowGroup, ScoreBadge, SectionTitle, buttonClass, titleClass } from "@/components/ui";
+import { Card, Chip, Inset, ListRow, Ring, RowGroup, ScoreBadge, SectionTitle, buttonClass, quoted, titleClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library, scheduleInputs } from "@/lib/server";
@@ -99,7 +99,7 @@ export default async function Today() {
           <h2 id="up-next" className="mt-4 font-display text-[34px] leading-[1.06] text-ink sm:text-[40px]">{next.title[lang]}</h2>
           <p className="mt-2 text-[16px] text-body">{next.setting[lang]}</p>
           {top && top.reason.kind !== "assigned" && <p className="mt-3 text-[15px] font-medium text-brand" data-testid="plan-reason">{reasonText(top.reason, lang)}</p>}
-          {assignedNext?.reason && <p className="liquid-glass-inset mt-3 rounded-2xl p-3 text-[15px] text-ink" data-testid="assignment-reason">“{assignedNext.reason}”</p>}
+          {assignedNext?.reason && <p className="liquid-glass-inset mt-3 rounded-2xl p-3 text-[15px] text-ink" data-testid="assignment-reason">{quoted(assignedNext.reason)}</p>}
           {assignedNext?.dueAt && <p className="mt-2 flex items-center gap-1.5 text-[14px] font-semibold text-ink"><IconClock size={16} className="text-brand" />{t("assign.dueOn", lang, { date: dueFmt.format(new Date(assignedNext.dueAt)) })}</p>}
           <ul className="mt-4 flex flex-wrap gap-1.5" aria-label={t("scenario.targets", lang)}>
             {next.target_techniques.slice(0, 3).map((code) => (
@@ -147,7 +147,7 @@ export default async function Today() {
                   <p className="mt-0.5 text-[15px]">{card.behavior[lang]}</p>
                 </div>
               </div>
-              <Inset className="text-[15px]">“{card.floor_check_script.line[lang]}”</Inset>
+              <Inset className="text-[15px]">{quoted(card.floor_check_script.line[lang])}</Inset>
               {cards[0]!.status === "checked" && <Chip tone="good" icon={<IconCheck size={15} />}>{t("card.checked", lang)}</Chip>}
             </div>
           ) : (

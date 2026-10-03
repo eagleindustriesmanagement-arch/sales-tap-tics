@@ -46,6 +46,15 @@ test("a dealership signs up, the owner invites a rep, and the rep practices in t
   await expect(page.getByTestId("welcome")).toContainText("Your store is open");
   await expect(page.getByText(owner)).toBeVisible();
   await expect(page.getByText("rep@demo.test")).toHaveCount(0);
+  // An empty team says what to do next instead of showing an empty list.
+  await page.goto("/manager/team");
+  await expect(page.getByRole("link", { name: "Add your team" })).toHaveAttribute("href", "/manager/people");
+  await page.goto("/manager/people");
+  // A wrong address is a real 404 with a way back, not a bare error page.
+  const missing = await page.goto("/no-such-page");
+  expect(missing?.status()).toBe(404);
+  await expect(page.getByRole("heading", { name: "Wrong lot." })).toBeVisible();
+  await page.goto("/manager/people");
 
   // The owner adds a rep; the rep is told by email.
   await page.getByLabel("First name").fill("Yoel");

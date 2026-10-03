@@ -1,11 +1,12 @@
 import type { DebriefPayload } from "@/components/debrief";
+import { itemBehavior } from "@/lib/server";
 
 interface Source {
   language: "en" | "es";
   offline: boolean;
   endReason: string | null;
   nextStepSecured: boolean;
-  score: { total: number; passed: boolean; partial?: boolean; coverage?: number; threshold?: number; honestyPassed: boolean; items: { code: string; points: number; max: number; status: string; explanation: { en: string; es: string } }[] };
+  score: { total: number; passed: boolean; partial?: boolean; coverage?: number; threshold?: number; honestyPassed: boolean; items: { code: string; points: number; max: number; status: string; explanation: { en: string; es: string }; evidence?: { turnIndex: number; quote: string } | null }[] };
   debrief: DebriefPayload["debrief"];
   transcript: { index: number; speaker: "rep" | "customer"; text: string }[];
 }
@@ -24,7 +25,8 @@ export function debriefPayload(r: Source): DebriefPayload {
       coverage: r.score.coverage ?? 1,
       threshold: r.score.threshold ?? r.debrief.score?.threshold ?? 70,
       honestyPassed: r.score.honestyPassed,
-      items: r.score.items.map((i) => ({ code: i.code, points: i.points, max: i.max, status: i.status, explanation: i.explanation })),
+      // The behavior's own name labels the row; the explanation (evidence, or why it was not scored) goes under it.
+      items: r.score.items.map((i) => ({ code: i.code, points: i.points, max: i.max, status: i.status, explanation: i.explanation, behavior: itemBehavior(i.code) ?? i.explanation, quote: i.evidence?.quote || null })),
     },
     debrief: r.debrief,
     transcript: r.transcript.map((t) => ({ index: t.index, speaker: t.speaker, text: t.text })),

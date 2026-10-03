@@ -194,3 +194,6 @@ export const ghostButtonClass = "liquid-glass liquid-glass-flat inline-flex min-
 export const smallButtonClass = "liquid-glass liquid-glass-flat inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full px-4 text-[15px] font-semibold text-ink";
 export const fieldClass = "liquid-glass-field min-h-12 w-full rounded-[0.875rem] px-3.5 text-ink";
 export const linkClass = "font-semibold text-brand";
+
+/** A quoted line in curly quotes, whether or not the text already carries its own quote marks. */
+export const quoted = (s: string) => `“${s.trim().replace(/^["“”'‘’]+|["“”'‘’]+$/g, "")}”`;

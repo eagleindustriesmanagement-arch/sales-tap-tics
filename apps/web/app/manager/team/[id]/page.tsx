@@ -26,7 +26,7 @@ export default async function RepDetail({ params }: { params: Promise<{ id: stri
       <ProgressView progress={data.progress} history={data.past.history} lang={lang} />
       {data.sessions.length > 0 && (
         <section className="space-y-2.5">
-          <SectionTitle>{t("history.title", lang)}</SectionTitle>
+          <SectionTitle>{t("team.repSessions", lang, { name: data.name ?? "" })}</SectionTitle>
           <RowGroup>
             {data.sessions.map((s) => (
               <ListRow key={s.id} href={`/history/${s.id}`} title={library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode} trailing={<ScoreBadge total={s.total} partial={s.partial} />} />

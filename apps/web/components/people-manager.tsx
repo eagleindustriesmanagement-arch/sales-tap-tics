@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { t, type Language } from "@taptics/i18n";
-import { Card, buttonClass } from "@/components/ui";
+import { IconChevronRight } from "@/components/icons";
+import { Card, Chip, buttonClass } from "@/components/ui";
 
 const ROLES = ["rep", "bdc_agent", "manager", "general_manager", "content_editor", "compliance_reviewer"] as const;
 type Role = (typeof ROLES)[number];
@@ -78,9 +79,16 @@ export function PeopleManager({ language: lang, people, me }: { language: Langua
                   <span className={p.status === "active" ? "text-good" : "text-bad"}>{ui(p.status === "active" ? "people.active" : "people.inactive")}</span>
                 </div>
                 <p className="text-sm text-muted">{[p.email, p.phone].filter(Boolean).join(" · ")}</p>
-                {roleBoxes(roles, (r) => setEdits({ ...edits, [p.id]: r }), `roles-${p.id}`)}
+                {/* Roles at a glance; changing them is one tap away instead of six checkboxes per person. */}
+                <div className="flex flex-wrap gap-1.5">{p.roles.map((r) => <Chip key={r}>{ui(`role.${r}` as "role.rep")}</Chip>)}</div>
+                <details className="group">
+                  <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1 font-semibold text-brand">{ui("people.editRoles")}<IconChevronRight size={16} className="transition-transform group-open:rotate-90" /></summary>
+                  <div className="space-y-2 pt-2">
+                    {roleBoxes(roles, (r) => setEdits({ ...edits, [p.id]: r }), `roles-${p.id}`)}
+                    <button className="min-h-11 liquid-glass liquid-glass-flat liquid-glass-ring rounded-full px-5 font-semibold text-brand" onClick={() => update(p.id, { roles })}>{ui("people.saveRoles")}</button>
+                  </div>
+                </details>
                 <div className="flex flex-wrap gap-2">
-                  <button className="min-h-11 liquid-glass liquid-glass-flat liquid-glass-ring rounded-full px-5 font-semibold text-brand" onClick={() => update(p.id, { roles })}>{ui("people.saveRoles")}</button>
                   {p.id !== me && (
                     <button className="min-h-11 liquid-glass liquid-glass-flat rounded-full px-5 font-semibold text-ink" onClick={() => update(p.id, { status: p.status === "active" ? "inactive" : "active" })}>
                       {ui(p.status === "active" ? "people.deactivate" : "people.reactivate")}

@@ -2,7 +2,7 @@ import type { RepProgress } from "@taptics/db";
 import { t, type Language } from "@taptics/i18n";
 import { certificationState, masteryFrom, practiceStreak, type Observation } from "@taptics/session";
 import { IconBulb, IconCheck, IconFlame, IconTrophy } from "@/components/icons";
-import { Bar, Card, Ring, SectionTitle } from "@/components/ui";
+import { Bar, Card, Ring, SectionTitle, quoted } from "@/components/ui";
 import { itemBehavior, library, scheduleInputs } from "@/lib/server";
 
 const DIMENSIONS = ["discovery", "technique", "composure", "outcome"] as const;
@@ -131,7 +131,7 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
                   <div className="min-w-0">
                     <p className="text-[15px] font-semibold text-ink">{lib.behaviorCards.get(c.cardCode)?.title[lang] ?? c.cardCode}</p>
                     <p className="text-[13px] text-muted">{fmtWeek(c.week)}</p>
-                    <p className="mt-1 text-[14px] text-body">{c.observed ? t("progress.checked", lang, { observed: t(`floor.observed.${c.observed}` as "floor.observed.yes", lang) }) : t(`progress.card.${c.status}` as "progress.card.open", lang)}{c.note ? ` · “${c.note}”` : ""}</p>
+                    <p className="mt-1 text-[14px] text-body">{c.observed ? t("progress.checked", lang, { observed: t(`floor.observed.${c.observed}` as "floor.observed.yes", lang) }) : t(`progress.card.${c.status}` as "progress.card.open", lang)}{c.note ? ` · ${quoted(c.note)}` : ""}</p>
                   </div>
                 </li>
               ))}

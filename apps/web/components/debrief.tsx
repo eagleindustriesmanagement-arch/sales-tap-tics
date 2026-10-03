@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, type CSSProperties } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
 import { IconAlert, IconBulb, IconCheck, IconChevronRight, IconEye, IconRefresh, IconX } from "@/components/icons";
-import { Bar, Card, Chip, Ring, buttonClass, ghostButtonClass, titleClass } from "@/components/ui";
+import { Bar, Card, Chip, Ring, buttonClass, ghostButtonClass, quoted, titleClass } from "@/components/ui";
 
 /** When each part of the reveal starts (globals.css motion): all of it is over by ~0.85s. */
 const delay = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as CSSProperties;
@@ -46,7 +46,7 @@ export interface DebriefPayload {
   offline: boolean;
   endReason: string | null;
   nextStepSecured: boolean;
-  score: { total: number; passed: boolean; partial: boolean; coverage: number; threshold: number; honestyPassed: boolean; items: { code: string; points: number; max: number; status: string; explanation: Bilingual }[] };
+  score: { total: number; passed: boolean; partial: boolean; coverage: number; threshold: number; honestyPassed: boolean; items: { code: string; points: number; max: number; status: string; explanation: Bilingual; behavior?: Bilingual; quote?: string | null }[] };
   debrief: {
     score?: { threshold: number };
     critical: { rule: string; quote: string; trueFact: Bilingual; compliantLine: Bilingual | null; explanation: Bilingual }[];
@@ -84,26 +84,27 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
       {d.critical.map((c, i) => (
         <section key={i} className="reveal-slide bezel space-y-2.5 rounded-[1.25rem] bg-bad-soft p-4 ring-1 ring-bad/30 ring-inset" style={delay(VIOLATIONS_AT + i * 60)}>
           <p className="flex items-center gap-2 text-[15px] font-bold text-bad"><IconAlert size={18} />{ui("debrief.critical")} · {c.rule}</p>
-          <p className="text-[16px] text-ink">“{c.quote}”</p>
+          <p className="text-[16px] text-ink">{quoted(c.quote)}</p>
           <p className="text-[15px] text-ink">{c.explanation[lang]}</p>
           {c.compliantLine && (
-            <p className="rounded-[0.875rem] bg-page/60 p-3 text-[15px] text-ink"><span className="font-semibold">{ui("debrief.compliantLine")}:</span> “{c.compliantLine[lang]}”</p>
+            <p className="rounded-[0.875rem] bg-page/60 p-3 text-[15px] text-ink"><span className="font-semibold">{ui("debrief.compliantLine")}:</span> {quoted(c.compliantLine[lang])}</p>
           )}
         </section>
       ))}
       {d.autoFails.filter(() => !d.critical.length).map((a) => (
         <section key={a.code} className="reveal-slide bezel space-y-1 rounded-[1.25rem] bg-bad-soft p-4 ring-1 ring-bad/30 ring-inset" style={delay(VIOLATIONS_AT)}>
           <p className="flex items-center gap-2 font-bold text-bad"><IconAlert size={18} />{a.description[lang]}</p>
-          {a.quote && <p className="text-ink">“{a.quote}”</p>}
+          {a.quote && <p className="text-ink">{quoted(a.quote)}</p>}
         </section>
       ))}
 
       <Card className="reveal-rise flex flex-col items-center gap-3 py-7 text-center">
         <div className="score-ring">
-          <Ring value={total / 100} size={164} stroke={10} tone={tone} label={`${ui("debrief.score")}: ${total}`}>
+          {/* A partial score is out of the points that could be scored, not out of 100: the ring fills only that share. */}
+          <Ring value={(total / 100) * (data.score.partial ? data.score.coverage : 1)} size={164} stroke={10} tone={tone} label={`${ui("debrief.score")}: ${total}`}>
             <div>
               <p className="font-display text-[64px] leading-[0.9] text-ink tabular-nums">{shown}</p>
-              <p className="mt-1 text-[13px] text-muted">{ui("debrief.outOf")}</p>
+              <p className="mt-1 max-w-[7.5rem] text-[13px] leading-tight text-muted">{data.score.partial ? ui("debrief.partialOf", { percent: Math.round(data.score.coverage * 100) }) : ui("debrief.outOf")}</p>
             </div>
           </Ring>
         </div>
@@ -127,11 +128,11 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
           <h2 className="text-[17px] font-bold text-ink">{ui("debrief.turningPoint")}</h2>
           <div>
             <p className="mb-1 text-[13px] font-semibold text-muted">{ui("debrief.youSaid")}</p>
-            <p className="rounded-[1.1rem] rounded-tl-md bg-ground px-3.5 py-2.5 text-[15px] text-ink">“{d.turningPoint.repLine}”</p>
+            <p className="rounded-[1.1rem] rounded-tl-md bg-ground px-3.5 py-2.5 text-[15px] text-ink">{quoted(d.turningPoint.repLine)}</p>
           </div>
           <div>
             <p className="mb-1 text-[13px] font-semibold text-good">{ui("debrief.tryInstead")}</p>
-            <p className="rounded-[1.1rem] rounded-tl-md bg-good-soft px-3.5 py-2.5 text-[15px] text-ink">“{d.turningPoint.modelAlternative[lang]}”</p>
+            <p className="rounded-[1.1rem] rounded-tl-md bg-good-soft px-3.5 py-2.5 text-[15px] text-ink">{quoted(d.turningPoint.modelAlternative[lang])}</p>
           </div>
         </Card>
       )}
@@ -145,7 +146,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-good-soft text-good"><IconCheck size={16} /></span>
                 <div>
                   <p className="text-[15px] font-semibold text-ink">{w.behavior[lang]}</p>
-                  {w.quote && <p className="text-[14px] text-muted">“{w.quote}”</p>}
+                  {w.quote && <p className="text-[14px] text-muted">{quoted(w.quote)}</p>}
                 </div>
               </li>
             ))}
@@ -170,15 +171,24 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
       <details className="reveal-rise liquid-glass liquid-glass-panel group rounded-[1.25rem] p-4" style={cascade(step++)}>
         <summary className="flex min-h-8 cursor-pointer list-none items-center justify-between font-semibold text-ink">{ui("debrief.items")}<IconChevronRight size={18} className="text-muted transition-transform duration-300 group-open:rotate-90" /></summary>
         <ul className="cascade mt-3 space-y-3 text-[14px]">
-          {data.score.items.map((i, n) => (
-            <li key={i.code} className="space-y-1" style={{ ["--i" as string]: n }}>
-              <div className="flex justify-between gap-3">
-                <span className="text-body">{i.explanation[lang]}</span>
-                <span className="shrink-0 font-semibold text-ink tabular-nums">{i.status === "scored" ? `${Math.round(i.points * 10) / 10}/${i.max}` : "—"}</span>
-              </div>
-              {i.status === "scored" && <Bar value={i.max ? i.points / i.max : 0} tone={i.points >= i.max * 0.7 ? "good" : i.points >= i.max * 0.4 ? "warn" : "bad"} />}
-            </li>
-          ))}
+          {/* Scored behaviors first; the ones this session could not score follow, quieter. */}
+          {[...data.score.items].sort((a, b) => Number(b.status === "scored") - Number(a.status === "scored")).map((i, n) => {
+            const label = (i.behavior ?? i.explanation)[lang];
+            const note = i.explanation[lang] !== label ? i.explanation[lang] : null;
+            const scored = i.status === "scored";
+            return (
+              <li key={i.code} className={`space-y-1 ${scored ? "" : "opacity-80"}`} style={{ ["--i" as string]: n }} data-testid="scored-item">
+                <div className="flex justify-between gap-3">
+                  <span className={scored ? "text-ink" : "text-body"}>{label}</span>
+                  <span className="shrink-0 font-semibold text-ink tabular-nums">{scored ? `${Math.round(i.points * 10) / 10}/${i.max}` : "—"}</span>
+                </div>
+                {note && <p className="text-[13px] text-muted">{note}</p>}
+                {/* The line that earned (or missed) the points, so the score points at something the rep said. */}
+                {scored && i.quote && <p className="border-l-2 border-brand/50 pl-2.5 text-[13px] text-body" data-testid="item-quote"><span className="text-muted">{ui("debrief.yourLine")}:</span> {quoted(i.quote)}</p>}
+                {scored && <Bar value={i.max ? i.points / i.max : 0} tone={i.points >= i.max * 0.7 ? "good" : i.points >= i.max * 0.4 ? "warn" : "bad"} />}
+              </li>
+            );
+          })}
         </ul>
       </details>
       <details className="reveal-rise liquid-glass liquid-glass-panel group rounded-[1.25rem] p-4" style={cascade(step++)}>
