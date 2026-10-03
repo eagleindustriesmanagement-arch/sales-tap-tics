@@ -500,6 +500,8 @@ test("the general manager uploads the store's numbers; a bad file is refused by 
   await expect(weights).toContainText("The payment is too high");
   await expect(weights).toContainText("×5");
   await expect(weights).toContainText("Not matched to an objection, so not counted: weather (3)");
+  // Score validity (spec 19.2 item 3) waits for enough reps with practice and real ups.
+  await expect(page.getByTestId("score-validity")).toContainText("Shown once at least 5 reps");
   const rep = await browser.newPage();
   await signInReady(rep, "rep@demo.test");
   const res = await rep.request.post("/api/store/import", { data: { kind: "ups", csv: "month,rep,ups,sold\n2026-08,Luis,1,1\n" } });

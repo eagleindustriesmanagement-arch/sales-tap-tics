@@ -21,6 +21,10 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
   - The store's weights reorder onboarding after week 1, break ties between due reviews, and pick the next new
     customer once onboarding is done.
   - The store numbers page shows what is practiced first and the reasons that could not be matched.
+- **Practice and results** (spec 19.2 item 3, decision 0024). The Store numbers page relates each practice score
+  to the reps' real close rate and add-ons kept, with sample sizes and a plain warning that correlation is not
+  proof. It lists scores that relate to nothing as candidates for less weight, and waits for 5 reps with enough
+  practice and ups.
 - **Usage** (spec 19.4, decision 0020): the general manager sees counts only, private windows included, with no
   rows, names or text:
   - sessions started and finished;
@@ -277,7 +281,7 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
 1. M3: run the suite with both layers (`pnpm compliance:suite --with-classifier`) once `ANTHROPIC_API_KEY` is set,
    and work the critical misses to zero on dev, reporting holdout.
 2. Text-message reminders as a second channel, behind the consent rules (CONSENT-01), if the store wants them.
-3. Spec 19.2 item 3, score validity (practice scores against close rate), once a store has 8 weeks of both.
+3. Score validity is built (decision 0024); read it with the pilot store's first quarter and revisit its thresholds.
 4. Walk-out triggers now ignore claims the rep explicitly refuses, and "I'm not going to lie" no longer excuses a
    violation. Next for the engine: the classifier layer once a key is set (item 1).
 5. Live-AI pass over the 45 release 2 customers once a key is set, starting with O39 (a customer who prefers

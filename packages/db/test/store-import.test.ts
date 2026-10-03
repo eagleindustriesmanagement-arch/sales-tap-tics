@@ -3,7 +3,7 @@ import type pg from "pg";
 import { randomUUID } from "node:crypto";
 import { platformLibrary } from "@taptics/content";
 import { calibrateExits, weighObjections } from "@taptics/session";
-import { baseline, createPracticeSession, currentExitMultiplier, currentObjectionWeights, latestObjectionWeights, lostReasonCounts, saveObjectionWeights, exitCalibrationInputs, importStoreMetrics, latestExitCalibration, loadUser, parseCsv, saveExitCalibration, withTenant } from "../src/index.js";
+import { baseline, createPracticeSession, scoreValidityInputs, currentExitMultiplier, currentObjectionWeights, latestObjectionWeights, lostReasonCounts, saveObjectionWeights, exitCalibrationInputs, importStoreMetrics, latestExitCalibration, loadUser, parseCsv, saveExitCalibration, withTenant } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
 
@@ -183,5 +183,31 @@ describe.skipIf(SKIP)("objection weights from lost-deal reasons (spec 19.2 item 
     expect(await as(REP, (q) => currentObjectionWeights(q, DEMO.store))).toEqual({});
     const write = as(REP, (q) => q.query("insert into store_calibrations (tenant_id, store_id, kind, month, value, computed_by) values ($1, $2, 'objection_weights', '2026-10-01', '{}', $3)", [DEMO.tenant, DEMO.store, REP]));
     await expect(write).rejects.toThrow(/row-level security/);
+  });
+});
+
+describe.skipIf(SKIP)("score validity inputs (spec 19.2 item 3)", () => {
+  it("averages each matched rep's complete practice scores and joins their real ups and add-ons; partial scores do not count", async () => {
+    await db.query("delete from store_metrics where kind in ('ups', 'addons')");
+    await importAs(GM, "ups", "month,rep,ups,sold\n2026-08,rep@demo.test,60,12\n2026-08,Unknown Rep,40,4\n");
+    await importAs(GM, "addons", "month,rep,deals,addons_sold,cancelled_60d\n2026-08,rep@demo.test,12,10,2\n");
+    const user = (await as(REP, (q) => loadUser(q, REP)))!;
+    const now = new Date();
+    for (const [total, partial] of [[60, false], [80, false], [10, true]] as const) {
+      const id = randomUUID();
+      await as(REP, (q) => createPracticeSession(q, user, { id, scenarioCode: "S-partner-check-L1", releaseId: null, language: "en", mode: "practice", channel: "floor", textMode: true, seed: id, exitDraw: 0.5 }));
+      await db.query(
+        "insert into scores (tenant_id, session_id, rubric_code, total, passed, honesty_passed, dimensions, items) values ($1, $2, 'R-objection', $3, false, true, $4, '[]')",
+        [DEMO.tenant, id, total, JSON.stringify({ composure: total / 100, discovery: 0.5, technique: null, outcome: 0.4, partial })],
+      );
+    }
+    const rows = await as(GM, (q) => scoreValidityInputs(q, DEMO.store, now));
+    const mine = rows.find((r) => r.ups === 60)!;
+    expect(mine).toMatchObject({ ups: 60, sold: 12, addonsSold: 10, cancelled: 2 });
+    expect(mine.sessions).toBe(2);
+    expect(mine.scores.total).toBeCloseTo(70, 3);
+    expect(mine.scores.composure).toBeCloseTo(0.7, 3);
+    // Unmatched names from the CSV have no practice to relate.
+    expect(rows.some((r) => r.ups === 40)).toBe(false);
   });
 });

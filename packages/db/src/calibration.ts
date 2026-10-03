@@ -91,3 +91,40 @@ export async function currentObjectionWeights(db: Queryable, storeId: string): P
   const weights = latest?.value["status"] === "updated" ? latest.value["weights"] : null;
   return weights && typeof weights === "object" ? (weights as Record<string, number>) : {};
 }
+
+/**
+ * Score validity inputs (spec 19.2 item 3, decision 0024), per matched rep: complete practice scores of the last 13
+ * weeks the caller may see (row-level security keeps private-window sessions out), averaged by dimension, and the
+ * rep's ups, sales, add-ons and cancellations over the last 3 imported months.
+ */
+export async function scoreValidityInputs(db: Queryable, storeId: string, now = new Date()) {
+  const since = new Date(now.getTime() - 91 * 86_400_000);
+  const r = await db.query<{
+    sessions: number; total: number | null; composure: number | null; discovery: number | null; technique: number | null; outcome: number | null;
+    ups: number; sold: number; addons_sold: number | null; cancelled: number | null;
+  }>(
+    `with practice as (
+       select s.user_id, count(*)::int sessions, avg(sc.total)::real total,
+              avg((sc.dimensions->>'composure')::real)::real composure, avg((sc.dimensions->>'discovery')::real)::real discovery,
+              avg((sc.dimensions->>'technique')::real)::real technique, avg((sc.dimensions->>'outcome')::real)::real outcome
+       from sessions s join scores sc on sc.session_id = s.id
+       where s.store_id = $1 and s.started_at >= $2 and s.mode in ('practice', 'certification') and not coalesce((sc.dimensions->>'partial')::boolean, false)
+       group by s.user_id),
+     ups_months as (select month from store_metrics where store_id = $1 and kind = 'ups' group by month order by month desc limit 3),
+     addon_months as (select month from store_metrics where store_id = $1 and kind = 'addons' group by month order by month desc limit 3),
+     ups as (select rep_user_id, sum((metrics->>'ups')::int)::int ups, sum((metrics->>'sold')::int)::int sold
+             from store_metrics where store_id = $1 and kind = 'ups' and rep_user_id is not null and month in (select month from ups_months) group by rep_user_id),
+     addons as (select rep_user_id, sum((metrics->>'addons_sold')::int)::int addons_sold, sum((metrics->>'cancelled_60d')::int)::int cancelled
+                from store_metrics where store_id = $1 and kind = 'addons' and rep_user_id is not null and month in (select month from addon_months) group by rep_user_id)
+     select p.sessions, p.total, p.composure, p.discovery, p.technique, p.outcome, u.ups, u.sold, a.addons_sold, a.cancelled
+     from practice p join ups u on u.rep_user_id = p.user_id left join addons a on a.rep_user_id = p.user_id`,
+    [storeId, since],
+  );
+  return r.rows.map((x) => ({
+    sessions: x.sessions,
+    scores: Object.fromEntries(Object.entries({ total: x.total, composure: x.composure, discovery: x.discovery, technique: x.technique, outcome: x.outcome }).filter(([, v]) => v !== null)) as Record<string, number>,
+    ups: x.ups,
+    sold: x.sold,
+    ...(x.addons_sold !== null ? { addonsSold: x.addons_sold, cancelled: x.cancelled ?? 0 } : {}),
+  }));
+}

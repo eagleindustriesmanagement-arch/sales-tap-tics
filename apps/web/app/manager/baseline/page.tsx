@@ -1,5 +1,5 @@
-import { baseline, IMPORT_KINDS, latestExitCalibration, latestObjectionWeights, type ImportKind } from "@taptics/db";
-import { EXIT_CALIBRATION, OBJECTION_WEIGHTS } from "@taptics/session";
+import { baseline, IMPORT_KINDS, latestExitCalibration, latestObjectionWeights, scoreValidityInputs, type ImportKind } from "@taptics/db";
+import { EXIT_CALIBRATION, OBJECTION_WEIGHTS, SCORE_VALIDITY, scoreValidity, type Correlation, type ValidityMeasure } from "@taptics/session";
 import { t } from "@taptics/i18n";
 import { notFound } from "next/navigation";
 import { ImportForm } from "@/components/import-form";
@@ -13,11 +13,14 @@ export default async function Baseline() {
   const user = await requireUser({ roles: ["general_manager"] });
   const lang = await language();
   if (!user.storeId) notFound();
-  const { b, cal, weighting } = await asUser(principalOf(user), async (db) => ({
+  const { b, cal, weighting, validity } = await asUser(principalOf(user), async (db) => ({
     b: await baseline(db, user.storeId!),
     cal: await latestExitCalibration(db, user.storeId!),
     weighting: await latestObjectionWeights(db, user.storeId!),
+    validity: scoreValidity(await scoreValidityInputs(db, user.storeId!)),
   }));
+  const measureName = (m: ValidityMeasure) => (m === "total" ? t("validity.total", lang) : t(`dimension.${m}` as "dimension.composure", lang));
+  const cell = (c: Correlation | undefined) => (c && c.r !== null ? t("validity.cell", lang, { r: c.r.toFixed(2), n: c.n }) : "—");
   const lib = library();
   const w = (weighting?.value ?? {}) as { status?: string; matched?: number; weights?: Record<string, number>; byLabel?: { label: string; count: number }[]; unmatched?: { reason: string; count: number }[] };
   const labelText = (en: string) => lib.lostReasons?.reasons.find((r) => r.label.en === en)?.label[lang] ?? en;
@@ -74,6 +77,29 @@ export default async function Baseline() {
           {(w.unmatched?.length ?? 0) > 0 && <p className="text-sm text-muted">{t("baseline.weights.unmatched", lang, { reasons: w.unmatched!.map((u) => `${u.reason} (${u.count})`).join(", ") })}</p>}
         </Card>
       )}
+      <Card className="space-y-3" data-testid="score-validity">
+        <div>
+          <h2 className="font-bold text-ink">{t("validity.title", lang)}</h2>
+          <p className="mt-1 text-sm text-muted">{t("validity.intro", lang)}</p>
+        </div>
+        {validity.status === "insufficient_data" ? (
+          <p className="text-ink">{t("validity.waiting", lang, { min: SCORE_VALIDITY.minReps, sessions: SCORE_VALIDITY.minSessions, ups: SCORE_VALIDITY.minUps, n: validity.reps })}</p>
+        ) : (
+          <>
+            <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("validity.title", lang)}>
+              <table className="w-full text-left text-sm">
+                <thead className="text-muted"><tr><th className="py-2 pr-3">{t("validity.measure", lang)}</th><th className="pr-3">{t("validity.close", lang)}</th><th>{t("validity.addons", lang)}</th></tr></thead>
+                <tbody className="divide-y divide-line text-ink tabular-nums">
+                  {validity.closeRate.map((c) => (
+                    <tr key={c.measure}><td className="py-2 pr-3">{measureName(c.measure)}</td><td className="pr-3">{cell(c)}</td><td>{cell(validity.addonCancellation.find((a) => a.measure === c.measure))}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {validity.weak.length > 0 && <p className="text-sm text-muted">{t("validity.weak", lang, { list: validity.weak.map(measureName).join(", ") })}</p>}
+          </>
+        )}
+      </Card>
       {b.months.length === 0 && b.beBacks.length === 0 && <p className="text-muted">{t("baseline.none", lang)}</p>}
       {b.months.length > 0 && (
         <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("baseline.closeRate", lang)}>

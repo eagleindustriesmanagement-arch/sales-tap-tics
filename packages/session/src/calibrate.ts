@@ -128,3 +128,82 @@ export function weighObjections(rows: LostReasonCount[], map: LostReasonMap): Ob
     unmatched: unmatchedList,
   };
 }
+
+// ---------------------------------------------------------------- score validity (spec 19.2 item 3)
+
+/**
+ * Score validity (decision 0024): across reps, how each practice dimension (and the total) relates to the rep's real
+ * outcomes, as a Pearson correlation with its sample size. Correlation, not proof. A dimension that relates to no
+ * outcome is a candidate for less weight; nothing changes automatically.
+ */
+export const SCORE_VALIDITY = {
+  /** Reps needed for any correlation to be shown. */
+  minReps: 5,
+  /** A rep counts only with this many complete practice scores and this many real ups in the period. */
+  minSessions: 3,
+  minUps: 20,
+  /** Below this size of correlation, in both directions, a dimension "does not relate". */
+  weak: 0.1,
+} as const;
+
+export const VALIDITY_MEASURES = ["total", "composure", "discovery", "technique", "outcome"] as const;
+export type ValidityMeasure = (typeof VALIDITY_MEASURES)[number];
+
+export interface RepPracticeAndOutcome {
+  sessions: number;
+  scores: Partial<Record<ValidityMeasure, number>>;
+  ups: number;
+  sold: number;
+  /** Add-ons sold and cancelled within 60 days, when the store uploaded them. */
+  addonsSold?: number;
+  cancelled?: number;
+}
+
+export interface Correlation {
+  measure: ValidityMeasure;
+  r: number | null;
+  n: number;
+}
+
+export type ScoreValidity =
+  | { status: "insufficient_data"; reps: number }
+  | { status: "computed"; reps: number; closeRate: Correlation[]; addonCancellation: Correlation[]; weak: ValidityMeasure[] };
+
+export function pearson(xs: number[], ys: number[]): number | null {
+  const n = xs.length;
+  if (n < 3 || ys.length !== n) return null;
+  const mx = xs.reduce((a, b) => a + b, 0) / n;
+  const my = ys.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0;
+  let sxx = 0;
+  let syy = 0;
+  for (let i = 0; i < n; i += 1) {
+    sxy += (xs[i]! - mx) * (ys[i]! - my);
+    sxx += (xs[i]! - mx) ** 2;
+    syy += (ys[i]! - my) ** 2;
+  }
+  if (sxx === 0 || syy === 0) return null;
+  return Math.round((sxy / Math.sqrt(sxx * syy)) * 100) / 100;
+}
+
+export function scoreValidity(reps: RepPracticeAndOutcome[]): ScoreValidity {
+  const c = SCORE_VALIDITY;
+  const eligible = reps.filter((r) => r.sessions >= c.minSessions && r.ups >= c.minUps);
+  if (eligible.length < c.minReps) return { status: "insufficient_data", reps: eligible.length };
+  const correlate = (outcome: (r: RepPracticeAndOutcome) => number | null) =>
+    VALIDITY_MEASURES.map((measure): Correlation => {
+      const pairs = eligible
+        .map((r) => [r.scores[measure], outcome(r)] as const)
+        .filter((p): p is readonly [number, number] => typeof p[0] === "number" && typeof p[1] === "number");
+      const enough = pairs.length >= c.minReps;
+      return { measure, r: enough ? pearson(pairs.map((p) => p[0]), pairs.map((p) => p[1])) : null, n: pairs.length };
+    });
+  const closeRate = correlate((r) => (r.ups ? r.sold / r.ups : null));
+  // Fewer cancellations is better, so the sign is flipped: a positive r always means "higher score, better result".
+  const addonCancellation = correlate((r) => (r.addonsSold ? -((r.cancelled ?? 0) / r.addonsSold) : null));
+  const weak = VALIDITY_MEASURES.filter((m) => {
+    const all = [...closeRate, ...addonCancellation].filter((x) => x.measure === m && x.r !== null);
+    return all.length > 0 && all.every((x) => Math.abs(x.r!) < c.weak);
+  });
+  return { status: "computed", reps: eligible.length, closeRate, addonCancellation, weak };
+}
