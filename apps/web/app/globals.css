@@ -26,17 +26,19 @@
   --border: #cbd4e0;
   --border-soft: #e7ecf2;
 
-  /* ACCENT: the blue of the mark. White on it is 6.6:1. */
-  --accent: #0b5cad;
-  --accent-hover: #094c8f;
-  --accent-soft: #e5effa;  /* accent text on it is 5.8:1 */
+  /* ACCENT: the logo's electric blue (#0773fd), darkened only enough for white on it to read: 5.3:1. */
+  --accent: #0062e6;
+  --accent-hover: #0052c2;
+  --accent-soft: #e6f1ff;  /* accent text on it is 4.7:1 */
+  /* The logo's cyan, the top of its gradient: the ambient wash only, never text. */
+  --brand-cyan: #1bc6fc;
   --accent-foreground: #ffffff;
   /* ACCENT FILL: large tinted surfaces and primary buttons. Same as the accent in light; in dark it stays a deep
      blue under white text, because the light text-accent would make every hero and button glare at night. */
-  --accent-fill: #0b5cad;
+  --accent-fill: #0062e6;
   --accent-fill-foreground: #ffffff;
 
-  /* SPARK: the amber dot of the mark. Streaks, stars, celebration only. Never text. */
+  /* SPARK: amber for streaks, stars and certification only (the learning-app convention). Never text. */
   --spark: #f5b301;
   --spark-soft: #fff6dc;
 
@@ -105,13 +107,11 @@
     --surface-2: #1c2537;
     --border: #2b3549;
     --border-soft: #202a3c;
-    --accent: #6aa6ef;
-    --accent-hover: #8dbbf3;
-    --accent-soft: #14243d;
+    --accent: #4db4ff;
+    --accent-hover: #7cc8ff;
+    --accent-soft: #0f2340;
     --accent-foreground: #0b1220;
-  --accent-fill: #2a63b0;
-  --accent-fill-foreground: #ffffff;
-    --accent-fill: #2a63b0;
+    --accent-fill: #0a5bd6;
     --accent-fill-foreground: #ffffff;
     --spark: #f7c23e;
     --spark-soft: #2a2210;
@@ -171,11 +171,11 @@
   --surface-2: #1c2537;
   --border: #2b3549;
   --border-soft: #202a3c;
-  --accent: #6aa6ef;
-  --accent-hover: #8dbbf3;
-  --accent-soft: #14243d;
+  --accent: #4db4ff;
+  --accent-hover: #7cc8ff;
+  --accent-soft: #0f2340;
   --accent-foreground: #0b1220;
-  --accent-fill: #2a63b0;
+  --accent-fill: #0a5bd6;
   --accent-fill-foreground: #ffffff;
   --spark: #f7c23e;
   --spark-soft: #2a2210;
@@ -260,12 +260,12 @@
 html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
 
 /* LIQUID-GLASS §1: give the glass something to be glass about. Two faint washes
-   at opposite corners of the viewport, fixed to the screen: the mark's blue at
-   the top, its amber at the bottom. */
+   at opposite corners of the viewport, fixed to the screen: the logo's blue at
+   the top, its cyan at the bottom. */
 body {
   background:
     radial-gradient(120% 90% at 8% -10%, color-mix(in srgb, var(--accent) var(--wash-1), transparent), transparent 60%),
-    radial-gradient(110% 80% at 100% 108%, color-mix(in srgb, var(--spark) var(--wash-2), transparent), transparent 62%),
+    radial-gradient(110% 80% at 100% 108%, color-mix(in srgb, var(--brand-cyan) var(--wash-2), transparent), transparent 62%),
     var(--background);
   background-attachment: fixed;
   color: var(--foreground);
@@ -278,7 +278,8 @@ h1, h2, h3 { text-wrap: balance; }
 :focus:not(:focus-visible) { outline: none; }
 
 /* Native controls take the brand colour and a thumb-sized box. */
-input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); width: 1.375rem; height: 1.375rem; }
+@layer base { input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); width: 1.375rem; height: 1.375rem; } }
+/* (in the base layer, so a utility such as a segment's full-size hidden radio can override it) */
 
 /* iOS zooms into any field under 16px. */
 input, select, textarea { font-size: 16px; }
@@ -484,3 +485,27 @@ button.liquid-glass:disabled { opacity: 0.55; cursor: not-allowed; }
 .typing span { animation: typing 1.2s infinite; }
 .typing span:nth-child(2) { animation-delay: 0.2s; }
 .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+/* ---------------------------------------------------------------- voice */
+
+/* The customer speaking: two soft rings leave the avatar, like sound. */
+@keyframes voice-ring { from { transform: scale(1); opacity: 0.55; } to { transform: scale(1.45); opacity: 0; } }
+.voice-speaking::before, .voice-speaking::after {
+  content: ""; position: absolute; inset: 8px; border-radius: 9999px;
+  border: 3px solid var(--accent); animation: voice-ring 1.8s cubic-bezier(0.2, 0.6, 0.3, 1) infinite; pointer-events: none;
+}
+.voice-speaking::after { animation-delay: 0.9s; }
+
+/* The rep's voice: bars follow the microphone level (--lvl), with an idle wave while listening. */
+.voice-bars { --lvl: 0; }
+.voice-bars span {
+  width: 4px; border-radius: 9999px; background: var(--border);
+  height: 6px; transition: height 90ms linear, background 200ms ease;
+}
+.voice-bars.is-listening span {
+  background: var(--accent);
+  height: calc(6px + var(--lvl) * 40px * (1 - (var(--i) - 10) * (var(--i) - 10) / 120));
+  animation: voice-idle 1.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 70ms);
+}
+@keyframes voice-idle { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.6); } }

@@ -54,7 +54,8 @@ const principal = (u: { tenantId: string; id: string }) => ({ tenantId: u.tenant
 /** Sessions a rep may start per minute (spec 20.4: rate limiting on session start). */
 const STARTS_PER_MINUTE = 4;
 
-export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow", mode: "practice" | "certification" = "practice") {
+/** `voice` is a spoken session: pause and pace are measured and scored; typed sessions exclude them (spec 11.5). */
+export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow", mode: "practice" | "certification" = "practice", voice = false) {
   sweep();
   const id = randomUUID();
   const { recent, attempt, certAttempt, release, store, history, exitMultiplier } = await asUser(principal(user), async (db) => {
@@ -108,7 +109,7 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
     mode: certification ? "certification" : "practice",
     tenantId: user.tenantId,
     sessionId: id,
-    textMode: true,
+    textMode: !voice,
     // Stop on critical is always on in certification (spec 15.4).
     stopOnCritical: certification || user.stopOnCritical,
     // The store's real charges and policies drive the compliance checker (spec 3.4). Until the compliance reviewer
@@ -123,7 +124,7 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
   });
   const opening = session.start();
   await asUser(principal(user), async (db) => {
-    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: true, seed, exitDraw, exitMultiplier });
+    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: !voice, seed, exitDraw, exitMultiplier });
     await insertTurns(db, user.tenantId, id, session.transcript.map((t) => ({ ...t, isObjection: t.isObjection })));
   });
   live.set(id, { id, session, userId: user.id, tenantId: user.tenantId, createdAt: Date.now(), persistedTurns: session.transcript.length, usage, result: null });

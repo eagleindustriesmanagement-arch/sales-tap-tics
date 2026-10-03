@@ -54,6 +54,7 @@ test("a rep signs in, accepts the notice, practices, and the session is saved", 
   await page.getByRole("link", { name: "See all scenarios" }).click();
   await expect(page.getByRole("heading", { name: "Level 1" })).toBeVisible();
   await page.getByTestId("scenario-S-partner-check-L1").click();
+  await page.getByRole("radio", { name: "Type" }).check(); // typed turns; the spoken flow has its own test
   await page.getByRole("button", { name: "Start" }).click();
   const say = page.getByLabel("Type what you would say");
   await expect(say).toBeVisible();
@@ -98,6 +99,7 @@ test("a rep who makes up a deadline is stopped and the violation is stored", asy
   await signIn(page, "rep2@demo.test");
   await page.getByRole("button", { name: "I understand and agree" }).click();
   await page.goto("/practice/S-partner-check-L1");
+  await page.getByRole("radio", { name: "Type" }).check(); // typed turns; the spoken flow has its own test
   await page.getByRole("button", { name: "Start" }).click();
   await page.getByLabel("Type what you would say").fill("The bonus cash ends tomorrow, so you should decide today.");
   await page.getByRole("button", { name: "Send" }).click();
@@ -218,6 +220,7 @@ test("a manager assigns practice with a reason; the rep sees it first, practices
   await expect(rep.getByTestId("assignment-reason")).toHaveText(/Ask what she will ask first/);
   await rep.getByRole("link", { name: "Practice now" }).click();
   await expect(rep).toHaveURL(/\/practice\/S-partner-check-L1$/);
+  await rep.getByRole("radio", { name: "Type" }).check(); // typed turns; the spoken flow has its own test
   await rep.getByRole("button", { name: "Start" }).click();
   await rep.getByLabel("Type what you would say").fill("Of course. What do you think her first question will be?");
   await rep.getByRole("button", { name: "Send" }).click();
@@ -458,4 +461,88 @@ test("the general manager uploads the store's numbers; a bad file is refused by 
   expect(res.status()).toBe(403);
   await rep.goto("/manager/baseline");
   await expect(rep).toHaveURL(/localhost:\d+\/$/);
+});
+
+/**
+ * A spoken session, end to end, with the device's recognizer and voice replaced by a script: the customer's lines
+ * are spoken sentence by sentence, the turn ends when the rep pauses, talking over the customer stops them, and the
+ * pause and speaking rate reach the stored turns (spec 11.3, 11.6).
+ */
+test("a spoken session: hands-free turns, barge-in, and the pause and pace are stored", async ({ page }) => {
+  await page.addInitScript(() => {
+    const w = window as unknown as Record<string, unknown>;
+    w.__said = [] as string[];
+    w.__cancels = 0;
+    w.__ttsMs = 300;
+    const pending: (() => void)[] = [];
+    const synth = {
+      speaking: false,
+      speak(u: { text: string; onend?: () => void }) {
+        if (!u.text.trim()) return;
+        (w.__said as string[]).push(u.text);
+        const done = () => u.onend?.();
+        pending.push(done);
+        setTimeout(() => { const i = pending.indexOf(done); if (i >= 0) { pending.splice(i, 1); done(); } }, w.__ttsMs as number);
+      },
+      cancel() { w.__cancels = (w.__cancels as number) + 1; pending.splice(0).forEach((d) => d()); },
+      getVoices: () => [],
+    };
+    Object.defineProperty(window, "speechSynthesis", { value: synth, configurable: true });
+    class FakeRecognition {
+      lang = ""; continuous = false; interimResults = false; maxAlternatives = 1;
+      onresult: ((e: unknown) => void) | null = null; onspeechstart: (() => void) | null = null; onspeechend: (() => void) | null = null;
+      onerror: ((e: unknown) => void) | null = null; onend: (() => void) | null = null;
+      start() { w.__rec = this; }
+      stop() {} abort() {}
+    }
+    w.SpeechRecognition = FakeRecognition;
+    w.webkitSpeechRecognition = FakeRecognition;
+    // The rep speaks: onset now, the words after `ms`, then the end of speech.
+    w.__say = (text: string, ms = 0) => {
+      const rec = w.__rec as FakeRecognition;
+      rec.onspeechstart?.();
+      setTimeout(() => {
+        const result = Object.assign([{ transcript: text, confidence: 0.92 }], { isFinal: true });
+        rec.onresult?.({ resultIndex: 0, results: [result] });
+        rec.onspeechend?.();
+      }, ms);
+    };
+  });
+  await signInReady(page, "rep@demo.test");
+  await page.goto("/practice/S-partner-check-L1");
+  await expect(page.getByRole("radio", { name: "Talk" })).toBeChecked();
+  await page.getByRole("button", { name: "Start" }).click();
+  const status = page.getByTestId("voice-status");
+  await expect(status).toHaveText("Your turn. Listening…");
+  expect(await page.evaluate(() => (window as unknown as { __said: string[] }).__said[0])).toMatch(/talk to my wife/);
+
+  // A real pause before answering, then a 25-word answer over about nine seconds.
+  await page.waitForTimeout(2200);
+  await page.evaluate(() => (window as unknown as { __say: (t: string, ms: number) => void }).__say("Of course. It is a big purchase and you should both be comfortable. When you talk tonight, what do you think her first question will be?", 9000));
+  await expect(status).toHaveText(/Mike is talking|is thinking|Your turn/, { timeout: 15_000 });
+  await expect.poll(() => page.evaluate(() => (window as unknown as { __said: string[] }).__said.length), { timeout: 15_000 }).toBeGreaterThan(1);
+  await expect(status).toHaveText("Your turn. Listening…", { timeout: 15_000 });
+
+  // Talk over a long reply: the customer stops and the rep's words start the next turn.
+  await page.evaluate(() => { (window as unknown as { __ttsMs: number }).__ttsMs = 6000; });
+  await page.evaluate(() => (window as unknown as { __say: (t: string) => void }).__say("That makes sense. Setting the conversation with her aside for a second, is this the right car for you?"));
+  await expect(status).toHaveText(/is talking/, { timeout: 15_000 });
+  await page.evaluate(() => (window as unknown as { __say: (t: string) => void }).__say("And the payment, is it where you told her it would be?"));
+  await expect.poll(() => page.evaluate(() => (window as unknown as { __cancels: number }).__cancels)).toBeGreaterThan(0);
+
+  await page.getByRole("button", { name: "Show words" }).click();
+  await expect(page.getByText("is this the right car for you?")).toBeVisible();
+  await page.getByRole("button", { name: /See debrief|End session/ }).first().click();
+  await expect(page.getByRole("heading", { name: "Debrief" })).toBeVisible({ timeout: 30_000 });
+
+  const c = db();
+  await c.connect();
+  const s = await c.query("select id, text_mode from sessions where user_id = '33333333-3333-4333-8333-333333333301' order by started_at desc limit 1");
+  expect(s.rows[0].text_mode).toBe(false);
+  const first = await c.query("select pause_before_ms, words_per_minute, asr_confidence from turns where session_id = $1 and speaker = 'rep' order by index limit 1", [s.rows[0].id]);
+  await c.end();
+  expect(first.rows[0].pause_before_ms).toBeGreaterThanOrEqual(2000);
+  expect(first.rows[0].words_per_minute).toBeGreaterThan(140);
+  expect(first.rows[0].words_per_minute).toBeLessThan(200);
+  expect(first.rows[0].asr_confidence).toBeCloseTo(0.92, 2);
 });

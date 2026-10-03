@@ -15,6 +15,18 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
   - **The frame:** a floating glass tab bar with icons, safe areas for the notch, and the language one tap away
     on every screen, sign-in included.
   - **Managers:** Team, Dashboard and Floor are phone-first lists and tiles instead of tables.
+- **Hands-free voice practice** (decision 0013, device tier). The rep picks Talk or Type on the briefing; Talk is
+  the default wherever the device can listen.
+  - The customer speaks each sentence as soon as it clears the compliance guard, with numbers read the way a person
+    says them in English and Spanish.
+  - The turn ends when the rep pauses (700 ms in English, 850 ms in Spanish).
+  - The rep can talk over the customer (their own echo is ignored) or tap to interrupt.
+  - The pause before answering, the speaking rate and the recognizer's confidence are stored and scored. Numbers
+    heard with low confidence are flagged for review, never failed.
+  - The live screen shows the customer's avatar, a voice meter, a timer and "Show words".
+  - A denied or missing microphone falls back to typing.
+  - No per-minute speech cost. The cloud tier (mixed-language recognition, Miami voices) plugs in behind the same
+    contracts after the bake-off.
 
 - **All 20 release 1 scenarios, in English and Spanish** (`apps/web`): pick any scenario (levels 1 to 3; floor,
   phone all-in quote, finance two-payment menu), watch the flawed and good demonstrations, talk to the customer, get a debrief with the critical issue first, the one
@@ -179,6 +191,11 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
 
 ## Needs a person
 
+- **Voice on real phones:** the spoken flow is verified in Chromium with a scripted microphone and voice, not yet
+  on an iPhone or Android phone. Before the pilot: one session each on iPhone Safari, Android Chrome and a laptop,
+  in English and Spanish, on the showroom floor.
+- **Cloud voice tier** (decision 0013): a recognition provider account and a voice provider account, chosen by the
+  spec 11.2 bake-off, plus a Miami listener to approve the voices.
 - **App store accounts** (decision 0012): an Apple developer account, a Google Play developer account, a bundle id
   and a hosted URL, before the Capacitor shell can be built and submitted.
 
@@ -203,4 +220,5 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
 4. Content checks for technique lines run without scenario facts, so a technique's flawed line cannot demonstrate a
    fact-based violation (a price without the fee, an invented deadline). Checking them against a fixed example deal
    would let those lessons show the real violation.
-5. Voice gateway with provider interfaces, once the bake-off candidates are chosen.
+5. Voice gateway (`services/voice`) for the cloud tier, behind the `@taptics/voice` contracts, once the bake-off picks
+   providers; then a Capacitor plugin for on-device recognition in the store apps.

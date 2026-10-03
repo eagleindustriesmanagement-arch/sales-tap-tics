@@ -49,6 +49,7 @@ test("rep screens", async ({ page }) => {
 test("a live practice session and its debrief", async ({ page }) => {
   await signIn(page, "rep2@demo.test");
   await page.goto("/practice/S-thinker-L1");
+  await page.getByRole("radio", { name: "Type" }).check(); // typed turns; the spoken flow has its own test
   await page.getByRole("button", { name: "Start" }).click();
   await page.getByLabel("Type what you would say").fill("Of course, take your time. What would you want to be sure about before you decide?");
   await page.getByRole("button", { name: "Send" }).click();
@@ -57,6 +58,23 @@ test("a live practice session and its debrief", async ({ page }) => {
   await page.getByRole("button", { name: /End session|See debrief/ }).first().click();
   await expect(page.getByRole("heading", { name: "Debrief" })).toBeVisible();
   await check(page, "debrief");
+});
+
+test("a spoken practice session", async ({ page }) => {
+  // The device's recognizer and voice are replaced by stand-ins; the screen is what is audited.
+  await page.addInitScript(() => {
+    const synth = { speaking: false, speak(u: { onend?: () => void }) { setTimeout(() => u.onend?.(), 150); }, cancel() {}, getVoices: () => [] };
+    Object.defineProperty(window, "speechSynthesis", { value: synth, configurable: true });
+    class Rec { lang = ""; continuous = false; interimResults = false; maxAlternatives = 1; start() {} stop() {} abort() {} onresult = null; onerror = null; onend = null; onspeechstart = null; onspeechend = null; }
+    Object.assign(window, { SpeechRecognition: Rec, webkitSpeechRecognition: Rec });
+  });
+  await signIn(page, "rep2@demo.test");
+  await page.goto("/practice/S-thinker-L1");
+  await page.getByRole("radio", { name: "Talk" }).check();
+  await page.getByRole("button", { name: "Start" }).click();
+  await expect(page.getByTestId("voice-status")).toHaveText("Your turn. Listening…");
+  await page.getByRole("button", { name: "Show words" }).click();
+  await check(page, "practice room (voice)");
 });
 
 test("manager screens", async ({ page }) => {

@@ -35,7 +35,7 @@ export function AppChrome({ tabs, appName, lang, switchLabel, otherLang, setting
         <header className="glass-chrome pt-safe sticky top-0 z-30">
           <div className="mx-auto flex h-14 max-w-5xl items-center gap-2 px-4">
             <Link href="/" className="flex shrink-0 items-center gap-2 rounded-full pr-2 font-bold text-ink" aria-label={appName}>
-              <img src="/icon.svg" alt="" width={30} height={30} className="rounded-[9px]" />
+              <img src="/mark-128.png" alt="" width={32} height={32} className="bezel rounded-[9px]" />
               <span className="text-[17px] tracking-tight">{appName}</span>
             </Link>
             <nav aria-label="Main" className="ml-4 hidden items-center gap-1 lg:flex">

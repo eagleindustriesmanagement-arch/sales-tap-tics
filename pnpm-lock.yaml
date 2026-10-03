@@ -50,6 +50,9 @@ importers:
       '@taptics/session':
         specifier: workspace:*
         version: link:../../packages/session
+      '@taptics/voice':
+        specifier: workspace:*
+        version: link:../../packages/voice
       next:
         specifier: 16.3.8
         version: 16.3.8(@playwright/test@1.56.1)(@types/node@22.20.5)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -213,6 +216,8 @@ importers:
       '@taptics/scoring':
         specifier: workspace:*
         version: link:../scoring
+
+  packages/voice: {}
 
 packages:
 

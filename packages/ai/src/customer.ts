@@ -151,6 +151,14 @@ export class AiCustomer {
   }
 
   /** Streams the customer's reply to one rep turn, sentence by sentence. */
+  /** A recorded reply taken into the history, for a session rebuilt from its stored turns. */
+  absorb(repText: string, directive: CustomerDirective, raw: string): void {
+    const user: BetaMessageParam = { role: "user", content: repText };
+    const note: BetaMessageParam = { role: "system", content: sceneNote(directive, this.cfg.persona, this.revealed), clear_at: "next_user_message" };
+    if (/\[\s*revealed\s*\]/i.test(raw)) this.revealed = true;
+    this.history.push(user, note, { role: "assistant", content: raw || "..." });
+  }
+
   async *reply(repText: string, directive: CustomerDirective): AsyncGenerator<CustomerSentence, CustomerTurnResult> {
     const incidents: CustomerIncident[] = [];
     const user: BetaMessageParam = { role: "user", content: repText };

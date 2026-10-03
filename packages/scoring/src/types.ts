@@ -16,6 +16,8 @@ export interface ScoredTurn {
   asrConfidence?: number;
   /** The customer raised an objection in this turn (the engine marks the stated objection). */
   isObjection?: boolean;
+  /** The customer's line with its bracket cues, kept so a session can be rebuilt turn for turn. */
+  raw?: string;
 }
 
 export type ItemStatus = "scored" | "not_applicable" | "not_scored" | "excluded_text_mode";

@@ -17,6 +17,12 @@ export interface CustomerTurnResult {
 /** What the session needs from a customer: the AI customer and the offline customer both fit. */
 export interface CustomerVoice {
   opening(): CustomerSentence;
+  /**
+   * Takes a recorded reply as if it had just been said, when a session is rebuilt from its stored turns. The AI
+   * customer needs it (its reply cannot be generated twice the same); the offline customer is deterministic and
+   * simply replies again.
+   */
+  absorb?(repText: string, directive: CustomerDirective, raw: string): void;
   reply(repText: string, directive: CustomerDirective, signals?: RepTurnSignals): AsyncGenerator<CustomerSentence, CustomerTurnResult>;
 }
 

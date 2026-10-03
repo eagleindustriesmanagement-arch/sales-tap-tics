@@ -17,7 +17,7 @@ import {
   type Violation,
 } from "@taptics/rules";
 import { buildDebrief, FixtureJudge, scoreSession, type Debrief, type Judge, type ScoredTurn, type ScoreResult } from "@taptics/scoring";
-import { OfflineCustomer, type CustomerSentence, type CustomerVoice } from "./offline-customer.js";
+import { OfflineCustomer, type CustomerSentence, type CustomerTurnResult, type CustomerVoice } from "./offline-customer.js";
 import { scaleExitPolicy } from "./calibrate.js";
 
 export interface RepTiming {
@@ -53,6 +53,11 @@ export interface PracticeSessionOptions {
    * authored rates in every store, so certifications stay comparable (decision 0011).
    */
   exitMultiplier?: number;
+  /**
+   * Rebuilding a live session from its stored turns (`replayPracticeSession`): the recorded customer replies, in
+   * order, used instead of new ones while they last.
+   */
+  replay?: { raw: string; spoken: string }[];
   /** Omit for the offline customer and judge. */
   ai?: { client: AiClient; classifier?: ComplianceClassifier; detector?: UnlockDetector; judge?: Judge };
 }
@@ -201,15 +206,23 @@ export class PracticeSession {
     const directive = this.engine.onRepTurn(signals);
     if (this.engine.ended && !directive.endNow) return this.outcome(null);
 
-    const reply = this.customer.reply(text, directive, signals);
-    let step = await reply.next();
-    while (!step.done) {
-      yield step.value;
-      step = await reply.next();
+    const recorded = this.options.ai && this.customer.absorb ? this.options.replay?.shift() : undefined;
+    let result: CustomerTurnResult;
+    if (recorded) {
+      this.customer.absorb!(text, directive, recorded.raw);
+      result = { raw: recorded.raw, spoken: recorded.spoken, incidents: [], usedFallback: false };
+      yield { text: recorded.spoken, raw: recorded.raw };
+    } else {
+      const reply = this.customer.reply(text, directive, signals);
+      let step = await reply.next();
+      while (!step.done) {
+        yield step.value;
+        step = await reply.next();
+      }
+      result = step.value;
     }
-    const result = step.value;
     this.engine.onCustomerTurn(result.raw);
-    this.transcript.push({ index: this.transcript.length, speaker: "customer", text: result.spoken, language: this.language });
+    this.transcript.push({ index: this.transcript.length, speaker: "customer", text: result.spoken, language: this.language, raw: result.raw });
     return this.outcome({ spoken: result.spoken, incidents: result.incidents.length, usedFallback: result.usedFallback });
   }
 

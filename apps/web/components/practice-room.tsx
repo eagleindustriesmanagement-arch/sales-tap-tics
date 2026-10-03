@@ -3,9 +3,12 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
+import type { VoiceTiming } from "@taptics/voice";
 import { Debrief, type DebriefPayload } from "@/components/debrief";
-import { IconAlert, IconEye, IconMessage, IconPlay, IconSend, IconTrophy, IconX } from "@/components/icons";
+import { IconAlert, IconEye, IconMessage, IconMic, IconPlay, IconSend, IconTrophy, IconX } from "@/components/icons";
 import { Avatar, Card, Chip, Grade, Inset, buttonClass, ghostButtonClass } from "@/components/ui";
+import { VoiceStage } from "@/components/voice-stage";
+import { DeviceSpeechToText, DeviceTextToSpeech } from "@/lib/voice/device";
 
 type Line = { speaker: "rep" | "customer"; text: string };
 
@@ -21,6 +24,10 @@ export interface RoomScenario {
 }
 
 type Phase = "intro" | "demo" | "live" | "debrief";
+type AnswerBy = "talk" | "type";
+const ANSWER_KEY = "taptics.answerBy";
+/** A segmented choice: the real radio covers its whole segment, invisible, so a tap anywhere picks it. */
+const SEGMENT_INPUT = "absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-[0.85rem] opacity-0 disabled:cursor-not-allowed";
 
 const strip = (s: string) => s.replace(/\[[^\]]*\]\s*/g, "");
 
@@ -39,6 +46,21 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   const [ended, setEnded] = useState<{ stopped: boolean } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [debrief, setDebrief] = useState<DebriefPayload | null>(null);
+  // Talk by default wherever the device can listen and speak; the rep's last choice is remembered on this device.
+  const [voiceOk, setVoiceOk] = useState(false);
+  const [answerBy, setAnswerBy] = useState<AnswerBy>("type");
+  const [opening, setOpening] = useState("");
+  useEffect(() => {
+    const ok = DeviceSpeechToText.supported() && DeviceTextToSpeech.supported();
+    setVoiceOk(ok);
+    let saved: string | null = null;
+    try { saved = localStorage.getItem(ANSWER_KEY); } catch { /* storage off */ }
+    setAnswerBy(ok && saved !== "type" ? "talk" : "type");
+  }, []);
+  const choose = (a: AnswerBy) => {
+    setAnswerBy(a);
+    try { localStorage.setItem(ANSWER_KEY, a); } catch { /* storage off */ }
+  };
   const bottom = useRef<HTMLDivElement>(null);
   const field = useRef<HTMLTextAreaElement>(null);
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
@@ -59,8 +81,11 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   async function start() {
     setBusy(true);
     setError(null);
+    const voice = answerBy === "talk";
+    // iOS lets a page speak only after a tap: this one, so the customer's first line is not blocked.
+    if (voice) try { window.speechSynthesis.speak(new SpeechSynthesisUtterance(" ")); } catch { /* no voices */ }
     try {
-      const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice, mode }) });
+      const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice, mode, voice }) });
       if (res.status === 409) {
         const body = (await res.json().catch(() => ({}))) as { error?: string };
         setError(t(body.error === "needs_judge" ? "cert.needsJudge" : "cert.notEligible", lang));
@@ -71,6 +96,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       setLang(data.language);
       setSession({ id: data.id, brief: data.preBrief.brief, name: data.preBrief.customerName });
       setLines([{ speaker: "customer", text: data.opening }]);
+      setOpening(data.opening);
       setPhase("live");
     } catch {
       setError(t("practice.error", lang));
@@ -83,10 +109,17 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     const text = draft.trim();
     if (!text || !session || busy) return;
     setDraft("");
+    await sendTurn(text, {});
+  }
+
+  /** One rep turn, typed or spoken; each customer sentence is handed to `onSentence` as it clears the guard. */
+  async function sendTurn(text: string, timing: VoiceTiming, onSentence?: (sentence: string) => void): Promise<{ ended: boolean } | null> {
+    if (!session) return null;
+    let result: { ended: boolean } | null = { ended: false };
     setBusy(true);
     setLines((l) => [...l, { speaker: "rep", text }]);
     try {
-      const res = await fetch(`/api/sessions/${session.id}/turn`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text }) });
+      const res = await fetch(`/api/sessions/${session.id}/turn`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text, timing }) });
       if (!res.ok || !res.body) throw new Error(String(res.status));
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
@@ -106,16 +139,22 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
             customer = first ? msg.sentence : `${customer} ${msg.sentence}`;
             const current = customer;
             setLines((l) => (first ? [...l, { speaker: "customer", text: current }] : [...l.slice(0, -1), { speaker: "customer", text: current }]));
+            onSentence?.(msg.sentence);
           }
-          if (msg.outcome?.ended) setEnded({ stopped: msg.outcome.stoppedOnCritical });
+          if (msg.outcome?.ended) {
+            setEnded({ stopped: msg.outcome.stoppedOnCritical });
+            result = { ended: true };
+          }
           if (msg.error) setError(t("practice.error", lang));
         }
       }
     } catch {
       setError(t("practice.error", lang));
+      result = null;
     } finally {
       setBusy(false);
     }
+    return result;
   }
 
   async function finish() {
@@ -151,7 +190,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       <div className="flex min-h-dvh flex-col">
         <header className="glass-chrome pt-safe sticky top-0 z-30">
           <div className="mx-auto flex h-16 max-w-2xl items-center gap-3 px-4">
-            <Avatar name={session.name} size={40} />
+            {answerBy === "type" && <Avatar name={session.name} size={40} />}
             <div className="min-w-0 flex-1">
               <p className="truncate text-[17px] font-bold text-ink">{session.name}</p>
               <p className="truncate text-[13px] text-muted">{scenario.title[lang]}</p>
@@ -167,6 +206,19 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
           </div>
         </header>
 
+        {answerBy === "talk" ? (
+          <VoiceStage
+            name={session.name}
+            language={lang}
+            voiceKey={scenario.code}
+            opening={opening}
+            lines={lines}
+            ended={ended}
+            sendTurn={sendTurn}
+            onFinish={finish}
+            onTypeInstead={() => setAnswerBy("type")}
+          />
+        ) : (<>
         <div className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-40">
           <div className="mx-auto mb-5 max-w-md space-y-2 text-center">
             <p className="text-[15px] text-body">{session.brief}</p>
@@ -233,6 +285,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
             )}
           </div>
         </div>
+        </>)}
       </div>
     );
   }
@@ -278,12 +331,25 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
               <legend className="px-1 text-[15px] font-semibold text-muted">{ui("scenario.language")}</legend>
               <div className="liquid-glass-inset grid grid-cols-3 gap-1 rounded-[1.1rem] p-1">
                 {([...scenario.languages, "follow"] as const).map((option) => (
-                  <label key={option} className={`flex min-h-12 cursor-pointer items-center justify-center rounded-[0.85rem] px-2 text-center text-[14px] leading-tight font-semibold transition-colors ${choice === option ? "liquid-glass liquid-glass-flat text-ink" : "text-muted"}`}>
-                    <input type="radio" name="lang" value={option} className="sr-only" checked={choice === option} onChange={() => setChoice(option)} />
+                  <label key={option} className={`relative flex min-h-12 cursor-pointer items-center justify-center rounded-[0.85rem] px-2 text-center text-[14px] leading-tight font-semibold transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${choice === option ? "liquid-glass liquid-glass-flat text-ink" : "text-muted"}`}>
+                    <input type="radio" name="lang" value={option} className={SEGMENT_INPUT} checked={choice === option} onChange={() => setChoice(option)} />
                     {ui(option === "follow" ? "scenario.language.follow" : (`scenario.language.${option}` as "scenario.language.en"))}
                   </label>
                 ))}
               </div>
+            </fieldset>
+            <fieldset className="space-y-2">
+              <legend className="px-1 text-[15px] font-semibold text-muted">{ui("voice.answerBy")}</legend>
+              <div className="liquid-glass-inset grid grid-cols-2 gap-1 rounded-[1.1rem] p-1">
+                {(["talk", "type"] as const).map((option) => (
+                  <label key={option} className={`relative flex min-h-12 items-center justify-center gap-2 rounded-[0.85rem] px-2 text-[15px] font-semibold transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${option === "talk" && !voiceOk ? "cursor-not-allowed opacity-50" : "cursor-pointer"} ${answerBy === option ? "liquid-glass liquid-glass-flat text-ink" : "text-muted"}`}>
+                    <input type="radio" name="answer" value={option} className={SEGMENT_INPUT} checked={answerBy === option} disabled={option === "talk" && !voiceOk} onChange={() => choose(option)} />
+                    {option === "talk" ? <IconMic size={18} /> : <IconMessage size={18} />}
+                    {ui(option === "talk" ? "voice.talk" : "voice.type")}
+                  </label>
+                ))}
+              </div>
+              <p className="px-1 text-[14px] text-muted">{answerBy === "talk" ? ui("voice.talkHint") : voiceOk ? ui("practice.textModeNotice") : ui("voice.unsupported")}</p>
             </fieldset>
             <p className="px-1 text-[14px] text-muted">{ui(live ? "practice.liveNotice" : "practice.offlineNotice")}</p>
           </>

@@ -10,7 +10,11 @@ export const metadata: Metadata = {
   title: "Sales Tap-tics",
   description: "Voice roleplay practice for car sales, in English and Spanish.",
   manifest: "/manifest.webmanifest",
-  icons: { icon: "/icon.svg", apple: "/icon.svg" },
+  // The mark alone at tab sizes (the wordmark is unreadable below 64px); the full logo for home screens.
+  icons: {
+    icon: [{ url: "/favicon-32.png", sizes: "32x32", type: "image/png" }, { url: "/favicon-64.png", sizes: "64x64", type: "image/png" }],
+    apple: "/apple-touch-icon.png",
+  },
   appleWebApp: { capable: true, title: "Tap-tics", statusBarStyle: "default" },
   formatDetection: { telephone: false },
 };
