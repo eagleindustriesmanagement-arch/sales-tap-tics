@@ -157,12 +157,12 @@ demonstrations:
         - { speaker: customer, text: "Está bien. Hasta luego." }
   good:
     notice:
-      en: Notice that the rep owns the store's real miss, asks what changed without blame, makes it easy to mention the other store, offers a line-by-line comparison, and books one of two times by phone, with no text.
-      es: Fíjese en que el vendedor reconoce la falla real de la tienda, pregunta qué cambió sin culpar a nadie, le hace fácil mencionar la otra tienda, ofrece comparar punto por punto y agenda uno de dos horarios por teléfono, sin mandar textos.
+      en: Notice that the rep gives his name, the store and the reason for the call first, owns the store's real miss, asks what changed without blame, makes it easy to mention the other store, offers a line-by-line comparison, and books one of two times by phone, with no text.
+      es: Fíjese en que el vendedor primero dice su nombre, la tienda y el motivo de la llamada, reconoce la falla real de la tienda, pregunta qué cambió sin culpar a nadie, le hace fácil mencionar la otra tienda, ofrece comparar punto por punto y agenda uno de dos horarios por teléfono, sin mandar textos.
     script:
       en:
         - { speaker: customer, text: "Oh. Hi. Yeah, sorry about Saturday." }
-        - { speaker: rep, text: "[pause] No apology needed. Honestly, I owe you one: I never called you Friday to confirm, and I should have. Can I ask, did something change on your end?" }
+        - { speaker: rep, text: "[pause] It's Carlos from Bomnin Chevrolet. I'm calling because you had a test drive of the Trax booked with us. And no apology needed. Honestly, I owe you one: I never called you Friday to confirm, and I should have. Can I ask, did something change on your end?" }
         - { speaker: customer, text: "It's not you. I just wasn't sure how to bring something up." }
         - { speaker: rep, text: "You can tell me straight. I'd rather know than guess. Is it the Trax itself, or the numbers?" }
         - { speaker: customer, text: "The Trax is fine. I still want one." }
@@ -175,7 +175,7 @@ demonstrations:
         - { speaker: rep, text: "Tuesday at 6, then. I'll call you Tuesday morning to confirm, and the Trax 2RS will be up front when you get here." }
       es:
         - { speaker: customer, text: "Ah. Hola. Sí, disculpe lo del sábado." }
-        - { speaker: rep, text: "[pausa] No tiene que disculparse. La verdad, el que le debe una disculpa soy yo: no lo llamé el viernes para confirmar, y debí hacerlo. ¿Le puedo preguntar si cambió algo de su lado?" }
+        - { speaker: rep, text: "[pausa] Le habla Carlos, de Bomnin Chevrolet. Le llamo porque usted tenía separada con nosotros una prueba de manejo de la Trax. Y no tiene que disculparse. La verdad, el que le debe una disculpa soy yo: no lo llamé el viernes para confirmar, y debí hacerlo. ¿Le puedo preguntar si cambió algo de su lado?" }
         - { speaker: customer, text: "No es por usted. Es que no sabía cómo decirle una cosa." }
         - { speaker: rep, text: "Me lo puede decir con confianza. Prefiero saberlo a estar adivinando. ¿Es la Trax en sí, o son los números?" }
         - { speaker: customer, text: "La Trax está bien. Todavía quiero una." }
