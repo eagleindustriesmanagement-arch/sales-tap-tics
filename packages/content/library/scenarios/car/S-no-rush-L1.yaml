@@ -1,0 +1,180 @@
+code: S-no-rush-L1
+module: car-miami-indecision
+title:
+  en: "\"I have all the time in the world\""
+  es: "\"Yo no tengo ningún apuro\""
+setting:
+  en: Wednesday at noon, at your desk, right after he walked around the Trailblazer RS on the lot.
+  es: Miércoles al mediodía, en su escritorio, justo después de que él le dio la vuelta a la Trailblazer RS en el lote.
+persona: P-no-rush
+objection: O63
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 40s, drove in with his paid-off 2013 Malibu and looked at the 2026 Trailblazer RS. It is $30,894 out the door: $29,995 plus the $899 dealer fee; only tax, tag and title are added. The Malibu has not been appraised, and your used-car manager can appraise it this afternoon. He leans back in his chair and makes a point of being in no hurry."
+  es: "{name}, de unos 48 años, vino en su Malibu 2013 pagado y vio la Trailblazer RS 2026. Está en $30,894 precio total: $29,995 más el cargo de concesionario de $899; solo se suman los impuestos, la placa y el título. El Malibu no se ha tasado, y su gerente de usados lo puede tasar esta tarde. Se recuesta en la silla y deja claro que no tiene ningún apuro."
+opening:
+  en: No rush. I have all the time in the world.
+  es: Tranquilo. Yo no tengo ningún apuro.
+facts:
+  session_date: "2026-10-07"
+  vehicle: { year: 2026, make: Chevrolet, model: Trailblazer, trim: RS, color: Crush Orange Metallic, stock: "6427", in_stock: true }
+  price_cents: 2999500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3089400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  competing_buyer: false
+  trade: { vehicle: 2013 Chevrolet Malibu LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    malibu_miles: "about 160,000"
+    transmission: Slipping; his mechanic looked at it last week
+    repair_quote_cents: 380000
+    free_today: Free until 4 this afternoon
+numbers_sheet: false
+target_techniques: [T001, T003, T002, T005, T009, T029, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O63-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O63-RESPECT
+      behavior:
+        en: "Took \"no rush\" at face value, without mocking it or inventing urgency"
+        es: "Tomó el \"no tengo apuro\" como lo dijo, sin burlarse ni inventar urgencia"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003); spec 4.2 deadlines"
+      technique: T003
+    - code: O63-QFIRST
+      behavior:
+        en: "Asked about his current car before pitching anything"
+        es: "Preguntó por su carro actual antes de ofrecerle nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0% (T002)"
+      technique: T002
+    - code: O63-HIDDEN
+      behavior:
+        en: "Surfaced the failing transmission behind the bluff"
+        es: "Sacó a la luz la transmisión dañada detrás del farol"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O63-SAMEPRICE
+      behavior:
+        en: "Kept the same all-in price once the need came out and did not use it as leverage"
+        es: "Mantuvo el mismo precio total cuando salió la necesidad y no la usó para presionar"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Cox Automotive satisfaction research (T009); spec 4.1"
+      technique: T009
+    - code: O63-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: exploited_need
+      description:
+        en: "Used his car trouble to pressure him or raise the price"
+        es: "Usó el problema de su carro para presionarlo o subirle el precio"
+      method: judge
+    - code: made_up_urgency
+      description:
+        en: "Made up a deadline, scarcity or another buyer"
+        es: "Inventó una fecha límite, escasez u otro comprador"
+      method: rule_family
+      rule_families: [deadlines, availability]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep mocked the \"no rush\" line, recited features, and asked what it would take today. He never asked about the Malibu, so the bluff held and the real reason never came out."
+      es: "Fíjese: el vendedor se burló del \"no tengo apuro\", le recitó funciones y le preguntó qué hacía falta para hoy. Nunca preguntó por el Malibu, así que el farol aguantó y la razón real nunca salió."
+    script:
+      en:
+        - { speaker: customer, text: "No rush. I have all the time in the world." }
+        - { speaker: rep, text: "Come on, everybody says that. Nobody has all the time in the world." }
+        - { speaker: customer, text: "Like I said, I'm in no hurry. Pushing won't change that." }
+        - { speaker: rep, text: "Okay, let me tell you about all the features on this Trailblazer. It has a ton." }
+        - { speaker: customer, text: "Like I said, I'm in no hurry. Pushing won't change that." }
+        - { speaker: rep, text: "So what will it take to get you in it today?" }
+        - { speaker: customer, text: "I'll come back when I'm ready." }
+      es:
+        - { speaker: customer, text: "Tranquilo. Yo no tengo ningún apuro." }
+        - { speaker: rep, text: "Ay, por favor, todo el mundo dice eso. Nadie tiene todo el tiempo del mundo." }
+        - { speaker: customer, text: "Como le dije, no tengo apuro. Apurarme no va a cambiar eso." }
+        - { speaker: rep, text: "Bueno, déjeme contarle todas las funciones de esta Trailblazer. Trae de todo." }
+        - { speaker: customer, text: "Como le dije, no tengo apuro. Apurarme no va a cambiar eso." }
+        - { speaker: rep, text: "Entonces, ¿qué tengo que hacer para que se la lleve hoy?" }
+        - { speaker: customer, text: "Vuelvo cuando esté listo." }
+  good:
+    notice:
+      en: "Notice the pause, the respect for \"no rush\", the questions about why now and how the Malibu is running, and that the price stays exactly the same once the need comes out."
+      es: "Fíjese en la pausa, en el respeto por el \"no tengo apuro\", en las preguntas sobre por qué ahora y cómo anda el Malibu, y en que el precio se queda exactamente igual cuando sale la necesidad."
+    script:
+      en:
+        - { speaker: customer, text: "No rush. I have all the time in the world." }
+        - { speaker: rep, text: "[pause] Honestly, that's the best way to buy a car. Take all the time you need. Can I ask, what brought you in this week?" }
+        - { speaker: customer, text: "Just looking ahead. The Malibu's getting up there." }
+        - { speaker: rep, text: "Makes sense. Setting the timing aside, is the Trailblazer the right size for what you need?" }
+        - { speaker: customer, text: "The Trailblazer's fine. I'm just not in a hurry." }
+        - { speaker: rep, text: "Good. And how's the Malibu running these days?" }
+        - { speaker: customer, text: "Honestly? The transmission's slipping. My mechanic quoted me $3,800 last week. I figured if I told you I need a car, you'd charge me more." }
+        - { speaker: rep, text: "I'm glad you told me, and here's the straight answer: it doesn't change our price one bit. The Trailblazer RS is $30,894 out the door for anyone who walks in, because that's how we price every car, with our $899 dealer fee already in; only tax, tag and title are added. What it does change is the order. Before you spend money on a repair, let's appraise the Malibu as it sits, so you know what it's worth either way and decide with real numbers." }
+        - { speaker: customer, text: "That's fair. I'd rather know before I fix it." }
+        - { speaker: rep, text: "Can we do the appraisal today at 2, while you're here? Then you decide on your own time." }
+        - { speaker: customer, text: "Today at 2 works. I'm free until 4." }
+        - { speaker: rep, text: "Today at 2, then. I'll have our used-car manager ready, and you'll get the appraisal in writing whether you buy or not." }
+      es:
+        - { speaker: customer, text: "Tranquilo. Yo no tengo ningún apuro." }
+        - { speaker: rep, text: "[pausa] La verdad, esa es la mejor manera de comprar un carro. Tómese todo el tiempo que necesite. ¿Le puedo preguntar qué lo trajo por aquí esta semana?" }
+        - { speaker: customer, text: "Pensando en lo que viene, nada más. El Malibu ya tiene sus años." }
+        - { speaker: rep, text: "Tiene sentido. Dejando a un lado el tiempo, ¿la Trailblazer es del tamaño que usted necesita?" }
+        - { speaker: customer, text: "La Trailblazer está bien. Es que no tengo apuro." }
+        - { speaker: rep, text: "Perfecto. ¿Y cómo anda el Malibu estos días?" }
+        - { speaker: customer, text: "¿La verdad? La transmisión está patinando. La semana pasada el mecánico me dijo que arreglarla son $3,800. Pensé que si le decía que necesito un carro, me iba a cobrar más." }
+        - { speaker: rep, text: "Me alegra que me lo diga, y le contesto claro: eso no cambia nuestro precio en nada. La Trailblazer RS está en $30,894 precio total para cualquiera que entre, porque así ponemos el precio de todos los carros, con nuestro cargo de concesionario de $899 ya incluido; solo se suman los impuestos, la placa y el título. Lo que sí cambia es el orden. Antes de gastar dinero en un arreglo, tasemos el Malibu tal como está, para que sepa lo que vale de cualquier manera y decida con números reales." }
+        - { speaker: customer, text: "Me parece justo. Prefiero saberlo antes de arreglarlo." }
+        - { speaker: rep, text: "¿Hacemos la tasación hoy a las 2, ya que está aquí? Y después usted decide con calma." }
+        - { speaker: customer, text: "Hoy a las 2 me sirve. Estoy libre hasta las 4." }
+        - { speaker: rep, text: "Hoy a las 2, entonces. Le tengo listo a nuestro gerente de usados, y la tasación se la doy por escrito, compre o no compre." }
+spanish_reviewed: false

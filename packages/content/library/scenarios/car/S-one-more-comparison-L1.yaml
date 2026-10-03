@@ -1,0 +1,179 @@
+code: S-one-more-comparison-L1
+module: car-miami-indecision
+title:
+  en: "\"Send me one more comparison\" (phone)"
+  es: "\"Mándeme otra comparación\" (por teléfono)"
+setting:
+  en: Monday at noon, inbound phone call from an internet lead you have been emailing for two weeks.
+  es: Lunes al mediodía, llamada entrante de una clienta de internet a la que usted le escribe por email hace dos semanas.
+persona: P-one-more-comparison
+objection: O59
+channel: phone
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "Inbound call. {name}, early 40s, an ER nurse on nights, has been emailing with you about the 2026 Equinox LT. You have sent her three comparisons: the Equinox LT against the Trax 2RS, the Trailblazer RS and the Equinox RS. Each one came out in favor of the Equinox LT. The Equinox LT on the lot is $33,394 out the door: $32,495 plus the $899 dealer fee; only tax, tag and title are added. She would trade a paid-off 2012 Cruze that has not been appraised. You have no consent to text her."
+  es: "Llamada entrante. {name}, de unos 42 años, enfermera de emergencias que trabaja de noche, le ha estado escribiendo por email sobre la Equinox LT 2026. Usted le ha mandado tres comparaciones: la Equinox LT contra la Trax 2RS, la Trailblazer RS y la Equinox RS. En todas salió ganando la Equinox LT. La Equinox LT del lote está en $33,394 precio total: $32,495 más el cargo de concesionario de $899; solo se suman los impuestos, la placa y el título. Daría como trade-in un Cruze 2012 pagado que todavía no se ha tasado. No tiene permiso para mandarle textos."
+opening:
+  en: Can you send me one more comparison? The Equinox LT against the Blazer this time.
+  es: ¿Me puede mandar otra comparación? Ahora la Equinox LT contra la Blazer.
+facts:
+  session_date: "2026-10-05"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: LT, color: Sterling Gray Metallic, stock: "6341", in_stock: true }
+  price_cents: 3249500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3339400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: { vehicle: 2012 Chevrolet Cruze LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    comparisons_received: "three, by email: Equinox LT against the Trax 2RS, the Trailblazer RS and the Equinox RS"
+    has_driven_equinox: false
+    commute: The Turnpike at night, after her shift
+    free_times: "Tuesday and Wednesday mornings after 8:30, Wednesday evening"
+numbers_sheet: false
+target_techniques: [T093, T001, T002, T005, T094, T063, T014]
+rubric: R-phone
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O59-PAUSE
+      behavior:
+        en: "Paused before answering the request instead of agreeing on reflex"
+        es: "Hizo una pausa antes de responder al pedido en vez de decir que sí por reflejo"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O59-QFIRST
+      behavior:
+        en: "Asked what the earlier comparisons did not answer before building another"
+        es: "Preguntó qué no le contestaron las comparaciones anteriores antes de preparar otra"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0% (T002)"
+      technique: T002
+    - code: O59-HIDDEN
+      behavior:
+        en: "Surfaced the question no comparison can answer"
+        es: "Sacó a la luz la duda que ninguna comparación puede contestar"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O59-LIMIT
+      behavior:
+        en: "Closed the search kindly and settled the one open question instead of piling on more comparisons"
+        es: "Cerró la búsqueda con amabilidad y resolvió la única duda pendiente en vez de echarle más comparaciones"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "JOLT research; Chernev 2015 choice-overload meta-analysis (T093)"
+      technique: T093
+    - code: O59-PROOF
+      behavior:
+        en: "Offered a real drive on her own route instead of claiming how the car feels"
+        es: "Ofreció una prueba de manejo real por su propia ruta en vez de asegurar cómo se siente el carro"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "JOLT Effect; only real, showable protections (T094)"
+      technique: T094
+    - code: O59-NEXT
+      behavior:
+        en: "Booked a specific day and time she agreed to"
+        es: "Agendó un día y una hora específicos que ella aceptó"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: claimed_unchecked_feel
+      description:
+        en: "Promised how the car feels on the highway instead of letting her drive it"
+        es: "Aseguró cómo se siente el carro en la autopista en vez de dejar que ella lo maneje"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 20
+time_limit_seconds: 360
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep piled on three more vehicles, then told her she had compared enough, and ended with \"let me know\". He never asked what the first three comparisons did not answer."
+      es: "Fíjese: el vendedor le echó tres carros más, después le dijo que ya había comparado bastante, y terminó con \"me avisa\". Nunca preguntó qué no le contestaron las tres primeras comparaciones."
+    script:
+      en:
+        - { speaker: customer, text: "Can you send me one more comparison? The Equinox LT against the Blazer this time." }
+        - { speaker: rep, text: "Sure thing! I'll send you a few more comparisons tonight: the Blazer, and I'll also add the Traverse and the Trailblazer so you have everything." }
+        - { speaker: customer, text: "Hold on. I just asked for one." }
+        - { speaker: rep, text: "Honestly, you've compared enough. They're all good SUVs." }
+        - { speaker: customer, text: "Hold on. I just asked a simple question." }
+        - { speaker: rep, text: "Okay, read them over and let me know which one you like." }
+        - { speaker: customer, text: "Just send me the comparison and I'll call you." }
+      es:
+        - { speaker: customer, text: "¿Me puede mandar otra comparación? Ahora la Equinox LT contra la Blazer." }
+        - { speaker: rep, text: "¡Claro que sí! Esta noche le mando unas cuantas comparaciones más: la Blazer, y también le agrego la Traverse y la Trailblazer para que tenga todo." }
+        - { speaker: customer, text: "Un momento. Yo nada más le pedí una." }
+        - { speaker: rep, text: "La verdad, ya comparó bastante. Todas son buenas SUV." }
+        - { speaker: customer, text: "Un momento. Le hice una pregunta sencilla." }
+        - { speaker: rep, text: "Bueno, léalas y me avisa cuál le gusta." }
+        - { speaker: customer, text: "Mándeme la comparación y yo lo llamo." }
+  good:
+    notice:
+      en: Notice the pause, the question about what three comparisons did not answer, and how the rep closes the search by settling the one open question with a real drive instead of a fourth sheet.
+      es: Fíjese en la pausa, en la pregunta sobre qué no le contestaron tres comparaciones, y en cómo el vendedor cierra la búsqueda resolviendo la única duda con una prueba de manejo real en vez de una cuarta hoja.
+    script:
+      en:
+        - { speaker: customer, text: "Can you send me one more comparison? The Equinox LT against the Blazer this time." }
+        - { speaker: rep, text: "[pause] Happy to help. You already have three side by side, so before I build a fourth, can I ask what the last three didn't answer for you?" }
+        - { speaker: customer, text: "Honestly? On paper they all say the same thing. The Equinox." }
+        - { speaker: rep, text: "That's what I see too. So setting the paperwork aside for a second, is the price what's holding you back?" }
+        - { speaker: customer, text: "No, the price is fine. It's in my budget." }
+        - { speaker: rep, text: "Good. Then can I ask, have you actually driven one yet?" }
+        - { speaker: customer, text: "No. That's the thing. I've never driven one. I'm on the Turnpike at night after my shift, next to all the trucks, and I'm afraid it'll feel small out there. No comparison is going to tell me that." }
+        - { speaker: rep, text: "You're right, a fourth sheet won't settle that, and I'm not going to tell you how it feels. You should feel it yourself. So instead of another comparison, let's settle the one open question: drive the Equinox LT on your real route, Turnpike included. I'll email you its all-in price so you have it in writing: $33,394 out the door, because that is the same price anyone pays, with our $899 dealer fee included; only tax, tag and title are added." }
+        - { speaker: customer, text: "That would actually settle it. I just need to feel it." }
+        - { speaker: rep, text: "Would Tuesday at 9 in the morning, after your shift, or Wednesday at 6 in the evening work better? I'll have the Equinox LT gassed up and ready so we can go straight onto the Turnpike." }
+        - { speaker: customer, text: "Tuesday at 9. I'll come straight from work." }
+        - { speaker: rep, text: "Tuesday at 9, then. The Equinox LT will be up front, and bring the Cruze so we can appraise it while you're here, if you'd like." }
+      es:
+        - { speaker: customer, text: "¿Me puede mandar otra comparación? Ahora la Equinox LT contra la Blazer." }
+        - { speaker: rep, text: "[pausa] Con gusto la ayudo. Usted ya tiene tres comparaciones, así que antes de preparar una cuarta, ¿le puedo preguntar qué es lo que no le contestaron las tres comparaciones?" }
+        - { speaker: customer, text: "¿La verdad? En el papel todas dicen lo mismo. La Equinox." }
+        - { speaker: rep, text: "Eso mismo veo yo. Entonces, dejando los papeles a un lado un momento, ¿es el precio lo que la frena?" }
+        - { speaker: customer, text: "No, el precio está bien. Me cuadra en el presupuesto." }
+        - { speaker: rep, text: "Perfecto. Entonces, ¿le puedo preguntar si ya la ha manejado?" }
+        - { speaker: customer, text: "No. Ese es el tema. Nunca la he manejado. Yo agarro el Turnpike de noche cuando salgo del turno, al lado de los camiones, y tengo miedo de que se sienta chiquita. Eso no me lo va a decir ninguna comparación." }
+        - { speaker: rep, text: "Tiene razón, una cuarta hoja no le va a resolver eso, y yo no le voy a decir cómo se siente. Eso lo tiene que sentir usted. Así que en vez de otra comparación, resolvamos la única duda que queda: maneje la Equinox LT por su ruta de verdad, con Turnpike y todo. Le mando por email el precio total para que lo tenga por escrito: $33,394 precio total, porque es el mismo precio que paga cualquiera, con nuestro cargo de concesionario de $899 incluido; solo se suman los impuestos, la placa y el título." }
+        - { speaker: customer, text: "Eso sí me lo resolvería. Nada más necesito sentirla." }
+        - { speaker: rep, text: "¿Le queda mejor el martes a las 9 de la mañana, cuando sale del turno, o el miércoles a las 6 de la tarde? Le tengo la Equinox LT con gasolina y lista para salir derecho al Turnpike." }
+        - { speaker: customer, text: "El martes a las 9. Voy directo del trabajo." }
+        - { speaker: rep, text: "El martes a las 9, entonces. La Equinox LT va a estar al frente, y si quiere, traiga el Cruze para tasarlo mientras está aquí." }
+spanish_reviewed: false

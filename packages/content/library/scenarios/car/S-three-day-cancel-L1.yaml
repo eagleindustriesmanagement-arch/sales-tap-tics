@@ -1,0 +1,185 @@
+code: S-three-day-cancel-L1
+module: car-phone-finance
+title:
+  en: "\"I have three days to cancel, right?\""
+  es: "\"Tengo tres días para cancelar, ¿verdad?\""
+setting:
+  en: Saturday morning, the finance office. You are the finance manager; the contract is printed and she has the pen.
+  es: Sábado por la mañana, en la oficina de financiamiento. Usted es el gerente de financiamiento; el contrato está impreso y ella tiene el bolígrafo.
+persona: P-three-day-cancel
+objection: O47
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: finance_handoff
+pre_brief:
+  en: "{name}, late 20s, is buying her first new car on her own: a 2026 Equinox LT at $32,394 out the door plus tax, tag and title. The lender approved her with $3,000 down at 72 months: $539 a month, no products. She declined every product. The contract is printed. Before she signs, she looks up at you."
+  es: "{name}, de unos 28 años, está comprando sola su primer carro nuevo: una Equinox LT 2026 por $32,394 precio total más impuestos, placa y título. El banco la aprobó con $3,000 de down a 72 meses: $539 al mes, sin productos. Ella no quiso ningún producto. El contrato está impreso. Antes de firmar, levanta la vista y lo mira."
+opening:
+  en: Before I sign, I have three days to cancel, right?
+  es: Antes de firmar, tengo tres días para cancelar, ¿verdad?
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: LT FWD, color: Summit White, stock: "6342", in_stock: true }
+  price_cents: 3149500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3239400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: null
+  lender_state: approved
+  approved_apr_bps: 649
+  add_ons: []
+  payment_options:
+    - { code: no_products, cents: 53900, term_months: 72, apr_bps: 649, down_cents: 300000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    down_payment_cents: 300000
+    insurance_quote: Has not gotten an insurance quote on the new car yet
+    believes: A friend told her every car purchase has three days to cancel
+    free_monday: Off work Monday until noon
+numbers_sheet: true
+target_techniques: [T001, T003, T002, T070, T094, T014]
+rubric: R-finance
+# Spec 10.5 and 13.3 (R-finance). The scenario table defines the total; universal items still run for coaching.
+scoring:
+  items:
+    - code: O47-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O47-CORRECT
+      behavior:
+        en: "Corrected the three-day belief plainly, before she signed, without dodging or hedging"
+        es: "Corrigió con claridad la idea de los tres días, antes de que firmara, sin esquivarla ni darle vueltas"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "CANCEL-01; FTC Cooling-Off Rule excludes dealership vehicle sales (T070)"
+      technique: T070
+    - code: O47-QFIRST
+      behavior:
+        en: "Asked what she wanted the three days for before going on"
+        es: "Preguntó para qué quería los tres días antes de seguir"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O47-SLOW
+      behavior:
+        en: "Slowed down: offered not to sign until her open question was settled"
+        es: "Fue más despacio: ofreció no firmar hasta resolver la duda que le quedaba"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "O47 core move; only real, showable protections (T094)"
+      technique: T094
+    - code: O47-HIDDEN
+      behavior:
+        en: "Surfaced the missing insurance quote"
+        es: "Sacó a la luz que le faltaba la cotización del seguro"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O47-NEXT
+      behavior:
+        en: "Set a specific day and time to sign once she has the quote"
+        es: "Fijó un día y una hora específicos para firmar cuando tenga la cotización"
+      dimension: outcome
+      method: engine_and_judge
+      points: 20
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: claimed_cancel_right
+      description:
+        en: "Said or agreed that she can cancel the purchase within three days, or any number of days"
+        es: "Dijo o aceptó que ella puede cancelar la compra en tres días, o en cualquier número de días"
+      method: rule_family
+      rule_families: [cancellation]
+    - code: rushed_signature
+      description:
+        en: "Pushed her to sign before answering her question"
+        es: "La apuró a firmar antes de contestarle la pregunta"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, a rate or the approval"
+        es: "Dijo un número, una tasa o una aprobación que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he never answered her question. He brushed it off with \"we'll take care of you\", which leaves her believing in a right she does not have, and rushed her to the signature lines. He never asked what the three days were for."
+      es: "Fíjese: nunca le contestó la pregunta. Se la quitó de encima con \"nosotros la cuidamos\", lo que la deja creyendo en un derecho que no tiene, y la apuró a firmar. Nunca preguntó para qué quería los tres días."
+    script:
+      en:
+        - { speaker: customer, text: "Before I sign, I have three days to cancel, right?" }
+        - { speaker: rep, text: "Don't worry about that. We'll take care of you. Just sign here and here, and you'll be out of here in ten minutes." }
+        - { speaker: customer, text: "Please don't rush me. I asked you a simple question." }
+        - { speaker: rep, text: "Everybody asks me that. Your payment is $539, and the paperwork is ready. Let's get it signed." }
+        - { speaker: customer, text: "Please don't rush me. I asked you a simple question." }
+        - { speaker: rep, text: "Look, it's a good car and you're approved. Sign now and you drive it home." }
+        - { speaker: customer, text: "Let me hold off today. I'll call you." }
+      es:
+        - { speaker: customer, text: "Antes de firmar, tengo tres días para cancelar, ¿verdad?" }
+        - { speaker: rep, text: "No se preocupe por eso, nosotros la cuidamos. Firme aquí y aquí, y en diez minutos se va." }
+        - { speaker: customer, text: "Por favor no me apure. Le hice una pregunta sencilla." }
+        - { speaker: rep, text: "Todo el mundo me pregunta eso. Su pago es $539, y los papeles están listos. Firmemos ya." }
+        - { speaker: customer, text: "Por favor no me apure. Le hice una pregunta sencilla." }
+        - { speaker: rep, text: "Mire, es un buen carro y usted está aprobada. Firme ahora y se lo lleva manejando." }
+        - { speaker: customer, text: "Mejor lo dejo por hoy. Yo lo llamo." }
+  good:
+    notice:
+      en: Notice the plain correction before she signs, the question about what the three days were for, and how he stops the signing until her real question is answered.
+      es: Fíjese en la corrección clara antes de que firme, en la pregunta sobre para qué quería los tres días, y en cómo detiene la firma hasta resolver su duda de verdad.
+    script:
+      en:
+        - { speaker: customer, text: "Before I sign, I have three days to cancel, right?" }
+        - { speaker: rep, text: "[pause] I'm glad you asked before signing, because the honest answer is no. In Florida there's no three-day cooling-off period on a car bought at the dealership. Once you sign, the contract binds both sides unless it says otherwise. So let's slow down. What would you want those three days for?" }
+        - { speaker: customer, text: "It's not the car. There's one bill I haven't figured out yet." }
+        - { speaker: rep, text: "Okay. Setting that bill aside for a second, are the car and the $539 payment right for you?" }
+        - { speaker: customer, text: "The payment itself is fine." }
+        - { speaker: rep, text: "Good. Then which bill is it? Is it the insurance on the new car?" }
+        - { speaker: customer, text: "Okay. I haven't gotten an insurance quote on this car yet. If it comes in high, I can't afford both, so I was counting on those three days." }
+        - { speaker: rep, text: "Thank you for telling me. That's exactly the kind of thing to settle before you sign, not after. Nothing gets signed today. I'll give you the VIN and the car's details so your agent can quote this exact Equinox." }
+        - { speaker: customer, text: "That makes sense. I'd rather know first." }
+        - { speaker: rep, text: "Can you come back Monday at 11:00 with the quote? If the insurance fits your budget, we sign then, and I'll walk you through every line. If it doesn't, we sit down and look at the numbers again together." }
+        - { speaker: customer, text: "Okay, Monday at 11 works." }
+      es:
+        - { speaker: customer, text: "Antes de firmar, tengo tres días para cancelar, ¿verdad?" }
+        - { speaker: rep, text: "[pausa] Qué bueno que lo pregunta antes de firmar, porque la respuesta honesta es que no. En Florida no hay un período de arrepentimiento de tres días para un carro comprado en el concesionario. Una vez que firma, el contrato obliga a ambas partes, salvo que el contrato diga otra cosa. Así que vamos con calma. ¿Para qué querría usted esos tres días?" }
+        - { speaker: customer, text: "No es el carro. Hay una cuenta que todavía no he resuelto." }
+        - { speaker: rep, text: "Bien. Dejando esa cuenta a un lado un momento, ¿el carro y el pago de $539 le funcionan?" }
+        - { speaker: customer, text: "El pago en sí está bien." }
+        - { speaker: rep, text: "Perfecto. ¿Y cuál es esa cuenta? ¿Es el seguro del carro nuevo?" }
+        - { speaker: customer, text: "Bueno. Todavía no he sacado la cotización del seguro para este carro. Si me sale alto, no puedo con las dos cosas, así que contaba con esos tres días." }
+        - { speaker: rep, text: "Gracias por decírmelo. Eso es justo lo que hay que resolver antes de firmar, no después. Hoy no se firma nada. Le doy el VIN y los datos del carro para que su agente le cotice esta misma Equinox." }
+        - { speaker: customer, text: "Tiene sentido. Prefiero saberlo primero." }
+        - { speaker: rep, text: "¿Puede volver el lunes a las 11:00 con la cotización? Si el seguro le cabe en el presupuesto, firmamos ese día, y le explico cada línea. Si no, nos sentamos y miramos los números otra vez juntos." }
+        - { speaker: customer, text: "Está bien, el lunes a las 11 me funciona." }
+spanish_reviewed: false

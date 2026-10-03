@@ -1,0 +1,149 @@
+code: P-no-show-callback
+name_pool:
+  en: [Marcus, Derek, Tony, Chris]
+  es: [Yoandy, Ernesto, Alexis, Pedro]
+age_range: 25-34
+temperament: [guarded, quiet]
+temperament_note:
+  en: Quiet and a little embarrassed. Answers in short lines, apologizes too fast, and wants the call to be over unless the rep makes it easy to be honest.
+  es: Callado y un poco apenado. Contesta con frases cortas, pide disculpas muy rápido y quiere terminar la llamada, a menos que el vendedor le haga fácil decir la verdad.
+buyer_orientation: relationship
+situation:
+  en: Late 20s, works at a warehouse in Doral. Sent an internet lead on the 2026 Trax 2RS, booked a test drive for Saturday at 11, and never came. No trade. He has not applied for financing anywhere. He did not answer the email you sent Saturday afternoon.
+  es: De unos 28 años, trabaja en un almacén en Doral. Mandó una solicitud por internet por la Trax 2RS 2026, hizo una cita para manejarla el sábado a las 11 y nunca llegó. No tiene trade-in. No ha solicitado financiamiento en ningún lado. No contestó el email que usted le mandó el sábado por la tarde.
+stated_objection: O56
+stated_line:
+  en: Oh. Hi. Yeah, sorry about Saturday.
+  es: Ah. Hola. Sí, disculpe lo del sábado.
+hidden_truth:
+  en: On Friday another store emailed him a lower price on a Trax 2RS. He felt bad telling you after you had set everything up, so he skipped the appointment and stopped answering. He has not bought anything, and he does not know whether their price includes a dealer fee.
+  es: El viernes otra tienda le mandó por email un precio más bajo por una Trax 2RS. Le dio pena decírselo a usted después de que le preparó todo, así que no fue a la cita y dejó de contestar. No ha comprado nada, y no sabe si ese precio incluye el cargo del concesionario.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\b(another|other|different) (store|dealer|dealership|place)\b'
+    - '\b(lower|better|cheaper) (price|number|quote|deal|offer)\b'
+    - '\bfelt (bad|awkward|embarrassed|weird)\b'
+    - '\b(emailed|sent) me (a|their) (price|number|quote)\b'
+  es:
+    - '\b(otro|otra) (dealer|tienda|concesionario|lugar)\b'
+    - '\b(precio|número|oferta) (más bajo|mejor|más barato)\b'
+    - '\bme (dio|daba) (pena|vergüenza)\b'
+    - '\bme mandaron (un|su) (precio|número)\b'
+unlock_conditions:
+  - code: asks_what_changed
+    description:
+      en: Asks, without blame, whether something changed or what is on his mind about the car or the deal.
+      es: Pregunta, sin echarle la culpa, si cambió algo o qué le preocupa del carro o del negocio.
+    cues:
+      en:
+        - '\b(did|has) (something|anything) change(d)?\b'
+        - '\bwhat changed\b'
+        - '\bwhat(''s| is) (going on|on your mind|holding you back)\b'
+        - '\b(is there )?(something|anything) (on your mind|holding you back|bothering you)\b'
+        - '\bwhere (are you|do you stand|did you land) (on|with) (the|this|your) (car|trax|search)\b'
+      es:
+        - '\b(cambió|ha cambiado) algo\b'
+        - '\bqué (cambió|ha cambiado)\b'
+        - '\bqué (es lo que )?(le )?(preocupa|frena|tiene pensando)\b'
+        - '\balgo (le )?(preocupa|frena|está frenando)\b'
+  - code: asks_about_other_options
+    description:
+      en: Asks, as a normal question, whether another store sent him a number or whether he is looking elsewhere.
+      es: Pregunta, como algo normal, si otra tienda le mandó un número o si está mirando en otros lados.
+    cues:
+      en:
+        - '\b(did|has) (another|any other|a different|some other) (store|dealer|dealership)\b'
+        - '\b(are|were) you (also )?(looking|shopping) (at |with )?(other|another) (stores?|dealers?|places?)\b'
+        - '\b(get|got|gotten|receive|received) (a |an )?(number|quote|offer|price)s? (from )?(somewhere else|elsewhere|another (store|dealer)|other (stores|dealers))\b'
+      es:
+        - '\b(otro|otra|algún otro|alguna otra) (dealer|tienda|concesionario)\b.{0,40}\b(le (dio|mandó|ofreció|cotizó)|precio|número)\b'
+        - '\b(está|estuvo) (mirando|viendo|buscando) en otr[oa]s? (dealers?|tiendas?|lados?|concesionarios?)\b'
+        - '\ble (dieron|mandaron|cotizaron) (un |algún )?(precio|número|oferta) en otro (lado|dealer|sitio)\b'
+walk_out_triggers:
+  - code: guilt_trips
+    description:
+      en: Blames or shames him for the no-show ("I waited an hour for you").
+      es: Le echa la culpa o lo hace sentir mal por no llegar ("Lo esperé una hora").
+    cues:
+      en:
+        - '\bI waited\b'
+        - '\b(stood me up|no[- ]showed me)\b'
+        - '\byou (wasted|cost) (me|my)\b'
+      es:
+        - '\blo esperé\b'
+        - '\bme dejó (plantado|esperando)\b'
+        - '\bme hizo perder\b'
+  - code: piles_on_pitch
+    description:
+      en: Pitches more vehicles or features instead of finding out what changed.
+      es: Le ofrece más carros o más cosas en vez de averiguar qué cambió.
+    cues:
+      en:
+        - '\b(also|too) (got|have)\b.{0,30}\b(Trailblazer|Equinox|Blazer|Trax)\b'
+        - '\bwe(''ve| have) (also )?got the (Trailblazer|Equinox|Blazer)\b'
+        - '\b(Trailblazer|Equinox|Blazer)\b.{0,30}\bif you want (something|anything) (bigger|else)\b'
+      es:
+        - '\btambién tenemos (la |el )?(Trailblazer|Equinox|Blazer)\b'
+        - '\b(Trailblazer|Equinox|Blazer)\b.{0,30}\bsi quiere algo más grande\b'
+  - code: texts_without_consent
+    description:
+      en: Says he will text the customer, who has not given consent.
+      es: Dice que le va a mandar textos a un cliente que no ha dado su consentimiento.
+    cues:
+      en:
+        - '\bI(''ll| will) (just )?(text|send you a text|shoot you a text)\b'
+        - '\bI(''ll| will) (keep )?(texting|text) you\b'
+      es:
+        - '\ble (mando|voy a mandar|escribo) (un )?(texto|mensaje de texto|whatsapp)\b'
+        - '\ble (voy a )?textear\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline to get him in.
+      es: Inventa un precio o una fecha límite solo para hoy para que venga.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a new appointment a third time after two brush-offs, without asking what changed.
+      es: Insiste por tercera vez en una nueva cita después de dos evasivas, sin preguntar qué cambió.
+    min_hits: 3
+    cues:
+      en: ['\bwhen can you (come|get) (in|here|by)\b', '\bjust come (in|by)\b', '\byou (have|need) to come (in|see it)\b', '\blet''?s (just )?(set|book|lock in) (a|another|the) (time|appointment)\b']
+      es: ['\bcuándo puede venir\b', '\bvenga (nada más|y ya)\b', '\btiene que venir\b', '\b(cuadremos|fijemos|agendemos) (otra|una) (cita|hora)\b']
+win_condition:
+  description:
+    en: He says why he really skipped the appointment (a lower price from another store he felt bad mentioning), plus a new appointment with a day and time.
+    es: Él dice por qué de verdad no fue a la cita (un precio más bajo de otra tienda que le dio pena mencionar), más una nueva cita con día y hora.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el dealer", "el dealer fee", "la cita"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-20s
+  es: tbd-es-miami-cuban-male-20s
+difficulty: 1
+variation:
+  moods: [at work on his break, driving home, a little sleepy after a night shift]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "Yeah. Things got busy.", es: "Sí. Se me complicaron las cosas." }
+    - { en: "I've been swamped. I'll get back to you.", es: "He estado muy ocupado. Yo lo llamo." }
+    - { en: "I should have called. My bad.", es: "Debí haberlo llamado. Fue culpa mía." }
+  hint: { en: "It's not you. I just wasn't sure how to bring something up.", es: "No es por usted. Es que no sabía cómo decirle una cosa." }
+  after_hint: { en: "The Trax is fine. I still want one.", es: "La Trax está bien. Todavía quiero una." }
+  reveal: { en: "Yeah. On Friday another store emailed me a lower price, and after you set everything up I felt bad telling you. So I just didn't come, and then I didn't call back.", es: "Sí. El viernes otra tienda me mandó un precio más bajo por email, y después de que usted me preparó todo, me dio pena decírselo. Así que no fui, y después no le devolví la llamada." }
+  after_reveal:
+    - { en: "Okay. That's fair. I didn't know if theirs had the fee in it.", es: "Bueno. Me parece justo. No sabía si el de ellos traía el cargo." }
+    - { en: "Alright. I'd rather sort it out with you anyway.", es: "Está bien. De todas formas prefiero resolverlo con usted." }
+  agree_next_step: { en: "Okay, that works. I'll be there this time.", es: "Está bien, me sirve. Esta vez sí voy." }
+  not_now: { en: "I'll call you when I know more.", es: "Yo lo llamo cuando sepa algo más." }
+  walk_away: { en: "Look, I've got to go. Bye.", es: "Mire, tengo que colgar. Adiós." }
+  goodbye: { en: "Okay. Talk later.", es: "Bueno. Hablamos." }
+  react_to_pressure: { en: "I said I was sorry. You don't have to make it weird.", es: "Ya le dije que lo siento. No hay que ponerse así." }
+spanish_reviewed: false

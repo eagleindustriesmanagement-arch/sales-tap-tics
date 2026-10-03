@@ -1,0 +1,189 @@
+code: S-battery-fear-L1
+module: car-ev
+title:
+  en: "\"The battery won't last\""
+  es: "\"¿Y si se daña la batería?\""
+setting:
+  en: Saturday afternoon, at the desk, after he drove the used Blazer EV.
+  es: Sábado por la tarde, en el escritorio, después de que manejó la Blazer EV usada.
+persona: P-battery-fear
+objection: O31
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-50s, drives a 2011 Camry with about 210,000 miles and wants to stop paying for gas. He just drove a used 2024 Blazer EV 2LT with 28,000 miles. You showed him the all-in price of $32,394 plus tax, tag and title. He keeps looking at the floor of the car, where the battery is."
+  es: "{name}, de unos 55 años, maneja un Camry 2011 con unas 210,000 millas y quiere dejar de pagar gasolina. Acaba de manejar una Blazer EV 2LT 2024 usada con 28,000 millas. Usted le enseñó el precio total de $32,394 más impuestos, tag y título. Se queda mirando el piso del carro, donde va la batería."
+opening:
+  en: The battery won't last.
+  es: ¿Y si se daña la batería?
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2024, make: Chevrolet, model: Blazer EV, trim: 2LT, color: Summit White, stock: "4821", in_stock: true }
+  price_cents: 3149500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3239400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  trade: { vehicle: 2011 Toyota Camry LE, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    odometer_miles: 28000
+    battery_report: The dealership ran a battery health report on stock 4821 on September 29, 2026; the rep hands him his own copy
+    warranty_source: The rep quotes no warranty term from memory; the remaining factory battery warranty for this VIN is looked up and printed for him
+    savings_plan: Plans to put almost all his savings down
+    free_monday: Free Monday after 5
+numbers_sheet: false
+target_techniques: [T072, T094, T001, T003, T002, T005, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O31-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O31-QFIRST
+      behavior:
+        en: "Asked what worries him most before saying anything about the battery"
+        es: "Preguntó qué es lo que más le preocupa antes de decir nada de la batería"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O31-ISOLATE
+      behavior:
+        en: "Checked whether the car itself was right for him, apart from the battery"
+        es: "Confirmó si el carro en sí le servía, aparte de la batería"
+      dimension: discovery
+      method: judge
+      points: 10
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O31-HIDDEN
+      behavior:
+        en: "Surfaced that his savings are going into the down and he could not cover a repair"
+        es: "Sacó a la luz que sus ahorros van de down y que no podría cubrir un arreglo"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O31-REPORT
+      behavior:
+        en: "Showed the battery health report for this exact car and gave him a copy"
+        es: "Le enseñó el reporte de la batería de este mismo carro y le dio una copia"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Battery testing data (T072)"
+      technique: T072
+    - code: O31-WRITING
+      behavior:
+        en: "Offered the battery warranty in writing for this VIN instead of a promise"
+        es: "Ofreció la garantía de la batería por escrito para este VIN en vez de una promesa"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "JOLT Effect; only real, showable protections (T094)"
+      technique: T094
+    - code: O31-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_battery
+      description:
+        en: "Promised the battery will not fail, or quoted warranty terms from memory instead of in writing"
+        es: "Prometió que la batería no va a fallar, o dijo términos de garantía de memoria en vez de por escrito"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he promised the battery would never go bad, asked him to trust him instead of showing anything in writing, and pushed for today. He never asked what worried him, so he never learned about the savings."
+      es: "Fíjese: le prometió que la batería nunca se iba a dañar, le pidió que confiara en él en vez de enseñarle algo por escrito, y presionó para hoy. Nunca le preguntó qué le preocupaba, así que nunca supo lo de los ahorros."
+    script:
+      en:
+        - { speaker: customer, text: "The battery won't last." }
+        - { speaker: rep, text: "The battery? These batteries last forever. It will never go bad." }
+        - { speaker: customer, text: "It's a used car. Who knows how that battery was treated." }
+        - { speaker: rep, text: "Trust me, I sell these every day. Nothing to worry about." }
+        - { speaker: customer, text: "I just don't trust it yet." }
+        - { speaker: rep, text: "Let's just write it up, and you'll drive it home happy." }
+        - { speaker: customer, text: "I think I'll wait and keep my Camry running." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+      es:
+        - { speaker: customer, text: "¿Y si se daña la batería?" }
+        - { speaker: rep, text: "¿La batería? Estas baterías duran para siempre. Esa batería nunca se daña." }
+        - { speaker: customer, text: "Es un carro usado. Quién sabe cómo trataron esa batería." }
+        - { speaker: rep, text: "Confíe en mí, yo vendo estas todos los días. No tiene de qué preocuparse." }
+        - { speaker: customer, text: "Es que todavía no le tengo confianza." }
+        - { speaker: rep, text: "Hagámoslo ya, y se la lleva contento para la casa." }
+        - { speaker: customer, text: "Creo que voy a esperar y seguir con mi Camry." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice the pause, the question about what worries him, and how the fear is answered with this car's battery report and the warranty in writing, not with a promise.
+      es: Fíjese en la pausa, en la pregunta sobre qué le preocupa, y en cómo el miedo se responde con el reporte de la batería de este carro y la garantía por escrito, no con una promesa.
+    script:
+      en:
+        - { speaker: customer, text: "The battery won't last." }
+        - { speaker: rep, text: "[pause] That's a fair worry. It's the most expensive part of the car. What worries you most about it?" }
+        - { speaker: customer, text: "It's not the battery itself. It's what happens to me if it goes." }
+        - { speaker: rep, text: "Okay. And apart from the battery, is this Blazer the right car for you?" }
+        - { speaker: customer, text: "The car's nice. It drives nice." }
+        - { speaker: rep, text: "Then tell me, if something did go wrong with the battery, what would that mean for you?" }
+        - { speaker: customer, text: "Okay. I'm putting almost all my savings into the down on this. If that battery goes, I can't cover a repair like that. And I don't know how healthy a used battery is." }
+        - { speaker: rep, text: "Thank you for trusting me with that. I'm not going to promise you a battery never fails. What I can do is put it on paper. Here's the battery health report we ran on this exact car, and this copy is yours. And let's look up the factory battery warranty for this VIN together, so you see what's covered and for how long, in writing, not from me." }
+        - { speaker: customer, text: "That's what I needed. Something on paper." }
+        - { speaker: rep, text: "Can you come back Monday at 5:30? I'll have the warranty printout for this VIN next to the report, and we'll also look at putting less down, so you keep a cushion in savings." }
+        - { speaker: customer, text: "Monday at 5:30. I'll bring my wife so she sees the papers too." }
+      es:
+        - { speaker: customer, text: "¿Y si se daña la batería?" }
+        - { speaker: rep, text: "[pausa] Es una preocupación válida. Es la pieza más cara del carro. ¿Qué es lo que más le preocupa de la batería?" }
+        - { speaker: customer, text: "No es la batería en sí. Es lo que me pasa a mí si se daña." }
+        - { speaker: rep, text: "Bien. Y aparte de la batería, ¿esta Blazer es el carro para usted?" }
+        - { speaker: customer, text: "El carro está bonito. Se maneja bien." }
+        - { speaker: rep, text: "Entonces dígame, si algo le fallara a la batería, ¿qué significaría eso para usted?" }
+        - { speaker: customer, text: "Bueno. Voy a poner casi todos mis ahorros de down en este carro. Si esa batería se daña, no puedo cubrir un arreglo así. Y yo no sé cómo está la batería de un carro usado." }
+        - { speaker: rep, text: "Gracias por la confianza de decírmelo. No le voy a prometer que una batería nunca falla. Lo que sí puedo hacer es ponérselo en papel. Aquí tiene el reporte de salud de la batería que le hicimos a este mismo carro, y esta copia es suya. Y vamos a buscar juntos la garantía de fábrica de la batería para este VIN, para que vea qué cubre y por cuánto tiempo, por escrito, no de mi boca." }
+        - { speaker: customer, text: "Eso es lo que necesitaba. Algo en papel." }
+        - { speaker: rep, text: "¿Puede volver el lunes a las 5:30? Le tengo impresa la garantía de este VIN al lado del reporte, y también vemos cómo dar menos de down, para que le quede un colchón de ahorros." }
+        - { speaker: customer, text: "El lunes a las 5:30. Traigo a mi señora para que vea los papeles también." }
+spanish_reviewed: false

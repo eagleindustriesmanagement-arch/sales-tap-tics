@@ -1,0 +1,177 @@
+code: S-silent-chooser-L1
+module: car-miami-indecision
+title:
+  en: "Goes silent after two options"
+  es: "Se queda callada después de ver dos opciones"
+setting:
+  en: Thursday evening, at your desk. You just set two printed sheets side by side in front of her, and she has gone quiet.
+  es: Jueves por la tarde, en su escritorio. Usted le acaba de poner dos hojas impresas lado a lado, y ella se quedó callada.
+persona: P-silent-chooser
+objection: O62
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-50s, drives her mother, who uses a walker, to appointments twice a week. Her mother sat in both SUVs with her on Tuesday. You just showed her two options side by side: the 2026 Equinox LT at $33,394 out the door and the 2026 Trailblazer RS at $30,894 out the door, each with the $899 dealer fee already in; only tax, tag and title are added. She is trading a paid-off 2015 Sonic and putting $5,000 down. Your manager has approved up to $500 off the Equinox, but she has not asked for a discount. She looks from one sheet to the other and says almost nothing."
+  es: "{name}, de unos 55 años, lleva a su mamá, que usa andador, a sus citas dos veces por semana. Su mamá se sentó con ella en las dos SUV el martes. Usted le acaba de enseñar dos opciones lado a lado: la Equinox LT 2026 en $33,394 precio total y la Trailblazer RS 2026 en $30,894 precio total, las dos con el cargo de concesionario de $899 ya incluido; solo se suman los impuestos, la placa y el título. Da como trade-in un Sonic 2015 pagado y pone $5,000 de down. Su gerente aprobó hasta $500 de rebaja en la Equinox, pero ella no ha pedido rebaja. Mira de una hoja a la otra y casi no dice nada."
+opening:
+  en: Hmm. Okay.
+  es: Mmm. Bueno.
+facts:
+  session_date: "2026-10-08"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: LT, color: Cypress Gray Metallic, stock: "6358", in_stock: true }
+  price_cents: 3249500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3339400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  alternatives:
+    - { description: "2026 Chevrolet Trailblazer RS, Mosaic Black Metallic, stock 6410, on the lot", all_in_price_cents: 3089400 }
+  trade: { vehicle: 2015 Chevrolet Sonic LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: true, min_all_in_price_cents: 3289400 }
+  text_consent: false
+  customer_knows:
+    mother: Uses a walker; rides with her to appointments twice a week
+    mother_sat_in_both: "Tuesday; her mother found the Equinox easier to get into"
+    budget: Both options fit
+    free_saturday: "Saturday morning, with her mother"
+numbers_sheet: true
+target_techniques: [T092, T001, T002, T005, T093, T094, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O62-SILENCE
+      behavior:
+        en: "Let the silence sit at least three seconds instead of filling it"
+        es: "Dejó que el silencio durara al menos tres segundos en vez de llenarlo"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections (T001)"
+      technique: T001
+      params: { min_pause_ms: 3000, after: objection }
+    - code: O62-NOFILL
+      behavior:
+        en: "Did not fill the silence with a third option or a discount"
+        es: "No llenó el silencio con una tercera opción ni con una rebaja"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Chernev 2015 choice-overload meta-analysis (T093)"
+      technique: T093
+    - code: O62-QFIRST
+      behavior:
+        en: "Asked what was on her mind before offering anything"
+        es: "Preguntó qué tenía en mente antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0% (T002)"
+      technique: T002
+    - code: O62-HIDDEN
+      behavior:
+        en: "Surfaced that the silence is fear of choosing wrong, not price"
+        es: "Sacó a la luz que el silencio es miedo de escoger mal, no el precio"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O62-RECOMMEND
+      behavior:
+        en: "Gave one clear recommendation with a reason tied to what she said, and a real way to check it"
+        es: "Dio una recomendación clara con una razón basada en lo que ella dijo, y una manera real de comprobarla"
+      dimension: technique
+      method: judge
+      points: 25
+      evidence: "JOLT research, secondhand (T092)"
+      technique: T092
+    - code: O62-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: pressured_indecision
+      description:
+        en: "Belittled her indecision or pressured her to choose on the spot"
+        es: "Se burló de su indecisión o la presionó para escoger en el momento"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number or the manager's limit"
+        es: "Dijo un número o un límite del gerente que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, authority]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep could not stand the silence. He added a third SUV, offered money off she never asked for, and told her it was not that hard. He never asked what she was thinking, so she went home to think."
+      es: "Fíjese: el vendedor no aguantó el silencio. Le agregó una tercera SUV, le ofreció una rebaja que ella nunca pidió y le dijo que no era tan difícil. Nunca le preguntó qué estaba pensando, así que ella se fue a pensarlo a la casa."
+    script:
+      en:
+        - { speaker: customer, text: "Hmm. Okay." }
+        - { speaker: rep, text: "And if neither of those is quite it, let me show you the Blazer too. It's a step up." }
+        - { speaker: customer, text: "Please, give me a minute." }
+        - { speaker: rep, text: "Or I can probably knock a little off the Equinox if that helps you decide." }
+        - { speaker: customer, text: "Please, give me a minute." }
+        - { speaker: rep, text: "Come on, it's not that hard. Just pick one and let's write it up." }
+        - { speaker: customer, text: "I need to go home and think. Not today." }
+      es:
+        - { speaker: customer, text: "Mmm. Bueno." }
+        - { speaker: rep, text: "Y si ninguna de las dos le convence, déjeme enseñarle la Blazer también. Es un escalón más arriba." }
+        - { speaker: customer, text: "Por favor, deme un minuto." }
+        - { speaker: rep, text: "O le puedo rebajar un poquito la Equinox, si eso la ayuda a decidirse." }
+        - { speaker: customer, text: "Por favor, deme un minuto." }
+        - { speaker: rep, text: "Ay, no es tan difícil. Escoja una y ya, hacemos los papeles." }
+        - { speaker: customer, text: "Tengo que irme a la casa a pensarlo. Hoy no." }
+  good:
+    notice:
+      en: "Notice the long silence, the open question, the check that it is not about price, and one clear recommendation with a reason she gave herself, plus a real way to confirm it with her mother."
+      es: "Fíjese en el silencio largo, en la pregunta abierta, en confirmar que no es por el precio, y en una sola recomendación clara con una razón que ella misma dio, más una manera real de confirmarla con su mamá."
+    script:
+      en:
+        - { speaker: customer, text: "Hmm. Okay." }
+        - { speaker: rep, text: "[let the silence sit] Take your time. When you're ready, what's going through your mind?" }
+        - { speaker: customer, text: "It's not the money. Both of them work for me." }
+        - { speaker: rep, text: "Okay. Then if the price were the same on both, which one would you take home?" }
+        - { speaker: customer, text: "Honestly? I can't pick. I'm afraid I'll choose wrong and be stuck with it for years. My mom said the Equinox was easier to get into, but I don't trust myself on the rest. I wish somebody would just tell me which one." }
+        - { speaker: rep, text: "Thank you for telling me. Then I'll tell you what I'd do in your shoes: I'd take the Equinox LT. You'll be helping your mom in and out of it twice a week for years, and she already told you it's easier for her. That's the part you'll feel every single week. But don't take my word for it alone." }
+        - { speaker: customer, text: "That helps. I needed someone to say it." }
+        - { speaker: rep, text: "Bring your mom and her walker on Saturday at 11. She rides in the Equinox, we fold the walker into the back together, and if it feels right to both of you, we do the paperwork then. Does Saturday at 11 work?" }
+        - { speaker: customer, text: "Saturday at 11. I'll bring her." }
+        - { speaker: rep, text: "Saturday at 11, then. I'll have this same Equinox LT pulled up by the door so your mom doesn't have to walk far." }
+      es:
+        - { speaker: customer, text: "Mmm. Bueno." }
+        - { speaker: rep, text: "[deje que el silencio respire] Tómese su tiempo. Cuando esté lista, ¿qué le está pasando por la mente?" }
+        - { speaker: customer, text: "No es el dinero. Las dos me funcionan." }
+        - { speaker: rep, text: "Bien. Entonces, si el precio fuera el mismo en las dos, ¿con cuál se iría para su casa?" }
+        - { speaker: customer, text: "¿La verdad? No puedo escoger. Tengo miedo de equivocarme y quedarme con eso por años. Mi mamá dijo que en la Equinox se montaba más fácil, pero en lo demás no confío en mí. Ojalá alguien me dijera cuál." }
+        - { speaker: rep, text: "Gracias por decírmelo. Entonces le digo lo que yo haría en su lugar: yo me llevaría la Equinox LT. Usted va a estar ayudando a su mamá a subir y bajar dos veces por semana por años, y ella ya le dijo que ahí se monta más fácil. Eso es lo que usted va a sentir todas las semanas. Pero no se quede solo con mi palabra." }
+        - { speaker: customer, text: "Eso me ayuda. Necesitaba que alguien me lo dijera." }
+        - { speaker: rep, text: "Traiga a su mamá con el andador el sábado a las 11. Ella se monta en la Equinox, doblamos el andador juntos en el maletero, y si a su mamá y a usted les parece bien, hacemos los papeles ahí mismo. ¿Le funciona el sábado a las 11?" }
+        - { speaker: customer, text: "El sábado a las 11. La traigo." }
+        - { speaker: rep, text: "El sábado a las 11, entonces. Le tengo esta misma Equinox LT parada en la puerta para que su mamá no tenga que caminar mucho." }
+spanish_reviewed: false

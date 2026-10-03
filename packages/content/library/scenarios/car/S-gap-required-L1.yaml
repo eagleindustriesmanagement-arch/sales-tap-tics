@@ -1,0 +1,198 @@
+code: S-gap-required-L1
+module: car-phone-finance
+title:
+  en: "\"Another dealer said GAP was required\""
+  es: "\"En otro dealer me dijeron que el GAP era obligatorio\""
+setting:
+  en: Saturday afternoon, the finance office. You are the finance manager; the deal and the approval are done.
+  es: Sábado por la tarde, en la oficina de financiamiento. Usted es el gerente de financiamiento; el negocio y la aprobación ya están hechos.
+persona: P-gap-required
+objection: O49
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: finance_handoff
+pre_brief:
+  en: "{name}, late 20s, agreed on a 2026 Trailblazer LT at $28,394 out the door plus tax, tag and title. The lender approved him with $500 down at 72 months. Your menu: no products, $523 a month; GAP only ($795), $537 a month. He sits down and speaks first."
+  es: "{name}, de unos 28 años, se puso de acuerdo en una Trailblazer LT 2026 por $28,394 precio total más impuestos, placa y título. El banco lo aprobó con $500 de down a 72 meses. Su menú: sin productos, $523 al mes; solo GAP ($795), $537 al mes. Se sienta y habla él primero."
+opening:
+  en: Another dealer said GAP was required. Is it required here too?
+  es: En otro dealer me dijeron que el GAP era obligatorio. ¿Aquí también?
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trailblazer, trim: LT, color: Mosaic Black Metallic, stock: "4419", in_stock: true }
+  price_cents: 2749500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2839400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: approved
+  approved_apr_bps: 749
+  add_ons:
+    - code: gap
+      name: { en: GAP, es: GAP }
+      cents: 79500
+      aliases:
+        en: [GAP coverage, GAP insurance]
+        es: [seguro GAP, cobertura GAP]
+  payment_options:
+    - { code: no_products, cents: 52300, term_months: 72, apr_bps: 749, down_cents: 50000 }
+    - { code: gap_only, cents: 53700, term_months: 72, apr_bps: 749, down_cents: 50000, includes_add_ons: [gap] }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    payment_ceiling_cents: 53000
+    down_payment_cents: 50000
+    other_dealer: Showed one payment with GAP in it and said the bank required it
+numbers_sheet: true
+target_techniques: [T121, T001, T002, T051, T003, T014]
+rubric: R-finance
+# Spec 10.5 and 13.3 (R-finance). The scenario table defines the total; universal items still run for coaching.
+scoring:
+  items:
+    - code: O49-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O49-OPTIONAL
+      behavior:
+        en: "Said plainly that GAP is optional, without running down the other dealer"
+        es: "Dijo claramente que el GAP es opcional, sin hablar mal del otro dealer"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "O49 core move; Florida s. 634.121 notice; FTC guidance (T051)"
+      technique: T051
+    - code: O49-QFIRST
+      behavior:
+        en: "Asked what the other dealer showed him before presenting GAP"
+        es: "Preguntó qué le enseñaron en el otro dealer antes de presentar el GAP"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O49-MENU
+      behavior:
+        en: "Showed the payment with and without GAP, each one labeled"
+        es: "Mostró el pago con GAP y sin GAP, cada uno identificado"
+      dimension: technique
+      method: rule
+      points: 20
+      evidence: Credit Acceptance consent decree (T121)
+      technique: T121
+      params: { rules: [PAY-02, PAY-01, PAY-03], topic: add_on }
+    - code: O49-NOREQ
+      behavior:
+        en: "Called no product required for approval, rate or delivery"
+        es: "No presentó ningún producto como requisito para la aprobación, la tasa o la entrega"
+      dimension: technique
+      method: rule
+      points: 10
+      evidence: Florida s. 634.121; FTC guidance
+      technique: T051
+      params: { rules: [ADD-01], topic: add_on }
+    - code: O49-HIDDEN
+      behavior:
+        en: "Surfaced the single payment with GAP built in and his $530 limit"
+        es: "Sacó a la luz el pago único con el GAP metido y su límite de $530"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O49-NEXT
+      behavior:
+        en: "Set a specific delivery time he agreed to"
+        es: "Fijó una hora de entrega específica que él aceptó"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: prejudged_product
+      description:
+        en: "Pre-judged GAP for him (\"you'll want it\", \"most people take it\")"
+        es: "Decidió por él sobre el GAP (\"usted lo va a querer\", \"casi todos lo llevan\")"
+      method: judge
+    - code: misdescribed_add_on
+      description:
+        en: "Called a product required, impossible to remove, or free"
+        es: "Dijo que un producto era obligatorio, imposible de quitar o gratis"
+      method: rule_family
+      rule_families: [add_ons]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, or hid a product inside a payment"
+        es: "Dijo un número que no es real, o escondió un producto dentro de un pago"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the finance manager never answered whether GAP is required. He pre-judged it, showed only the payment with GAP, piled on more products, and never asked what happened at the other dealer."
+      es: "Fíjese: el gerente de financiamiento nunca contestó si el GAP es obligatorio. Decidió por él, solo enseñó el pago con el GAP, le echó más productos encima y nunca preguntó qué pasó en el otro dealer."
+    script:
+      en:
+        - { speaker: customer, text: "Another dealer said GAP was required. Is it required here too?" }
+        - { speaker: rep, text: "Most people with a small down payment take GAP, and you'll be glad you have it. With GAP, your payment is $537 a month." }
+        - { speaker: customer, text: "I asked you a yes-or-no question." }
+        - { speaker: rep, text: "And while we're here, let me show you the service contract and the tire and wheel coverage too." }
+        - { speaker: customer, text: "I asked you a yes-or-no question." }
+        - { speaker: rep, text: "Trust me, you'll be glad you have it. I'll print it with GAP." }
+        - { speaker: customer, text: "That's what they told me. Required." }
+      es:
+        - { speaker: customer, text: "En otro dealer me dijeron que el GAP era obligatorio. ¿Aquí también?" }
+        - { speaker: rep, text: "La mayoría de la gente con poco down se lleva el GAP, y se va a alegrar de tenerlo. Con el GAP, su pago es $537 al mes." }
+        - { speaker: customer, text: "Le hice una pregunta de sí o no." }
+        - { speaker: rep, text: "Y ya que estamos, también le enseño el contrato de servicio y la protección de gomas y rines." }
+        - { speaker: customer, text: "Le hice una pregunta de sí o no." }
+        - { speaker: rep, text: "Créame, se va a alegrar de tenerlo. Se lo imprimo con el GAP." }
+        - { speaker: customer, text: "Eso fue lo que me dijeron. Obligatorio." }
+  good:
+    notice:
+      en: Notice the plain answer that GAP is optional, the question about what the other dealer showed him, and the menu where each payment says what it includes and the choice stays his.
+      es: Fíjese en la respuesta clara de que el GAP es opcional, en la pregunta sobre qué le enseñaron en el otro dealer, y en el menú donde cada pago dice lo que incluye y la decisión sigue siendo de él.
+    script:
+      en:
+        - { speaker: customer, text: "Another dealer said GAP was required. Is it required here too?" }
+        - { speaker: rep, text: "[pause] I'm glad you asked. Here, GAP is optional. It isn't required for your approval, your rate or delivery, and nothing goes in your contract without your yes. What did they show you at the other dealer?" }
+        - { speaker: customer, text: "They had it all figured out before I even sat down." }
+        - { speaker: rep, text: "Did they ever show you the payment without it?" }
+        - { speaker: customer, text: "No. They only showed me one payment, with GAP already in it, and said the bank required it. I walked out. My limit is $530 a month, and I never saw what it is without GAP." }
+        - { speaker: rep, text: "Then let me show you both, side by side, and you choose. Without any products, $523 a month. With GAP only, $537 a month. Both are 72 months at the same rate. GAP is $795. It covers the difference between what you still owe and what your insurance pays if the car is totaled or stolen. It's your call." }
+        - { speaker: customer, text: "Then without it. That keeps me under my number." }
+        - { speaker: rep, text: "Without GAP, then: $523 a month for 72 months. I'll print the contract without it, and we'll go over every line before you sign. Your Trailblazer can be ready for delivery today at 5:00. Does that work?" }
+        - { speaker: customer, text: "Today at 5 works." }
+      es:
+        - { speaker: customer, text: "En otro dealer me dijeron que el GAP era obligatorio. ¿Aquí también?" }
+        - { speaker: rep, text: "[pausa] Qué bueno que lo pregunta. Aquí el GAP es opcional. No es requisito para la aprobación, la tasa ni la entrega, y no entra nada en su contrato sin que usted diga que sí. ¿Qué le enseñaron en el otro dealer?" }
+        - { speaker: customer, text: "Ya lo tenían todo armado antes de que yo me sentara." }
+        - { speaker: rep, text: "¿Alguna vez le enseñaron el pago sin el GAP?" }
+        - { speaker: customer, text: "No. Me enseñaron un solo pago, con el GAP ya metido, y me dijeron que el banco lo exigía. Me fui. Mi límite es $530 al mes, y nunca vi cuánto es sin el GAP." }
+        - { speaker: rep, text: "Entonces le enseño los dos, lado a lado, y usted escoge. Sin ningún producto, $523 al mes. Con GAP solamente, $537 al mes. Los dos a 72 meses, con la misma tasa. El GAP cuesta $795. Cubre la diferencia entre lo que usted todavía debe y lo que paga el seguro si el carro es pérdida total o se lo roban. La decisión es suya." }
+        - { speaker: customer, text: "Entonces sin él. Así me quedo por debajo de mi número." }
+        - { speaker: rep, text: "Sin GAP, entonces: $523 al mes a 72 meses. Le imprimo el contrato sin él, y repasamos cada línea antes de que firme. Su Trailblazer puede estar lista para la entrega hoy a las 5:00. ¿Le funciona?" }
+        - { speaker: customer, text: "Hoy a las 5 me funciona." }
+spanish_reviewed: false

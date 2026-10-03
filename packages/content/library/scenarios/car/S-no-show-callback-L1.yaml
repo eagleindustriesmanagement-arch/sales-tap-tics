@@ -1,0 +1,189 @@
+code: S-no-show-callback-L1
+module: car-miami-indecision
+title:
+  en: "The no-show who goes quiet (phone)"
+  es: "El cliente que no llegó y dejó de contestar (por teléfono)"
+setting:
+  en: Monday evening, outbound phone call. He missed Saturday's test drive and has not answered your email. He picks up and recognizes your number.
+  es: Lunes por la tarde, llamada saliente. No llegó a la prueba de manejo del sábado y no ha contestado su email. Contesta y reconoce su número.
+persona: P-no-show-callback
+objection: O56
+channel: phone
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "Outbound call. {name}, late 20s, booked a test drive of the 2026 Trax 2RS in Cacti Green for Saturday at 11 and never came. You did not call him Friday to confirm, as your store's process asks. You emailed once on Saturday afternoon and got no reply. The Trax is on the lot at $25,394 out the door: $24,495 plus the $899 dealer fee; only tax, tag and title are added. No trade. You have no consent to text him."
+  es: "Llamada saliente. {name}, de unos 28 años, hizo una cita para manejar la Trax 2RS 2026 en Cacti Green el sábado a las 11 y nunca llegó. Usted no lo llamó el viernes para confirmar, como pide el proceso de la tienda. Le mandó un email el sábado por la tarde y no contestó. La Trax está en el lote en $25,394 precio total: $24,495 más el cargo de concesionario de $899; solo se suman los impuestos, la placa y el título. No tiene trade-in. No tiene permiso para mandarle textos."
+opening:
+  en: Oh. Hi. Yeah, sorry about Saturday.
+  es: Ah. Hola. Sí, disculpe lo del sábado.
+facts:
+  session_date: "2026-10-05"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: 2RS, color: Cacti Green, stock: "6233", in_stock: true }
+  price_cents: 2449500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2539400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    missed_appointment: Saturday at 11, for a test drive of the Trax 2RS
+    confirmation_call: The rep did not call on Friday to confirm
+    other_store_quote: "a lower price on a Trax 2RS, emailed Friday by another store; he does not know whether it includes a dealer fee"
+    free_after: "5:30 on weekdays"
+numbers_sheet: false
+target_techniques: [T088, T077, T001, T002, T086, T063, T014]
+rubric: R-phone
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O56-PAUSE
+      behavior:
+        en: "Paused before answering his apology instead of rushing to pitch"
+        es: "Hizo una pausa antes de responder a su disculpa en vez de lanzarse a vender"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O56-OWN
+      behavior:
+        en: "Owned the store's real miss (no confirmation call) and did not blame him for the no-show"
+        es: "Reconoció la falla real de la tienda (no llamó para confirmar) y no lo culpó por no llegar"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Jerry Thibeau, secondhand (T088); only when true"
+      technique: T088
+    - code: O56-QFIRST
+      behavior:
+        en: "Asked what changed before pitching or pushing for a new time"
+        es: "Preguntó qué cambió antes de ofrecer nada o insistir en una nueva cita"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0% (T002)"
+      technique: T002
+    - code: O56-HIDDEN
+      behavior:
+        en: "Surfaced why he really skipped the appointment"
+        es: "Sacó a la luz por qué de verdad no fue a la cita"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O56-CONSENT
+      behavior:
+        en: "Switched to a call after the email went unanswered, and sent no text or automated voicemail without consent"
+        es: "Cambió a una llamada cuando el email no tuvo respuesta, y no mandó textos ni mensajes de voz automáticos sin permiso"
+      dimension: technique
+      method: rule
+      points: 10
+      evidence: "T077; Fla. s. 501.059 and TCPA flag (CONSENT-01, attorney to confirm)"
+      technique: T077
+      params: { rules: [CONSENT-01] }
+    - code: O56-COMPARE
+      behavior:
+        en: "Offered to compare the other quote line by line, out the door, without running down the other store"
+        es: "Ofreció comparar la otra cotización punto por punto, con todo incluido, sin hablar mal de la otra tienda"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Jonathan Dawson (T086)"
+      technique: T086
+    - code: O56-NEXT
+      behavior:
+        en: "Booked a specific day and time he agreed to"
+        es: "Agendó un día y una hora específicos que él aceptó"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: shamed_no_show
+      description:
+        en: "Blamed or shamed the customer for missing the appointment"
+        es: "Culpó o hizo sentir mal al cliente por no llegar a la cita"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 20
+time_limit_seconds: 360
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep made him feel guilty, pitched other SUVs, and ended with \"let me know\". He never asked what changed, so the customer stayed quiet."
+      es: "Fíjese: el vendedor lo hizo sentir culpable, le ofreció otras SUV y terminó con \"me avisa\". Nunca preguntó qué cambió, así que el cliente siguió callado."
+    script:
+      en:
+        - { speaker: customer, text: "Oh. Hi. Yeah, sorry about Saturday." }
+        - { speaker: rep, text: "Yeah, I waited an hour for you on Saturday. I had the car pulled up and everything." }
+        - { speaker: customer, text: "I said I was sorry. You don't have to make it weird." }
+        - { speaker: rep, text: "Well, while I have you, the Trax is a great little SUV, and we've also got the Trailblazer and the Equinox if you want something bigger." }
+        - { speaker: customer, text: "I've been swamped. I'll get back to you." }
+        - { speaker: rep, text: "Okay, just let me know when you can come in. You have my number." }
+        - { speaker: customer, text: "Sure. Bye." }
+      es:
+        - { speaker: customer, text: "Ah. Hola. Sí, disculpe lo del sábado." }
+        - { speaker: rep, text: "Sí, lo esperé una hora el sábado. Tenía el carro listo y todo." }
+        - { speaker: customer, text: "Ya le dije que lo siento. No hay que ponerse así." }
+        - { speaker: rep, text: "Bueno, ya que lo tengo en el teléfono, la Trax es una SUV chiquita muy buena, y también tenemos la Trailblazer y la Equinox si quiere algo más grande." }
+        - { speaker: customer, text: "He estado muy ocupado. Yo lo llamo." }
+        - { speaker: rep, text: "Está bien, me avisa cuando pueda venir. Ya tiene mi número." }
+        - { speaker: customer, text: "Está bien. Hasta luego." }
+  good:
+    notice:
+      en: Notice that the rep owns the store's real miss, asks what changed without blame, makes it easy to mention the other store, offers a line-by-line comparison, and books one of two times by phone, with no text.
+      es: Fíjese en que el vendedor reconoce la falla real de la tienda, pregunta qué cambió sin culpar a nadie, le hace fácil mencionar la otra tienda, ofrece comparar punto por punto y agenda uno de dos horarios por teléfono, sin mandar textos.
+    script:
+      en:
+        - { speaker: customer, text: "Oh. Hi. Yeah, sorry about Saturday." }
+        - { speaker: rep, text: "[pause] No apology needed. Honestly, I owe you one: I never called you Friday to confirm, and I should have. Can I ask, did something change on your end?" }
+        - { speaker: customer, text: "It's not you. I just wasn't sure how to bring something up." }
+        - { speaker: rep, text: "You can tell me straight. I'd rather know than guess. Is it the Trax itself, or the numbers?" }
+        - { speaker: customer, text: "The Trax is fine. I still want one." }
+        - { speaker: rep, text: "Okay. Did another store send you a number? That happens all the time, and it's fine to say so." }
+        - { speaker: customer, text: "Yeah. On Friday another store emailed me a lower price, and after you set everything up I felt bad telling you. So I just didn't come, and then I didn't call back." }
+        - { speaker: rep, text: "I appreciate you telling me, and you didn't do anything wrong. Here's what I'd suggest: forward me their quote and we'll put it next to ours, line by line. Ours is $25,394 out the door, because it already includes our $899 dealer fee; only tax, tag and title are added. If theirs is better all-in, I'll tell you." }
+        - { speaker: customer, text: "Okay. That's fair. I didn't know if theirs had the fee in it." }
+        - { speaker: rep, text: "Then let's find out together. Would Tuesday at 6 or Wednesday at 5:30 work better to sit down with both and drive the Trax? And is a call the best way to confirm with you, or would you rather I email?" }
+        - { speaker: customer, text: "Tuesday at 6 works. A call is fine. I'll forward you their email tonight." }
+        - { speaker: rep, text: "Tuesday at 6, then. I'll call you Tuesday morning to confirm, and the Trax 2RS will be up front when you get here." }
+      es:
+        - { speaker: customer, text: "Ah. Hola. Sí, disculpe lo del sábado." }
+        - { speaker: rep, text: "[pausa] No tiene que disculparse. La verdad, el que le debe una disculpa soy yo: no lo llamé el viernes para confirmar, y debí hacerlo. ¿Le puedo preguntar si cambió algo de su lado?" }
+        - { speaker: customer, text: "No es por usted. Es que no sabía cómo decirle una cosa." }
+        - { speaker: rep, text: "Me lo puede decir con confianza. Prefiero saberlo a estar adivinando. ¿Es la Trax en sí, o son los números?" }
+        - { speaker: customer, text: "La Trax está bien. Todavía quiero una." }
+        - { speaker: rep, text: "Bien. ¿Otro dealer le mandó un precio? Eso pasa todo el tiempo, y no tiene nada de malo decírmelo." }
+        - { speaker: customer, text: "Sí. El viernes otra tienda me mandó un precio más bajo por email, y después de que usted me preparó todo, me dio pena decírselo. Así que no fui, y después no le devolví la llamada." }
+        - { speaker: rep, text: "Le agradezco que me lo diga, y usted no hizo nada malo. Le propongo esto: reenvíeme la cotización de ellos y la ponemos al lado de la nuestra, punto por punto. La nuestra es $25,394 precio total, porque ya incluye nuestro cargo de concesionario de $899; solo se suman los impuestos, la placa y el título. Si la de ellos sale mejor con todo incluido, se lo digo." }
+        - { speaker: customer, text: "Bueno. Me parece justo. No sabía si el de ellos traía el cargo." }
+        - { speaker: rep, text: "Entonces lo averiguamos juntos. ¿Le queda mejor el martes a las 6 o el miércoles a las 5:30 para sentarnos con las dos y manejar la Trax? ¿Y para confirmarle, le funciona que lo llame, o prefiere que le mande un email?" }
+        - { speaker: customer, text: "El martes a las 6 me sirve. Que me llame está bien. Esta noche le reenvío el email de ellos." }
+        - { speaker: rep, text: "El martes a las 6, entonces. El martes por la mañana lo llamo para confirmar, y la Trax 2RS va a estar al frente cuando llegue." }
+spanish_reviewed: false

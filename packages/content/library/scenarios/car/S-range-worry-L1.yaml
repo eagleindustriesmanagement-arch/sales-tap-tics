@@ -1,0 +1,189 @@
+code: S-range-worry-L1
+module: car-ev
+title:
+  en: "\"I'm worried about range\""
+  es: "\"Me preocupa que no me alcance la carga\""
+setting:
+  en: Thursday evening, on the lot, right after her test drive in the Equinox EV.
+  es: Jueves por la tarde, en el lote, justo después de su prueba de manejo en la Equinox EV.
+persona: P-range-worry
+objection: O28
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-30s, a nurse with two kids, drives a 2015 Equinox with about 160,000 miles. She just drove the 2026 Equinox EV LT and liked it. You showed her the all-in price of $36,394 plus tax, tag and title. As she hands you the keys, she frowns."
+  es: "{name}, de unos 35 años, enfermera con dos niños, maneja una Equinox 2015 con unas 160,000 millas. Acaba de manejar la Equinox EV LT 2026 y le gustó. Usted le enseñó el precio total de $36,394 más impuestos, tag y título. Cuando le devuelve la llave, frunce el ceño."
+opening:
+  en: I'm worried about range.
+  es: Me preocupa que no me alcance la carga.
+facts:
+  session_date: "2026-10-01"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox EV, trim: LT, color: Sterling Gray Metallic, stock: "8124", in_stock: true }
+  price_cents: 3549500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3639400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: { vehicle: 2015 Chevrolet Equinox LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    daily_miles: About 40 miles on a normal day, work and school runs
+    weekend_trip: Every other weekend she drives the kids to their grandmother's in Orlando on the Turnpike
+    range_figure_source: The rep quotes no range number from memory; the range estimate is read together from this car's window sticker, with a cushion for heat, air conditioning and highway speed
+    charging_stops: The rep makes no claim about where the chargers are on her route; they look them up together
+    free_saturday: Free Saturday morning
+numbers_sheet: false
+target_techniques: [T065, T001, T003, T002, T005, T094, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O28-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O28-ACK
+      behavior:
+        en: "Took the range worry seriously instead of waving it away"
+        es: "Tomó en serio la preocupación por la carga en vez de descartarla"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O28-QFIRST
+      behavior:
+        en: "Asked how many miles a normal day is before saying anything about the battery"
+        es: "Preguntó cuántas millas maneja en un día normal antes de decir nada de la batería"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Daily-miles reframe (T065); Deloitte 2026: range is the top EV concern"
+      technique: T065
+    - code: O28-ISOLATE
+      behavior:
+        en: "Checked whether the car itself was right for her, apart from range"
+        es: "Confirmó si el carro en sí le servía, aparte de la carga"
+      dimension: discovery
+      method: judge
+      points: 10
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O28-HIDDEN
+      behavior:
+        en: "Surfaced the regular trip to Orlando behind the worry"
+        es: "Sacó a la luz el viaje frecuente a Orlando que hay detrás de la preocupación"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O28-CHECK
+      behavior:
+        en: "Offered to check the range with the window sticker and a real drive instead of promising a number"
+        es: "Ofreció comprobar la autonomía con la etiqueta de la ventana y un manejo real en vez de prometer un número"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "JOLT Effect; only real, showable protections (T094)"
+      technique: T094
+    - code: O28-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_range
+      description:
+        en: "Promised a range figure or that she would never run out of charge"
+        es: "Prometió una autonomía o le aseguró que nunca se iba a quedar sin carga"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he waved the worry away, made claims about range and charging he cannot back up, and pushed for today. He never asked how she drives, so he never heard about Orlando."
+      es: "Fíjese: le descartó la preocupación, dijo cosas de la autonomía y de la carga que no puede respaldar, y presionó para hoy. Nunca le preguntó cómo maneja, así que nunca supo lo de Orlando."
+    script:
+      en:
+        - { speaker: customer, text: "I'm worried about range." }
+        - { speaker: rep, text: "Range? Don't even think about it. You'll never run out, nobody worries about range anymore." }
+        - { speaker: customer, text: "I just don't want to get stuck somewhere." }
+        - { speaker: rep, text: "You won't. The battery is huge, and you can charge it anywhere these days." }
+        - { speaker: customer, text: "Everybody tells me something different about range." }
+        - { speaker: rep, text: "Trust me on this one. Let's just write it up and you'll see." }
+        - { speaker: customer, text: "I think I'll keep my old Equinox a while longer." }
+        - { speaker: rep, text: "Okay. Here's my card if you change your mind." }
+      es:
+        - { speaker: customer, text: "Me preocupa que no me alcance la carga." }
+        - { speaker: rep, text: "¿La carga? Ni lo piense. Nunca se va a quedar sin carga, eso ya no le preocupa a nadie." }
+        - { speaker: customer, text: "Es que no me quiero quedar botada en ningún lado." }
+        - { speaker: rep, text: "No se va a quedar. La batería es enorme, y hoy en día la carga dondequiera." }
+        - { speaker: customer, text: "Cada cual me dice una cosa distinta de la carga." }
+        - { speaker: rep, text: "Confíe en mí. Hagámoslo ya y usted va a ver." }
+        - { speaker: customer, text: "Creo que me quedo con mi Equinox vieja un tiempo más." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta por si cambia de idea." }
+  good:
+    notice:
+      en: Notice the pause, the daily-miles question before any talk about the battery, and how the real trip gets an honest check instead of a promised number.
+      es: Fíjese en la pausa, en la pregunta por las millas de cada día antes de hablar de la batería, y en cómo el viaje de verdad se comprueba con honestidad en vez de prometer un número.
+    script:
+      en:
+        - { speaker: customer, text: "I'm worried about range." }
+        - { speaker: rep, text: "[pause] That's a fair worry. Nobody wants to get stuck. Before I say anything about the battery, how many miles is a normal day for you?" }
+        - { speaker: customer, text: "A normal day isn't really the problem. Work and school, maybe forty miles." }
+        - { speaker: rep, text: "Okay. And range aside for a second, did the car itself feel right to you, the size and the way it drives?" }
+        - { speaker: customer, text: "I liked how it drives. Around town I'd be fine, I think." }
+        - { speaker: rep, text: "Then tell me about the drives that aren't normal. What's the longest trip you make?" }
+        - { speaker: customer, text: "Every other weekend I drive the kids up to their grandmother's in Orlando. I keep picturing us stuck on the Turnpike with no charge." }
+        - { speaker: rep, text: "Thank you, that's the real question, and I'm not going to guess on a trip that long. Let's check it together: the range estimate on this car's window sticker, a cushion for heat, air conditioning and highway speed, and where you'd stop to charge on the way." }
+        - { speaker: customer, text: "That would help. I just don't want to find out on the highway with the kids." }
+        - { speaker: rep, text: "Could you come Saturday at 10? We'll map the Orlando trip on paper, then take this Equinox EV out on the highway so you see how the range reads at real speed." }
+        - { speaker: customer, text: "Saturday at 10 works. I'll come after I drop the kids at practice." }
+      es:
+        - { speaker: customer, text: "Me preocupa que no me alcance la carga." }
+        - { speaker: rep, text: "[pausa] Es una preocupación válida. Nadie se quiere quedar botado. Antes de decirle nada de la batería, ¿cuántas millas maneja en un día normal?" }
+        - { speaker: customer, text: "Un día normal no es el problema. El trabajo y la escuela, unas cuarenta millas." }
+        - { speaker: rep, text: "Bien. Y dejando la carga a un lado un momento, ¿el carro en sí le gustó, el tamaño y cómo se maneja?" }
+        - { speaker: customer, text: "Me gustó cómo se maneja. Por aquí por la ciudad, creo que estaría bien." }
+        - { speaker: rep, text: "Entonces cuénteme de lo que maneja fuera del día a día. ¿Cuál es el viaje más largo que hace?" }
+        - { speaker: customer, text: "Cada dos fines de semana llevo a los niños a casa de su abuela en Orlando. Me la paso imaginando que nos quedamos varados en el Turnpike sin carga." }
+        - { speaker: rep, text: "Gracias, esa es la pregunta de verdad, y en un viaje así no voy a adivinar. Vamos a comprobarlo juntos: la autonomía estimada que dice la etiqueta de la ventana de este carro, un margen por el calor, el aire acondicionado y la velocidad de autopista, y dónde pararía a cargar en el camino." }
+        - { speaker: customer, text: "Eso me ayudaría. No quiero enterarme en la autopista con los niños." }
+        - { speaker: rep, text: "¿Puede venir el sábado a las 10? Planificamos el viaje a Orlando en papel, y después sacamos esta Equinox EV a la autopista para que vea cómo marca la carga a velocidad de verdad." }
+        - { speaker: customer, text: "El sábado a las 10 me queda bien. Vengo después de dejar a los niños en la práctica." }
+spanish_reviewed: false
