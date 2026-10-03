@@ -1,0 +1,177 @@
+code: S-ai-price-L1
+module: car-miami-indecision
+title:
+  en: "\"The AI told me this is the fair price\""
+  es: "\"La inteligencia artificial me dijo que ese es el precio justo\""
+setting:
+  en: Saturday afternoon, at your desk, right after the test drive and the all-in price.
+  es: Sábado por la tarde, en su escritorio, justo después de la prueba de manejo y el precio total.
+persona: P-ai-price
+objection: O57
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 20s, is buying her first new car and is pre-approved at her credit union. She just drove the 2026 Equinox RS with all-wheel drive and loved it. You showed her the all-in price of $36,394 plus tax, tag and title. She turns her phone toward you."
+  es: "{name}, de unos 28 años, va a comprar su primer carro nuevo y tiene una preaprobación de su cooperativa de crédito. Acaba de manejar la Equinox RS 2026 con all-wheel drive y le encantó. Usted le enseñó el precio total de $36,394 más impuestos, tag y título. Ella voltea el teléfono hacia usted."
+opening:
+  en: The AI told me this is the fair price.
+  es: La inteligencia artificial me dijo que ese es el precio justo.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: RS AWD, color: Radiant Red Tintcoat, stock: "6188", in_stock: true }
+  price_cents: 3549500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3639400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  alternatives:
+    - { description: "2026 Chevrolet Equinox LT FWD, Summit White, stock 6215", all_in_price_cents: 3279400 }
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    ai_fair_price_cents: 3150000
+    ai_question: She typed "fair price 2026 Equinox LT", with no trim package or drive type
+    financing: Pre-approved at her credit union; she has not shared the amount or the rate
+    free_sunday: Free tomorrow, Sunday, after 1 p.m.
+numbers_sheet: true
+target_techniques: [T086, T002, T001, T003, T009, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O57-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O57-RESPECT
+      behavior:
+        en: "Took her research seriously, without mocking the AI or her for using it"
+        es: "Tomó en serio lo que ella investigó, sin burlarse de la inteligencia artificial ni de ella por usarla"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O57-SEE
+      behavior:
+        en: "Asked to see the AI's answer and what she asked it, before defending the price"
+        es: "Pidió ver la respuesta de la inteligencia artificial y lo que ella le preguntó, antes de defender el precio"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O57-HIDDEN
+      behavior:
+        en: "Surfaced that the AI was asked about a different trim, and her fear of overpaying"
+        es: "Sacó a la luz que a la inteligencia artificial le preguntaron por otra versión, y su miedo a pagar de más"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O57-LINE
+      behavior:
+        en: "Compared line by line: the same trim and drive, all-in price against all-in price, every number on one sheet"
+        es: "Comparó línea por línea: la misma versión y la misma tracción, precio total contra precio total, cada número en una sola hoja"
+      dimension: technique
+      method: judge
+      points: 25
+      evidence: "Practitioner tradition (T086)"
+      technique: T086
+    - code: O57-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: judged_ai_unseen
+      description:
+        en: "Called the AI's number wrong, or matched it, without seeing what she asked it"
+        es: "Dijo que el número de la inteligencia artificial estaba mal, o lo igualó, sin ver lo que ella le preguntó"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number or a manager's limit"
+        es: "Dijo un número o un límite del gerente que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, authority]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he mocked the AI, repeated his own price as \"fair\" without showing anything, and threw more cars at her. He never looked at what she asked the app."
+      es: "Fíjese: se burló de la inteligencia artificial, repitió su propio precio como \"justo\" sin enseñar nada, y le echó más carros encima. Nunca miró lo que ella le preguntó a la aplicación."
+    script:
+      en:
+        - { speaker: customer, text: "The AI told me this is the fair price." }
+        - { speaker: rep, text: "Those AI things are garbage. Don't believe everything your phone tells you." }
+        - { speaker: customer, text: "You're not even looking at what I showed you." }
+        - { speaker: rep, text: "Our price is $36,394, plus tax, tag and title. That's fair. Let's just write it up." }
+        - { speaker: customer, text: "That's what you would say." }
+        - { speaker: rep, text: "If it's too much, I can also show you the Trax and the Trailblazer." }
+        - { speaker: customer, text: "I'll take my research somewhere else." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+      es:
+        - { speaker: customer, text: "La inteligencia artificial me dijo que ese es el precio justo." }
+        - { speaker: rep, text: "Esas cosas de inteligencia artificial no sirven. No se crea todo lo que le dice el teléfono." }
+        - { speaker: customer, text: "Usted ni siquiera está mirando lo que le enseñé." }
+        - { speaker: rep, text: "Nuestro precio es $36,394, más impuestos, tag y título. Ese es el precio justo. Hagámoslo ya." }
+        - { speaker: customer, text: "Eso es lo que usted diría." }
+        - { speaker: rep, text: "Si le parece mucho, también le enseño la Trax y la Trailblazer." }
+        - { speaker: customer, text: "Me llevo mi investigación a otro lado." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice that he welcomes her research, asks to see exactly what she asked, and then compares the same car to the same car, all-in to all-in, without guessing how the app got its number.
+      es: Fíjese en que recibe bien lo que ella investigó, pide ver exactamente lo que preguntó, y después compara el mismo carro con el mismo carro, precio total contra precio total, sin adivinar cómo la aplicación sacó su número.
+    script:
+      en:
+        - { speaker: customer, text: "The AI told me this is the fair price." }
+        - { speaker: rep, text: "[pause] Good, I'd rather work from your research than from my opinion. Can I see what it told you?" }
+        - { speaker: customer, text: "Sure, here. About $31,500. I just typed in the model and the year." }
+        - { speaker: rep, text: "Thanks. Can I see exactly what you typed, so we compare the same car?" }
+        - { speaker: customer, text: "Here's what I typed: fair price, 2026 Equinox LT. Oh. That's the one I saw online first, with front-wheel drive. I drove the RS with all-wheel drive. Honestly, I don't know how to tell what's fair, and I don't want to overpay on my first new car." }
+        - { speaker: rep, text: "Thank you for showing me. That's the right question to ask, so let's compare line by line. The LT with front-wheel drive, the one you asked about, is $32,794 all in, plus tax, tag and title. The RS with all-wheel drive you drove is $36,394 all in, plus tax, tag and title. I can't tell you how the app got its number, but I can show you every line of ours on one sheet, side by side." }
+        - { speaker: customer, text: "Okay. That actually helps." }
+        - { speaker: rep, text: "Want to drive them back to back? I can have both out front tomorrow at 2." }
+        - { speaker: customer, text: "Tomorrow at 2. I'll bring my notes." }
+      es:
+        - { speaker: customer, text: "La inteligencia artificial me dijo que ese es el precio justo." }
+        - { speaker: rep, text: "[pausa] Qué bueno, prefiero trabajar con lo que usted investigó que con mi opinión. ¿Me deja ver la respuesta?" }
+        - { speaker: customer, text: "Claro, mire. Como $31,500. Yo nada más escribí el modelo y el año." }
+        - { speaker: rep, text: "Gracias. ¿Me deja ver exactamente lo que le escribió, para comparar el mismo carro?" }
+        - { speaker: customer, text: "Esto fue lo que escribí: precio justo, Equinox LT 2026. Ay. Esa es la primera que vi en internet, con tracción delantera. Yo manejé la RS con all-wheel drive. La verdad, no sé cómo saber qué es justo, y no quiero pagar de más en mi primer carro nuevo." }
+        - { speaker: rep, text: "Gracias por enseñármelo. Esa es justo la pregunta que hay que hacer, así que comparemos línea por línea. La LT con tracción delantera, por la que usted preguntó, es $32,794 en total, más impuestos, tag y título. La RS con all-wheel drive que usted manejó es $36,394 en total, más impuestos, tag y título. No le puedo decir cómo sacó su número la aplicación, pero sí le puedo enseñar cada línea de los nuestros en una sola hoja, uno al lado del otro." }
+        - { speaker: customer, text: "Bueno. Eso sí me ayuda." }
+        - { speaker: rep, text: "¿Quiere manejarlas una detrás de la otra? Le puedo tener las dos enfrente mañana a las 2." }
+        - { speaker: customer, text: "Mañana a las 2. Traigo mis apuntes." }
+spanish_reviewed: false

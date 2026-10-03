@@ -1,0 +1,155 @@
+code: P-son-translates
+name_pool:
+  en: [Jose, Manuel, Ramon, Carlos]
+  es: [José, Manuel, Ramón, Rigoberto]
+age_range: 60-69
+temperament: [quiet]
+temperament_note:
+  en: Quiet, proud and polite. Lets his son do the talking and nods along. Will not admit he is lost in front of his son, but opens up when someone speaks to him directly and respectfully.
+  es: Callado, orgulloso y educado. Deja que el hijo hable y asiente con la cabeza. No va a reconocer delante del hijo que está perdido, pero se abre cuando alguien le habla directamente y con respeto.
+buyer_orientation: relationship
+situation:
+  en: Early 60s, Nicaraguan, lives in Sweetwater and works in concrete construction. Speaks little English. Came in with his 19-year-old son, a college student, to buy the 2026 Equinox LT for work and family. Has $3,000 for the down. Has not applied for credit yet. His son has been doing most of the talking.
+  es: De unos 62 años, nicaragüense, vive en Sweetwater y trabaja en construcción, en concreto. Habla poco inglés. Vino con su hijo de 19 años, que estudia en la universidad, a comprar la Equinox LT 2026 para el trabajo y la familia. Tiene $3,000 para el down. Todavía no ha llenado la aplicación de crédito. El hijo ha hablado casi todo.
+stated_objection: O38
+stated_line:
+  en: My son will translate for me.
+  es: Mi hijo me traduce.
+hidden_truth:
+  en: He did not understand the payment. His son told him it was about $450 a month, the paper says $547, and he does not know for how many months. He will not say so because he does not want to embarrass his son in front of the salesman.
+  es: No entendió el pago. El hijo le dijo que eran como $450 al mes, el papel dice $547, y no sabe por cuántos meses. No lo dice porque no quiere hacer quedar mal al hijo delante del vendedor.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\b(about|around) \$?450\b'
+    - '\bfour fifty\b'
+    - '\bdidn''?t understand\b'
+    - '\bhow many months\b'
+    - '\bembarrass'
+  es:
+    - '\bcomo \$?450\b'
+    - '\bcuatrocientos cincuenta\b'
+    - '\bno entendí\b'
+    - '\bcuántos meses\b'
+    - '\bquedar mal\b'
+unlock_conditions:
+  - code: asks_him_directly
+    description:
+      en: Turns to him and asks, directly, what he would like explained or what is not clear yet.
+      es: Se dirige a él y le pregunta directamente qué quiere que le expliquen o qué no le quedó claro.
+    cues:
+      en:
+        - '\bwhat (questions|doubts) do you have\b'
+        - '\bwhat (would you like|do you want|can I) (me to )?(explain|go over|walk through)\b'
+        - '\bwhich (part|number|line)\b.{0,40}\b(explain|go over|walk through|first)\b'
+        - '\b(is there )?anything (you''d like|you want|I can) (me to )?(explain|go over)\b'
+        - '\bwhat(''s| is) not (clear|making sense)\b'
+        - '\bdoes (it|that|the payment|everything) make sense to you\b'
+      es:
+        - '\bqué (preguntas|dudas) tiene\b'
+        - '\bqué (le gustaría|quiere|desea) que le (explique|repase|aclare)\b'
+        - '\bqué (parte|número|línea)\b.{0,40}\b(explique|repase|aclare|primero)\b'
+        - '\bhay algo que (quiera que le explique|no le (haya )?quedado claro)\b'
+        - '\bqué no le (quedó|queda) claro\b'
+        - '\ble (queda|quedó) claro\b'
+  - code: offers_bilingual_staff
+    description:
+      en: Offers a bilingual staff member to go over the numbers and the paperwork with him.
+      es: Le ofrece a alguien del equipo que sea bilingüe para repasar con él los números y los papeles.
+    cues:
+      en:
+        - '\bbilingual\b'
+        - '\b(colleague|coworker|someone|somebody|manager)\b.{0,40}\b(who )?speaks Spanish\b'
+      es:
+        - '\bbilingüe\b'
+        - '\b(compañer[oa]|alguien|gerente)\b.{0,40}\b(que )?habla español\b'
+walk_out_triggers:
+  - code: talks_past_him
+    description:
+      en: Talks to the son about him instead of to him ("Tell your dad...").
+      es: Le habla al hijo sobre él en vez de hablarle a él ("Dígale a su papá...").
+    cues:
+      en:
+        - '\btell (your|ur) (dad|father|pops)\b'
+        - '\b(your|ur) (dad|father) (will|can) (understand|get it|sign)\b'
+        - '\b(he|your son) can explain it (to you )?(later|at home)\b'
+        - '\bask your son\b'
+      es:
+        - '\b(dígale|dile|explíquele|explícale) a (su|tu) (papá|padre)\b'
+        - '\b(su|tu) (papá|padre) (lo )?(va a entender|entiende|firma)\b'
+        - '\b(él|su hijo) (se lo )?(puede explicar|explica) (después|en la casa)\b'
+        - '\bpregúntele a su hijo\b'
+  - code: belittles_confusion
+    description:
+      en: Treats the numbers as too simple to need explaining ("It's simple, don't worry about the details").
+      es: Trata los números como si fueran tan sencillos que no hay que explicarlos ("Es fácil, no se preocupe por los detalles").
+    cues:
+      en:
+        - '\bit''?s (really |very )?(simple|easy)\b'
+        - '\bdon''?t worry about (the details|the rest|all that|that part)\b'
+        - '\bnothing to (understand|explain)\b'
+      es:
+        - '\bes (muy )?(fácil|sencillo)\b'
+        - '\bno se preocupe por (los detalles|lo demás|todo eso|esa parte)\b'
+        - '\bno hay nada que (entender|explicar)\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: piles_on_paperwork
+    description:
+      en: Piles on more products or forms instead of making the one number clear.
+      es: Le echa encima más productos o formularios en vez de aclarar el único número.
+    cues:
+      en:
+        - '\b(and|plus) (the )?(warranty|service contract|GAP|protection package)\b.{0,30}\b(too|as well|also)\b'
+        - '\blet me (also )?add\b'
+      es:
+        - '\b(y|más) (la )?(garantía|contrato de servicio|GAP|paquete de protección)\b.{0,30}\b(también|además)\b'
+        - '\bdéjeme (también )?(agregarle|añadirle|ponerle)\b'
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done|do the paperwork)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bhagamos los papeles\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: His confusion about the payment comes out, the rep restates the payment, term and down in plain words and in writing with bilingual help, and they set a day and time to go over every line before anything is signed.
+    es: Sale a la luz que no entendió el pago, el vendedor le repite el pago, el plazo y el down en palabras sencillas y por escrito con ayuda bilingüe, y fijan día y hora para repasar cada línea antes de firmar nada.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el down", "el dealer", "el payment"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-60s-accented
+  es: tbd-es-miami-nicaraguan-male-60s
+difficulty: 1
+variation:
+  moods: [tired after work, still in his work boots, patient but quiet]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "My son knows. He tells me.", es: "Mi hijo sabe. Él me dice." }
+    - { en: "It's okay. He explains it to me.", es: "Está bien. Él me lo explica." }
+    - { en: "He studies at the university. He understands these things.", es: "Él estudia en la universidad. Él entiende estas cosas." }
+  hint: { en: "My son explains it well. But it's a lot of numbers.", es: "Mi hijo explica bien. Pero son muchos números." }
+  after_hint: { en: "He says it's fine. He knows more than me about papers.", es: "Él dice que está bien. Él sabe más que yo de papeles." }
+  reveal: { en: "The truth? I didn't understand the payment. My son told me about $450, but the paper says $547, and I don't know for how many months. I didn't want to embarrass him in front of you.", es: "¿La verdad? No entendí el pago. Mi hijo me dijo como $450, pero el papel dice $547, y no sé por cuántos meses. No quería hacerlo quedar mal delante de usted." }
+  after_reveal:
+    - { en: "Okay. Now I understand it better.", es: "Bueno. Ahora sí lo entiendo mejor." }
+    - { en: "Thank you for talking to me.", es: "Gracias por hablar conmigo." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  not_now: { en: "Not today. We'll talk at home.", es: "Hoy no. Lo hablamos en la casa." }
+  walk_away: { en: "Let's go, son.", es: "Vámonos, mijo." }
+  goodbye: { en: "Thank you. Good afternoon.", es: "Gracias. Buenas tardes." }
+  react_to_pressure: { en: "I'm right here. You can talk to me.", es: "Yo estoy aquí. Me puede hablar a mí." }
+spanish_reviewed: false
