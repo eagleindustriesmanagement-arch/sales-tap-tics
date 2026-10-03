@@ -105,6 +105,11 @@ describe("O01 scoring table (spec 10.5)", () => {
     expect(s.items.find((i) => i.code === "U-ONECLOSE")!.points).toBe(1);
     expect(s.items.find((i) => i.code === "U-LANG")!.points).toBe(1);
     expect(s.items.find((i) => i.code === "U-DEADLINE")!.status).toBe("not_applicable");
+    // A short opener whose language cannot be told ("Mmm. Bueno.") is skipped: the first clear customer line counts.
+    const short: ScoredTurn[] = [{ ...transcript(2400, "es")[0]!, index: 0, text: "Mmm. Bueno." }, ...transcript(2400, "es").map((t) => ({ ...t, index: t.index + 1 }))];
+    const lang = (await score({ turns: short })).items.find((i) => i.code === "U-LANG")!;
+    expect(lang.status).toBe("scored");
+    expect(lang.points).toBe(1);
     expect(s.dimensions.discovery).not.toBeNull();
   });
 });

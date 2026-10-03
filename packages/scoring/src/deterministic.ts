@@ -248,9 +248,12 @@ function ruleItem(item: RubricItem, input: DeterministicInput): ItemResult {
 }
 
 function languageItem(item: RubricItem, input: DeterministicInput): ItemResult {
-  const firstCustomer = input.transcript.find((t) => t.speaker === "customer");
-  const firstRep = input.transcript.find((t) => t.speaker === "rep" && (!firstCustomer || t.index > firstCustomer.index));
-  if (!firstCustomer || !firstRep) return result(item, input, { status: "not_applicable" });
+  // The customer's first line whose language can be told ("Mmm. Bueno." cannot), and the rep's first reply to it.
+  const customers = input.transcript.filter((t) => t.speaker === "customer");
+  if (customers.length === 0) return result(item, input, { status: "not_applicable" });
+  const firstCustomer = customers.find((t) => detectLanguage(t.text) !== "unknown") ?? customers[0]!;
+  const firstRep = input.transcript.find((t) => t.speaker === "rep" && t.index > firstCustomer.index);
+  if (!firstRep) return result(item, input, { status: "not_applicable" });
   const customerLang = detectLanguage(firstCustomer.text);
   const repLang = detectLanguage(firstRep.text);
   if (customerLang === "unknown" || repLang === "unknown") return result(item, input, { status: "not_scored" });

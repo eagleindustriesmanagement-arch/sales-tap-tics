@@ -1,8 +1,42 @@
 # Status
 
-Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Decisions: `docs/decisions/`. Plan: `docs/plans/`.
+Updated 2026-10-03 (sixth pass: a customer for every objection, store calibration, usage, observability). Build plan: spec section 22. Decisions: `docs/decisions/`. Plan: `docs/plans/`.
 
 ## What runs today
+
+- **A customer for every objection: 65 scenarios** (decision 0017).
+  - The 20 release 1 scenarios stay the **certification path**, by level.
+  - **More customers:** one level 1 customer for each of the other 45 objections, grouped by topic (everyday
+    objections; phone, payment and financing; the 2026 market; electric vehicles; language and trust; undecided
+    customers).
+  - Every one passes the release gate offline in both languages. Release 2 customers practice and never certify;
+    the server refuses certification on them.
+  - Each objection's library page has a "Practice this objection" button.
+  - The reviewers' checklist for the 45 is in `docs/content/release-2-review-notes.md`: the Spanish words and
+    real-world claims the authors flagged.
+- **Objection weights from the store's lost-deal reasons** (spec 19.2 item 2, decision 0018).
+  - Uploading lost-deal reasons maps each reason to objections, with a bilingual mapping kept as content.
+  - "Talk to my spouse", "think it over" and "no time" count half; the other half goes to price, payment,
+    financing and other stores.
+  - The store's weights reorder onboarding after week 1, break ties between due reviews, and pick the next new
+    customer once onboarding is done.
+  - The store numbers page shows what is practiced first and the reasons that could not be matched.
+- **Usage** (spec 19.4, decision 0020): the general manager sees counts only, private windows included, with no
+  rows, names or text:
+  - sessions started and finished;
+  - reps practicing this week and per day;
+  - debriefs read, demos watched first, behavior cards checked;
+  - invite to first session, and reps who never practiced;
+  - spoken share, the pause before answering, recognition confidence by language;
+  - AI cost per session and response time, by week.
+- **Observability** (decision 0021):
+  - structured JSON logs with no personal data or text;
+  - every server error, through `onRequestError`;
+  - each turn's time to the first customer sentence;
+  - `/api/health` for uptime monitors.
+- **Technique lines are checked against an example deal** (decision 0019). A model line can no longer state a
+  number or deadline its deal does not hold, and the T020 and T107 flawed lines now show the made-up deadline their
+  lesson is about.
 
 - **Ready to host on Vercel at salestaptics.com** (decision 0014, `docs/DEPLOY.md`).
   - Deploys run from GitHub. Each build migrates, publishes the content and seeds the demo store before
@@ -114,7 +148,7 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
 | M1 | Tenant and store schema with row-level security | Done for reads and writes: every tenant table isolates tenants, and writes are limited by role in the database (people and roles by the general manager, store settings by the general manager with sign-off only by the compliance reviewer, session results only into the rep's own session, login tables only through their functions) |
 | M1 | i18n package with bilingual completeness check | Done |
 | M1 | Authentication | Done: one-time code sign-in, hashed sessions, rate limits, role checks (email delivery needs `RESEND_API_KEY`; SMS not yet) |
-| M1 | Speech provider interfaces, two implementations each | **Not started**: waiting on the bake-off to choose candidates |
+| M1 | Speech provider interfaces, two implementations each | **Half done**: the interfaces (`@taptics/voice`) and the device implementation of each; the cloud implementations wait on the bake-off to choose providers (decision 0013) |
 | M1 | Bake-off on consented Miami recordings | **Blocked on the store** (recordings, consent, provider keys) |
 | M1 | Two-way spoken conversation under 1.5 s median | **Blocked** on provider keys |
 | M2 | Content schemas and loader; O01 scenario with persona, facts, demos, rubric | Done |
@@ -136,8 +170,9 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
 | M7 | Backup restore drill | Done: `scripts/backup-drill.sh` restores into a scratch database and proves every table's rows, 50 policies, forced RLS on 31 tables and 33 triggers match |
 | M7 | Incident response runbook | Done (`docs/runbooks/README.md`) |
 | M7 | Cost dashboard | Done: the general manager sees 30-day model spend, cost per session, failure rate, and cost and latency by day, purpose and model; only the general manager can read usage (row-level security) |
-| M7 | Observability (traces, alerting) | **Not started**: needs the hosting choice |
+| M7 | Observability (traces, alerting) | Done without a vendor (decision 0021): structured logs with no personal data, server errors, turn timing, `/api/health`. Alerting is a Vercel log alert or an uptime monitor on `/api/health`: the owner's account choice |
 | M4 | 20 release 1 scenarios with personas | Done: 20 scenarios and personas; every one plays offline in both languages to its hidden truth and win with no critical violation, and its flawed demo never reaches the hidden truth (CI gate) |
+| M4+ | One level 1 customer per objection (65, spec 7 and 9, release 2) | Done: 45 more scenarios and personas, all through the same release gate in both languages (decision 0017). Spanish and claims to review: `docs/content/release-2-review-notes.md` |
 | M4 | Every technique shows its grade, source and why | Done: all 122 have a "why" (67 honestly marked as tradition or weak evidence) and a flawed model line |
 | M4 | Content editor with Spanish review workflow | Done for review (approve, edit with compliance check, numbers sign-off, write-back to YAML). Audio preview waits on the speech provider |
 | M5 | Assignments | Done (row-level security: reps see their own; managers assign only to their reps) |
@@ -206,9 +241,8 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
   in English and Spanish, on the showroom floor.
 - **Cloud voice tier** (decision 0013): a recognition provider account and a voice provider account, chosen by the
   spec 11.2 bake-off, plus a Miami listener to approve the voices.
-- **Vercel setup, once** (`docs/DEPLOY.md`): import the repo with root `apps/web`, add Neon from Vercel Storage,
-  set `TAPTICS_SECRET`, `TAPTICS_DEMO_LOGIN=1` and `TAPTICS_DEMO_SEED=1`, then add the domain. This environment
-  cannot reach Vercel's API, so these clicks are the owner's.
+- **Vercel deployment:** handled outside the build sessions by Fluffy (2026-10-03), following `docs/DEPLOY.md`.
+  Migrations 0014 and 0015 run in the deploy step like the others.
 - **App store accounts** (decision 0012): an Apple developer account, a Google Play developer account, a bundle id
   and a hosted URL, before the Capacitor shell can be built and submitted.
 
@@ -217,7 +251,9 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
   voicemail covered? does an ADD-04 disclosure need to come before the numbers?). The list is in
   `packages/rules/test/suite/README.md` under "Labels to confirm".
 
-- **Spanish review** of the 19 new scenarios. Authors flagged Cuban-Miami choices to check: "gomas", "chapa",
+- **Spanish review and claims of the 45 release 2 customers:** `docs/content/release-2-review-notes.md` lists the
+  words, claims and choices the authors were least sure of. Release 1 does not wait on them.
+- **Spanish review** of the 19 release 1 scenarios added after O01. Authors flagged Cuban-Miami choices to check: "gomas", "chapa",
   "coger de bobo", "parabrisas rajado", "me la paso dándole vueltas", "el lease".
 - **Scenario facts not in the deal sheet:** two good demos state true general facts the scenario does not hold
   (the Equinox has more cargo room than the Trax; the LS and LT share the factory warranty). True for current
@@ -228,10 +264,10 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
 1. M3: run the suite with both layers (`pnpm compliance:suite --with-classifier`) once `ANTHROPIC_API_KEY` is set,
    and work the critical misses to zero on dev, reporting holdout.
 2. M6: send reminders once a push or SMS provider is chosen (the rep's reminder time is already a setting).
-3. Spec 19.2 calibration, the rest: objection weights from lost-deal reasons (item 2), then score validity
-   (practice scores against close rate, item 3) once there are 8 weeks of both.
-4. Content checks for technique lines run without scenario facts, so a technique's flawed line cannot demonstrate a
-   fact-based violation (a price without the fee, an invented deadline). Checking them against a fixed example deal
-   would let those lessons show the real violation.
-5. Voice gateway (`services/voice`) for the cloud tier, behind the `@taptics/voice` contracts, once the bake-off picks
+3. Spec 19.2 item 3, score validity (practice scores against close rate), once a store has 8 weeks of both.
+4. Engine notes from the content authors: walk-out trigger cues ignore negation ("I won't tell you there's only
+   one bank" fires the trigger); the universal language item can score an opening as unknown.
+5. Live-AI pass over the 45 release 2 customers once a key is set, starting with O39 (a customer who prefers
+   English until asked).
+6. Voice gateway (`services/voice`) for the cloud tier, behind the `@taptics/voice` contracts, once the bake-off picks
    providers; then a Capacitor plugin for on-device recognition in the store apps.

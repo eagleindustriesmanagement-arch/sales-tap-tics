@@ -74,9 +74,13 @@ marks scores partial; certification needs the key.
   help dev but barely move holdout recall; fixes to logic (negation, scope, roles) generalize. Zero critical misses
   needs the classifier layer (decision 0008).
 - Revert a change that adds a false positive and catches nothing measurable, even if it looks right in a unit test.
+- Before narrowing a critical rule's pattern, try the narrowed shape with a day or "today" next to it: "si no
+  decide hoy, termina pagando más" is a real DEAD-01 violation even though "termina pagando" alone is not.
 - Recurring false-positive shapes worth remembering: a negation inside the matched phrase ("no charge"); a claim the
   rep disclaims or asks and denies; an appointment time next to a real deadline; "end up" / the noun "end"; a denied
-  number ("no son 32,450"); "más" meaning "plus" before charges.
+  number ("no son 32,450"); "más" meaning "plus" before charges; "las dos + noun" (both, not 2:00); a lone "un" /
+  "one" before a money word; "another $2,000" (an increase, not a total); a small number before a weekday (not a
+  time unless "at 5", "5:30" or "5 pm").
 
 **Content authoring**
 - A scenario's good demo must unlock the hidden truth, reveal it, and end with an accepted day and time; the flawed
@@ -84,7 +88,14 @@ marks scores partial; certification needs the key.
 - Flawed lines may break a rule only if they declare it and the engine detects it; demos may not break critical
   rules at all. Target techniques need a `why`.
 - Agents writing content in parallel work well with one file set each, the template pair to copy, and the exact
-  verification commands; ask them to list the lines they are unsure of.
+  verification commands; ask them to list the lines they are unsure of. Give each its own git worktree, and tell
+  them **never to use `git stash`**: the stash is shared by every worktree, and two agents stashing at once swap
+  each other's files.
+- Release status follows the objection (`release_1`): release 2 customers practice under "More customers" and never
+  certify (decision 0017). The flagged words and claims of the 45 release 2 customers are in
+  `docs/content/release-2-review-notes.md`.
+- A technique's model line is checked against its `example_deal` over `examples/deal.yaml` (decision 0019): a model
+  line that states a number or a deadline needs it in that deal.
 
 **Product and UI (carried over from BookFlows' guidelines, they apply here too)**
 - The phone-on-the-floor test: readable in sunlight, thumb-tappable (targets >= 48 px), understood in 3 seconds.
