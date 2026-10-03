@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
@@ -27,7 +27,22 @@ import {
 } from "./schemas.js";
 
 /** The platform library. Apps that bundle this package set TAPTICS_CONTENT_DIR, since bundlers move files. */
-export const PLATFORM_LIBRARY = process.env.TAPTICS_CONTENT_DIR ?? resolve(dirname(fileURLToPath(import.meta.url)), "../library");
+/**
+ * The first of these that exists. A bundler bakes the build machine's path into TAPTICS_CONTENT_DIR, and a serverless
+ * host runs the code from somewhere else, so the path is checked at run time: the configured one, then the library
+ * relative to the working directory (the app or the repository root), then relative to this file.
+ */
+export function firstExistingDir(candidates: (string | undefined)[]): string {
+  const list = candidates.filter((c): c is string => Boolean(c));
+  return list.find((c) => existsSync(c)) ?? list[0]!;
+}
+
+export const PLATFORM_LIBRARY = firstExistingDir([
+  process.env.TAPTICS_CONTENT_DIR,
+  resolve(process.cwd(), "../../packages/content/library"),
+  resolve(process.cwd(), "packages/content/library"),
+  resolve(dirname(fileURLToPath(import.meta.url)), "../library"),
+]);
 
 export interface Library {
   techniques: Map<string, Technique>;

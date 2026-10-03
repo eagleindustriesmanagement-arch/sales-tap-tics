@@ -100,14 +100,56 @@ export interface TurnRow {
   wordsPerMinute?: number;
   asrConfidence?: number;
   isObjection?: boolean;
+  /** The customer's line with its bracket cues (kept to rebuild a live session). */
+  raw?: string;
+}
+
+/**
+ * A rep's own unfinished session and its turns, to rebuild it on another server instance. Null once the session
+ * has ended or when the caller does not own it (row-level security decides).
+ */
+export async function liveSessionRecord(db: Queryable, sessionId: string, userId: string) {
+  const s = await db.query<{ scenario_code: string; language: "en" | "es"; mode: string; seed: string; exit_draw: number | null; text_mode: boolean; exit_multiplier: string; created_at: Date }>(
+    "select scenario_code, language, mode, seed, exit_draw, text_mode, exit_multiplier, created_at from sessions where id = $1 and user_id = $2 and ended_at is null",
+    [sessionId, userId],
+  );
+  const row = s.rows[0];
+  if (!row) return null;
+  const t = await db.query<{ index: number; speaker: "rep" | "customer"; text: string; language_detected: string | null; started_ms: number | null; ended_ms: number | null; pause_before_ms: number | null; words_per_minute: number | null; asr_confidence: number | null; is_objection: boolean; raw_text: string | null }>(
+    "select index, speaker, text, language_detected, started_ms, ended_ms, pause_before_ms, words_per_minute, asr_confidence, is_objection, raw_text from turns where session_id = $1 order by index",
+    [sessionId],
+  );
+  return {
+    scenarioCode: row.scenario_code,
+    language: row.language,
+    mode: row.mode,
+    seed: row.seed,
+    exitDraw: row.exit_draw,
+    textMode: row.text_mode,
+    exitMultiplier: Number(row.exit_multiplier),
+    createdAt: row.created_at,
+    turns: t.rows.map((r) => ({
+      index: r.index,
+      speaker: r.speaker,
+      text: r.text,
+      language: (r.language_detected === "es" ? "es" : "en") as "en" | "es",
+      startedMs: r.started_ms ?? undefined,
+      endedMs: r.ended_ms ?? undefined,
+      pauseBeforeMs: r.pause_before_ms ?? undefined,
+      wordsPerMinute: r.words_per_minute ?? undefined,
+      asrConfidence: r.asr_confidence ?? undefined,
+      isObjection: r.is_objection,
+      raw: r.raw_text ?? undefined,
+    })),
+  };
 }
 
 export async function insertTurns(db: Queryable, tenantId: string, sessionId: string, turns: TurnRow[]) {
   for (const t of turns) {
     await db.query(
-      `insert into turns (tenant_id, session_id, index, speaker, text, language_detected, started_ms, ended_ms, pause_before_ms, words_per_minute, asr_confidence, is_objection)
-       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) on conflict (session_id, index) do nothing`,
-      [tenantId, sessionId, t.index, t.speaker, t.text, t.language ?? null, t.startedMs ?? null, t.endedMs ?? null, t.pauseBeforeMs ?? null, t.wordsPerMinute ?? null, t.asrConfidence ?? null, t.isObjection ?? false],
+      `insert into turns (tenant_id, session_id, index, speaker, text, language_detected, started_ms, ended_ms, pause_before_ms, words_per_minute, asr_confidence, is_objection, raw_text)
+       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) on conflict (session_id, index) do nothing`,
+      [tenantId, sessionId, t.index, t.speaker, t.text, t.language ?? null, t.startedMs ?? null, t.endedMs ?? null, t.pauseBeforeMs ?? null, t.wordsPerMinute ?? null, t.asrConfidence ?? null, t.isObjection ?? false, t.raw ?? null],
     );
   }
 }

@@ -4,12 +4,12 @@ import { cookies } from "next/headers";
 import { AiClient, ClaudeComplianceClassifier, ClaudeJudge, ClaudeUnlockDetector, MemoryUsageSink } from "@taptics/ai";
 import { platformLibrary } from "@taptics/content";
 import {
-  createPracticeSession, currentExitMultiplier, insertTurns, issueCard, latestPlatformRelease, loadStoreSetup, practiceHistory, saveSessionResult, weekScoreItems, type UserContext,
+  createPracticeSession, currentExitMultiplier, insertTurns, liveSessionRecord, issueCard, latestPlatformRelease, loadStoreSetup, practiceHistory, saveSessionResult, weekScoreItems, type UserContext,
 } from "@taptics/db";
 import { exitDrawFor } from "@taptics/engine";
 import { isLanguage, type Language } from "@taptics/i18n";
 import { chooseWeeklyCard, type ItemResult, type ScoreResult } from "@taptics/scoring";
-import { certificationSeed, certificationState, certifiedForUps, PracticeSession, type ScenarioMeta, type SessionResult } from "@taptics/session";
+import { certificationSeed, certificationState, certifiedForUps, PracticeSession, replayPracticeSession, type PracticeSessionOptions, type ScenarioMeta, type SessionResult } from "@taptics/session";
 import { asUser, withClient } from "./db";
 
 export const library = () => platformLibrary();
@@ -83,45 +83,13 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
     if (!recert && certificationState(scenarioCode, history, now).state !== "eligible") return { error: "not_eligible" as const };
   }
 
-  const usage = new MemoryUsageSink();
-  let ai: ConstructorParameters<typeof PracticeSession>[0]["ai"];
-  if (aiConfigured()) {
-    const client = new AiClient(undefined, usage);
-    const lib = library();
-    ai = {
-      client,
-      classifier: new ClaudeComplianceClassifier(client, user.tenantId, id),
-      detector: new ClaudeUnlockDetector(client, user.tenantId, id),
-      judge: new ClaudeJudge(client, user.tenantId, { lexicon: lib.lexicon!, rules: [...lib.rules.values()] }, id),
-    };
-  }
   // The exit draw follows the rep's attempt number on this scenario (decision 0005); the user id keys the sequence.
   // Certification uses a fixed set of seeds and exit draws, so every rep faces comparable customers (spec 15.4).
   const certification = mode === "certification";
   const seed = certification ? certificationSeed(scenarioCode, certAttempt) : `${user.id}:${scenarioCode}:${attempt}`;
   const exitDraw = certification ? exitDrawFor("certification", scenarioCode, certAttempt % 3) : exitDrawFor(user.id, scenarioCode, attempt);
-  const session = new PracticeSession({
-    library: library(),
-    scenarioCode,
-    language: lang,
-    seed,
-    exitDraw,
-    mode: certification ? "certification" : "practice",
-    tenantId: user.tenantId,
-    sessionId: id,
-    textMode: !voice,
-    // Stop on critical is always on in certification (spec 15.4).
-    stopOnCritical: certification || user.stopOnCritical,
-    // The store's real charges and policies drive the compliance checker (spec 3.4). Until the compliance reviewer
-    // signs them off, the removal policy is treated as not configured: the strictest reading (spec 4.5).
-    exitMultiplier,
-    dealerFees: store?.fees.filter((f) => f.kind === "dealer_mandatory").map((f) => ({ code: f.code, cents: f.amountCents })),
-    store: {
-      addOnRemovalPolicy: store?.approvedAt ? store.addOnRemoval : "none_configured",
-      ignoredIdentityPlaces: store ? store.storeName.split(/\s+/).filter((w) => w.length > 3) : [],
-    },
-    ai,
-  });
+  const usage = new MemoryUsageSink();
+  const session = new PracticeSession(sessionOptions(user, { id, scenarioCode, language: lang, mode, seed, exitDraw, voice, exitMultiplier, store, usage }));
   const opening = session.start();
   await asUser(principal(user), async (db) => {
     await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: !voice, seed, exitDraw, exitMultiplier });
@@ -131,10 +99,69 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
   return { id, session, opening };
 }
 
-/** A live session, only for the rep who owns it. */
-export function liveSession(id: string, user: { id: string }): Live | null {
+/**
+ * A live session, only for the rep who owns it. A serverless host may send a turn to an instance that never saw the
+ * session; that instance rebuilds it from the stored turns (`replayPracticeSession`) and carries on.
+ */
+export async function liveSession(id: string, user: UserContext): Promise<Live | null> {
   const s = live.get(id);
-  return s && s.userId === user.id ? s : null;
+  if (s) return s.userId === user.id ? s : null;
+  const found = await asUser(principal(user), async (db) => {
+    const rec = await liveSessionRecord(db, id, user.id);
+    return rec && { rec, store: user.storeId ? await loadStoreSetup(db, user.storeId) : null };
+  });
+  if (!found || Date.now() - found.rec.createdAt.getTime() > 60 * 60 * 1000) return null;
+  const { rec, store } = found;
+  const usage = new MemoryUsageSink();
+  const options = sessionOptions(user, { id, scenarioCode: rec.scenarioCode, language: rec.language, mode: rec.mode, seed: rec.seed, exitDraw: rec.exitDraw ?? 0.5, voice: !rec.textMode, exitMultiplier: rec.exitMultiplier, store, usage });
+  const session = await replayPracticeSession(options, rec.turns);
+  const restored: Live = { id, session, userId: user.id, tenantId: user.tenantId, createdAt: rec.createdAt.getTime(), persistedTurns: session.transcript.length, usage, result: null };
+  live.set(id, restored);
+  return restored;
+}
+
+type StoreSetup = Awaited<ReturnType<typeof loadStoreSetup>>;
+
+/** The settings a session runs with: one place, so a session rebuilt on another instance runs exactly as it began. */
+function sessionOptions(
+  user: UserContext,
+  o: { id: string; scenarioCode: string; language: Language | "follow"; mode: string; seed: string; exitDraw: number; voice: boolean; exitMultiplier: number; store: StoreSetup | null; usage: MemoryUsageSink },
+): Omit<PracticeSessionOptions, "replay"> {
+  let ai: PracticeSessionOptions["ai"];
+  if (aiConfigured()) {
+    const client = new AiClient(undefined, o.usage);
+    const lib = library();
+    ai = {
+      client,
+      classifier: new ClaudeComplianceClassifier(client, user.tenantId, o.id),
+      detector: new ClaudeUnlockDetector(client, user.tenantId, o.id),
+      judge: new ClaudeJudge(client, user.tenantId, { lexicon: lib.lexicon!, rules: [...lib.rules.values()] }, o.id),
+    };
+  }
+  const certification = o.mode === "certification";
+  const store = o.store;
+  return {
+    library: library(),
+    scenarioCode: o.scenarioCode,
+    language: o.language,
+    seed: o.seed,
+    exitDraw: o.exitDraw,
+    mode: certification ? "certification" : "practice",
+    tenantId: user.tenantId,
+    sessionId: o.id,
+    textMode: !o.voice,
+    // Stop on critical is always on in certification (spec 15.4).
+    stopOnCritical: certification || user.stopOnCritical,
+    exitMultiplier: o.exitMultiplier,
+    // The store's real charges and policies drive the compliance checker (spec 3.4). Until the compliance reviewer
+    // signs them off, the removal policy is treated as not configured: the strictest reading (spec 4.5).
+    dealerFees: store?.fees.filter((f) => f.kind === "dealer_mandatory").map((f) => ({ code: f.code, cents: f.amountCents })),
+    store: {
+      addOnRemovalPolicy: store?.approvedAt ? store.addOnRemoval : "none_configured",
+      ignoredIdentityPlaces: store ? store.storeName.split(/\s+/).filter((w) => w.length > 3) : [],
+    },
+    ai,
+  };
 }
 
 /** Writes the turns added since the last write (each rep turn and the customer's reply). */

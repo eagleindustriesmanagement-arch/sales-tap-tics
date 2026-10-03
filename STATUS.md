@@ -4,6 +4,16 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
 
 ## What runs today
 
+- **Ready to host on Vercel at salestaptics.com** (decision 0014, `docs/DEPLOY.md`).
+  - Deploys run from GitHub. Each build migrates, publishes the content and seeds the demo store before
+    `next build`.
+  - Neon Postgres. The full browser suite passes against a database owned by a non-superuser, as on Neon, and CI
+    runs the deploy step that way on every push.
+  - A turn that reaches a different server instance rebuilds the live session from its stored turns.
+  - The trial sign-in offers one-tap demo roles with the code on screen.
+- **The owner's logo** in the header, sign-in, favicons, home-screen and App Store icons (`docs/brand`). The UI
+  blue comes from it.
+
 - **The app, redesigned for phones** (decision 0012, `docs/DESIGN-GUIDELINES.md`). BookFlows' Liquid Glass material
   with the Sales Tap-tics blue and amber, light and dark. The rep flow is laid out like a learning app:
   - **Today:** the daily goal ring, the streak, the certified count, and one "Up next" card with one Start button.
@@ -196,6 +206,9 @@ Updated 2026-10-03 (fifth pass: the redesign). Build plan: spec section 22. Deci
   in English and Spanish, on the showroom floor.
 - **Cloud voice tier** (decision 0013): a recognition provider account and a voice provider account, chosen by the
   spec 11.2 bake-off, plus a Miami listener to approve the voices.
+- **Vercel setup, once** (`docs/DEPLOY.md`): import the repo with root `apps/web`, add Neon from Vercel Storage,
+  set `TAPTICS_SECRET`, `TAPTICS_DEMO_LOGIN=1` and `TAPTICS_DEMO_SEED=1`, then add the domain. This environment
+  cannot reach Vercel's API, so these clicks are the owner's.
 - **App store accounts** (decision 0012): an Apple developer account, a Google Play developer account, a bundle id
   and a hosted URL, before the Capacitor shell can be built and submitted.
 

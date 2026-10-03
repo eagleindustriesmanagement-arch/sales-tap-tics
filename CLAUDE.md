@@ -88,6 +88,18 @@ marks scores partial; certification needs the key.
 - Plain-talk copy: shorten, never slick-ify. A score is never shown without the one change that matters most.
 - Refine, don't reinvent: keep names, structure and voice the owner settled.
 
+- **Hosting (Vercel + Neon, decision 0014, `docs/DEPLOY.md`).** The database owner there is not a superuser:
+  never `force row level security` (it breaks the security-definer sign-in functions and the seed, and tests as a
+  superuser never see it); a migration must run as a non-superuser owner (CI runs `pnpm db:deploy` that way first).
+  Never bake a build-machine path into the bundle (`next.config` `env`); resolve data directories at run time.
+  Never keep state only in one server's memory: live sessions are rebuilt from stored turns on any instance.
+- **`pnpm --filter x deploy` runs pnpm's own deploy command**, not a script named deploy. The database release
+  script is `release`, run through `pnpm db:deploy`.
+- **Voice is tested with a scripted recognizer and voice** (`e2e/flows.spec.ts`, the spoken session): real
+  phones still need a manual pass (iPhone Safari routes audio to the earpiece while the microphone is open).
+- **A segmented control's radio must be clickable, not `sr-only`**: browser tests (and some screen readers) treat
+  `sr-only` inputs as invisible. Cover the segment with the invisible input instead (`SEGMENT_INPUT`).
+
 ## Agents
 
 - `.claude/agents/hardening.md` — QA and defensive review (adapted from BookFlows): finds and fixes defects with a

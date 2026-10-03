@@ -21,7 +21,12 @@ export default async function Login() {
         </div>
         <div className="space-y-3">
           <h2 className="px-1 text-[19px] font-bold text-ink">{t("login.title", lang)}</h2>
-          <LoginForm language={lang} />
+          <LoginForm
+            language={lang}
+            demo={process.env.TAPTICS_DEMO_LOGIN === "1"
+              ? [{ identifier: "rep@demo.test", label: t("login.demoRep", lang) }, { identifier: "manager@demo.test", label: t("login.demoManager", lang) }, { identifier: "gm@demo.test", label: t("login.demoGm", lang) }]
+              : []}
+          />
         </div>
       </div>
       <p className="pb-safe mx-auto max-w-md pb-6 text-center text-[12px] text-muted">{t("app.disclaimer", lang)}</p>

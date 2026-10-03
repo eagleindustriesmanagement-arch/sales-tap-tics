@@ -6,6 +6,14 @@ import { t, type Language } from "@taptics/i18n";
 export const devLogin = () => process.env.TAPTICS_DEV_LOGIN === "1" && process.env.NODE_ENV !== "production";
 
 /**
+ * The trial site (decision 0014): with TAPTICS_DEMO_LOGIN=1 the demo store's accounts (@demo.test, which have no
+ * inbox) see their code on screen, so anyone with the link can try each role. Every other address still gets its
+ * code by email. Turn it off before a real store's people sign in.
+ */
+export const DEMO_DOMAIN = "@demo.test";
+export const demoLogin = (identifier: string) => process.env.TAPTICS_DEMO_LOGIN === "1" && identifier.trim().toLowerCase().endsWith(DEMO_DOMAIN);
+
+/**
  * Delivers a login code. Email through Resend when RESEND_API_KEY is set. TAPTICS_CODE_OUTBOX (a file path) is a
  * mail catcher for staging and browser tests: an operator must set it on purpose, and codes are never shown on
  * screen in production. Otherwise, outside production, the server log. SMS delivery is not configured yet.

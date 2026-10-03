@@ -20,7 +20,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   const user = await apiUser();
   if (user instanceof NextResponse) return user;
   const { id } = await params;
-  const s = liveSession(id, user);
+  const s = await liveSession(id, user);
   if (!s) return NextResponse.json({ error: "session not found" }, { status: 404 });
   const body = (await request.json().catch(() => ({}))) as { text?: string; timing?: unknown };
   const text = (body.text ?? "").trim().slice(0, 2000);

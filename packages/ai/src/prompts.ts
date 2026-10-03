@@ -1,9 +1,17 @@
-import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-/** Apps that bundle this package set TAPTICS_PROMPTS_DIR, since bundlers move files. */
-const DIR = process.env.TAPTICS_PROMPTS_DIR ?? join(dirname(fileURLToPath(import.meta.url)), "../prompts");
+/**
+ * Apps that bundle this package set TAPTICS_PROMPTS_DIR, since bundlers move files; a serverless host runs the code
+ * from yet another place, so the first directory that exists wins (the same rule as the content library).
+ */
+const DIR = [
+  process.env.TAPTICS_PROMPTS_DIR,
+  resolve(process.cwd(), "../../packages/ai/prompts"),
+  resolve(process.cwd(), "packages/ai/prompts"),
+  join(dirname(fileURLToPath(import.meta.url)), "../prompts"),
+].filter((c): c is string => Boolean(c)).find((c) => existsSync(c)) ?? join(dirname(fileURLToPath(import.meta.url)), "../prompts");
 
 export interface PromptTemplate {
   id: string;

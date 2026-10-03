@@ -7,7 +7,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
   const user = await apiUser();
   if (user instanceof NextResponse) return user;
   const { id } = await params;
-  const s = liveSession(id, user);
+  const s = await liveSession(id, user);
   if (!s) return NextResponse.json({ error: "session not found" }, { status: 404 });
   const r = await finishSession(s, user);
   return NextResponse.json(

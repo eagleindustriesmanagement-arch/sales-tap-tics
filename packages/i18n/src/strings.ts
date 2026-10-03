@@ -446,6 +446,11 @@ export const STRINGS = {
   "login.rateLimited": { en: "Too many codes requested. Wait 15 minutes and try again.", es: "Pidió demasiados códigos. Espere 15 minutos e intente de nuevo." },
   "login.unavailable": { en: "Sign-in codes cannot be delivered right now. Ask your manager.", es: "No se pueden enviar códigos en este momento. Consulte con su gerente." },
   "login.devCode": { en: "Development code: {code}", es: "Código de desarrollo: {code}" },
+  "login.demoTitle": { en: "Try the demo as", es: "Pruebe la demostración como" },
+  "login.demoRep": { en: "A sales rep", es: "Vendedor" },
+  "login.demoManager": { en: "A sales manager", es: "Gerente de ventas" },
+  "login.demoGm": { en: "The general manager", es: "Gerente general" },
+  "login.demoCode": { en: "Demo account: your code is {code}. It is filled in for you.", es: "Cuenta de demostración: su código es {code}. Ya está escrito." },
   "login.otherIdentifier": { en: "Use a different email or number", es: "Usar otro correo o número" },
   "login.emailSubject": { en: "Your Sales Tap-tics code", es: "Su código de Sales Tap-tics" },
   "login.emailBody": {

@@ -16,7 +16,7 @@ export async function warmUp() {
   }
   if (process.env.DATABASE_URL) {
     const { pool } = await import("./lib/db");
-    const clients = await Promise.all(Array.from({ length: Number(process.env.TAPTICS_DB_WARM ?? 10) }, () => pool().connect().catch(() => null)));
+    const clients = await Promise.all(Array.from({ length: Number(process.env.TAPTICS_DB_WARM ?? (process.env.VERCEL ? 2 : 10)) }, () => pool().connect().catch(() => null)));
     for (const c of clients) c?.release();
   }
 }

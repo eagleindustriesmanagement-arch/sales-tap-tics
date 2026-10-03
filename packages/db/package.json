@@ -12,7 +12,8 @@
     "migrate": "tsx src/migrate-cli.ts",
     "seed": "tsx scripts/seed-demo.ts",
     "publish-content": "tsx scripts/publish-content.ts",
-    "apply-reviews": "tsx scripts/apply-reviews.ts"
+    "apply-reviews": "tsx scripts/apply-reviews.ts",
+    "release": "tsx scripts/deploy.ts"
   },
   "dependencies": {
     "pg": "^8.13.1",

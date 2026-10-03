@@ -23,6 +23,13 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # Neon's owner is not a superuser (decision 0014). Run first, on the fresh database server, so this owner creates
+      # the app roles itself, as it does on a new Neon project; twice, because every deploy runs it again.
+      - name: Deploy step as a hosted database owner (not a superuser)
+        run: |
+          psql "$DATABASE_URL" -c "create role hosted_owner login createrole password 'hosted-ci-only'" -c "create database hosted owner hosted_owner"
+          DATABASE_URL=postgresql://hosted_owner:hosted-ci-only@localhost:5432/hosted TAPTICS_DEMO_SEED=1 pnpm db:deploy
+          DATABASE_URL=postgresql://hosted_owner:hosted-ci-only@localhost:5432/hosted TAPTICS_DEMO_SEED=1 pnpm db:deploy
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm content:validate
