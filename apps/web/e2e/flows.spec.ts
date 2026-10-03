@@ -318,6 +318,9 @@ test("the reminder job sends once a day to someone whose time has come, and only
   await c.connect();
   // Carlos has not practiced today; his reminder time is a minute ago in Miami, and his one phone's push service is down.
   const carlos = (await c.query("select id, tenant_id from users where email = 'manager@demo.test'")).rows[0] as { id: string; tenant_id: string };
+  // No peak hours for this test (it may run on a Saturday afternoon) and no reminder recorded yet today.
+  await c.query("update store_policies set peak_hours = '[]' where store_id = (select store_id from memberships where user_id = $1 limit 1)", [carlos.id]);
+  await c.query("delete from reminders_sent where user_id = $1", [carlos.id]);
   await c.query("update users set reminder_time = ((now() at time zone 'America/New_York') - interval '1 minute')::time where id = $1", [carlos.id]);
   await c.query("insert into push_subscriptions (tenant_id, user_id, endpoint, p256dh, auth) values ($1, $2, 'https://localhost:1/push/e2e', 'BAAA', 'AAAA') on conflict do nothing", [carlos.tenant_id, carlos.id]);
   const job = (auth?: string) => page.context().request.get("/api/cron/reminders", { headers: auth ? { authorization: auth } : {} });
@@ -330,6 +333,7 @@ test("the reminder job sends once a day to someone whose time has come, and only
   // Never two in a day.
   expect(await (await job(`Bearer ${CRON_SECRET}`)).json()).toMatchObject({ people: 0 });
   await c.query("update users set reminder_time = null where id = $1", [carlos.id]);
+  await c.query("update store_policies set peak_hours = '[{\"day\": 6, \"from\": \"11:00\", \"to\": \"17:00\"}]' where store_id = (select store_id from memberships where user_id = $1 limit 1)", [carlos.id]);
   await c.end();
 });
 
