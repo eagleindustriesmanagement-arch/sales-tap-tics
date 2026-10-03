@@ -6,6 +6,7 @@ import { t, type Bilingual, type Language } from "@taptics/i18n";
 import type { VoiceTiming } from "@taptics/voice";
 import { Debrief, type DebriefPayload } from "@/components/debrief";
 import { IconAlert, IconEye, IconMessage, IconMic, IconPlay, IconSend, IconTrophy, IconX } from "@/components/icons";
+import { Recover } from "@/components/recover";
 import { Avatar, Card, Chip, Grade, Inset, buttonClass, ghostButtonClass } from "@/components/ui";
 import { VoiceStage } from "@/components/voice-stage";
 import { DeviceSpeechToText, DeviceTextToSpeech } from "@/lib/voice/device";
@@ -134,18 +135,27 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
         buffer += decoder.decode(value, { stream: true });
         let nl: number;
         while ((nl = buffer.indexOf("\n")) >= 0) {
-          const msg = JSON.parse(buffer.slice(0, nl)) as { sentence?: string; outcome?: { ended: boolean; stoppedOnCritical: boolean }; error?: string };
+          const line = buffer.slice(0, nl);
           buffer = buffer.slice(nl + 1);
-          if (msg.sentence) {
+          // One bad line (cut off by a proxy, say) is skipped; it never stops the turn or reaches the screen.
+          let msg: { sentence?: unknown; outcome?: { ended?: unknown; stoppedOnCritical?: unknown }; error?: unknown };
+          try {
+            msg = JSON.parse(line) as typeof msg;
+          } catch {
+            continue;
+          }
+          if (!msg || typeof msg !== "object") continue;
+          const sentence = typeof msg.sentence === "string" ? msg.sentence.trim() : "";
+          if (sentence) {
             // The first sentence adds the customer's bubble; later ones grow it (it is always the last line).
             const first = !customer;
-            customer = first ? msg.sentence : `${customer} ${msg.sentence}`;
+            customer = first ? sentence : `${customer} ${sentence}`;
             const current = customer;
             setLines((l) => (first ? [...l, { speaker: "customer", text: current }] : [...l.slice(0, -1), { speaker: "customer", text: current }]));
-            onSentence?.(msg.sentence);
+            onSentence?.(sentence);
           }
-          if (msg.outcome?.ended) {
-            setEnded({ stopped: msg.outcome.stoppedOnCritical });
+          if (msg.outcome?.ended === true) {
+            setEnded({ stopped: msg.outcome.stoppedOnCritical === true });
             result = { ended: true };
           }
           if (msg.error) setError(t("practice.error", lang));
@@ -189,8 +199,21 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
 
   // ------------------------------------------------------------- live conversation
   if (phase === "live" && session) {
+    // If drawing the conversation ever fails, it is drawn again from scratch with the conversation kept; if that
+    // keeps failing, the rep can still see the debrief (decision 0027).
+    const recovered = (
+      <div className="grid min-h-dvh place-items-center px-6">
+        <div role="alert" className="w-full max-w-md space-y-4 text-center">
+          <p className="text-[17px] font-semibold text-ink">{ui("practice.recovered")}</p>
+          <button type="button" className={`${buttonClass} w-full`} onClick={finish}>{ui("practice.seeDebrief")}</button>
+          <button type="button" className={`${ghostButtonClass} w-full`} onClick={() => location.reload()}>{ui("practice.startAgain")}</button>
+        </div>
+      </div>
+    );
     return (
-      <div className="flex min-h-dvh flex-col">
+      <Recover area="practice" fallback={recovered}>
+      {/* The rep practices in the language chosen; the browser must not machine-translate the conversation. */}
+      <div translate="no" className="flex min-h-dvh flex-col">
         <header className="glass-chrome pt-safe sticky top-0 z-30">
           <div className="mx-auto flex h-16 max-w-2xl items-center gap-3 px-4">
             {answerBy === "type" && <Avatar name={session.name} size={40} />}
@@ -225,26 +248,26 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
         <div className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-40">
           <div className="mx-auto mb-5 max-w-md space-y-2 text-center">
             <p className="text-[15px] text-body">{session.brief}</p>
-            <p className="text-[13px] text-muted">{ui("practice.textModeNotice")}{!live && <> {ui("practice.offlineNotice")}</>}</p>
+            <p className="text-[13px] text-muted"><span>{ui("practice.textModeNotice")}</span>{!live && <span> {ui("practice.offlineNotice")}</span>}</p>
           </div>
           <ol className="space-y-2.5" aria-live="polite">
             {lines.map((l, i) => {
               const rep = l.speaker === "rep";
               const firstOfRun = i === 0 || lines[i - 1]!.speaker !== l.speaker;
               return (
-                <li key={i} className={`bubble-in flex items-end gap-2 ${rep ? "justify-end" : "justify-start"}`}>
+                <li key={i} data-testid={`line-${l.speaker}`} className={`bubble-in flex items-end gap-2 ${rep ? "justify-end" : "justify-start"}`}>
                   {!rep && <span className="w-8 shrink-0">{firstOfRun && <Avatar name={session.name} size={32} />}</span>}
                   <p className={`max-w-[80%] px-4 py-2.5 text-[16px] leading-snug ${rep
                     ? "bezel rounded-[1.25rem] rounded-br-md bg-brand-fill text-brand-fill-ink"
                     : "liquid-glass liquid-glass-panel rounded-[1.25rem] rounded-bl-md text-ink"}`}>
                     <span className="sr-only">{ui(rep ? "practice.you" : "practice.customer")}: </span>
-                    {l.text}
+                    <span>{l.text}</span>
                   </p>
                 </li>
               );
             })}
             {waiting && (
-              <li className="flex items-end gap-2">
+              <li data-testid="typing" className="flex items-end gap-2">
                 <span className="w-8 shrink-0" />
                 <span className="sr-only">{ui("practice.typing", { name: session.name })}</span>
                 <span className="typing liquid-glass liquid-glass-panel flex gap-1 rounded-[1.25rem] rounded-bl-md px-4 py-3.5" aria-hidden="true">
@@ -290,6 +313,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
         </div>
         </>)}
       </div>
+      </Recover>
     );
   }
 

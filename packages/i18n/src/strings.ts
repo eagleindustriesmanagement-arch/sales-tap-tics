@@ -476,6 +476,14 @@ export const STRINGS = {
   },
   "practice.seeDebrief": { en: "See debrief", es: "Ver resumen" },
   "practice.error": { en: "Something went wrong. Try again.", es: "Algo salió mal. Intente de nuevo." },
+  "practice.recovered": {
+    en: "This screen hit a problem. Your conversation is saved: you can see the debrief or start again.",
+    es: "Esta pantalla tuvo un problema. Su conversación está guardada: puede ver el resumen o empezar de nuevo.",
+  },
+  "practice.startAgain": { en: "Start again", es: "Empezar de nuevo" },
+  "error.title": { en: "This screen hit a problem", es: "Esta pantalla tuvo un problema" },
+  "error.body": { en: "It has been reported. Try again, or go back to Today.", es: "Ya se reportó. Intente de nuevo, o vuelva a Hoy." },
+  "error.retry": { en: "Try again", es: "Intentar de nuevo" },
 
   "debrief.loading": { en: "Scoring your session…", es: "Calificando su sesión…" },
   "debrief.transcript": { en: "Transcript", es: "Transcripción" },

@@ -234,6 +234,11 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
 
 ## Open risks
 
+- **Production Send crash (October 3), fixed but not confirmed as the cause.** The first typed Send replaced the
+  room with "This page couldn't load". It could not be reproduced locally; a node removed under React (as page
+  translation and extensions do) produces the same screen. The room now recovers in place, is not machine-translated,
+  and reports any crash as `client_error` in the logs (decision 0027). If it recurs, the log names the real cause.
+
 1. **Speech recognition on mixed Miami Spanish** is the largest technical risk (spec 11); nothing voice-related is
    proven yet.
 2. **No attorney review** (Ernesto's decision 0009: not a launch blocker for internal training). Every rule runs at

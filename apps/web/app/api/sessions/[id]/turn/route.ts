@@ -40,7 +40,9 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         let firstSentenceMs: number | undefined;
         while (!step.done) {
           firstSentenceMs ??= Date.now() - received;
-          send({ sentence: step.value.text });
+          // Only text is sent to the page: an empty or odd sentence is never streamed.
+          const sentence = typeof step.value.text === "string" ? step.value.text.trim() : "";
+          if (sentence) send({ sentence });
           step = await turn.next();
         }
         await persistNewTurns(s);

@@ -593,3 +593,64 @@ test("a spoken session: hands-free turns, barge-in, and the pause and pace are s
   expect(first.rows[0].words_per_minute).toBeLessThan(200);
   expect(first.rows[0].asr_confidence).toBeCloseTo(0.92, 2);
 });
+
+test("a typed turn renders the reply, even when the stream is damaged or the page is changed under it", async ({ page }) => {
+  // Production bug (October 3): the first typed Send replaced the room with "This page couldn't load". A translator or
+  // an extension that removes a node the page drew, while the reply is on its way, produced exactly that screen.
+  const crashes: string[] = [];
+  page.on("pageerror", (e) => crashes.push(e.message));
+  await signInReady(page, "rep@demo.test");
+  await page.goto("/practice/S-partner-check-L1");
+  await page.getByRole("radio", { name: "Type" }).check();
+  await page.getByRole("button", { name: "Start" }).click();
+  const say = page.getByLabel("Type what you would say");
+  const send = page.getByRole("button", { name: "Send" });
+  const free = page.locator('[data-testid="composer"][data-busy="false"]');
+  const customer = page.getByTestId("line-customer");
+  await expect(customer).toHaveCount(1);
+
+  // A real first turn: the rep's line, then the customer's reply.
+  await say.fill("Of course, it's a big decision. What do you think her first question will be?");
+  await send.click();
+  await expect(page.getByTestId("line-rep")).toHaveCount(1);
+  await expect(customer).toHaveCount(2);
+  await expect(free).toBeVisible();
+
+  // A damaged stream: a line that is not JSON and a sentence that is not text are skipped; the good sentence shows.
+  const turn = "**/api/sessions/*/turn";
+  const ndjson = (...lines: string[]) => ({ status: 200, contentType: "application/x-ndjson", body: lines.map((l) => `${l}\n`).join("") });
+  const outcome = '{"outcome":{"ended":false,"stoppedOnCritical":false}}';
+  await page.route(turn, (r) => r.fulfill(ndjson('{"sentence":"Fine', '{"sentence":{"text":1}}', '{"sentence":"Fine. Tell me more."}', outcome)));
+  await say.fill("What matters most to her in a car?");
+  await send.click();
+  await expect(page.getByText("Fine. Tell me more.")).toBeVisible();
+  await expect(free).toBeVisible();
+
+  // The page is changed under React while the reply is on its way: it recovers, keeps the conversation, and says so
+  // in the log.
+  await page.unroute(turn);
+  let release!: () => void;
+  const held = new Promise<void>((r) => (release = r));
+  await page.route(turn, async (r) => {
+    await held;
+    await r.fulfill(ndjson('{"sentence":"Okay. She would want to see it."}', outcome));
+  });
+  const report = page.waitForRequest("**/api/client-error");
+  await say.fill("Would she want to see it in person?");
+  await send.click();
+  await page.getByTestId("typing").waitFor();
+  await page.evaluate(() => document.querySelector('[data-testid="typing"]')?.remove());
+  release();
+  await expect(page.getByText("Okay. She would want to see it.")).toBeVisible();
+  expect((await report).postDataJSON()).toMatchObject({ area: "practice", name: "NotFoundError" });
+  await expect(page.getByText(/couldn.t load/)).toHaveCount(0);
+  await expect(page.getByText("Fine. Tell me more.")).toBeVisible();
+
+  // And the next real turn still works.
+  await page.unroute(turn);
+  await say.fill("When could you both come in to see it together?");
+  await send.click();
+  await expect(page.getByTestId("line-rep")).toHaveCount(4);
+  await expect(free.or(page.getByText("The conversation has ended."))).toBeVisible();
+  expect(crashes).toEqual([]);
+});
