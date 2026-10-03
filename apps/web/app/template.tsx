@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 /** Screens that own the whole display and pin bars to it; they fade in without the rise (see globals.css motion). */
-const immersive = (path: string) => /^\/practice\/[^/]+/.test(path) || ["/", "/login", "/signup", "/consent"].includes(path);
+const immersive = (path: string) => /^\/(practice|join)\/[^/]+/.test(path) || ["/", "/login", "/signup", "/consent", "/pricing"].includes(path);
 
 /**
  * Each route's content arrives with a short fade and rise (docs/DESIGN-GUIDELINES.md §6, motion). The animation is
