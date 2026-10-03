@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { listSpanishReviews } from "@taptics/db";
 import { t } from "@taptics/i18n";
-import { Card } from "@/components/ui";
+import { Card, PageHeader, SectionTitle } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { reviewProgress } from "@/lib/review";
@@ -22,13 +22,12 @@ export default async function Review() {
   const total = rows.reduce((n, r) => n + r.total, 0);
   return (
     <div className="space-y-4">
-      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("review.title", lang)}</h1>
-      <p className="text-muted">{t("review.intro", lang)}</p>
+      <PageHeader title={t("review.title", lang)} subtitle={t("review.intro", lang)} />
       <p className="font-semibold text-ink" data-testid="review-total">{t("review.total", lang, { approved, total })}</p>
       <ReviewList rows={rows} />
       {later.length > 0 && (
         <>
-          <h2 className="pt-2 text-[20px] font-bold text-ink">{t("review.later.title", lang)}</h2>
+          <div className="pt-3"><SectionTitle>{t("review.later.title", lang)}</SectionTitle></div>
           <p className="text-muted" data-testid="review-later-total">{t("review.later.intro", lang, { approved: later.reduce((n, r) => n + r.approved, 0), total: later.reduce((n, r) => n + r.total, 0) })}</p>
           <ReviewList rows={later} />
         </>

@@ -8,7 +8,7 @@ import { Card, buttonClass } from "@/components/ui";
 type Part = "saw" | "behavior" | "line" | "check_again";
 interface Result { parts: Record<Part, boolean>; oneBehavior: boolean; score: number; missing: { part: Part; model: string }[] }
 
-const input = "min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
+const input = "mt-1.5 min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
 
 export function CoachForm({ language: lang, cardCode, cardTitle, scene, cards }: { language: Language; cardCode: string; cardTitle: string; scene: string; cards: { code: string; title: string }[] }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
@@ -27,7 +27,7 @@ export function CoachForm({ language: lang, cardCode, cardTitle, scene, cards }:
 
   return (
     <div className="space-y-4">
-      <label className="block text-sm">{ui("coach.card")}
+      <label className="block text-[14px] font-medium text-muted">{ui("coach.card")}
         <select className={input} value={cardCode} onChange={(e) => router.push(`/manager/coach?card=${e.target.value}`)}>
           {cards.map((c) => <option key={c.code} value={c.code}>{c.title}</option>)}
         </select>
@@ -38,14 +38,14 @@ export function CoachForm({ language: lang, cardCode, cardTitle, scene, cards }:
         <p className="mt-2 text-sm text-muted">{ui("coach.task", { card: cardTitle })}</p>
       </Card>
       <form onSubmit={submit} className="space-y-3">
-        <label className="block text-sm">{ui("coach.say")}
+        <label className="block text-[14px] font-medium text-muted">{ui("coach.say")}
           <textarea className={`${input} min-h-32 py-2`} value={text} onChange={(e) => setText(e.target.value)} maxLength={2000} />
         </label>
         <button className={`${buttonClass} w-full`} disabled={busy || text.trim().length < 10}>{ui("coach.submit")}</button>
       </form>
       {result && (
         <Card className="space-y-2" data-testid="coach-result">
-          <p className="text-xl font-bold text-ink">{ui("coach.score", { score: result.score })}</p>
+          <p className="font-display text-[30px] leading-tight text-ink">{ui("coach.score", { score: result.score })}</p>
           <ul className="space-y-1">
             {(["saw", "behavior", "line", "check_again"] as const).map((p) => (
               <li key={p} className={result.parts[p] ? "text-good" : "text-bad"}>{result.parts[p] ? "✓" : "✗"} {ui(`coach.part.${p}`)}</li>

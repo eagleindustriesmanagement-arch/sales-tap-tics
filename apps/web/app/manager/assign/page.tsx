@@ -1,6 +1,7 @@
 import { assignableReps } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { AssignForm } from "@/components/assign-form";
+import { PageHeader } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library, practiceList } from "@/lib/server";
@@ -17,7 +18,7 @@ export default async function Assign({ searchParams }: { searchParams: Promise<{
   const { rep } = await searchParams;
   return (
     <div className="space-y-4">
-      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("assign.title", lang)}</h1>
+      <PageHeader title={t("assign.title", lang)} />
       <AssignForm language={lang} reps={reps} scenarios={scenarios} preselected={rep ? [rep] : []} />
     </div>
   );

@@ -15,13 +15,13 @@ export default async function Settings({ searchParams }: { searchParams: Promise
   const { reminderTime } = await asUser(principalOf(user), (db) => personalSettings(db, user.id));
   const { saved } = await searchParams;
   const other = lang === "en" ? "es" : "en";
-  const icon = "grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-brand";
+  const icon = "grid h-9 w-9 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-brand ring-1 ring-brand/20 ring-inset";
   return (
     <div className="space-y-5">
       <PageHeader title={t("settings.title", lang)} />
       <Card className="flex items-center gap-3">
         <Avatar name={user.firstName ?? "?"} size={52} />
-        <p className="text-[19px] font-bold text-ink">{user.firstName}</p>
+        <p className="font-display text-[28px] leading-tight text-ink">{user.firstName}</p>
       </Card>
       {saved === "1" && <p role="status" className="px-1 font-semibold text-good">{t("settings.saved", lang)}</p>}
       {saved === "0" && <p role="alert" className="px-1 font-semibold text-bad">{t("settings.invalid", lang)}</p>}

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
-import { IconCheck } from "@/components/icons";
+import { IconCheck, IconChevronRight } from "@/components/icons";
 import { Avatar, Card, Chip, buttonClass, fieldClass } from "@/components/ui";
 
 export interface FloorCard {
@@ -38,18 +38,18 @@ export function FloorCheck({ card, issueId, repName, status, language: lang }: {
       <div className="flex items-center gap-3">
         <Avatar name={repName} size={44} />
         <div className="min-w-0">
-          <p className="text-[17px] font-bold text-ink">{repName}</p>
+          <p className="font-display text-[24px] leading-tight text-ink">{repName}</p>
           <p className="text-[14px] text-muted">{card.title[lang]}</p>
         </div>
       </div>
       <p className="text-[16px] text-ink">{card.behavior[lang]}</p>
       <details onToggle={touch} className="liquid-glass-inset group rounded-[0.875rem] px-3.5 py-2.5">
-        <summary className="flex min-h-9 cursor-pointer list-none items-center justify-between font-semibold text-brand">{ui("floor.script")}<span className="transition-transform group-open:rotate-90">›</span></summary>
+        <summary className="flex min-h-9 cursor-pointer list-none items-center justify-between font-semibold text-brand">{ui("floor.script")}<IconChevronRight size={18} className="transition-transform duration-300 group-open:rotate-90" /></summary>
         <dl className="mt-2 space-y-2.5 pb-1">
           {parts.map(([label, text]) => (
-            <div key={label}><dt className="text-[13px] font-semibold text-muted">{ui(label)}</dt><dd className="text-[15px] text-ink">{text[lang]}</dd></div>
+            <div key={label}><dt className="text-[13px] font-semibold text-brand">{ui(label)}</dt><dd className="text-[15px] text-ink">{text[lang]}</dd></div>
           ))}
-          <div><dt className="text-[13px] font-semibold text-muted">{ui("floor.lookFor")}</dt><dd><ul className="list-disc pl-5 text-[15px] text-ink">{card.lookFor[lang].map((x) => <li key={x}>{x}</li>)}</ul></dd></div>
+          <div><dt className="text-[13px] font-semibold text-brand">{ui("floor.lookFor")}</dt><dd><ul className="list-disc pl-5 text-[15px] text-ink">{card.lookFor[lang].map((x) => <li key={x}>{x}</li>)}</ul></dd></div>
         </dl>
       </details>
       {error && <p role="alert" className="font-semibold text-bad">{ui("practice.error")}</p>}

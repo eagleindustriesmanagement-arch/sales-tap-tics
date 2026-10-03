@@ -23,7 +23,7 @@ export interface StoreFormValue {
   approvedAt: string | null;
 }
 
-const input = "min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink disabled:opacity-70";
+const input = "mt-1.5 min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink disabled:opacity-70";
 
 export function StoreForm({ initial, language: lang, canEdit, canApprove }: { initial: StoreFormValue; language: Language; canEdit: boolean; canApprove: boolean }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
@@ -74,11 +74,11 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove }: { in
         <h2 className="font-bold text-ink">{ui("store.fees")}</h2>
         {v.fees.map((f, i) => (
           <fieldset key={i} disabled={!canEdit} className="grid gap-2 liquid-glass-inset rounded-[0.875rem] p-3 sm:grid-cols-2">
-            <label className="text-sm">{ui("store.feeCode")}<input className={input} value={f.code} onChange={(e) => setFee(i, { code: e.target.value })} /></label>
-            <label className="text-sm">{ui("store.feeAmount")}<input className={input} inputMode="decimal" value={(f.amountCents / 100).toString()} onChange={(e) => setFee(i, { amountCents: Math.round(Number(e.target.value || 0) * 100) })} /></label>
-            <label className="text-sm">{ui("store.feeNameEn")}<input className={input} value={f.nameEn} onChange={(e) => setFee(i, { nameEn: e.target.value })} /></label>
-            <label className="text-sm">{ui("store.feeNameEs")}<input className={input} value={f.nameEs} onChange={(e) => setFee(i, { nameEs: e.target.value })} lang="es" /></label>
-            <label className="text-sm sm:col-span-2">{ui("store.feeKind")}
+            <label className="text-[14px] font-medium text-muted">{ui("store.feeCode")}<input className={input} value={f.code} onChange={(e) => setFee(i, { code: e.target.value })} /></label>
+            <label className="text-[14px] font-medium text-muted">{ui("store.feeAmount")}<input className={input} inputMode="decimal" value={(f.amountCents / 100).toString()} onChange={(e) => setFee(i, { amountCents: Math.round(Number(e.target.value || 0) * 100) })} /></label>
+            <label className="text-[14px] font-medium text-muted">{ui("store.feeNameEn")}<input className={input} value={f.nameEn} onChange={(e) => setFee(i, { nameEn: e.target.value })} /></label>
+            <label className="text-[14px] font-medium text-muted">{ui("store.feeNameEs")}<input className={input} value={f.nameEs} onChange={(e) => setFee(i, { nameEs: e.target.value })} lang="es" /></label>
+            <label className="text-[14px] font-medium text-muted sm:col-span-2">{ui("store.feeKind")}
               <select className={input} value={f.kind} onChange={(e) => setFee(i, { kind: e.target.value as Kind })}>
                 {(["dealer_mandatory", "government_customer_pays", "optional"] as const).map((k) => <option key={k} value={k}>{ui(`store.kind.${k}`)}</option>)}
               </select>
@@ -91,51 +91,51 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove }: { in
 
       <Card className="space-y-3">
         <fieldset disabled={!canEdit} className="space-y-3">
-          <label className="block text-sm">{ui("store.addOnRemoval")}
+          <label className="block text-[14px] font-medium text-muted">{ui("store.addOnRemoval")}
             <select className={input} value={v.addOnRemoval} onChange={(e) => set("addOnRemoval", e.target.value as StoreFormValue["addOnRemoval"])}>
               {(["credit_price", "show_alternative", "none_configured"] as const).map((k) => <option key={k} value={k}>{ui(`store.addOn.${k}`)}</option>)}
             </select>
           </label>
-          <label className="block text-sm">{ui("store.lenders")}<textarea className={`${input} min-h-24 py-2`} value={lenders} onChange={(e) => setLenders(e.target.value)} /></label>
-          <label className="block text-sm">{ui("store.referral")}
+          <label className="block text-[14px] font-medium text-muted">{ui("store.lenders")}<textarea className={`${input} min-h-24 py-2`} value={lenders} onChange={(e) => setLenders(e.target.value)} /></label>
+          <label className="block text-[14px] font-medium text-muted">{ui("store.referral")}
             <select className={input} value={v.referralReward} onChange={(e) => set("referralReward", e.target.value as StoreFormValue["referralReward"])}>
               {(["none", "gift", "cash"] as const).map((k) => <option key={k} value={k}>{ui(`store.referral.${k}`)}</option>)}
             </select>
           </label>
-          <label className="block text-sm">{ui("store.consentEn")}<textarea className={`${input} min-h-20 py-2`} value={v.textConsentEn} onChange={(e) => set("textConsentEn", e.target.value)} /></label>
-          <label className="block text-sm">{ui("store.consentEs")}<textarea className={`${input} min-h-20 py-2`} lang="es" value={v.textConsentEs} onChange={(e) => set("textConsentEs", e.target.value)} /></label>
+          <label className="block text-[14px] font-medium text-muted">{ui("store.consentEn")}<textarea className={`${input} min-h-20 py-2`} value={v.textConsentEn} onChange={(e) => set("textConsentEn", e.target.value)} /></label>
+          <label className="block text-[14px] font-medium text-muted">{ui("store.consentEs")}<textarea className={`${input} min-h-20 py-2`} lang="es" value={v.textConsentEs} onChange={(e) => set("textConsentEs", e.target.value)} /></label>
           <div className="grid gap-3 sm:grid-cols-2">
-            <label className="block text-sm">{ui("store.privateWindow")}<input className={input} type="number" min={0} max={72} value={v.privateWindowHours} onChange={(e) => set("privateWindowHours", Number(e.target.value))} /></label>
-            <label className="block text-sm">{ui("store.retention")}<input className={input} type="number" min={30} max={365} value={v.audioRetentionDays} onChange={(e) => set("audioRetentionDays", Number(e.target.value))} /></label>
+            <label className="block text-[14px] font-medium text-muted">{ui("store.privateWindow")}<input className={input} type="number" min={0} max={72} value={v.privateWindowHours} onChange={(e) => set("privateWindowHours", Number(e.target.value))} /></label>
+            <label className="block text-[14px] font-medium text-muted">{ui("store.retention")}<input className={input} type="number" min={30} max={365} value={v.audioRetentionDays} onChange={(e) => set("audioRetentionDays", Number(e.target.value))} /></label>
           </div>
           <label className="flex min-h-11 items-center gap-3 text-ink"><input type="checkbox" className="h-5 w-5" checked={v.stopOnCritical} onChange={(e) => set("stopOnCritical", e.target.checked)} />{ui("store.stopOnCritical")}</label>
-          <label className="block text-sm">{ui("store.metric")}
+          <label className="block text-[14px] font-medium text-muted">{ui("store.metric")}
             <select className={input} value={v.walkInMetric} onChange={(e) => set("walkInMetric", e.target.value as StoreFormValue["walkInMetric"])}>
               {(["all_logged_ups", "qualified_ups"] as const).map((k) => <option key={k} value={k}>{ui(`store.metric.${k}`)}</option>)}
             </select>
           </label>
-          <fieldset className="text-sm"><legend>{ui("store.languages")}</legend>
+          <fieldset className="text-[14px] font-medium text-muted"><legend>{ui("store.languages")}</legend>
             {(["en", "es"] as const).map((l) => (
               <label key={l} className="mr-4 inline-flex min-h-11 items-center gap-2 text-ink"><input type="checkbox" className="h-5 w-5" checked={v.languages.includes(l)} onChange={(e) => set("languages", e.target.checked ? [...v.languages, l] : v.languages.filter((x) => x !== l))} />{ui(`scenario.language.${l}`)}</label>
             ))}
           </fieldset>
-          <fieldset className="space-y-2 text-sm" data-testid="peak-hours"><legend>{ui("store.peaks")}</legend>
+          <fieldset className="space-y-2 text-[14px] font-medium text-muted" data-testid="peak-hours"><legend>{ui("store.peaks")}</legend>
             <p className="text-muted">{ui("store.peaksHelp")}</p>
             {v.peakHours.map((p, i) => (
-              <div key={i} className="grid grid-cols-[1fr_auto_auto_auto] items-end gap-2">
-                <label className="block">{ui("store.peakDay")}
+              <div key={i} className="grid grid-cols-2 items-end gap-2 sm:grid-cols-[1fr_auto_auto_auto]">
+                <label className="col-span-2 block min-w-0 sm:col-span-1">{ui("store.peakDay")}
                   <select className={input} value={p.day} onChange={(e) => setPeak(i, { day: Number(e.target.value) })}>
                     {[0, 1, 2, 3, 4, 5, 6].map((d) => <option key={d} value={d}>{dayName(d)}</option>)}
                   </select>
                 </label>
-                <label className="block">{ui("store.peakFrom")}<input className={input} type="time" value={p.from} onChange={(e) => setPeak(i, { from: e.target.value })} /></label>
-                <label className="block">{ui("store.peakTo")}<input className={input} type="time" value={p.to} onChange={(e) => setPeak(i, { to: e.target.value })} /></label>
-                <button type="button" className="min-h-12 rounded-full px-3 font-semibold text-bad" onClick={() => set("peakHours", v.peakHours.filter((_, j) => j !== i))}>{ui("store.peakRemove")}</button>
+                <label className="block min-w-0">{ui("store.peakFrom")}<input className={input} type="time" value={p.from} onChange={(e) => setPeak(i, { from: e.target.value })} /></label>
+                <label className="block min-w-0">{ui("store.peakTo")}<input className={input} type="time" value={p.to} onChange={(e) => setPeak(i, { to: e.target.value })} /></label>
+                <button type="button" className="col-span-2 min-h-12 justify-self-start rounded-full px-3 font-semibold text-bad sm:col-span-1" onClick={() => set("peakHours", v.peakHours.filter((_, j) => j !== i))}>{ui("store.peakRemove")}</button>
               </div>
             ))}
             {v.peakHours.length < 14 && <button type="button" className={ghostButtonClass} onClick={() => set("peakHours", [...v.peakHours, { day: 6, from: "11:00", to: "17:00" }])}>{ui("store.peakAdd")}</button>}
           </fieldset>
-          <label className="block text-sm">{ui("store.register")}
+          <label className="block text-[14px] font-medium text-muted">{ui("store.register")}
             <select className={input} value={v.spanishRegister} onChange={(e) => set("spanishRegister", e.target.value as "usted" | "tu")}><option value="usted">usted</option><option value="tu">tú</option></select>
           </label>
         </fieldset>

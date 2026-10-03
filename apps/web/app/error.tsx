@@ -14,8 +14,8 @@ export default function ScreenError({ error, reset }: { error: Error & { digest?
   return (
     <div className="grid min-h-dvh place-items-center px-6">
       <div role="alert" className="w-full max-w-md space-y-4 text-center">
-        <span className="mx-auto grid h-14 w-14 place-items-center rounded-[1.1rem] bg-ground text-bad"><IconAlert size={28} /></span>
-        <h1 className="text-[22px] font-bold text-ink">{t("error.title", lang)}</h1>
+        <span className="mx-auto grid h-14 w-14 place-items-center rounded-[1.1rem] bg-bad-soft text-bad ring-1 ring-bad/25 ring-inset"><IconAlert size={28} /></span>
+        <h1 className="font-display text-[32px] leading-tight text-ink">{t("error.title", lang)}</h1>
         <p className="text-[16px] text-body">{t("error.body", lang)}</p>
         <button type="button" className={`${buttonClass} w-full`} onClick={reset}>{t("error.retry", lang)}</button>
         <Link href="/today" className={`${ghostButtonClass} w-full`}>{t("nav.today", lang)}</Link>

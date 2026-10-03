@@ -27,25 +27,25 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
   const prior = progress.weeks.at(-2);
   return (
     <div className="space-y-6">
-      <Card className="flex items-center gap-5">
-        <Ring value={release1.length ? certified / release1.length : 0} size={104} stroke={10} tone="good" label={`${certified}/${release1.length}`}>
-          <IconTrophy size={30} className="text-good" />
+      <section className="liquid-glass liquid-glass-panel liquid-glass-hero flex items-center gap-5 rounded-[1.5rem] p-5">
+        <Ring value={release1.length ? certified / release1.length : 0} size={108} stroke={8} tone="brand" label={`${certified}/${release1.length}`}>
+          <IconTrophy size={30} className="text-brand" />
         </Ring>
         <div className="min-w-0 space-y-1">
-          <p className="text-[34px] leading-none font-bold text-ink tabular-nums" data-testid="progress-certified">{certified}/{release1.length}</p>
+          <p className="font-display text-[46px] leading-none text-ink tabular-nums" data-testid="progress-certified">{certified}/{release1.length}</p>
           <p className="text-[15px] font-semibold text-ink">{t("progress.certifiedShort", lang)}</p>
           <p className="text-[13px] text-muted">{t("progress.certifyHint", lang)}</p>
         </div>
-      </Card>
+      </section>
 
       <div className="grid grid-cols-2 gap-3">
         <Card className="p-3.5">
           <p className="flex items-center gap-1.5 text-[13px] font-medium text-muted"><IconFlame size={16} className="text-spark" />{t("progress.streak", lang)}</p>
-          <p className="mt-1 text-[26px] leading-none font-bold text-ink tabular-nums">{streak}</p>
+          <p className="mt-1.5 font-display text-[34px] leading-none text-ink tabular-nums">{streak}</p>
         </Card>
         <Card className="p-3.5">
           <p className="text-[13px] font-medium text-muted">{t("progress.sessions", lang)}</p>
-          <p className="mt-1 text-[26px] leading-none font-bold text-ink tabular-nums">{history.length}</p>
+          <p className="mt-1.5 font-display text-[34px] leading-none text-ink tabular-nums">{history.length}</p>
         </Card>
       </div>
 
@@ -71,9 +71,9 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
                     </div>
                     {/* The last eight weeks as small columns: the trend at a glance. */}
                     <div className="mt-2 flex h-10 items-end gap-1" role="img" aria-label={progress.weeks.map((w) => `${fmtWeek(w.week)}: ${w.dimensions[d] === undefined ? "—" : Math.round(w.dimensions[d]!)}`).join(", ")}>
-                      {progress.weeks.map((w) => {
+                      {progress.weeks.map((w, i) => {
                         const v = w.dimensions[d];
-                        return <span key={w.week} className={`flex-1 rounded-t-[4px] ${w === latest ? "bg-brand" : "bg-brand-soft"}`} style={{ height: `${v === undefined ? 4 : Math.max(8, Math.min(100, v))}%` }} />;
+                        return <span key={w.week} className={`col-grow flex-1 rounded-t-[4px] ${w === latest ? "fill-gold" : "fill-gold-dim"}`} style={{ height: `${v === undefined ? 4 : Math.max(8, Math.min(100, v))}%`, ["--i" as string]: i }} />;
                       })}
                     </div>
                   </li>

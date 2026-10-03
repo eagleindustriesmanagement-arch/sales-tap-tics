@@ -50,8 +50,8 @@ export default async function Usage() {
           <SectionTitle>{t("usage.byWeek", lang)}</SectionTitle>
           <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("usage.byWeek", lang)}>
             <table className="w-full text-left text-sm" data-testid="usage-weeks">
-              <thead className="text-muted"><tr><th className="py-2 pr-3">{t("usage.week", lang)}</th><th className="pr-3">{t("usage.started", lang)}</th><th className="pr-3">{t("usage.done", lang)}</th><th>{t("usage.reps", lang)}</th></tr></thead>
-              <tbody className="divide-y divide-line text-ink tabular-nums">
+              <thead className="border-b border-line text-[13px] text-muted [&_th]:font-medium"><tr><th className="py-2 pr-3">{t("usage.week", lang)}</th><th className="pr-3">{t("usage.started", lang)}</th><th className="pr-3">{t("usage.done", lang)}</th><th>{t("usage.reps", lang)}</th></tr></thead>
+              <tbody className="divide-y divide-line-soft text-ink tabular-nums">
                 {u.weeks.map((w) => <tr key={w.week}><td className="py-2 pr-3">{w.week}</td><td className="pr-3">{w.started}</td><td className="pr-3">{w.completed}</td><td>{w.active_reps}</td></tr>)}
               </tbody>
             </table>

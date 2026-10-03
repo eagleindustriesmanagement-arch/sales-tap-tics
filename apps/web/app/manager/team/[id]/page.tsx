@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { listSessions, practiceHistory, progressFor } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { ProgressView } from "@/components/progress-view";
-import { Card, buttonClass } from "@/components/ui";
+import { ListRow, PageHeader, RowGroup, ScoreBadge, SectionTitle, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library } from "@/lib/server";
@@ -22,20 +22,17 @@ export default async function RepDetail({ params }: { params: Promise<{ id: stri
   if (!data) notFound();
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{data.name}</h1>
-        <Link href={`/manager/assign?rep=${id}`} className={buttonClass}>{t("assign.title", lang)}</Link>
-      </div>
+      <PageHeader title={data.name} action={<Link href={`/manager/assign?rep=${id}`} className={buttonClass}>{t("assign.title", lang)}</Link>} />
       <ProgressView progress={data.progress} history={data.past.history} lang={lang} />
       {data.sessions.length > 0 && (
-        <Card>
-          <h2 className="mb-2 font-bold text-ink">{t("history.title", lang)}</h2>
-          <ul className="divide-y divide-line">
+        <section className="space-y-2.5">
+          <SectionTitle>{t("history.title", lang)}</SectionTitle>
+          <RowGroup>
             {data.sessions.map((s) => (
-              <li key={s.id}><Link href={`/history/${s.id}`} className="flex min-h-12 items-center justify-between gap-3 text-ink"><span>{library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode}</span><span className="font-mono">{s.total === null ? "—" : Math.round(s.total)}{s.partial ? "*" : ""}</span></Link></li>
+              <ListRow key={s.id} href={`/history/${s.id}`} title={library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode} trailing={<ScoreBadge total={s.total} partial={s.partial} />} />
             ))}
-          </ul>
-        </Card>
+          </RowGroup>
+        </section>
       )}
     </div>
   );

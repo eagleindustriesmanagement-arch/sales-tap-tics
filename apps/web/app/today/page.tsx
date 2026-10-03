@@ -4,7 +4,7 @@ import { currentObjectionWeights, isManager, listAssignments, listSessions, prac
 import { t } from "@taptics/i18n";
 import { certificationState, dailyPlan, practiceStreak, type PlanReason } from "@taptics/session";
 import { IconBulb, IconCheck, IconClock, IconFlame, IconPlay, IconTarget, IconTrophy } from "@/components/icons";
-import { Card, Chip, Inset, ListRow, Ring, RowGroup, ScoreBadge, SectionTitle } from "@/components/ui";
+import { Card, Chip, Inset, ListRow, Ring, RowGroup, ScoreBadge, SectionTitle, buttonClass, titleClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library, scheduleInputs } from "@/lib/server";
@@ -61,7 +61,7 @@ export default async function Today() {
     <div className="space-y-6">
       <header className="space-y-2 px-1">
         <p className="text-[15px] font-medium text-muted capitalize">{dateFmt.format(now)}</p>
-        <h1 className="text-[32px] leading-tight font-bold tracking-tight text-ink">{t("today.title", lang)}{user.firstName ? `, ${user.firstName}` : ""}</h1>
+        <h1 className={titleClass}>{t("today.title", lang)}{user.firstName ? `, ${user.firstName}` : ""}</h1>
         {streak > 0 ? (
           <Chip tone="spark" icon={<IconFlame size={16} className="text-spark" />} data-testid="streak">{t("today.streak", lang, { n: streak })}</Chip>
         ) : (
@@ -76,45 +76,45 @@ export default async function Today() {
           </Ring>
           <div className="min-w-0">
             <p className="text-[13px] font-medium text-muted">{t("today.goal", lang)}</p>
-            <p className="text-[22px] leading-none font-bold text-ink tabular-nums">{Math.min(doneToday, DAILY_GOAL)}<span className="text-[15px] font-semibold text-muted">/{DAILY_GOAL}</span></p>
+            <p className="mt-0.5 font-display text-[30px] leading-none text-ink tabular-nums">{Math.min(doneToday, DAILY_GOAL)}<span className="font-sans text-[15px] font-semibold text-muted">/{DAILY_GOAL}</span></p>
           </div>
         </Card>
         <Link href="/progress" className="block">
           <Card className="flex h-full items-center gap-3 p-3.5">
-            <span className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full bg-spark-soft text-ink"><IconTrophy size={24} /></span>
+            <span className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full bg-spark-soft text-spark ring-1 ring-spark/30 ring-inset"><IconTrophy size={24} /></span>
             <div className="min-w-0">
               <p className="text-[13px] font-medium text-muted">{t("today.certified", lang)}</p>
-              <p className="text-[22px] leading-none font-bold text-ink tabular-nums">{certified}<span className="text-[15px] font-semibold text-muted">/{release1.length}</span></p>
+              <p className="mt-0.5 font-display text-[30px] leading-none text-ink tabular-nums">{certified}<span className="font-sans text-[15px] font-semibold text-muted">/{release1.length}</span></p>
             </div>
           </Card>
         </Link>
       </div>
 
       {next && (
-        <section aria-labelledby="up-next" className="liquid-glass liquid-glass-panel liquid-glass-accent rounded-[1.75rem] p-5 text-brand-fill-ink sm:p-6">
-          <p className="flex flex-wrap items-center gap-2 text-[14px] font-semibold opacity-90">
-            <span className="rounded-full bg-white/18 px-2.5 py-1">{assignedNext ? t("today.assigned", lang, { name: assignedNext.assignedByName ?? "" }) : t("practice.next", lang)}</span>
-            <span className="rounded-full bg-white/18 px-2.5 py-1">{t("practice.level", lang, { n: next.difficulty })}</span>
+        <section aria-labelledby="up-next" className="liquid-glass liquid-glass-panel liquid-glass-hero rounded-[1.75rem] p-5 sm:p-7">
+          <p className="flex flex-wrap items-center gap-2">
+            <Chip tone="brand">{assignedNext ? t("today.assigned", lang, { name: assignedNext.assignedByName ?? "" }) : t("practice.next", lang)}</Chip>
+            <Chip>{t("practice.level", lang, { n: next.difficulty })}</Chip>
           </p>
-          <h2 id="up-next" className="mt-3 text-[26px] leading-tight font-bold tracking-tight text-brand-fill-ink">{next.title[lang]}</h2>
-          <p className="mt-1.5 text-[16px] opacity-90">{next.setting[lang]}</p>
-          {top && top.reason.kind !== "assigned" && <p className="mt-3 text-[15px] font-medium" data-testid="plan-reason">{reasonText(top.reason, lang)}</p>}
-          {assignedNext?.reason && <p className="mt-3 rounded-2xl bg-white/14 p-3 text-[15px]" data-testid="assignment-reason">“{assignedNext.reason}”</p>}
-          {assignedNext?.dueAt && <p className="mt-2 flex items-center gap-1.5 text-[14px] font-semibold"><IconClock size={16} />{t("assign.dueOn", lang, { date: dueFmt.format(new Date(assignedNext.dueAt)) })}</p>}
+          <h2 id="up-next" className="mt-4 font-display text-[34px] leading-[1.06] text-ink sm:text-[40px]">{next.title[lang]}</h2>
+          <p className="mt-2 text-[16px] text-body">{next.setting[lang]}</p>
+          {top && top.reason.kind !== "assigned" && <p className="mt-3 text-[15px] font-medium text-brand" data-testid="plan-reason">{reasonText(top.reason, lang)}</p>}
+          {assignedNext?.reason && <p className="liquid-glass-inset mt-3 rounded-2xl p-3 text-[15px] text-ink" data-testid="assignment-reason">“{assignedNext.reason}”</p>}
+          {assignedNext?.dueAt && <p className="mt-2 flex items-center gap-1.5 text-[14px] font-semibold text-ink"><IconClock size={16} className="text-brand" />{t("assign.dueOn", lang, { date: dueFmt.format(new Date(assignedNext.dueAt)) })}</p>}
           <ul className="mt-4 flex flex-wrap gap-1.5" aria-label={t("scenario.targets", lang)}>
             {next.target_techniques.slice(0, 3).map((code) => (
-              <li key={code} className="rounded-full bg-white/14 px-2.5 py-1 text-[13px] font-semibold">{lib.techniques.get(code)!.name[lang]}</li>
+              <li key={code} className="rounded-full bg-page/50 px-2.5 py-1 text-[13px] font-semibold text-body ring-1 ring-line ring-inset">{lib.techniques.get(code)!.name[lang]}</li>
             ))}
-            {next.target_techniques.length > 3 && <li className="rounded-full bg-white/14 px-2.5 py-1 text-[13px] font-semibold">+{next.target_techniques.length - 3}</li>}
+            {next.target_techniques.length > 3 && <li className="rounded-full bg-page/50 px-2.5 py-1 text-[13px] font-semibold text-body ring-1 ring-line ring-inset">+{next.target_techniques.length - 3}</li>}
           </ul>
           <Link
             href={`/practice/${next.code}${top?.mode === "certification" ? "?mode=certification" : ""}`}
-            className="liquid-glass liquid-glass-solid mt-5 flex min-h-14 w-full items-center justify-center gap-2 rounded-full text-[17px] font-bold text-ink"
+            className={`${buttonClass} mt-6 min-h-14 w-full font-bold`}
           >
             <IconPlay size={20} className="fill-current" />
             {top?.mode === "certification" ? t("cert.start", lang) : t("today.practiceNow", lang)}
           </Link>
-          <Link href="/practice" className="mt-3 flex min-h-11 items-center justify-center text-[15px] font-semibold underline-offset-4 hover:underline">{t("practice.all", lang)}</Link>
+          <Link href="/practice" className="mt-2 flex min-h-11 items-center justify-center text-[15px] font-semibold text-brand underline-offset-4 hover:underline">{t("practice.all", lang)}</Link>
         </section>
       )}
 
@@ -126,7 +126,7 @@ export default async function Today() {
               <ListRow
                 key={`${p.scenarioCode}${p.mode}`}
                 href={`/practice/${s.code}${p.mode === "certification" ? "?mode=certification" : ""}`}
-                leading={<span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-soft text-[15px] font-bold text-brand">{s.difficulty}</span>}
+                leading={<span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-soft font-display text-[20px] text-brand ring-1 ring-brand/25 ring-inset">{s.difficulty}</span>}
                 title={s.title[lang]}
                 subtitle={p.reason.kind === "assigned" ? t("today.assigned", lang, { name: p.reason.assignedBy ?? "" }) : reasonText(p.reason, lang)}
               />
@@ -141,7 +141,7 @@ export default async function Today() {
           {card ? (
             <div className="space-y-3" data-testid="my-card">
               <div className="flex items-start gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-spark-soft text-ink"><IconBulb size={22} /></span>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-spark-soft text-spark ring-1 ring-spark/30 ring-inset"><IconBulb size={22} /></span>
                 <div>
                   <p className="text-[17px] font-bold text-ink">{card.title[lang]}</p>
                   <p className="mt-0.5 text-[15px]">{card.behavior[lang]}</p>

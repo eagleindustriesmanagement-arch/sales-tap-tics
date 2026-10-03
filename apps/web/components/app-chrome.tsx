@@ -29,19 +29,31 @@ export function AppChrome({ tabs, appName, lang, switchLabel, otherLang, setting
 }) {
   const path = usePathname() ?? "/";
   const full = immersive(path);
+  const current = tabs.findIndex((t) => active(path, t.href));
   return (
     <>
+      {/* The gold every ring draws with (components/ui.tsx Ring): champagne to bronze. Referenced by id, so it is
+          defined once here, on every screen. */}
+      <svg aria-hidden="true" focusable="false" width="0" height="0" className="pointer-events-none absolute">
+        <defs>
+          <linearGradient id="tt-gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" style={{ stopColor: "var(--gold-hi)" }} />
+            <stop offset="0.5" style={{ stopColor: "var(--accent-fill)" }} />
+            <stop offset="1" style={{ stopColor: "var(--gold-lo)" }} />
+          </linearGradient>
+        </defs>
+      </svg>
       {!full && (
         <header className="glass-chrome pt-safe sticky top-0 z-30">
           <div className="mx-auto flex h-14 max-w-5xl items-center gap-2 px-4">
             <Link href={initial === null ? "/" : "/today"} className="flex shrink-0 items-center gap-2 rounded-full pr-2 font-bold text-ink" aria-label={appName}>
               <img src="/mark-128.png" alt="" width={32} height={32} className="bezel rounded-[9px]" />
-              <span className="text-[17px] tracking-tight">{appName}</span>
+              <span className="font-display text-[22px] leading-none font-normal tracking-[-0.005em]">{appName}</span>
             </Link>
             <nav aria-label="Main" className="ml-4 hidden items-center gap-1 lg:flex">
               {tabs.map((t) => (
                 <Link key={t.href} href={t.href} aria-current={active(path, t.href) ? "page" : undefined}
-                  className={`rounded-full px-3.5 py-2 text-[15px] font-semibold ${active(path, t.href) ? "bg-brand-soft text-brand" : "text-ink"}`}>
+                  className={`rounded-full px-3.5 py-2 text-[15px] font-semibold transition-colors ${active(path, t.href) ? "bg-brand-soft text-brand ring-1 ring-brand/25 ring-inset" : "text-ink hover:text-brand"}`}>
                   {t.label}
                 </Link>
               ))}
@@ -66,12 +78,18 @@ export function AppChrome({ tabs, appName, lang, switchLabel, otherLang, setting
       {!full && tabs.length > 0 && (
         <nav aria-label="Main" className="bottom-safe fixed inset-x-3 z-30 mx-auto max-w-md lg:hidden">
           <div className="liquid-glass grid h-[var(--tabbar-h)] items-stretch rounded-[1.75rem] p-1.5" style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}>
+            {/* One pill for the active tab, gliding to the tab that is chosen (none on a screen outside the tabs). */}
+            <span
+              aria-hidden="true"
+              className="tab-pill pointer-events-none absolute top-1.5 bottom-1.5 left-1.5 rounded-[1.35rem] bg-brand-soft ring-1 ring-brand/25 ring-inset"
+              style={{ width: `calc((100% - 0.75rem) / ${tabs.length})`, transform: `translateX(${Math.max(current, 0) * 100}%)`, opacity: current < 0 ? 0 : 1 }}
+            />
             {tabs.map((t) => {
               const on = active(path, t.href);
               const Icon = ICONS[t.icon];
               return (
                 <Link key={t.href} href={t.href} aria-current={on ? "page" : undefined}
-                  className={`flex flex-col items-center justify-center gap-0.5 rounded-[1.35rem] text-[11px] font-semibold transition-colors ${on ? "bg-brand-soft text-brand" : "text-muted"}`}>
+                  className={`relative flex flex-col items-center justify-center gap-0.5 rounded-[1.35rem] text-[11px] font-semibold transition-colors duration-300 ${on ? "text-brand" : "text-muted"}`}>
                   <Icon size={23} />
                   <span className="max-w-full truncate px-1">{t.label}</span>
                 </Link>
