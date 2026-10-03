@@ -4,6 +4,11 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
 
 ## What runs today
 
+- **Learn, see it, do it, get scored** (decision 0031): each of the 20 certification scenarios opens with a lesson
+  (the tactic, the psychology, when and when not, the exact words, the mistakes, the named moves scored), in English
+  and Miami Spanish, 60 to 90 seconds of reading. Then the demonstration, then the role-play; the debrief names the
+  lesson concept behind the one change and each scored behavior. Lessons are content
+  (`packages/content/library/lessons/`), validated and compliance-checked; Spanish awaits a native review.
 - **Public home page at `/`** (decision 0028): cinematic hero (WebGL gold-light shader with a CSS fallback, floating
   glass cards, scroll parallax, a live-typing phone of the practice room), how it works, the objection library rail
   (from the content), scoring and the compliance engine, the manager floor check, Miami Spanish, the pilot offer.

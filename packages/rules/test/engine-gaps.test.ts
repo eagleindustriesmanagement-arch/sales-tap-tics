@@ -202,3 +202,17 @@ describe("\"I'm not going to lie\" means \"honestly\": it never excuses the clai
     expect(hits("I'm not going to tell you this price is only good today.")).not.toContain("DEAD-01");
   });
 });
+
+describe("PRICE-01 catches a price quoted after the vehicle's name", () => {
+  // Found by a lesson author: "This one is $X" was caught, "The Equinox is $X" was not.
+  it("flags the price before the dealer fee when the car is named, in both languages", () => {
+    expect(hits("The Equinox is $32,450.")).toContain("PRICE-01");
+    expect(hits("The truck is $32,450 and it's beautiful.")).toContain("PRICE-01");
+    expect(hits("La Equinox está en $32,450.", "es")).toContain("PRICE-01");
+    expect(hits("El carro es $32,450.", "es")).toContain("PRICE-01");
+  });
+  it("leaves the all-in price and other amounts alone", () => {
+    expect(hits("The Equinox is $33,349, and that includes our $899 dealer fee.")).not.toContain("PRICE-01");
+    expect(hits("Your payment on the Equinox is $580 a month.")).not.toContain("PRICE-01");
+  });
+});

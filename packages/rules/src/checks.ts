@@ -162,7 +162,9 @@ function allInFact(facts: ScenarioFacts): BilingualText {
 }
 
 function moneyIn(utterance: Utterance, ctx: CheckContext): MoneyMention[] {
-  return findMoney(utterance.text, utterance.language, ctx.lexicon, { lowConfidence: utterance.lowConfidence });
+  const v = ctx.facts?.vehicle;
+  const vehicleNames = v ? [v.model, v.make, v.trim].filter((x): x is string => typeof x === "string" && x.length > 1) : [];
+  return findMoney(utterance.text, utterance.language, ctx.lexicon, { lowConfidence: utterance.lowConfidence, vehicleNames });
 }
 
 function claims(mentions: MoneyMention[], role: MoneyMention["role"]): MoneyMention[] {

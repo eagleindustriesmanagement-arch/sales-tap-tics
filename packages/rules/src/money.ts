@@ -92,6 +92,16 @@ function roleAfter(lexicon: Lexicon, after: string): { role: MoneyRole; distance
 
 export interface MoneyOptions {
   lowConfidence?: Array<{ start: number; end: number }>;
+  /** The deal's vehicle (model, make, trim): "the Blazer is $39,651" quotes its price. */
+  vehicleNames?: string[];
+}
+
+/** A vehicle named, then "is": the amount after it is that vehicle's price. Only for amounts no cue claimed. */
+function vehicleIsBefore(before: string, names: string[]): boolean {
+  const nouns = ["car", "truck", "suv", "van", "vehicle", "carro", "camioneta", "troca", "guagua", "vehículo", ...names.map((n) => n.toLowerCase())]
+    .filter((n) => n.trim().length > 1)
+    .map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  return new RegExp(`(?<![\\p{L}])(?:${nouns.join("|")})(?:\\s+\\p{L}+){0,2}?\\s*(?:is|'s|es|está|sale)(?:\\s+(?:only|just|solo|sólo|en))?\\s*\\$?\\s*$`, "iu").test(before);
 }
 
 /** Finds every money amount in an utterance and decides what each one is (price, payment, fee, trade...). */
@@ -123,6 +133,14 @@ export function findMoney(text: string, language: Language, lexicon: Lexicon, op
   const payments = mentions.filter((m) => m.role === "payment").map((m) => m.value);
   for (const m of mentions) {
     if (m.role === "unknown" && payments.some((p) => m.value >= p * 0.5 && m.value <= p * 1.5)) m.role = "payment";
+  }
+  // "The Blazer is $39,651" / "la Blazer está en $39,651": a price, even with no price word before it.
+  if (options.vehicleNames?.length) {
+    for (const m of mentions) {
+      if (m.role !== "unknown") continue;
+      const clause = clauseAt(text, m.start);
+      if (vehicleIsBefore(text.slice(Math.max(clause.start, m.start - 60), m.start), options.vehicleNames)) m.role = "price";
+    }
   }
   return mentions;
 }
