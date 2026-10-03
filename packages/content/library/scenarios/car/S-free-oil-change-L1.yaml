@@ -1,0 +1,183 @@
+code: S-free-oil-change-L1
+module: car-phone-finance
+title:
+  en: "\"Is that free oil change really free?\""
+  es: "\"¿Ese cambio de aceite gratis de verdad es gratis?\""
+setting:
+  en: Saturday afternoon, at your desk, with the buyer's order printed. He taps the windshield ad that says "First oil change free with every new Chevy."
+  es: Sábado por la tarde, en su escritorio, con la orden de compra impresa. Él toca con el dedo el anuncio del parabrisas que dice "Primer cambio de aceite gratis con cada Chevy nuevo".
+persona: P-free-oil-change
+objection: O50
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-50s, wants a 2026 Trax LT for his commute. No trade; he is paying with a check from his credit union. Your buyer's order shows $24,494 out the door, which includes your $899 dealer fee; only tax, tag and title are added. The store's first oil change is on the buyer's order as its own line at $0. The prepaid maintenance plan ($595) is a separate, optional product and is not on his order."
+  es: "{name}, de unos 55 años, quiere una Trax LT 2026 para ir al trabajo. No tiene trade-in; va a pagar con un cheque de su cooperativa de crédito. Su orden de compra dice $24,494 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. El primer cambio de aceite de la tienda está en la orden de compra en su propia línea, en $0. El plan de mantenimiento prepagado ($595) es un producto aparte, opcional, y no está en su orden."
+opening:
+  en: Is that free oil change really free?
+  es: ¿Ese cambio de aceite gratis de verdad es gratis?
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: LT, color: Sterling Gray Metallic, stock: "3086", in_stock: true }
+  price_cents: 2359500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2449400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 4
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    # The store's own offer: on the buyer's order as its own line at $0.
+    - code: first_oil_change
+      name: { en: first oil change, es: primer cambio de aceite }
+      cents: 0
+    - code: maintenance_plan
+      name: { en: prepaid maintenance plan, es: plan de mantenimiento prepagado }
+      cents: 59500
+      aliases:
+        en: [maintenance plan]
+        es: [plan de mantenimiento]
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    last_free_oil_change_bill_cents: 12900
+    paying_with: Check from his credit union
+    free_monday: Off work Monday after 5
+numbers_sheet: true
+target_techniques: [T001, T003, T002, T009, T085, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O50-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O50-ACK
+      behavior:
+        en: "Took the question seriously, without getting defensive"
+        es: "Tomó la pregunta en serio, sin ponerse a la defensiva"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O50-QFIRST
+      behavior:
+        en: "Asked what happened before answering"
+        es: "Preguntó qué le pasó antes de contestar"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O50-INVOICE
+      behavior:
+        en: "Showed the oil change on the buyer's order, on its own line, and kept the optional maintenance plan separate"
+        es: "Le enseñó el cambio de aceite en la orden de compra, en su propia línea, y dejó aparte el plan de mantenimiento opcional"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "O50 core move; FTC Guide on the word \"Free\" (T009)"
+      technique: T009
+    - code: O50-HIDDEN
+      behavior:
+        en: "Surfaced the \"free\" oil change that cost him $129"
+        es: "Sacó a la luz el cambio de aceite \"gratis\" que le costó $129"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O50-NEXT
+      behavior:
+        en: "Set a specific day and time to sign"
+        es: "Fijó un día y una hora específicos para firmar"
+      dimension: outcome
+      method: engine_and_judge
+      points: 20
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: misdescribed_add_on
+      description:
+        en: "Called something free that is charged, or called an optional product required"
+        es: "Llamó gratis a algo que se cobra, o presentó como obligatorio un producto opcional"
+      method: rule_family
+      rule_families: [add_ons]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, or left the fee out of the price"
+        es: "Dijo un número que no es real, o dejó el cargo fuera del precio"
+      method: rule_family
+      rule_families: [price, payment, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he took the question as an insult, waved it off as \"just an oil change\", and pushed for the paperwork. He never asked what happened and never showed it on paper."
+      es: "Fíjese: tomó la pregunta como una ofensa, la despachó con \"es solo un cambio de aceite\" y lo empujó a firmar. Nunca preguntó qué le pasó y nunca se lo enseñó en papel."
+    script:
+      en:
+        - { speaker: customer, text: "Is that free oil change really free?" }
+        - { speaker: rep, text: "Of course it is. Why would I lie to you?" }
+        - { speaker: customer, text: "I'm not calling anybody a liar. I'm asking." }
+        - { speaker: rep, text: "It's just an oil change. Can we do the paperwork now?" }
+        - { speaker: customer, text: "I'm not calling anybody a liar. I'm asking." }
+        - { speaker: rep, text: "Look, it's on the windshield. Let's just write it up." }
+        - { speaker: customer, text: "Free is free, or it isn't. Which one is it?" }
+      es:
+        - { speaker: customer, text: "¿Ese cambio de aceite gratis de verdad es gratis?" }
+        - { speaker: rep, text: "Claro que sí. ¿Por qué le voy a mentir?" }
+        - { speaker: customer, text: "Yo no le estoy diciendo mentiroso a nadie. Estoy preguntando." }
+        - { speaker: rep, text: "Es solo un cambio de aceite. ¿Hacemos los papeles ya?" }
+        - { speaker: customer, text: "Yo no le estoy diciendo mentiroso a nadie. Estoy preguntando." }
+        - { speaker: rep, text: "Mire, está en el parabrisas. Hagamos los papeles." }
+        - { speaker: customer, text: "Gratis es gratis, o no lo es. ¿Cuál de las dos?" }
+  good:
+    notice:
+      en: Notice that he takes the question seriously, asks what happened before answering, and then shows it on the buyer's order instead of saying "trust me".
+      es: Fíjese en que toma la pregunta en serio, pregunta qué le pasó antes de contestar, y después se lo enseña en la orden de compra en vez de decirle "confíe en mí".
+    script:
+      en:
+        - { speaker: customer, text: "Is that free oil change really free?" }
+        - { speaker: rep, text: "[pause] That's a fair question, and I'd rather show you than tell you. Before I do, can I ask what makes you ask?" }
+        - { speaker: customer, text: "Let's just say \"free\" has cost me money before." }
+        - { speaker: rep, text: "I'm sorry to hear that. What happened?" }
+        - { speaker: customer, text: "Last year, at another dealer, my \"free\" oil change came with a $129 bill for shop supplies and a filter they said was required. So now when I hear free, I look for the catch." }
+        - { speaker: rep, text: "That's a good reason to ask. Here's your buyer's order. The first oil change is written on its own line at $0, so you have it on paper. Your price is $24,494 out the door, with our $899 dealer fee already in it; only tax, tag and title are added. The prepaid maintenance plan is a separate product at $595. It's optional, and it is not on your order." }
+        - { speaker: customer, text: "Okay. That's what I wanted to see. In writing." }
+        - { speaker: rep, text: "Take this copy home and read every line. Can you come back Monday at 6:00 to sign, after work?" }
+        - { speaker: customer, text: "Monday at 6 works." }
+      es:
+        - { speaker: customer, text: "¿Ese cambio de aceite gratis de verdad es gratis?" }
+        - { speaker: rep, text: "[pausa] Es una pregunta justa, y prefiero enseñárselo a decírselo. Antes, ¿le puedo preguntar por qué lo pregunta?" }
+        - { speaker: customer, text: "Digamos que lo \"gratis\" ya me ha costado dinero." }
+        - { speaker: rep, text: "Siento oír eso. ¿Qué le pasó?" }
+        - { speaker: customer, text: "El año pasado, en otro dealer, mi cambio de aceite \"gratis\" vino con una cuenta de $129 por materiales del taller y un filtro que me dijeron que era obligatorio. Así que ahora, cuando oigo gratis, busco la trampa." }
+        - { speaker: rep, text: "Con razón pregunta. Aquí está su orden de compra. El primer cambio de aceite está escrito en su propia línea, en $0, así que lo tiene en papel. Su precio es $24,494 con todo, con nuestro cargo del dealer de $899 ya incluido; solo se suman impuestos, placa y título. El plan de mantenimiento prepagado es un producto aparte, de $595. Es opcional, y no está en su orden." }
+        - { speaker: customer, text: "Está bien. Eso es lo que quería ver. Por escrito." }
+        - { speaker: rep, text: "Llévese esta copia y lea cada línea con calma. ¿Puede volver el lunes a las 6:00 a firmar, después del trabajo?" }
+        - { speaker: customer, text: "El lunes a las 6 me funciona." }
+spanish_reviewed: false

@@ -1,0 +1,159 @@
+code: P-gap-required
+name_pool:
+  en: [Tyler, Marcus, Jordan, Chris]
+  es: [Yoandry, Osmany, Reinier, Dairon]
+age_range: 25-34
+temperament: [skeptical, guarded]
+temperament_note:
+  en: Skeptical and to the point. Came in expecting the same runaround as the last store. Warms up as soon as he sees two clear numbers and a real choice.
+  es: Desconfiado y directo. Vino esperando el mismo cuento del otro dealer. Se suaviza en cuanto ve dos números claros y una decisión de verdad.
+buyer_orientation: task
+situation:
+  en: Late 20s, warehouse supervisor in Doral. Agreed on a 2026 Trailblazer LT with the salesperson, approved by the lender, putting $500 down at 72 months. Shopped another dealer last weekend and left without buying. Now in the finance office.
+  es: De unos 28 años, supervisor de almacén en Doral. Ya se puso de acuerdo con el vendedor en una Trailblazer LT 2026, el banco lo aprobó, y da $500 de down a 72 meses. El fin de semana pasado fue a otro dealer y se fue sin comprar. Ahora está en la oficina de financiamiento.
+stated_objection: O49
+stated_line:
+  en: Another dealer said GAP was required.
+  es: En otro dealer me dijeron que el GAP era obligatorio.
+hidden_truth:
+  en: At the other dealer he was shown only one payment, with GAP already in it, and told the bank required it, so he walked out. His real limit is $530 a month, and he has never seen what the payment is without GAP or what GAP costs by itself.
+  es: En el otro dealer le enseñaron un solo pago, con el GAP ya metido, y le dijeron que el banco lo exigía, así que se fue. Su límite de verdad es $530 al mes, y nunca ha visto cuánto es el pago sin el GAP ni cuánto cuesta el GAP por sí solo.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\b(one|a single|only one) payment\b'
+    - '\$?530\b'
+    - '\b(my|a) (limit|ceiling|max)\b'
+    - '\bwalked out\b'
+    - '\bwithout (the )?gap\b'
+    - '\bby itself\b'
+  es:
+    - '\bun solo pago\b'
+    - '\$?530\b'
+    - '\bmi (límite|tope|máximo)\b'
+    - '\bme fui\b'
+    - '\bsin (el )?gap\b'
+    - '\bpor sí solo\b'
+unlock_conditions:
+  - code: asks_what_they_showed
+    description:
+      en: Asks what the other dealer showed or told him, or whether he ever saw the payment without GAP.
+      es: Pregunta qué le enseñaron o le dijeron en el otro dealer, o si alguna vez vio el pago sin el GAP.
+    cues:
+      en:
+        - '\bwhat (did|were) (they|you) (show|showed|shown|tell|told|quote|quoted)\b'
+        - '\bwhat happened (at|with) (the other|that) (dealer|store|place)\b'
+        - '\b(did|have) (they|you) (ever )?(show|showed|shown|see|seen|get|got) (you )?(a|the|your) payment without\b'
+        - '\bhow did they (show|present|explain)\b'
+      es:
+        - '\bqué (le )?(enseñaron|mostraron|dijeron|cotizaron)\b'
+        - '\bqué (le )?pasó (en|con) (el otro|ese|aquel) (dealer|concesionario)\b'
+        - '\b(vio|ha visto|le enseñaron|le mostraron) (el|un|su) pago sin\b'
+        - '\bcómo (se lo|le) (enseñaron|presentaron|explicaron)\b'
+  - code: asks_payment_target
+    description:
+      en: Asks what monthly payment he wants to stay under.
+      es: Pregunta qué pago mensual no quiere pasar.
+    cues:
+      en:
+        - '\bwhat (payment|monthly payment|number) (are you|were you) (trying|hoping|looking|wanting) to (stay|keep|be) (under|below|at|around)\b'
+        - '\b(budget|limit|ceiling)\b.{0,20}\b(month|monthly|payment)\b'
+        - '\b(month|monthly|payment)\b.{0,20}\b(budget|limit|ceiling)\b'
+      es:
+        - '\bqué pago (quiere|está tratando de|busca|necesita) (no pasar|mantener|estar)\b'
+        - '\b(presupuesto|límite|tope)\b.{0,20}\b(mes|mensual|pago)\b'
+        - '\b(pago|mensualidad)\b.{0,20}\b(presupuesto|límite|tope)\b'
+walk_out_triggers:
+  - code: calls_required
+    description:
+      en: Says or implies GAP or any product is required, or that the bank wants it.
+      es: Dice o da a entender que el GAP o cualquier producto es obligatorio, o que el banco lo pide.
+    cues:
+      en:
+        - '\b(bank|lender) (requires|needs|wants|likes to see|insists on)\b'
+        - '\byou (need|have|ought) to (get|take|have|buy) (the )?(warranty|service contract|gap|protection)\b'
+        - '\beveryone (gets|takes|buys)\b'
+        - '(?<!nothing |neither one |neither |none of them |none |isn''t |not )\b(it''s|it is|they''re|they are|is|are) (required|mandatory)\b'
+      es:
+        - '\bel banco (pide|exige|requiere|quiere)\b'
+        - '(?<!no )\b(tiene|necesita|debería) (que )?(llevar|comprar|coger|tener) (la |el )?(garantía|contrato de servicio|gap|protección)\b'
+        - '\btodo el mundo (la|lo) (compra|coge|lleva)\b'
+        - '(?<!no |nunca |nada |ninguno |ninguna )\b(es|son) (obligatori[oa]s?|un requisito)\b'
+  - code: prejudges_gap
+    description:
+      en: Decides for him that he wants GAP ("most people take it", "you'll want it").
+      es: Decide por él que quiere el GAP ("casi todos lo llevan", "usted lo va a querer").
+    cues:
+      en:
+        - '\bmost (people|of my customers|customers|buyers)\b.{0,30}\b(take|get|buy)\b'
+        - '\byou(''ll| will) (want|need) (it|gap|the gap)\b'
+      es:
+        - '\bla mayoría\b.{0,30}\b(lleva|compra|coge)\b'
+        - '\bcasi todos\b.{0,20}\b(lo|la) (llevan|compran|cogen)\b'
+        - '\busted (lo|la) va a (querer|necesitar)\b'
+  - code: piles_on_products
+    description:
+      en: Piles more products on instead of answering his question about GAP.
+      es: Le echa más productos encima en vez de contestarle lo del GAP.
+    cues:
+      en:
+        - '\b(also|too|while we''re (here|at it))\b.{0,40}\b(service contract|warranty|tire and wheel|maintenance plan|paint protection)\b'
+        - '\b(service contract|warranty|tire and wheel|maintenance plan)\b.{0,40}\b(too|as well)\b'
+      es:
+        - '\b(también|ya que estamos)\b.{0,50}\b(contrato de servicio|garantía|gomas|rines|mantenimiento)\b'
+  - code: belittles_him
+    description:
+      en: Suggests he misunderstood the other dealer.
+      es: Le da a entender que entendió mal al otro dealer.
+    cues:
+      en: ['\byou (must have|probably|might have) (misunderstood|heard (it|that|them) wrong|got confused)\b']
+      es: ['\b(seguro|a lo mejor|seguramente) (usted )?(entendió mal|se confundió|oyó mal)\b']
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price, rate or deadline.
+      es: Inventa un precio, una tasa o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(rate|approval|deal)\b.{0,20}\b(goes away|expires|is gone) (tomorrow|tonight)\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube|se vence)\b']
+  - code: third_push
+    description:
+      en: Pushes GAP a third time after he hesitates.
+      es: Insiste con el GAP por tercera vez después de que duda.
+    min_hits: 3
+    cues:
+      en: ['\btrust me\b', '\byou(''ll| will) be glad\b', '\byou(''ll| will) regret\b', '\bare you sure you don''?t want\b']
+      es: ['\bcréame\b', '\bse va a alegrar\b', '\bse va a arrepentir\b', '\bestá seguro (de )?que no (lo|la) quiere\b']
+win_condition:
+  description:
+    en: He tells you about the single payment with GAP built in and his $530 limit, plus a firm delivery time today.
+    es: Le cuenta del pago único con el GAP metido y de su límite de $530, más una hora firme de entrega hoy.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: en
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el GAP", "el down", "el dealer"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-20s
+  es: tbd-es-miami-caribbean-male-20s
+difficulty: 1
+variation:
+  moods: [wary, arms crossed, impatient after a long day]
+offline_lines:
+  deflect:
+    - { en: "That's what they told me. Required.", es: "Eso fue lo que me dijeron. Obligatorio." }
+    - { en: "Just tell me straight. Is it or isn't it?", es: "Dígame claro. ¿Es o no es?" }
+    - { en: "I've heard this speech before.", es: "Ese discurso ya me lo hicieron." }
+  hint: { en: "They had it all figured out before I even sat down.", es: "Ya lo tenían todo armado antes de que yo me sentara." }
+  after_hint: { en: "Let's just say I didn't like how they did it.", es: "Digamos que no me gustó cómo lo hicieron." }
+  reveal: { en: "No. They only showed me one payment, with GAP already in it, and said the bank required it. I walked out. My limit is $530 a month, and I never saw what it is without GAP.", es: "No. Me enseñaron un solo pago, con el GAP ya metido, y me dijeron que el banco lo exigía. Me fui. Mi límite es $530 al mes, y nunca vi cuánto es sin el GAP." }
+  after_reveal:
+    - { en: "Then without it. That keeps me under my number.", es: "Entonces sin él. Así me quedo por debajo de mi número." }
+    - { en: "That's all I wanted. Two numbers and my choice.", es: "Eso es lo único que quería. Dos números y yo escojo." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, eso me funciona." }
+  not_now: { en: "Let's leave it for today. I'll think about it.", es: "Dejémoslo por hoy. Lo voy a pensar." }
+  walk_away: { en: "Same story as the last place. I'm out.", es: "El mismo cuento del otro lugar. Me voy." }
+  goodbye: { en: "Thanks.", es: "Gracias." }
+  react_to_pressure: { en: "I asked you a yes-or-no question.", es: "Le hice una pregunta de sí o no." }
+spanish_reviewed: false

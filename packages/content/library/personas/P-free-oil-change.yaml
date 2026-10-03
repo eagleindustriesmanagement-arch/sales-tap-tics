@@ -1,0 +1,137 @@
+code: P-free-oil-change
+name_pool:
+  en: [Frank, Ray, Tony, Gary]
+  es: [Orlando, Reinaldo, Humberto, Raúl]
+age_range: 50-59
+temperament: [skeptical, friendly]
+temperament_note:
+  en: Friendly but skeptical. Jokes a little, reads every line, and stops smiling the moment an answer sounds rehearsed.
+  es: Simpático pero desconfiado. Hace algún chiste, lee cada línea, y deja de sonreír en cuanto una respuesta le suena aprendida de memoria.
+buyer_orientation: relationship
+situation:
+  en: Mid-50s, maintenance supervisor at a hotel on Miami Beach. Wants a 2026 Trax LT for his commute. No trade. Paying with a check from his credit union. The store's ad on the windshield says "First oil change free with every new Chevy."
+  es: De unos 55 años, supervisor de mantenimiento en un hotel de Miami Beach. Quiere una Trax LT 2026 para ir al trabajo. No tiene trade-in. Va a pagar con un cheque de su cooperativa de crédito. El anuncio de la tienda en el parabrisas dice "Primer cambio de aceite gratis con cada Chevy nuevo".
+stated_objection: O50
+stated_line:
+  en: Is that free oil change really free?
+  es: ¿Ese cambio de aceite gratis de verdad es gratis?
+hidden_truth:
+  en: Last year, at another dealer, his "free" oil change came with a $129 bill for shop supplies and a filter they said was required. Now he assumes "free" means a charge shows up later, and he will not sign until he sees it in writing.
+  es: El año pasado, en otro dealer, su cambio de aceite "gratis" vino con una cuenta de $129 por materiales del taller y un filtro que le dijeron que era obligatorio. Ahora piensa que "gratis" quiere decir que después aparece un cobro, y no va a firmar hasta verlo por escrito.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\$?129\b'
+    - '\bshop (supplies|fees?)\b'
+    - '\bfilter\b'
+    - '\b(another|other|last) dealer\b'
+    - '\b(a|the) bill\b'
+    - '\bthe catch\b'
+  es:
+    - '\$?129\b'
+    - '\bmateriales del taller\b'
+    - '\bfiltro\b'
+    - '\b(otro|el otro|el último) dealer\b'
+    - '\buna cuenta de\b'
+    - '\bla trampa\b'
+unlock_conditions:
+  - code: asks_what_happened
+    description:
+      en: Asks what makes him ask, or whether a "free" offer cost him money before.
+      es: Pregunta por qué lo pregunta, o si alguna vez algo "gratis" le costó dinero.
+    cues:
+      en:
+        - '\bwhat happened\b'
+        - '\bwhat makes you ask\b'
+        - '\bwhy do you ask\b'
+        - '\b(has|did) (that|something like that|something|this) happen(ed)?\b.{0,20}\b(before|last time|to you)\b'
+        - '\b(were|have) you (ever )?(been )?(charged|burned|surprised|hit with)\b'
+        - '\bcost you (money|something) before\b'
+      es:
+        - '\bqué (le )?pasó\b'
+        - '\bpor qué (me )?lo pregunta\b'
+        - '\ble (ha pasado|pasó) (algo así|eso|algo) (antes|la última vez)\b'
+        - '\b(alguna vez )?le (cobraron|han cobrado)\b'
+        - '\ble costó (dinero|algo) antes\b'
+  - code: asks_what_would_settle_it
+    description:
+      en: Asks what he would need to see to feel sure it is really free.
+      es: Pregunta qué necesitaría ver para quedarse tranquilo de que de verdad es gratis.
+    cues:
+      en:
+        - '\bwhat would you (need|want|like) to see\b'
+        - '\bwhat would (make you comfortable|settle it|put your mind at ease)\b'
+      es:
+        - '\bqué (necesitaría|le gustaría|quisiera) ver\b'
+        - '\bqué (lo|le) dejaría tranquilo\b'
+walk_out_triggers:
+  - code: gets_defensive
+    description:
+      en: Takes the question as an insult ("Why would I lie to you?").
+      es: Toma la pregunta como una ofensa ("¿Por qué le voy a mentir?").
+    cues:
+      en: ['\bwhy would I lie\b', '\b(are you|you''re) calling me a liar\b', '\byou don''?t trust me\b']
+      es: ['\bpor qué (le )?(voy|iba) a mentir\b', '\bme está llamando mentiroso\b', '\busted no confía en mí\b']
+  - code: belittles_question
+    description:
+      en: Treats the question as petty ("It's just an oil change").
+      es: Trata la pregunta como una bobería ("Es solo un cambio de aceite").
+    cues:
+      en: ['\b(it''s|it is) (just|only) an oil change\b', '\bdon''?t overthink\b', '\byou(''re| are) overthinking\b']
+      es: ['\bes (solo|nada más) un cambio de aceite\b', '\bno lo piense tanto\b', '\b(lo )?está pensando demasiado\b']
+  - code: pushes_maintenance_plan
+    description:
+      en: Turns the question into a pitch for the prepaid maintenance plan.
+      es: Convierte la pregunta en una venta del plan de mantenimiento prepagado.
+    cues:
+      en: ['\b(you should|you''ll want to|better|smart to) (get|take|add) (the )?(prepaid )?maintenance plan\b', '\b(most people|everybody)\b.{0,30}\bmaintenance plan\b']
+      es: ['\b(debería|le conviene|mejor) (coger|llevar|agregar|añadir) (el )?plan de mantenimiento\b', '\b(casi todos|todo el mundo)\b.{0,30}\bplan de mantenimiento\b']
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|offer)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone|ends) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube|se acaba)\b']
+  - code: third_push
+    description:
+      en: Pushes for a signature a third time after he hesitates twice.
+      es: Insiste en que firme por tercera vez después de que dudó dos veces.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(write it up|do it|do the paperwork)\b', '\bsign (it )?(today|now)\b', '\bcan we (do|write) (it|this|the paperwork)\b', '\bwhat are you waiting for\b']
+      es: ['\bhagamos los papeles\b', '\bfirme (hoy|ahora|ya)\b', '\bhagámoslo (hoy|ahora|ya)\b', '\bqué está esperando\b']
+win_condition:
+  description:
+    en: His story about the "free" oil change that cost $129 comes out, he sees it on the buyer's order, and he agrees to a firm day and time to sign.
+    es: Sale a la luz lo del cambio de aceite "gratis" que le costó $129, lo ve en la orden de compra, y acepta un día y una hora firmes para firmar.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el dealer", "el oil change", "el service"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-50s
+  es: tbd-es-miami-caribbean-male-50s
+difficulty: 1
+variation:
+  moods: [joking but watchful, reading the windshield ad again, tapping the ad with a finger]
+offline_lines:
+  deflect:
+    - { en: "Free is free, or it isn't. Which one is it?", es: "Gratis es gratis, o no lo es. ¿Cuál de las dos?" }
+    - { en: "I just want a straight answer.", es: "Yo solo quiero una respuesta derecha." }
+    - { en: "In my experience, nothing in this business is free.", es: "Por lo que yo he visto, en este negocio nada es gratis." }
+  hint: { en: "Let's just say \"free\" has cost me money before.", es: "Digamos que lo \"gratis\" ya me ha costado dinero." }
+  after_hint: { en: "I've learned to read the small print.", es: "Aprendí a leer la letra chiquita." }
+  reveal: { en: "Last year, at another dealer, my \"free\" oil change came with a $129 bill for shop supplies and a filter they said was required. So now when I hear free, I look for the catch.", es: "El año pasado, en otro dealer, mi cambio de aceite \"gratis\" vino con una cuenta de $129 por materiales del taller y un filtro que me dijeron que era obligatorio. Así que ahora, cuando oigo gratis, busco la trampa." }
+  after_reveal:
+    - { en: "Okay. That's what I wanted to see. In writing.", es: "Está bien. Eso es lo que quería ver. Por escrito." }
+    - { en: "Fair enough. Paper doesn't lie.", es: "Me parece bien. El papel no miente." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  not_now: { en: "Let me think about it. I'll come back.", es: "Déjeme pensarlo. Yo vuelvo." }
+  walk_away: { en: "Forget it. Same game as everywhere.", es: "Olvídese. El mismo juego de siempre." }
+  goodbye: { en: "Take care.", es: "Que le vaya bien." }
+  react_to_pressure: { en: "I'm not calling anybody a liar. I'm asking.", es: "Yo no le estoy diciendo mentiroso a nadie. Estoy preguntando." }
+spanish_reviewed: false

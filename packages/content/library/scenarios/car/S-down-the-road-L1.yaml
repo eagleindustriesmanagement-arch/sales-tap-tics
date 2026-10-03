@@ -1,0 +1,180 @@
+code: S-down-the-road-L1
+module: car-miami-indecision
+title:
+  en: "\"I've got you beat down the road\""
+  es: "\"Aquí cerca me lo dejan más barato\""
+setting:
+  en: Saturday, late morning, at your desk. You just showed him the out-the-door number. He leans back and crosses his arms.
+  es: Sábado, media mañana, en su escritorio. Usted le acaba de enseñar el precio total. Él se echa para atrás y cruza los brazos.
+persona: P-down-the-road
+objection: O55
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-50s, owns a small landscaping business and wants a 2026 Silverado 1500 LT for work. No trade; he is financing through his own bank. Your numbers sheet shows $53,394 out the door, which includes your $899 dealer fee; only tax, tag and title are added. Your manager has no room on this unit."
+  es: "{name}, de unos 55 años, tiene un negocito de jardinería y quiere una Silverado 1500 LT 2026 para el trabajo. No tiene trade-in; financia con su propio banco. Su hoja de números dice $53,394 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Su gerente no tiene margen en esta unidad."
+opening:
+  en: I've got you beat down the road.
+  es: Aquí cerca me lo dejan más barato.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Silverado 1500, trim: LT Crew Cab 4WD, color: Black, stock: "9154", in_stock: true }
+  price_cents: 5249500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 5339400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    other_quote: None. His brother-in-law says the dealer down the road always comes in lower
+    free_tuesday: Free Tuesday after 5
+numbers_sheet: true
+target_techniques: [T086, T001, T003, T002, T028, T105, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O55-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O55-ACK
+      behavior:
+        en: "Acknowledged the claim without arguing, calling a bluff, or running down the other dealer"
+        es: "Reconoció lo que dijo sin discutir, sin acusarlo de farol y sin hablar mal del otro dealer"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O55-QFIRST
+      behavior:
+        en: "Asked what they quoted, out the door and in writing, before defending or moving the price"
+        es: "Preguntó qué le cotizaron, con todo y por escrito, antes de defender o mover el precio"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O55-SIDE
+      behavior:
+        en: "Moved the comparison to out-the-door, same truck"
+        es: "Llevó la comparación al precio total, la misma camioneta"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T086)"
+      technique: T086
+    - code: O55-HOLD
+      behavior:
+        en: "Held the price steady, with its reason, instead of chasing a number nobody had seen"
+        es: "Mantuvo el precio firme, con su razón, en vez de correr detrás de un número que nadie había visto"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T105, T028)"
+      technique: T105
+    - code: O55-HIDDEN
+      behavior:
+        en: "Surfaced that there is no quote and he was testing the price"
+        es: "Sacó a la luz que no hay cotización y que estaba probando el precio"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O55-NEXT
+      behavior:
+        en: "Set a specific day and time to come back"
+        es: "Fijó un día y una hora específicos para que vuelva"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: disparaged_other_dealer
+      description:
+        en: "Ran down the other dealer"
+        es: "Habló mal del otro dealer"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, promised a price without authority, or left the fee out of our price"
+        es: "Dijo un número que no es real, prometió un precio sin autorización o dejó el cargo fuera de nuestro precio"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, authority]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he ran down the other dealer and then went to chase a number nobody had seen. He never asked what the quote was or whether it existed, so the customer learned the price was soft."
+      es: "Fíjese: habló mal del otro dealer y después se fue a correr detrás de un número que nadie había visto. Nunca preguntó cuál era la cotización ni si existía, así que el cliente aprendió que el precio era blando."
+    script:
+      en:
+        - { speaker: customer, text: "I've got you beat down the road." }
+        - { speaker: rep, text: "Down the road? Those guys always pile junk on at the end. You can't trust them." }
+        - { speaker: customer, text: "Easy. I'm the one buying the truck." }
+        - { speaker: rep, text: "Okay, okay. Let me go talk to my manager and see what we can do for you." }
+        - { speaker: customer, text: "Easy. I'm the one buying the truck." }
+        - { speaker: rep, text: "Let's write it up, and I'll get you the best number I can." }
+        - { speaker: customer, text: "Down the road, they'll do better. Trust me." }
+      es:
+        - { speaker: customer, text: "Aquí cerca me lo dejan más barato." }
+        - { speaker: rep, text: "¿Aquí cerca? Esa gente siempre le mete basura al final. No se puede confiar en ellos." }
+        - { speaker: customer, text: "Tranquilo. El que va a comprar la camioneta soy yo." }
+        - { speaker: rep, text: "Está bien, está bien. Déjeme hablar con mi gerente, a ver qué podemos hacer por usted." }
+        - { speaker: customer, text: "Tranquilo. El que va a comprar la camioneta soy yo." }
+        - { speaker: rep, text: "Hagamos los papeles, y yo le consigo el mejor número que pueda." }
+        - { speaker: customer, text: "Aquí cerca me lo hacen mejor. Créame." }
+  good:
+    notice:
+      en: Notice that he never argues and never chases. He asks what the other number is, puts ours on the table out the door with its reason, and holds it.
+      es: Fíjese en que nunca discute y nunca le corre detrás. Pregunta cuál es el otro número, pone el nuestro sobre la mesa con todo y con su razón, y lo mantiene.
+    script:
+      en:
+        - { speaker: customer, text: "I've got you beat down the road." }
+        - { speaker: rep, text: "[pause] Could be, and you should get a fair deal. Let's line them up side by side, same truck, out the door. What did they quote you, and is it in writing?" }
+        - { speaker: customer, text: "They'll come in lower. They always do down there." }
+        - { speaker: rep, text: "Ours is $53,394 out the door, because it already includes our $899 dealer fee; only tax, tag and title are added. What's their out-the-door number on the same truck?" }
+        - { speaker: customer, text: "Honestly? I don't have a quote. My brother-in-law says they always come in lower down there. I wanted to see if yours would move." }
+        - { speaker: rep, text: "I appreciate you being straight with me. Then here's my straight answer: our number is $53,394 out the door, and it doesn't move because of a number neither of us has seen. If you get a written out-the-door quote on the same truck, bring it, and we'll go line by line." }
+        - { speaker: customer, text: "Fair enough. A number that holds is what I wanted to see." }
+        - { speaker: rep, text: "Bring your brother-in-law, too. Does Tuesday at 6:00 work? I'll have this same truck pulled up and the numbers printed." }
+        - { speaker: customer, text: "Tuesday at 6 works. I'll bring him." }
+      es:
+        - { speaker: customer, text: "Aquí cerca me lo dejan más barato." }
+        - { speaker: rep, text: "[pausa] Puede ser, y usted merece un trato justo. Vamos a ponerlas lado a lado, la misma camioneta, con todo. ¿Qué le cotizaron, y lo tiene por escrito?" }
+        - { speaker: customer, text: "Allí me lo dejan más barato. Siempre lo hacen." }
+        - { speaker: rep, text: "La nuestra está en $53,394 con todo, porque ya incluye nuestro cargo del dealer de $899; solo se suman impuestos, placa y título. ¿Cuál es el precio total de ellos en la misma camioneta?" }
+        - { speaker: customer, text: "¿La verdad? No tengo ninguna cotización. Mi cuñado dice que allí siempre lo dejan más barato. Quería ver si el suyo se movía." }
+        - { speaker: rep, text: "Le agradezco que me hable claro. Entonces le contesto igual de claro: nuestro número es $53,394 con todo, y no se mueve por un número que ninguno de los dos ha visto. Si le dan una cotización por escrito con el precio total de la misma camioneta, tráigala, y la revisamos línea por línea." }
+        - { speaker: customer, text: "Me parece bien. Un número que se mantiene es lo que yo quería ver." }
+        - { speaker: rep, text: "Traiga a su cuñado también. ¿Le funciona el martes a las 6:00? Le tengo esta misma camioneta lista y los números impresos." }
+        - { speaker: customer, text: "El martes a las 6 me funciona. Lo traigo." }
+spanish_reviewed: false

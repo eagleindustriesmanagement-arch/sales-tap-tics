@@ -1,0 +1,197 @@
+code: S-warranty-watcher-L1
+module: car-miami-indecision
+title:
+  en: "\"Are you going to slip in a warranty?\""
+  es: "\"¿Me van a meter una garantía sin decirme?\""
+setting:
+  en: Saturday, early afternoon, at your desk. You just turned the numbers sheet toward him.
+  es: Sábado, temprano en la tarde, en su escritorio. Usted le acaba de voltear la hoja de números.
+persona: P-warranty-watcher
+objection: O54
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, electrician, agreed on a 2026 Colorado LT at $38,694 out the door, which includes your $899 dealer fee; only tax, tag and title are added. With $4,000 down at 72 months, the estimated payment on your sheet is $645 a month with no products in it. If he asks to see a service contract ($2,495), the same estimate with it is $687 a month. He has not applied for financing yet."
+  es: "{name}, de unos 45 años, electricista, se puso de acuerdo en una Colorado LT 2026 por $38,694 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Con $4,000 de down a 72 meses, el pago estimado de su hoja es $645 al mes, sin ningún producto. Si él pide ver un contrato de servicio ($2,495), el mismo estimado con él es $687 al mes. Todavía no ha aplicado al financiamiento."
+opening:
+  en: Are you going to slip in a warranty without telling me?
+  es: ¿Me van a meter una garantía sin decirme?
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Colorado, trim: LT Crew Cab, color: Summit White, stock: "7731", in_stock: true }
+  price_cents: 3779500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3869400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    - code: service_contract
+      name: { en: service contract, es: contrato de servicio }
+      cents: 249500
+      aliases:
+        en: [extended warranty, warranty]
+        es: [garantía extendida, garantía]
+  payment_options:
+    - { code: quoted, cents: 64500, term_months: 72, down_cents: 400000 }
+    - { code: with_service_contract, cents: 68700, term_months: 72, down_cents: 400000, includes_add_ons: [service_contract] }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    down_payment_cents: 400000
+    miles_per_year: About 30,000, Homestead to job sites in Broward
+    cousin_story: His cousin found a warranty in his contract he never agreed to
+numbers_sheet: true
+target_techniques: [T121, T001, T002, T085, T074, T051, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O54-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O54-NOSLIP
+      behavior:
+        en: "Promised plainly that nothing goes in the payment without his yes, and said what the payment on the sheet includes"
+        es: "Le aseguró claramente que no entra nada en el pago sin que él diga que sí, y le dijo lo que incluye el pago de la hoja"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "O54 core move; Credit Acceptance consent decree (T085)"
+      technique: T085
+    - code: O54-QFIRST
+      behavior:
+        en: "Asked what was behind the question before presenting any product"
+        es: "Preguntó qué había detrás de la pregunta antes de presentar cualquier producto"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O54-MENU
+      behavior:
+        en: "Showed the payment with and without the service contract, each one labeled"
+        es: "Mostró el pago con el contrato de servicio y sin él, cada uno identificado"
+      dimension: technique
+      method: rule
+      points: 20
+      evidence: Credit Acceptance consent decree (T121)
+      technique: T121
+      params: { rules: [PAY-02, PAY-01, PAY-03], topic: add_on }
+    - code: O54-SC
+      behavior:
+        en: "Described the service contract as optional and cancellable, with the 60-day refund"
+        es: "Presentó el contrato de servicio como opcional y cancelable, con el reembolso de 60 días"
+      dimension: technique
+      method: rule
+      points: 10
+      evidence: Florida s. 634.121
+      technique: T074
+      params: { rules: [ADD-04], topic: add_on }
+    - code: O54-HIDDEN
+      behavior:
+        en: "Surfaced his 30,000 miles a year and his interest in a warranty"
+        es: "Sacó a la luz sus 30,000 millas al año y su interés en una garantía"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O54-NEXT
+      behavior:
+        en: "Set a specific time with the finance manager that he agreed to"
+        es: "Fijó una hora específica con la gerente de financiamiento que él aceptó"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: prejudged_product
+      description:
+        en: "Pre-judged the warranty for him (\"you'll want it\", \"most people take it\")"
+        es: "Decidió por él sobre la garantía (\"usted la va a querer\", \"casi todos la llevan\")"
+      method: judge
+    - code: misdescribed_add_on
+      description:
+        en: "Called a product required, impossible to remove, or free"
+        es: "Dijo que un producto era obligatorio, imposible de quitar o gratis"
+      method: rule_family
+      rule_families: [add_ons]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, or hid a product inside a payment"
+        es: "Dijo un número que no es real, o escondió un producto dentro de un pago"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he laughed off the worry and then did exactly what the customer feared: he put the warranty in the payment, shrank it to \"a few dollars more\", and never said it was optional or cancellable. He never asked what was behind the question."
+      es: "Fíjese: se rió de la preocupación y después hizo justo lo que el cliente temía: metió la garantía en el pago, la achicó a \"unos dólares más\", y nunca dijo que era opcional ni cancelable. Nunca preguntó qué había detrás de la pregunta."
+    script:
+      en:
+        - { speaker: customer, text: "Are you going to slip in a warranty without telling me?" }
+        - { speaker: rep, text: "Ha, nobody does that anymore. With the warranty, your payment is $687 a month, and you'll want it on a truck like this." }
+        - { speaker: customer, text: "See, this is exactly what I was talking about." }
+        - { speaker: rep, text: "It's only a few dollars more a month. Trust me." }
+        - { speaker: customer, text: "See, this is exactly what I was talking about." }
+        - { speaker: rep, text: "Let's write it up with the warranty and get you in your truck." }
+        - { speaker: customer, text: "Let me sleep on it. I'll come back." }
+      es:
+        - { speaker: customer, text: "¿Me van a meter una garantía sin decirme?" }
+        - { speaker: rep, text: "Ja, ya nadie hace eso. Con la garantía, su pago es $687 al mes, y usted la va a querer en una camioneta así." }
+        - { speaker: customer, text: "¿Ve? De esto mismo es lo que yo le estaba hablando." }
+        - { speaker: rep, text: "Son solo unos dólares más al mes. Créame." }
+        - { speaker: customer, text: "¿Ve? De esto mismo es lo que yo le estaba hablando." }
+        - { speaker: rep, text: "Hagámoslo ya con la garantía y lo montamos en su camioneta." }
+        - { speaker: customer, text: "Déjeme consultarlo con la almohada. Yo vuelvo." }
+  good:
+    notice:
+      en: Notice the plain promise that nothing goes in without his yes, the questions before any product, and how the service contract comes out on its own line, optional, with the 60-day refund, and his choice.
+      es: Fíjese en la promesa clara de que no entra nada sin que él diga que sí, en las preguntas antes de cualquier producto, y en cómo el contrato de servicio sale en su propia línea, opcional, con el reembolso de 60 días, y la decisión es de él.
+    script:
+      en:
+        - { speaker: customer, text: "Are you going to slip in a warranty without telling me?" }
+        - { speaker: rep, text: "[pause] No. Nothing goes in your payment without your yes. The $645 a month on this sheet has no products in it. Can I ask what makes you ask? Did something like that happen to you?" }
+        - { speaker: customer, text: "Let's just say I've seen it happen in the family." }
+        - { speaker: rep, text: "I'm sorry. Let me ask about you, then. How will you use the truck? How many miles do you drive in a year?" }
+        - { speaker: customer, text: "A lot. About 30,000 miles a year, Homestead to job sites in Broward. Honestly, I've been thinking about a warranty. But my cousin found one in his contract he never agreed to, so I wasn't going to bring it up." }
+        - { speaker: rep, text: "Thanks for telling me. Then here it is, out in the open, and you decide. Without any products, $645 a month. With the service contract, $687 a month, same 72 months. The service contract is $2,495. It's optional, and in Florida you can cancel it: within 60 days for a full refund, less any claims paid and an administrative fee of up to 5%, and after that for a prorated refund." }
+        - { speaker: customer, text: "That's how it should be done. Two numbers, my choice." }
+        - { speaker: rep, text: "Our finance manager can sit down with you today at 2:30 and show you in writing exactly what it covers, before you decide anything. Does 2:30 work?" }
+        - { speaker: customer, text: "Today at 2:30 works." }
+      es:
+        - { speaker: customer, text: "¿Me van a meter una garantía sin decirme?" }
+        - { speaker: rep, text: "[pausa] No. No entra nada en su pago sin que usted diga que sí. Los $645 al mes de esta hoja no tienen ningún producto. ¿Le puedo preguntar por qué lo pregunta? ¿Le pasó algo así?" }
+        - { speaker: customer, text: "Digamos que lo he visto pasar en la familia." }
+        - { speaker: rep, text: "Lo siento. Entonces déjeme preguntarle por usted. ¿Cómo va a usar la camioneta? ¿Cuántas millas maneja al año?" }
+        - { speaker: customer, text: "Muchísimo. Unas 30,000 millas al año, de Homestead a las obras en Broward. La verdad, he estado pensando en una garantía. Pero a mi primo le metieron una en el contrato sin que él la aceptara, así que yo no iba a sacar el tema." }
+        - { speaker: rep, text: "Gracias por decírmelo. Entonces aquí está, a la vista, y usted decide. Sin ningún producto, $645 al mes. Con el contrato de servicio, $687 al mes, los mismos 72 meses. El contrato de servicio cuesta $2,495. Es opcional, y en Florida lo puede cancelar: dentro de 60 días le devuelven todo, menos los reclamos pagados y un cargo administrativo de hasta 5%, y después de eso, la parte proporcional." }
+        - { speaker: customer, text: "Así es como se debe hacer. Dos números, y yo escojo." }
+        - { speaker: rep, text: "Nuestra gerente de financiamiento lo puede atender hoy a las 2:30 y enseñarle por escrito exactamente lo que cubre, antes de que usted decida nada. ¿Le funciona a las 2:30?" }
+        - { speaker: customer, text: "Hoy a las 2:30 me funciona." }
+spanish_reviewed: false
