@@ -1,0 +1,180 @@
+code: S-resale-worrier-L1
+module: car-phone-finance
+title:
+  en: "\"What will it be worth when I trade it?\""
+  es: "\"¿Cuánto va a valer cuando lo cambie?\""
+setting:
+  en: Saturday afternoon, at your desk, right after the test drive and the numbers.
+  es: Sábado por la tarde, en su escritorio, justo después de la prueba de manejo y los números.
+persona: P-resale-worrier
+objection: O45
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, is a real estate agent with a paid-off 2019 Malibu. She just drove the 2026 Equinox EV LT and loved it. You showed her the all-in price of $36,394 plus tax, tag and title, and a payment of $599 a month for 72 months with $4,000 down. Your finance office can also print a lease on this car, side by side with the purchase. Nobody at the store can tell her what the car will be worth later."
+  es: "{name}, de unos 45 años, es agente de bienes raíces y tiene un Malibu 2019 pagado. Acaba de manejar la Equinox EV LT 2026 y le encantó. Usted le enseñó el precio total de $36,394 más impuestos, tag y título, y un pago de $599 al mes a 72 meses con $4,000 de down. Su oficina de finanzas también puede imprimir un lease de este carro, al lado de la compra. Nadie en el dealer le puede decir cuánto va a valer el carro más adelante."
+opening:
+  en: I love it. But what will it be worth when I trade it?
+  es: Me encanta. Pero, ¿cuánto va a valer cuando lo cambie?
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox EV, trim: LT, color: Riptide Blue Metallic, stock: "E1186", in_stock: true }
+  price_cents: 3549500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3639400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: { vehicle: "2019 Chevrolet Malibu LT, 71,000 miles", appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options:
+    - { code: quoted, cents: 59900, term_months: 72, down_cents: 400000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    keeps_cars_years: 3
+    friend_ev: A friend traded in her EV after three years and got much less than she expected
+    lease_available: The finance office can print a lease and a purchase side by side
+    free_tuesday: Free after 5:30 on Tuesday
+numbers_sheet: false
+target_techniques: [T001, T003, T002, T094, T047, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O45-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O45-HONEST
+      behavior:
+        en: "Said plainly that no one can promise a future value, and made no resale prediction"
+        es: "Dijo claramente que nadie puede prometer un valor futuro, y no hizo ninguna predicción de reventa"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Objection O45 core move: honest data"
+      technique: T003
+    - code: O45-QFIRST
+      behavior:
+        en: "Asked what was behind the question, or how long she keeps a car, before answering"
+        es: "Preguntó qué había detrás de la pregunta, o cuánto tiempo se queda con un carro, antes de contestar"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O45-HIDDEN
+      behavior:
+        en: "Surfaced her three-year habit and the fear of owing more than the car is worth"
+        es: "Sacó a la luz su costumbre de cambiar cada tres años y el miedo a deber más de lo que vale el carro"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O45-OPTIONS
+      behavior:
+        en: "Offered real ways to reduce the risk (a lease with the end value in the contract, or more down), side by side on paper, instead of a prediction"
+        es: "Ofreció maneras reales de reducir el riesgo (un lease con el valor final en el contrato, o más down), una al lado de la otra en papel, en vez de una predicción"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Objection O45 core move: a lease; only real, showable protections (T094)"
+      technique: T094
+    - code: O45-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: predicted_resale
+      description:
+        en: "Predicted what the car will be worth, or promised it will hold its value"
+        es: "Predijo cuánto va a valer el carro, o prometió que va a mantener su valor"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he dodged the question, brushed off the worry, and piled on more cars. He never asked what was behind the question, so he never learned she trades every three years."
+      es: "Fíjese: le sacó el cuerpo a la pregunta, le quitó importancia a la preocupación y le echó más carros encima. Nunca preguntó qué había detrás de la pregunta, así que nunca supo que ella cambia de carro cada tres años."
+    script:
+      en:
+        - { speaker: customer, text: "I love it. But what will it be worth when I trade it?" }
+        - { speaker: rep, text: "Don't worry about that. You're going to love this car." }
+        - { speaker: customer, text: "That's what everybody says." }
+        - { speaker: rep, text: "Resale is years away. If you're still nervous, let me show you the Blazer EV and the Silverado EV too." }
+        - { speaker: customer, text: "Now I have three cars to worry about." }
+        - { speaker: rep, text: "Then let's just write it up on this one today." }
+        - { speaker: customer, text: "Not today. I need to think about this." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me when you're ready." }
+      es:
+        - { speaker: customer, text: "Me encanta. Pero, ¿cuánto va a valer cuando lo cambie?" }
+        - { speaker: rep, text: "No se preocupe por eso. Este carro le va a encantar." }
+        - { speaker: customer, text: "Eso es lo que dicen todos." }
+        - { speaker: rep, text: "La reventa queda para dentro de años. Si todavía está nerviosa, también le enseño la Blazer EV y la Silverado EV." }
+        - { speaker: customer, text: "Ahora tengo tres carros de qué preocuparme." }
+        - { speaker: rep, text: "Entonces hagámoslo hoy con esta." }
+        - { speaker: customer, text: "Hoy no. Esto lo tengo que pensar." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté lista." }
+  good:
+    notice:
+      en: Notice that she refuses to guess at a future value, asks what is behind the question, learns how long the customer keeps a car, and answers with real options on paper instead of a promise.
+      es: Fíjese en que ella no adivina ningún valor futuro, pregunta qué hay detrás de la pregunta, descubre cuánto tiempo la clienta se queda con un carro, y responde con opciones reales en papel en vez de una promesa.
+    script:
+      en:
+        - { speaker: customer, text: "I love it. But what will it be worth when I trade it?" }
+        - { speaker: rep, text: "[pause] Fair question, and I won't guess at it. Nobody can tell you what any car will be worth years from now. Can I ask what's behind the question?" }
+        - { speaker: customer, text: "I don't keep cars forever, that's the thing." }
+        - { speaker: rep, text: "That makes sense. Setting resale aside for a second, is the Equinox EV the right car for the way you drive every day?" }
+        - { speaker: customer, text: "I like the car. That's not the problem." }
+        - { speaker: rep, text: "Okay. How long do you usually keep a car?" }
+        - { speaker: customer, text: "About three years. I drive clients all day. My friend traded in her EV after three years and got way less than she expected. I'm scared I'll owe more than it's worth when I trade it." }
+        - { speaker: rep, text: "Thank you, that helps. I'm not going to promise you a number three years out. What I can do is show you two honest ways to handle it: a lease, where the value at the end is set in the contract before you sign, so you know it up front; or a purchase with a bigger down payment, so you owe less along the way. I'll have both printed side by side, with every number on them." }
+        - { speaker: customer, text: "Side by side. That's what I need to see." }
+        - { speaker: rep, text: "Does Tuesday at 6 work to go through them together?" }
+        - { speaker: customer, text: "Tuesday at 6 works." }
+      es:
+        - { speaker: customer, text: "Me encanta. Pero, ¿cuánto va a valer cuando lo cambie?" }
+        - { speaker: rep, text: "[pausa] Es una pregunta justa, y no voy a adivinar. Nadie le puede decir cuánto va a valer ningún carro dentro de unos años. ¿Le puedo preguntar qué hay detrás de la pregunta?" }
+        - { speaker: customer, text: "Es que yo no me quedo con los carros para siempre." }
+        - { speaker: rep, text: "Tiene sentido. Dejando la reventa a un lado un momento, ¿la Equinox EV es el carro correcto para lo que usted maneja todos los días?" }
+        - { speaker: customer, text: "El carro me gusta. Ese no es el problema." }
+        - { speaker: rep, text: "Bien. ¿Cuánto tiempo suele quedarse con un carro?" }
+        - { speaker: customer, text: "Unos tres años. Yo me paso el día manejando con clientes. Mi amiga dio su eléctrico en trade-in a los tres años y le dieron mucho menos de lo que esperaba. Me da miedo deber más de lo que vale cuando lo vaya a cambiar." }
+        - { speaker: rep, text: "Gracias, eso me ayuda. No le voy a prometer un número de aquí a tres años. Lo que sí puedo hacer es enseñarle dos maneras honestas de manejarlo: un lease, donde el valor al final queda fijado en el contrato antes de firmar, así que usted lo sabe desde el principio; o una compra con más down, para que deba menos en el camino. Le imprimo las dos opciones una al lado de la otra, con todos los números." }
+        - { speaker: customer, text: "Una al lado de la otra. Eso es lo que necesito ver." }
+        - { speaker: rep, text: "¿Le queda bien el martes a las 6 para verlas juntas?" }
+        - { speaker: customer, text: "El martes a las 6 me queda bien." }
+spanish_reviewed: false

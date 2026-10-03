@@ -1,0 +1,176 @@
+code: S-cousin-cosigner-L1
+module: car-miami-indecision
+title:
+  en: "\"My cousin can co-sign\""
+  es: "\"Mi primo me sirve de co-firmante\""
+setting:
+  en: Saturday afternoon, at the desk, right after the test drive.
+  es: Sábado por la tarde, en el escritorio, justo después de la prueba de manejo.
+persona: P-cousin-cosigner
+objection: O52
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, 24, drives a forklift at a warehouse in Medley and needs his own car to get to work. He just drove the 2026 Trax LS and liked it. You told him the all-in price of $22,394 plus tax, tag and title. No credit application has been made, so there is no payment or rate yet. When you mention financing, he cuts in."
+  es: "{name}, 24 años, maneja un montacargas en un almacén en Medley y necesita su propio carro para ir al trabajo. Acaba de manejar la Trax LS 2026 y le gustó. Usted le dijo el precio total de $22,394 más impuestos, tag y título. No se ha hecho ninguna solicitud de crédito, así que todavía no hay pago ni tasa. Cuando usted menciona el financiamiento, él lo interrumpe."
+opening:
+  en: Don't worry about my credit. My cousin can co-sign.
+  es: No se preocupe por mi crédito. Mi primo me sirve de co-firmante.
+# No application has been made: no approval, rate or payment exists. The good rep explains the process, including
+# that a co-signer is responsible for the loan if the payments are not made, and never promises an approval.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: LS, color: Mosaic Black Metallic, stock: "4719", in_stock: true }
+  price_cents: 2149500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2239400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    cousin_asked: false
+    credit_history: One credit card, opened seven months ago
+    job: Forklift operator at a warehouse in Medley for a year
+    off_work: Off at 3:30 on weekdays
+numbers_sheet: false
+target_techniques: [T070, T001, T003, T002, T005, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: O52-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O52-ACK
+      behavior:
+        en: "Acknowledged the offer of help without jumping on it"
+        es: "Reconoció la ayuda que ofrece sin lanzarse sobre ella"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O52-QFIRST
+      behavior:
+        en: "Asked why he thinks he needs a co-signer before taking the cousin up on it"
+        es: "Preguntó por qué cree que necesita un co-firmante antes de aceptar lo del primo"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O52-HIDDEN
+      behavior:
+        en: "Surfaced that the cousin has not been asked and that he fears being turned down"
+        es: "Sacó a la luz que el primo no sabe nada y que él tiene miedo de que lo rechacen"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O52-PROCESS
+      behavior:
+        en: "Explained the process and what co-signing means for the cousin, without promising an approval or a rate"
+        es: "Explicó el proceso y lo que significa para el primo ser co-firmante, sin prometer la aprobación ni una tasa"
+      dimension: technique
+      method: judge
+      points: 30
+      evidence: "O52 core moves: explain the process; never promise approval; T070; RATE-01"
+      technique: T070
+    - code: O52-NEXT
+      behavior:
+        en: "Set a specific day and time for both of them"
+        es: "Fijó un día y una hora específicos para los dos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_approval
+      description:
+        en: "Promised that a co-signer guarantees the approval, or quoted a rate or payment before any lender answered"
+        es: "Prometió que con un co-firmante la aprobación es segura, o dio una tasa o un pago antes de que contestara algún banco"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number or an approval"
+        es: "Dijo un número o una aprobación que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he jumped on the cousin as a shortcut, told the customer to get him in to sign today, and never asked a single question. He never learned the cousin had not even been asked."
+      es: "Fíjese: se lanzó sobre lo del primo como un atajo, le dijo al cliente que lo trajera a firmar hoy y nunca hizo una sola pregunta. Nunca supo que al primo ni le habían preguntado."
+    script:
+      en:
+        - { speaker: customer, text: "Don't worry about my credit. My cousin can co-sign." }
+        - { speaker: rep, text: "Perfect. Call your cousin and get him down here to sign today." }
+        - { speaker: customer, text: "Whoa, slow down. It's not that simple." }
+        - { speaker: rep, text: "Sure it is, that's what cousins are for. Let's just write it up." }
+        - { speaker: customer, text: "I'll talk to my cousin and let you know." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me when you're ready." }
+        - { speaker: customer, text: "Alright, thanks." }
+      es:
+        - { speaker: customer, text: "No se preocupe por mi crédito. Mi primo me sirve de co-firmante." }
+        - { speaker: rep, text: "Perfecto. Llame a su primo y dígale que venga a firmar hoy." }
+        - { speaker: customer, text: "Oiga, despacio. No es tan fácil." }
+        - { speaker: rep, text: "Claro que sí, para eso está la familia. Dejemos todo escrito de una vez." }
+        - { speaker: customer, text: "Lo hablo con mi primo y le aviso." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
+        - { speaker: customer, text: "Bueno, gracias." }
+  good:
+    notice:
+      en: Notice the pause, the question about why he thinks he needs a co-signer, the question about the cousin, and how the rep explains what co-signing means without promising an approval.
+      es: Fíjese en la pausa, en la pregunta sobre por qué cree que necesita un co-firmante, en la pregunta sobre el primo, y en cómo el vendedor explica lo que significa ser co-firmante sin prometer la aprobación.
+    script:
+      en:
+        - { speaker: customer, text: "Don't worry about my credit. My cousin can co-sign." }
+        - { speaker: rep, text: "[pause] It's good that you have family willing to help; that can be a real option. So I can explain it right, what makes you think you need a co-signer?" }
+        - { speaker: customer, text: "I just don't have much history. I figured this way is easier." }
+        - { speaker: rep, text: "Fair enough. Credit aside for a second, is the Trax the car you want?" }
+        - { speaker: customer, text: "Yeah, the Trax is the one. It's the rest I'm not sure about." }
+        - { speaker: rep, text: "Got it. And your cousin, does he already know, and has he said yes?" }
+        - { speaker: customer, text: "Honestly? I haven't asked him yet. I only have one credit card, from seven months ago, and I figured they'd turn me down on my own. I didn't want to hear it." }
+        - { speaker: rep, text: "Thanks for being straight with me. Here's how it works: you can apply on your own first, and the lenders decide. I can't promise an approval or a rate, and I won't guess. If a lender asks for a co-signer, your cousin applies with you, and he's responsible for the loan if the payments aren't made, so he should hear that from us before he decides. Can you two come in Wednesday at 6, so I walk you both through it before anyone signs anything?" }
+        - { speaker: customer, text: "Wednesday at 6 works. I'll talk to him tonight." }
+        - { speaker: rep, text: "Perfect. See you both Wednesday at 6." }
+      es:
+        - { speaker: customer, text: "No se preocupe por mi crédito. Mi primo me sirve de co-firmante." }
+        - { speaker: rep, text: "[pausa] Qué bueno que tiene familia dispuesta a ayudar; eso puede ser una opción real. Para explicárselo bien, ¿qué le hace pensar que necesita un co-firmante?" }
+        - { speaker: customer, text: "Es que no tengo mucho historial. Pensé que así era más fácil." }
+        - { speaker: rep, text: "Me parece bien. Dejando el crédito a un lado un momento, ¿la Trax es el carro que usted quiere?" }
+        - { speaker: customer, text: "Sí, la Trax es la que quiero. Es lo demás lo que no tengo claro." }
+        - { speaker: rep, text: "Entendido. ¿Y su primo ya sabe, y le dijo que sí?" }
+        - { speaker: customer, text: "¿La verdad? Todavía no le he preguntado. Nada más tengo una tarjeta de crédito, de hace siete meses, y pensé que si aplicaba yo solo me iban a rechazar. No quería oír eso." }
+        - { speaker: rep, text: "Gracias por hablarme claro. Así es como funciona: usted puede aplicar primero por su cuenta, y los bancos deciden. No le puedo prometer una aprobación ni una tasa, y no voy a adivinar. Si algún banco pide un co-firmante, su primo aplica con usted, y él responde por el préstamo si los pagos no se hacen, así que debe oírlo de nosotros antes de decidir. ¿Pueden venir los dos el miércoles a las 6, para explicarles todo antes de que nadie firme nada?" }
+        - { speaker: customer, text: "El miércoles a las 6 me sirve. Hablo con él esta noche." }
+        - { speaker: rep, text: "Perfecto. Los espero a los dos el miércoles a las 6." }
+spanish_reviewed: false

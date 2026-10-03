@@ -1,0 +1,194 @@
+code: S-trade-math-L1
+module: car-market-2026
+title:
+  en: "\"Show me how you got my trade number\""
+  es: "\"Enséñeme cómo sacó el valor de mi trade-in\""
+setting:
+  en: Saturday, 3 p.m., at your desk, right after the used-car manager finished the appraisal.
+  es: Sábado, 3 p.m., en su escritorio, justo después de que el gerente de usados terminó la tasación.
+persona: P-trade-math
+objection: O23
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: negotiation
+pre_brief:
+  en: "{name}, mid-50s bookkeeper, wants a 2026 Equinox RS: $35,394 out the door, plus tax, tag and title. His trade is a paid-off 2020 Equinox LT with 58,000 miles. The appraisal is $15,600: the three closest auction sales for the same model, trim and miles in the last 30 days averaged $16,450, less $850 for two front tires and a scuffed bumper. Your manager has not authorized anything higher. You just told him the trade number."
+  es: "{name}, contador de unos 55 años, quiere una Equinox RS 2026: $35,394 precio total, más impuestos, tag y título. Su trade-in es una Equinox LT 2020 pagada, con 58,000 millas. La tasación es $15,600: las tres ventas de subasta más parecidas, mismo modelo, versión y millaje, en los últimos 30 días, promediaron $16,450, menos $850 por dos gomas delanteras y un golpe en el bumper. Su gerente no ha autorizado nada más alto. Usted le acaba de decir el valor del trade-in."
+opening:
+  en: Before we go any further, show me how you got my trade number.
+  es: Antes de seguir, enséñeme cómo sacó el valor de mi trade-in.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: RS, color: Mosaic Black Metallic, stock: "5532", in_stock: true }
+  price_cents: 3449500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3539400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade:
+    vehicle: 2020 Chevrolet Equinox LT, 58,000 miles
+    appraisal_cents: 1560000
+    payoff_cents: 0
+    basis: Three closest auction sales for the same model, trim and miles in the last 30 days, averaging $16,450, less $850 for two front tires and a scuffed bumper
+    conditions: []
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    auction_average_cents: 1645000
+    reconditioning_cents: 85000
+    last_dealer_bump_cents: 300000
+    last_dealer: Three years ago a dealer gave him $3,000 more for his trade, then added the same $3,000 back into the price
+    free_monday: Free after 5 on Monday
+numbers_sheet: true
+target_techniques: [T001, T003, T002, T112, T029, T096, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O23-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O23-ACK
+      behavior:
+        en: "Welcomed the request to see the math, without getting defensive"
+        es: "Recibió bien la petición de ver las cuentas, sin ponerse a la defensiva"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O23-QFIRST
+      behavior:
+        en: "Asked what would make the number feel fair before defending it"
+        es: "Preguntó qué haría que el número se sintiera justo antes de defenderlo"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T112
+    - code: O23-BASIS
+      behavior:
+        en: "Walked through the real basis: the three auction sales and the reconditioning"
+        es: "Explicó la base real: las tres ventas de subasta y el reacondicionamiento"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "J.D. Power 2025 SSI: deal satisfaction 800 when explained versus 672"
+      technique: T029
+    - code: O23-HIDDEN
+      behavior:
+        en: "Surfaced the last dealer's trick: a higher trade number added back into the price"
+        es: "Sacó a la luz la jugada del otro dealer: un trade-in más alto que después metieron en el precio"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O23-OWNLINE
+      behavior:
+        en: "Kept the trade on its own line, apart from the price, and did not change the number"
+        es: "Dejó el trade-in en su propia línea, aparte del precio, y no cambió el número"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Kim and others 2022 (T096)"
+      technique: T096
+    - code: O23-NEXT
+      behavior:
+        en: "Set a specific day and time to go through the sales"
+        es: "Fijó un día y una hora específicos para revisar las ventas"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: changed_appraisal
+      description:
+        en: "Changed the trade number without the manager's authority or a new, showable reason"
+        es: "Cambió el valor del trade-in sin autorización del gerente ni una razón nueva que se pueda enseñar"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he hid behind the system, offered to haggle the figure the customer never asked to raise, and brushed off the question. He never asked what would make the number feel fair."
+      es: "Fíjese: se escondió detrás del sistema, ofreció regatear una cifra que el cliente nunca pidió subir, y le quitó importancia a la pregunta. Nunca preguntó qué haría que el número se sintiera justo."
+    script:
+      en:
+        - { speaker: customer, text: "Before we go any further, show me how you got my trade number." }
+        - { speaker: rep, text: "It's just what the system gives us. The market is the market." }
+        - { speaker: customer, text: "That's not an answer. Show me the work." }
+        - { speaker: rep, text: "Trust me, it's a fair number. What number do you want? Let me see what I can do." }
+        - { speaker: customer, text: "I didn't ask for more. I asked how you got it." }
+        - { speaker: rep, text: "Look, why does it matter? Let's focus on the new Equinox and get it done." }
+        - { speaker: customer, text: "If you can't show me, I'll find someone who can." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+      es:
+        - { speaker: customer, text: "Antes de seguir, enséñeme cómo sacó el valor de mi trade-in." }
+        - { speaker: rep, text: "Es lo que nos da el sistema. El mercado es el mercado." }
+        - { speaker: customer, text: "Eso no es una respuesta. Enséñeme las cuentas." }
+        - { speaker: rep, text: "Confíe en mí, es un número justo. ¿Qué número quiere? A ver qué puedo hacer." }
+        - { speaker: customer, text: "Yo no le pedí más. Le pregunté cómo lo sacó." }
+        - { speaker: rep, text: "Mire, ¿y eso qué importa? Concentrémonos en la Equinox nueva y cerremos hoy." }
+        - { speaker: customer, text: "Si usted no me lo puede enseñar, busco a alguien que sí." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice that she welcomes the question, asks what would make the number feel fair, shows every step of the math, and keeps the trade on its own line without changing it.
+      es: Fíjese en que ella recibe bien la pregunta, pregunta qué haría que el número se sintiera justo, enseña cada paso de la cuenta y deja el trade-in en su propia línea sin cambiarlo.
+    script:
+      en:
+        - { speaker: customer, text: "Before we go any further, show me how you got my trade number." }
+        - { speaker: rep, text: "[pause] Happy to, and you should ask. Before I walk you through it, what would make the number feel fair to you: the amount itself, or seeing how it was put together?" }
+        - { speaker: customer, text: "I don't need a bigger number. I need to know it's a real one." }
+        - { speaker: rep, text: "Then here's exactly how we got there. Your Equinox comes in at $15,600, based on these three auction sales: the closest matches to a 2020 Equinox LT with similar miles in the last 30 days. They averaged $16,450. Then we took off $850 for two front tires and a scuffed bumper. That's the whole calculation." }
+        - { speaker: customer, text: "Okay. That's more than I usually get to see." }
+        - { speaker: rep, text: "Can I ask what happened the last time you traded a car?" }
+        - { speaker: customer, text: "Three years ago another dealer gave me $3,000 more for my trade than anyone else. Then I found the same $3,000 added back into the price of the car. I don't want a big number. I want a real one, kept apart from the price." }
+        - { speaker: rep, text: "That's not right, and I'm sorry it happened. Here's how we'll keep it clean: the trade stays on its own line at $15,600, and the Equinox is $35,394 out the door, plus only tax, tag and title, with or without the trade. I'll print the three sales so you can check each one." }
+        - { speaker: customer, text: "That's all I wanted. The real math, on its own line." }
+        - { speaker: rep, text: "Can you come back Monday at 5:30, so we go through the three sales together, line by line?" }
+        - { speaker: customer, text: "Monday at 5:30 works. I'll bring my notebook." }
+      es:
+        - { speaker: customer, text: "Antes de seguir, enséñeme cómo sacó el valor de mi trade-in." }
+        - { speaker: rep, text: "[pausa] Con mucho gusto, y hace bien en preguntar. Antes de explicárselo, ¿qué haría que el número le pareciera justo: la cantidad en sí, o ver cómo se armó?" }
+        - { speaker: customer, text: "Yo no necesito un número más grande. Necesito saber que es de verdad." }
+        - { speaker: rep, text: "Entonces le enseño exactamente cómo llegamos. Su Equinox sale en $15,600, según estas tres ventas de subasta: las más parecidas a una Equinox LT 2020 con un millaje parecido, en los últimos 30 días. El promedio fue $16,450. Después le restamos $850 por dos gomas delanteras y un golpe en el bumper. Esa es toda la cuenta." }
+        - { speaker: customer, text: "Bueno. Eso es más de lo que normalmente me enseñan." }
+        - { speaker: rep, text: "¿Le puedo preguntar qué pasó la última vez que dio un carro como trade-in?" }
+        - { speaker: customer, text: "Hace tres años otro dealer me dio $3,000 más por mi trade-in que nadie. Después encontré esos mismos $3,000 metidos otra vez en el precio del carro. Yo no quiero un número grande. Quiero uno de verdad, aparte del precio." }
+        - { speaker: rep, text: "Eso no estuvo bien, y siento que le haya pasado. Así lo vamos a mantener limpio: el trade-in se queda en su propia línea en $15,600, y la Equinox está en $35,394 precio total, y solo se suman los impuestos, el tag y el título, con trade-in o sin él. Le imprimo las tres ventas para que revise cada una." }
+        - { speaker: customer, text: "Eso es todo lo que quería. Las cuentas de verdad, en su propia línea." }
+        - { speaker: rep, text: "¿Puede volver el lunes a las 5:30 para revisar juntos las tres ventas, línea por línea?" }
+        - { speaker: customer, text: "El lunes a las 5:30 me queda bien. Traigo mi libreta." }
+spanish_reviewed: false

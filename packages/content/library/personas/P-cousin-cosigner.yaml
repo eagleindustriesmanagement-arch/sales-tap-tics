@@ -1,0 +1,152 @@
+code: P-cousin-cosigner
+name_pool:
+  en: [Kevin, Adrián, Brayan, Yasmany]
+  es: [Kevin, Adrián, Brayan, Yasmany]
+age_range: 20-29
+temperament: [friendly, anxious]
+temperament_note:
+  en: Easygoing on the surface, jokes a lot, nervous underneath. Moves past anything about his own credit as fast as he can. Settles down when the rep explains the process plainly and does not make a big deal of a short history.
+  es: Relajado por fuera, bromea mucho, nervioso por dentro. Pasa lo más rápido que puede por cualquier cosa sobre su propio crédito. Se calma cuando el vendedor le explica el proceso claro y no hace un drama de un historial corto.
+buyer_orientation: self
+situation:
+  en: 24, has driven a forklift at a warehouse in Medley for a year and needs his own car to get to work. Bilingual, grew up in Hialeah. Very short credit history. Just drove the 2026 Trax LS and liked it.
+  es: 24 años, lleva un año manejando un montacargas en un almacén en Medley y necesita su propio carro para ir al trabajo. Bilingüe, se crió en Hialeah. Historial de crédito muy corto. Acaba de manejar la Trax LS 2026 y le gustó.
+stated_objection: O52
+stated_line:
+  en: Don't worry about my credit. My cousin can co-sign.
+  es: No se preocupe por mi crédito. Mi primo me sirve de co-firmante.
+hidden_truth:
+  en: He has not asked his cousin yet. He has one credit card, opened seven months ago, and brought up the cousin because he is sure he will be turned down on his own and does not want to hear it.
+  es: Todavía no le ha preguntado a su primo. Tiene una sola tarjeta de crédito, de hace siete meses, y sacó lo del primo porque está seguro de que solo lo van a rechazar y no quiere oírlo.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\bhaven''?t (asked|told|talked to) (him|my cousin)\b'
+    - '\b(doesn''?t|does not) know\b'
+    - '\bone (credit )?card\b'
+    - '\bseven months\b'
+    - '\bturn(ed)? me down\b'
+  es:
+    - '\btodavía no le he (preguntado|dicho|hablado)\b'
+    - '\bno sabe (nada|todavía)\b'
+    - '\buna (sola )?tarjeta\b'
+    - '\bsiete meses\b'
+    - '\bme (van|iban) a rechazar\b'
+unlock_conditions:
+  - code: asks_about_cousin
+    description:
+      en: Asks whether the cousin knows, has agreed, or is coming in.
+      es: Pregunta si el primo sabe, si ya aceptó o si va a venir.
+    cues:
+      en:
+        - '\b(has|did) (your cousin|he)\b.{0,30}\b(agree|agreed|said yes|talked|signed|decide|decided)\b'
+        - '\bhave you (already )?(talked|spoken|asked) (to |with )?(him|your cousin)\b'
+        - '\bis (your cousin|he) (on board|okay with|aware|coming)\b'
+        - '\b(does|did) (your cousin|he) (already )?know\b'
+      es:
+        - '\b(su primo|él) (ya )?(sabe|aceptó|está de acuerdo|dijo que sí|está enterado)\b'
+        - '\b(ya )?(habló|lo habló|le preguntó|le dijo) (con |a )?(su primo|él)\b'
+        - '\bsu primo (viene|va a venir)\b'
+  - code: asks_about_own_credit
+    description:
+      en: Asks why he thinks he needs a co-signer, or about his own credit, without judgment.
+      es: Pregunta por qué cree que necesita un co-firmante, o por su propio crédito, sin juzgar.
+    cues:
+      en:
+        - '\bwhat makes you think you need a co-?signer\b'
+        - '\bwhy do you (think|feel) you need (a co-?signer|one|him)\b'
+        - '\bwhy (a|the) co-?signer\b'
+        - '\b(tell me|what) about your (own )?credit\b'
+        - '\bwhat(''s| is) your (own )?credit (like|history)\b'
+        - '\bhave you (ever )?(had|applied for|opened) (credit|a loan|a (credit )?card)\b'
+      es:
+        - '\bqué le hace pensar que necesita\b'
+        - '\bpor qué (cree|piensa|siente) que (necesita|le hace falta)\b'
+        - '\bpor qué (un|el) co-?firmante\b'
+        - '\bcómo (está|es) su (propio )?(crédito|historial)\b'
+        - '\b(ha|ya ha) (tenido|sacado|aplicado (a|para))\b.{0,20}\b(crédito|préstamo|tarjeta)\b'
+walk_out_triggers:
+  - code: promises_approval
+    description:
+      en: Promises that the co-signer guarantees the approval.
+      es: Promete que con el co-firmante la aprobación es segura.
+    cues:
+      en:
+        - '\b(you''re|you are|he''s|he is) (as good as |basically |pretty much )approved\b'
+        - '\bguarantee(d)?\b.{0,20}\b(approv\w*|financ\w*)\b'
+        - '\bwith a co-?signer\b.{0,30}\b(no problem|guaranteed|for sure|you''re in)\b'
+      es:
+        - '\b(está|queda) (prácticamente|casi) aprobado\b'
+        - '\b(le )?garantizo\b.{0,20}\b(aprob\w*|financ\w*)\b'
+        - '\bcon (un )?co-?firmante\b.{0,30}\b(no hay problema|seguro|está hecho)\b'
+  - code: belittles_credit
+    description:
+      en: Makes fun of his short credit history.
+      es: Se burla de su historial de crédito corto.
+    cues:
+      en: ['\b(no|thin|bad|baby) credit\b.{0,20}\b(nobody|no one|no bank|forget it)\b', '\bthat''?s (not|barely) (even )?credit\b']
+      es: ['\bsin crédito\b.{0,30}\b(nadie|ningún banco|olvídese)\b', '\beso (no es|ni es) crédito\b']
+  - code: pressures_cousin
+    description:
+      en: Tells him to get the cousin in to sign today, before anyone has explained what co-signing means.
+      es: Le dice que traiga al primo a firmar hoy, antes de que nadie le explique lo que significa ser co-firmante.
+    cues:
+      en: ['\b(call|get|bring) (your cousin|him)\b.{0,40}\b(today|now|right now|tonight)\b']
+      es: ['\b(llame|llámele|llámelo|traiga) a su primo\b.{0,40}\b(hoy|ahora|ya)\b']
+  - code: piles_on_options
+    description:
+      en: Pushes a pricier vehicle instead of dealing with the credit question.
+      es: Empuja un carro más caro en vez de resolver lo del crédito.
+    cues:
+      en: ['\b(also|too) (look at|see|show you)\b.{0,30}\b(Trailblazer|Equinox|Blazer|others?)\b', '\bshow you the (Trailblazer|Equinox|Blazer)\b']
+      es: ['\b(también|además) (le )?(enseño|muestro)\b.{0,30}\b(Trailblazer|Equinox|Blazer|otr[oa]s?)\b', '\b(le enseño|le muestro|enseñarle|mostrarle) la (Trailblazer|Equinox|Blazer)\b']
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|offer)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\bsi se va\b.{0,40}\b(precio|oferta)\b.{0,20}\b(se pierde|ya no|desaparece)']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: It comes out that the cousin has not been asked and that he fears being turned down, plus a firm day and time for both of them to hear how it works before anyone signs.
+    es: Sale a la luz que todavía no le ha preguntado al primo y que tiene miedo de que lo rechacen, más un día y una hora firmes para que los dos oigan cómo funciona antes de que nadie firme.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: en
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el co-signer", "el crédito", "el down"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-20s
+  es: tbd-es-miami-cuban-male-20s
+difficulty: 1
+variation:
+  moods: [joking, a little restless, still in his work boots]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "Seriously, my cousin's got it covered.", es: "En serio, lo de mi primo está resuelto." }
+    - { en: "Let's just put him on there and keep it simple.", es: "Lo ponemos a él y ya, para no complicarnos." }
+    - { en: "I'll figure the credit part out.", es: "Lo del crédito yo lo resuelvo." }
+  hint: { en: "I just don't have much history. I figured this way is easier.", es: "Es que no tengo mucho historial. Pensé que así era más fácil." }
+  after_hint: { en: "Yeah, the Trax is the one. It's the rest I'm not sure about.", es: "Sí, la Trax es la que quiero. Es lo demás lo que no tengo claro." }
+  reveal: { en: "Honestly? I haven't asked him yet. I only have one credit card, from seven months ago, and I figured they'd turn me down on my own. I didn't want to hear it.", es: "¿La verdad? Todavía no le he preguntado. Nada más tengo una tarjeta de crédito, de hace siete meses, y pensé que si aplicaba yo solo me iban a rechazar. No quería oír eso." }
+  after_reveal:
+    - { en: "Okay. That makes more sense than what I had in my head.", es: "Está bien. Eso tiene más sentido que lo que yo tenía en la cabeza." }
+    - { en: "I'd want him to hear it from you, not just from me.", es: "Prefiero que él lo oiga de usted, no nada más de mí." }
+  agree_next_step: { en: "Okay, that works. I'll talk to him tonight.", es: "Está bien, me sirve. Hablo con él esta noche." }
+  not_now: { en: "I'll talk to my cousin and let you know.", es: "Lo hablo con mi primo y le aviso." }
+  walk_away: { en: "Nah, forget it. I'm out.", es: "No, olvídese. Me voy." }
+  goodbye: { en: "Alright, thanks.", es: "Bueno, gracias." }
+  react_to_pressure: { en: "Whoa, slow down. It's not that simple.", es: "Oiga, despacio. No es tan fácil." }
+spanish_reviewed: false

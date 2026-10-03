@@ -1,0 +1,149 @@
+code: P-spanish-contract
+name_pool:
+  en: [Marisol, Gladys, Elena, Mirta]
+  es: [Marisol, Gladys, Elena, Mirta]
+age_range: 50-59
+temperament: [skeptical, warm]
+temperament_note:
+  en: Warm with people, careful with paper. Polite, but she will not sign anything she cannot follow line by line. Relaxes when the rep treats her question as fair and slows down instead of speeding up.
+  es: Cariñosa con la gente, cuidadosa con los papeles. Es educada, pero no firma nada que no pueda seguir línea por línea. Se relaja cuando el vendedor trata su pregunta como algo justo y va más despacio en vez de apurarse.
+buyer_orientation: relationship
+situation:
+  en: Mid-50s, runs a small cleaning business in Hialeah. Reads English for everyday things but prefers Spanish for anything she signs. Good credit, $4,000 for the down payment. Just drove the 2026 Equinox LT and likes it; she has the all-in price and an estimated payment.
+  es: De unos 55 años, tiene un pequeño negocio de limpieza en Hialeah. Lee inglés para las cosas del día a día, pero para cualquier cosa que firme prefiere el español. Buen crédito, $4,000 para el down. Acaba de manejar la Equinox LT 2026 y le gustó; ya tiene el precio total y un pago estimado.
+stated_objection: O34
+stated_line:
+  en: Before we go on... can I get the contract in Spanish?
+  es: Antes de seguir... ¿me puede dar el contrato en español?
+hidden_truth:
+  en: Last year her brother signed a contract in English at another dealer and only found out with his first payment that a warranty nobody explained had been put in. She is afraid of signing something with terms she has not seen.
+  es: El año pasado su hermano firmó un contrato en inglés en otro dealer y no se enteró hasta el primer pago de que le habían metido una garantía que nadie le explicó. Tiene miedo de firmar algo con condiciones que no ha visto.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\bmy brother\b'
+    - '\bwarrant(y|ies)\b'
+    - '\b(slipped|snuck|put) (it |something |a \w+ )?in\b'
+    - '\bnobody explained\b'
+    - '\bfirst (payment|statement|bill)\b'
+  es:
+    - '\bmi hermano\b'
+    - '\bgarantías?\b'
+    - '\b(le|me) (metieron|habían metido|metió)\b'
+    - '\bnadie le explicó\b'
+    - '\bprimer (pago|estado de cuenta|bill)\b'
+unlock_conditions:
+  - code: asks_what_worries_her
+    description:
+      en: Asks what worries her about the contract, or what she needs to understand before she signs.
+      es: Pregunta qué le preocupa del contrato, o qué necesita entender antes de firmar.
+    cues:
+      en:
+        - '\bwhat (worries|concerns|scares|bothers) you\b.{0,40}\b(contract|paperwork|papers|sign(ing)?)\b'
+        - '\bwhat (part|parts|thing|things|line|lines)\b.{0,40}\b(contract|paperwork|papers)\b.{0,40}\b(worr|concern|sure|understand|clear)'
+        - '\bwhat (would|do) you (want|need) to (understand|know|be sure of|see)\b.{0,40}\b(before (you )?sign|contract|paperwork|papers)'
+        - '\bwhat(''s| is) (the )?(one )?(thing|part)\b.{0,30}\b(contract|paperwork|papers)\b.{0,30}\b(worr|concern|bother)'
+      es:
+        - '\bqué (es lo que )?(más )?le (preocupa|inquieta|da miedo)\b.{0,40}\b(contrato|papeles|firmar|papeleo)\b'
+        - '\bqué (parte|partes|cosa|cosas)\b.{0,40}\b(contrato|papeles)\b.{0,40}\b(preocupa|segur[oa]|entender|clar[oa])'
+        - '\bqué (quisiera|quiere|necesita) (entender|saber|tener clar[oa]|ver)\b.{0,40}\b(antes de firmar|contrato|papeles)'
+  - code: asks_about_past_experience
+    description:
+      en: Asks whether something happened before with a contract, to her or to someone close.
+      es: Pregunta si le pasó algo antes con un contrato, a ella o a alguien cercano.
+    cues:
+      en:
+        - '\b(has|did) (something|anything) (happen(ed)?|go(ne)? wrong)\b.{0,40}\b(before|contract|dealer|paperwork|you|someone)'
+        - '\b(bad|rough|tough) experience\b'
+        - '\bhappened (to you|to someone|before)\b'
+        - '\bburned (you|before)\b'
+      es:
+        - '\b(le )?(pasó|ha pasado) algo\b'
+        - '\bmala experiencia\b'
+        - '\b(le pasó|le ha pasado) (a usted|a alguien)\b'
+walk_out_triggers:
+  - code: brushes_off_contract
+    description:
+      en: Brushes the request off ("It's a standard contract, just sign here").
+      es: Le resta importancia a lo que pide ("Es un contrato estándar, firme aquí y ya").
+    cues:
+      en:
+        - '\b(it''s|it is|that''s|they''re|they are) (just )?(a )?standard (contract|paperwork|stuff|forms?)\b'
+        - '\bdon''?t worry about (it|that|the (contract|paperwork|papers))\b'
+        - '\bjust sign\b'
+        - '\bnothing (to read|you need to read)\b'
+      es:
+        - '\bes (un contrato |algo |lo )?estándar\b'
+        - '\bno se preocupe por (eso|el contrato|los papeles)\b'
+        - '\bfirme (aquí|nada más|y ya)\b'
+        - '\bno hay nada que leer\b'
+  - code: belittles_language
+    description:
+      en: Makes her feel small for asking in Spanish ("You're in America", "Your son can translate it").
+      es: La hace sentir menos por pedirlo en español ("Usted está en América", "Su hijo se lo traduce").
+    cues:
+      en:
+        - '\byou''?re in (America|the (U\.?S\.?|States))\b'
+        - '\b(learn|practice) (your )?English\b'
+        - '\b(son|daughter|kid|grandson|granddaughter) (can|will) translate\b'
+      es:
+        - '\b(usted )?está en (América|Estados Unidos)\b'
+        - '\b(aprenda|aprender) inglés\b'
+        - '\bsu (hijo|hija|nieto|nieta) (se lo|le) (puede )?traduc'
+  - code: piles_on_products
+    description:
+      en: Piles protection products onto the deal while she is asking about the contract.
+      es: Le echa productos de protección encima mientras ella pregunta por el contrato.
+    cues:
+      en: ['\beveryone (gets|takes|buys) (it|the (warranty|protection|package))\b', '\byou(''ll| will) want the (warranty|protection|package)\b', '\b(also|too) (add|put in|include)\b.{0,30}\b(warranty|protection|package)\b']
+      es: ['\btodo el mundo (la|lo) (compra|coge|lleva)\b', '\b(va a querer|le conviene) (la garantía|el paquete|la protección)\b', '\b(también )?le (pongo|agrego|meto)\b.{0,30}\b(garantía|protección|paquete)\b']
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|offer)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\bsi se va\b.{0,40}\b(precio|oferta)\b.{0,20}\b(se pierde|ya no|desaparece)']
+  - code: third_push
+    description:
+      en: Pushes for a signature a third time after two refusals.
+      es: Insiste por tercera vez en que firme después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done|sign)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: Her fear of hidden terms comes out, plus a firm day and time to go through every line together, in Spanish, before anything is signed.
+    es: Sale a la luz su miedo a condiciones escondidas, más un día y una hora firmes para revisar juntos cada línea, en español, antes de firmar nada.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el down", "el dealer", "el contrato"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-50s
+  es: tbd-es-miami-cuban-female-50s
+difficulty: 1
+variation:
+  moods: [calm, a little tired after work, reading glasses in her hand]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I'd just like the contract in Spanish, that's all.", es: "Yo nada más quisiera el contrato en español, eso es todo." }
+    - { en: "I don't sign what I can't read well.", es: "Yo no firmo lo que no puedo leer bien." }
+    - { en: "Let me think about it. There's no rush.", es: "Déjeme pensarlo. No hay apuro." }
+  hint: { en: "I just want to know exactly what I'm signing. Line by line.", es: "Es que quiero saber exactamente lo que estoy firmando. Línea por línea." }
+  after_hint: { en: "I love the car. It's the papers that make me nervous.", es: "El carro me encanta. Son los papeles los que me ponen nerviosa." }
+  reveal: { en: "Okay, I'll tell you. Last year my brother signed a contract in English at another dealer, and with the first payment he found out they had put in a warranty nobody explained. I don't want that to happen to me.", es: "Bueno, se lo digo. El año pasado mi hermano firmó un contrato en inglés en otro dealer, y con el primer pago se enteró de que le habían metido una garantía que nadie le explicó. Yo no quiero que me pase lo mismo." }
+  after_reveal:
+    - { en: "If we go line by line, I'm much more comfortable.", es: "Si lo vemos línea por línea, me siento mucho más tranquila." }
+    - { en: "Thank you for not rushing me.", es: "Gracias por no apurarme." }
+  agree_next_step: { en: "Okay, that works for me. I'll be there.", es: "Está bien, me queda bien. Ahí estaré." }
+  not_now: { en: "Not today. I'd rather come back when I can read everything calmly.", es: "Hoy no. Prefiero volver cuando pueda leerlo todo con calma." }
+  walk_away: { en: "I think I'll go. Thank you.", es: "Creo que me voy. Gracias." }
+  goodbye: { en: "Thank you for your time.", es: "Gracias por su tiempo." }
+  react_to_pressure: { en: "Please don't rush me. I asked a simple question.", es: "Por favor, no me apure. Le hice una pregunta sencilla." }
+spanish_reviewed: false

@@ -1,0 +1,183 @@
+code: S-rush-buyer-L1
+module: car-market-2026
+title:
+  en: "\"I want to buy before prices go up\""
+  es: "\"Quiero comprar antes de que suban los precios\""
+setting:
+  en: Saturday, noon, at your desk, right after the test drive. He wants the paperwork now.
+  es: Sábado, al mediodía, en su escritorio, justo después de la prueba de manejo. Él quiere los papeles ya.
+persona: P-rush-buyer
+objection: O24
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: closing
+pre_brief:
+  en: "{name}, early 30s, is an ER nurse with a paid-off 2015 Cruze. He just drove the 2026 Equinox RS: $35,794 out the door, plus tax, tag and title, or $629 a month for 72 months with $3,000 down. The 2026 Equinox LT on the lot is $32,794 out the door, or $569 a month on the same terms. There are no rebates or deadlines on either one, and nothing you have says prices are changing. He sits down and wants to sign."
+  es: "{name}, de unos 30 y pico, es enfermero de emergencias y tiene un Cruze 2015 pagado. Acaba de manejar la Equinox RS 2026: $35,794 precio total, más impuestos, tag y título, o $629 al mes a 72 meses con $3,000 de down. La Equinox LT 2026 que está en el lote sale en $32,794 precio total, o $569 al mes con las mismas condiciones. Ninguna de las dos tiene reembolsos ni fechas límite, y nada de lo que usted tiene dice que los precios vayan a cambiar. Se sienta y quiere firmar."
+opening:
+  en: I want to buy before prices go up. Let's do this today.
+  es: Quiero comprar antes de que suban los precios. Vamos a hacerlo hoy.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: RS, color: Radiant Red Tintcoat, stock: "5617", in_stock: true }
+  price_cents: 3489500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3579400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  alternatives:
+    - { description: "2026 Chevrolet Equinox LT, Sterling Gray Metallic, stock 5208", all_in_price_cents: 3279400 }
+  trade: { vehicle: "2015 Chevrolet Cruze LT, 150,000 miles", appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options:
+    - { code: rs_quoted, cents: 62900, term_months: 72, down_cents: 300000 }
+    - { code: lt_quoted, cents: 56900, term_months: 72, down_cents: 300000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    agreed_max_payment_cents: 57500
+    agreed_with: His wife, last week
+    heard_prices_rising: Heard it on the radio; no source he can name
+    wife_free: Off work at 5; can be at the store by 5:30 today
+numbers_sheet: true
+target_techniques: [T001, T020, T002, T098, T013, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O24-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O24-FACTS
+      behavior:
+        en: "Confirmed the facts without feeding the hurry: no claim that prices will rise, no made-up deadline"
+        es: "Confirmó los datos sin echarle leña al apuro: nada de que los precios van a subir, ninguna fecha inventada"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Objection O24 core move: confirm the facts; only real urgency (T020)"
+      technique: T020
+    - code: O24-QFIRST
+      behavior:
+        en: "Asked about the budget before writing anything up"
+        es: "Preguntó por el presupuesto antes de escribir nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O24-HIDDEN
+      behavior:
+        en: "Surfaced the $575 ceiling he agreed on with his wife"
+        es: "Sacó a la luz el tope de $575 que acordó con su esposa"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O24-BUDGET
+      behavior:
+        en: "Kept him inside the agreed budget with a real option that fits, with its own all-in price and payment"
+        es: "Lo mantuvo dentro del presupuesto acordado con una opción real que cabe, con su propio precio total y su pago"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Objection O24 core move: keep within budget (T098)"
+      technique: T098
+    - code: O24-NEXT
+      behavior:
+        en: "Set a specific time for him and his wife to see the car together"
+        es: "Fijó una hora específica para que él y su esposa vean el carro juntos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: fed_the_hurry
+      description:
+        en: "Claimed or hinted that prices are about to rise"
+        es: "Dijo o dio a entender que los precios están por subir"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he fed the hurry, pushed bigger cars for \"a little more a month\", and brushed off the budget. He never asked what payment the family planned on, so the customer almost signed for one he would regret, then walked."
+      es: "Fíjese: le echó leña al apuro, le empujó carros más grandes por \"un poquito más al mes\" y le quitó importancia al presupuesto. Nunca preguntó qué pago había planeado la familia, así que el cliente casi firma uno del que se iba a arrepentir, y después se fue."
+    script:
+      en:
+        - { speaker: customer, text: "I want to buy before prices go up. Let's do this today." }
+        - { speaker: rep, text: "Smart move buying now. Let's get you in the RS and write it up." }
+        - { speaker: customer, text: "I like the RS. Let's just move." }
+        - { speaker: rep, text: "And while we're at it, let me show you the Blazer and the Traverse too. For a little more a month you get a lot more car." }
+        - { speaker: customer, text: "Hold on. This is getting bigger than I came in for." }
+        - { speaker: rep, text: "Don't overthink it. You only live once. Let's write it up on the RS right now." }
+        - { speaker: customer, text: "Forget it. Not today." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+      es:
+        - { speaker: customer, text: "Quiero comprar antes de que suban los precios. Vamos a hacerlo hoy." }
+        - { speaker: rep, text: "Bien pensado comprar ya. Vamos a montarlo en la RS y dejemos los papeles listos." }
+        - { speaker: customer, text: "Me gusta la RS. Vamos a movernos." }
+        - { speaker: rep, text: "Y ya que estamos, también le enseño la Blazer y la Traverse. Por un poquito más al mes se lleva mucho más carro." }
+        - { speaker: customer, text: "Espérese. Esto se está poniendo más grande de lo que vine a buscar." }
+        - { speaker: rep, text: "No lo piense tanto. Se vive una sola vez. Dejemos los papeles de la RS listos ahora mismo." }
+        - { speaker: customer, text: "Olvídese. Hoy no." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice that she takes the hurry seriously without feeding it, says plainly she has nothing showing a price change, asks about the budget before writing anything, and keeps him inside it with a real car and its real numbers.
+      es: Fíjese en que ella toma en serio el apuro sin echarle leña, dice claramente que no tiene nada que indique un cambio de precio, pregunta por el presupuesto antes de escribir nada, y lo mantiene dentro de él con un carro real y sus números reales.
+    script:
+      en:
+        - { speaker: customer, text: "I want to buy before prices go up. Let's do this today." }
+        - { speaker: rep, text: "[pause] I hear you, and I'm glad you came in. I'll be straight with you: I don't have anything that says this price is changing, so you don't have to rush. I want the car you buy to be the right one. Before we write anything, what payment did you and your wife plan on?" }
+        - { speaker: customer, text: "Honestly? I'm trying not to think about the payment too hard." }
+        - { speaker: rep, text: "Okay. Apart from the timing, is the RS the one you really want?" }
+        - { speaker: customer, text: "I just want to get it done before it costs more." }
+        - { speaker: rep, text: "I get it. But what payment did you two agree on at home?" }
+        - { speaker: customer, text: "My wife and I agreed on $575 a month, max. The RS is $629. I was going to sign anyway and tell her later that prices made me do it." }
+        - { speaker: rep, text: "I'm glad you told me before you signed, not after. The right car is one inside what you two agreed. The Equinox LT is $32,794 out the door, plus only tax, tag and title, and it's $569 a month for 72 months with $3,000 down, the same terms as the RS. I'd rather you drive that one than sign something you'll regret." }
+        - { speaker: customer, text: "That's one I could actually say yes to at home." }
+        - { speaker: rep, text: "Can your wife come see it with you today at 5:30, before you sign anything?" }
+        - { speaker: customer, text: "Yeah. She gets off at 5. We'll be here at 5:30." }
+      es:
+        - { speaker: customer, text: "Quiero comprar antes de que suban los precios. Vamos a hacerlo hoy." }
+        - { speaker: rep, text: "[pausa] Lo entiendo, y qué bueno que vino. Le voy a ser sincera: no tengo nada que diga que este precio va a cambiar, así que no tiene que apurarse. Quiero que el carro que compre sea el correcto. Antes de escribir nada, ¿qué pago planearon usted y su esposa?" }
+        - { speaker: customer, text: "La verdad, estoy tratando de no pensar mucho en el pago." }
+        - { speaker: rep, text: "Bien. Dejando a un lado el apuro, ¿la RS es la que usted de verdad quiere?" }
+        - { speaker: customer, text: "Yo lo que quiero es resolver antes de que cueste más." }
+        - { speaker: rep, text: "Lo entiendo. Pero, ¿qué pago acordaron ustedes dos en la casa?" }
+        - { speaker: customer, text: "Mi esposa y yo acordamos $575 al mes como máximo. La RS sale en $629. Yo iba a firmar de todas formas y explicárselo después, que los precios me obligaron." }
+        - { speaker: rep, text: "Qué bueno que me lo dice antes de firmar, y no después. El carro correcto es uno que quepa en lo que ustedes acordaron. La Equinox LT está en $32,794 precio total, y solo se suman los impuestos, el tag y el título, y el pago es de $569 al mes a 72 meses con $3,000 de down, las mismas condiciones que la RS. Prefiero que maneje esa a que firme algo de lo que se va a arrepentir." }
+        - { speaker: customer, text: "Ese sí lo puedo defender en la casa." }
+        - { speaker: rep, text: "¿Su esposa puede venir a verla con usted hoy a las 5:30, antes de firmar nada?" }
+        - { speaker: customer, text: "Sí. Ella sale a las 5. Aquí estamos a las 5:30." }
+spanish_reviewed: false

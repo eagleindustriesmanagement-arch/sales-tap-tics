@@ -1,0 +1,176 @@
+code: S-new-arrival-credit-L1
+module: car-language-trust
+title:
+  en: "\"I just got here, I have no credit yet\""
+  es: "\"Acabo de llegar, todavía no tengo crédito\""
+setting:
+  en: Saturday morning, showroom floor, right after the test drive.
+  es: Sábado por la mañana, en el piso de ventas, justo después de la prueba de manejo.
+persona: P-new-arrival-credit
+objection: O36
+channel: floor
+language_options: [es, en]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 30s, moved to Miami this year and needs a reliable car for early shifts. He just drove the 2026 Trax LT and liked it. You told him the all-in price of $23,989 plus tax, tag and title. No credit application has been made, so there is no payment or rate yet. Before you can say anything else, he stops you."
+  es: "{name}, de unos 30 y pico, se mudó a Miami este año y necesita un carro confiable para los turnos de madrugada. Acaba de manejar la Trax LT 2026 y le gustó. Usted le dijo el precio total de $23,989 más impuestos, tag y título. No se ha hecho ninguna solicitud de crédito, así que todavía no hay pago ni tasa. Antes de que usted pueda decir nada más, él lo para."
+opening:
+  en: I like it, but I just got here. I have no credit yet.
+  es: Me gusta, pero acabo de llegar. Todavía no tengo crédito.
+# No application has been made: there is no approval, rate or payment to quote. The good rep explains the process
+# and offers to apply together, and never promises an approval (RATE-01).
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: LT, color: Cacti Green, stock: "4693", in_stock: true }
+  price_cents: 2309000
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2398900
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    months_at_job: 8
+    down_saved_cents: 600000
+    turned_away_before: Another dealer sent him away last week as soon as he said he had no credit
+    day_off: Off on Mondays
+numbers_sheet: false
+target_techniques: [T070, T001, T003, T002, T005, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: O36-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O36-ACK
+      behavior:
+        en: "Welcomed him and treated having no credit history yet as a situation, not a verdict"
+        es: "Le dio la bienvenida y trató el no tener historial todavía como una situación, no como una sentencia"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O36-QFIRST
+      behavior:
+        en: "Asked about his job and situation before talking about banks"
+        es: "Preguntó por su trabajo y su situación antes de hablar de bancos"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O36-HIDDEN
+      behavior:
+        en: "Surfaced his steady job, his savings and that he was turned away before"
+        es: "Sacó a la luz su trabajo fijo, sus ahorros y que ya lo habían despachado antes"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O36-PATHS
+      behavior:
+        en: "Explained how financing works here and the real paths, such as a co-signer, without promising an approval or a rate"
+        es: "Explicó cómo funciona el financiamiento aquí y los caminos reales, como un co-firmante, sin prometer la aprobación ni una tasa"
+      dimension: technique
+      method: judge
+      points: 25
+      evidence: "O36 core moves: real paths, such as a co-signer; T070"
+      technique: T070
+    - code: O36-NEXT
+      behavior:
+        en: "Set a specific day and time to apply together"
+        es: "Fijó un día y una hora específicos para aplicar juntos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_approval
+      description:
+        en: "Promised an approval, a rate or a payment before any lender answered"
+        es: "Prometió una aprobación, una tasa o un pago antes de que contestara algún banco"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number or an approval"
+        es: "Dijo un número o una aprobación que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he treated no credit as a dead end, steered him to cheaper cars, and reached for the credit application before asking a single question about the customer's job or savings."
+      es: "Fíjese: trató el no tener crédito como un callejón sin salida, lo mandó a carros más baratos y fue directo a la solicitud de crédito sin hacerle una sola pregunta sobre su trabajo o sus ahorros."
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but I just got here. I have no credit yet." }
+        - { speaker: rep, text: "Without credit it's going to be tough, my friend. Maybe a cheaper car makes more sense." }
+        - { speaker: customer, text: "Please, just tell me straight if it's a no." }
+        - { speaker: rep, text: "Look, give me your social and I'll run your credit, and we'll know in five minutes." }
+        - { speaker: customer, text: "I think I'll wait. Not today." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me when you're ready." }
+        - { speaker: customer, text: "Thanks anyway." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero acabo de llegar. Todavía no tengo crédito." }
+        - { speaker: rep, text: "Sin crédito va a estar difícil, mi hermano. A lo mejor le conviene un carro más barato." }
+        - { speaker: customer, text: "Por favor, dígame claro si es que no." }
+        - { speaker: rep, text: "Mire, deme su social y déjeme correr su crédito, y en cinco minutos sabemos." }
+        - { speaker: customer, text: "Creo que voy a esperar. Hoy no." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
+        - { speaker: customer, text: "Gracias de todas formas." }
+  good:
+    notice:
+      en: Notice the pause, the welcome, the questions about his job and his past before any talk of banks, and how the rep explains the real paths without promising an approval.
+      es: Fíjese en la pausa, en la bienvenida, en las preguntas sobre su trabajo y lo que le pasó antes de hablar de bancos, y en cómo el vendedor explica los caminos reales sin prometer la aprobación.
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but I just got here. I have no credit yet." }
+        - { speaker: rep, text: "[pause] Welcome to Miami, and thank you for telling me up front. Starting with no credit history here is a situation, not a verdict. Before we talk about any bank, can I ask where you work and how long you've been there?" }
+        - { speaker: customer, text: "At a restaurant in Doral, since I arrived. But I know how this goes." }
+        - { speaker: rep, text: "Okay. Setting the credit aside for a moment, is the Trax the right car for you?" }
+        - { speaker: customer, text: "Yes, the Trax is what I need. The car isn't the problem." }
+        - { speaker: rep, text: "Good. Have you already tried to buy somewhere else? And is there something you've put aside for a down payment?" }
+        - { speaker: customer, text: "Yes. Last week another dealer sent me away as soon as I said I had no credit. Nobody asked me anything. I have eight months of pay stubs at the same restaurant, and I saved six thousand for the down payment." }
+        - { speaker: rep, text: "Thank you for telling me, and I'm sorry that happened. Here's how it works here: we put your pay stubs and your $6,000 down in front of the lenders we work with, and they decide. I can't promise an approval or a rate until they answer, and I won't guess. If a lender asks for more, a co-signer is one of the real options we can look at. Can you bring your pay stubs and your ID on Monday at 10, so we apply together and you see every answer?" }
+        - { speaker: customer, text: "Monday at 10 works. It's my day off. I'll bring everything." }
+        - { speaker: rep, text: "Perfect. See you Monday at 10." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero acabo de llegar. Todavía no tengo crédito." }
+        - { speaker: rep, text: "[pausa] Bienvenido a Miami, y gracias por decírmelo de entrada. Empezar aquí sin historial de crédito es una situación, no una sentencia. Antes de hablar de cualquier banco, ¿le puedo preguntar dónde trabaja y cuánto tiempo lleva ahí?" }
+        - { speaker: customer, text: "En un restaurante en Doral, desde que llegué. Pero yo sé cómo es esto." }
+        - { speaker: rep, text: "Bien. Dejando el crédito a un lado un momento, ¿la Trax es el carro para usted?" }
+        - { speaker: customer, text: "Sí, la Trax es lo que necesito. El problema no es el carro." }
+        - { speaker: rep, text: "Perfecto. ¿Ya trató de comprar en otro lugar? ¿Y tiene algo guardado para el down?" }
+        - { speaker: customer, text: "Sí. La semana pasada en otro dealer me despacharon en cuanto dije que no tenía crédito. Nadie me preguntó nada. Tengo ocho meses de talones de pago en el mismo restaurante, y ahorré seis mil para el down." }
+        - { speaker: rep, text: "Gracias por contármelo, y siento que le haya pasado eso. Así es como funciona aquí: les presentamos sus talones de pago y sus $6,000 de down a los bancos con los que trabajamos, y ellos deciden. No le puedo prometer una aprobación ni una tasa hasta que contesten, y no voy a adivinar. Si algún banco pide más, un co-firmante es uno de los caminos reales que podemos ver. ¿Puede traer sus talones de pago y su identificación el lunes a las 10, para aplicar juntos y que usted vea cada respuesta?" }
+        - { speaker: customer, text: "El lunes a las 10 me sirve. Es mi día libre. Traigo todo." }
+        - { speaker: rep, text: "Perfecto. Nos vemos el lunes a las 10." }
+spanish_reviewed: false

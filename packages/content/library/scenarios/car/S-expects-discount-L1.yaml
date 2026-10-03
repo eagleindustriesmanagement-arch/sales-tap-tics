@@ -1,0 +1,184 @@
+code: S-expects-discount-L1
+module: car-language-trust
+title:
+  en: "\"In my country the dealer always gives a discount\""
+  es: "\"En mi país siempre le rebajan a uno\""
+setting:
+  en: Saturday afternoon, showroom floor, right after the test drive.
+  es: Sábado por la tarde, en el piso de ventas, justo después de la prueba de manejo.
+persona: P-expects-discount
+objection: O40
+channel: floor
+language_options: [es, en]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, runs a small drywall crew and needs a midsize pickup for work. He just drove the 2026 Colorado LT and liked it. He saw the vehicle price on the website. He has not said how he plans to pay, and you have not gone over numbers yet. He leans on the desk with a smile."
+  es: "{name}, de unos 45 años, tiene una pequeña cuadrilla de drywall y necesita una camioneta mediana para el trabajo. Acaba de manejar la Colorado LT 2026 y le gustó. Vio el precio del vehículo en la página web. No ha dicho cómo piensa pagar, y todavía ustedes no han visto números. Se recuesta en el escritorio con una sonrisa."
+opening:
+  en: In my country the dealer always gives a discount. So, how much are you taking off?
+  es: En mi país siempre le rebajan a uno. Entonces, ¿cuánto me va a rebajar?
+# The manager has no room on this truck: the honest answer is the all-in price, with the dealer fee raised first
+# (T045), never an invented discount.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Colorado, trim: LT Crew Cab, color: Summit White, stock: "7214", in_stock: true }
+  price_cents: 3849500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3939400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    cash_budget_cents: 4100000
+    friend_said: A friend told him dealers here add charges at the end
+    free_after_work: Free after 4:00 on weekdays
+numbers_sheet: true
+target_techniques: [T045, T030, T001, T003, T002, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: O40-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O40-ACK
+      behavior:
+        en: "Respected how buying works where he comes from, without mocking it"
+        es: "Respetó cómo se compra en su país, sin burlarse"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O40-QFIRST
+      behavior:
+        en: "Asked what a good deal means to him before talking numbers"
+        es: "Preguntó qué es para él un buen negocio antes de hablar de números"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O40-HIDDEN
+      behavior:
+        en: "Surfaced his cash ceiling and his fear of charges added at the end"
+        es: "Sacó a la luz su tope de contado y su miedo a que le sumen cargos al final"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O40-FEEFIRST
+      behavior:
+        en: "Raised the dealer fee himself, before the customer found it"
+        es: "Mencionó él mismo el dealer fee, antes de que el cliente lo encontrara"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "O40 core moves: T045"
+      technique: T045
+    - code: O40-ALLIN
+      behavior:
+        en: "Gave the all-in price and offered the full out-the-door sheet instead of an invented discount"
+        es: "Dio el precio total y ofreció la hoja con el precio final completo en vez de inventar un descuento"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "T030; PRICE-01"
+      technique: T030
+    - code: O40-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: invented_discount
+      description:
+        en: "Invented a discount, or raised the price to cut it back"
+        es: "Se inventó un descuento, o subió el precio para después bajarlo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number or the manager's room"
+        es: "Dijo un número que no es real, o algo falso del margen del gerente"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, authority]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he mocked the way the customer is used to buying, pushed a bigger truck, and pressed for a decision. He never asked what a good deal meant to him, so he never learned he was a cash buyer afraid of last-minute charges."
+      es: "Fíjese: se burló de cómo el cliente está acostumbrado a comprar, le empujó una camioneta más grande y lo presionó para decidir. Nunca le preguntó qué era para él un buen negocio, así que nunca supo que pagaba de contado y que le tenía miedo a los cargos de última hora."
+    script:
+      en:
+        - { speaker: customer, text: "In my country the dealer always gives a discount. So, how much are you taking off?" }
+        - { speaker: rep, text: "This isn't your country, my friend. Here the price is the price." }
+        - { speaker: customer, text: "Hey, easy. I'm just asking a question." }
+        - { speaker: rep, text: "Everybody wants a discount. Let me show you the Silverado too, it's a bigger truck." }
+        - { speaker: customer, text: "Come on, there's always something you can take off." }
+        - { speaker: rep, text: "Let's just write it up on the Colorado and get it done." }
+        - { speaker: customer, text: "Okay, I'm going to look somewhere else." }
+      es:
+        - { speaker: customer, text: "En mi país siempre le rebajan a uno. Entonces, ¿cuánto me va a rebajar?" }
+        - { speaker: rep, text: "Esto no es su país, amigo. Aquí el precio es el precio." }
+        - { speaker: customer, text: "Oiga, tranquilo. Yo nada más estoy preguntando." }
+        - { speaker: rep, text: "Todo el mundo quiere descuento. Déjeme enseñarle la Silverado también, es una camioneta más grande." }
+        - { speaker: customer, text: "Ande, siempre hay algo que se puede rebajar." }
+        - { speaker: rep, text: "Dejemos escrita la Colorado de una vez y ya." }
+        - { speaker: customer, text: "Bueno, voy a mirar en otro lado." }
+  good:
+    notice:
+      en: Notice the pause, the respect for how he is used to buying, the question about what a good deal means to him, and how the rep raises the dealer fee first and gives the all-in price instead of inventing a discount.
+      es: Fíjese en la pausa, en el respeto por cómo está acostumbrado a comprar, en la pregunta sobre qué es para él un buen negocio, y en cómo el vendedor menciona primero el dealer fee y da el precio total en vez de inventar un descuento.
+    script:
+      en:
+        - { speaker: customer, text: "In my country the dealer always gives a discount. So, how much are you taking off?" }
+        - { speaker: rep, text: "[pause] I appreciate you saying it straight; buying works differently from one country to another. Before I answer, help me understand: what would a good deal look like for you?" }
+        - { speaker: customer, text: "A good deal is one where I know the final number. No surprises." }
+        - { speaker: rep, text: "Fair enough. Apart from the price, is the Colorado the right truck for your work?" }
+        - { speaker: customer, text: "The truck is perfect for my work. It's the number." }
+        - { speaker: rep, text: "Then let's get you that number. How are you planning to pay for it?" }
+        - { speaker: customer, text: "I'm paying cash. I have forty-one thousand saved, and that is my limit. A friend told me that here they add charges at the end, so I ask for a discount to have room." }
+        - { speaker: rep, text: "Thank you, that helps a lot. Let me show you right now the charge you would see anyway, so nothing surprises you. The price is $39,394, and that already includes our $899 dealer fee. On top of that, only tax, tag and title, which are government charges. I'm not going to invent a discount; it's the same price anyone pays here. What I will do is print the out-the-door sheet with the tax, tag and title on it, so you can check it against your budget at home. Can we meet Monday at 5 to go over it?" }
+        - { speaker: customer, text: "Monday at 5, deal. If the final number is clear, that's what matters to me." }
+        - { speaker: rep, text: "It will be. See you Monday at 5." }
+      es:
+        - { speaker: customer, text: "En mi país siempre le rebajan a uno. Entonces, ¿cuánto me va a rebajar?" }
+        - { speaker: rep, text: "[pausa] Le agradezco que me lo diga claro; en cada país se compra distinto. Antes de contestarle, ayúdeme a entender: ¿qué sería para usted un buen negocio?" }
+        - { speaker: customer, text: "Un buen negocio es uno donde yo sepa el número final. Sin sorpresas." }
+        - { speaker: rep, text: "Me parece justo. Aparte del precio, ¿la Colorado es la camioneta que necesita para su trabajo?" }
+        - { speaker: customer, text: "La camioneta es perfecta para mi trabajo. Es el número." }
+        - { speaker: rep, text: "Entonces vamos a darle ese número. ¿Cómo piensa pagarla?" }
+        - { speaker: customer, text: "Voy a pagar de contado. Tengo cuarenta y un mil ahorrados, y de ahí no paso. Un amigo me dijo que aquí le suman cargos a uno al final, así que pido rebaja para tener margen." }
+        - { speaker: rep, text: "Gracias, eso me ayuda mucho. Déjeme enseñarle ahora mismo el cargo que igual iba a ver, para que nada lo sorprenda. El precio es $39,394, y eso ya incluye nuestro dealer fee de $899. Encima de eso, solo impuestos, tag y título, que son cargos del gobierno. No le voy a inventar un descuento; es el mismo precio que paga cualquiera aquí. Lo que sí hago es imprimirle la hoja con el precio total final, con impuestos, tag y título, para que la compare en su casa con su presupuesto. ¿Nos vemos el lunes a las 5 para repasarla?" }
+        - { speaker: customer, text: "El lunes a las 5, trato hecho. Si el número final está claro, eso es lo que me importa." }
+        - { speaker: rep, text: "Así va a ser. Nos vemos el lunes a las 5." }
+spanish_reviewed: false
