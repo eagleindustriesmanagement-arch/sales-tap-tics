@@ -1,6 +1,7 @@
 import { t } from "@taptics/i18n";
 import { coachScene } from "@taptics/scoring";
 import { CoachForm } from "@/components/coach-form";
+import { PageHeader } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
 import { language, library } from "@/lib/server";
 
@@ -16,8 +17,7 @@ export default async function Coach({ searchParams }: { searchParams: Promise<{ 
   const scene = coachScene(lib, card, seed);
   return (
     <div className="space-y-4">
-      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("coach.title", lang)}</h1>
-      <p className="text-muted">{t("coach.intro", lang)}</p>
+      <PageHeader title={t("coach.title", lang)} subtitle={t("coach.intro", lang)} />
       <CoachForm
         language={lang}
         cardCode={card.code}

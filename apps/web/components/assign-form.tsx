@@ -4,7 +4,7 @@ import { useState } from "react";
 import { t, type Language } from "@taptics/i18n";
 import { Card, buttonClass } from "@/components/ui";
 
-const input = "min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
+const input = "mt-1.5 min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
 
 export function AssignForm({ language: lang, reps, scenarios, preselected }: {
   language: Language;
@@ -33,13 +33,13 @@ export function AssignForm({ language: lang, reps, scenarios, preselected }: {
   return (
     <form onSubmit={submit} className="space-y-4">
       <Card className="space-y-3">
-        <label className="block text-sm">{ui("assign.scenario")}
+        <label className="block text-[14px] font-medium text-muted">{ui("assign.scenario")}
           <select className={input} value={scenario} onChange={(e) => setScenario(e.target.value)}>
             {scenarios.map((s) => <option key={s.code} value={s.code}>{ui("practice.level", { n: s.level })} · {s.title}</option>)}
           </select>
         </label>
         <fieldset>
-          <legend className="text-sm">{ui("assign.reps")}</legend>
+          <legend className="text-[14px] font-medium text-muted">{ui("assign.reps")}</legend>
           {reps.map((r) => (
             <label key={r.id} className="flex min-h-11 items-center gap-3 text-ink">
               <input type="checkbox" className="h-5 w-5" checked={chosen.includes(r.id)} onChange={(e) => setChosen(e.target.checked ? [...chosen, r.id] : chosen.filter((x) => x !== r.id))} />
@@ -47,8 +47,8 @@ export function AssignForm({ language: lang, reps, scenarios, preselected }: {
             </label>
           ))}
         </fieldset>
-        <label className="block text-sm">{ui("assign.due")}<input type="date" className={input} value={due} onChange={(e) => setDue(e.target.value)} /></label>
-        <label className="block text-sm">{ui("assign.reason")}<textarea className={`${input} min-h-20 py-2`} maxLength={300} value={reason} onChange={(e) => setReason(e.target.value)} placeholder={ui("assign.reasonHint")} /></label>
+        <label className="block text-[14px] font-medium text-muted">{ui("assign.due")}<input type="date" className={input} value={due} onChange={(e) => setDue(e.target.value)} /></label>
+        <label className="block text-[14px] font-medium text-muted">{ui("assign.reason")}<textarea className={`${input} min-h-20 py-2`} maxLength={300} value={reason} onChange={(e) => setReason(e.target.value)} placeholder={ui("assign.reasonHint")} /></label>
       </Card>
       <button className={`${buttonClass} w-full`}>{ui("assign.submit")}</button>
       {status && <p role="status" className="font-semibold text-ink">{status}</p>}

@@ -51,9 +51,9 @@ export default async function Practice() {
         ? (p.attempts === 1 ? t("practice.tried1", lang) : t("practice.tried", lang, { n: p.attempts }))
         : t("practice.best", lang, { score: Math.round(p.best) });
     return (
-      <li key={s.code} className={`relative flex items-center gap-3 pr-3 pl-4 ${state === "next" ? "bg-brand-soft" : ""}`}>
+      <li key={s.code} className={`row-hover relative flex items-center gap-3 pr-3 pl-4 ${state === "next" ? "bg-linear-to-r from-brand-soft to-transparent" : ""}`}>
         {/* The path: a line through every node, cut at the first and last. */}
-        <span aria-hidden="true" className={`absolute left-[37px] w-0.5 bg-line ${i === 0 ? "top-1/2" : "top-0"} ${i === all.length - 1 ? "bottom-1/2" : "bottom-0"}`} />
+        <span aria-hidden="true" className={`absolute left-[37.5px] w-px bg-linear-to-b from-brand/40 to-line ${i === 0 ? "top-1/2" : "top-0"} ${i === all.length - 1 ? "bottom-1/2" : "bottom-0"}`} />
         <Node state={state} />
         <Link href={`/practice/${s.code}`} className="min-w-0 flex-1 py-3" data-testid={`scenario-${s.code}`}>
           <span className="block text-[16px] leading-snug font-semibold text-ink">{s.title[lang]}</span>
@@ -76,7 +76,7 @@ export default async function Practice() {
     <div className="space-y-6">
       <PageHeader title={t("practice.title", lang)} subtitle={t("practice.intro", lang)} />
       <div className="px-1">
-        <h2 className="text-[13px] font-semibold tracking-wide text-muted uppercase">{t("practice.core.title", lang)}</h2>
+        <h2 className="font-display text-[28px] leading-tight text-ink">{t("practice.core.title", lang)}</h2>
         <p className="text-[15px] text-muted">{t("practice.core.sub", lang)}</p>
       </div>
       {levels.map((level) => {
@@ -86,20 +86,20 @@ export default async function Practice() {
           <section key={level} className="space-y-3" aria-labelledby={`level-${level}`}>
             <div className="flex items-end justify-between gap-3 px-1">
               <div>
-                <h3 id={`level-${level}`} className="text-[22px] font-bold text-ink">{t("practice.level", lang, { n: level })}</h3>
+                <h3 id={`level-${level}`} className="text-[20px] font-semibold text-ink">{t("practice.level", lang, { n: level })}</h3>
                 <p className="text-[15px] text-muted">{t(`practice.levelName.${level}` as "practice.levelName.1", lang)}</p>
               </div>
               <p className="pb-0.5 text-[14px] font-semibold text-muted tabular-nums">{t("practice.levelProgress", lang, { passed, total: scenarios.length })}</p>
             </div>
-            <Bar value={scenarios.length ? passed / scenarios.length : 0} tone="good" className="mx-1" />
+            <Bar value={scenarios.length ? passed / scenarios.length : 0} className="mx-1" />
             <ol className="liquid-glass liquid-glass-panel overflow-hidden rounded-[1.25rem] py-1.5">{scenarios.map(row)}</ol>
           </section>
         );
       })}
       {topics.length > 0 && (
         <>
-          <div className="px-1 pt-2">
-            <h2 className="text-[13px] font-semibold tracking-wide text-muted uppercase">{t("practice.more.title", lang)}</h2>
+          <div className="px-1 pt-4">
+            <h2 className="font-display text-[28px] leading-tight text-ink">{t("practice.more.title", lang)}</h2>
             <p className="text-[15px] text-muted">{t("practice.more.sub", lang)}</p>
           </div>
           {topics.map((topic) => {
@@ -134,9 +134,9 @@ function topicName(module: string, lang: "en" | "es") {
 /** A path node: filled green when passed, amber trophy when certified, the accent and breathing when next. */
 function Node({ state }: { state: NodeState }) {
   const base = "relative z-10 grid h-11 w-11 shrink-0 place-items-center rounded-full";
-  if (state === "certified") return <span className={`${base} bezel bg-spark text-ink`}><IconTrophy size={20} /></span>;
+  if (state === "certified") return <span className={`${base} bezel fill-gold text-brand-fill-ink`}><IconTrophy size={20} /></span>;
   if (state === "passed") return <span className={`${base} bezel bg-good text-surface`}><IconCheck size={22} /></span>;
   if (state === "next") return <span className={`${base} node-current liquid-glass liquid-glass-accent liquid-glass-flat`}><IconPlay size={18} className="fill-current" /></span>;
-  if (state === "tried") return <span className={`${base} border-2 border-brand bg-surface text-brand`}><span className="h-2.5 w-2.5 rounded-full bg-brand" /></span>;
-  return <span className={`${base} border-2 border-line bg-surface`} />;
+  if (state === "tried") return <span className={`${base} border-[1.5px] border-brand bg-surface text-brand`}><span className="h-2.5 w-2.5 rounded-full bg-brand" /></span>;
+  return <span className={`${base} border-[1.5px] border-line bg-surface`} />;
 }

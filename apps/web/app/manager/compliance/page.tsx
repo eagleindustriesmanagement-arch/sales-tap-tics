@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { complianceFlags } from "@taptics/db";
 import { t } from "@taptics/i18n";
-import { Card, Pill } from "@/components/ui";
+import { IconShield } from "@/components/icons";
+import { Card, Empty, PageHeader, Pill, SectionTitle } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language } from "@/lib/server";
@@ -15,25 +16,25 @@ export default async function Compliance() {
   if (flags.recent.length === 0) {
     return (
       <div className="space-y-4">
-        <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("compliance.title", lang)}</h1>
-        <p className="text-muted">{t("compliance.none", lang)}</p>
+        <PageHeader title={t("compliance.title", lang)} />
+        <Card><Empty icon={<IconShield size={22} />}>{t("compliance.none", lang)}</Empty></Card>
       </div>
     );
   }
   return (
     <div className="space-y-4">
-      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("compliance.title", lang)}</h1>
+      <PageHeader title={t("compliance.title", lang)} />
       <div className="grid gap-4 sm:grid-cols-2">
         <Card>
           <h2 className="mb-2 font-bold text-ink">{t("compliance.byRule", lang)}</h2>
-          <ul className="space-y-1 text-sm">{flags.byRule.map((r) => <li key={`${r.rule_code}${r.severity}`} className="flex justify-between"><span className={r.severity === "critical" ? "font-semibold text-bad" : ""}>{r.rule_code}</span><span>{r.n}</span></li>)}</ul>
+          <ul className="divide-y divide-line-soft text-[15px]">{flags.byRule.map((r) => <li key={`${r.rule_code}${r.severity}`} className="flex justify-between py-2"><span className={r.severity === "critical" ? "font-semibold text-bad" : "text-body"}>{r.rule_code}</span><span className="font-semibold text-ink tabular-nums">{r.n}</span></li>)}</ul>
         </Card>
         <Card>
           <h2 className="mb-2 font-bold text-ink">{t("compliance.byRep", lang)}</h2>
-          <ul className="space-y-1 text-sm">{flags.byRep.map((r) => <li key={r.first_name} className="flex justify-between"><span>{r.first_name}</span><span><span className="font-semibold text-bad">{r.critical}</span> / {r.n}</span></li>)}</ul>
+          <ul className="divide-y divide-line-soft text-[15px]">{flags.byRep.map((r) => <li key={r.first_name} className="flex justify-between py-2"><span className="text-body">{r.first_name}</span><span className="tabular-nums"><span className="font-semibold text-bad">{r.critical}</span> / {r.n}</span></li>)}</ul>
         </Card>
       </div>
-      <h2 className="font-bold text-ink">{t("compliance.recent", lang)}</h2>
+      <SectionTitle>{t("compliance.recent", lang)}</SectionTitle>
       <ul className="space-y-3">
         {flags.recent.map((v) => (
           <li key={v.id}>

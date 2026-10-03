@@ -3,9 +3,8 @@
 /* =======================================================================
  * Sales Taptics design system. Rules: docs/DESIGN-GUIDELINES.md.
  * The material is BookFlows' Liquid Glass (docs/LIQUID-GLASS.md), ported with
- * its shipped values. One structural change: every value that differs between
- * light and dark is a token below, so the material is written once and dark
- * mode cannot drift from it (LIQUID-GLASS §5.3, §5.4).
+ * its shipped values and warmed for the one dark theme (decision 0028): every
+ * colour is a token below, so the material is written once (LIQUID-GLASS §5.3).
  * ======================================================================= */
 
 /* One theme (decision 0028): the showroom at night. Deep charcoal surfaces, champagne gold, warm ivory text.
@@ -37,6 +36,12 @@
   --accent-foreground: #14110c;
   --accent-fill: #d6b47a;
   --accent-fill-foreground: #16120b;
+  /* The two ends of the gold: a champagne highlight and a bronze shadow, for fills (buttons, bars, rings). The dark
+     ink on the gold clears 4.5:1 down to --gold-lo. Never text. */
+  --gold-hi: #ecd7aa;
+  --gold-lo: #b8925a;
+  /* A hairline of gold: rims, rules, the active edge. */
+  --gold-line: color-mix(in srgb, var(--accent) 34%, transparent);
 
   /* SPARK: streaks, stars and certification only. Never text. */
   --spark: #f2c66d;
@@ -54,10 +59,10 @@
   --lg-base-opacity: 62%;
   --lg-base-sheen: 13%;
   --lg-base-rim: 20%;
-  --lg-edge: color-mix(in srgb, #fff 12%, transparent);
+  --lg-edge: color-mix(in srgb, #f3dfb6 15%, transparent);
   --lg-edge-bottom: rgba(0, 0, 0, 0.55);
   --lg-lens: color-mix(in srgb, #fff 13%, transparent);
-  --lg-side: color-mix(in srgb, #fff 7%, transparent);
+  --lg-side: color-mix(in srgb, #f3dfb6 7%, transparent);
   --lg-lip: rgba(0, 0, 0, 0.5);
   --lg-lip-glow: rgba(0, 0, 0, 0.35);
   --lg-drop-1: rgba(0, 0, 0, 0.55);
@@ -67,7 +72,7 @@
   --panel-opacity: 88%;
   --panel-sheen: 9%;
   --panel-rim: 16%;
-  --panel-lens: color-mix(in srgb, #fff 10%, transparent);
+  --panel-lens: color-mix(in srgb, #f3dfb6 10%, transparent);
   --panel-drop-1: rgba(0, 0, 0, 0.45);
   --panel-drop-2: rgba(0, 0, 0, 0.4);
   --panel-drop-3: rgba(0, 0, 0, 0.5);
@@ -131,8 +136,8 @@
 html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
 
 /* LIQUID-GLASS §1: give the glass something to be glass about. Two faint washes
-   at opposite corners of the viewport, fixed to the screen: the logo's blue at
-   the top, its cyan at the bottom. */
+   at opposite corners of the viewport, fixed to the screen: champagne gold at
+   the top, bronze at the bottom. */
 body {
   background:
     radial-gradient(120% 90% at 8% -10%, color-mix(in srgb, var(--accent) var(--wash-1), transparent), transparent 60%),
@@ -214,6 +219,16 @@ input, select, textarea { font-size: 16px; }
     inset 0 -10px 16px -10px color-mix(in srgb, #000 12%, transparent);
 }
 .liquid-glass-accent { --lg-tint: var(--accent-fill); color: var(--accent-fill-foreground); }
+/* The gold is a metal, not a flat fill: champagne at the top left, bronze at the bottom right, under the same sheen. */
+.liquid-glass-accent {
+  background:
+    linear-gradient(177deg,
+      color-mix(in srgb, #fff var(--lg-sheen), transparent) 0%,
+      color-mix(in srgb, #fff calc(var(--lg-sheen) * 0.3), transparent) 14%,
+      transparent 48%,
+      color-mix(in srgb, #000 6%, transparent) 100%),
+    linear-gradient(135deg, var(--gold-hi) 0%, var(--accent-fill) 46%, var(--gold-lo) 100%);
+}
 .liquid-glass-ink { --lg-tint: var(--ink); color: var(--background); }
 .liquid-glass-success { --lg-tint: var(--success); color: var(--surface); }
 .liquid-glass-danger { --lg-tint: var(--danger); color: var(--surface); }
@@ -232,7 +247,7 @@ input, select, textarea { font-size: 16px; }
     0 12px 24px -6px var(--panel-drop-3),
     0 28px 52px -18px var(--panel-drop-4),
     inset 0 0 0 0.5px var(--panel-lens),
-    inset 0 1.5px 0 color-mix(in srgb, #fff var(--lg-rim), transparent),
+    inset 0 1.5px 0 color-mix(in srgb, #f6e3bd var(--lg-rim), transparent),
     inset 0 -1.5px 0 var(--panel-lip),
     inset 0 -12px 18px -12px var(--panel-lip-glow);
 }
@@ -249,6 +264,26 @@ input, select, textarea { font-size: 16px; }
     inset 0 0 0 0.5px color-mix(in srgb, #fff 26%, transparent),
     inset 0 1.5px 0 color-mix(in srgb, #fff 40%, transparent),
     inset 0 -1.5px 0 color-mix(in srgb, #000 18%, transparent);
+}
+
+/* The hero panel: dark glass lit from one corner in gold and the other in bronze, with a gold rim. The one loud card
+   on a screen (Today's next step, the debrief's one change). Text on it is ink, body and muted, as on any card. */
+.liquid-glass-hero {
+  --lg-opacity: 96%;
+  background:
+    radial-gradient(90% 75% at 100% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%),
+    radial-gradient(85% 65% at 0% 100%, color-mix(in srgb, var(--brand-cyan) 15%, transparent), transparent 62%),
+    linear-gradient(177deg, color-mix(in srgb, #fff 7%, transparent) 0%, transparent 38%),
+    color-mix(in srgb, var(--surface) var(--lg-opacity), transparent);
+  border-color: var(--gold-line);
+  border-bottom-color: color-mix(in srgb, var(--accent) 12%, transparent);
+  box-shadow:
+    0 1px 1px var(--panel-drop-1),
+    0 12px 24px -6px var(--panel-drop-3),
+    0 28px 64px -24px color-mix(in srgb, var(--accent) 30%, transparent),
+    inset 0 0 0 0.5px color-mix(in srgb, var(--accent) 18%, transparent),
+    inset 0 1.5px 0 color-mix(in srgb, var(--gold-hi) 38%, transparent),
+    inset 0 -1.5px 0 var(--panel-lip);
 }
 
 .liquid-glass-inset {
@@ -367,6 +402,9 @@ button.liquid-glass:disabled { opacity: 0.55; cursor: not-allowed; }
 }
 .voice-speaking::after { animation-delay: 0.9s; }
 
+/* A soft gold light behind the customer, so the stage is lit rather than a flat avatar on black. */
+.voice-halo { box-shadow: 0 0 70px 6px color-mix(in srgb, var(--accent) 16%, transparent), 0 0 0 1px var(--gold-line); }
+
 /* The rep's voice: bars follow the microphone level (--lvl), with an idle wave while listening. */
 .voice-bars { --lvl: 0; }
 .voice-bars span {
@@ -380,6 +418,70 @@ button.liquid-glass:disabled { opacity: 0.55; cursor: not-allowed; }
   animation-delay: calc(var(--i) * 70ms);
 }
 @keyframes voice-idle { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.6); } }
+
+/* ---------------------------------------------------------------- gold details */
+
+/* A gold hairline under a page title: bright at the left, gone by the right edge. */
+.gold-rule { height: 1px; background: linear-gradient(90deg, var(--gold-line), color-mix(in srgb, var(--accent) 10%, transparent) 45%, transparent); }
+/* Gold fills for data: the current value in metal, the history in a quiet wash of the same gold. */
+.fill-gold { background: linear-gradient(180deg, var(--gold-hi), var(--accent-fill) 55%, var(--gold-lo)); }
+.fill-gold-x { background: linear-gradient(90deg, var(--gold-lo), var(--accent-fill) 55%, var(--gold-hi)); }
+.fill-gold-dim { background: color-mix(in srgb, var(--accent) 26%, transparent); }
+/* A list row that answers the pointer. */
+.row-hover { transition: background-color 200ms ease; }
+@media (hover: hover) { .row-hover:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); } }
+.row-hover:active { background: var(--surface-2); }
+
+/* ---------------------------------------------------------------- motion
+ * One curve for everything that moves in answer to the user (iOS's spring, approximated): cubic-bezier(0.32,0.72,0,1).
+ * Motion never holds content back: every entrance finishes in under 0.9s, and reduced motion shows the final state. */
+
+/* Each route's content arrives: a fade and an 8px rise. `backwards` only, so nothing stays transformed afterwards
+   (a lingering transform would trap the practice room's fixed bars). Immersive screens fade without the rise. */
+@keyframes page-enter { from { opacity: 0; transform: translateY(8px); } }
+@keyframes page-fade { from { opacity: 0; } }
+.page-enter { animation: page-enter 280ms cubic-bezier(0.32, 0.72, 0, 1) backwards; }
+.page-fade { animation: page-fade 280ms cubic-bezier(0.32, 0.72, 0, 1) backwards; }
+
+/* Cards that are links lift toward the pointer; the gold rim catches the light. */
+@media (hover: hover) {
+  a:hover > .liquid-glass-panel, a.liquid-glass-panel:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 1px var(--panel-drop-1),
+      0 6px 12px -2px var(--panel-drop-2),
+      0 20px 36px -10px var(--panel-drop-3),
+      0 24px 48px -24px color-mix(in srgb, var(--accent) 22%, transparent),
+      inset 0 0 0 0.5px color-mix(in srgb, var(--accent) 22%, transparent),
+      inset 0 1.5px 0 color-mix(in srgb, var(--gold-hi) 26%, transparent),
+      inset 0 -1.5px 0 var(--panel-lip);
+  }
+}
+
+/* The tab bar's active pill glides between tabs. */
+.tab-pill { transition: transform 420ms cubic-bezier(0.32, 0.72, 0, 1), opacity 200ms ease; }
+
+/* Chart columns rise from the baseline, one after another (--i is the column's index). */
+@keyframes col-grow { from { transform: scaleY(0); } }
+.col-grow { transform-origin: bottom; animation: col-grow 620ms cubic-bezier(0.32, 0.72, 0, 1) backwards; animation-delay: calc(var(--i, 0) * 35ms); }
+
+/* The debrief's reveal (components/debrief.tsx): the score card rises, the ring draws while the number counts up,
+   the verdict lands, compliance issues slide in, then the rest cascades. Every step is over by ~0.85s. */
+@keyframes reveal-rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes reveal-land { 0% { opacity: 0; transform: scale(0.82); } 70% { opacity: 1; transform: scale(1.04); } }
+@keyframes reveal-slide { from { opacity: 0; transform: translateX(-18px); } }
+.reveal-rise { animation: reveal-rise 300ms cubic-bezier(0.32, 0.72, 0, 1) backwards; animation-delay: var(--d, 0ms); }
+.reveal-land { animation: reveal-land 300ms cubic-bezier(0.32, 0.72, 0, 1) backwards; animation-delay: var(--d, 0ms); }
+.reveal-slide { animation: reveal-slide 380ms cubic-bezier(0.32, 0.72, 0, 1) backwards; animation-delay: var(--d, 0ms); }
+.score-ring .ring-value { animation-duration: 760ms; }
+/* Inside an opened breakdown, each scored item follows the one before it. */
+details[open] .cascade > * { animation: reveal-rise 280ms cubic-bezier(0.32, 0.72, 0, 1) backwards; animation-delay: calc(min(var(--i, 0), 10) * 35ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter, .page-fade, .col-grow, .reveal-rise, .reveal-land, .reveal-slide, details[open] .cascade > *, .ring-value, .bar-value { animation: none !important; }
+  .tab-pill { transition: none; }
+  a:hover > .liquid-glass-panel { transform: none; }
+}
 
 /* ---------------------------------------------------------------- sign-up and sign-in stage (decision 0028) */
 

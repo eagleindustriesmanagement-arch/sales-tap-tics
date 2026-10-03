@@ -163,13 +163,13 @@ export function VoiceStage({ name, language: lang, voiceKey, opening, lines, end
           onClick={interrupt}
           disabled={phase !== "customer"}
           aria-label={ui("voice.interrupt", { name })}
-          className={`relative grid place-items-center rounded-full p-2 ${phase === "customer" ? "voice-speaking" : ""}`}
+          className={`voice-halo relative grid place-items-center rounded-full p-2 ${phase === "customer" ? "voice-speaking" : ""}`}
           data-testid="voice-avatar"
         >
           <Avatar name={name} size={128} />
         </button>
         <div className="space-y-1">
-          <p className="text-[24px] font-bold text-ink">{name}</p>
+          <p className="font-display text-[34px] leading-tight text-ink">{name}</p>
           <p className="text-[15px] text-muted tabular-nums">{mmss}</p>
         </div>
         {/* The rep's voice as bars; a gentle idle wave when the microphone level is not available. */}
@@ -190,7 +190,7 @@ export function VoiceStage({ name, language: lang, voiceKey, opening, lines, end
         <ol className="mt-6 space-y-2" aria-label={ui("voice.showWords")}>
           {lines.map((l, i) => (
             <li key={i} className={`flex ${l.speaker === "rep" ? "justify-end" : "justify-start"}`}>
-              <p className={`max-w-[85%] rounded-[1.1rem] px-3.5 py-2 text-[15px] text-ink ${l.speaker === "rep" ? "bg-brand-soft" : "bg-ground"}`}>
+              <p className={`max-w-[85%] rounded-[1.1rem] px-3.5 py-2 text-[15px] text-ink ${l.speaker === "rep" ? "rounded-br-md bg-brand-soft" : "rounded-bl-md bg-ground"}`}>
                 <span className="sr-only">{ui(l.speaker === "rep" ? "practice.you" : "practice.customer")}: </span>{l.text}
               </p>
             </li>

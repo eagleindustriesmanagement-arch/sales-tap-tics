@@ -19,20 +19,26 @@ export function Inset({ children, className = "" }: { children: ReactNode; class
   return <div className={`liquid-glass-inset rounded-[0.875rem] p-3 text-ink ${className}`}>{children}</div>;
 }
 
-/** Page title with an optional back link and one line of context. */
+/** A page title: the display serif, large and quiet (guidelines §5). Every h1 in the app uses it. */
+export const titleClass = "font-display text-[40px] leading-[1.04] font-normal tracking-[-0.01em] text-ink sm:text-[48px]";
+/** The back link above a title. */
+export const backLinkClass = "-ml-2 inline-flex min-h-11 items-center gap-1 rounded-full pr-3 pl-1 text-[15px] font-semibold text-brand";
+
+/** Page title with an optional back link, one line of context and the gold hairline under it. */
 export function PageHeader({ title, subtitle, back, action }: { title: ReactNode; subtitle?: ReactNode; back?: { href: string; label: string }; action?: ReactNode }) {
   return (
-    <header className="space-y-1">
+    <header className="space-y-1.5">
       {back && (
-        <Link href={back.href} className="-ml-2 inline-flex min-h-11 items-center gap-1 rounded-full pr-3 pl-1 text-[15px] font-semibold text-brand">
+        <Link href={back.href} className={backLinkClass}>
           <IconChevronLeft size={20} /> {back.label}
         </Link>
       )}
-      <div className="flex items-end justify-between gap-3">
-        <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink sm:text-[32px]">{title}</h1>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <h1 className={titleClass}>{title}</h1>
         {action}
       </div>
-      {subtitle && <p className="text-[15px] text-muted">{subtitle}</p>}
+      {subtitle && <p className="max-w-prose text-[15px] text-muted">{subtitle}</p>}
+      <span aria-hidden="true" className="gold-rule mt-3 block" />
     </header>
   );
 }
@@ -41,7 +47,7 @@ export function PageHeader({ title, subtitle, back, action }: { title: ReactNode
 export function SectionTitle({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-3 px-1">
-      <h2 className="text-[19px] font-bold text-ink">{children}</h2>
+      <h2 className="font-display text-[25px] leading-tight font-normal text-ink">{children}</h2>
       {action}
     </div>
   );
@@ -49,12 +55,13 @@ export function SectionTitle({ children, action }: { children: ReactNode; action
 
 const toneText: Record<Tone, string> = { brand: "text-brand", good: "text-good", warn: "text-warn", bad: "text-bad", spark: "text-ink", neutral: "text-muted" };
 const toneSoft: Record<Tone, string> = { brand: "bg-brand-soft text-brand", good: "bg-good-soft text-good", warn: "bg-warn-soft text-warn", bad: "bg-bad-soft text-bad", spark: "bg-spark-soft text-ink", neutral: "bg-ground text-muted" };
+/** Rings and bars are gold; state colours only say good or bad. The gold ring is the gradient AppChrome defines. */
 const toneStroke: Record<Tone, string> = { brand: "var(--accent)", good: "var(--success)", warn: "var(--warning)", bad: "var(--danger)", spark: "var(--spark)", neutral: "var(--muted)" };
 
 /** A small status chip. Tinted fill, never a material (it keeps its own colour). */
 export function Chip({ children, tone = "neutral", icon, className = "", ...rest }: { children: ReactNode; tone?: Tone; icon?: ReactNode; className?: string } & Omit<HTMLAttributes<HTMLSpanElement>, "className" | "children">) {
   return (
-    <span {...rest} className={`inline-flex min-h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold ${toneSoft[tone]} ${className}`}>
+    <span {...rest} className={`inline-flex min-h-7 items-center gap-1 rounded-full px-2.5 text-[13px] font-semibold ring-1 ring-current/15 ring-inset ${toneSoft[tone]} ${className}`}>
       {icon}
       {children}
     </span>
@@ -84,14 +91,14 @@ export function Ring({ value, size = 64, stroke = 7, tone = "brand", children, l
   return (
     <div className="relative inline-grid shrink-0 place-items-center" style={{ width: size, height: size }} role={label ? "img" : undefined} aria-label={label}>
       <svg width={size} height={size} className="-rotate-90" aria-hidden="true">
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--surface-2)" strokeWidth={stroke} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--accent-soft)" strokeWidth={stroke} />
         <circle
           className="ring-value"
           cx={size / 2}
           cy={size / 2}
           r={r}
           fill="none"
-          stroke={toneStroke[tone]}
+          stroke={tone === "brand" ? "url(#tt-gold)" : toneStroke[tone]}
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={c}
@@ -109,21 +116,23 @@ export function Bar({ value, tone = "brand", className = "" }: { value: number; 
   const v = Math.max(0, Math.min(1, value));
   return (
     <div className={`h-2 overflow-hidden rounded-full bg-ground ${className}`} aria-hidden="true">
-      <div className="bar-value h-full rounded-full" style={{ width: `${Math.round(v * 100)}%`, background: toneStroke[tone] }} />
+      <div className={`bar-value h-full rounded-full ${tone === "brand" ? "fill-gold-x" : ""}`} style={{ width: `${Math.round(v * 100)}%`, background: tone === "brand" ? undefined : toneStroke[tone] }} />
     </div>
   );
 }
 
-/** Initials in a tinted circle; the hue follows the name so a person keeps their colour. */
+/** Initials in a dark metallic circle; the hue follows the name so a person keeps their colour, kept low and warm. */
 export function Avatar({ name, size = 40 }: { name: string; size?: number }) {
   const initials = name.trim().split(/\s+/).map((p) => p[0]).join("").slice(0, 2).toUpperCase() || "?";
-  let h = 0;
-  for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) % 360;
+  let n = 0;
+  for (const ch of name) n = (n * 31 + ch.charCodeAt(0)) % 360;
+  // Copper through bronze to olive gold: a person keeps their colour, and every colour belongs to the palette.
+  const h = 14 + (n % 48);
   return (
     <span
       aria-hidden="true"
-      className="bezel inline-grid shrink-0 place-items-center rounded-full font-bold text-white"
-      style={{ width: size, height: size, fontSize: size * 0.38, background: `linear-gradient(145deg, hsl(${h} 58% 46%), hsl(${(h + 28) % 360} 62% 34%))` }}
+      className="bezel inline-grid shrink-0 place-items-center rounded-full font-semibold text-ink"
+      style={{ width: size, height: size, fontSize: size * 0.38, background: `linear-gradient(145deg, hsl(${h} ${22 + (n % 3) * 6}% 33%), hsl(${h + 10} 24% 16%))` }}
     >
       {initials}
     </span>
@@ -133,7 +142,7 @@ export function Avatar({ name, size = 40 }: { name: string; size?: number }) {
 /** A tappable row: leading visual, two lines, trailing value, chevron. 64px tall. */
 export function ListRow({ href, leading, title, subtitle, trailing, testId }: { href: string; leading?: ReactNode; title: ReactNode; subtitle?: ReactNode; trailing?: ReactNode; testId?: string }) {
   return (
-    <Link href={href} data-testid={testId} className="flex min-h-16 items-center gap-3 px-4 py-2.5 transition-colors active:bg-ground">
+    <Link href={href} data-testid={testId} className="row-hover flex min-h-16 items-center gap-3 px-4 py-2.5">
       {leading}
       <span className="min-w-0 flex-1">
         <span className="block truncate text-[16px] font-semibold text-ink">{title}</span>
@@ -153,9 +162,9 @@ export function RowGroup({ children, className = "" }: { children: ReactNode; cl
 /** A number with its label: the number is the loudest thing (BookFlows §8, Priya). */
 export function Stat({ label, value, tone, testId, icon }: { label: string; value: ReactNode; tone?: Tone; testId?: string; icon?: ReactNode }) {
   return (
-    <Card className="p-3.5 sm:p-4">
+    <Card className="flex flex-col p-3.5 sm:p-4">
       <div className="flex items-center gap-1.5 text-[13px] font-medium text-muted">{icon}{label}</div>
-      <p className={`mt-1 text-[26px] leading-none font-bold tabular-nums ${tone ? toneText[tone] : "text-ink"}`} data-testid={testId}>{value}</p>
+      <p className={`mt-auto pt-2 font-display text-[34px] leading-none tabular-nums ${tone ? toneText[tone] : "text-ink"}`} data-testid={testId}>{value}</p>
     </Card>
   );
 }
@@ -164,7 +173,7 @@ export function Stat({ label, value, tone, testId, icon }: { label: string; valu
 export function Empty({ icon, children, action }: { icon?: ReactNode; children: ReactNode; action?: ReactNode }) {
   return (
     <div className="flex flex-col items-center gap-3 px-6 py-8 text-center">
-      {icon && <span className="grid h-12 w-12 place-items-center rounded-full bg-ground text-muted">{icon}</span>}
+      {icon && <span className="grid h-12 w-12 place-items-center rounded-full bg-brand-soft text-brand ring-1 ring-brand/20">{icon}</span>}
       <p className="max-w-xs text-[15px] text-muted">{children}</p>
       {action}
     </div>
@@ -179,7 +188,7 @@ export function ScoreBadge({ total, partial }: { total: number | null; partial?:
   return <span className={`inline-flex min-w-11 justify-center rounded-full px-2.5 py-1 text-[15px] font-bold tabular-nums ${tone}`}>{v}{partial ? "*" : ""}</span>;
 }
 
-/** Primary: the accent glass pill. Secondary: neutral glass. Both 52px, thumb-sized. */
+/** Primary: the gold glass pill with dark ink. Secondary: dark glass with ivory ink. Both 52px, thumb-sized. */
 export const buttonClass = "liquid-glass liquid-glass-accent inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full px-6 text-[17px] font-semibold";
 export const ghostButtonClass = "liquid-glass liquid-glass-flat inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full px-6 text-[17px] font-semibold text-ink";
 export const smallButtonClass = "liquid-glass liquid-glass-flat inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full px-4 text-[15px] font-semibold text-ink";

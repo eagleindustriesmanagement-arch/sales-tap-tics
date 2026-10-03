@@ -190,7 +190,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     ) : (
       <div className="grid min-h-dvh place-items-center px-6" role="status">
         <div className="flex flex-col items-center gap-4 text-center">
-          <span className="h-12 w-12 animate-spin rounded-full border-4 border-brand-soft border-t-brand" aria-hidden="true" />
+          <span className="h-12 w-12 animate-spin rounded-full border-[3px] border-brand-soft border-t-brand" aria-hidden="true" />
           <p className="text-[17px] font-semibold text-ink">{ui("debrief.loading")}</p>
         </div>
       </div>
@@ -218,7 +218,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
           <div className="mx-auto flex h-16 max-w-2xl items-center gap-3 px-4">
             {answerBy === "type" && <Avatar name={session.name} size={40} />}
             <div className="min-w-0 flex-1">
-              <p className="truncate text-[17px] font-bold text-ink">{session.name}</p>
+              <p className="truncate font-display text-[22px] leading-tight text-ink">{session.name}</p>
               <p className="truncate text-[13px] text-muted">{scenario.title[lang]}</p>
             </div>
             {!ended && <button type="button" onClick={finish} className="liquid-glass liquid-glass-flat min-h-10 shrink-0 rounded-full px-3.5 text-[14px] font-semibold text-ink">{ui("practice.end")}</button>}
@@ -226,7 +226,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
           {/* Turns left: the conversation has a limit, and the rep should feel it coming. */}
           <div className="mx-auto flex max-w-2xl items-center gap-2 px-4 pb-2">
             <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-ground" aria-hidden="true">
-              <div className="h-full rounded-full bg-brand transition-[width] duration-500" style={{ width: `${Math.min(100, (repTurns / turnBudget) * 100)}%` }} />
+              <div className="fill-gold-x h-full rounded-full transition-[width] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]" style={{ width: `${Math.min(100, (repTurns / turnBudget) * 100)}%` }} />
             </div>
             <span className="text-[12px] font-semibold text-muted tabular-nums">{ui("practice.turnsLeft", { n: turnsLeft })}</span>
           </div>
@@ -258,7 +258,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
                 <li key={i} data-testid={`line-${l.speaker}`} className={`bubble-in flex items-end gap-2 ${rep ? "justify-end" : "justify-start"}`}>
                   {!rep && <span className="w-8 shrink-0">{firstOfRun && <Avatar name={session.name} size={32} />}</span>}
                   <p className={`max-w-[80%] px-4 py-2.5 text-[16px] leading-snug ${rep
-                    ? "bezel rounded-[1.25rem] rounded-br-md bg-brand-fill text-brand-fill-ink"
+                    ? "bezel fill-gold rounded-[1.25rem] rounded-br-md text-brand-fill-ink"
                     : "liquid-glass liquid-glass-panel rounded-[1.25rem] rounded-bl-md text-ink"}`}>
                     <span className="sr-only">{ui(rep ? "practice.you" : "practice.customer")}: </span>
                     <span>{l.text}</span>
@@ -336,8 +336,8 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
 
       <div className="mx-auto w-full max-w-2xl flex-1 space-y-5 px-4 pt-2 pb-48">
         <div className="space-y-2">
-          <span className="grid h-14 w-14 place-items-center rounded-[1.1rem] bg-brand-soft text-brand"><IconMessage size={28} /></span>
-          <h1 className="pt-1 text-[28px] leading-tight font-bold tracking-tight text-ink">{scenario.title[lang]}</h1>
+          <span className="grid h-14 w-14 place-items-center rounded-[1.1rem] bg-brand-soft text-brand ring-1 ring-brand/25 ring-inset"><IconMessage size={28} /></span>
+          <h1 className="pt-2 font-display text-[38px] leading-[1.05] text-ink sm:text-[44px]">{scenario.title[lang]}</h1>
           <p className="text-[17px] text-body">{scenario.setting[lang]}</p>
         </div>
 
@@ -388,7 +388,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
             <ol className="space-y-2">
               {scenario.demos[kind].script[demoLang].map((l, i) => (
                 <li key={i} className={`flex ${l.speaker === "rep" ? "justify-end" : "justify-start"}`}>
-                  <p className={`max-w-[85%] rounded-[1.1rem] px-3.5 py-2 text-[15px] text-ink ${l.speaker === "rep" ? "bg-brand-soft" : "bg-ground"}`}>
+                  <p className={`max-w-[85%] rounded-[1.1rem] px-3.5 py-2 text-[15px] text-ink ${l.speaker === "rep" ? "rounded-br-md bg-brand-soft" : "rounded-bl-md bg-ground"}`}>
                     <span className="sr-only">{ui(l.speaker === "rep" ? "practice.you" : "practice.customer")}: </span>{strip(l.text)}
                   </p>
                 </li>

@@ -10,10 +10,10 @@ export default function GlobalError({ error }: { error: Error & { digest?: strin
   const es = typeof navigator !== "undefined" && navigator.language.startsWith("es");
   return (
     <html lang={es ? "es" : "en"}>
-      <body className="grid min-h-dvh place-items-center bg-ground px-6 text-ink">
+      <body className="grid min-h-dvh place-items-center bg-page px-6 font-sans text-ink">
         <div role="alert" className="w-full max-w-md space-y-4 text-center">
-          <h1 className="text-[22px] font-bold">{es ? "Esta pantalla tuvo un problema" : "This screen hit a problem"}</h1>
-          <button type="button" className="min-h-[52px] w-full rounded-full bg-brand px-6 text-[17px] font-semibold text-white" onClick={() => location.reload()}>
+          <h1 className="font-display text-[32px] leading-tight">{es ? "Esta pantalla tuvo un problema" : "This screen hit a problem"}</h1>
+          <button type="button" className="liquid-glass liquid-glass-accent min-h-[52px] w-full rounded-full px-6 text-[17px] font-semibold" onClick={() => location.reload()}>
             {es ? "Cargar de nuevo" : "Reload"}
           </button>
         </div>

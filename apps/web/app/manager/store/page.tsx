@@ -2,6 +2,7 @@ import { loadStoreSetup } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { notFound } from "next/navigation";
 import { StoreForm } from "@/components/store-form";
+import { PageHeader } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language } from "@/lib/server";
@@ -15,11 +16,7 @@ export default async function StorePage() {
   if (!setup) notFound();
   return (
     <div className="space-y-4">
-      <div>
-        <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("store.title", lang)}</h1>
-        <p className="text-muted">{setup.storeName}</p>
-        <p className="mt-1 text-sm">{t("store.intro", lang)}</p>
-      </div>
+      <PageHeader title={t("store.title", lang)} subtitle={<><span className="block font-semibold text-ink">{setup.storeName}</span><span className="mt-1 block">{t("store.intro", lang)}</span></>} />
       <StoreForm
         initial={{ ...setup, approvedAt: setup.approvedAt ? new Date(setup.approvedAt).toISOString() : null }}
         language={lang}

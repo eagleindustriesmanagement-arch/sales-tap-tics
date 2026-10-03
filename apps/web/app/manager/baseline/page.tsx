@@ -3,7 +3,7 @@ import { EXIT_CALIBRATION, OBJECTION_WEIGHTS, SCORE_VALIDITY, scoreValidity, typ
 import { t } from "@taptics/i18n";
 import { notFound } from "next/navigation";
 import { ImportForm } from "@/components/import-form";
-import { Card } from "@/components/ui";
+import { Card, PageHeader } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library } from "@/lib/server";
@@ -36,10 +36,7 @@ export default async function Baseline() {
   const head = "py-2 pr-3";
   return (
     <div className="space-y-4">
-      <div>
-        <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("baseline.title", lang)}</h1>
-        <p className="mt-1 text-sm">{t("baseline.intro", lang)}</p>
-      </div>
+      <PageHeader title={t("baseline.title", lang)} subtitle={t("baseline.intro", lang)} />
       <Card><ImportForm language={lang} kinds={kinds} /></Card>
       {calText && (
         <Card>
@@ -88,8 +85,8 @@ export default async function Baseline() {
           <>
             <div className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("validity.title", lang)}>
               <table className="w-full text-left text-sm">
-                <thead className="text-muted"><tr><th className="py-2 pr-3">{t("validity.measure", lang)}</th><th className="pr-3">{t("validity.close", lang)}</th><th>{t("validity.addons", lang)}</th></tr></thead>
-                <tbody className="divide-y divide-line text-ink tabular-nums">
+                <thead className="border-b border-line text-[13px] text-muted [&_th]:font-medium"><tr><th className="py-2 pr-3">{t("validity.measure", lang)}</th><th className="pr-3">{t("validity.close", lang)}</th><th>{t("validity.addons", lang)}</th></tr></thead>
+                <tbody className="divide-y divide-line-soft text-ink tabular-nums">
                   {validity.closeRate.map((c) => (
                     <tr key={c.measure}><td className="py-2 pr-3">{measureName(c.measure)}</td><td className="pr-3">{cell(c)}</td><td>{cell(validity.addonCancellation.find((a) => a.measure === c.measure))}</td></tr>
                   ))}
@@ -105,8 +102,8 @@ export default async function Baseline() {
         <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("baseline.closeRate", lang)}>
           <h2 className="mb-2 font-bold text-ink">{t("baseline.closeRate", lang)}</h2>
           <table className="w-full text-left text-sm" data-testid="baseline-months">
-            <thead className="text-muted"><tr><th className={head}>{t("baseline.month", lang)}</th><th className="pr-3">{t("baseline.ups", lang)}</th><th className="pr-3">{t("baseline.sold", lang)}</th><th>{t("baseline.rate", lang)}</th></tr></thead>
-            <tbody className="divide-y divide-line text-ink">
+            <thead className="border-b border-line text-[13px] text-muted [&_th]:font-medium"><tr><th className={head}>{t("baseline.month", lang)}</th><th className="pr-3">{t("baseline.ups", lang)}</th><th className="pr-3">{t("baseline.sold", lang)}</th><th>{t("baseline.rate", lang)}</th></tr></thead>
+            <tbody className="divide-y divide-line-soft text-ink">
               {b.months.map((m) => <tr key={m.month}><td className={head}>{m.month}</td><td className="pr-3">{m.ups}</td><td className="pr-3">{m.sold}</td><td>{rate(m.sold, m.ups)}</td></tr>)}
             </tbody>
           </table>
@@ -116,8 +113,8 @@ export default async function Baseline() {
         <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("baseline.byRep", lang)}>
           <h2 className="mb-2 font-bold text-ink">{t("baseline.byRep", lang)}</h2>
           <table className="w-full text-left text-sm">
-            <thead className="text-muted"><tr><th className={head}>{t("baseline.rep", lang)}</th><th className="pr-3">{t("baseline.ups", lang)}</th><th className="pr-3">{t("baseline.sold", lang)}</th><th>{t("baseline.rate", lang)}</th></tr></thead>
-            <tbody className="divide-y divide-line text-ink">
+            <thead className="border-b border-line text-[13px] text-muted [&_th]:font-medium"><tr><th className={head}>{t("baseline.rep", lang)}</th><th className="pr-3">{t("baseline.ups", lang)}</th><th className="pr-3">{t("baseline.sold", lang)}</th><th>{t("baseline.rate", lang)}</th></tr></thead>
+            <tbody className="divide-y divide-line-soft text-ink">
               {[...b.reps].sort((x, y) => y.ups - x.ups).map((r) => <tr key={r.rep_user_id ?? r.rep_label}><td className={head}>{r.rep_label}</td><td className="pr-3">{r.ups}</td><td className="pr-3">{r.sold}</td><td>{rate(r.sold, r.ups)}</td></tr>)}
             </tbody>
           </table>
@@ -126,8 +123,8 @@ export default async function Baseline() {
       {b.beBacks.length > 0 && (
         <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={`${t("baseline.beBacks", lang)} / ${t("baseline.walkAways", lang)}`}>
           <table className="w-full text-left text-sm">
-            <thead className="text-muted"><tr><th className={head}>{t("baseline.month", lang)}</th><th className="pr-3">{t("baseline.beBacks", lang)}</th><th>{t("baseline.walkAways", lang)}</th></tr></thead>
-            <tbody className="divide-y divide-line text-ink">
+            <thead className="border-b border-line text-[13px] text-muted [&_th]:font-medium"><tr><th className={head}>{t("baseline.month", lang)}</th><th className="pr-3">{t("baseline.beBacks", lang)}</th><th>{t("baseline.walkAways", lang)}</th></tr></thead>
+            <tbody className="divide-y divide-line-soft text-ink">
               {b.beBacks.map((m) => <tr key={m.month}><td className={head}>{m.month}</td><td className="pr-3">{m.be_backs}</td><td>{m.walk_aways}</td></tr>)}
             </tbody>
           </table>

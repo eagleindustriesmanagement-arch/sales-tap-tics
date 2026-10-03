@@ -37,15 +37,15 @@ export default async function Team() {
     <div className="space-y-6">
       <PageHeader title={t("team.title", lang)} />
       <div className="grid grid-cols-2 gap-3">
-        <Link href="/manager/assign" className="liquid-glass liquid-glass-accent liquid-glass-flat flex min-h-[52px] items-center justify-center gap-1.5 rounded-full px-3 text-[15px] font-semibold whitespace-nowrap"><IconTarget size={18} />{t("assign.title", lang)}</Link>
-        <Link href="/manager/coach" className="liquid-glass liquid-glass-flat flex min-h-[52px] items-center justify-center gap-1.5 rounded-full px-3 text-[15px] font-semibold whitespace-nowrap text-ink"><IconClipboard size={18} />{t("coach.title", lang)}</Link>
+        <Link href="/manager/assign" className="liquid-glass liquid-glass-accent liquid-glass-flat flex min-h-[52px] items-center justify-center gap-1.5 rounded-full px-4 py-1.5 text-center text-[15px] leading-tight font-semibold [&>svg]:shrink-0"><IconTarget size={18} />{t("assign.title", lang)}</Link>
+        <Link href="/manager/coach" className="liquid-glass liquid-glass-flat flex min-h-[52px] items-center justify-center gap-1.5 rounded-full px-4 py-1.5 text-center text-[15px] leading-tight font-semibold [&>svg]:shrink-0 text-ink"><IconClipboard size={18} />{t("coach.title", lang)}</Link>
       </div>
 
       <section className="space-y-2.5">
         <SectionTitle>{t("team.reps", lang)}</SectionTitle>
         <RowGroup>
           {focused.map((r) => (
-            <Link key={r.id} href={`/manager/team/${r.id}`} aria-label={r.first_name ?? ""} aria-describedby={`rep-${r.id}`} className="flex min-h-[72px] items-center gap-3 px-4 py-3 active:bg-ground">
+            <Link key={r.id} href={`/manager/team/${r.id}`} aria-label={r.first_name ?? ""} aria-describedby={`rep-${r.id}`} className="row-hover flex min-h-[72px] items-center gap-3 px-4 py-3">
               <Avatar name={r.first_name ?? "?"} size={44} />
               <span className="min-w-0 flex-1" id={`rep-${r.id}`}>
                 <span className="block text-[16px] font-semibold text-ink">{r.first_name}</span>
@@ -115,7 +115,7 @@ export default async function Team() {
               ] as const).map(([label, value, testId]) => (
                 <div key={label}>
                   <dt className="text-[13px] text-muted">{label}</dt>
-                  <dd className="text-[19px] font-bold text-ink tabular-nums" data-testid={testId}>{value}</dd>
+                  <dd className="font-display text-[26px] leading-tight text-ink tabular-nums" data-testid={testId}>{value}</dd>
                 </div>
               ))}
             </dl>

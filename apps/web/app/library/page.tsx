@@ -45,7 +45,7 @@ export default async function Library({ searchParams }: { searchParams: Promise<
         {tab === "techniques"
           ? techniques.map((x) => (
               <li key={x.code}>
-                <Link href={`/library/${x.code}`} className="flex items-start gap-3 px-4 py-3.5 active:bg-ground">
+                <Link href={`/library/${x.code}`} className="row-hover flex items-start gap-3 px-4 py-3.5">
                   <Grade grade={x.evidence.grade} label={t(`evidence.${x.evidence.grade}` as "evidence.A", lang)} />
                   <div className="min-w-0 flex-1">
                     <p className="text-[16px] font-semibold text-ink">{x.name[lang]}</p>
@@ -57,7 +57,7 @@ export default async function Library({ searchParams }: { searchParams: Promise<
             ))
           : objections.map((x) => (
               <li key={x.code}>
-                <Link href={`/library/${x.code}`} className="flex items-start gap-3 px-4 py-3.5 active:bg-ground">
+                <Link href={`/library/${x.code}`} className="row-hover flex items-start gap-3 px-4 py-3.5">
                   <div className="min-w-0 flex-1">
                     <p className="text-[16px] font-semibold text-ink">“{x.says[lang] || x.says[lang === "en" ? "es" : "en"]}”</p>
                     <p className="mt-0.5 line-clamp-2 text-[14px] text-body">{x.behind[lang]}</p>
