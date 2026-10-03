@@ -39,7 +39,7 @@ export default async function SessionPage({ params }: { params: Promise<{ id: st
           <p className="text-sm text-muted">{t("override.note", lang)}</p>
         </Card>
       )}
-      <DebriefView data={payload} language={lang} scenarioCode={detail.session.scenario_code} />
+      <DebriefView data={payload} language={lang} scenarioCode={detail.session.scenario_code} seenId={detail.session.user_id === user.id ? id : undefined} />
       {canFlag && <OverrideForm sessionId={id} language={lang} />}
     </div>
   );

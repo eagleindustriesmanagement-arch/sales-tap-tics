@@ -363,6 +363,8 @@ export function formatDollars(cents: number, language: Language): string {
 
 const HOURS_EN: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 };
 const HOURS_ES: Record<string, number> = { una: 1, dos: 2, tres: 3, cuatro: 4, cinco: 5, seis: 6, siete: 7, ocho: 8, nueve: 9, diez: 10, once: 11, doce: 12 };
+/** Words ending in -s that can follow a clock time ("a las dos más o menos", "a las tres pues"). */
+const NOT_NOUNS_ES = new Set(["más", "mas", "menos", "pues", "entonces", "después", "despues", "antes", "nos", "vemos", "es", "estamos", "está", "vas", "voy"]);
 const MINUTES: Record<string, number> = { thirty: 30, "half": 30, fifteen: 15, "forty-five": 45, media: 30, cuarto: 15, quince: 15, treinta: 30 };
 
 /**
@@ -385,6 +387,11 @@ export function findClockTimes(text: string): string[] {
   for (const m of lower.matchAll(new RegExp(`\\b(?:a las|a la|para las|para la|antes de las)\\s+(${esWords})(?:\\s+y\\s+(media|cuarto|quince|treinta))?(?![\\p{L}])|\\b(?:las|la)\\s+(${esWords})\\s+y\\s+(media|cuarto|quince|treinta)(?![\\p{L}])`, "gu"))) {
     const hour = m[1] ?? m[3]!;
     const minutes = m[2] ?? m[4];
+    // "a las dos partes", "las dos Equinox": a plural noun or a name after the number makes it "both", not 2:00.
+    if (!minutes) {
+      const next = /^\s+(\p{L}+)/u.exec(text.slice(m.index! + m[0].length))?.[1];
+      if (next && (/^\p{Lu}/u.test(next) || (/s$/i.test(next) && !NOT_NOUNS_ES.has(next.toLowerCase())))) continue;
+    }
     out.push(fmt(HOURS_ES[hour]!, minutes ? MINUTES[minutes]! : 0));
   }
   return out;

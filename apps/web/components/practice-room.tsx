@@ -37,6 +37,9 @@ const strip = (s: string) => s.replace(/\[[^\]]*\]\s*/g, "");
  */
 export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: { scenario: RoomScenario; uiLanguage: Language; live: boolean; mode?: "practice" | "certification" }) {
   const [phase, setPhase] = useState<Phase>("intro");
+  // Spec 19.4: whether the rep watched the demonstration before starting.
+  const [watchedDemo, setWatchedDemo] = useState(false);
+  useEffect(() => { if (phase === "demo") setWatchedDemo(true); }, [phase]);
   const [choice, setChoice] = useState<Language | "follow">(uiLanguage);
   const [lang, setLang] = useState<Language>(uiLanguage);
   const [session, setSession] = useState<{ id: string; brief: string; name: string } | null>(null);
@@ -85,7 +88,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     // iOS lets a page speak only after a tap: this one, so the customer's first line is not blocked.
     if (voice) try { window.speechSynthesis.speak(new SpeechSynthesisUtterance(" ")); } catch { /* no voices */ }
     try {
-      const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice, mode, voice }) });
+      const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice, mode, voice, demoWatched: watchedDemo }) });
       if (res.status === 409) {
         const body = (await res.json().catch(() => ({}))) as { error?: string };
         setError(t(body.error === "needs_judge" ? "cert.needsJudge" : "cert.notEligible", lang));
@@ -173,7 +176,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
 
   if (phase === "debrief") {
     return debrief ? (
-      <Debrief data={debrief} language={lang} onRetry={() => location.reload()} />
+      <Debrief data={debrief} language={lang} seenId={session?.id} onRetry={() => location.reload()} />
     ) : (
       <div className="grid min-h-dvh place-items-center px-6" role="status">
         <div className="flex flex-col items-center gap-4 text-center">

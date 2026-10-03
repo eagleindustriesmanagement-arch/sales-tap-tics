@@ -55,7 +55,7 @@ const principal = (u: { tenantId: string; id: string }) => ({ tenantId: u.tenant
 const STARTS_PER_MINUTE = 4;
 
 /** `voice` is a spoken session: pause and pace are measured and scored; typed sessions exclude them (spec 11.5). */
-export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow", mode: "practice" | "certification" = "practice", voice = false) {
+export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow", mode: "practice" | "certification" = "practice", voice = false, demoWatched: boolean | null = null) {
   sweep();
   const id = randomUUID();
   const { recent, attempt, certAttempt, release, store, history, exitMultiplier } = await asUser(principal(user), async (db) => {
@@ -94,7 +94,7 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
   const session = new PracticeSession(sessionOptions(user, { id, scenarioCode, language: lang, mode, seed, exitDraw, voice, exitMultiplier, store, usage }));
   const opening = session.start();
   await asUser(principal(user), async (db) => {
-    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: !voice, seed, exitDraw, exitMultiplier });
+    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: !voice, seed, exitDraw, exitMultiplier, demoWatched });
     await insertTurns(db, user.tenantId, id, session.transcript.map((t) => ({ ...t, isObjection: t.isObjection })));
   });
   live.set(id, { id, session, userId: user.id, tenantId: user.tenantId, createdAt: Date.now(), persistedTurns: session.transcript.length, usage, result: null });

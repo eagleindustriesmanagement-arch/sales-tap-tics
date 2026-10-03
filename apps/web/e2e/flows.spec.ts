@@ -323,9 +323,17 @@ test("the general manager sees model costs; a rep cannot", async ({ page, browse
   await page.getByRole("link", { name: "AI costs" }).click();
   await expect(page.getByTestId("cost-total")).toHaveText("$0.25");
   await expect(page.getByTestId("cost-failures")).toHaveText("50%");
+  // Usage (spec 19.4): counts from the sessions the earlier tests ran; the reps' debriefs were seen.
+  await page.goto("/manager/dashboard");
+  await page.getByRole("link", { name: "Usage", exact: true }).click();
+  await expect(page.getByTestId("usage-started")).toHaveText(/^[1-9]\d*$/);
+  await expect(page.getByTestId("usage-debriefs")).toHaveText(/^([1-9]\d*)%$/);
+  await expect(page.getByTestId("usage-stats")).not.toContainText("undefined");
   const rep = await browser.newPage();
   await signInReady(rep, "rep2@demo.test");
   await rep.goto("/manager/costs");
+  await expect(rep).toHaveURL(/localhost:\d+\/$/);
+  await rep.goto("/manager/usage");
   await expect(rep).toHaveURL(/localhost:\d+\/$/);
 });
 

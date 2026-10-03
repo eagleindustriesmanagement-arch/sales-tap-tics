@@ -80,6 +80,7 @@ export default async function Dashboard() {
           <ListRow href="/manager/compliance" leading={<span className={`${tile} bg-bad-soft text-bad`}><IconShield size={18} /></span>} title={t("nav.compliance.view", lang)} />
           <ListRow href="/manager/people" leading={<span className={`${tile} bg-brand-soft text-brand`}><IconUsers size={18} /></span>} title={t("people.title", lang)} />
           <ListRow href="/manager/baseline" leading={<span className={`${tile} bg-good-soft text-good`}><IconStore size={18} /></span>} title={t("baseline.title", lang)} />
+          <ListRow href="/manager/usage" leading={<span className={`${tile} bg-brand-soft text-brand`}><IconChart size={18} /></span>} title={t("usage.title", lang)} />
           <ListRow href="/manager/costs" leading={<span className={`${tile} bg-spark-soft text-ink`}><IconChart size={18} /></span>} title={t("costs.title", lang)} />
           <ListRow href="/manager/audit" leading={<span className={`${tile} bg-ground text-muted`}><IconClipboard size={18} /></span>} title={t("audit.title", lang)} />
           <a href="/api/export" download className="flex min-h-16 items-center gap-3 px-4 py-2.5 active:bg-ground">

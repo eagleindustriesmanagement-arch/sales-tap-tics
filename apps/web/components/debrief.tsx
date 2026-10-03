@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
 import { IconAlert, IconBulb, IconCheck, IconEye, IconRefresh, IconX } from "@/components/icons";
 import { Bar, Card, Chip, Ring, buttonClass, ghostButtonClass } from "@/components/ui";
@@ -30,7 +31,11 @@ export interface DebriefPayload {
  * matters most right under it, the turning point as two lines side by side, what worked, and what the customer was
  * really thinking. Details fold away. `standalone` is the end of a live session: its own top bar and pinned actions.
  */
-export function Debrief({ data, language: lang, onRetry, standalone = true }: { data: DebriefPayload; language: Language; onRetry: () => void; standalone?: boolean }) {
+/** `seenId`: the rep's own session, marked seen when its debrief first shows (spec 19.4: debrief opens). */
+export function Debrief({ data, language: lang, onRetry, standalone = true, seenId }: { data: DebriefPayload; language: Language; onRetry: () => void; standalone?: boolean; seenId?: string }) {
+  useEffect(() => {
+    if (seenId) void fetch(`/api/sessions/${seenId}/seen`, { method: "POST" }).catch(() => undefined);
+  }, [seenId]);
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
   const d = data.debrief;
   const total = Math.round(data.score.total);

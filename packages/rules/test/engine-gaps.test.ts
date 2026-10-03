@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { checkUtterance, finalizeSession, newSessionState } from "../src/index.js";
-import { findNumbers } from "../src/numbers.js";
+import { findClockTimes, findNumbers } from "../src/numbers.js";
 import type { Utterance } from "../src/index.js";
 import { ctx } from "./fixtures.js";
 
@@ -163,5 +163,17 @@ describe("an increase is not a trade number (decision 0019)", () => {
     expect(hits("Le doy otros dos mil por su trade-in.", "es")).not.toContain("TRADE-01");
     // The total still has to match the appraisal.
     expect(hits("Your trade is worth $16,000 to us.")).toContain("TRADE-01");
+  });
+});
+
+describe("Spanish \"las dos\" before a noun means both, not 2:00", () => {
+  it("is not a clock time before a plural noun or a name", () => {
+    expect(findClockTimes("Lo hablamos con calma, a las dos partes nos conviene.")).toEqual([]);
+    expect(findClockTimes("Puede manejar a las dos Equinox hoy.")).toEqual([]);
+    // Real times still count, with or without what follows.
+    expect(findClockTimes("Nos vemos mañana a las dos.")).toEqual(["2:00"]);
+    expect(findClockTimes("Lo espero a las dos más o menos.")).toEqual(["2:00"]);
+    expect(findClockTimes("Venga a las cinco el sábado.")).toEqual(["5:00"]);
+    expect(findClockTimes("a las cinco y media")).toEqual(["5:30"]);
   });
 });
