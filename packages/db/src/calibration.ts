@@ -53,3 +53,41 @@ export async function latestExitCalibration(db: Queryable, storeId: string) {
   );
   return r.rows[0] ?? null;
 }
+
+/** The store's lost-deal reasons over the last 3 imported months, summed by reason (spec 19.2 item 2). */
+export async function lostReasonCounts(db: Queryable, storeId: string) {
+  const r = await db.query<{ reason: string; count: number }>(
+    `with recent as (select month from store_metrics where store_id = $1 and kind = 'lost_reasons' group by month order by month desc limit 3)
+     select dimension reason, sum((metrics->>'count')::int)::int count
+     from store_metrics where store_id = $1 and kind = 'lost_reasons' and month in (select month from recent)
+     group by dimension order by count desc, dimension`,
+    [storeId],
+  );
+  return r.rows;
+}
+
+export async function saveObjectionWeights(db: Queryable, gm: UserContext, month: string, value: Record<string, unknown>) {
+  if (!gm.storeId) throw new Error("no store");
+  await db.query(
+    `insert into store_calibrations (tenant_id, store_id, kind, month, value, computed_by) values ($1, $2, 'objection_weights', $3, $4, $5)
+     on conflict (store_id, kind, month) do update set value = excluded.value, computed_by = excluded.computed_by`,
+    [gm.tenantId, gm.storeId, month, JSON.stringify(value), gm.id],
+  );
+  await audit(db, gm, "store.calibrate", "store", gm.storeId, { kind: "objection_weights", month, status: value["status"], matched: value["matched"] });
+}
+
+/** The latest objection weighting for the store, or null before the first lost-reasons import. */
+export async function latestObjectionWeights(db: Queryable, storeId: string) {
+  const r = await db.query<{ month: string; value: Record<string, unknown> }>(
+    "select to_char(month, 'YYYY-MM') as month, value from store_calibrations where store_id = $1 and kind = 'objection_weights' order by month desc limit 1",
+    [storeId],
+  );
+  return r.rows[0] ?? null;
+}
+
+/** The weights practice plans use now: the latest month's, when it had enough data; otherwise none (all 1). */
+export async function currentObjectionWeights(db: Queryable, storeId: string): Promise<Record<string, number>> {
+  const latest = await latestObjectionWeights(db, storeId);
+  const weights = latest?.value["status"] === "updated" ? latest.value["weights"] : null;
+  return weights && typeof weights === "object" ? (weights as Record<string, number>) : {};
+}

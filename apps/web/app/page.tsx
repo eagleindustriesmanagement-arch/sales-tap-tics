@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { isManager, listAssignments, listSessions, practiceHistory, weekCards } from "@taptics/db";
+import { currentObjectionWeights, isManager, listAssignments, listSessions, practiceHistory, weekCards } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { certificationState, dailyPlan, practiceStreak, type PlanReason } from "@taptics/session";
 import { IconBulb, IconCheck, IconClock, IconFlame, IconPlay, IconTarget, IconTrophy } from "@/components/icons";
@@ -24,14 +24,15 @@ export default async function Today() {
   if (user.roles.includes("content_editor")) redirect("/review");
   const lang = await language();
   const lib = library();
-  const { cards, recent, progress, assigned } = await asUser(principalOf(user), async (db) => ({
+  const { cards, recent, progress, assigned, weights } = await asUser(principalOf(user), async (db) => ({
     cards: (await weekCards(db)).filter((c) => c.userId === user.id),
     recent: await listSessions(db, { userId: user.id, limit: 3 }),
     progress: await practiceHistory(db, user.id),
     assigned: await listAssignments(db, { userId: user.id, open: true, limit: 5 }),
+    weights: user.storeId ? await currentObjectionWeights(db, user.storeId) : {},
   }));
   const now = new Date();
-  const inputs = scheduleInputs(lib);
+  const inputs = scheduleInputs(lib, weights);
   const card = cards[0] ? lib.behaviorCards.get(cards[0].cardCode) : undefined;
   // Spec 15.3: assignments first, then compliance, onboarding, certification and due items.
   const plan = dailyPlan({

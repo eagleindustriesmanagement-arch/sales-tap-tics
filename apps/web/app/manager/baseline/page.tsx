@@ -1,19 +1,27 @@
-import { baseline, IMPORT_KINDS, latestExitCalibration, type ImportKind } from "@taptics/db";
-import { EXIT_CALIBRATION } from "@taptics/session";
+import { baseline, IMPORT_KINDS, latestExitCalibration, latestObjectionWeights, type ImportKind } from "@taptics/db";
+import { EXIT_CALIBRATION, OBJECTION_WEIGHTS } from "@taptics/session";
 import { t } from "@taptics/i18n";
 import { notFound } from "next/navigation";
 import { ImportForm } from "@/components/import-form";
 import { Card } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
-import { language } from "@/lib/server";
+import { language, library } from "@/lib/server";
 
 /** The store's own numbers (spec 19.1): CSV upload and the close-rate baseline that training is measured against. */
 export default async function Baseline() {
   const user = await requireUser({ roles: ["general_manager"] });
   const lang = await language();
   if (!user.storeId) notFound();
-  const { b, cal } = await asUser(principalOf(user), async (db) => ({ b: await baseline(db, user.storeId!), cal: await latestExitCalibration(db, user.storeId!) }));
+  const { b, cal, weighting } = await asUser(principalOf(user), async (db) => ({
+    b: await baseline(db, user.storeId!),
+    cal: await latestExitCalibration(db, user.storeId!),
+    weighting: await latestObjectionWeights(db, user.storeId!),
+  }));
+  const lib = library();
+  const w = (weighting?.value ?? {}) as { status?: string; matched?: number; weights?: Record<string, number>; byLabel?: { label: string; count: number }[]; unmatched?: { reason: string; count: number }[] };
+  const labelText = (en: string) => lib.lostReasons?.reasons.find((r) => r.label.en === en)?.label[lang] ?? en;
+  const topObjections = Object.entries(w.weights ?? {}).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 6);
   const pct = (n: unknown) => `${Math.round(Number(n) * 100)}%`;
   const v = cal?.value ?? {};
   const calText = !cal ? null
@@ -35,6 +43,35 @@ export default async function Baseline() {
           <h2 className="font-bold text-ink">{t("baseline.calibration", lang)}</h2>
           <p className="mt-1 text-sm text-muted">{t("baseline.calibration.intro", lang)}</p>
           <p className="mt-2 text-ink" data-testid="calibration">{calText}</p>
+        </Card>
+      )}
+      {weighting && (
+        <Card className="space-y-3" data-testid="objection-weights">
+          <div>
+            <h2 className="font-bold text-ink">{t("baseline.weights", lang)}</h2>
+            <p className="mt-1 text-sm text-muted">{t("baseline.weights.intro", lang)}</p>
+          </div>
+          {w.status !== "updated" && <p className="text-ink">{t("baseline.weights.insufficient", lang, { matched: w.matched ?? 0, min: OBJECTION_WEIGHTS.minRecords })}</p>}
+          {topObjections.length > 0 && (
+            <div>
+              <p className="text-sm font-semibold text-muted">{t("baseline.weights.top", lang)}</p>
+              <ol className="mt-1 space-y-1 text-ink">
+                {topObjections.map(([code, weight]) => {
+                  const o = lib.objections.get(code);
+                  return <li key={code} className="flex justify-between gap-3"><span className="min-w-0">{o ? o.says[lang] || o.says[lang === "en" ? "es" : "en"] : code}</span><span className="shrink-0 font-semibold tabular-nums">×{weight}</span></li>;
+                })}
+              </ol>
+            </div>
+          )}
+          {(w.byLabel?.length ?? 0) > 0 && (
+            <div>
+              <p className="text-sm font-semibold text-muted">{t("baseline.weights.reasons", lang)}</p>
+              <ul className="mt-1 space-y-1 text-ink">
+                {w.byLabel!.map((l) => <li key={l.label} className="flex justify-between gap-3"><span>{labelText(l.label)}</span><span className="tabular-nums">{l.count}</span></li>)}
+              </ul>
+            </div>
+          )}
+          {(w.unmatched?.length ?? 0) > 0 && <p className="text-sm text-muted">{t("baseline.weights.unmatched", lang, { reasons: w.unmatched!.map((u) => `${u.reason} (${u.count})`).join(", ") })}</p>}
         </Card>
       )}
       {b.months.length === 0 && b.beBacks.length === 0 && <p className="text-muted">{t("baseline.none", lang)}</p>}

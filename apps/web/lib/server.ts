@@ -78,6 +78,8 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
   if (mode === "certification") {
     // Offline scores are partial and can never certify, so certification needs the live judge (spec 15.4, decision 0004).
     if (!aiConfigured()) return { error: "needs_judge" as const };
+    // Only the certification path (release 1 objections) certifies; the other customers are practice (decision 0017).
+    if (!scheduleInputs().scenarios.some((s) => s.code === scenarioCode && s.release1)) return { error: "not_eligible" as const };
     const now = new Date();
     const recert = certifiedForUps(user.id, scheduleInputs().scenarios, history, now).recertDue.includes(scenarioCode);
     if (!recert && certificationState(scenarioCode, history, now).state !== "eligible") return { error: "not_eligible" as const };
@@ -219,13 +221,17 @@ export function endOfDayInStore(date: string, timeZone = "America/New_York"): Da
   return new Date(`${date}T23:59:00${sign}${hh}:${mm}`);
 }
 
-/** The scheduler's view of the library: every active scenario and the rubric items it scores. */
-export function scheduleInputs(lib = library()) {
+/**
+ * The scheduler's view of the library: every active scenario and the rubric items it scores. `storeWeights` are the
+ * store's objection weights from its lost-deal reasons (spec 19.2 item 2, decision 0018); they multiply the authored
+ * weight.
+ */
+export function scheduleInputs(lib = library(), storeWeights: Record<string, number> = {}) {
   const scenarios: ScenarioMeta[] = [...lib.scenarios.values()]
     .filter((s) => s.status === "active")
     .map((s) => {
       const o = lib.objections.get(s.objection);
-      return { code: s.code, objection: s.objection, difficulty: s.difficulty, weight: o?.frequency_weight ?? 1, release1: o?.release_1 ?? false };
+      return { code: s.code, objection: s.objection, difficulty: s.difficulty, weight: (o?.frequency_weight ?? 1) * (storeWeights[s.objection] ?? 1), release1: o?.release_1 ?? false };
     });
   const itemsByScenario = new Map([...lib.scenarios.values()].map((s) => [s.code, (s.scoring?.items ?? []).map((i) => i.code)]));
   return { scenarios, itemsByScenario };

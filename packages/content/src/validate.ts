@@ -112,6 +112,11 @@ export function crossReference(library: Library): Finding[] {
     if (!r.attorney_reviewed) warn(r.code, "self-verified only, no attorney review (decision 0009; revisit before a customer-facing pilot)");
   }
   if (!library.lexicon) err("lexicon", "rules/lexicon.yaml is missing");
+  if (!library.lostReasons) err("lost-reasons", "calibration/lost-reasons.yaml is missing");
+  for (const r of library.lostReasons?.reasons ?? []) {
+    for (const o of [...r.objections, ...r.hides]) if (!library.objections.has(o)) err("lost-reasons", `${r.label.en}: objection ${o} does not exist`);
+    for (const p of r.patterns) if (!regexOk(p)) err("lost-reasons", `${r.label.en}: pattern is not valid: ${p}`);
+  }
 
   const counts: [string, number, number][] = [
     ["techniques", library.techniques.size, 122],

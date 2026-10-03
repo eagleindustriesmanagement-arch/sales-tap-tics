@@ -1,4 +1,4 @@
-import type { ExitPolicy } from "@taptics/content";
+import type { ExitPolicy, LostReasonMap } from "@taptics/content";
 
 /**
  * Exit-rate calibration (spec 19.2 item 1, decision 0011). Each month one multiplier per store scales every
@@ -59,3 +59,72 @@ export function calibrateExits(input: ExitCalibrationInput): ExitCalibration {
 }
 
 const round3 = (n: number) => Math.round(n * 1000) / 1000;
+
+// ---------------------------------------------------------------- objection weights (spec 19.2 item 2)
+
+/**
+ * Objection weights from the store's lost-deal reasons (decision 0018). Each reason is matched to objections by the
+ * content mapping; a reason known to hide another moves part of each deal to the objections it usually hides. An
+ * objection's weight is 1 plus `perShare` times its share of the matched lost deals, capped at `max`: one that costs
+ * the store a tenth of its lost deals weighs 2. Objections the store never names keep 1, because stated reasons are
+ * unreliable and absence is not evidence.
+ */
+export const OBJECTION_WEIGHTS = {
+  /** Fewer matched lost deals than this and no store weights are set. */
+  minRecords: 30,
+  perShare: 10,
+  max: 5,
+} as const;
+
+export interface LostReasonCount {
+  reason: string;
+  count: number;
+}
+
+export type ObjectionWeighting =
+  | {
+      status: "updated";
+      weights: Record<string, number>;
+      matched: number;
+      /** Matched lost deals by mapping label (English), largest first, for the general manager's view. */
+      byLabel: { label: string; count: number }[];
+      unmatched: LostReasonCount[];
+    }
+  | { status: "insufficient_data"; matched: number; unmatched: LostReasonCount[] };
+
+export function weighObjections(rows: LostReasonCount[], map: LostReasonMap): ObjectionWeighting {
+  const compiled = map.reasons.map((r) => ({ ...r, res: r.patterns.map((p) => new RegExp(p, "iu")) }));
+  const shares = new Map<string, number>();
+  const byLabel = new Map<string, number>();
+  const unmatched = new Map<string, number>();
+  let matched = 0;
+  const spread = (codes: string[], amount: number) => {
+    for (const c of codes) shares.set(c, (shares.get(c) ?? 0) + amount / codes.length);
+  };
+  for (const row of rows) {
+    if (row.count <= 0) continue;
+    const entry = compiled.find((r) => r.res.some((re) => re.test(row.reason)));
+    if (!entry) {
+      unmatched.set(row.reason, (unmatched.get(row.reason) ?? 0) + row.count);
+      continue;
+    }
+    matched += row.count;
+    byLabel.set(entry.label.en, (byLabel.get(entry.label.en) ?? 0) + row.count);
+    const hidden = entry.hides.length ? map.hidden_share : 0;
+    spread(entry.objections, row.count * (1 - hidden));
+    if (hidden) spread(entry.hides, row.count * hidden);
+  }
+  const unmatchedList = [...unmatched].map(([reason, count]) => ({ reason, count })).sort((a, b) => b.count - a.count);
+  if (matched < OBJECTION_WEIGHTS.minRecords) return { status: "insufficient_data", matched, unmatched: unmatchedList };
+  const weights: Record<string, number> = {};
+  for (const [code, amount] of [...shares].sort(([a], [b]) => a.localeCompare(b))) {
+    weights[code] = Math.round(Math.min(OBJECTION_WEIGHTS.max, 1 + (OBJECTION_WEIGHTS.perShare * amount) / matched) * 100) / 100;
+  }
+  return {
+    status: "updated",
+    weights,
+    matched,
+    byLabel: [...byLabel].map(([label, count]) => ({ label, count })).sort((a, b) => b.count - a.count),
+    unmatched: unmatchedList,
+  };
+}

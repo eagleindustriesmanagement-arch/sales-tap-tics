@@ -1,8 +1,8 @@
-import { IconChevronLeft } from "@/components/icons";
+import { IconChevronLeft, IconPlay } from "@/components/icons";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { t } from "@taptics/i18n";
-import { Card, Grade, Pill } from "@/components/ui";
+import { buttonClass, Card, Grade, Pill } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
 import { language, library } from "@/lib/server";
 
@@ -62,6 +62,8 @@ export default async function Detail({ params }: { params: Promise<{ code: strin
   }
   const obj = lib.objections.get(code);
   if (!obj) notFound();
+  // Every objection has a customer to practice it on (spec 9: one level 1 scenario per objection by release 2).
+  const practice = [...lib.scenarios.values()].filter((s) => s.objection === obj.code && s.status === "active").sort((a, b) => a.difficulty - b.difficulty);
   return (
     <div className="space-y-4">
       <Link href="/library?tab=objections" className="-ml-2 inline-flex min-h-11 items-center gap-1 rounded-full pr-3 pl-1 text-[15px] font-semibold text-brand"><IconChevronLeft size={20} />{t("library.objections", lang)}</Link>
@@ -78,6 +80,12 @@ export default async function Detail({ params }: { params: Promise<{ code: strin
         </div>
         {!obj.spanish_reviewed && <Pill>{t("library.spanishPending", lang)}</Pill>}
       </Card>
+      {practice.map((s) => (
+        <Link key={s.code} href={`/practice/${s.code}`} className={buttonClass} data-testid={`practice-${s.code}`}>
+          <IconPlay size={18} className="fill-current" />
+          {practice.length === 1 ? t("library.practiceThis", lang) : t("practice.level", lang, { n: s.difficulty })}
+        </Link>
+      ))}
     </div>
   );
 }

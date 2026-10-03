@@ -6,6 +6,8 @@ import type { ZodType } from "zod";
 import {
   behaviorCardSchema,
   glossarySchema,
+  lostReasonMapSchema,
+  type LostReasonMap,
   lexiconSchema,
   moduleSchema,
   objectionSchema,
@@ -55,6 +57,8 @@ export interface Library {
   modules: Map<string, Module>;
   glossary: GlossaryTerm[];
   lexicon: Lexicon | null;
+  /** Lost-deal reason mapping for objection weights (spec 19.2 item 2); a later layer replaces it whole. */
+  lostReasons: LostReasonMap | null;
 }
 
 export interface ContentError {
@@ -158,6 +162,7 @@ export function emptyLibrary(): Library {
     modules: new Map(),
     glossary: [],
     lexicon: null,
+    lostReasons: null,
   };
 }
 
@@ -193,6 +198,12 @@ export function loadLibrary(layers: ContentLayer[] = [{ scope: "platform", dir: 
       }
     }
     loadRules(library, ruleDir, errors, root, layer);
+    for (const file of yamlFiles(d("calibration"))) {
+      if (basename(file) !== "lost-reasons.yaml") continue;
+      const parsed = lostReasonMapSchema.safeParse(readYaml(file, errors, root));
+      if (parsed.success) library.lostReasons = parsed.data;
+      else for (const issue of parsed.error.issues) errors.push({ file: relative(root, file), message: `${issue.path.join(".")}: ${issue.message}` });
+    }
     for (const file of yamlFiles(d("glossary"))) {
       const raw = readYaml(file, errors, root);
       const parsed = glossarySchema.safeParse(raw);

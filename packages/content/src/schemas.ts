@@ -542,6 +542,30 @@ export const glossaryTermSchema = z
 export const glossarySchema = z.object({ terms: z.array(glossaryTermSchema).min(1) }).strict();
 export type GlossaryTerm = z.infer<typeof glossaryTermSchema>;
 
+// ---------------------------------------------------------------- lost-deal reasons (spec 19.2 item 2)
+
+/** How a store's logged lost-deal reasons map to objections (decision 0018). First matching entry wins. */
+export const lostReasonMapSchema = z
+  .object({
+    /** For a stated reason known to hide another, the share of each lost deal moved to the objections it hides. */
+    hidden_share: z.number().min(0).max(1),
+    reasons: z
+      .array(
+        z
+          .object({
+            label: bilingual,
+            /** Case-insensitive patterns, English or Spanish, tried against the reason as the store logged it. */
+            patterns: z.array(z.string().min(1)).min(1),
+            objections: z.array(objectionCode).min(1),
+            hides: z.array(objectionCode).default([]),
+          })
+          .strict(),
+      )
+      .min(1),
+  })
+  .strict();
+export type LostReasonMap = z.infer<typeof lostReasonMapSchema>;
+
 // ---------------------------------------------------------------- lexicon (cue words for the rule engine)
 
 export const MONEY_ROLES = ["payment", "fee", "rebate", "trade", "down", "price", "payoff", "budget", "gap", "per_day", "add_on"] as const;

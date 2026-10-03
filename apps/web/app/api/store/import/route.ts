@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { exitCalibrationInputs, IMPORT_KINDS, importStoreMetrics, saveExitCalibration, type ImportKind } from "@taptics/db";
-import { calibrateExits } from "@taptics/session";
+import { exitCalibrationInputs, IMPORT_KINDS, importStoreMetrics, lostReasonCounts, monthOf, saveExitCalibration, saveObjectionWeights, type ImportKind } from "@taptics/db";
+import { calibrateExits, weighObjections } from "@taptics/session";
+import { library } from "@/lib/server";
 import { apiUser, principalOf } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 
@@ -20,6 +21,11 @@ export async function POST(request: Request) {
     if (imported.ok && parsed.data.kind === "ups") {
       const input = await exitCalibrationInputs(db, user.storeId!);
       await saveExitCalibration(db, user, input.month, { ...calibrateExits(input), ups: input.ups, sessions: input.sessions });
+    }
+    // New lost-deal reasons reweight the store's objections (spec 19.2 item 2, decision 0018).
+    const map = library().lostReasons;
+    if (imported.ok && parsed.data.kind === "lost_reasons" && map) {
+      await saveObjectionWeights(db, user, monthOf(new Date()), { ...weighObjections(await lostReasonCounts(db, user.storeId!), map) });
     }
     return imported;
   });

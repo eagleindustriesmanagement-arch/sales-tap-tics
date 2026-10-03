@@ -1,8 +1,9 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type pg from "pg";
 import { randomUUID } from "node:crypto";
-import { calibrateExits } from "@taptics/session";
-import { baseline, createPracticeSession, currentExitMultiplier, exitCalibrationInputs, importStoreMetrics, latestExitCalibration, loadUser, parseCsv, saveExitCalibration, withTenant } from "../src/index.js";
+import { platformLibrary } from "@taptics/content";
+import { calibrateExits, weighObjections } from "@taptics/session";
+import { baseline, createPracticeSession, currentExitMultiplier, currentObjectionWeights, latestObjectionWeights, lostReasonCounts, saveObjectionWeights, exitCalibrationInputs, importStoreMetrics, latestExitCalibration, loadUser, parseCsv, saveExitCalibration, withTenant } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { scratchDatabase, SKIP } from "./helpers.js";
 
@@ -145,5 +146,42 @@ describe.skipIf(SKIP)("exit-rate calibration (spec 19.2 item 1)", () => {
     expect(counts.rows[0]).toEqual({ sessions: 0, exits: 0 });
     const managerUpdate = await as(MANAGER, (q) => q.query("update store_calibrations set value = '{\"multiplier\": 4}'"));
     expect(managerUpdate.rowCount).toBe(0);
+  });
+});
+
+describe.skipIf(SKIP)("objection weights from lost-deal reasons (spec 19.2 item 2)", () => {
+  const weigh = () => as(GM, async (q) => {
+    const gm = (await loadUser(q, GM))!;
+    const result = weighObjections(await lostReasonCounts(q, DEMO.store), platformLibrary().lostReasons!);
+    await saveObjectionWeights(q, gm, "2026-09-01", result);
+    return result;
+  });
+
+  it("sums the last 3 imported months by reason and sets weights everyone in the store reads", async () => {
+    await importAs(GM, "lost_reasons", "month,reason,count\n2026-05,Payment,500\n2026-06,Payment,20\n2026-07,Payment,10\n2026-07,Trade value,10\n2026-08,Payment,10\n2026-08,Wife,10\n2026-08,Weather,4\n");
+    // May is outside the last 3 months; reasons are stored as logged, in lower case.
+    expect(await as(GM, (q) => lostReasonCounts(q, DEMO.store))).toEqual([
+      { reason: "payment", count: 40 },
+      { reason: "trade value", count: 10 },
+      { reason: "wife", count: 10 },
+      { reason: "weather", count: 4 },
+    ]);
+    const result = await weigh();
+    expect(result).toMatchObject({ status: "updated", matched: 60, unmatched: [{ reason: "weather", count: 4 }] });
+    const weights = await as(REP, (q) => currentObjectionWeights(q, DEMO.store));
+    // Payment: 40 stated plus a quarter of the spouse row's hidden half, of 60 matched deals: past the cap of 5.
+    expect(weights["O03"]).toBe(5);
+    expect(weights["O04"]).toBe(Math.round((1 + (10 * 1.25) / 60) * 100) / 100);
+    expect(weights["O01"]).toBe(Math.round((1 + (10 * 5) / 60) * 100) / 100);
+    expect(await as(GM, (q) => latestObjectionWeights(q, DEMO.store))).toMatchObject({ month: "2026-09", value: { status: "updated" } });
+  });
+
+  it("too few lost deals leaves the store on authored weights; a rep cannot write weights", async () => {
+    await db.query("delete from store_metrics where kind = 'lost_reasons'");
+    await importAs(GM, "lost_reasons", "month,reason,count\n2026-08,Payment,12\n");
+    expect(await weigh()).toMatchObject({ status: "insufficient_data", matched: 12 });
+    expect(await as(REP, (q) => currentObjectionWeights(q, DEMO.store))).toEqual({});
+    const write = as(REP, (q) => q.query("insert into store_calibrations (tenant_id, store_id, kind, month, value, computed_by) values ($1, $2, 'objection_weights', '2026-10-01', '{}', $3)", [DEMO.tenant, DEMO.store, REP]));
+    await expect(write).rejects.toThrow(/row-level security/);
   });
 });

@@ -142,6 +142,7 @@ export interface PlanInput {
 }
 
 const WEEK_ONE_OBJECTIONS = 5;
+const byWeight = (a: ScenarioMeta, b: ScenarioMeta) => b.weight - a.weight || a.difficulty - b.difficulty || a.objection.localeCompare(b.objection);
 const ONBOARDING_DAYS = 30;
 
 export function onboardingDay(input: Pick<PlanInput, "now" | "startedAt">): number {
@@ -214,12 +215,13 @@ export function dailyPlan(input: PlanInput, size = 2): PlanItem[] {
       return { s, covered, m };
     })
     .filter((x) => x.covered > 0)
-    .sort((a, b) => Number(seenRecently(a.s.code)) - Number(seenRecently(b.s.code)) || b.covered - a.covered || (a.m?.value ?? 0) - (b.m?.value ?? 0));
+    .sort((a, b) => Number(seenRecently(a.s.code)) - Number(seenRecently(b.s.code)) || b.covered - a.covered || (a.m?.value ?? 0) - (b.m?.value ?? 0) || b.s.weight - a.s.weight);
   for (const { s, covered, m } of ranked) {
     add({ scenarioCode: s.code, mode: "practice", reason: { kind: "due", items: covered, daysSince: m ? Math.floor((now.getTime() - m.lastAt.getTime()) / DAY) : null } });
   }
-  if (plan.length === 0) {
-    const fresh = order.find((s) => !tried.has(s.code)) ?? scenarios.find((s) => !tried.has(s.code));
+  if (plan.length < size) {
+    // Past onboarding, the next new customer is the objection that costs the store the most deals (decision 0018).
+    const fresh = order.find((s) => !tried.has(s.code)) ?? [...scenarios].filter((s) => !tried.has(s.code)).sort(byWeight)[0];
     if (fresh) add({ scenarioCode: fresh.code, mode: "practice", reason: { kind: "new" } });
   }
   return plan;

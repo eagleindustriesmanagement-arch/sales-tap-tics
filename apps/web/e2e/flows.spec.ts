@@ -455,6 +455,15 @@ test("the general manager uploads the store's numbers; a bad file is refused by 
   await expect(page.getByTestId("baseline-months").getByRole("row").nth(1).getByRole("cell")).toHaveText(["2026-08", "120", "27", "23%"]);
   // The ups upload recalibrates practice exits; a handful of practice sessions is not enough to move them.
   await expect(page.getByTestId("calibration")).toContainText("stay at 1× the standard rates until the store has at least 30 finished practice sessions");
+  // Lost-deal reasons reweight the objections reps practice first (spec 19.2 item 2); unknown reasons are listed.
+  await page.getByTestId("import-kind").selectOption("lost_reasons");
+  await page.getByTestId("import-file").setInputFiles({ name: "lost.csv", mimeType: "text/csv", buffer: Buffer.from("month,reason,count\n2026-08,Payment too high,20\n2026-08,Pago muy alto,5\n2026-08,Trade value,10\n2026-08,Weather,3\n") });
+  await page.getByRole("button", { name: "Upload" }).click();
+  await expect(page.getByTestId("import-result")).toContainText("Imported 4 rows.");
+  const weights = page.getByTestId("objection-weights");
+  await expect(weights).toContainText("The payment is too high");
+  await expect(weights).toContainText("×5");
+  await expect(weights).toContainText("Not matched to an objection, so not counted: weather (3)");
   const rep = await browser.newPage();
   await signInReady(rep, "rep@demo.test");
   const res = await rep.request.post("/api/store/import", { data: { kind: "ups", csv: "month,rep,ups,sold\n2026-08,Luis,1,1\n" } });

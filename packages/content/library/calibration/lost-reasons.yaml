@@ -1,0 +1,78 @@
+# Spec 19.2 item 2, decision 0018: how the store's logged lost-deal reasons reorder objection priorities.
+# Each reason a store logs is matched, in this order, against the patterns (case-insensitive, English or Spanish);
+# the first entry that matches takes it. Unmatched reasons are listed for the general manager and not counted.
+#
+# Spec 9: stated reasons such as "talk to my spouse", "need to think" and "no time" rarely match the real one, which
+# is usually price, payment, financing or another store. For an entry with `hides`, only part of each lost deal
+# counts for the stated objections; `hidden_share` of it is spread over the objections it usually hides.
+hidden_share: 0.5
+reasons:
+  - label: { en: "Spouse or family", es: "Esposo, esposa o familia" }
+    patterns: ['spouse', 'wife', 'husband', 'partner', 'family', 'esposa', 'esposo', 'familia', 'pareja', 'marido', 'mujer']
+    objections: [O01]
+    hides: [O03, O04, O11, O10]
+  - label: { en: "Wanted to think it over", es: "Lo quería pensar" }
+    patterns: ['think', 'undecided', 'indecis', 'pensar', 'pensarlo', 'regret', 'arrepent']
+    objections: [O05, O60, O58]
+    hides: [O03, O04, O11, O10]
+  - label: { en: "No time or not ready", es: "Sin tiempo o no estaba listo" }
+    patterns: ['no time', 'not ready', 'timing', 'not today', 'not buying', 'later', 'tiempo', 'no estaba listo', 'hoy no', 'después', 'despues', 'apuro']
+    objections: [O07, O15, O63]
+    hides: [O03, O04, O11, O10]
+  - label: { en: "Just looking", es: "Solo estaba mirando" }
+    patterns: ['just looking', 'browsing', 'mirando', 'viendo nada m']
+    objections: [O06]
+  - label: { en: "Owed more than the trade was worth", es: "Debía más de lo que valía el carro" }
+    patterns: ['upside', 'negative equity', 'owe[sd]? more', 'al rev[eé]s', 'debe m[aá]s', 'deb[ií]a m[aá]s']
+    objections: [O02, O51]
+  - label: { en: "Waiting for prices, rates or a new model", es: "Esperando precios, tasas o modelo nuevo" }
+    patterns: ['wait', 'esperar', 'espera', 'new model', 'modelo nuevo', 'prices? (to )?(drop|go down|fall)', 'bajen']
+    objections: [O17, O24, O43, O61]
+  - label: { en: "Electric vehicle concerns", es: "Dudas sobre los eléctricos" }
+    patterns: ['\bevs?\b', 'electric', 'el[eé]ctric', 'charg', 'carga', 'battery', 'bater[ií]a', 'range', 'autonom', 'tax credit', 'cr[eé]dito federal']
+    objections: [O28, O29, O30, O31, O32, O44, O48]
+  - label: { en: "Rate or outside financing", es: "Tasa o financiamiento de afuera" }
+    patterns: ['\brate\b', '\bapr\b', 'interest', 'credit union', 'tasa', 'inter[eé]s', 'cooperativa', 'outside financ', 'own financ', 'own bank', 'su banco']
+    objections: [O11, O21]
+  - label: { en: "Credit or approval", es: "Crédito o aprobación" }
+    patterns: ['credit', 'approv', 'denied', 'declin', 'turned down', 'co-?sign', '\bitin\b', 'cr[eé]dito', 'aprob', 'rechaz', 'codeudor', 'co-?firmante']
+    objections: [O12, O36, O35, O52]
+  - label: { en: "Down payment", es: "Inicial o down" }
+    patterns: ['down payment', 'no down', 'money down', 'cash down', 'inicial', 'enganche', 'el down']
+    objections: [O13]
+  - label: { en: "Payment", es: "Pago mensual" }
+    patterns: ['payment', 'monthly', 'pago', 'mensualidad', 'cuota']
+    objections: [O03]
+  - label: { en: "Fees", es: "Cargos" }
+    patterns: ['\bfees?\b', 'out[- ]the[- ]door', 'cargos?', 'dealer fee']
+    objections: [O19, O41]
+  - label: { en: "Add-ons or F&I products", es: "Extras o productos de F&I" }
+    patterns: ['add-?ons?', 'package', 'warranty', '\bgap\b', 'extras?', 'paquete', 'garant[ií]a', 'accessor', 'accesorio', 'oil change', 'maintenance plan']
+    objections: [O20, O46, O49, O50, O54, O65]
+  - label: { en: "Trade value", es: "Valor del trade-in" }
+    patterns: ['trade', 'appraisal', 'tasaci', 'aval[uú]o']
+    objections: [O08, O23, O45]
+  - label: { en: "Bought elsewhere or another dealer's number", es: "Compró en otro lado o tenía número de otro dealer" }
+    patterns: ['bought elsewhere', 'another dealer', 'other dealer', 'competitor', 'beat', 'otro dealer', 'otro concesionario', 'compr[oó] en otro', 'competencia', 'down the road']
+    objections: [O10, O26, O42, O55]
+  - label: { en: "Shopping around", es: "Comparando" }
+    patterns: ['shop', 'compar', 'looking around', 'quotes?', 'cotizaci']
+    objections: [O09, O59, O14]
+  - label: { en: "Price", es: "Precio" }
+    patterns: ['price', 'expensive', 'too much', 'discount', 'precio', 'caro', 'rebaja', 'descuento', 'cost']
+    objections: [O04, O33, O64, O40]
+  - label: { en: "Vehicle not available", es: "No había el carro" }
+    patterns: ['inventory', 'stock', 'color', 'trim', 'not available', 'sold before', 'hybrid', 'h[ií]brido', 'inventario', 'versi[oó]n', 'no ten[ií]an', 'ya no estaba']
+    objections: [O16, O22, O25]
+  - label: { en: "Trust or pressure", es: "Confianza o presión" }
+    patterns: ['trust', 'pressure', 'pushy', 'confian', 'presi[oó]n', 'presionad', 'confus']
+    objections: [O18, O53, O57]
+  - label: { en: "Language", es: "Idioma" }
+    patterns: ['spanish', 'language', 'translat', 'espa[nñ]ol', 'idioma', 'traduc']
+    objections: [O34, O37, O38, O39]
+  - label: { en: "Cancellation", es: "Cancelación" }
+    patterns: ['cancel']
+    objections: [O47]
+  - label: { en: "No-show or stopped answering", es: "No llegó o dejó de contestar" }
+    patterns: ['no[- ]show', 'no response', 'unresponsive', 'ghost', 'stopped answering', 'no contest', 'no lleg[oó]', 'no vino']
+    objections: [O56, O62]
