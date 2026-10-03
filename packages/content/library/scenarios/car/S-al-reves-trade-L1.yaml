@@ -1,0 +1,180 @@
+code: S-al-reves-trade-L1
+module: car-miami-indecision
+title:
+  en: "\"I'm upside down on my car\""
+  es: "\"Estoy al revés con mi carro\""
+setting:
+  en: Thursday, 5:40 p.m., showroom floor, right after the test drive and the trade appraisal.
+  es: Jueves, 5:40 p.m., en el piso de ventas, justo después de la prueba de manejo y la tasación del trade-in.
+persona: P-al-reves-trade
+objection: O51
+channel: floor
+language_options: [es, en]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, works for an air-conditioning company in Westchester and speaks mostly Spanish. He just drove the 2026 Blazer LT and liked it. His trade is a 2021 Nissan Rogue SV with 64,000 miles; the appraisal is $14,800, from the three closest auction sales. He has not told you his payoff. Before you can show him any numbers, he tells you something."
+  es: "{name}, de unos 45 años, trabaja en una compañía de aire acondicionado en Westchester y habla sobre todo español. Acaba de manejar la Blazer LT 2026 y le gustó. Su trade-in es una Nissan Rogue SV 2021 con 64,000 millas; la tasación es $14,800, según las tres ventas de subasta más parecidas. No le ha dicho cuánto es su payoff. Antes de que usted pueda enseñarle números, le dice algo."
+opening:
+  en: "Look, I'll tell you up front: I'm upside down on my car."
+  es: "Mire, le digo de una vez: estoy al revés con mi carro."
+# O51 is the Spanish phrasing of O02 (the English side of the opening is a rendering for English sessions). The
+# difference between payoff and appraisal is shown on its own line; any option that finances it is subject to the
+# lender's approval.
+facts:
+  session_date: "2026-10-01"
+  vehicle: { year: 2026, make: Chevrolet, model: Blazer, trim: LT, color: Iridescent Pearl Tricoat, stock: "5318", in_stock: true }
+  price_cents: 3979500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4069400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  trade:
+    vehicle: 2021 Nissan Rogue SV, 64,000 miles
+    appraisal_cents: 1480000
+    payoff_cents: 1830000
+    basis: Three closest auction sales for the same car and miles in the last 30 days
+    conditions: ["Holds if the lender's payoff letter confirms $18,300"]
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    coworker_story: A coworker had what he owed folded into a new loan without being shown; he found out at his next trade
+    off_work: Off at 5:00 on weekdays
+numbers_sheet: true
+target_techniques: [T009, T029, T111, T001, T003, T002, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: O51-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O51-ACK
+      behavior:
+        en: "Acknowledged it calmly, without judging the loan"
+        es: "Lo reconoció con calma, sin juzgar el préstamo"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O51-QFIRST
+      behavior:
+        en: "Asked what worries him before offering any solution"
+        es: "Preguntó qué le preocupa antes de ofrecer cualquier solución"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O51-HIDDEN
+      behavior:
+        en: "Surfaced his fear that the shortfall would be hidden in the new loan"
+        es: "Sacó a la luz su miedo a que la diferencia se escondiera en el préstamo nuevo"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O51-SIDEBYSIDE
+      behavior:
+        en: "Put the payoff and the trade value side by side, with the difference on its own line and the trade number's condition stated"
+        es: "Puso el payoff y el valor del trade-in lado a lado, con la diferencia en su propia línea y la condición del valor del trade-in dicha"
+      dimension: technique
+      method: judge
+      points: 25
+      evidence: "O51 core moves: payoff and value side by side; T009, T111"
+      technique: T009
+    - code: O51-NEXT
+      behavior:
+        en: "Set a specific day and time to meet with the payoff letter"
+        es: "Fijó un día y una hora específicos para reunirse con la carta del payoff"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: hid_negative_equity
+      description:
+        en: "Buried the shortfall in the payment without showing it"
+        es: "Escondió la diferencia dentro del pago sin enseñarla"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed the problem off, offered to roll it into the new loan, and pointed the customer at the monthly payment. That is exactly what the customer was afraid of, and the rep never asked."
+      es: "Fíjese: le restó importancia al problema, ofreció meterlo en el préstamo nuevo y llevó al cliente al pago mensual. Eso es justo lo que el cliente temía, y el vendedor nunca preguntó."
+    script:
+      en:
+        - { speaker: customer, text: "Look, I'll tell you up front: I'm upside down on my car." }
+        - { speaker: rep, text: "Don't worry about that. Everybody's upside down these days. We'll just roll it into the new loan." }
+        - { speaker: customer, text: "Hold on. Don't rush me with this." }
+        - { speaker: rep, text: "Trust me, we do this every day. Just think about the monthly payment; the rest takes care of itself." }
+        - { speaker: customer, text: "Not today. I need to see it on paper first." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me when you're ready." }
+        - { speaker: customer, text: "Thanks anyway." }
+      es:
+        - { speaker: customer, text: "Mire, le digo de una vez: estoy al revés con mi carro." }
+        - { speaker: rep, text: "No se preocupe por eso. Hoy en día todo el mundo está al revés. Lo metemos en el préstamo nuevo y ya." }
+        - { speaker: customer, text: "Espérese. No me apure con esto." }
+        - { speaker: rep, text: "Créame, esto lo hacemos todos los días. Usted nada más piense en el pago mensual; lo demás se resuelve solo." }
+        - { speaker: customer, text: "Hoy no. Primero tengo que verlo en papel." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me llama cuando esté listo." }
+        - { speaker: customer, text: "Gracias de todas formas." }
+  good:
+    notice:
+      en: Notice the calm question about what worries him, the trade number given with its condition, and the difference shown on its own line instead of inside a payment.
+      es: Fíjese en la pregunta tranquila sobre qué le preocupa, en el valor del trade-in dicho con su condición, y en la diferencia enseñada en su propia línea en vez de dentro de un pago.
+    script:
+      en:
+        - { speaker: customer, text: "Look, I'll tell you up front: I'm upside down on my car." }
+        - { speaker: rep, text: "[pause] Thank you for telling me up front. A lot of people are in the same spot, and there's no judgment here. Before we talk numbers, what worries you most about being upside down?" }
+        - { speaker: customer, text: "I've heard things. You drive off in the new car and don't know where what you owed ended up." }
+        - { speaker: rep, text: "I understand. Setting the loan aside for a moment, is the Blazer the right car for you?" }
+        - { speaker: customer, text: "Yes, I love the Blazer. What I don't want is surprises." }
+        - { speaker: rep, text: "Then tell me: what would you need to see to feel at ease, and do you know roughly what you still owe?" }
+        - { speaker: customer, text: "Look, here's the truth: a coworker of mine had what he owed buried in his new loan, and nobody showed him. He found out when he went to trade again. I owe about eighteen thousand three hundred, and I want to see that and what my car is worth, side by side." }
+        - { speaker: rep, text: "Thank you for trusting me with that. Then we put it side by side, in writing. Your Rogue appraised at $14,800, from the three closest auction sales, and that number holds if your lender's payoff letter confirms what you owe. The difference is about $3,500, and it goes on its own line, not hidden inside a payment. You decide what to do with it: cover it with cash down, include it in the new loan where you can see it, if the lender approves, or wait and pay the loan down before you trade. Can you bring the payoff letter Monday at 6, so we see it all on one sheet?" }
+        - { speaker: customer, text: "Monday at 6 works. I'll ask the bank for the letter tomorrow." }
+        - { speaker: rep, text: "Perfect. I'll have the sheet ready. See you Monday at 6." }
+      es:
+        - { speaker: customer, text: "Mire, le digo de una vez: estoy al revés con mi carro." }
+        - { speaker: rep, text: "[pausa] Gracias por decírmelo de entrada. Mucha gente está en la misma situación, y aquí nadie lo va a juzgar. Antes de hablar de números, ¿qué es lo que más le preocupa de estar al revés?" }
+        - { speaker: customer, text: "He oído cosas. Uno sale con el carro nuevo y no sabe adónde fue a parar lo que debía." }
+        - { speaker: rep, text: "Lo entiendo. Dejando el préstamo a un lado un momento, ¿la Blazer es el carro para usted?" }
+        - { speaker: customer, text: "Sí, la Blazer me encanta. Lo que no quiero son sorpresas." }
+        - { speaker: rep, text: "Entonces dígame: ¿qué necesitaría ver para quedarse tranquilo, y sabe más o menos cuánto debe todavía?" }
+        - { speaker: customer, text: "Mire, la verdad es esta: a un compañero de trabajo le metieron lo que debía dentro del préstamo nuevo y nadie se lo enseñó. Se enteró cuando fue a cambiar el carro otra vez. Yo debo como dieciocho mil trescientos, y quiero ver eso y lo que vale mi carro, uno al lado del otro." }
+        - { speaker: rep, text: "Le agradezco la confianza. Entonces lo ponemos lado a lado, por escrito. Su Rogue se tasó en $14,800, según las tres ventas de subasta más parecidas, y ese número se mantiene si la carta del payoff de su banco confirma lo que usted debe. La diferencia es como $3,500, y va en su propia línea, no escondida dentro de un pago. Usted decide qué hacer con ella: cubrirla con dinero de down, incluirla en el préstamo nuevo a la vista, si el banco lo aprueba, o esperar y bajar la deuda antes de cambiar el carro. ¿Puede traer la carta del payoff el lunes a las 6, para verlo todo en una sola hoja?" }
+        - { speaker: customer, text: "El lunes a las 6 me sirve. Mañana le pido la carta al banco." }
+        - { speaker: rep, text: "Perfecto. Le tengo la hoja lista. Nos vemos el lunes a las 6." }
+spanish_reviewed: false
