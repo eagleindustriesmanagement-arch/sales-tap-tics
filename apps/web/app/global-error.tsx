@@ -6,7 +6,9 @@ import "./globals.css";
 
 /** The last resort, when even the app's frame fails to draw: reported (decision 0027) with a way to reload. */
 export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
-  useEffect(() => reportClientError("app", error, error.digest), [error]);
+  useEffect(() => {
+    reportClientError("app", error, error.digest);
+  }, [error]);
   const es = typeof navigator !== "undefined" && navigator.language.startsWith("es");
   return (
     <html lang={es ? "es" : "en"}>

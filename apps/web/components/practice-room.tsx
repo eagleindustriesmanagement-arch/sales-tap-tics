@@ -114,7 +114,11 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   const turnsLeft = Math.max(0, turnBudget - repTurns);
   const waiting = busy && lines.at(-1)?.speaker === "rep";
 
-  useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth", block: "end" }), [lines, phase, ended, waiting]);
+  // A block body, never an arrow that returns the call: newer browsers return a promise from scrollIntoView, and
+  // React would call that promise as the effect's cleanup on the next change ("i is not a function" on the first Send).
+  useEffect(() => {
+    bottom.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [lines, phase, ended, waiting]);
   // The field grows with what is typed, up to five lines.
   useEffect(() => {
     const el = field.current;

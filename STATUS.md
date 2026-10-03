@@ -259,10 +259,13 @@ Updated 2026-10-03 (eighth pass: teams and individuals, admin access as a privil
 
 ## Open risks
 
-- **Production Send crash (October 3), fixed but not confirmed as the cause.** The first typed Send replaced the
-  room with "This page couldn't load". It could not be reproduced locally; a node removed under React (as page
-  translation and extensions do) produces the same screen. The room now recovers in place, is not machine-translated,
-  and reports any crash as `client_error` in the logs (decision 0027). If it recurs, the log names the real cause.
+- **Production Send crash (October 3): root cause found and fixed.** The crash screen's details showed
+  "TypeError: i is not a function". The practice room's scroll effect was written as an arrow returning
+  `scrollIntoView(...)`; browsers that return a promise from scroll methods handed React a promise as the effect's
+  cleanup, which React called on the first Send. Reproduced exactly on the production build by making scroll return a
+  promise; fixed with a block body; a browser test clicks the real Send under that behavior, and a code guard fails
+  CI on any effect that returns a value. Live-site verification needs salestaptics.com in this environment's network
+  allowlist.
 
 1. **Speech recognition on mixed Miami Spanish** is the largest technical risk (spec 11); nothing voice-related is
    proven yet.

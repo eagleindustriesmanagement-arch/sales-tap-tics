@@ -716,3 +716,32 @@ test("a reload mid-conversation offers the conversation back, and it carries on"
   await expect(customer).toHaveCount(3);
   expect(crashes).toEqual([]);
 });
+
+test("a typed Send works in browsers whose scroll returns a promise", async ({ page }) => {
+  // Production (October 3): every first typed Send showed "TypeError: i is not a function". Newer browsers return a
+  // promise from scrollIntoView; the room's scroll effect handed it to React as a cleanup, which React then called.
+  await page.addInitScript(() => {
+    const original = Element.prototype.scrollIntoView;
+    Element.prototype.scrollIntoView = function (this: Element, ...args: Parameters<Element["scrollIntoView"]>) {
+      original.apply(this, args);
+      return Promise.resolve() as unknown as void;
+    };
+  });
+  const crashes: string[] = [];
+  page.on("pageerror", (e) => crashes.push(e.message));
+  await signInReady(page, "rep2@demo.test");
+  await page.goto("/practice/S-browser-L1");
+  await pastLesson(page);
+  await page.getByRole("radio", { name: "Type" }).check();
+  await page.getByRole("button", { name: "Start" }).click();
+  const customer = page.getByTestId("line-customer");
+  await expect(customer).toHaveCount(1);
+  for (const [i, line] of ["Take your time. What brought you in today?", "What would make this a good visit for you?"].entries()) {
+    await page.getByLabel("Type what you would say").fill(line);
+    await page.getByRole("button", { name: "Send" }).click();
+    await expect(page.getByTestId("line-rep")).toHaveCount(i + 1);
+    await expect(customer).toHaveCount(i + 2);
+  }
+  await expect(page.getByText("This screen hit a problem")).toHaveCount(0);
+  expect(crashes).toEqual([]);
+});

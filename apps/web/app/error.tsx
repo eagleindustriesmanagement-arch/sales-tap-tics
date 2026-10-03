@@ -9,7 +9,9 @@ import { reportClientError } from "@/lib/client-error";
 
 /** Any screen that fails to draw: reported (decision 0027), then the user can retry it or go back to Today. */
 export default function ScreenError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
-  useEffect(() => reportClientError("screen", error, error.digest), [error]);
+  useEffect(() => {
+    reportClientError("screen", error, error.digest);
+  }, [error]);
   const lang: Language = typeof document !== "undefined" && document.documentElement.lang.startsWith("es") ? "es" : "en";
   return (
     <div className="grid min-h-dvh place-items-center px-6">
