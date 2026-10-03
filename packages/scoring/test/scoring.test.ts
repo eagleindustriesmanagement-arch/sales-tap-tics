@@ -138,6 +138,16 @@ describe("debrief (spec 12.3)", () => {
     expect(d.critical).toEqual([]);
   });
 
+  it("points the one change and the wins back to the scenario's lesson by name (decision 0031)", async () => {
+    const turns = transcript(1200);
+    const s = await score({ turns });
+    const d = buildDebrief({ library, scenario, score: s, transcript: turns, endReason: "next_step" });
+    expect(d.change.concept?.name.en).toBe("The two-second pause");
+    expect(d.change.concept?.idea.es.length).toBeGreaterThan(10);
+    expect(d.worked.every((w) => w.concept === null || typeof w.concept?.en === "string")).toBe(true);
+    expect(d.worked.some((w) => w.concept)).toBe(true);
+  });
+
   it("puts a critical violation first with the true fact and the compliant line", async () => {
     const violations = checkUtterance(
       { text: "This one is $32,450.", language: "en", speaker: "rep", turnIndex: 5 },

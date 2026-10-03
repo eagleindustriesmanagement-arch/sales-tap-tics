@@ -3,6 +3,14 @@ import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { OUTBOX } from "../playwright.config";
 
+/** Practice opens on the lesson (decision 0031); tests that are about something else step past it. */
+async function pastLesson(page: Page) {
+  const skip = page.getByRole("button", { name: "Skip to practice" });
+  await expect(skip.or(page.getByRole("radio", { name: "Type" }))).toBeVisible();
+  if (await skip.isVisible()) await skip.click();
+}
+
+
 /** Accessibility audit (spec 20, M7): WCAG 2.1 A and AA rules on every main screen, for each role. */
 async function signIn(page: Page, email: string) {
   await page.goto("/login");
@@ -49,6 +57,7 @@ test("rep screens", async ({ page }) => {
 test("a live practice session and its debrief", async ({ page }) => {
   await signIn(page, "rep2@demo.test");
   await page.goto("/practice/S-thinker-L1");
+  await pastLesson(page);
   await page.getByRole("radio", { name: "Type" }).check(); // typed turns; the spoken flow has its own test
   await page.getByRole("button", { name: "Start" }).click();
   await page.getByLabel("Type what you would say").fill("Of course, take your time. What would you want to be sure about before you decide?");
@@ -70,6 +79,7 @@ test("a spoken practice session", async ({ page }) => {
   });
   await signIn(page, "rep2@demo.test");
   await page.goto("/practice/S-thinker-L1");
+  await pastLesson(page);
   await page.getByRole("radio", { name: "Talk" }).check();
   await page.getByRole("button", { name: "Start" }).click();
   await expect(page.getByTestId("voice-status")).toHaveText("Your turn. Listening…");

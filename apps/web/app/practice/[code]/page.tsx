@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
-import { aiConfigured, language, library } from "@/lib/server";
+import { aiConfigured, language, lessonFor, library } from "@/lib/server";
 import { PracticeRoom, type RoomScenario } from "@/components/practice-room";
 
 export default async function Practice({ params, searchParams }: { params: Promise<{ code: string }>; searchParams: Promise<{ mode?: string }> }) {
@@ -22,6 +22,10 @@ export default async function Practice({ params, searchParams }: { params: Promi
       const tech = lib.techniques.get(c)!;
       return { code: c, name: tech.name, grade: tech.evidence.grade };
     }),
+    lesson: (() => {
+      const l = lessonFor(s.code, lib);
+      return l ? { title: l.title, hook: l.hook, what: l.what, why: l.why, when: l.when, when_not: l.when_not, say: l.say, mistakes: l.mistakes, concepts: l.concepts.map((c) => ({ name: c.name, idea: c.idea })) } : null;
+    })(),
     demos: {
       flawed: { notice: s.demonstrations.flawed.notice, script: s.demonstrations.flawed.script },
       good: { notice: s.demonstrations.good.notice, script: s.demonstrations.good.script },

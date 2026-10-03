@@ -3,6 +3,14 @@ import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { OUTBOX } from "../playwright.config";
 
+/** Practice opens on the lesson (decision 0031); tests that are about something else step past it. */
+async function pastLesson(page: Page) {
+  const skip = page.getByRole("button", { name: "Skip to practice" });
+  await expect(skip.or(page.getByRole("radio", { name: "Type" }))).toBeVisible();
+  if (await skip.isVisible()) await skip.click();
+}
+
+
 /** The newest code mailed to an address (the outbox also holds invitations, which carry no code). */
 function lastCode(email: string) {
   const sent = readFileSync(OUTBOX, "utf8").trim().split("\n").map((l) => JSON.parse(l) as { identifier: string; code?: string; subject?: string });
@@ -82,6 +90,7 @@ test("a dealership signs up, the owner invites a rep, and the rep practices in t
   await expect(rep).toHaveURL(/\/today$/);
   await expect(rep.getByRole("heading", { name: /Yoel/ })).toBeVisible();
   await rep.goto("/practice/S-partner-check-L1");
+  await pastLesson(rep);
   await rep.getByRole("radio", { name: "Type" }).check();
   await rep.getByRole("button", { name: "Start" }).click();
   await rep.getByLabel("Type what you would say").fill("Of course. What do you think her first question will be?");

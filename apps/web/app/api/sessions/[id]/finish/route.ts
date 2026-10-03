@@ -12,6 +12,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
   const r = await finishSession(s, user);
   return NextResponse.json(
     debriefPayload({
+      scenarioCode: s.session.scenario.code,
       language: r.language,
       offline: r.offline,
       endReason: r.engine.endReason,

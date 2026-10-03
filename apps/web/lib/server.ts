@@ -237,6 +237,17 @@ export function scheduleInputs(lib = library(), storeWeights: Record<string, num
   return { scenarios, itemsByScenario };
 }
 
+/** The lesson read before a scenario (decision 0031), if it has one. */
+export function lessonFor(scenarioCode: string, lib = library()) {
+  for (const l of lib.lessons.values()) if (l.scenario === scenarioCode) return l;
+  return null;
+}
+
+/** The lesson concept that teaches a scored behavior, for the debrief to point back to (decision 0031). */
+export function conceptFor(scenarioCode: string, itemCode: string, lib = library()) {
+  return lessonFor(scenarioCode, lib)?.concepts.find((c) => c.items.includes(itemCode))?.name ?? null;
+}
+
 /** Plain-language behavior for any rubric item code, universal or scenario-specific. */
 export function itemBehavior(code: string, lib = library()) {
   for (const r of lib.rubrics.values()) {

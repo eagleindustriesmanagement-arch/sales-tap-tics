@@ -10,9 +10,9 @@ export interface Debrief {
   autoFails: { code: string; description: BilingualText; quote: string | null }[];
   score: { total: number; passed: boolean; threshold: number };
   endReason: string | null;
-  worked: { code: string; behavior: BilingualText; quote: string | null; explanation: BilingualText }[];
+  worked: { code: string; behavior: BilingualText; quote: string | null; explanation: BilingualText; concept?: BilingualText | null }[];
   /** The one change that matters most, with its why. Never absent: a score is never shown alone (spec 13.5). */
-  change: { code: string; behavior: BilingualText; why: BilingualText; technique: string | null; stretch: boolean };
+  change: { code: string; behavior: BilingualText; why: BilingualText; technique: string | null; stretch: boolean; concept?: { name: BilingualText; idea: BilingualText } | null };
   turningPoint: { turnIndex: number; repLine: string; modelAlternative: BilingualText } | null;
   /** Revealed only after the session (spec 18.4 rule 1). */
   hiddenTruth: BilingualText | null;
@@ -38,17 +38,24 @@ export function buildDebrief(input: { library: Library; scenario: Scenario; scor
     scenario.scoring?.items.find((i) => i.code === code)?.behavior ??
     [...library.rubrics.values()].flatMap((r) => r.items).find((i) => i.code === code)?.behavior ?? { en: code, es: code };
 
+  // The scenario's lesson names the move behind each scored behavior, so feedback can point back to it (decision 0031).
+  const lesson = [...(library.lessons?.values() ?? [])].find((l) => l.scenario === scenario.code);
+  const concept = (code: string) => {
+    const c = lesson?.concepts.find((x) => x.items.includes(code));
+    return c ? { name: c.name, idea: c.idea } : null;
+  };
+
   const worked = score.items
     .filter((i) => i.status === "scored" && i.max > 0 && i.points >= i.max)
     .sort((a, b) => Number(b.scenarioItem) - Number(a.scenarioItem) || Number(Boolean(b.evidence)) - Number(Boolean(a.evidence)) || b.max - a.max)
     .slice(0, 2)
-    .map((i) => ({ code: i.code, behavior: behavior(i.code), quote: i.evidence?.quote ?? null, explanation: i.explanation }));
+    .map((i) => ({ code: i.code, behavior: behavior(i.code), quote: i.evidence?.quote ?? null, explanation: i.explanation, concept: concept(i.code)?.name ?? null }));
 
   const weak = weakestItem(library, score.items);
   let change: Debrief["change"];
   if (weak) {
     const t = weak.technique ? library.techniques.get(weak.technique) : undefined;
-    change = { code: weak.code, behavior: behavior(weak.code), why: t?.why ?? weak.explanation, technique: t?.code ?? null, stretch: false };
+    change = { code: weak.code, behavior: behavior(weak.code), why: t?.why ?? weak.explanation, technique: t?.code ?? null, stretch: false, concept: concept(weak.code) };
   } else {
     // Everything scored landed: point to the next target technique instead of showing a bare score.
     const next = scenario.target_techniques.map((c) => library.techniques.get(c)).find((t) => t?.why);

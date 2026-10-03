@@ -46,13 +46,13 @@ export interface DebriefPayload {
   offline: boolean;
   endReason: string | null;
   nextStepSecured: boolean;
-  score: { total: number; passed: boolean; partial: boolean; coverage: number; threshold: number; honestyPassed: boolean; items: { code: string; points: number; max: number; status: string; explanation: Bilingual; behavior?: Bilingual; quote?: string | null }[] };
+  score: { total: number; passed: boolean; partial: boolean; coverage: number; threshold: number; honestyPassed: boolean; items: { code: string; points: number; max: number; status: string; explanation: Bilingual; behavior?: Bilingual; quote?: string | null; concept?: Bilingual | null }[] };
   debrief: {
     score?: { threshold: number };
     critical: { rule: string; quote: string; trueFact: Bilingual; compliantLine: Bilingual | null; explanation: Bilingual }[];
     autoFails: { code: string; description: Bilingual; quote: string | null }[];
-    worked: { code: string; behavior: Bilingual; quote: string | null; explanation: Bilingual }[];
-    change: { code: string; behavior: Bilingual; why: Bilingual; stretch: boolean };
+    worked: { code: string; behavior: Bilingual; quote: string | null; explanation: Bilingual; concept?: Bilingual | null }[];
+    change: { code: string; behavior: Bilingual; why: Bilingual; stretch: boolean; concept?: { name: Bilingual; idea: Bilingual } | null };
     turningPoint: { repLine: string; modelAlternative: Bilingual } | null;
     hiddenTruth: Bilingual | null;
     notScored: string[];
@@ -121,6 +121,12 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
         <p className="flex items-center gap-2 text-[15px] font-semibold text-brand"><IconBulb size={18} />{d.change.stretch ? ui("debrief.stretch") : ui("debrief.change")}</p>
         <p className="font-display text-[27px] leading-[1.15] text-ink">{d.change.behavior[lang]}</p>
         <p className="text-[15px] text-body"><span className="font-semibold text-ink">{ui("debrief.why")}:</span> {d.change.why[lang]}</p>
+        {/* Back to the lesson by name: the move the rep read about before the role-play (decision 0031). */}
+        {d.change.concept && (
+          <p className="rounded-[1rem] border-l-2 border-brand bg-brand-soft/60 px-3.5 py-2.5 text-[15px] text-ink" data-testid="change-concept">
+            <span className="font-semibold text-brand">{ui("lesson.fromLesson", { name: d.change.concept.name[lang] })}.</span> {d.change.concept.idea[lang]}
+          </p>
+        )}
       </section>
 
       {d.turningPoint && (
@@ -146,6 +152,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-good-soft text-good"><IconCheck size={16} /></span>
                 <div>
                   <p className="text-[15px] font-semibold text-ink">{w.behavior[lang]}</p>
+                  {w.concept && <p className="text-[13px] font-semibold text-brand">{ui("lesson.fromLesson", { name: w.concept[lang] })}</p>}
                   {w.quote && <p className="text-[14px] text-muted">{quoted(w.quote)}</p>}
                 </div>
               </li>
@@ -182,6 +189,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
                   <span className={scored ? "text-ink" : "text-body"}>{label}</span>
                   <span className="shrink-0 font-semibold text-ink tabular-nums">{scored ? `${Math.round(i.points * 10) / 10}/${i.max}` : "—"}</span>
                 </div>
+                {scored && i.concept && <p className="text-[12px] font-semibold tracking-wide text-brand uppercase">{i.concept[lang]}</p>}
                 {note && <p className="text-[13px] text-muted">{note}</p>}
                 {/* The line that earned (or missed) the points, so the score points at something the rep said. */}
                 {scored && i.quote && <p className="border-l-2 border-brand/50 pl-2.5 text-[13px] text-body" data-testid="item-quote"><span className="text-muted">{ui("debrief.yourLine")}:</span> {quoted(i.quote)}</p>}

@@ -6,6 +6,7 @@ import { t, type Bilingual, type Language } from "@taptics/i18n";
 import type { VoiceTiming } from "@taptics/voice";
 import { Debrief, type DebriefPayload } from "@/components/debrief";
 import { IconAlert, IconEye, IconMessage, IconMic, IconPlay, IconSend, IconTrophy, IconX } from "@/components/icons";
+import { Lesson, LessonSteps, type LessonView } from "@/components/lesson";
 import { Recover } from "@/components/recover";
 import { Avatar, Card, Chip, Grade, Inset, buttonClass, ghostButtonClass } from "@/components/ui";
 import { VoiceStage } from "@/components/voice-stage";
@@ -21,10 +22,12 @@ export interface RoomScenario {
   maxTurns: number;
   languages: Language[];
   targets: { code: string; name: Bilingual; grade: string }[];
+  /** Read before anything else in practice (decision 0031). */
+  lesson: LessonView | null;
   demos: Record<"flawed" | "good", { notice: Bilingual; script: Record<Language, Line[]> }>;
 }
 
-type Phase = "intro" | "demo" | "live" | "debrief";
+type Phase = "lesson" | "intro" | "demo" | "live" | "debrief";
 type AnswerBy = "talk" | "type";
 const ANSWER_KEY = "taptics.answerBy";
 /** A segmented choice: the real radio covers its whole segment, invisible, so a tap anywhere picks it. */
@@ -37,7 +40,8 @@ const strip = (s: string) => s.replace(/\[[^\]]*\]\s*/g, "");
  * demonstration, the conversation, then the debrief. No tab bar; one way out at the top left.
  */
 export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: { scenario: RoomScenario; uiLanguage: Language; live: boolean; mode?: "practice" | "certification" }) {
-  const [phase, setPhase] = useState<Phase>("intro");
+  // Learn first: practice opens on the lesson; certification is a test and goes straight to the briefing.
+  const [phase, setPhase] = useState<Phase>(scenario.lesson && mode === "practice" ? "lesson" : "intro");
   // Spec 19.4: whether the rep watched the demonstration before starting.
   const [watchedDemo, setWatchedDemo] = useState(false);
   useEffect(() => { if (phase === "demo") setWatchedDemo(true); }, [phase]);
@@ -318,6 +322,31 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     );
   }
 
+  // ------------------------------------------------------------- the lesson: learn the tactic first (decision 0031)
+  if (phase === "lesson" && scenario.lesson) {
+    return (
+      <div className="flex min-h-dvh flex-col">
+        <div className="pt-safe">
+          <div className="mx-auto flex h-16 max-w-2xl items-center gap-3 px-4">
+            <Link href="/practice" aria-label={ui("practice.close")} className="liquid-glass liquid-glass-flat grid h-11 w-11 shrink-0 place-items-center rounded-full text-ink"><IconX size={20} /></Link>
+            <div className="flex-1" />
+            <Chip tone="brand">{t("practice.level", lang, { n: scenario.level })}</Chip>
+          </div>
+        </div>
+        <div className="mx-auto w-full max-w-2xl flex-1 space-y-6 px-4 pt-1 pb-48">
+          <LessonSteps current="learn" lang={lang} />
+          <Lesson lesson={scenario.lesson} lang={lang} />
+        </div>
+        <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
+          <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4">
+            <button type="button" className={`${buttonClass} w-full`} onClick={() => { setPhase("demo"); window.scrollTo(0, 0); }}><IconEye size={18} />{ui("lesson.seeIt")}</button>
+            <button type="button" className={`${ghostButtonClass} w-full`} onClick={() => { setPhase("intro"); window.scrollTo(0, 0); }}>{ui("lesson.skip")}</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // ------------------------------------------------------------- briefing and demonstration
   const demoLang: Language = choice === "follow" ? lang : choice;
   const close = phase === "demo"
@@ -336,6 +365,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       </div>
 
       <div className="mx-auto w-full max-w-2xl flex-1 space-y-5 px-4 pt-2 pb-48">
+        {scenario.lesson && mode === "practice" && <LessonSteps current={phase === "demo" ? "see" : "do"} lang={lang} />}
         <div className="space-y-2">
           <span className="grid h-14 w-14 place-items-center rounded-[1.1rem] bg-brand-soft text-brand ring-1 ring-brand/25 ring-inset"><IconMessage size={28} /></span>
           <h1 className="pt-2 font-display text-[38px] leading-[1.05] text-ink sm:text-[44px]">{scenario.title[lang]}</h1>
@@ -410,6 +440,9 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
               : <><IconPlay size={18} className="fill-current" />{ui("scenario.start")}</>}
           </button>
           {phase === "intro" && <button className={`${ghostButtonClass} w-full`} onClick={() => setPhase("demo")}><IconEye size={18} />{ui("scenario.watchDemo")}</button>}
+          {phase === "intro" && scenario.lesson && mode === "practice" && (
+            <button type="button" className="min-h-11 w-full text-[15px] font-semibold text-brand" onClick={() => { setPhase("lesson"); window.scrollTo(0, 0); }}>{ui("lesson.review")}</button>
+          )}
         </div>
       </div>
     </div>

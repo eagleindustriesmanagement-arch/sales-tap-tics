@@ -19,6 +19,7 @@ export default async function SessionPage({ params }: { params: Promise<{ id: st
   const canFlag = isManager(user) && detail.session.user_id !== user.id;
   const dims = detail.score.dimensions as { partial?: boolean; coverage?: number };
   const payload = debriefPayload({
+    scenarioCode: detail.session.scenario_code,
     language: lang,
     offline: detail.score.judge_model === null,
     endReason: detail.session.end_reason,

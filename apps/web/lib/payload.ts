@@ -1,7 +1,9 @@
 import type { DebriefPayload } from "@/components/debrief";
-import { itemBehavior } from "@/lib/server";
+import { conceptFor, itemBehavior } from "@/lib/server";
 
 interface Source {
+  /** For naming each behavior's lesson concept (decision 0031). */
+  scenarioCode?: string;
   language: "en" | "es";
   offline: boolean;
   endReason: string | null;
@@ -26,7 +28,7 @@ export function debriefPayload(r: Source): DebriefPayload {
       threshold: r.score.threshold ?? r.debrief.score?.threshold ?? 70,
       honestyPassed: r.score.honestyPassed,
       // The behavior's own name labels the row; the explanation (evidence, or why it was not scored) goes under it.
-      items: r.score.items.map((i) => ({ code: i.code, points: i.points, max: i.max, status: i.status, explanation: i.explanation, behavior: itemBehavior(i.code) ?? i.explanation, quote: i.evidence?.quote || null })),
+      items: r.score.items.map((i) => ({ code: i.code, points: i.points, max: i.max, status: i.status, explanation: i.explanation, behavior: itemBehavior(i.code) ?? i.explanation, quote: i.evidence?.quote || null, concept: r.scenarioCode ? conceptFor(r.scenarioCode, i.code) : null })),
     },
     debrief: r.debrief,
     transcript: r.transcript.map((t) => ({ index: t.index, speaker: t.speaker, text: t.text })),

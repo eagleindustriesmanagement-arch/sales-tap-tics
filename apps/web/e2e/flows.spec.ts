@@ -3,6 +3,14 @@ import { readFileSync } from "node:fs";
 import pg from "pg";
 import { CRON_SECRET, OUTBOX } from "../playwright.config";
 
+/** Practice opens on the lesson (decision 0031); tests that are about something else step past it. */
+async function pastLesson(page: Page) {
+  const skip = page.getByRole("button", { name: "Skip to practice" });
+  await expect(skip.or(page.getByRole("radio", { name: "Type" }))).toBeVisible();
+  if (await skip.isVisible()) await skip.click();
+}
+
+
 const db = () => new pg.Client({ connectionString: process.env.DATABASE_URL });
 /** The demo store (packages/db/scripts/seed-demo.ts); other tenants, such as the load test's, may share the database. */
 const DEMO_STORE = "22222222-2222-4222-8222-222222222222";
@@ -54,6 +62,15 @@ test("a rep signs in, accepts the notice, practices, and the session is saved", 
   await page.getByRole("link", { name: "See all scenarios" }).click();
   await expect(page.getByRole("heading", { name: "Level 1" })).toBeVisible();
   await page.getByTestId("scenario-S-partner-check-L1").click();
+  // Learn, see it, do it (decision 0031): the lesson comes first, then the demonstration, then the role-play.
+  const lesson = page.getByTestId("lesson");
+  await expect(lesson.getByRole("heading", { level: 1 })).toContainText("find out what she'll ask");
+  await expect(lesson.getByRole("heading", { name: "Why it works" })).toBeVisible();
+  await expect(lesson.getByText("When you talk tonight, what do you think her first question will be?")).toBeVisible();
+  await expect(lesson.getByText("Her first question", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "See it done" }).click();
+  await expect(page.getByRole("heading", { name: "What not to do" })).toBeVisible();
+  await page.getByRole("button", { name: "Close" }).click();
   await page.getByRole("radio", { name: "Type" }).check(); // typed turns; the spoken flow has its own test
   await page.getByRole("button", { name: "Start" }).click();
   const say = page.getByLabel("Type what you would say");
@@ -83,6 +100,8 @@ test("a rep signs in, accepts the notice, practices, and the session is saved", 
   await page.getByText("Every behavior scored").click();
   await expect(page.getByTestId("scored-item").first()).not.toContainText(/^Not scored in text mode/);
   await expect(page.getByText(/The payment is about \$60 a month above/)).toBeVisible();
+  // The feedback points back to the lesson by name.
+  await expect(page.getByText(/From the lesson: /).first()).toBeVisible();
 
   const c = db();
   await c.connect();
@@ -103,6 +122,7 @@ test("a rep who makes up a deadline is stopped and the violation is stored", asy
   await signIn(page, "rep2@demo.test");
   await page.getByRole("button", { name: "I understand and agree" }).click();
   await page.goto("/practice/S-partner-check-L1");
+  await pastLesson(page);
   await page.getByRole("radio", { name: "Type" }).check(); // typed turns; the spoken flow has its own test
   await page.getByRole("button", { name: "Start" }).click();
   await page.getByLabel("Type what you would say").fill("The bonus cash ends tomorrow, so you should decide today.");
@@ -224,6 +244,7 @@ test("a manager assigns practice with a reason; the rep sees it first and practi
   await expect(rep.getByTestId("assignment-reason")).toHaveText(/Ask what she will ask first/);
   await rep.getByRole("link", { name: "Practice now" }).click();
   await expect(rep).toHaveURL(/\/practice\/S-partner-check-L1$/);
+  await pastLesson(rep);
   await rep.getByRole("radio", { name: "Type" }).check(); // typed turns; the spoken flow has its own test
   await rep.getByRole("button", { name: "Start" }).click();
   await rep.getByLabel("Type what you would say").fill("Of course. What do you think her first question will be?");
@@ -566,6 +587,7 @@ test("a spoken session: hands-free turns, barge-in, and the pause and pace are s
   });
   await signInReady(page, "rep@demo.test");
   await page.goto("/practice/S-partner-check-L1");
+  await pastLesson(page);
   await expect(page.getByRole("radio", { name: "Talk" })).toBeChecked();
   await page.getByRole("button", { name: "Start" }).click();
   const status = page.getByTestId("voice-status");
@@ -610,6 +632,7 @@ test("a typed turn renders the reply, even when the stream is damaged or the pag
   page.on("pageerror", (e) => crashes.push(e.message));
   await signInReady(page, "rep@demo.test");
   await page.goto("/practice/S-partner-check-L1");
+  await pastLesson(page);
   await page.getByRole("radio", { name: "Type" }).check();
   await page.getByRole("button", { name: "Start" }).click();
   const say = page.getByLabel("Type what you would say");
