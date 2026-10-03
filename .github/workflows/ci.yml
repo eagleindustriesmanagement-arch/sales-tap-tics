@@ -33,7 +33,9 @@ jobs:
           psql postgresql://postgres:postgres@localhost:5432/hosted -c "create schema extensions" -c "create extension pgcrypto schema extensions" \
             -c "alter default privileges for role hosted_owner in schema public grant all on tables to anon, authenticated" \
             -c "alter default privileges for role hosted_owner in schema public grant all on sequences to anon, authenticated"
+          sudo apt-get update -q > /dev/null
           sudo apt-get install -y -q pgbouncer > /dev/null
+          sudo systemctl stop pgbouncer 2>/dev/null || true
           mkdir -p /tmp/pgb
           printf '"hosted_owner" "hosted-ci-only"\n' > /tmp/pgb/userlist.txt
           printf '[databases]\nhosted = host=localhost port=5432 dbname=hosted\n[pgbouncer]\nlisten_addr = 127.0.0.1\nlisten_port = 6543\nauth_type = scram-sha-256\nauth_file = /tmp/pgb/userlist.txt\npool_mode = transaction\nunix_socket_dir =\npidfile = /tmp/pgb/pgbouncer.pid\nlogfile = /tmp/pgb/pgbouncer.log\nignore_startup_parameters = extra_float_digits\n' > /tmp/pgb/pgbouncer.ini
