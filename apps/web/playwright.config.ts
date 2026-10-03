@@ -24,7 +24,7 @@ export default defineConfig({
     { name: "flows", testMatch: /flows\.spec\.ts/ },
     { name: "a11y", testMatch: /a11y\.spec\.ts/, dependencies: ["flows"] },
     // Sign-up and the public home page run last: they add tenants, which the flows' cross-store counts must not see.
-    { name: "accounts", testMatch: /(signup|marketing)\.spec\.ts/, dependencies: ["a11y"] },
+    { name: "accounts", testMatch: /(signup|marketing|pricing)\.spec\.ts/, dependencies: ["a11y"] },
   ],
   // The production build, so the tests cover what ships. Login codes go to a file outbox the tests read.
   webServer: {

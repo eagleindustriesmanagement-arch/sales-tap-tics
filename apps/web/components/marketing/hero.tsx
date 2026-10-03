@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { Language } from "@taptics/i18n";
 import { IconAlert, IconCheck, IconChevronLeft, IconMic, IconSparkle } from "@/components/icons";
-import { copy, say } from "./copy";
+import { copy, fill, say } from "./copy";
 import { HeroShader } from "./hero-shader";
+import { libraryFacts } from "./library-facts";
 import { Arrow, Eyebrow, MiniRing, glassButton, goldButton } from "./parts";
 
 /** The practice room on a phone, in HTML: the conversation plays in line by line. Decorative. */
@@ -104,8 +105,15 @@ function FloatingCards({ lang }: { lang: Language }) {
 
 export function Hero({ lang }: { lang: Language }) {
   const h = copy.hero;
+  const lib = libraryFacts();
+  const facts = [
+    fill(say(h.facts.techniques, lang), { n: lib.techniques }),
+    fill(say(h.facts.lessons, lang), { n: lib.lessons }),
+    say(h.facts.languages, lang),
+    say(h.facts.talk, lang),
+  ];
   return (
-    <section aria-labelledby="mkt-h1" className="mkt-hero relative overflow-clip pt-28 pb-20 sm:pt-32 lg:flex lg:min-h-[100svh] lg:items-center lg:pt-28 lg:pb-24">
+    <section aria-labelledby="mkt-h1" className="mkt-hero relative overflow-clip pt-28 pb-16 sm:pt-32 lg:flex lg:min-h-[100svh] lg:items-center lg:pt-28 lg:pb-20">
       <div className="mkt-hero-bg mkt-layer" data-depth="0.35" aria-hidden="true">
         <div className="mkt-hero-fallback" />
         <HeroShader />
@@ -115,17 +123,18 @@ export function Hero({ lang }: { lang: Language }) {
       <div className="mx-auto grid w-full max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
         <div className="relative z-10 max-w-[40rem]">
           <Eyebrow>{say(h.eyebrow, lang)}</Eyebrow>
-          <h1 id="mkt-h1" className={`mt-5 font-display leading-[0.96] tracking-[-0.015em] text-ink ${lang === "es" ? "text-[clamp(2.75rem,9.5vw,5.25rem)]" : "text-[clamp(3rem,10.5vw,6.25rem)]"}`}>
+          <h1 id="mkt-h1" className={`mt-5 font-display leading-[0.96] tracking-[-0.015em] text-ink ${lang === "es" ? "text-[clamp(2.9rem,11vw,5.75rem)]" : "text-[clamp(3.1rem,11.5vw,6.5rem)]"}`}>
             {say(h.h1a, lang)} <em className="mkt-gold pr-1 italic">{say(h.h1b, lang)}</em>
           </h1>
-          <p className="mt-7 max-w-[36rem] text-[17px] leading-[1.6] text-body sm:text-[18px]">{say(h.sub, lang)}</p>
+          <p className="mt-7 max-w-[35rem] text-[17px] leading-[1.6] text-body sm:text-[18px]">{say(h.sub, lang)}</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link href="/signup" className={goldButton} data-testid="hero-pilot">{say(copy.nav.startPilot, lang)}<Arrow /></Link>
+            <Link href="/signup" className={goldButton} data-testid="hero-start">{say(copy.nav.startFree, lang)}<Arrow /></Link>
             <Link href="/login?demo=1" className={glassButton} data-testid="hero-demo">{say(copy.nav.tryDemo, lang)}</Link>
           </div>
-          <ul className="mt-10 flex flex-wrap gap-x-5 gap-y-2.5 text-[13.5px] text-muted">
-            {h.facts.map((fact, i) => (
-              <li key={i} className="flex items-center gap-2"><span className="h-1 w-1 rotate-45 bg-[var(--accent)]" aria-hidden="true" />{say(fact, lang)}</li>
+          <p className="mt-4 text-[14px] text-muted">{say(h.ways, lang)}</p>
+          <ul className="mt-9 flex flex-wrap gap-x-5 gap-y-2.5 text-[13.5px] text-muted" data-testid="hero-facts">
+            {facts.map((fact) => (
+              <li key={fact} className="flex items-center gap-2"><span className="h-1 w-1 rotate-45 bg-[var(--accent)]" aria-hidden="true" />{fact}</li>
             ))}
           </ul>
         </div>

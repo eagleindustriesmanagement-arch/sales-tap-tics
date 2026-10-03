@@ -26,7 +26,7 @@ export function Bilingual({ lang }: { lang: Language }) {
       </span>
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16">
         <div data-reveal>
-          <Eyebrow index="05">{say(c.eyebrow, lang)}</Eyebrow>
+          <Eyebrow index="07">{say(c.eyebrow, lang)}</Eyebrow>
           <h2 id="mkt-bilingual" className="mkt-h2 mt-5">{say(c.h2, lang)}</h2>
           <p className="mt-6 text-[17px] leading-relaxed text-body">{say(c.body, lang)}</p>
           <ul className="mt-8 flex flex-wrap gap-2.5" aria-label={say(c.words, lang)}>

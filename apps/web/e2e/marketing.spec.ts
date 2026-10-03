@@ -21,18 +21,47 @@ function watch(page: Page) {
 }
 
 test.describe("the public home page", () => {
-  test("shows the headline and both ways in, with no errors", async ({ page }) => {
+  test("shows the headline, both ways in, the cited research and the library, with no errors", async ({ page }) => {
     const problems = watch(page);
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Your reps take the hard ups here first\./);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Master the close before it counts\./);
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
 
     const hero = page.locator("section", { has: page.getByRole("heading", { level: 1 }) });
-    await expect(hero.getByRole("link", { name: "Start a pilot" })).toHaveAttribute("href", "/signup");
+    await expect(hero.getByRole("link", { name: "Start free" })).toHaveAttribute("href", "/signup");
     await expect(hero.getByRole("link", { name: "Try the demo" })).toHaveAttribute("href", "/login?demo=1");
 
-    // The rest of the story is on the page: the library count, the flagged line, the pilot.
-    await expect(page.getByRole("heading", { name: /\d+ objections\. A customer for every one\./ })).toBeVisible();
+    // Credibility up top, in the supported wording (never "millions of hours").
+    await expect(page.getByTestId("research-line")).toHaveText(/Neil Rackham's 35,000 observed sales calls to studies of millions of recorded sales conversations/);
+    await expect(page.locator("[data-mkt]")).not.toContainText("millions of hours");
+
+    // The return on training: the number, its citation and its caveat.
+    await expect(page.getByRole("heading", { name: "Trained sales floors sold 12% more per day." })).toBeVisible();
+    await expect(page.getByTestId("roi-cite")).toContainText("Prada, Rucci & Urzúa");
+    await expect(page.getByTestId("roi-cite")).toContainText("IZA Discussion Paper 12447 (2019)");
+    await expect(page.getByTestId("coach-figure")).toContainText("Up to 19%");
+
+    // The calculator is the visitor's number times the study's 12.1%.
+    const calc = page.getByTestId("roi-calculator");
+    await calc.getByLabel("Your monthly sales, in dollars").fill("100000");
+    await expect(calc.getByTestId("roi-month")).toHaveText("$12,100");
+    await expect(calc).toContainText("$145,200 a year");
+
+    // The technique count comes from the library, and real names are shown.
+    await expect(page.getByTestId("hero-facts")).toContainText(/\d{3} techniques/);
+    await expect(page.getByTestId("technique-count")).toHaveText(/Deep to learn\. \d{3} techniques in \d+ families\./);
+    for (const name of ["Pause and slow down", "Isolate", "Label the concern", "Firm next step"]) {
+      await expect(page.locator("#techniques").getByRole("heading", { name, exact: true })).toBeVisible();
+    }
+
+    // Industries, honestly: cars live, the rest next.
+    await expect(page.getByTestId("industries")).toContainText("Customers live");
+    await expect(page.getByTestId("industries")).toContainText("Home-buyer customers are next.");
+
+    // Two ways in at the end, and pricing one tap away.
+    await expect(page.getByTestId("start-team")).toHaveAttribute("href", "/signup");
+    await expect(page.getByTestId("start-solo")).toHaveAttribute("href", "/signup?for=me");
+    await expect(page.locator("footer").getByRole("link", { name: "Pricing" })).toHaveAttribute("href", "/pricing");
     await expect(page.getByTestId("flagged-line")).toContainText("Made-up deadline");
     await expect(page.locator("footer")).toContainText("This is a training tool, not legal advice.");
     await settle(page);
@@ -43,10 +72,12 @@ test.describe("the public home page", () => {
     const problems = watch(page);
     await page.goto("/");
     await page.getByTestId("mkt-lang").click();
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Sus vendedores atienden los ups difíciles aquí primero\./);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Domine el cierre antes de que cuente\./);
     const hero = page.locator("section", { has: page.getByRole("heading", { level: 1 }) });
-    await expect(hero.getByRole("link", { name: "Empezar un piloto" })).toHaveAttribute("href", "/signup");
+    await expect(hero.getByRole("link", { name: "Empiece gratis" })).toHaveAttribute("href", "/signup");
     await expect(hero.getByRole("link", { name: "Probar el demo" })).toHaveAttribute("href", "/login?demo=1");
+    await expect(page.getByRole("heading", { name: "Los pisos de venta entrenados vendieron 12% más por día." })).toBeVisible();
+    await expect(page.getByTestId("technique-count")).toHaveText(/\d{3} técnicas en \d+ familias\./);
     await expect(page.locator("[data-mkt]")).toHaveAttribute("lang", "es");
     await settle(page);
     expect(problems).toEqual([]);
@@ -57,9 +88,9 @@ test.describe("the public home page", () => {
     await page.goto("/");
     await settle(page);
     expect(await page.locator(".mkt-will").count()).toBe(0);
-    await page.getByTestId("pilot-cta").scrollIntoViewIfNeeded();
-    await expect(page.getByTestId("pilot-cta")).toBeVisible();
-    expect(await page.evaluate(() => getComputedStyle(document.querySelector("#pilot [data-reveal]")!).opacity)).toBe("1");
+    await page.getByTestId("start-team").scrollIntoViewIfNeeded();
+    await expect(page.getByTestId("start-team")).toBeVisible();
+    expect(await page.evaluate(() => getComputedStyle(document.querySelector("#start [data-reveal]")!).opacity)).toBe("1");
   });
 
   test("passes the accessibility audit and never scrolls sideways", async ({ page }) => {
