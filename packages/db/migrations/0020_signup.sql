@@ -13,7 +13,7 @@ create table signups (
   expires_at timestamptz not null,
   attempts int not null default 0,
   consumed_at timestamptz,
-  tenant_id uuid references tenants(id),
+  created_tenant uuid references tenants(id), -- the account this sign-up created; a sign-up is not tenant data
   created_at timestamptz not null default now()
 );
 create index signups_email_created on signups (lower(email), created_at desc);
@@ -82,7 +82,7 @@ begin
   insert into memberships (tenant_id, user_id, store_id, role) values (t_id, u_id, st_id, 'general_manager');
   insert into audit_log (tenant_id, actor_id, action, target_type, target_id, detail)
   values (t_id, u_id, 'tenant.signup', 'store', st_id, jsonb_build_object('store', s.store_name));
-  update signups set consumed_at = now(), tenant_id = t_id where id = s.id;
+  update signups set consumed_at = now(), created_tenant = t_id where id = s.id;
   return query select 'ok'::text, u_id, t_id;
 end $$;
 
