@@ -12,6 +12,8 @@ export interface LibraryFacts {
   lessons: number;
   /** Car-sales role-play customers: one per objection. */
   objections: number;
+  /** Role-play customers (scenarios) per industry; an industry with none is "customers next". */
+  customers: Record<string, number>;
   /** Techniques graded A or B: law, regulator, meta-analysis, a peer-reviewed study or a large dataset. */
   researchBacked: number;
   families: { family: string; count: number }[];
@@ -41,6 +43,7 @@ export function libraryFacts(): LibraryFacts {
       techniques: all.length,
       lessons: lib.lessons.size,
       objections: lib.objections.size,
+      customers: [...lib.scenarios.values()].reduce<Record<string, number>>((acc, sc) => ({ ...acc, [sc.industry]: (acc[sc.industry] ?? 0) + 1 }), {}),
       researchBacked: all.filter((t) => t.evidence.grade === "A" || t.evidence.grade === "B").length,
       families: [...counts].map(([family, count]) => ({ family, count })).sort((a, b) => b.count - a.count),
       featured: FEATURED.map(byCode).filter((t): t is Technique => !!t).map((t) => ({ code: t.code, name: t.name, when: t.when, family: t.family })),
@@ -48,6 +51,6 @@ export function libraryFacts(): LibraryFacts {
     };
     return memo;
   } catch {
-    return { techniques: 122, lessons: 20, objections: 65, researchBacked: 0, families: [], featured: [], rail: [[], []] };
+    return { techniques: 122, lessons: 20, objections: 65, customers: { cars: 65 }, researchBacked: 0, families: [], featured: [], rail: [[], []] };
   }
 }

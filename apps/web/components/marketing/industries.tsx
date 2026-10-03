@@ -13,10 +13,12 @@ const GLYPHS: Record<string, ReactNode> = {
   furniture: <><path d="M5 11V8.5A2.5 2.5 0 0 1 7.5 6h9A2.5 2.5 0 0 1 19 8.5V11" /><path d="M3 13a2 2 0 0 1 4 0v1.5h10V13a2 2 0 0 1 4 0v4.5H3Z" /><path d="M5 17.5V20M19 17.5V20" /></>,
 };
 
-/** All high-ticket sales, said honestly: the techniques travel; the role-play customers are car customers today. */
+/** All high-ticket sales, said honestly: the techniques travel; an industry reads "Customers live" only once the library has its role-play customers. */
 export function Industries({ lang }: { lang: Language }) {
   const c = copy.industries;
   const lib = libraryFacts();
+  const count = (key: string) => lib.customers[key] ?? 0;
+  const allLive = c.items.every((item) => count(item.key) > 0);
   return (
     <section id="industries" aria-labelledby="mkt-industries" className="mkt-section relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -25,10 +27,10 @@ export function Industries({ lang }: { lang: Language }) {
             <Eyebrow index="04">{say(c.eyebrow, lang)}</Eyebrow>
             <h2 id="mkt-industries" className="mkt-h2 mt-5">{say(c.h2, lang)}</h2>
           </div>
-          <p className="text-[17px] leading-relaxed text-body">{say(c.sub, lang)}</p>
+          <p className="text-[17px] leading-relaxed text-body">{say(allLive ? c.subAll : c.sub, lang)}</p>
         </div>
         <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-testid="industries">
-          {c.items.map((item, i) => (
+          {c.items.map((it) => ({ ...it, live: count(it.key) > 0 })).map((item, i) => (
             <li key={item.key} data-reveal style={{ ["--i" as string]: i }}
               className={`liquid-glass liquid-glass-panel mkt-card relative flex flex-col rounded-[1.5rem] p-6`}>
               <div className="flex items-start justify-between gap-3">
@@ -41,7 +43,7 @@ export function Industries({ lang }: { lang: Language }) {
                 </span>
               </div>
               <h3 className="mt-6 font-display text-[32px] leading-none text-ink">{say(item.name, lang)}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-body">{fill(say(item.body, lang), { n: lib.objections })}</p>
+              <p className="mt-3 text-[15px] leading-relaxed text-body">{fill(say(item.live ? item.liveBody : item.body, lang), { n: count(item.key) })}</p>
             </li>
           ))}
         </ul>
