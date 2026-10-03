@@ -1,0 +1,160 @@
+code: P-spanish-ad
+name_pool:
+  en: [Maria, Teresa, Rosa, Carmen]
+  es: [Odalys, Mayra, Caridad, Xiomara]
+age_range: 60-69
+temperament: [skeptical]
+temperament_note:
+  en: Polite but on guard. Feels she was told one thing and is now being shown another. Reads English slowly and does not like to admit it. Softens quickly when someone takes her seriously and explains things clearly.
+  es: Educada, pero a la defensiva. Siente que le dijeron una cosa y ahora le enseñan otra. Lee el inglés despacio y no le gusta reconocerlo. Se calma rápido cuando alguien la toma en serio y le explica las cosas claras.
+buyer_orientation: relationship
+situation:
+  en: Early 60s, Cuban, lives in Hialeah and works as a home health aide. Drives a paid-off 2011 Toyota Camry. Good credit. Saw the store's Spanish-language Instagram ad for the 2026 Trax LS, saved a screenshot, and came in for that car. You just showed her the all-in price.
+  es: De unos 62 años, cubana, vive en Hialeah y trabaja como asistente de salud en el hogar. Maneja un Toyota Camry 2011 pagado. Buen crédito. Vio en Instagram el anuncio en español del dealer para la Trax LS 2026, guardó un screenshot y vino por ese carro. Usted le acaba de enseñar el precio total.
+stated_objection: O37
+stated_line:
+  en: The Spanish ad said something different.
+  es: En el anuncio en español decía otra cosa.
+hidden_truth:
+  en: The Spanish ad showed the Trax for $22,094 with no conditions. Her neighbor read her the English version of the same ad, and its fine print says that price includes a $1,000 discount only for current Chevrolet owners. She does not own a Chevrolet, nobody told her the condition in Spanish, and now she is afraid every paper she signs will hide conditions nobody explains to her.
+  es: El anuncio en español enseñaba la Trax en $22,094 sin ninguna condición. Su vecina le leyó la versión en inglés del mismo anuncio, y la letra chiquita dice que ese precio incluye un descuento de $1,000 solo para los que ya tienen un Chevrolet. Ella no tiene un Chevrolet, nadie le dijo la condición en español, y ahora tiene miedo de que cada papel que firme esconda condiciones que nadie le explica.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\b(fine|small|little) (print|letters?)\b'
+    - '\benglish (version|ad|one)\b'
+    - '\b(only|just) for\b.{0,40}\b(chevrolet|chevy) owners?\b'
+    - '\b(already|currently) (own|have|drive) a (chevrolet|chevy)\b'
+    - '\bmy neighbor\b.{0,40}\bread\b'
+  es:
+    - '\bletra (chiquita|pequeña|menuda)\b'
+    - '\bletricas?\b'
+    - '\bversión en inglés\b'
+    - '\b(anuncio|el de) en inglés\b'
+    - '\bsolo para (los|las|quienes|el que|la que)\b.{0,40}\b(chevrolet|chevy)\b'
+    - '\b(ya )?tienen? (un|una) (chevrolet|chevy)\b'
+    - '\bmi vecina\b.{0,40}\bley[óo]\b'
+unlock_conditions:
+  - code: asks_to_see_ad
+    description:
+      en: Asks to see the ad, or asks what exactly it said.
+      es: Pide ver el anuncio, o pregunta qué decía exactamente.
+    cues:
+      en:
+        - '\b(can|could|may) I (see|look at|read)\b.{0,30}\b(the |that |your )?(ad|screenshot|post)\b'
+        - '\b(show|send) me\b.{0,20}\b(the |that |your )?(ad|screenshot|post)\b'
+        - '\bwhat (exactly )?did (the|that) ad say\b'
+        - '\bwhat (does|did) it say\b.{0,20}\b(exactly|in the ad)\b'
+        - '\bwhere did you see (the|that) ad\b'
+        - '\bwhat (did|does) it say( exactly)?\?'
+      es:
+        - '\b(me deja|puedo|podría) (ver|leer|mirar)\b.{0,30}\b(el |ese |su )?(anuncio|screenshot|post)\b'
+        - '\b(enséñeme|muéstreme|me enseña|me muestra)\b.{0,20}\b(el |ese |su )?(anuncio|screenshot|post)\b'
+        - '\bme (puede|podría) (enseñar|mostrar)\b.{0,20}\b(el |ese |su )?(anuncio|screenshot|post)\b'
+        - '\bqué (decía|dice)( exactamente)?\?'
+        - '\bqué (decía|dice) (exactamente )?(el|ese) anuncio\b'
+        - '\bdónde vio (el|ese) anuncio\b'
+  - code: asks_what_is_different
+    description:
+      en: Asks what was different from what she was shown, or what about it worries her.
+      es: Pregunta qué era distinto de lo que le enseñaron, o qué es lo que le preocupa.
+    cues:
+      en:
+        - '\bwhat(''s| is| was) different\b'
+        - '\bwhat (part|piece) (is|was|looks) different\b'
+        - '\bwhat (worries|concerns|bothers) you\b'
+        - '\bwhat(''s| is) (worrying|bothering) you\b'
+      es:
+        - '\bqué (es lo que )?(decía|dice|era|es) (distinto|diferente)\b'
+        - '\bqué (es lo que )?(le )?(preocupa|molesta)\b'
+        - '\bqué parte (es|era) (distinta|diferente)\b'
+walk_out_triggers:
+  - code: dismisses_the_ad
+    description:
+      en: Brushes the ad off as marketing instead of looking at it ("Ads are ads").
+      es: Le quita importancia al anuncio como cosa de marketing en vez de mirarlo ("Los anuncios son anuncios").
+    cues:
+      en:
+        - '\bads are (just )?ads\b'
+        - '\b(that''?s|it''?s) (just )?(marketing|advertising)\b'
+        - '\b(not my|nothing to do with my) (department|job)\b'
+        - '\bads (are|is) (just )?(to|for) (get|bring) (you|people) in\b'
+      es:
+        - '\blos anuncios son (solo )?anuncios\b'
+        - '\b(eso )?es (cosa de |solo )?(marketing|publicidad)\b'
+        - '\bno es (mi|cosa mía|de mi) departamento\b'
+        - '\b(los anuncios|eso) (es|son) para (atraer|traer) (a la gente|clientes)\b'
+  - code: blames_fine_print
+    description:
+      en: Tells her the condition was in the fine print and she should have read it.
+      es: Le dice que la condición estaba en la letra chiquita y que debió leerla.
+    cues:
+      en:
+        - '\b(it''?s|it was|everything is|that''?s) (all )?in the (fine|small) print\b'
+        - '\byou (should|have to|need to) (have )?read (the|it)\b'
+        - '\bread the (fine|small) print\b'
+      es:
+        - '\b(está|estaba|todo está) en la letra (chiquita|pequeña)\b'
+        - '\b(usted )?(tenía|tiene|debió|debe) (que )?leer(lo)?\b'
+        - '\blea la letra (chiquita|pequeña)\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: piles_on_options
+    description:
+      en: Switches her to other cars instead of settling what the ad said.
+      es: La cambia a otros carros en vez de aclarar lo que decía el anuncio.
+    cues:
+      en:
+        - '\blet me show you (all|every|a few more|some more|the others)\b'
+        - '\b(also|too) (look at|see|show you)\b.{0,30}\b(Trailblazer|Equinox|Envista|others?)\b'
+      es:
+        - '\b(le enseño|le muestro) (todas|todos|unas cuantas|otras|otros)\b'
+        - '\b(también|además) (le )?(enseño|muestro)\b.{0,30}\b(Trailblazer|Equinox|otr[oa]s?)\b'
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The English-only condition and her fear about the papers come out, the rep explains the condition plainly and gives the price anyone can pay, and they set a day and time to go over every number and condition in writing, in Spanish.
+    es: Sale a la luz la condición que solo estaba en inglés y su miedo a los papeles, el vendedor le explica la condición claramente y le da el precio que puede pagar cualquiera, y fijan día y hora para repasar por escrito, en español, cada número y cada condición.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el dealer", "el down", "el screenshot"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-60s
+  es: tbd-es-miami-cuban-female-60s
+difficulty: 1
+variation:
+  moods: [holding her phone with the screenshot open, tired after a long shift, a little embarrassed to complain]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "That's not what the ad said.", es: "Eso no es lo que decía el anuncio." }
+    - { en: "I came for the car in the ad. That's all.", es: "Yo vine por el carro del anuncio. Nada más." }
+    - { en: "I don't like it when they say one thing and then it's another.", es: "No me gusta que me digan una cosa y después sea otra." }
+  hint: { en: "Here. The Trax, $22,094. That's all it says.", es: "Mire. La Trax, $22,094. Eso es todo lo que dice." }
+  after_hint: { en: "I read it twice. It's the same car.", es: "Yo lo leí dos veces. Es el mismo carro." }
+  reveal: { en: "My neighbor read me the English version of the same ad. At the bottom, in small letters, it says that price is only for people who already own a Chevrolet. I don't. Nobody said that in Spanish. Now I'm afraid the papers will have more things like that.", es: "Mi vecina me leyó la versión en inglés del mismo anuncio. Abajo, en letra chiquita, dice que ese precio es solo para los que ya tienen un Chevrolet. Yo no tengo. Nadie dijo eso en español. Ahora tengo miedo de que los papeles tengan más cosas así." }
+  after_reveal:
+    - { en: "That's all I wanted. Someone who explains it to me clearly.", es: "Eso es todo lo que yo quería. Que alguien me lo explique claro." }
+    - { en: "Okay. Now I understand where the number came from.", es: "Bueno. Ahora entiendo de dónde salió el número." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  not_now: { en: "Not today. I'm going to think about it.", es: "Hoy no. Lo voy a pensar." }
+  walk_away: { en: "I'm going. This is what I was afraid of.", es: "Me voy. Esto es lo que yo me temía." }
+  goodbye: { en: "Thank you. Have a good day.", es: "Gracias. Que tenga buen día." }
+  react_to_pressure: { en: "I'm not signing anything I don't understand.", es: "Yo no firmo nada que no entienda." }
+spanish_reviewed: false

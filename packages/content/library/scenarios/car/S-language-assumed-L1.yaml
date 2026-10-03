@@ -1,0 +1,179 @@
+code: S-language-assumed-L1
+module: car-language-trust
+title:
+  en: "(Greeted in Spanish without being asked; answers in English)"
+  es: "(Lo saludan en español sin preguntarle; contesta en inglés)"
+setting:
+  en: Saturday, 12:30 p.m., on the lot, next to the trucks.
+  es: Sábado, 12:30 p.m., en el lote, al lado de las camionetas.
+persona: P-language-assumed
+objection: O39
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: greeting
+# O39 is a behavior, not a sentence: the opening is what he says back after being greeted in Spanish unasked.
+# English session: he answers in English and the conversation stays in English. Spanish session: he answers in
+# English too (that is the objection), and the conversation moves to Spanish only after the rep asks and he
+# agrees; until then his offline lines stay in English on purpose.
+pre_brief:
+  en: "{name}, mid-30s, is walking around a 2026 Silverado 1500 LT Crew Cab on the lot. The truck is $48,794 all in, plus tax, tag and title. You walked up and greeted him in Spanish without asking: \"¡Buenas! ¿En qué le puedo ayudar?\" He answers in English."
+  es: "{name}, de unos 35 años, está mirando una Silverado 1500 LT Crew Cab 2026 en el lote. La camioneta cuesta $48,794 en total, más impuestos, tag y título. Usted se le acercó y lo saludó en español sin preguntarle: \"¡Buenas! ¿En qué le puedo ayudar?\" Él le contesta en inglés."
+opening:
+  en: I'm good. English is fine, by the way.
+  es: Bien, gracias. Pero... English is fine.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Silverado 1500, trim: LT Crew Cab, color: Sterling Gray Metallic, stock: "7410", in_stock: true }
+  price_cents: 4789500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4879400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    financing: Pre-approved at his credit union; he has not shared the amount or the rate
+    work: Licensed electrician who runs his own small company
+    languages: Fully bilingual, born in Miami
+    free_monday: Free Monday at 7:30 a.m., before his first job
+numbers_sheet: false
+target_techniques: [T040, T041, T001, T002, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O39-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O39-FOLLOW
+      behavior:
+        en: "Owned the assumption in a few words, offered English or Spanish as his choice (paperwork included), and followed it"
+        es: "Reconoció en pocas palabras que asumió, le ofreció inglés o español a su elección (incluyendo los papeles), y lo siguió"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Service-encounter research (T040)"
+      technique: T040
+    - code: O39-QFIRST
+      behavior:
+        en: "Asked what brought him in before pitching a vehicle, a budget or financing"
+        es: "Preguntó qué lo trae antes de ofrecerle un carro, un presupuesto o financiamiento"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O39-HIDDEN
+      behavior:
+        en: "Surfaced the bad experience at the other store"
+        es: "Sacó a la luz la mala experiencia en el otro dealer"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O39-SAME
+      behavior:
+        en: "Treated him like any buyer: the truck he came for, the same all-in price and process, his own financing welcome, no assumptions about budget or credit"
+        es: "Lo trató como a cualquier cliente: la camioneta por la que vino, el mismo precio total y el mismo proceso, su propio financiamiento bienvenido, sin suponer nada de su presupuesto ni de su crédito"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "ECOA and Reg B equal treatment; store equal-treatment rule (T041, FAIR-01)"
+      technique: T041
+    - code: O39-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: steered_by_assumption
+      description:
+        en: "Raised credit, ITIN, a budget or a cheaper vehicle based on his name, look or language"
+        es: "Sacó el tema del crédito, el ITIN, un presupuesto o un carro más barato por su apellido, su aspecto o su idioma"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he ignored the English answer, pitched credit programs and the cheapest car without a single question, and told the customer to relax. Everything he offered came from an assumption, not from the customer."
+      es: "Fíjese: no le hizo caso a la respuesta en inglés, le ofreció programas de crédito y el carro más barato sin hacer una sola pregunta, y le dijo al cliente que se relajara. Todo lo que ofreció salió de una suposición, no del cliente."
+    script:
+      en:
+        - { speaker: customer, text: "I'm good. English is fine, by the way." }
+        - { speaker: rep, text: "No problem, my friend. Look, here we work with every situation: first-time buyers, no credit, ITIN, whatever you need." }
+        - { speaker: customer, text: "I didn't ask about any of that. I came to look at a truck." }
+        - { speaker: rep, text: "Let me take you over to the Trax. It's our most affordable, and the payments are easy." }
+        - { speaker: customer, text: "I didn't come for a Trax." }
+        - { speaker: rep, text: "Relax, it was just a greeting. Let's do the paperwork today and you drive home happy." }
+        - { speaker: customer, text: "Yeah, I've heard this one before. I'm out." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me." }
+      es:
+        - { speaker: customer, text: "Bien, gracias. Pero... English is fine." }
+        - { speaker: rep, text: "Tranquilo, mi hermano. Mire, aquí trabajamos con todo: primer comprador, sin crédito, con ITIN, lo que usted necesite." }
+        - { speaker: customer, text: "I didn't ask about any of that. I came to look at a truck." }
+        - { speaker: rep, text: "Venga, que le enseño la Trax. Es la más económica, y los pagos son fáciles." }
+        - { speaker: customer, text: "I didn't come for a Trax." }
+        - { speaker: rep, text: "Relájese, que fue solo un saludo. Hagamos los papeles hoy y se va manejando contento." }
+        - { speaker: customer, text: "Ya esta película yo la vi. Me voy." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me llama." }
+  good:
+    notice:
+      en: Notice that he owns the assumption in one line, gives the customer the choice of language, asks what brought him in before pitching anything, and then treats him exactly like any other buyer.
+      es: Fíjese en que reconoce en una sola frase que asumió, le da al cliente la opción del idioma, le pregunta qué lo trae antes de ofrecer nada, y después lo trata exactamente como a cualquier otro cliente.
+    script:
+      en:
+        - { speaker: customer, text: "I'm good. English is fine, by the way." }
+        - { speaker: rep, text: "[pause] English it is, and sorry for assuming. English or Spanish, it's your call, paperwork included. What brings you in today?" }
+        - { speaker: customer, text: "Either one is fine, now that you ask. Honestly, it's not about the language. It's about what usually comes after it." }
+        - { speaker: rep, text: "What usually comes after it? I'd rather hear it from you than guess." }
+        - { speaker: customer, text: "Look, last month at another store, the guy heard my last name, switched to Spanish without asking, walked me to the cheapest car on the lot and asked if I had a Social. I'm an electrician, I run my own business, I'm pre-approved at my credit union, and I came for a work truck." }
+        - { speaker: rep, text: "That shouldn't have happened, and it won't happen here. Same truck, same price, same process for every customer, in either language. This Silverado LT Crew Cab is $48,794 all in, plus tax, tag and title, and your credit union financing is welcome here." }
+        - { speaker: customer, text: "Okay. That's all I'm asking. Treat me like anybody else." }
+        - { speaker: rep, text: "Then let's put it to work. Can you drive it Monday at 7:30, before your first job? I'll have it out front with a full tank." }
+        - { speaker: customer, text: "Monday at 7:30. I'll bring my tools and see how they fit in the bed." }
+      es:
+        - { speaker: customer, text: "Bien, gracias. Pero... English is fine." }
+        - { speaker: rep, text: "[pausa] Perdone, no debí asumir. En inglés o en español, como usted prefiera, y los papeles también. ¿Qué lo trae por aquí hoy?" }
+        - { speaker: customer, text: "Cualquiera de los dos está bien, ahora que me pregunta. La verdad, no es por el idioma. Es por lo que viene después." }
+        - { speaker: rep, text: "¿Qué es lo que viene después? Prefiero que me lo diga usted antes que adivinar." }
+        - { speaker: customer, text: "Mire, el mes pasado en otro dealer, el vendedor oyó mi apellido, se pasó al español sin preguntarme, me llevó al carro más barato del lote y me preguntó si yo tenía Social. Soy electricista, tengo mi propio negocio, tengo una preaprobación de mi cooperativa, y vine por una camioneta de trabajo." }
+        - { speaker: rep, text: "Eso no debió pasar, y aquí no va a pasar. La misma camioneta, el mismo precio y el mismo proceso para todos los clientes, en cualquiera de los dos idiomas. Esta Silverado LT Crew Cab es $48,794 en total, más impuestos, tag y título, y su financiamiento de la cooperativa es bienvenido aquí." }
+        - { speaker: customer, text: "Bueno. Eso es todo lo que pido. Que me traten como a cualquiera." }
+        - { speaker: rep, text: "Entonces vamos a ponerla a trabajar. ¿La puede manejar el lunes a las 7:30, antes de su primer trabajo? Se la tengo enfrente con el tanque lleno." }
+        - { speaker: customer, text: "El lunes a las 7:30. Traigo mis herramientas a ver cómo caben atrás." }
+spanish_reviewed: false

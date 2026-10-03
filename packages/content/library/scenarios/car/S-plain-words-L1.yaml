@@ -1,0 +1,176 @@
+code: S-plain-words-L1
+module: car-miami-indecision
+title:
+  en: "\"You use technical words to confuse people\""
+  es: "\"Hablan con palabras técnicas para confundirlo a uno\""
+setting:
+  en: Saturday, late afternoon, at your desk, halfway through the worksheet.
+  es: Sábado, al final de la tarde, en su escritorio, a mitad de la hoja de números.
+persona: P-plain-words
+objection: O53
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, drove the 2026 Trailblazer LT and sat down for numbers. You went over the worksheet fast: the all-in price of $27,394 plus tax, tag and title, and an estimated $444 a month for 72 months with $4,000 down. Along the way you said things like \"APR\", \"term\" and \"TTL\". She puts the pen down."
+  es: "{name}, de unos 45 años, manejó la Trailblazer LT 2026 y se sentó a ver los números. Usted le explicó la hoja rápido: el precio total de $27,394 más impuestos, tag y título, y un pago estimado de $444 al mes por 72 meses con $4,000 de down. Por el camino usted dijo cosas como \"APR\", \"term\" y \"TTL\". Ella suelta el bolígrafo."
+opening:
+  en: You people use technical words to confuse people.
+  es: Ustedes hablan con palabras técnicas para confundirlo a uno.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trailblazer, trim: LT, color: Summit White, stock: "6377", in_stock: true }
+  price_cents: 2649500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2739400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options:
+    - { code: estimate, cents: 44400, term_months: 72, down_cents: 400000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    past_loan: At another dealer she thought her loan was five years; it was seven
+    knows_what_term_means: false
+    current_car: 2017 Nissan Sentra, just paid off, she will sell it herself
+    free_tuesday: Free Tuesday after 5:30 p.m.
+numbers_sheet: true
+target_techniques: [T001, T003, T002, T009, T085, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O53-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O53-ACK
+      behavior:
+        en: "Agreed the jargon was a fair complaint, without defending it"
+        es: "Reconoció que la queja de las palabras técnicas era justa, sin defenderse"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O53-QFIRST
+      behavior:
+        en: "Asked which words lost her, or what happened before, before explaining anything"
+        es: "Preguntó qué palabras la confundieron, o qué le pasó antes, antes de explicar nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O53-HIDDEN
+      behavior:
+        en: "Surfaced the loan that turned out longer than she thought"
+        es: "Sacó a la luz el préstamo que resultó más largo de lo que ella pensaba"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O53-PLAIN
+      behavior:
+        en: "Explained each word and number in plain language, including how many months, and put every number in writing"
+        es: "Explicó cada palabra y cada número en lenguaje sencillo, incluyendo cuántos meses, y puso cada número por escrito"
+      dimension: technique
+      method: judge
+      points: 25
+      evidence: "Cox Automotive satisfaction drivers (T009)"
+      technique: T009
+    - code: O53-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: rushed_signature
+      description:
+        en: "Asked her to sign before every word and number was explained"
+        es: "Le pidió que firmara antes de explicarle cada palabra y cada número"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he repeated the same jargon, told her everybody knows it, and steered her to the payment alone. He never asked which words lost her or what happened before."
+      es: "Fíjese: repitió las mismas palabras técnicas, le dijo que todo el mundo las sabe, y la llevó a fijarse solo en el pago. Nunca preguntó qué palabras la confundieron ni qué le pasó antes."
+    script:
+      en:
+        - { speaker: customer, text: "You people use technical words to confuse people." }
+        - { speaker: rep, text: "It's not complicated. The APR is the APR, the term is the term, and TTL is TTL. Everybody knows that." }
+        - { speaker: customer, text: "See? That's exactly what I mean." }
+        - { speaker: rep, text: "Look, just focus on the payment, $444. Don't worry about the rest." }
+        - { speaker: customer, text: "I don't sign what I don't understand." }
+        - { speaker: rep, text: "Sign here and here, and let's get it done today." }
+        - { speaker: customer, text: "No. I'm leaving." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+      es:
+        - { speaker: customer, text: "Ustedes hablan con palabras técnicas para confundirlo a uno." }
+        - { speaker: rep, text: "No es complicado. El APR es el APR, el term es el term y el TTL es el TTL. Todo el mundo sabe eso." }
+        - { speaker: customer, text: "¿Ve? Eso es justo lo que le digo." }
+        - { speaker: rep, text: "Mire, fíjese solo en el pago, $444. No se preocupe por lo demás." }
+        - { speaker: customer, text: "Yo no firmo lo que no entiendo." }
+        - { speaker: rep, text: "Firme aquí y aquí, y hagámoslo hoy." }
+        - { speaker: customer, text: "No. Yo me voy." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice that he owns the jargon, asks which words lost her and what happened before, then explains every word and number in plain language and puts it all in writing.
+      es: Fíjese en que reconoce lo de las palabras técnicas, pregunta qué palabras la confundieron y qué le pasó antes, y después explica cada palabra y cada número en lenguaje sencillo y lo pone todo por escrito.
+    script:
+      en:
+        - { speaker: customer, text: "You people use technical words to confuse people." }
+        - { speaker: rep, text: "[pause] That's fair, and that one's on me. I went too fast. Which word lost you, so I can say it in plain English?" }
+        - { speaker: customer, text: "All of them. \"APR,\" \"term,\" \"TTL.\" I've heard those words before." }
+        - { speaker: rep, text: "It sounds like you've heard them before for a reason. What happened last time?" }
+        - { speaker: customer, text: "Last time, the man kept saying \"APR\" and \"term,\" and I just nodded. I thought I was paying for five years. It was seven. I found out when the payments kept coming. I still don't know what \"term\" means on this paper." }
+        - { speaker: rep, text: "Thank you for telling me. Here it is in plain words. The price of the car, with the dealer fee included, is $27,394, plus tax, tag and title, and that's all \"TTL\" means. \"Term\" means how many months you pay: here it's 72 months, that's six years, at $444 a month, with $4,000 down. \"APR\" is what the loan costs you per year, as a percentage, and you'll see yours in writing before you sign. I'll put every number on one sheet, no abbreviations, and you keep it." }
+        - { speaker: customer, text: "Okay. That I understand." }
+        - { speaker: rep, text: "Take the sheet home tonight. Can you come back Tuesday at 6? We'll go line by line again, and you can bring anyone you trust." }
+        - { speaker: customer, text: "Tuesday at 6. I'll bring my sister." }
+      es:
+        - { speaker: customer, text: "Ustedes hablan con palabras técnicas para confundirlo a uno." }
+        - { speaker: rep, text: "[pausa] Tiene razón, y eso es culpa mía. Fui muy rápido. ¿Qué palabra la perdió, para decírsela en palabras sencillas?" }
+        - { speaker: customer, text: "Todas. \"APR\", \"term\", \"TTL\". Esas palabras yo ya las he oído antes." }
+        - { speaker: rep, text: "Parece que ya las ha oído antes por algo. ¿Qué le pasó la última vez?" }
+        - { speaker: customer, text: "La última vez, el señor decía \"APR\" y \"term\", y yo nada más decía que sí con la cabeza. Yo pensaba que eran cinco años. Eran siete. Me enteré cuando los pagos seguían llegando. Todavía no sé qué quiere decir \"term\" en este papel." }
+        - { speaker: rep, text: "Gracias por contármelo. Se lo digo en palabras sencillas. El precio del carro, con el dealer fee incluido, es $27,394, más impuestos, tag y título, y eso es todo lo que quiere decir \"TTL\". El \"term\" es cuántos meses usted paga: aquí son 72 meses, o sea seis años, a $444 al mes, con $4,000 de down. El \"APR\" es lo que le cuesta el préstamo al año, en porcentaje, y usted ve el suyo por escrito antes de firmar. Le pongo cada número en una sola hoja, sin abreviaturas, y usted se la queda." }
+        - { speaker: customer, text: "Bueno. Así sí entiendo." }
+        - { speaker: rep, text: "Llévese la hoja esta noche. ¿Puede volver el martes a las 6? Lo repasamos línea por línea otra vez, y puede traer a alguien de su confianza." }
+        - { speaker: customer, text: "El martes a las 6. Traigo a mi hermana." }
+spanish_reviewed: false

@@ -1,0 +1,197 @@
+code: S-online-car-gone-L1
+module: car-market-2026
+title:
+  en: "\"The car I saw online is gone\""
+  es: "\"El carro que vi en internet ya no está\""
+setting:
+  en: Saturday, mid-morning, at the front desk. He just learned the car from the website is not on the lot.
+  es: Sábado a media mañana, en la recepción. Acaba de enterarse de que el carro de la página web no está en el lote.
+persona: P-online-car-gone
+objection: O22
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, drove forty minutes from Homestead for a 2026 Trailblazer LT in Summit White, stock 7419, that he saw on our website this morning. It sold yesterday evening: the signed buyer's order and the delivery record are in the deal file. The website removes sold cars in its overnight update, so it was still showing this morning. The nearest real match is a Trailblazer LT in Sterling Gray, stock 7466, on the lot, same trim and the same all-in price, $27,394 plus tax, tag and title."
+  es: "{name}, de unos 45 años, manejó cuarenta minutos desde Homestead por una Trailblazer LT 2026 en Summit White, stock 7419, que vio en nuestra página esta mañana. Se vendió ayer por la tarde: la orden de compra firmada y el registro de entrega están en el expediente de la venta. La página quita los carros vendidos en la actualización de la noche, por eso todavía salía esta mañana. Lo más parecido que sí hay es una Trailblazer LT en Sterling Gray, stock 7466, en el lote, la misma versión y el mismo precio total, $27,394 más impuestos, tag y título."
+opening:
+  en: The car I saw online is gone? I drove forty minutes for it.
+  es: ¿El carro que vi en internet ya no está? Manejé cuarenta minutos para verlo.
+facts:
+  session_date: "2026-10-03"
+  # The nearest real match. The advertised car (stock 7419, same trim, Summit White) sold on 2026-10-02.
+  vehicle: { year: 2026, make: Chevrolet, model: Trailblazer, trim: LT, color: Sterling Gray Metallic, stock: "7466", in_stock: true }
+  price_cents: 2649500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2739400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  alternatives:
+    - { description: "2026 Chevrolet Trailblazer RS, Mosaic Black Metallic, stock 7480", all_in_price_cents: 2879400 }
+  trade: { vehicle: 2015 Hyundai Elantra SE, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    online_listing: "2026 Trailblazer LT, Summit White, stock 7419, screenshot taken this morning"
+    online_all_in_cents: 2739400
+    picks_up_daughter: Has to pick up his daughter at noon today
+    free_monday: Free after 5:00 on Monday
+numbers_sheet: false
+target_techniques: [T100, T001, T003, T009, T030, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O22-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O22-OWN
+      behavior:
+        en: "Apologized for the wasted trip and owned the listing, without excuses"
+        es: "Pidió disculpas por el viaje perdido y asumió lo del anuncio, sin excusas"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O22-NAME
+      behavior:
+        en: "Named his suspicion or asked what happened before, before offering any other car"
+        es: "Dijo en voz alta lo que él sospechaba o preguntó qué le pasó antes, antes de ofrecerle otro carro"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Practitioner tradition (T100)"
+      technique: T100
+    - code: O22-HIDDEN
+      behavior:
+        en: "Surfaced his past bait-and-switch experience"
+        es: "Sacó a la luz que ya le hicieron un cambiazo antes"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O22-PROOF
+      behavior:
+        en: "Showed when the car sold, with the paperwork, instead of asking him to take it on trust"
+        es: "Le enseñó cuándo se vendió el carro, con los papeles, en vez de pedirle que lo creyera"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Objection O22 core move: show when it sold"
+      technique: T009
+    - code: O22-MATCH
+      behavior:
+        en: "Offered the nearest real match at its real all-in price, not an upgrade"
+        es: "Le ofreció el más parecido que sí hay, a su precio total real, no uno más caro"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Objection O22 core move: nearest real match; PRICE-01"
+      technique: T030
+    - code: O22-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: steered_to_pricier
+      description:
+        en: "Steered him to a pricier car before proving the advertised one sold"
+        es: "Lo llevó a un carro más caro antes de probarle que el anunciado se vendió"
+      method: judge
+    - code: invented_availability
+      description:
+        en: "Made a claim about stock, scarcity or another buyer that is not true"
+        es: "Afirmó algo sobre el inventario, la escasez u otro comprador que no es cierto"
+      method: rule_family
+      rule_families: [availability]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: she brushed off the missing car, steered him to a pricier one, piled on more models and pushed for today. She never showed proof the car sold, so she played out exactly the game he feared."
+      es: "Fíjese: le restó importancia al carro que faltaba, lo llevó a uno más caro, le echó más modelos encima y presionó para hoy. Nunca le enseñó la prueba de que el carro se vendió, así que le hizo justo el juego que él temía."
+    script:
+      en:
+        - { speaker: customer, text: "The car I saw online is gone? I drove forty minutes for it." }
+        - { speaker: rep, text: "Yeah, that one went fast. That happens all the time." }
+        - { speaker: customer, text: "This is exactly what I was afraid of." }
+        - { speaker: rep, text: "But I've got something even better. The RS is a lot nicer, and it's just a little more a month." }
+        - { speaker: customer, text: "I came for the LT." }
+        - { speaker: rep, text: "Then let me show you the Blazer and the Equinox too. Let's find you something today." }
+        - { speaker: customer, text: "No. I'm out of here." }
+        - { speaker: rep, text: "Okay. Here's my card if you change your mind." }
+      es:
+        - { speaker: customer, text: "¿El carro que vi en internet ya no está? Manejé cuarenta minutos para verlo." }
+        - { speaker: rep, text: "Sí, esa se fue volando. Eso pasa siempre." }
+        - { speaker: customer, text: "Esto es justo lo que me temía." }
+        - { speaker: rep, text: "Pero tengo algo todavía mejor. La RS es mucho más completa, y es un poquito más al mes." }
+        - { speaker: customer, text: "Yo vine por la LT." }
+        - { speaker: rep, text: "Entonces también le enseño la Blazer y la Equinox. Vamos a encontrarle algo hoy." }
+        - { speaker: customer, text: "No. Yo me voy." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta por si cambia de idea." }
+  good:
+    notice:
+      en: Notice the apology, how she says his suspicion out loud before he has to, the proof of when the car sold, and the nearest real match at the same all-in price, with no upgrade.
+      es: Fíjese en la disculpa, en cómo ella dice en voz alta lo que él sospecha antes de que él lo diga, en la prueba de cuándo se vendió el carro, y en el más parecido que sí hay al mismo precio total, sin subirle de modelo.
+    script:
+      en:
+        - { speaker: customer, text: "The car I saw online is gone? I drove forty minutes for it." }
+        - { speaker: rep, text: "[pause] I'm sorry. You drove forty minutes for a car that isn't here, and I'd be upset too. If I were you, I'd be wondering if this is a bait and switch." }
+        - { speaker: customer, text: "Let's just say this isn't the first time I've heard that." }
+        - { speaker: rep, text: "That's fair. Has something like this happened to you before?" }
+        - { speaker: customer, text: "Yeah. Last year another dealer told me the car I came for had just sold, then spent two hours pushing me into one that cost more. I'm not doing that again." }
+        - { speaker: rep, text: "Then you shouldn't have to take my word for it. Here's the deal file: stock 7419 sold yesterday evening, and here's the signed buyer's order with the buyer's name covered. Our website takes sold cars down in its overnight update, so it was still showing this morning. That's on us, and I'm sorry." }
+        - { speaker: customer, text: "Okay. That's more than the last place showed me." }
+        - { speaker: rep, text: "Here's the nearest real match: a Trailblazer LT in Sterling Gray, stock 7466, here on the lot. It's the same all-in price as the one you saw online, because it's the same trim: $27,394 plus tax, tag and title. Nothing pricier, no switch." }
+        - { speaker: customer, text: "Same car, same price. That I can look at." }
+        - { speaker: rep, text: "Do you have time to drive it now? If not, I can have it ready Monday at 5:30, with the paperwork on the sold one printed for you to keep." }
+        - { speaker: customer, text: "Monday at 5:30 works. I have to get my daughter at noon today." }
+      es:
+        - { speaker: customer, text: "¿El carro que vi en internet ya no está? Manejé cuarenta minutos para verlo." }
+        - { speaker: rep, text: "[pausa] Lo siento mucho. Manejó cuarenta minutos por un carro que no está, y yo también estaría molesta. En su lugar, yo estaría pensando que me quieren dar gato por liebre." }
+        - { speaker: customer, text: "Digamos que no es la primera vez que me dicen eso." }
+        - { speaker: rep, text: "Tiene todo el derecho. ¿Le ha pasado algo así antes?" }
+        - { speaker: customer, text: "Sí. El año pasado, en otro dealer, me dijeron que el carro que fui a ver se acababa de vender, y después me tuvieron dos horas empujándome uno más caro. Eso no me vuelve a pasar." }
+        - { speaker: rep, text: "Entonces no tiene por qué creerme a mí. Aquí está el expediente de la venta: la del stock 7419 se vendió ayer por la tarde, y aquí está la orden de compra firmada, con el nombre del comprador tapado. Nuestra página quita los carros vendidos en la actualización de la noche, por eso todavía salía esta mañana. Eso es culpa nuestra, y lo siento." }
+        - { speaker: customer, text: "Está bien. Eso es más de lo que me enseñaron en el otro lugar." }
+        - { speaker: rep, text: "Esto es lo más parecido que sí tenemos: una Trailblazer LT en Sterling Gray, stock 7466, aquí en el lote. Tiene el mismo precio total que la que usted vio en internet, porque es la misma versión: $27,394 más impuestos, tag y título. Nada más caro y sin cambiazos." }
+        - { speaker: customer, text: "El mismo carro, el mismo precio. Eso sí lo puedo mirar." }
+        - { speaker: rep, text: "¿Tiene tiempo para manejarla ahora? Si no, se la puedo tener lista el lunes a las 5:30, con los papeles de la que se vendió impresos para que se los lleve." }
+        - { speaker: customer, text: "El lunes a las 5:30 me funciona. Hoy tengo que recoger a mi hija a las doce." }
+spanish_reviewed: false

@@ -1,0 +1,192 @@
+code: S-hybrid-hunter-L1
+module: car-market-2026
+title:
+  en: "\"I need a hybrid and nobody has one\""
+  es: "\"Necesito un híbrido y nadie tiene\""
+setting:
+  en: Saturday morning, at the front desk. She walked in and asked for a hybrid before saying hello.
+  es: Sábado por la mañana, en la recepción. Entró y pidió un híbrido antes de saludar.
+persona: P-hybrid-hunter
+objection: O25
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 50s, drives a paid-off 2015 Silverado and has called three dealers this week looking for a hybrid. Your real supply: no hybrid on the lot today. One pre-owned 2022 Toyota RAV4 Hybrid XLE, bought at auction, is in transit on a transport truck and scheduled to arrive Tuesday. Its all-in price is $29,894 plus tax, tag and title. No other buyer has asked about it."
+  es: "{name}, de unos 52 años, maneja una Silverado 2015 pagada y esta semana ha llamado a tres dealers buscando un híbrido. Su inventario real: hoy no hay ningún híbrido en el lote. Una Toyota RAV4 Hybrid XLE 2022 usada, comprada en subasta, viene en camino en un camión de transporte y debe llegar el martes. Su precio total es $29,894 más impuestos, tag y título. Ningún otro cliente ha preguntado por ella."
+opening:
+  en: I need a hybrid, and nobody has one.
+  es: Necesito un híbrido, y nadie tiene.
+facts:
+  session_date: "2026-10-03"
+  # The only hybrid in the store's supply: pre-owned, in transit, scheduled to arrive Tuesday 2026-10-06. None on the lot.
+  vehicle: { year: 2022, make: Toyota, model: RAV4 Hybrid, trim: XLE, color: Silver, stock: "U2291", in_stock: false, in_transit: true }
+  price_cents: 2899500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2989400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  competing_buyer: false
+  trade: { vehicle: "2015 Chevrolet Silverado 1500, paid off", appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    gas_per_week_cents: 9500
+    office_moved: Her office moved from Homestead to Brickell in September
+    dealers_called: Three dealers this week, none had a hybrid on the lot
+    free_tuesday: Off at 5:00 on Tuesday
+numbers_sheet: false
+target_techniques: [T002, T001, T003, T009, T094, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O25-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O25-ACK
+      behavior:
+        en: "Acknowledged how frustrating her search has been"
+        es: "Reconoció lo frustrante que ha sido su búsqueda"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O25-QFIRST
+      behavior:
+        en: "Asked what the hybrid needs to do for her before talking about inventory"
+        es: "Preguntó qué necesita que haga el híbrido antes de hablar del inventario"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O25-HIDDEN
+      behavior:
+        en: "Surfaced her weekly gas bill since her office moved"
+        es: "Sacó a la luz lo que gasta de gasolina a la semana desde que se mudó su oficina"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O25-SUPPLY
+      behavior:
+        en: "Gave the real supply picture: nothing on the lot, the inbound unit disclosed as in transit, no invented scarcity"
+        es: "Dio la situación real del inventario: nada en el lote, la unidad que viene dicha como en camino, sin inventar escasez"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Objection O25 core move: real supply data, inbound units; AVAIL-01, AVAIL-02"
+      technique: T009
+    - code: O25-PROOF
+      behavior:
+        en: "Offered official fuel-economy figures to compare instead of promising a saving"
+        es: "Ofreció cifras oficiales de consumo para comparar en vez de prometer un ahorro"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Only real, showable protections (T094)"
+      technique: T094
+    - code: O25-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: invented_availability
+      description:
+        en: "Invented scarcity or another buyer, or hid that the hybrid is in transit"
+        es: "Inventó escasez u otro comprador, o no dijo que el híbrido viene en camino"
+      method: rule_family
+      rule_families: [availability]
+    - code: promised_savings
+      description:
+        en: "Promised a fuel saving or a mileage figure that is not in the facts"
+        es: "Prometió un ahorro de gasolina o un rendimiento que no está en los datos"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he told her she does not need a hybrid, piled on gas models, pushed a deposit on a car she has never seen, and pushed for today. He never asked what the hybrid was for."
+      es: "Fíjese: le dijo que no necesita un híbrido, le echó encima modelos de gasolina, la presionó a dejar un depósito por un carro que nunca ha visto y presionó para hoy. Nunca preguntó para qué quería el híbrido."
+    script:
+      en:
+        - { speaker: customer, text: "I need a hybrid, and nobody has one." }
+        - { speaker: rep, text: "Honestly, you don't really need a hybrid. Let me show you the Equinox and the Trax too." }
+        - { speaker: customer, text: "I don't want to hear about a gas car." }
+        - { speaker: rep, text: "Okay, I can put you on a list for the next one. Put a deposit down today and I'll hold it for you." }
+        - { speaker: customer, text: "Don't push me into something I haven't even seen." }
+        - { speaker: rep, text: "Then let's just write it up and get it done. What will it take?" }
+        - { speaker: customer, text: "Nothing. I'll keep calling around." }
+        - { speaker: rep, text: "Okay. Call me if you change your mind." }
+      es:
+        - { speaker: customer, text: "Necesito un híbrido, y nadie tiene." }
+        - { speaker: rep, text: "La verdad, usted no necesita un híbrido. También le enseño la Equinox y la Trax." }
+        - { speaker: customer, text: "No me hable de un carro de gasolina." }
+        - { speaker: rep, text: "Bueno, la puedo poner en una lista para el próximo. Déjeme un depósito hoy y se lo aparto." }
+        - { speaker: customer, text: "No me empuje algo que ni he visto." }
+        - { speaker: rep, text: "Entonces hagámoslo ya. ¿Qué hace falta para que se lo lleve hoy?" }
+        - { speaker: customer, text: "Nada. Voy a seguir llamando." }
+        - { speaker: rep, text: "Está bien. Llámeme si cambia de idea." }
+  good:
+    notice:
+      en: Notice the pause, the question about what the hybrid is for, the plain supply facts with the inbound car disclosed as in transit, and the official figures offered instead of a promised saving.
+      es: Fíjese en la pausa, en la pregunta sobre para qué quiere el híbrido, en los datos claros del inventario con el carro que viene dicho como en camino, y en las cifras oficiales en vez de un ahorro prometido.
+    script:
+      en:
+        - { speaker: customer, text: "I need a hybrid, and nobody has one." }
+        - { speaker: rep, text: "[pause] I hear you. You've probably called around all week and gotten the same answer. Before I tell you what we have, what's got you set on a hybrid?" }
+        - { speaker: customer, text: "It's not about hybrids, really. It's about the truck I'm driving." }
+        - { speaker: rep, text: "Okay. What are you driving now, and how far do you drive in a normal week?" }
+        - { speaker: customer, text: "A 2015 Silverado. My office moved to Brickell in September, and now I'm spending about $95 a week on gas. I need that number to come down." }
+        - { speaker: rep, text: "Thank you, that helps. Here's the honest picture: we have no hybrid on the lot today. One pre-owned 2022 RAV4 Hybrid XLE is in transit to us, scheduled to arrive Tuesday, so I won't ask you to commit to a car you haven't seen. I'll print the official EPA fuel-economy ratings for it and for your Silverado, side by side, so you can see what it would mean for your weekly gas bill." }
+        - { speaker: customer, text: "That's the first straight answer I've gotten all week." }
+        - { speaker: rep, text: "Could you come in Tuesday at 5:30? I'll call you that morning to confirm it arrived before you drive over, and if it's running late, I'll tell you." }
+        - { speaker: customer, text: "Tuesday at 5:30. Call me that morning." }
+      es:
+        - { speaker: customer, text: "Necesito un híbrido, y nadie tiene." }
+        - { speaker: rep, text: "[pausa] La entiendo. Seguro que ha llamado a varios lugares toda la semana y le dicen lo mismo. Antes de decirle lo que tenemos, ¿qué la tiene buscando un híbrido?" }
+        - { speaker: customer, text: "En realidad no es por el híbrido. Es por la camioneta que estoy manejando." }
+        - { speaker: rep, text: "Bien. ¿Qué carro maneja ahora, y cuánto maneja en una semana normal?" }
+        - { speaker: customer, text: "Una Silverado 2015. Mi oficina se mudó para Brickell en septiembre, y ahora estoy gastando como $95 a la semana de gasolina. Necesito que eso baje." }
+        - { speaker: rep, text: "Gracias, eso me ayuda. Le digo la verdad como es: hoy no tenemos ningún híbrido en el lote. Hay una RAV4 Hybrid XLE 2022 usada que viene en camino y debe llegar el martes, así que no le voy a pedir que se comprometa con un carro que no ha visto. Le imprimo las cifras oficiales de consumo de la EPA de esa y de su Silverado, lado a lado, para que vea lo que significaría para lo que gasta de gasolina a la semana." }
+        - { speaker: customer, text: "Es la primera respuesta clara que me dan en toda la semana." }
+        - { speaker: rep, text: "¿Puede venir el martes a las 5:30? Esa mañana la llamo para confirmarle que llegó antes de que salga para acá, y si se atrasa, se lo digo." }
+        - { speaker: customer, text: "El martes a las 5:30. Llámeme esa mañana." }
+spanish_reviewed: false

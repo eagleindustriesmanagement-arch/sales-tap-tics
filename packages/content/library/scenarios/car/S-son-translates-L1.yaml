@@ -1,0 +1,176 @@
+code: S-son-translates-L1
+module: car-language-trust
+title:
+  en: "\"My son will translate for me\""
+  es: "\"Mi hijo me traduce\""
+setting:
+  en: Saturday afternoon, at your desk, after the test drive and the first numbers.
+  es: Sábado por la tarde, en su escritorio, después de la prueba de manejo y los primeros números.
+persona: P-son-translates
+objection: O38
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 60s, came in with his 19-year-old son to buy the 2026 Equinox LT for work and family. He has $3,000 for the down and has not applied for credit yet. You showed them the all-in price of $32,794 plus tax, tag and title, and an estimated payment of $547 a month for 72 months with $3,000 down. The son has done the talking, in English, and you have been talking to the son. Your colleague Marisol in finance is bilingual. When you turn to the father, he says:"
+  es: "{name}, de unos 62 años, vino con su hijo de 19 años a comprar la Equinox LT 2026 para el trabajo y la familia. Tiene $3,000 para el down y todavía no ha llenado la aplicación de crédito. Usted les enseñó el precio total de $32,794 más impuestos, tag y título, y un pago estimado de $547 al mes por 72 meses con $3,000 de down. El hijo es el que ha hablado, en inglés, y usted le ha estado hablando al hijo. Marisol, su compañera de financiamiento, es bilingüe. Cuando usted se dirige al padre, él le dice:"
+opening:
+  en: My son will translate for me.
+  es: Mi hijo me traduce.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: LT, color: Summit White, stock: "6254", in_stock: true }
+  price_cents: 3189500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3279400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options:
+    - { code: estimate, cents: 54700, term_months: 72, down_cents: 300000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    son_said_payment_cents: 45000
+    understands_term: false
+    bilingual_staff: Marisol, the finance manager, speaks Spanish and is in the store Monday from 9 to 7
+    free_monday: Free Monday after 5:30 p.m.
+numbers_sheet: true
+target_techniques: [T040, T002, T001, T009, T070, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O38-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O38-DIRECT
+      behavior:
+        en: "Kept the son welcome, then spoke to the father directly and asked what he wanted explained"
+        es: "Mantuvo al hijo bienvenido, y le habló directamente al padre para preguntarle qué quería que le explicaran"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O38-HIDDEN
+      behavior:
+        en: "Surfaced that he did not understand the payment or the term"
+        es: "Sacó a la luz que no entendió el pago ni el plazo"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O38-BILINGUAL
+      behavior:
+        en: "Offered a bilingual staff member for the numbers and the paperwork"
+        es: "Ofreció a alguien del equipo que sea bilingüe para los números y los papeles"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Service-encounter research (T040)"
+      technique: T040
+    - code: O38-WRITING
+      behavior:
+        en: "Restated the payment, the number of months and the down payment in plain words, and put them in writing"
+        es: "Repitió el pago, la cantidad de meses y el down en palabras sencillas, y los puso por escrito"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Cox Automotive satisfaction drivers (T009)"
+      technique: T009
+    - code: O38-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: pushed_signature_unclear
+      description:
+        en: "Pushed him to sign while he still did not understand the payment or the term"
+        es: "Lo presionó para firmar cuando todavía no entendía el pago ni el plazo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he kept talking to the son about the father, waved off the details, and pushed for the paperwork. He never asked the father what was unclear or offered bilingual help."
+      es: "Fíjese: siguió hablándole al hijo sobre el padre, le quitó importancia a los detalles y presionó para hacer los papeles. Nunca le preguntó al padre qué no le quedó claro ni le ofreció ayuda bilingüe."
+    script:
+      en:
+        - { speaker: customer, text: "My son will translate for me." }
+        - { speaker: rep, text: "Perfect, that makes it easier. Tell your dad the payment fits his budget, okay?" }
+        - { speaker: customer, text: "I'm right here. You can talk to me." }
+        - { speaker: rep, text: "Bottom line, it's a great deal with the down and the term. It's simple, don't worry about the details." }
+        - { speaker: customer, text: "He says it's fine." }
+        - { speaker: rep, text: "Let's do the paperwork today, and your son can explain it to you at home." }
+        - { speaker: customer, text: "Let's go, son." }
+        - { speaker: rep, text: "Alright. Here's my card." }
+      es:
+        - { speaker: customer, text: "Mi hijo me traduce." }
+        - { speaker: rep, text: "Perfecto, así es más fácil. Dígale a su papá que el pago le cuadra en el presupuesto, ¿okay?" }
+        - { speaker: customer, text: "Yo estoy aquí. Me puede hablar a mí." }
+        - { speaker: rep, text: "En resumen, es un buen negocio con el down y el term. Es fácil, no se preocupe por los detalles." }
+        - { speaker: customer, text: "Él dice que está bien." }
+        - { speaker: rep, text: "Hagamos los papeles hoy, y su hijo se lo explica en la casa." }
+        - { speaker: customer, text: "Vámonos, mijo." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice that he keeps the son welcome but speaks to the father, offers a bilingual colleague, and puts the payment, the months and the down in plain words and in writing before anyone signs.
+      es: Fíjese en que mantiene al hijo bienvenido pero le habla al padre, le ofrece una compañera bilingüe, y pone el pago, los meses y el down en palabras sencillas y por escrito antes de que nadie firme.
+    script:
+      en:
+        - { speaker: customer, text: "My son will translate for me." }
+        - { speaker: rep, text: "[pause] He's welcome to stay right here with us. I'd also like to make sure it's clear to you directly. What questions do you have about the numbers?" }
+        - { speaker: customer, text: "My son explains it well. But it's a lot of numbers." }
+        - { speaker: rep, text: "It is a lot. My colleague Marisol is bilingual and can sit with us. Which part would you like me to go over first?" }
+        - { speaker: customer, text: "The truth? I didn't understand the payment. My son told me about $450, but the paper says $547, and I don't know for how many months. I didn't want to embarrass him in front of you." }
+        - { speaker: rep, text: "Thank you for telling me, and your son did his best. Here it is in plain words: the payment is $547 a month, for 72 months, that's six years, with $3,000 down. It's an estimate; the final payment depends on the credit application. I'll write it on one sheet, and Marisol will go over every line with you in Spanish before you sign anything." }
+        - { speaker: customer, text: "Okay. Now I understand it better." }
+        - { speaker: rep, text: "Can you both come back Monday at 6, after work? Marisol will be here, and you can take the sheet home tonight." }
+        - { speaker: customer, text: "Monday at 6. We'll come together." }
+      es:
+        - { speaker: customer, text: "Mi hijo me traduce." }
+        - { speaker: rep, text: "[pausa] Su hijo es bienvenido aquí con nosotros. Pero también quiero que todo le quede claro a usted directamente. ¿Qué preguntas tiene sobre los números?" }
+        - { speaker: customer, text: "Mi hijo explica bien. Pero son muchos números." }
+        - { speaker: rep, text: "Son muchos, sí. Mi compañera Marisol es bilingüe y se puede sentar con nosotros. ¿Qué parte quiere que le explique primero?" }
+        - { speaker: customer, text: "¿La verdad? No entendí el pago. Mi hijo me dijo como $450, pero el papel dice $547, y no sé por cuántos meses. No quería hacerlo quedar mal delante de usted." }
+        - { speaker: rep, text: "Gracias por decírmelo, y su hijo hizo lo mejor que pudo. Se lo digo en palabras sencillas: el pago es $547 al mes, por 72 meses, o sea seis años, con $3,000 de down. Es un estimado; el pago final depende de la aplicación de crédito. Se lo escribo en una sola hoja, y Marisol le repasa cada línea en español antes de que firme nada." }
+        - { speaker: customer, text: "Bueno. Ahora sí lo entiendo mejor." }
+        - { speaker: rep, text: "¿Pueden volver los dos el lunes a las 6, después del trabajo? Marisol va a estar aquí, y usted se lleva la hoja a la casa esta noche." }
+        - { speaker: customer, text: "El lunes a las 6. Venimos juntos." }
+spanish_reviewed: false

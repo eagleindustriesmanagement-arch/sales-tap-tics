@@ -1,0 +1,193 @@
+code: S-own-bank-price-L1
+module: car-market-2026
+title:
+  en: "\"That price only works if I finance with you\""
+  es: "\"Ese precio es solo si financio con ustedes\""
+setting:
+  en: Saturday, late morning, at the sales desk, right after the test drive, with the numbers sheet on the desk.
+  es: Sábado, a media mañana, en el escritorio de ventas, justo después de la prueba de manejo, con la hoja de números sobre la mesa.
+persona: P-own-bank-price
+objection: O21
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 40s, runs a small landscaping company in Homestead and needs a work truck. He just drove the 2026 Silverado 1500 LT. The numbers sheet shows the all-in price of $53,394 plus tax, tag and title. Good credit, no trade. He has not said how he plans to pay, and he is reading the sheet for fine print."
+  es: "{name}, de unos 48 años, tiene una pequeña compañía de jardinería en Homestead y necesita una camioneta de trabajo. Acaba de manejar la Silverado 1500 LT 2026. La hoja de números muestra el precio total de $53,394 más impuestos, tag y título. Buen crédito, sin trade-in. No ha dicho cómo piensa pagar, y está leyendo la hoja buscando la letra chiquita."
+opening:
+  en: That price only works if I finance with you, right?
+  es: Ese precio es solo si financio con ustedes, ¿verdad?
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Silverado 1500, trim: LT, color: Black, stock: "2264", in_stock: true }
+  price_cents: 5249500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  # One price for every buyer, with any financing or cash (PRICE-04). The store offers no financing-only discount.
+  all_in_price_cents: 5339400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    own_bank_preapproved: true
+    approval_letter_on_phone: true
+    other_store_increase_cents: 200000
+    business: Small landscaping company in Homestead
+    free_monday: Free Monday morning before his crews start
+numbers_sheet: true
+target_techniques: [T001, T030, T002, T005, T009, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O21-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O21-STRAIGHT
+      behavior:
+        en: "Answered straight: the all-in price holds with any financing, his bank, ours or cash"
+        es: "Contestó directo: el precio total se mantiene con cualquier financiamiento, su banco, el nuestro o cash"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "O21 core move; FTC pricing guidance (PRICE-04)"
+      technique: T030
+    - code: O21-QFIRST
+      behavior:
+        en: "Asked how he planned to pay before any pitch for store financing"
+        es: "Preguntó cómo pensaba pagar antes de venderle el financiamiento de la tienda"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O21-HIDDEN
+      behavior:
+        en: "Surfaced his bank approval and the price jump at the other store"
+        es: "Sacó a la luz la aprobación de su banco y lo que le subieron en el otro dealer"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O21-NOTIE
+      behavior:
+        en: "Never tied the price to financing with us, and every price stated was the all-in price"
+        es: "Nunca amarró el precio a financiar con nosotros, y todo precio que dijo fue el precio total"
+      dimension: technique
+      method: rule
+      points: 15
+      evidence: "PRICE-04; PRICE-01; FTC pricing guidance"
+      technique: T030
+      params: { rules: [PRICE-04, PRICE-01], topic: price }
+    - code: O21-WRITTEN
+      behavior:
+        en: "Offered the same price in writing, with his bank as the lender, before he signs"
+        es: "Ofreció el mismo precio por escrito, con su banco como el que financia, antes de que firme"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Cox Automotive satisfaction research (T009)"
+      technique: T009
+    - code: O21-NEXT
+      behavior:
+        en: "Set a specific day and time to bring the letter and sign"
+        es: "Fijó un día y una hora específicos para traer la carta y firmar"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: tied_price_to_financing
+      description:
+        en: "Said or hinted that the price depends on financing with the store"
+        es: "Dijo o dio a entender que el precio depende de financiar con la tienda"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, or conditioned the price on financing with us"
+        es: "Dijo un número que no es real, o condicionó el precio a financiar con nosotros"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he dodged a yes-or-no question about the price twice and pushed to write it up. He never said the price holds with any financing and never asked how the customer planned to pay."
+      es: "Fíjese: le dio la vuelta dos veces a una pregunta de sí o no sobre el precio y presionó para dejarlo escrito. Nunca dijo que el precio se mantiene con cualquier financiamiento y nunca preguntó cómo pensaba pagar el cliente."
+    script:
+      en:
+        - { speaker: customer, text: "That price only works if I finance with you, right?" }
+        - { speaker: rep, text: "Don't worry about the financing yet. Let's get you into the truck first." }
+        - { speaker: customer, text: "That's not an answer. Does the price hold or not?" }
+        - { speaker: rep, text: "We'll talk about that in finance. They'll go over everything with you." }
+        - { speaker: customer, text: "I've heard that one before. Every store has a catch. What's yours?" }
+        - { speaker: rep, text: "Let's just write it up and see where we land. Want me to get it ready?" }
+        - { speaker: customer, text: "Not today. I'll keep looking." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+        - { speaker: customer, text: "Thanks." }
+      es:
+        - { speaker: customer, text: "Ese precio es solo si financio con ustedes, ¿verdad?" }
+        - { speaker: rep, text: "No se preocupe por el financiamiento todavía. Primero vamos a montarlo en la camioneta." }
+        - { speaker: customer, text: "Eso no es una respuesta. ¿El precio se mantiene o no?" }
+        - { speaker: rep, text: "Eso lo vemos en financiamiento. Allí le explican todo." }
+        - { speaker: customer, text: "Eso ya lo he oído. Todos los dealers tienen su truco. ¿Cuál es el de ustedes?" }
+        - { speaker: rep, text: "Hagámoslo ya y vemos cómo queda. ¿Se la preparo?" }
+        - { speaker: customer, text: "Hoy no. Voy a seguir buscando." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta." }
+        - { speaker: customer, text: "Gracias." }
+  good:
+    notice:
+      en: Notice the straight answer first, one all-in price with any financing, then the question about how he plans to pay, and the same price put in writing with his own bank.
+      es: Fíjese en la respuesta directa primero, un solo precio total con cualquier financiamiento, luego la pregunta de cómo piensa pagar, y el mismo precio por escrito con su propio banco.
+    script:
+      en:
+        - { speaker: customer, text: "That price only works if I finance with you, right?" }
+        - { speaker: rep, text: "[pause] Good question, and I'm glad you asked it straight. No. The price is $53,394 out the door plus tax, tag and title, with any financing: ours, your own bank, a credit union, or cash. Can I ask how you were planning to pay for it?" }
+        - { speaker: customer, text: "Okay. I asked because I've been down this road before." }
+        - { speaker: rep, text: "Fair enough. Apart from how you pay, is this the right truck for the business?" }
+        - { speaker: customer, text: "The truck is exactly what I need for the business. That's not the issue." }
+        - { speaker: rep, text: "Then what happened before, if you don't mind me asking?" }
+        - { speaker: customer, text: "My bank already pre-approved me. The letter's on my phone. Last month at another store, the price went up $2,000 the second I said I'd use my own bank, so I didn't want to say it here." }
+        - { speaker: rep, text: "Thank you for trusting me with that. Here, it's the same price with your bank: $53,394 out the door plus tax, tag and title. I'll put it in writing on the buyer's order, with your bank as the lender, before you sign anything. If you ever want to see what our lenders can offer, that's your choice, and the price stays the same." }
+        - { speaker: customer, text: "That's all I wanted to hear. In writing is what matters." }
+        - { speaker: rep, text: "Can you bring the approval letter Monday at 10? I'll have the buyer's order printed with your bank on it." }
+        - { speaker: customer, text: "Monday at 10 works. I'll bring the letter." }
+      es:
+        - { speaker: customer, text: "Ese precio es solo si financio con ustedes, ¿verdad?" }
+        - { speaker: rep, text: "[pausa] Buena pregunta, y qué bueno que me la hace directo. No. El precio total es $53,394 más impuestos, tag y título, con cualquier financiamiento: el nuestro, su propio banco, una cooperativa o cash. ¿Le puedo preguntar cómo piensa pagarla?" }
+        - { speaker: customer, text: "Bueno. Le pregunto porque ya pasé por esto antes." }
+        - { speaker: rep, text: "Me parece justo. Aparte de cómo la pague, ¿esta es la camioneta para su negocio?" }
+        - { speaker: customer, text: "La camioneta es justo lo que necesito para el negocio. Ese no es el problema." }
+        - { speaker: rep, text: "Entonces, ¿qué le pasó antes, si no le molesta que le pregunte?" }
+        - { speaker: customer, text: "Mi banco ya me pre-aprobó. Tengo la carta en el teléfono. El mes pasado, en otro dealer, el precio subió $2,000 en cuanto dije que iba a usar mi propio banco, así que aquí no lo quería decir." }
+        - { speaker: rep, text: "Gracias por confiarme eso. Aquí es el mismo precio con su banco: $53,394 precio total más impuestos, tag y título. Se lo pongo por escrito en la orden de compra, con su banco como el que financia, antes de que firme nada. Si algún día quiere ver lo que ofrecen nuestros bancos, eso es decisión suya, y el precio es el mismo." }
+        - { speaker: customer, text: "Eso es todo lo que quería oír. Lo que importa es que esté por escrito." }
+        - { speaker: rep, text: "¿Puede traer la carta de aprobación el lunes a las 10? Le tengo la orden de compra impresa con su banco." }
+        - { speaker: customer, text: "El lunes a las 10 me sirve. Traigo la carta." }
+spanish_reviewed: false

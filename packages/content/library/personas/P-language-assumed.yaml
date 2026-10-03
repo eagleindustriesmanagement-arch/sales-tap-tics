@@ -1,0 +1,178 @@
+code: P-language-assumed
+name_pool:
+  en: [Daniel, Michael, Anthony, Chris]
+  es: [Daniel, Alejandro, Christian, Eric]
+age_range: 30-39
+temperament: [guarded]
+temperament_note:
+  en: Easygoing on a normal day, but guarded the moment he feels sized up. Fully bilingual, born and raised in Miami. Answers short and cool when someone assumes things about him, and warms up fast when he is treated like any other buyer.
+  es: Tranquilo en un día normal, pero se pone a la defensiva en cuanto siente que lo están midiendo. Completamente bilingüe, nacido y criado en Miami. Contesta corto y frío cuando alguien asume cosas de él, y entra en confianza rápido cuando lo tratan como a cualquier otro cliente.
+buyer_orientation: task
+situation:
+  en: Mid-30s, Cuban-American, born in Miami. A licensed electrician who runs his own small company. Pre-approved at his credit union. Needs a full-size pickup for work and is walking around a 2026 Silverado 1500 LT Crew Cab on the lot. Fully bilingual. You greeted him in Spanish without asking, and he answered in English.
+  es: De unos 35 años, cubanoamericano, nacido en Miami. Electricista con licencia que tiene su propio negocio pequeño. Tiene una preaprobación de su cooperativa de crédito. Necesita una pickup grande para el trabajo y está mirando una Silverado 1500 LT Crew Cab 2026 en el lote. Completamente bilingüe. Usted lo saludó en español sin preguntarle, y él le contestó en inglés.
+stated_objection: O39
+stated_line:
+  en: I'm good. English is fine, by the way.
+  es: Bien, gracias. Pero... English is fine.
+hidden_truth:
+  en: Last month at another store, the salesman heard his last name, switched to Spanish without asking, walked him to the cheapest car on the lot and asked if he had a Social Security number. He runs his own electrical business, has a credit union pre-approval, and came for a work truck. He wants to be treated like any other buyer.
+  es: El mes pasado, en otro dealer, el vendedor oyó su apellido, se pasó al español sin preguntarle, lo llevó al carro más barato del lote y le preguntó si tenía Social. Él tiene su propio negocio de electricista, tiene una preaprobación de su cooperativa y vino por una camioneta de trabajo. Quiere que lo traten como a cualquier otro cliente.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\blast name\b'
+    - '\bcheapest\b'
+    - '\b(a |my )?social( security)?\b'
+    - '\bswitched to Spanish\b'
+    - '\bpre-?approv'
+  es:
+    - '\bapellido\b'
+    - '\bmás barat[oa]\b'
+    - '\b(tenía|tiene|tengo) Social\b'
+    - '\bSeguro Social\b'
+    - '\bse pasó al español\b'
+    - '\bpreaprobación\b'
+unlock_conditions:
+  - code: asks_language_preference
+    description:
+      en: Owns the assumption and offers English or Spanish as his choice, paperwork included.
+      es: Reconoce que asumió y le ofrece inglés o español a su elección, incluyendo los papeles.
+    cues:
+      en:
+        - '\b(english or spanish|spanish or english)\b'
+        - '\bwhich (language )?(do you|would you) prefer\b'
+        - '\b(whichever|whatever) (language )?you prefer\b'
+        - '\b(your call|up to you)\b.{0,30}\b(english|spanish|language)\b'
+      es:
+        - '\b(en )?inglés o (en )?español\b'
+        - '\b(en )?español o (en )?inglés\b'
+        - '\bqué idioma prefiere\b'
+        - '\ben (el idioma|lo) que usted (prefiera|quiera)\b'
+  - code: asks_what_brought_him
+    description:
+      en: Asks what brought him in or what he needs the truck for, before pitching a vehicle, a budget or financing.
+      es: Le pregunta qué lo trae o para qué necesita la camioneta, antes de ofrecerle un carro, un presupuesto o financiamiento.
+    cues:
+      en:
+        - '\bwhat brings you (in|by|here|out)\b'
+        - '\bwhat (are you|you''re) (looking|shopping) for\b'
+        - '\bwhat (do|will) you (need|use) (it|the truck|a truck|a pickup) for\b'
+        - '\bwhat kind of (work|truck)\b'
+        - '\bhow (can|may) I help\b'
+      es:
+        - '\bqué lo trae\b'
+        - '\bqué (está|anda) buscando\b'
+        - '\bpara qué (la|lo) (necesita|va a usar)\b'
+        - '\bqué tipo de (trabajo|camioneta)\b'
+        - '\ben qué (lo|le) puedo ayudar\b'
+  - code: asks_what_happened
+    description:
+      en: Asks what usually happens next or what happened before, instead of explaining himself.
+      es: Le pregunta qué es lo que suele pasar después o qué le pasó antes, en vez de justificarse.
+    cues:
+      en:
+        - '\bwhat (usually )?(comes|happens) (after|next)\b'
+        - '\bwhat happened\b'
+        - '\bhas (that|this|someone) (happened|done that)\b'
+      es:
+        - '\bqué (es lo que )?(suele )?(viene|pasa|venir|pasar) después\b'
+        - '\bqué (le )?pasó\b'
+        - '\ble (ha|había) pasado (antes|eso)\b'
+walk_out_triggers:
+  - code: steers_by_assumption
+    description:
+      en: Brings up credit programs, ITIN, a budget or a cheaper vehicle based on his name, look or language, without asking.
+      es: Le saca programas de crédito, ITIN, un presupuesto o un carro más barato por su apellido, su aspecto o su idioma, sin preguntarle.
+    cues:
+      en:
+        - '\bITIN\b'
+        - '\b(no|bad|first[- ]time|any) credit\b'
+        - '\bfirst[- ]time buyers?\b'
+        - '\b(most affordable|cheaper one|something cheaper|entry[- ]level)\b'
+        - '\bsocial security\b'
+      es:
+        - '\bITIN\b'
+        - '\b(sin|mal) crédito\b'
+        - '\bprimer comprador\b'
+        - '\b(la|el) más económic[oa]\b'
+        - '\balgo más barato\b'
+        - '\bSeguro Social\b'
+  - code: dismisses_feeling
+    description:
+      en: Tells him he is being too sensitive about it ("Relax, it was just a greeting").
+      es: Le dice que está exagerando ("Relájese, que fue solo un saludo").
+    cues:
+      en:
+        - '\b(relax|chill)\b.{0,30}\b(just|only) a (greeting|hello)\b'
+        - '\bit was (just|only) a (greeting|hello)\b'
+        - '\bdon''?t be (so )?(sensitive|touchy)\b'
+        - '\bno big deal\b'
+      es:
+        - '\bfue solo un saludo\b'
+        - '\b(solo|nada más) (fue|era) un saludo\b'
+        - '\bno (se ponga|sea) (así|tan sensible)\b'
+        - '\bno es para tanto\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: piles_on_options
+    description:
+      en: Walks him toward other vehicles instead of the truck he came for.
+      es: Lo lleva hacia otros carros en vez de la camioneta por la que vino.
+    cues:
+      en:
+        - '\blet me (show you|take you (over )?to) the (Trax|Trailblazer|Equinox|Colorado)\b'
+        - '\blet me show you (all|every|a few more|some more|the others)\b'
+      es:
+        - '\b(le enseño|le muestro) (la|el) (Trax|Trailblazer|Equinox|Colorado)\b'
+        - '\b(le enseño|le muestro) (todas|todos|unas cuantas|otras|otros)\b'
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done|do the paperwork)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bhagamos los papeles\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The bad experience at the other store comes out, the rep treats him like any buyer (same truck, same all-in price, same process, his own financing welcome), and they set a day and time to drive the truck.
+    es: Sale a la luz la mala experiencia en el otro dealer, el vendedor lo trata como a cualquier cliente (la misma camioneta, el mismo precio total, el mismo proceso, su propio financiamiento bienvenido), y fijan día y hora para manejar la camioneta.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: en
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el truck", "el dealer"]
+register: usted
+voice_ids:
+  en: tbd-en-us-miami-male-30s
+  es: tbd-es-miami-cuban-american-male-30s
+difficulty: 1
+variation:
+  moods: [on his lunch break in work clothes, cool and short, checking the bed of the truck]
+  amount_ranges: {}
+# In the Spanish session he keeps answering in English (deflect, react_to_pressure) until the rep asks which
+# language he prefers; from the hint on he answers in Spanish. The English in the es fields is deliberate (O39).
+offline_lines:
+  deflect:
+    - { en: "Just looking at the trucks.", es: "Just looking at the trucks." }
+    - { en: "I'm fine on my own for now.", es: "I'm fine on my own for now." }
+    - { en: "I know what I'm looking at, thanks.", es: "I know what I'm looking at, thanks." }
+  hint: { en: "Either one is fine, now that you ask. Honestly, it's not about the language. It's about what usually comes after it.", es: "Cualquiera de los dos está bien, ahora que me pregunta. La verdad, no es por el idioma. Es por lo que viene después." }
+  after_hint: { en: "I've been through this before, that's all.", es: "Ya yo he pasado por esto antes, nada más." }
+  reveal: { en: "Look, last month at another store, the guy heard my last name, switched to Spanish without asking, walked me to the cheapest car on the lot and asked if I had a Social. I'm an electrician, I run my own business, I'm pre-approved at my credit union, and I came for a work truck.", es: "Mire, el mes pasado en otro dealer, el vendedor oyó mi apellido, se pasó al español sin preguntarme, me llevó al carro más barato del lote y me preguntó si yo tenía Social. Soy electricista, tengo mi propio negocio, tengo una preaprobación de mi cooperativa, y vine por una camioneta de trabajo." }
+  after_reveal:
+    - { en: "Okay. That's all I'm asking. Treat me like anybody else.", es: "Bueno. Eso es todo lo que pido. Que me traten como a cualquiera." }
+    - { en: "Alright. Now we're talking.", es: "Está bien. Así sí nos entendemos." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  not_now: { en: "Not today. I'll come back some other time.", es: "Hoy no. Yo vengo otro día." }
+  walk_away: { en: "Yeah, I've heard this one before. I'm out.", es: "Ya esta película yo la vi. Me voy." }
+  goodbye: { en: "Take care.", es: "Que le vaya bien." }
+  react_to_pressure: { en: "I didn't ask about any of that. I came to look at a truck.", es: "I didn't ask about any of that. I came to look at a truck." }
+spanish_reviewed: false

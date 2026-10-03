@@ -1,0 +1,185 @@
+code: S-spanish-ad-L1
+module: car-language-trust
+title:
+  en: "\"The Spanish ad said something different\""
+  es: "\"En el anuncio en español decía otra cosa\""
+setting:
+  en: Saturday afternoon, at your desk, right after you showed her the all-in price.
+  es: Sábado por la tarde, en su escritorio, justo después de que usted le enseñó el precio total.
+persona: P-spanish-ad
+objection: O37
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 60s, came in for the 2026 Trax LS she saw in the store's Spanish-language Instagram ad. She drives a paid-off 2011 Camry and has good credit. You showed her the all-in price of $23,094 plus tax, tag and title. She takes out her phone."
+  es: "{name}, de unos 62 años, vino por la Trax LS 2026 que vio en el anuncio en español del dealer en Instagram. Maneja un Camry 2011 pagado y tiene buen crédito. Usted le enseñó el precio total de $23,094 más impuestos, tag y título. Ella saca el teléfono."
+opening:
+  en: The Spanish ad said something different.
+  es: En el anuncio en español decía otra cosa.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: LS, color: Summit White, stock: "6031", in_stock: true }
+  price_cents: 2219500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2309400
+  # The store's own October ad. The English version states the condition; the Spanish version left it out.
+  rebates:
+    - code: chevrolet_owner_discount
+      name: Store ad discount for current Chevrolet owners
+      cents: 100000
+      eligibility: qualifying
+      qualifies: Current registered owner of a Chevrolet vehicle
+      ends: "2026-10-31"
+      proof: Store October ad; the condition appears only in the English version's fine print
+  deadlines:
+    - { what: Store October ad offer ends, date: "2026-10-31", proof: Store October ad }
+  inventory_same_trim_color: 3
+  trade: { vehicle: 2011 Toyota Camry LE, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    ad_price_cents: 2209400
+    spanish_ad: The store's Spanish Instagram ad showed the Trax LS at $22,094 with no conditions
+    english_ad: Her neighbor read her the English version; its fine print limits that price to current Chevrolet owners
+    owns_chevrolet: false
+    free_monday: Free Monday morning, from 10
+numbers_sheet: true
+target_techniques: [T041, T119, T111, T001, T002, T009, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O37-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O37-QFIRST
+      behavior:
+        en: "Asked to see the ad, or what it said, before explaining or defending the price"
+        es: "Pidió ver el anuncio, o preguntó qué decía, antes de explicar o defender el precio"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O37-HIDDEN
+      behavior:
+        en: "Surfaced that the condition was only in the English fine print and that she fears hidden conditions in the papers"
+        es: "Sacó a la luz que la condición solo estaba en la letra chiquita en inglés y que ella teme condiciones escondidas en los papeles"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O37-CONDITION
+      behavior:
+        en: "Gave the price anyone can pay first, then explained the discount's condition plainly, in the language of the conversation"
+        es: "Dio primero el precio que puede pagar cualquiera, y después explicó claramente la condición del descuento, en el idioma de la conversación"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "FTC Cowboy AG order; Florida s. 501.976 (T119, LANG-01)"
+      technique: T119
+    - code: O37-SAMEDEAL
+      behavior:
+        en: "Said it is the same price and conditions in either language, and offered every number and condition in writing in Spanish"
+        es: "Dijo que es el mismo precio y las mismas condiciones en cualquiera de los dos idiomas, y ofreció cada número y cada condición por escrito en español"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "FTC Cowboy AG order (T041)"
+      technique: T041
+    - code: O37-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: misrepresented_ad
+      description:
+        en: "Told her the ad price applies to her, or denied that the ad had a condition"
+        es: "Le dijo que el precio del anuncio le aplica a ella, o negó que el anuncio tuviera una condición"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed the ad off as marketing, blamed the fine print she could not read, and pushed for a decision. He never looked at the ad or asked what was different."
+      es: "Fíjese: le quitó importancia al anuncio como cosa de marketing, le echó la culpa a una letra chiquita que ella no podía leer, y presionó para que decidiera. Nunca miró el anuncio ni preguntó qué era distinto."
+    script:
+      en:
+        - { speaker: customer, text: "The Spanish ad said something different." }
+        - { speaker: rep, text: "Ads are ads. That's marketing, not my department." }
+        - { speaker: customer, text: "But it's your store's ad." }
+        - { speaker: rep, text: "The price is $23,094, plus tax, tag and title. Everything is in the fine print." }
+        - { speaker: customer, text: "Nobody told me anything about that." }
+        - { speaker: rep, text: "Look, if you want the car, let's just write it up." }
+        - { speaker: customer, text: "I'm going. This is what I was afraid of." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+      es:
+        - { speaker: customer, text: "En el anuncio en español decía otra cosa." }
+        - { speaker: rep, text: "Los anuncios son anuncios. Eso es cosa de marketing, no de mi departamento." }
+        - { speaker: customer, text: "Pero es el anuncio de ustedes." }
+        - { speaker: rep, text: "El precio es $23,094, más impuestos, tag y título. Todo está en la letra chiquita." }
+        - { speaker: customer, text: "A mí nadie me dijo nada de eso." }
+        - { speaker: rep, text: "Mire, si quiere el carro, hagámoslo ya." }
+        - { speaker: customer, text: "Me voy. Esto es lo que yo me temía." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice that he asks to see the ad before saying anything about it, gives the price anyone can pay before the condition, owns the store's mistake, and promises every number and condition in writing in Spanish.
+      es: Fíjese en que pide ver el anuncio antes de decir nada, da el precio que puede pagar cualquiera antes de la condición, reconoce el error del dealer, y promete cada número y cada condición por escrito en español.
+    script:
+      en:
+        - { speaker: customer, text: "The Spanish ad said something different." }
+        - { speaker: rep, text: "[pause] Then I want to see exactly what it said. Can I see the ad?" }
+        - { speaker: customer, text: "Here. The Trax, $22,094. That's all it says." }
+        - { speaker: rep, text: "Thank you. Before I explain anything, what worries you about it, apart from the number?" }
+        - { speaker: customer, text: "My neighbor read me the English version of the same ad. At the bottom, in small letters, it says that price is only for people who already own a Chevrolet. I don't. Nobody said that in Spanish. Now I'm afraid the papers will have more things like that." }
+        - { speaker: rep, text: "You're right to be upset, and I'm sorry. The Spanish ad should have said it. Here it is plainly: the price anyone can pay for this Trax is $23,094, plus tax, tag and title. The $1,000 discount in the ad is only for current Chevrolet owners. Same price and same conditions in English or Spanish." }
+        - { speaker: customer, text: "That's all I wanted. Someone who explains it to me clearly." }
+        - { speaker: rep, text: "And nothing gets signed until you understand every line. Can you come back Monday at 10? I'll have every number and every condition on one sheet, in Spanish, and I'll show this ad to my manager." }
+        - { speaker: customer, text: "Monday at 10. I'll bring the screenshot." }
+      es:
+        - { speaker: customer, text: "En el anuncio en español decía otra cosa." }
+        - { speaker: rep, text: "[pausa] Entonces quiero ver exactamente lo que decía. ¿Me deja ver el anuncio?" }
+        - { speaker: customer, text: "Mire. La Trax, $22,094. Eso es todo lo que dice." }
+        - { speaker: rep, text: "Gracias. Antes de explicarle nada, ¿qué es lo que le preocupa, aparte del número?" }
+        - { speaker: customer, text: "Mi vecina me leyó la versión en inglés del mismo anuncio. Abajo, en letra chiquita, dice que ese precio es solo para los que ya tienen un Chevrolet. Yo no tengo. Nadie dijo eso en español. Ahora tengo miedo de que los papeles tengan más cosas así." }
+        - { speaker: rep, text: "Tiene razón en estar molesta, y lo siento. El anuncio en español tenía que decirlo. Se lo explico claro: el precio que puede pagar cualquier cliente por esta Trax es $23,094, más impuestos, tag y título. El descuento de $1,000 del anuncio es solo para los que ya tienen un Chevrolet. El mismo precio y las mismas condiciones en inglés o en español." }
+        - { speaker: customer, text: "Eso es todo lo que yo quería. Que alguien me lo explique claro." }
+        - { speaker: rep, text: "Y no se firma nada hasta que usted entienda cada línea. ¿Puede volver el lunes a las 10? Le tengo cada número y cada condición en una sola hoja, en español, y le enseño este anuncio a mi gerente." }
+        - { speaker: customer, text: "El lunes a las 10. Traigo el screenshot." }
+spanish_reviewed: false

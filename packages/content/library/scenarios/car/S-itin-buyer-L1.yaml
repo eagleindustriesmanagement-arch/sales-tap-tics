@@ -1,0 +1,192 @@
+code: S-itin-buyer-L1
+module: car-language-trust
+title:
+  en: "\"I only have an ITIN\""
+  es: "\"Solo tengo ITIN, no tengo Social\""
+setting:
+  en: Saturday afternoon, at the sales desk on the open floor, after the test drive. His wife and two kids are looking at the car across the showroom.
+  es: Sábado por la tarde, en el escritorio de ventas en pleno salón, después de la prueba de manejo. Su esposa y sus dos hijos están mirando el carro al otro lado del salón.
+persona: P-itin-buyer
+objection: O35
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 30s, works drywall and came in with his wife and two kids. They liked the 2026 Equinox RS, $35,894 out the door plus tax, tag and title, and he has $5,000 down. No application yet, so there is no approval, rate or payment to quote. As you sit down, before you ask for anything, he says it."
+  es: "{name}, de unos 38 años, trabaja en drywall y vino con su esposa y sus dos hijos. Les gustó la Equinox RS 2026, $35,894 precio total más impuestos, tag y título, y él tiene $5,000 de down. Todavía no hay solicitud, así que no hay aprobación, tasa ni pago que dar. Cuando ustedes se sientan, antes de que usted le pida nada, él lo dice."
+opening:
+  en: I only have an ITIN. I don't have a Social.
+  es: Solo tengo ITIN, no tengo Social.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: RS, color: Mosaic Black Metallic, stock: "1957", in_stock: true }
+  price_cents: 3499500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3589400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  # No application yet. Which lenders take ITIN applications, and what each asks for, is for the finance manager to check.
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    down_payment_cents: 500000
+    years_filing_taxes_with_itin: 4
+    years_same_job: 2
+    family_present: true
+    free_tuesday: Off at 4 on Tuesday
+numbers_sheet: false
+target_techniques: [T001, T003, T002, T070, T005, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O35-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O35-PRIVATE
+      behavior:
+        en: "Took the ITIN seriously and offered to talk in private"
+        es: "Tomó en serio lo del ITIN y ofreció hablarlo en privado"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "O35 core move: explain options privately"
+      technique: T003
+    - code: O35-QFIRST
+      behavior:
+        en: "Asked what worries him, or what happened before, before explaining anything"
+        es: "Preguntó qué le preocupa, o qué le pasó antes, antes de explicar nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O35-HIDDEN
+      behavior:
+        en: "Surfaced the refusal in front of his family and his real record"
+        es: "Sacó a la luz el rechazo delante de su familia y su historial real"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O35-EXPLAIN
+      behavior:
+        en: "Explained privately how an ITIN application works here: the finance manager checks which lenders take it and what each asks for"
+        es: "Le explicó en privado cómo funciona aquí una solicitud con ITIN: el gerente de financiamiento revisa qué bancos la aceptan y qué pide cada uno"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Harvard Business Review case (T070)"
+      technique: T070
+    - code: O35-NOPROMISE
+      behavior:
+        en: "Never promised an approval or a rate"
+        es: "Nunca prometió una aprobación ni una tasa"
+      dimension: technique
+      method: rule
+      points: 10
+      evidence: "RATE-01"
+      params: { rules: [RATE-01] }
+    - code: O35-NEXT
+      behavior:
+        en: "Set a specific day and time to apply in private with his papers"
+        es: "Fijó un día y una hora específicos para aplicar en privado con sus papeles"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: one_lender_or_promise
+      description:
+        en: "Claimed only one lender works with ITIN buyers, said he cannot buy without a Social, or promised an approval"
+        es: "Dijo que un solo banco trabaja con ITIN, que sin Social no puede comprar, o prometió una aprobación"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, a rate or an approval"
+        es: "Dijo un número, una tasa o una aprobación que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he told the customer a Social is what matters, rushed to send the application out on the floor, and pushed. He never offered privacy and never asked what worried him."
+      es: "Fíjese: le dijo al cliente que lo que importa es el Social, corrió a mandar la solicitud ahí mismo en el piso y presionó. Nunca le ofreció privacidad y nunca le preguntó qué le preocupaba."
+    script:
+      en:
+        - { speaker: customer, text: "I only have an ITIN. I don't have a Social." }
+        - { speaker: rep, text: "Without a Social it's tough. Do you know somebody with a Social who can sign for you?" }
+        - { speaker: customer, text: "I came to buy it with my own work. I'm not asking anybody to sign for me." }
+        - { speaker: rep, text: "Let's just run it and see what happens. Want me to get it ready?" }
+        - { speaker: customer, text: "If it can't be done, just tell me now." }
+        - { speaker: rep, text: "If the bank says no, the bank says no. Let's just write it up." }
+        - { speaker: customer, text: "Not today. Let's go." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+        - { speaker: customer, text: "Thank you." }
+      es:
+        - { speaker: customer, text: "Solo tengo ITIN, no tengo Social." }
+        - { speaker: rep, text: "Sin Social está difícil. ¿Conoce a alguien con Social que le firme?" }
+        - { speaker: customer, text: "Yo vine a comprarlo con mi trabajo. No le voy a pedir a nadie que me firme." }
+        - { speaker: rep, text: "Corrámoslo ya y vemos qué pasa. ¿Se lo preparo?" }
+        - { speaker: customer, text: "Si no se puede, dígamelo ahora." }
+        - { speaker: rep, text: "Si el banco dice que no, dice que no. Hagámoslo ya." }
+        - { speaker: customer, text: "Hoy no. Vámonos." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta." }
+        - { speaker: customer, text: "Gracias." }
+  good:
+    notice:
+      en: Notice the pause, the offer of privacy, the question about what worries him, and the honest explanation of how an ITIN application works here, with no approval promised and no talk of a single bank.
+      es: Fíjese en la pausa, en que ofrece privacidad, en la pregunta de qué le preocupa, y en la explicación honesta de cómo funciona aquí una solicitud con ITIN, sin prometer aprobación y sin hablar de un solo banco.
+    script:
+      en:
+        - { speaker: customer, text: "I only have an ITIN. I don't have a Social." }
+        - { speaker: rep, text: "[pause] Thanks for telling me up front. We can talk about it calmly, and in private if you prefer. What worries you most about it?" }
+        - { speaker: customer, text: "That you make me waste my time and then tell me no at the end." }
+        - { speaker: rep, text: "I understand. Apart from that, is the Equinox the car your family needs?" }
+        - { speaker: customer, text: "Yes, it's the car we want. The problem is the other thing." }
+        - { speaker: rep, text: "Okay. What happened last time, if you don't mind me asking?" }
+        - { speaker: customer, text: "At another dealer last month, after three hours of waiting, the manager told me in front of my wife and kids that without a Social there was nothing they could do. I've filed my taxes with my ITIN for four years, I've been at the same job for two years, and I have $5,000 down. But I came in already expecting a no." }
+        - { speaker: rep, text: "I'm sorry they did that to you. Here's how it works here, in my office, with nobody else around. We fill out the application with your ITIN, and our finance manager checks which of the lenders we work with take ITIN applications and what each one asks for. I'm not going to promise you an approval, and I'm not going to steer you to one bank. What I will promise is a clear answer, from me, in private." }
+        - { speaker: customer, text: "That's all I ask. Just talk to me straight." }
+        - { speaker: rep, text: "Can you come Tuesday at 6 with your tax returns and two recent pay stubs? I'll see you in my office, in private." }
+        - { speaker: customer, text: "Tuesday at 6 works. I'll bring the papers." }
+      es:
+        - { speaker: customer, text: "Solo tengo ITIN, no tengo Social." }
+        - { speaker: rep, text: "[pausa] Gracias por decírmelo de entrada. Eso lo podemos hablar con calma, y en privado si prefiere. ¿Qué es lo que más le preocupa?" }
+        - { speaker: customer, text: "Que me hagan perder el tiempo y al final me digan que no." }
+        - { speaker: rep, text: "Entiendo. Aparte de eso, ¿la Equinox es el carro que su familia necesita?" }
+        - { speaker: customer, text: "Sí, es el carro que queremos. El problema es lo otro." }
+        - { speaker: rep, text: "Bien. ¿Qué le pasó la otra vez, si no le molesta que le pregunte?" }
+        - { speaker: customer, text: "En otro dealer el mes pasado, después de tres horas esperando, el gerente me dijo delante de mi esposa y los niños que sin Social no había nada que hacer. Yo tengo cuatro años declarando los taxes con mi ITIN, dos años en el mismo trabajo y $5,000 de down. Pero ya vine esperando que me dijeran que no." }
+        - { speaker: rep, text: "Siento mucho que le hayan hecho eso. Le explico cómo funciona aquí, en mi oficina, sin nadie más. Llenamos la solicitud con su ITIN, y nuestro gerente de financiamiento revisa cuáles de los bancos con los que trabajamos aceptan solicitudes con ITIN y qué pide cada uno. No le voy a prometer una aprobación, y no lo voy a mandar a un solo banco. Lo que sí le prometo es una respuesta clara, de mi parte, en privado." }
+        - { speaker: customer, text: "Eso es lo único que pido: que me hablen claro." }
+        - { speaker: rep, text: "¿Puede venir el martes a las 6 con sus declaraciones de taxes y dos pay stubs recientes? Lo atiendo en mi oficina, en privado." }
+        - { speaker: customer, text: "El martes a las 6 está bien. Traigo los papeles." }
+spanish_reviewed: false

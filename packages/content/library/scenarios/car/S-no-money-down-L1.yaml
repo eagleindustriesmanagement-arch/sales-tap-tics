@@ -1,0 +1,194 @@
+code: S-no-money-down-L1
+module: car-core
+title:
+  en: "\"I have no money down\""
+  es: "\"No tengo nada de down\""
+setting:
+  en: Saturday evening, at the sales desk, right after the test drive, before any numbers are printed.
+  es: Sábado por la tarde-noche, en el escritorio de ventas, justo después de la prueba de manejo, antes de imprimir ningún número.
+persona: P-no-money-down
+objection: O13
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 20s, works at a warehouse in Medley; his car's transmission just went out. He liked the 2026 Trailblazer LT, $28,394 out the door plus tax, tag and title. Fair credit, no trade, two years at the same job. Your desk has two estimates, both on 72 months and both subject to a lender's approval: $546 a month with nothing down, or $528 a month with $1,000 down."
+  es: "{name}, de unos 28 años, trabaja en un almacén en Medley; a su carro se le acaba de romper la transmisión. Le gustó la Trailblazer LT 2026, $28,394 precio total más impuestos, tag y título. Crédito regular, sin trade-in, dos años en el mismo trabajo. En su escritorio hay dos estimados, los dos a 72 meses y sujetos a la aprobación de un banco: $546 al mes sin nada de down, o $528 al mes con $1,000 de down."
+opening:
+  en: I have no money down.
+  es: No tengo nada de down.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trailblazer, trim: LT, color: Mosaic Black Metallic, stock: "6402", in_stock: true }
+  price_cents: 2749500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2839400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  # Estimates on the desk, both subject to the lender's approval (including whether zero down is approved). No add-ons.
+  payment_options:
+    - { code: zero_down, cents: 54600, term_months: 72, down_cents: 0 }
+    - { code: one_thousand_down, cents: 52800, term_months: 72, down_cents: 100000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    savings_cents: 150000
+    would_put_down_cents: 100000
+    keeps_cents: 50000
+    years_same_job: 2
+    off_thursday: Off at 5 on Thursday
+numbers_sheet: true
+target_techniques: [T001, T003, T002, T005, T009, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O13-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O13-ACK
+      behavior:
+        en: "Took \"no money down\" without judging him or pushing a credit card"
+        es: "Aceptó lo de \"nada de down\" sin juzgarlo ni empujarle una tarjeta de crédito"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O13-QFIRST
+      behavior:
+        en: "Asked whether he has nothing set aside or money he would rather keep, before showing numbers"
+        es: "Preguntó si no tiene nada guardado o si hay dinero que prefiere no tocar, antes de enseñar números"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O13-HIDDEN
+      behavior:
+        en: "Surfaced his savings and what he would put down"
+        es: "Sacó a la luz sus ahorros y lo que pondría de down"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O13-PATHS
+      behavior:
+        en: "Showed both paths with real numbers on the same term, called them estimates, and left the choice to him"
+        es: "Mostró los dos caminos con números reales al mismo plazo, dijo que son estimados y dejó que él escogiera"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "O13 core move; Cox Automotive satisfaction research (T009)"
+      technique: T009
+    - code: O13-HONEST
+      behavior:
+        en: "Every payment matched the sheet, and no approval or zero-down promise was made"
+        es: "Cada pago coincidió con la hoja, y no prometió ninguna aprobación ni que el cero down sale"
+      dimension: technique
+      method: rule
+      points: 10
+      evidence: "RATE-01"
+      params: { rules: [RATE-01] }
+    - code: O13-NEXT
+      behavior:
+        en: "Set a specific day and time to apply and choose a path"
+        es: "Fijó un día y una hora específicos para aplicar y escoger un camino"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: claimed_down_rule
+      description:
+        en: "Claimed a lender requires money down, or promised that zero down will be approved"
+        es: "Dijo que el banco exige down, o prometió que el cero down sale aprobado"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he pushed a credit card, made the customer feel small for having nothing down, and pushed to write it up. He never asked whether there was money the customer wanted to keep."
+      es: "Fíjese: le empujó una tarjeta de crédito, hizo sentir mal al cliente por no tener down y presionó para dejarlo escrito. Nunca preguntó si había dinero que el cliente quería guardar."
+    script:
+      en:
+        - { speaker: customer, text: "I have no money down." }
+        - { speaker: rep, text: "Then just put something on a credit card and we're done." }
+        - { speaker: customer, text: "Don't push me. I told you I don't have it." }
+        - { speaker: rep, text: "Look, if you can't put anything down, maybe you're not ready to buy." }
+        - { speaker: customer, text: "Every place wants money up front." }
+        - { speaker: rep, text: "Let's just write it up and see what the bank says." }
+        - { speaker: customer, text: "Not today. I'll figure something out." }
+        - { speaker: rep, text: "Okay. Call me when you're ready." }
+        - { speaker: customer, text: "Thanks." }
+      es:
+        - { speaker: customer, text: "No tengo nada de down." }
+        - { speaker: rep, text: "Entonces póngalo en la tarjeta de crédito y ya está." }
+        - { speaker: customer, text: "No me presione. Ya le dije que no lo tengo." }
+        - { speaker: rep, text: "Mire, si no puede poner ni un peso de down, a lo mejor no está listo para comprar." }
+        - { speaker: customer, text: "En todos lados quieren dinero por adelantado." }
+        - { speaker: rep, text: "Hagámoslo ya y vemos qué dice el banco." }
+        - { speaker: customer, text: "Hoy no. Ya veré qué hago." }
+        - { speaker: rep, text: "Está bien. Llámeme cuando esté listo." }
+        - { speaker: customer, text: "Gracias." }
+  good:
+    notice:
+      en: Notice the pause, the question that lets him say whether there is money he wants to keep, and both paths shown with real numbers, as estimates, with the choice left to him.
+      es: Fíjese en la pausa, en la pregunta que le deja decir si hay dinero que quiere guardar, y en los dos caminos con números reales, como estimados, dejándole la decisión a él.
+    script:
+      en:
+        - { speaker: customer, text: "I have no money down." }
+        - { speaker: rep, text: "[pause] That's okay, and thanks for telling me up front. Can I ask, is it that there's nothing set aside right now, or is there some money you'd rather keep?" }
+        - { speaker: customer, text: "Let's just say I can't leave myself with nothing." }
+        - { speaker: rep, text: "That makes sense. Apart from the down payment, is the Trailblazer the right car for getting you to work?" }
+        - { speaker: customer, text: "The car's right. It's the money up front." }
+        - { speaker: rep, text: "Okay. If you did have something set aside, what would you need to see before you'd touch any of it?" }
+        - { speaker: customer, text: "I've got $1,500 saved. It's my only cushion if something breaks. I'd put $1,000 down if I could see on paper what it does to the payment, and keep the rest." }
+        - { speaker: rep, text: "Thank you, that helps. Here are both paths with real numbers. With nothing down, the estimate is $546 a month on 72 months. With $1,000 down, it's $528 a month, same 72 months. Both are estimates until a lender approves, and the lender decides whether zero down works. Either way, you keep the rest of your cushion. I'll print both so you can choose." }
+        - { speaker: customer, text: "Okay. Seeing both on paper helps." }
+        - { speaker: rep, text: "Can you come back Thursday at 5:30 with two recent pay stubs? We'll apply, and you pick the path once you see the answer." }
+        - { speaker: customer, text: "Thursday at 5:30 works. I'll bring the pay stubs." }
+      es:
+        - { speaker: customer, text: "No tengo nada de down." }
+        - { speaker: rep, text: "[pausa] No pasa nada, y gracias por decírmelo de entrada. ¿Le puedo preguntar si es que ahora mismo no tiene nada guardado, o si hay algún dinero que prefiere no tocar?" }
+        - { speaker: customer, text: "Digamos que no me puedo quedar sin nada." }
+        - { speaker: rep, text: "Tiene sentido. Aparte del down, ¿la Trailblazer es el carro que necesita para ir al trabajo?" }
+        - { speaker: customer, text: "El carro está bien. Es lo del down." }
+        - { speaker: rep, text: "Bien. Si tuviera algo guardado, ¿qué necesitaría ver para tocar una parte?" }
+        - { speaker: customer, text: "Tengo $1,500 ahorrados. Es mi único colchoncito por si se rompe algo. Pondría $1,000 de down si viera en papel lo que le hace al pago, y me quedo con el resto." }
+        - { speaker: rep, text: "Gracias, eso me ayuda. Aquí están los dos caminos con números reales. Sin nada de down, el estimado es $546 al mes a 72 meses. Con $1,000 de down, son $528 al mes, a los mismos 72 meses. Los dos son estimados hasta que un banco apruebe, y el banco decide si se puede con cero down. De cualquier manera, usted se queda con el resto de su colchoncito. Le imprimo los dos para que escoja." }
+        - { speaker: customer, text: "Está bien. Ver los dos en papel me ayuda." }
+        - { speaker: rep, text: "¿Puede volver el jueves a las 5:30 con dos pay stubs recientes? Aplicamos, y usted escoge el camino cuando vea la respuesta." }
+        - { speaker: customer, text: "El jueves a las 5:30 me sirve. Traigo los pay stubs." }
+spanish_reviewed: false

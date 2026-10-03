@@ -1,0 +1,140 @@
+code: P-ai-price
+name_pool:
+  en: [Ashley, Nicole, Jessica, Megan]
+  es: [Daniela, Valeria, Camila, Stephanie]
+age_range: 25-34
+temperament: [skeptical]
+temperament_note:
+  en: Friendly but firm. Did her homework on her phone and trusts the answer she got more than a salesperson. Not trying to fight; she just does not want to be the one who overpaid. Relaxes when someone takes her research seriously and shows her the numbers.
+  es: Amable pero firme. Hizo su tarea en el teléfono y confía más en la respuesta que le dieron que en un vendedor. No viene a pelear; solo no quiere ser la que pagó de más. Se relaja cuando alguien toma en serio lo que investigó y le enseña los números.
+buyer_orientation: task
+situation:
+  en: Late 20s, Venezuelan-American, a dental hygienist in Doral. Buying her first new car. Pre-approved at her credit union. Test drove the 2026 Equinox RS with all-wheel drive and loved it. Before coming in she asked an AI chat app on her phone for a fair price and wrote down its answer.
+  es: De unos 28 años, venezolana-americana, higienista dental en Doral. Va a comprar su primer carro nuevo. Tiene una preaprobación de su cooperativa de crédito. Manejó la Equinox RS 2026 con all-wheel drive y le encantó. Antes de venir le preguntó a una aplicación de inteligencia artificial en el teléfono cuál era un precio justo y apuntó la respuesta.
+stated_objection: O57
+stated_line:
+  en: The AI told me this is the fair price.
+  es: La inteligencia artificial me dijo que ese es el precio justo.
+hidden_truth:
+  en: She asked the AI about a 2026 Equinox LT with front-wheel drive, the first one she saw online, not the RS with all-wheel drive she drove. She does not really know how to judge a fair price herself and is afraid of overpaying on her first new car.
+  es: Le preguntó a la inteligencia artificial por una Equinox LT 2026 con tracción delantera, la primera que vio en internet, no por la RS con all-wheel drive que manejó. En realidad no sabe cómo juzgar ella misma si un precio es justo y tiene miedo de pagar de más en su primer carro nuevo.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\bLT\b'
+    - '\bfront[- ]wheel\b'
+    - '\bFWD\b'
+    - '\boverpa(y|ying|id)\b'
+    - '\bfirst new car\b'
+  es:
+    - '\bLT\b'
+    - '\btracción delantera\b'
+    - '\bpagar de más\b'
+    - '\bprimer carro nuevo\b'
+unlock_conditions:
+  - code: asks_to_see_question
+    description:
+      en: Asks to see the AI's answer or what exactly she asked it.
+      es: Pide ver la respuesta de la inteligencia artificial o lo que ella le preguntó exactamente.
+    cues:
+      en:
+        - '\b(can|could|may) I (see|look at|read)\b.{0,30}\b(it|that|the (answer|question|screen|chat)|what you (asked|typed))\b'
+        - '\bwhat (exactly )?did you (ask|type|tell|put in)\b'
+        - '\bwhat (was|were) (the|your) (question|prompt)\b'
+        - '\b(take a look|have a look|look) at (that|it|your phone|the screen|the answer)\b'
+        - '\bwhich (trim|version|model|car)\b.{0,30}\b(did (it|you)|was it)\b'
+      es:
+        - '\b(me deja|puedo|podría) (ver|leer|mirar)\b.{0,30}\b(la (respuesta|pregunta|pantalla)|lo que (le )?(preguntó|escribió))\b'
+        - '\bqué (fue lo que )?le (preguntó|escribió|puso)\b'
+        - '\bcuál fue (la|su) pregunta\b'
+        - '\b(le )?(echo|echarle|echar) un vistazo\b'
+        - '\b(qué|cuál) versión\b.{0,30}\b(le (dio|preguntó)|era)\b'
+  - code: asks_what_fair_means
+    description:
+      en: Asks what a fair price means to her, or what would make her feel sure she is not overpaying.
+      es: Pregunta qué es para ella un precio justo, o qué la haría sentir segura de que no está pagando de más.
+    cues:
+      en:
+        - '\bwhat (would|does) (a )?fair (price )?(look like|mean) (to|for) you\b'
+        - '\bwhat would (make|help) you (feel )?(sure|confident|comfortable)\b.{0,30}\b(price|fair|number)\b'
+        - '\bhow (would|will|do) you know (it''?s|the price is|a price is) fair\b'
+      es:
+        - '\bqué (sería|es) (un precio )?justo para usted\b'
+        - '\bqué la (haría|ayudaría a) sentir(se)? segura\b'
+        - '\bcómo sabría (usted )?(que es|si es) (un precio )?justo\b'
+walk_out_triggers:
+  - code: dismisses_ai
+    description:
+      en: Mocks the AI or her for using it ("Those AI things are garbage").
+      es: Se burla de la inteligencia artificial o de ella por usarla ("Esas cosas de inteligencia artificial no sirven").
+    cues:
+      en:
+        - '\b(AI|chatbots?|robots?|apps?)\b.{0,20}\b(garbage|junk|useless|don''?t know anything|make (stuff|things) up)\b'
+        - '\bdon''?t believe everything\b'
+        - '\bforget the (AI|robot|app|phone)\b'
+      es:
+        - '\b(inteligencia artificial|robot|app|aplicación)\b.{0,30}\b(no sirve|no sirven|no sabe nada|inventa)\b'
+        - '\bno se crea todo\b'
+        - '\bolvídese (de la|del) (inteligencia artificial|robot|app|teléfono)\b'
+  - code: piles_on_options
+    description:
+      en: Throws more vehicles at her instead of comparing the one she drove.
+      es: Le echa más carros encima en vez de comparar el que manejó.
+    cues:
+      en:
+        - '\blet me show you (all|every|a few more|some more|the others)\b'
+        - '\b(also|too) (look at|see|show you)\b.{0,30}\b(Trax|Trailblazer|Blazer|Traverse|others?)\b'
+        - '\bshow you the (Trax|Trailblazer|Blazer)\b.{0,40}\b(too|as well|also)\b'
+      es:
+        - '\b(le enseño|le muestro) (todas|todos|unas cuantas|otras|otros)\b'
+        - '\b(también|además) (le )?(enseño|muestro)\b.{0,30}\b(Trax|Trailblazer|Blazer|Traverse|otr[oa]s?)\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: It comes out that the AI was asked about a different trim and that she fears overpaying, the rep compares line by line, all-in to all-in, and they set a day and time to drive both trims back to back.
+    es: Sale a la luz que a la inteligencia artificial le preguntaron por otra versión y que ella teme pagar de más, el vendedor compara línea por línea, precio total contra precio total, y fijan día y hora para manejar las dos versiones una detrás de la otra.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: en
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el app", "el dealer", "el all-wheel drive"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-20s
+  es: tbd-es-miami-venezuelan-female-20s
+difficulty: 1
+variation:
+  moods: [phone already unlocked and in her hand, upbeat but on guard, a little defensive about her research]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I did my research. That's the number it gave me.", es: "Yo investigué. Ese es el número que me dio." }
+    - { en: "It looked at the whole market. You're just one dealer.", es: "Eso mira todo el mercado. Ustedes son un solo dealer." }
+    - { en: "Why would it lie to me?", es: "¿Y por qué me iba a mentir?" }
+  hint: { en: "Sure, here. About $31,500. I just typed in the model and the year.", es: "Claro, mire. Como $31,500. Yo nada más escribí el modelo y el año." }
+  after_hint: { en: "It's an AI. It knows more about prices than I do.", es: "Es inteligencia artificial. Sabe más de precios que yo." }
+  reveal: { en: "Here's what I typed: fair price, 2026 Equinox LT. Oh. That's the one I saw online first, with front-wheel drive. I drove the RS with all-wheel drive. Honestly, I don't know how to tell what's fair, and I don't want to overpay on my first new car.", es: "Esto fue lo que escribí: precio justo, Equinox LT 2026. Ay. Esa es la primera que vi en internet, con tracción delantera. Yo manejé la RS con all-wheel drive. La verdad, no sé cómo saber qué es justo, y no quiero pagar de más en mi primer carro nuevo." }
+  after_reveal:
+    - { en: "Okay. That actually helps.", es: "Bueno. Eso sí me ayuda." }
+    - { en: "So it wasn't the same car at all.", es: "O sea que no era el mismo carro." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  not_now: { en: "Not today. I'll keep looking.", es: "Hoy no. Voy a seguir buscando." }
+  walk_away: { en: "I'll take my research somewhere else.", es: "Me llevo mi investigación a otro lado." }
+  goodbye: { en: "Thanks. Bye.", es: "Gracias. Chao." }
+  react_to_pressure: { en: "You're not even looking at what I showed you.", es: "Usted ni siquiera está mirando lo que le enseñé." }
+spanish_reviewed: false

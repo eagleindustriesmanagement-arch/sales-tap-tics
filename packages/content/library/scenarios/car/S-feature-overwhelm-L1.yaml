@@ -1,0 +1,184 @@
+code: S-feature-overwhelm-L1
+module: car-market-2026
+title:
+  en: "\"I still can't work half the features\""
+  es: "\"Todavía no sé usar la mitad de las cosas\""
+setting:
+  en: Monday, 5:40 in the evening, on the showroom floor. She came in without calling, keys in hand; her Blazer is parked out front. Nothing is being sold today.
+  es: Lunes, 5:40 de la tarde, en el piso de ventas. Llegó sin llamar, con las llaves en la mano; su Blazer está parqueada al frente. Hoy no se está vendiendo nada.
+persona: P-feature-overwhelm
+objection: O27
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 50s, bought a 2026 Blazer 2LT from you nine days ago. You delivered it late on a Saturday night after a long wait in finance, and the walkthrough was quick. She stopped by on her way home from work and found you on the floor. Your next hour is free."
+  es: "{name}, de unos 57 años, le compró a usted una Blazer 2LT 2026 hace nueve días. Usted se la entregó tarde un sábado por la noche, después de una espera larga en financiamiento, y la explicación fue rápida. Pasó de camino a la casa después del trabajo y lo encontró en el piso de ventas. Usted tiene la próxima hora libre."
+opening:
+  en: I still can't work half the features in this car.
+  es: Todavía no sé usar la mitad de las cosas de este carro.
+facts:
+  session_date: "2026-10-05"
+  # Her car, sold and delivered on Saturday 2026-09-26, parked out front. No vehicle is for sale in this scenario.
+  vehicle: { year: 2026, make: Chevrolet, model: Blazer, trim: 2LT, color: Summit White, stock: "6630", in_stock: true }
+  price_cents: 3999500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4089400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 0
+  trade: null
+  lender_state: approved
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    delivered: Saturday, September 26, after 9 at night
+    phone_connected: false
+    off_work: Off at 5:00 on weekdays
+numbers_sheet: false
+target_techniques: [T039, T081, T117, T001, T002, T003]
+rubric: R-delivery
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O27-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O27-OWN
+      behavior:
+        en: "Owned the rushed delivery without blaming her, the manual or a video"
+        es: "Asumió la entrega apurada sin culparla a ella, al manual ni a un video"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O27-QFIRST
+      behavior:
+        en: "Asked which feature she needs most before explaining anything"
+        es: "Preguntó qué función necesita más antes de explicar nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O27-HIDDEN
+      behavior:
+        en: "Surfaced that her phone never connected and she drives holding it for directions"
+        es: "Sacó a la luz que su teléfono nunca se conectó y que maneja con él en la mano para ver las direcciones"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O27-FIRSTFIX
+      behavior:
+        en: "Fixed the phone first, in her car, with her doing it herself the second time"
+        es: "Resolvió primero lo del teléfono, en su carro, y la segunda vez lo hizo ella misma"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Service research: a bad ending hurts more than a staged high point helps (T117)"
+      technique: T117
+    - code: O27-ONEATATIME
+      behavior:
+        en: "Did not dump every feature at once; kept the rest for a scheduled follow-up"
+        es: "No le echó encima todas las funciones de una vez; dejó el resto para un seguimiento agendado"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "J.D. Power 2025 sales satisfaction research (T081)"
+      technique: T081
+    - code: O27-NEXT
+      behavior:
+        en: "Set a specific day and time for the feature follow-up"
+        es: "Fijó un día y una hora específicos para el seguimiento de funciones"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "J.D. Power 2025: 22% wanted a feature follow-up, 53% of them never got one (T039)"
+      technique: T039
+      params: { event: next_step }
+  auto_fail:
+    - code: blamed_customer
+      description:
+        en: "Blamed her, or sent her to the manual or a video instead of helping"
+        es: "La culpó a ella, o la mandó al manual o a un video en vez de ayudarla"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, add_ons]
+exit_policy: { walk_away_base: 0.05, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he told her it was easy and already covered, sent her to the manual and a video, then rushed through every feature at once. He never asked which one she needed, so the real problem stayed hidden."
+      es: "Fíjese: le dijo que era fácil y que ya se lo habían explicado, la mandó al manual y a un video, y después le pasó todas las funciones de golpe. Nunca preguntó cuál necesitaba, así que el problema de verdad se quedó escondido."
+    script:
+      en:
+        - { speaker: customer, text: "I still can't work half the features in this car." }
+        - { speaker: rep, text: "Really? It's all pretty easy. We went over everything at delivery." }
+        - { speaker: customer, text: "It was late that night, and it all went by so fast." }
+        - { speaker: rep, text: "Everything's in the owner's manual, or you can watch a video. I'm with another customer right now." }
+        - { speaker: customer, text: "That's how it went the first time." }
+        - { speaker: rep, text: "Okay, let me run through all the features real quick: the screen, the cameras, the seats, the apps, everything." }
+        - { speaker: customer, text: "Forget it. I'll ask my son." }
+        - { speaker: rep, text: "Alright. Call me if you get stuck." }
+      es:
+        - { speaker: customer, text: "Todavía no sé usar la mitad de las cosas de este carro." }
+        - { speaker: rep, text: "¿De verdad? Eso es bien fácil. Todo eso se lo explicamos en la entrega." }
+        - { speaker: customer, text: "Esa noche era tarde, y todo pasó tan rápido." }
+        - { speaker: rep, text: "Todo viene en el manual, o busque un video. Ahora mismo estoy con otro cliente." }
+        - { speaker: customer, text: "Así mismo fue la primera vez." }
+        - { speaker: rep, text: "Bueno, le explico todo rapidito: la pantalla, las cámaras, los asientos, las aplicaciones, todo." }
+        - { speaker: customer, text: "Olvídelo. Le pregunto a mi hijo." }
+        - { speaker: rep, text: "Está bien. Llámeme si se traba." }
+  good:
+    notice:
+      en: Notice the pause, how he owns the rushed delivery, the question about which feature she needs every day, the phone fixed first with her hands on it, and the rest saved for a scheduled follow-up, one thing at a time.
+      es: Fíjese en la pausa, en cómo asume la entrega apurada, en la pregunta sobre qué función necesita todos los días, en cómo resuelve primero lo del teléfono con ella haciéndolo, y en cómo deja el resto para un seguimiento agendado, una cosa a la vez.
+    script:
+      en:
+        - { speaker: customer, text: "I still can't work half the features in this car." }
+        - { speaker: rep, text: "[pause] I'm sorry. That one's on me. Your delivery was late on a Saturday night, and I went too fast. Let's fix it. Of everything in this car, which one do you need most, every day?" }
+        - { speaker: customer, text: "Honestly, there's one thing that really worries me, and it's not the fancy stuff." }
+        - { speaker: rep, text: "Tell me about a normal day in it. How do you get your directions to work?" }
+        - { speaker: customer, text: "Okay. My phone never connected. I've been driving to work holding my phone for directions, and I was too embarrassed to come back and say I didn't understand." }
+        - { speaker: rep, text: "Thank you for telling me, and there's nothing to be embarrassed about. Holding a phone while you drive isn't safe, so that comes first. My next hour is free: let's sit in your Blazer and connect your phone together, and then you'll do it yourself a second time so it sticks." }
+        - { speaker: customer, text: "That would be a huge relief. Fifteen minutes I have." }
+        - { speaker: rep, text: "And the rest, we won't cram in tonight. Can you come back Thursday at 5:30? Half an hour, just us in your car: we'll set up the rest one thing at a time, and I'll write down each step for you to keep." }
+        - { speaker: customer, text: "Thursday at 5:30 works. The phone tonight, the rest Thursday." }
+      es:
+        - { speaker: customer, text: "Todavía no sé usar la mitad de las cosas de este carro." }
+        - { speaker: rep, text: "[pausa] Lo siento mucho. Eso es culpa mía. La entrega fue tarde un sábado por la noche, y yo fui demasiado rápido. Vamos a arreglarlo. De todo lo que tiene este carro, ¿qué es lo que más necesita usar todos los días?" }
+        - { speaker: customer, text: "La verdad, hay una cosa que sí me preocupa, y no son los lujos." }
+        - { speaker: rep, text: "Cuénteme cómo es un día normal con el carro. ¿Cómo saca las direcciones para ir al trabajo?" }
+        - { speaker: customer, text: "Bueno. El teléfono nunca se conectó. He estado manejando al trabajo con el celular en la mano para ver las direcciones, y me dio pena volver a decir que no entendí." }
+        - { speaker: rep, text: "Gracias por decírmelo, y no tiene por qué darle pena. Manejar con el celular en la mano no es seguro, así que eso va primero. Tengo la próxima hora libre: vamos a sentarnos en su Blazer y conectamos el teléfono juntos, y después usted lo hace sola otra vez para que no se le olvide." }
+        - { speaker: customer, text: "Eso sería un alivio enorme. Quince minutos sí tengo." }
+        - { speaker: rep, text: "Y lo demás no lo vamos a meter todo esta noche. ¿Puede volver el jueves a las 5:30? Media hora, usted y yo en su carro: configuramos el resto una cosa a la vez, y le apunto cada paso para que se lo lleve." }
+        - { speaker: customer, text: "El jueves a las 5:30 me queda bien. El teléfono hoy, y lo demás el jueves." }
+spanish_reviewed: false
