@@ -1,0 +1,88 @@
+code: L-thinker
+scenario: S-thinker-L1
+title:
+  en: "\"I need to think about it\": find the one open question"
+  es: "\"Lo tengo que pensar\": encuentre la duda que queda"
+hook:
+  en: Drive's done, numbers on the desk, and he says it. Half the floor hears "no." You hear "one question left."
+  es: Ya manejó, los números están en el escritorio, y lo dice. Medio piso oye un "no". Usted oye "me queda una duda".
+what:
+  en: Respect the thinking, then ask what exactly he wants to think over. Check it isn't the numbers. When the real doubt comes out, settle it with a test he can see, not a promise.
+  es: Respete que lo quiera pensar y pregúntele qué es exactamente lo que quiere pensar. Confirme que no son los números. Cuando salga la duda real, resuélvala con una prueba que él vea, no con una promesa.
+why:
+  en: A buyer who read every review isn't stalling. He has one question he hasn't said, usually how the car fits his real week, and he's scared of choosing wrong. Belittle it and he takes it home. More cars means more to think about. Ask, and he hands it to you.
+  es: Un cliente que se leyó todas las reseñas no está dando largas. Tiene una pregunta que no ha dicho, casi siempre de cómo el carro encaja en su semana de verdad, y le da miedo escoger mal. Si le resta importancia, se la lleva para la casa. Más carros, más que pensar. Si pregunta, él se la entrega.
+when:
+  en: Any "I'll think about it" after the drive and the numbers.
+  es: Cada "lo tengo que pensar" después de la prueba y los números.
+when_not:
+  en: Not as a lever to sign today. If he truly needs the night, set the time first, then ask.
+  es: No como palanca para que firme hoy. Si de verdad necesita la noche, fije la hora primero y después pregunte.
+say:
+  - en: That makes sense. It's a big purchase, and you clearly did your homework.
+    es: Tiene sentido. Es una compra grande, y se nota que usted hizo su tarea.
+  - en: When you think it over, what's the part you still want to be sure about?
+    es: Cuando lo piense, ¿qué es lo que todavía quiere tener seguro?
+  - en: Setting that aside, do the price and the payment work for you?
+    es: Dejando eso a un lado, ¿el precio y el pago le funcionan?
+  - en: I won't guess on that. Bring it in, and we'll try it in the car together.
+    es: Eso no se lo voy a adivinar. Tráigalo y lo probamos juntos en el carro.
+mistakes:
+  - mistake:
+      en: '"What''s there to think about? You liked it."'
+      es: '"¿Pero qué hay que pensar? Si le gustó."'
+    fix:
+      en: You just called his doubt silly. Ask what it is.
+      es: Le acaba de decir que su duda es una bobería. Pregunte cuál es.
+  - mistake:
+      en: '"Let me show you the Tahoe too."'
+      es: '"Déjeme enseñarle la Tahoe también."'
+    fix:
+      en: More cars, more thinking. Settle the one question.
+      es: Más carros, más que pensar. Resuelva la única duda.
+  - mistake:
+      en: '"Oh, that fits, no problem."'
+      es: '"Ay, eso cabe, no hay problema."'
+    fix:
+      en: You don't know that. Be wrong and he's gone for good. Test it.
+      es: Usted no lo sabe. Si se equivoca, lo pierde para siempre. Pruébelo.
+concepts:
+  - name:
+      en: "Pause and respect it"
+      es: "Pausa y respeto"
+    idea:
+      en: Two seconds of quiet, then agree it deserves thought. Nothing left to defend.
+      es: Dos segundos de silencio, y déle la razón. Ya no tiene nada que defender.
+    items: [O05-PAUSE, O05-RESPECT]
+  - name:
+      en: '"What''s the part…?"'
+      es: '"¿Qué es lo que…?"'
+    idea:
+      en: Ask what exactly he'd think over, then about his real week.
+      es: Pregunte qué exactamente pensaría, y después por su semana de verdad.
+    items: [O05-QFIRST, O05-HIDDEN]
+  - name:
+      en: "Isolate the numbers"
+      es: "Aísle los números"
+    idea:
+      en: Confirm price and payment are fine, so you work the right problem.
+      es: Confirme que el precio y el pago están bien, para trabajar el problema correcto.
+    items: [O05-ISOLATE]
+  - name:
+      en: "Prove it, don't promise it"
+      es: "Pruébelo, no lo prometa"
+    idea:
+      en: A real test he watches beats any claim you make.
+      es: Una prueba real que él ve vale más que cualquier cosa que usted diga.
+    items: [O05-PROOF]
+  - name:
+      en: "Lock a day and time"
+      es: "Amarre un día y una hora"
+    idea:
+      en: The test needs a date. "Call me" is a walk.
+      es: La prueba necesita fecha. "Llámeme" es un cliente perdido.
+    items: [O05-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T005 Isolate; T091 Name the fear; T093 Limit the exploration; T094 Remove real risk; T115 Set the time, then ask what to think over; T014 Firm next step
+  - The JOLT Effect (Dixon and McKenna, 2022) on indecision and fear of choosing wrong
+spanish_reviewed: false
