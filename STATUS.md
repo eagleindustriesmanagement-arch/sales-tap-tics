@@ -38,6 +38,7 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
   - A rep turns them on for each phone in Settings.
   - An hourly job sends one reminder at the chosen time: never twice a day, never in the store's peak hours, and
     not if the rep already practiced.
+  - The store's peak hours are a store setup field (default Saturday 11:00 to 17:00).
   - It is off until the deployment has VAPID keys, a `CRON_SECRET` and an hourly schedule (`docs/DEPLOY.md`).
 - **Technique lines are checked against an example deal** (decision 0019). A model line can no longer state a
   number or deadline its deal does not hold, and the T020 and T107 flawed lines now show the made-up deadline their
@@ -189,10 +190,12 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
 
 ## Numbers
 
-- 377 unit and database tests: rules 116, session 108 (including the 20-scenario release gate and the 30-day
-  simulation), engine 60, database 47 (row-level security for reads and writes, sign-in, repository, assignments,
-  coaching practice, Spanish review, usage, people, store-number import, exit calibration), scoring 19, AI client 16 (fake SDK), i18n 8, content 3.
-- 21 browser tests (16 flows and 5 accessibility audits, every main screen audited in light and dark); each account signs in once per run, under the real limit
+- 683 unit and database tests: session 299 (the 65-scenario release gate in both languages, the 30-day simulation,
+  objection weights, reminders), engine 152, rules 120, database 55 (row-level security for reads and writes,
+  sign-in, repository, assignments, coaching practice, Spanish review, usage, people, store-number import, exit
+  calibration, objection weights, product analytics, push reminders), scoring 19, AI client 16 (fake SDK), i18n 8,
+  voice 8, content 3, web 3 (log redaction).
+- 24 browser tests (18 flows and 6 accessibility audits, every main screen audited in light and dark); each account signs in once per run, under the real limit
   of five codes per 15 minutes on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; the general manager edits store
@@ -202,7 +205,10 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
   weak one scores 50 with the card's wording for what was missing, the spec example scores 100; the Spanish reviewer
   approves a line, an edit that invents a deadline is refused, and a line with an amount waits for and gets the
   compliance reviewer's sign-off; the general manager uploads store numbers, a bad file is refused line by line,
-  a good one shows a 23% close rate and the exit calibration waiting for 30 practice sessions, and a rep is refused.
+  a good one shows a 23% close rate and the exit calibration waiting for 30 practice sessions, lost-deal reasons
+  put "the payment is too high" first and list the reason they could not match, and a rep is refused; the Usage
+  page counts the run's sessions and read debriefs; the reminder job refuses calls without its secret, then sends
+  once to a person whose time has come and never twice that day.
 - Compliance suite, deterministic layer (CI fails if any number gets worse):
 
   | Half | Cases | Violations missed | Critical missed | False positives |
@@ -268,7 +274,7 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
 
 1. M3: run the suite with both layers (`pnpm compliance:suite --with-classifier`) once `ANTHROPIC_API_KEY` is set,
    and work the critical misses to zero on dev, reporting holdout.
-2. Store setup: a peak-hours field (reminders use the spec default, Saturday 11:00 to 17:00).
+2. Text-message reminders as a second channel, behind the consent rules (CONSENT-01), if the store wants them.
 3. Spec 19.2 item 3, score validity (practice scores against close rate), once a store has 8 weeks of both.
 4. Engine notes from the content authors: walk-out trigger cues ignore negation ("I won't tell you there's only
    one bank" fires the trigger); the universal language item can score an opening as unknown.
