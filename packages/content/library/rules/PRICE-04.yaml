@@ -29,3 +29,5 @@ parameters:
     es: "El precio que usted da tiene que ser uno que el cliente pueda pagar con cualquier financiamiento, incluso con su propio banco o de contado. Si la tienda da un descuento por financiar con nosotros, dígalo después de ese precio y diga que es condicional."
 legal_basis: "FTC Automobile Industry Pricing Transparency FAQs (Sept 15, 2026): the price any consumer can pay with any financing must be the most prominent; a dealer-financing discount is allowed only below it. Lindsay settlement."
 attorney_reviewed: false
+# Car-dealer law: other industries have their own (decision 0033).
+industries: [cars]

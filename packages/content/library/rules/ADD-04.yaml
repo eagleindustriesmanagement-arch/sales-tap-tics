@@ -28,3 +28,5 @@ parameters:
 # contracts separately before applying the 60-day statement to them.
 legal_basis: "Fla. s. 634.121: written notice that the agreement is not required to buy or finance the vehicle; cancellable with a 100% refund (less claims and an administrative fee up to 5%) within 60 days, prorated after (docs/compliance/rule-verification.md)"
 attorney_reviewed: false
+# Car-dealer law: other industries have their own (decision 0033).
+industries: [cars]

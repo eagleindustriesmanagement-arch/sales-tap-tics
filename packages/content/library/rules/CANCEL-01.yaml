@@ -35,3 +35,5 @@ parameters:
     es: "En Florida no hay un período de tres días para cancelar la compra de un vehículo en el concesionario. Una vez firmado, el contrato obliga a las dos partes, salvo que el contrato diga otra cosa."
 legal_basis: No federal or Florida cooling-off right for dealership vehicle sales (FTC Cooling-Off Rule excludes them)
 attorney_reviewed: false
+# Car-dealer law: other industries have their own (decision 0033).
+industries: [cars]

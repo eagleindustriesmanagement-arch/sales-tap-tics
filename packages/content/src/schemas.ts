@@ -27,6 +27,11 @@ export const severity = z.enum(["critical", "major", "minor"]);
 export type Severity = z.infer<typeof severity>;
 
 export const channel = z.enum(["floor", "phone", "text"]);
+
+/** What is being sold (decision 0033). Cars came first; the honesty rules apply to every high-ticket sale. */
+export const INDUSTRY_CODES = ["cars", "homes", "solar", "furniture"] as const;
+export const industry = z.enum(INDUSTRY_CODES);
+export type IndustryCode = z.infer<typeof industry>;
 export type Channel = z.infer<typeof channel>;
 
 export const speakerRole = z.enum(["rep", "customer", "demonstrator", "debrief"]);
@@ -413,6 +418,7 @@ export const scenarioSchema = z
     persona: z.string().regex(/^P-[a-z0-9-]+$/),
     objection: objectionCode,
     channel,
+    industry: industry.default("cars"),
     language_options: z.array(z.enum(["en", "es"])).min(1),
     difficulty: z.number().int().min(1).max(3),
     start_state: z.enum(["greeting", "discovery", "presentation", "objection", "negotiation", "closing", "finance_handoff"]),
@@ -494,6 +500,8 @@ export const ruleSchema = z
     legal_basis: z.string().min(1),
     attorney_reviewed: z.boolean().default(false),
     enabled: z.boolean().default(true),
+    /** The sales a rule governs. Honesty rules: all. Car-dealer law (e.g. no three-day cancel): cars only. */
+    industries: z.array(industry).min(1).default([...INDUSTRY_CODES]),
   })
   .strict();
 export type Rule = z.infer<typeof ruleSchema>;

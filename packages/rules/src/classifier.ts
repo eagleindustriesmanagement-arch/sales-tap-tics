@@ -43,7 +43,7 @@ export async function checkUtteranceFull(
 ): Promise<Violation[]> {
   const deterministic = checkUtterance(utterance, ctx, options.state);
   const rules = ctx.rules.filter(
-    (r) => r.enabled && r.classifier && r.applies_to.includes(utterance.speaker) && r.channels.includes(ctx.channel),
+    (r) => r.enabled && r.classifier && r.applies_to.includes(utterance.speaker) && r.channels.includes(ctx.channel) && r.industries.includes(ctx.industry ?? "cars"),
   );
   if (rules.length === 0) return deterministic;
   let classified: Violation[] = [];

@@ -26,7 +26,7 @@ import type { CheckContext, SessionComplianceState, Utterance, Violation } from 
 export function activeRules(ctx: CheckContext, speaker: Utterance["speaker"]): Map<string, Rule> {
   return new Map(
     ctx.rules
-      .filter((r) => r.enabled && r.applies_to.includes(speaker) && r.channels.includes(ctx.channel))
+      .filter((r) => r.enabled && r.applies_to.includes(speaker) && r.channels.includes(ctx.channel) && r.industries.includes(ctx.industry ?? "cars"))
       .map((r) => [r.code, r]),
   );
 }

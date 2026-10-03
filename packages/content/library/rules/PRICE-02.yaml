@@ -17,3 +17,5 @@ parameters:
   approximate_tolerance_cents: 0
 legal_basis: FTC pricing guidance (September 15, 2026) treating calls and texts as advertising; Florida s. 501.976
 attorney_reviewed: false
+# Car-dealer law: other industries have their own (decision 0033).
+industries: [cars]

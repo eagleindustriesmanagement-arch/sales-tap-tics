@@ -216,3 +216,17 @@ describe("PRICE-01 catches a price quoted after the vehicle's name", () => {
     expect(hits("Your payment on the Equinox is $580 a month.")).not.toContain("PRICE-01");
   });
 });
+
+describe("rules apply to the sales they govern (decision 0033)", () => {
+  const rulesFor = (text: string, industry: "cars" | "solar") =>
+    [...new Set(checkUtterance({ text, language: "en", speaker: "rep" }, { ...ctx(), industry }).map((v) => v.rule))];
+  it("car-dealer law stays with cars: a door-to-door solar sale may have a three-day right to cancel", () => {
+    const line = "You have three days to cancel if you change your mind.";
+    expect(rulesFor(line, "cars")).toContain("CANCEL-01");
+    expect(rulesFor(line, "solar")).not.toContain("CANCEL-01");
+  });
+  it("honesty rules apply to every sale", () => {
+    expect(rulesFor("This price is only good today.", "solar")).toContain("DEAD-01");
+    expect(rulesFor("This price is only good today.", "cars")).toContain("DEAD-01");
+  });
+});

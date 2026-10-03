@@ -129,6 +129,7 @@ export class PracticeSession {
       channel: scenario.channel,
       offerLanguage: this.language,
       finance: scenario.rubric === "R-finance",
+      industry: scenario.industry,
       lexicon: library.lexicon!,
       rules: [...library.rules.values()],
       techniques: library.techniques,

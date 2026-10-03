@@ -1,4 +1,4 @@
-import type { BilingualText, Channel, Lexicon, Rule, ScenarioFacts, Severity, SpeakerRole, Technique } from "@taptics/content";
+import type { BilingualText, Channel, IndustryCode, Lexicon, Rule, ScenarioFacts, Severity, SpeakerRole, Technique } from "@taptics/content";
 import type { Language } from "@taptics/i18n";
 
 export type AddOnRemovalPolicy = "credit_price" | "show_alternative" | "none_configured";
@@ -32,6 +32,8 @@ export interface CheckContext {
   offerLanguage: Language;
   /** A finance-office conversation (the scenario uses the R-finance rubric): ADD-04 applies only here (spec 4.3). */
   finance?: boolean;
+  /** What is being sold; rules scoped to other industries do not apply (decision 0033). Default: cars. */
+  industry?: IndustryCode;
   lexicon: Lexicon;
   rules: Rule[];
   techniques?: Map<string, Technique>;

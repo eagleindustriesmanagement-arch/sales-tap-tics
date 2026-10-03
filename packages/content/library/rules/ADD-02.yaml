@@ -38,3 +38,5 @@ parameters:
       es: "La tienda todavía no ha definido su política para los productos preinstalados. No diga que no se puede quitar. Ofrezca buscar una solución con el gerente."
 legal_basis: "FTC Automobile Industry Pricing Transparency FAQs (Sept 15, 2026): no implying an installed option cannot be removed while charging for it; a non-removable item belongs in the advertised price. Requires store policy (spec 3.4)."
 attorney_reviewed: false
+# Car-dealer law: other industries have their own (decision 0033).
+industries: [cars]
