@@ -186,3 +186,9 @@ describe("a lone \"un\" / \"one\" before a money word is an article", () => {
     expect(values("Le queda en un dólar más al día.", "es")).toEqual([[100, "dollar"]]);
   });
 });
+
+describe("\"termina pagando más\" next to a day stays a deadline claim (strictest reading)", () => {
+  it("decide today or end up paying more is made-up urgency", () => {
+    expect(hits("Si no decide hoy, termina pagando más.", "es")).toContain("DEAD-01");
+  });
+});
