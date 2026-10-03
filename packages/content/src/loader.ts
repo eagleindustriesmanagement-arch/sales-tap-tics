@@ -2,11 +2,13 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
-import type { ZodType } from "zod";
+import { z, type ZodType } from "zod";
 import {
   behaviorCardSchema,
   glossarySchema,
   lostReasonMapSchema,
+  factsSchema,
+  type ScenarioFacts,
   type LostReasonMap,
   lexiconSchema,
   moduleSchema,
@@ -59,6 +61,8 @@ export interface Library {
   lexicon: Lexicon | null;
   /** Lost-deal reason mapping for objection weights (spec 19.2 item 2); a later layer replaces it whole. */
   lostReasons: LostReasonMap | null;
+  /** The deal technique lines are checked against (decision 0019). */
+  exampleDeal: ScenarioFacts | null;
 }
 
 export interface ContentError {
@@ -163,6 +167,7 @@ export function emptyLibrary(): Library {
     glossary: [],
     lexicon: null,
     lostReasons: null,
+    exampleDeal: null,
   };
 }
 
@@ -202,6 +207,12 @@ export function loadLibrary(layers: ContentLayer[] = [{ scope: "platform", dir: 
       if (basename(file) !== "lost-reasons.yaml") continue;
       const parsed = lostReasonMapSchema.safeParse(readYaml(file, errors, root));
       if (parsed.success) library.lostReasons = parsed.data;
+      else for (const issue of parsed.error.issues) errors.push({ file: relative(root, file), message: `${issue.path.join(".")}: ${issue.message}` });
+    }
+    for (const file of yamlFiles(d("examples"))) {
+      if (basename(file) !== "deal.yaml") continue;
+      const parsed = z.object({ facts: factsSchema }).strict().safeParse(readYaml(file, errors, root));
+      if (parsed.success) library.exampleDeal = parsed.data.facts;
       else for (const issue of parsed.error.issues) errors.push({ file: relative(root, file), message: `${issue.path.join(".")}: ${issue.message}` });
     }
     for (const file of yamlFiles(d("glossary"))) {

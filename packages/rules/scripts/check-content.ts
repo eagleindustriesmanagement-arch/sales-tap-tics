@@ -25,10 +25,12 @@ function report(where: string, violations: Violation[], allowed: string[] = []) 
   }
 }
 
+// Technique lines belong to no scenario: they are checked against the example deal (decision 0019).
 for (const t of library.techniques.values()) {
-  report(`${t.code} model_line`, checkContentLine(t.model_line, base));
+  const example = { ...base, facts: library.exampleDeal ? ({ ...library.exampleDeal, ...t.example_deal } as typeof library.exampleDeal) : null };
+  report(`${t.code} model_line`, checkContentLine(t.model_line, example));
   if (t.flawed_line) {
-    const v = checkContentLine(t.flawed_line, base);
+    const v = checkContentLine(t.flawed_line, example);
     report(`${t.code} flawed_line`, v, t.flawed_line_violates);
     for (const rule of t.flawed_line_violates) {
       if (!v.some((x) => x.rule === rule)) console.warn(`warning  ${t.code} flawed_line is meant to break ${rule} but the engine does not flag it`);

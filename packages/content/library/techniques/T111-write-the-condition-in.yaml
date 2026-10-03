@@ -19,6 +19,8 @@ flawed_line:
   es: Su trade-in le queda en $14,200, trato hecho. If the payoff letter comes back different, the number changes.
 flawed_line_violates:
   - LANG-01
+example_deal:
+  trade: { vehicle: 2019 Honda CR-V EX, appraisal_cents: 1420000, payoff_cents: 1420000, basis: auction data, conditions: [payoff letter matches] }
 why:
   en: This comes from Malhotra and Bazerman's negotiation method, not a tested sales finding. Writing the condition in, in the same language as the offer, means a payoff surprise gets redone together instead of feeling like a broken promise.
   es: Viene del método de negociación de Malhotra y Bazerman, no de un hallazgo comprobado en ventas. Poner la condición por escrito, en el mismo idioma de la oferta, hace que si el payoff sale distinto se rehaga juntos y no se sienta como una promesa rota.

@@ -17,6 +17,8 @@ flawed_line:
   en: Hialeah, okay. So, are you looking to buy today?
   es: Hialeah, okay. Bueno, ¿usted piensa comprar hoy?
 flawed_line_violates: []
+example_deal:
+  rep_profile: { hometown: "Hialeah, off 49th Street (la 49)" }
 why:
   en: This draws on Gremler and Gwinner's 2008 study of 388 encounters. Real common ground builds a quick personal connection, but only if it is true; an invented one breaks trust and the rules.
   es: Se basa en el estudio de Gremler y Gwinner de 2008 con 388 encuentros. Algo en común que sea real crea una conexión rápida, pero solo si es verdad; inventarlo rompe la confianza y las reglas.

@@ -71,6 +71,11 @@ export const techniqueSchema = z
     flawed_line: bilingual.nullable().default(null),
     /** Rules the flawed line breaks on purpose, only in compliance lessons (spec 8.1 item 1, 8.12). */
     flawed_line_violates: z.array(ruleCode).default([]),
+    /**
+     * The deal this technique's lines are checked against, over the library's example deal (decision 0019): the
+     * numbers and deadlines its model line states as true. Any scenario facts field; `validate` checks its shape.
+     */
+    example_deal: z.record(z.string(), z.unknown()).optional(),
     /** Why it matters; shown in debriefs. Null until written; required for scenario target techniques. */
     why: bilingual.nullable().default(null),
     evidence,

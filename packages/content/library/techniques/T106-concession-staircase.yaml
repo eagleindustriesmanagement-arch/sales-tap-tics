@@ -18,6 +18,9 @@ flawed_line:
   en: Okay, fine, I'll give you another two thousand on your trade.
   es: Bueno, está bien, le doy dos mil más por su trade-in.
 flawed_line_violates: []
+example_deal:
+  trade: { vehicle: 2019 Honda CR-V EX, appraisal_cents: 1485000, payoff_cents: 0, basis: auction data, conditions: [] }
+  authority: { manager_has_room: true }
 why:
   en: This builds on Kwon and Weingart (2004), and a 2025 study found big early concessions make the other side push harder. Small, hard-won steps show you are near the limit; describe a manager trip only as it really happened.
   es: Se basa en Kwon y Weingart (2004), y un estudio de 2025 encontró que ceder mucho al principio hace que la otra parte apriete más. Pasos pequeños y bien ganados muestran que usted está cerca del límite; cuente la ida al gerente solo como de verdad pasó.

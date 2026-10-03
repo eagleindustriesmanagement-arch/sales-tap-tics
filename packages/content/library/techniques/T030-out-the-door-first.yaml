@@ -18,6 +18,9 @@ flawed_line:
   en: Let's not worry about the price yet. What monthly payment do you want to be at?
   es: No se preocupe por el precio todavía. ¿En cuánto quiere que le quede el pago mensual?
 flawed_line_violates: []
+example_deal:
+  price_cents: 3801300
+  all_in_price_cents: 3891200
 why:
   en: The rules require any price you quote to include every dealer charge, with the total said before the breakdown. The customer knows the real number up front, so nothing surprises them at signing.
   es: Las reglas exigen que todo precio que usted diga incluya todos los cargos del concesionario, y que el total vaya antes del desglose. El cliente sabe el número real desde el principio y nada lo sorprende al firmar.

@@ -15,9 +15,15 @@ model_line:
   en: This bonus cash ends on the 31st. Here is the bulletin.
   es: Este bono vence el 31. Aquí tiene el boletín.
 flawed_line:
-  en: There's bonus cash on this one, but I don't have the paper on me. Just trust me.
-  es: Este tiene un bono en efectivo, pero no tengo el papel aquí. Confíe en mí.
-flawed_line_violates: []
+  en: This bonus cash ends tomorrow, but I don't have the paper on me. Just trust me.
+  es: Este bono se acaba mañana, pero no tengo el papel aquí. Confíe en mí.
+flawed_line_violates:
+  - DEAD-01
+example_deal:
+  rebates:
+    - { code: bonus_cash, name: Bonus cash, cents: 100000, eligibility: everyone, ends: "2026-10-31", proof: Chevrolet incentive bulletin }
+  deadlines:
+    - { what: The bonus cash ends, date: "2026-10-31", proof: Chevrolet incentive bulletin }
 why:
   en: This draws on Gino and Moore (2008). A real deadline backed by the bulletin gives the customer an honest reason to decide now, and showing the proof keeps it from sounding like a pressure line.
   es: Se basa en Gino y Moore (2008). Una fecha límite real, con el boletín en la mano, le da al cliente una razón honesta para decidir ahora, y enseñar la prueba evita que suene a táctica de presión.

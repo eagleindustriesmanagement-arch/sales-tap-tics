@@ -15,9 +15,16 @@ model_line:
   en: The $1,500 rebate ends Monday. Here is the bulletin.
   es: El reembolso de $1,500 vence el lunes. Aquí tiene el boletín.
 flawed_line:
-  en: There's a big rebate on this one right now. Trust me, you don't want to miss it.
-  es: Ahora mismo este tiene un reembolso grande. Créame, no se lo puede perder.
-flawed_line_violates: []
+  en: The $1,500 rebate ends today, so this is your last chance. Trust me, you don't want to miss it.
+  es: El reembolso de $1,500 se acaba hoy, así que es su última oportunidad. Créame, no se lo puede perder.
+flawed_line_violates:
+  - DEAD-01
+example_deal:
+  session_date: "2026-10-08"
+  rebates:
+    - { code: customer_cash, name: Customer cash, cents: 150000, eligibility: everyone, ends: "2026-10-12", proof: Chevrolet incentive bulletin }
+  deadlines:
+    - { what: The customer cash ends, date: "2026-10-12", proof: Chevrolet incentive bulletin }
 why:
   en: This draws on Gino and Moore (2008) and applies to real deadlines only. A true deadline the customer can see on paper gives a reason to decide now; a made-up one breaks trust and the rules.
   es: Se basa en Gino y Moore (2008) y aplica solo a fechas límite reales. Una fecha verdadera que el cliente puede ver en papel le da una razón para decidir ahora; una inventada rompe la confianza y las reglas.

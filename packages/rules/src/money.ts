@@ -17,6 +17,8 @@ export interface MoneyMention extends NumberMention {
   uncertain: boolean;
 }
 
+// "another $2,000 on your trade" / "otros $2,000" is a difference too, said before the amount.
+const DELTA_BEFORE = /(?<![\p{L}\p{N}_])(another|otros|otras)\s*$/iu;
 // "$45 más al mes" is a difference; "$47,850 más los cargos" is a price plus charges, not a difference.
 const DELTA_AFTER = /^[\s,]*(more|extra|additional|less|m[aá]s(?!\s+(?:los|las|el|la|lo|impuestos|cargos|fees|taxes|tax|tag|title|el tag|registro)\b)|adicional(es)?|de m[aá]s)(?![\p{L}\p{N}_])/iu;
 
@@ -111,7 +113,7 @@ export function findMoney(text: string, language: Language, lexicon: Lexicon, op
       return {
         ...n,
         role,
-        delta: DELTA_AFTER.test(after),
+        delta: DELTA_AFTER.test(after) || DELTA_BEFORE.test(before),
         attributed: attributions.test(text.slice(clause.start, n.start)),
         allInMarked: allIn.test(clause.text),
         uncertain,

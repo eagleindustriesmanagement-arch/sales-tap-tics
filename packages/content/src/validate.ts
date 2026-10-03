@@ -1,3 +1,4 @@
+import { factsSchema } from "./schemas.js";
 import type { Library } from "./loader.js";
 
 export interface Finding {
@@ -113,6 +114,13 @@ export function crossReference(library: Library): Finding[] {
   }
   if (!library.lexicon) err("lexicon", "rules/lexicon.yaml is missing");
   if (!library.lostReasons) err("lost-reasons", "calibration/lost-reasons.yaml is missing");
+  if (!library.exampleDeal) err("example-deal", "examples/deal.yaml is missing");
+  for (const t of library.techniques.values()) {
+    if (!t.example_deal || !library.exampleDeal) continue;
+    // Checked whole, over the example deal, so the refinements (the all-in price adds up) hold too.
+    const parsed = factsSchema.safeParse({ ...library.exampleDeal, ...t.example_deal });
+    if (!parsed.success) for (const issue of parsed.error.issues) err(t.code, `example_deal ${issue.path.join(".")}: ${issue.message}`);
+  }
   for (const r of library.lostReasons?.reasons ?? []) {
     for (const o of [...r.objections, ...r.hides]) if (!library.objections.has(o)) err("lost-reasons", `${r.label.en}: objection ${o} does not exist`);
     for (const p of r.patterns) if (!regexOk(p)) err("lost-reasons", `${r.label.en}: pattern is not valid: ${p}`);

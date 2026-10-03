@@ -1,0 +1,21 @@
+# The example deal every technique's model and flawed lines are checked against (decision 0019). Technique lines
+# belong to no scenario, so without facts the engine could not see a price quoted without its fee or a deadline
+# that does not exist. Lines may use the placeholders $A, $B (amounts the rep fills in) or the numbers below.
+facts:
+  session_date: "2026-10-05"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: LT, color: Sterling Gray Metallic, stock: "5208", in_stock: true }
+  price_cents: 3189500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3279400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 4
+  alternatives: []
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows: {}

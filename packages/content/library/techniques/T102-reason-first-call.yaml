@@ -17,6 +17,9 @@ flawed_line:
   en: Hi, how are you? It's been a while! Just calling to see how everything's going.
   es: ¡Hola! ¿Cómo está? ¡Cuánto tiempo! Lo llamaba para ver cómo va todo.
 flawed_line_violates: []
+example_deal:
+  deadlines:
+    - { what: The customer's lease ends, date: "2027-03-31", proof: The customer's lease contract on file }
 why:
   en: Gong's data on 300 million business calls found that stating the reason for the call raised success 2.1 times. A real reason, like a lease ending, tells the customer right away why the call is worth their time.
   es: Los datos de Gong sobre 300 millones de llamadas entre empresas encontraron que decir el motivo de la llamada multiplicó el éxito 2.1 veces. Una razón real, como un lease que se vence, le dice al cliente de inmediato por qué vale la pena escucharlo.

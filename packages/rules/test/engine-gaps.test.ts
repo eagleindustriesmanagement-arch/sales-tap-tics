@@ -156,3 +156,12 @@ describe("'end' as a noun is not a deadline", () => {
     expect(hits("The bonus cash will end tomorrow.")).toContain("DEAD-01");
   });
 });
+
+describe("an increase is not a trade number (decision 0019)", () => {
+  it("\"another $2,000 on your trade\" is a difference, said before the amount", () => {
+    expect(hits("Okay, fine, I'll give you another two thousand on your trade.")).not.toContain("TRADE-01");
+    expect(hits("Le doy otros dos mil por su trade-in.", "es")).not.toContain("TRADE-01");
+    // The total still has to match the appraisal.
+    expect(hits("Your trade is worth $16,000 to us.")).toContain("TRADE-01");
+  });
+});

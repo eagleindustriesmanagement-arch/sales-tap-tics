@@ -18,6 +18,9 @@ flawed_line:
   en: I know, the sticker's a little high, but don't worry, we can come way down from there.
   es: Ya sé, el precio está un poco alto, pero no se preocupe, de ahí lo bajamos bastante.
 flawed_line_violates: []
+example_deal:
+  price_cents: 3755100
+  all_in_price_cents: 3845000
 why:
   en: A 2025 review of 90 studies found ambitious opening numbers win about 75% of the time but cause more walkaways and worse feelings. Opening with the real all-in price and a reason keeps the anchor honest and avoids that backlash.
   es: Una revisión de 90 estudios en 2025 encontró que abrir con un número ambicioso gana como el 75% de las veces, pero hace que más gente se vaya y quede molesta. Abrir con el precio total real y una razón mantiene el ancla honesta y evita ese rechazo.
