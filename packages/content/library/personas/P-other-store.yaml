@@ -1,0 +1,153 @@
+code: P-other-store
+name_pool:
+  en: [Ashley, Brittany, Nicole, Megan]
+  es: [Yanelis, Arianna, Lisandra, Dayana]
+age_range: 20-29
+temperament: [guarded]
+temperament_note:
+  en: Guarded but polite. Feels she already has "her" salesperson at the other store and does not want to be talked out of it. Answers direct questions honestly; volunteers nothing.
+  es: Reservada pero educada. Siente que ya tiene "su" vendedora en el otro dealer y no quiere que la convenzan de lo contrario. Contesta con honestidad las preguntas directas; no ofrece nada por su cuenta.
+buyer_orientation: relationship
+situation:
+  en: Late 20s, dental hygienist in Hialeah, first new car. Wants a 2026 Trax LT to replace a 2014 Corolla with 190,000 miles. No trade value to speak of. Sent an online inquiry to another Chevrolet store on Thursday; their salesperson answered within minutes and has been texting her since. Stopped here on Saturday because it is on her way home.
+  es: De unos 28 años, higienista dental en Hialeah, su primer carro nuevo. Quiere una Trax LT 2026 para reemplazar un Corolla 2014 con 190,000 millas. El carro viejo casi no tiene valor como trade-in. El jueves mandó una solicitud por internet a otro dealer de Chevrolet; la vendedora de allá le contestó en minutos y le ha estado escribiendo desde entonces. Pasó por aquí el sábado porque le queda de camino a la casa.
+stated_objection: O26
+stated_line:
+  en: I am already talking to another store.
+  es: Ya estoy hablando con otro dealer.
+hidden_truth:
+  en: The other store only texted her a monthly payment, $389 a month. She has been measuring every car against that number, but she does not know the price, the term or the down payment behind it.
+  es: El otro dealer solo le mandó por texto un pago mensual, $389 al mes. Ella ha estado midiendo todos los carros con ese número, pero no sabe el precio, el plazo ni el down que hay detrás.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\$?389\b'
+    - '\bthree eighty[- ]nine\b'
+    - '\b(a|per) month\b'
+    - '\bmonthly\b'
+    - '\bpayment\b'
+    - '\bhow many months\b'
+    - '\b(term|down payment)\b'
+    - '\b(don''t|do not|didn''t) know the (price|term)\b'
+  es:
+    - '\$?389\b'
+    - '\btrescientos ochenta y nueve\b'
+    - '\b(al|por) mes\b'
+    - '\bmensualidad\b'
+    - '\b(pago|cuota)s?\b'
+    - '\bcuántos meses\b'
+    - '\bplazo\b'
+    - '\bno sé (el|cuál es el) precio\b'
+unlock_conditions:
+  - code: asks_what_they_quoted
+    description:
+      en: Asks what the other store has shown or quoted her so far, or where things stand with them.
+      es: Pregunta qué le ha enseñado o cotizado el otro dealer hasta ahora, o cómo van las cosas con ellos.
+    cues:
+      en:
+        - '\bwhat (have|has|did) (they|she|he|the other (store|dealer)) (shown|show|quoted|quote|offered|offer|given|give|sent|send) you\b'
+        - '\bwhat (number|numbers|price|quote|figures?) (have|has|did) (they|she|he) (give|given|send|sent|quote|quoted|show|shown) you\b'
+        - '\bwhat did (they|she|he) (quote|offer|send|show)\b'
+        - '\bwhere (are you|do things stand) with (them|her|him|the other (store|dealer))\b'
+        - '\bwhat (do you|did you) (have|get) from (them|her|him|the other (store|dealer))\b'
+      es:
+        - '\bqué le (han|ha) (enseñado|mostrado|cotizado|ofrecido|dado|mandado)\b'
+        - '\bqué le (cotizaron|ofrecieron|enseñaron|mostraron|mandaron|dieron)\b'
+        - '\bqué (número|números|precio|cotización) le (dieron|mandaron|cotizaron|han dado)\b'
+        - '\bcómo va (usted )?con (ellos|ella|el otro dealer)\b'
+  - code: asks_what_the_number_is
+    description:
+      en: Asks whether the number she has is a price or a payment, or what it includes (term, down, fees).
+      es: Pregunta si el número que tiene es un precio o un pago, o qué incluye (plazo, down, cargos).
+    cues:
+      en:
+        - '\bis (that|it|the number) a (price|payment|monthly)\b'
+        - '\b(a )?price or a (monthly )?payment\b'
+        - '\bwhat does (that|the|their|her) number include\b'
+        - '\b(what|how many) (term|months)\b.{0,30}\b(that|their|her|the) (number|quote)\b'
+        - '\bis (that|their|her) (number|quote)\b.{0,20}\b(out[- ]the[- ]door|all[- ]in)\b'
+      es:
+        - '\b(es )?un precio o un pago\b'
+        - '\bes (eso|ese número) (un precio|un pago|la mensualidad)\b'
+        - '\bqué incluye (ese|el) número\b'
+        - '\b(ese|el) número de (ellos|ella)\b.{0,20}\b(con todo|precio total)\b'
+walk_out_triggers:
+  - code: disparages_other_store
+    description:
+      en: Runs down the other store or its salesperson, or guesses at what their numbers hide.
+      es: Habla mal del otro dealer o de su vendedora, o adivina qué esconden sus números.
+    cues:
+      en:
+        - '\b(will|would|''ll) say anything\b'
+        - '\b(they''re|they are|she''s|she is) (lying|shady|crooks?|scammers?|ripping you off|playing you)\b'
+        - '\b(internet|online) (guys|people|salespeople)\b.{0,40}\b(always|just|only)\b'
+        - '\bbait[- ]and[- ]switch\b'
+        - '\b(that''s|that is|it''s) (probably|definitely|got to be|gotta be) (84|96|a hundred|fake|a lie)\b'
+      es:
+        - '\b(dicen|dice) cualquier cosa\b'
+        - '\b(están|está) (mintiendo|engañándola)\b'
+        - '\bson unos (tramposos|ladrones|mentirosos)\b'
+        - '\b(eso|ese número) (seguro|seguramente) es (a )?(84|96|mentira|falso)\b'
+  - code: promises_to_beat
+    description:
+      en: Promises to match or beat a number nobody has seen.
+      es: Promete igualar o ganarle a un número que nadie ha visto.
+    cues:
+      en: ['\b(I''ll|we''ll|I will|we will) (match|beat) (it|that|their|her|whatever|any)\b', '\bwhatever (they|she) (said|quoted|told you)\b.{0,20}\b(beat|match)\b']
+      es: ['\b(se lo|se la) (igualo|mejoro)\b', '\b(lo|la) (igualamos|mejoramos)\b', '\ble ganamos (lo que|cualquier)\b']
+  - code: piles_on_options
+    description:
+      en: Adds more vehicles instead of finding out where she stands.
+      es: Le echa más carros encima en vez de averiguar cómo está la cosa.
+    cues:
+      en: ['\b(also|too) (look at|see|show you)\b.{0,30}\b(Trailblazer|Equinox|Blazer|Trax|others?)\b', '\blet me show you (all|every|a few more|some more|the others)\b', '\bshow you the (Trailblazer|Equinox|Blazer)\b.{0,30}\b(too|as well|also)\b']
+      es: ['\b(también|además) (le )?(enseño|muestro)\b.{0,30}\b(Trailblazer|Equinox|Blazer|otr[oa]s?)\b', '\b(le enseño|le muestro) (todas|todos|unas cuantas|otras|otros)\b']
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bstop shopping\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bdeje de (buscar|caminar)\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The payment-only quote comes out, plus a firm day and time to compare both stores out the door, on the same term and down.
+    es: Sale a la luz que la otra cotización era solo un pago, más un día y una hora firmes para comparar los dos dealers con el precio total, con el mismo plazo y el mismo down.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el dealer", "el down", "el out the door"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-20s
+  es: tbd-es-miami-caribbean-female-20s
+difficulty: 1
+variation:
+  moods: [polite but in a hurry, checking texts on her phone, tired after work]
+offline_lines:
+  deflect:
+    - { en: "I'm already talking to another store. I'm just looking.", es: "Ya estoy hablando con otro dealer. Solo estoy mirando." }
+    - { en: "She's been really nice. I don't want to go behind her back.", es: "Ella ha sido muy amable. No quiero quedar mal con ella." }
+    - { en: "I stopped because it's on my way home, that's all.", es: "Paré porque me queda de camino a la casa, nada más." }
+  hint: { en: "She was really fast. She already sent me a number.", es: "Ella fue rapidísima. Ya me mandó un número." }
+  after_hint: { en: "I like the Trax. I just want the number to be right.", es: "La Trax me gusta. Lo que quiero es que el número esté bien." }
+  reveal: { en: "Honestly, it's just $389 a month. She texted it. I don't know the price behind it, how many months, or how much down.", es: "La verdad, son $389 al mes y ya. Me lo mandó por texto. No sé el precio que hay detrás, ni cuántos meses, ni cuánto de down." }
+  after_reveal:
+    - { en: "That's fair. I'd rather compare the real price.", es: "Me parece justo. Prefiero comparar el precio de verdad." }
+    - { en: "Okay. I'll ask her for it in writing.", es: "Bueno. Se lo voy a pedir a ella por escrito." }
+  agree_next_step: { en: "Okay, that works. I'll bring what she sends me.", es: "Está bien, me funciona. Le traigo lo que ella me mande." }
+  not_now: { en: "Not today. I'll stick with her for now.", es: "Hoy no. Por ahora sigo con ella." }
+  walk_away: { en: "I think I'm going to go.", es: "Creo que me voy a ir." }
+  goodbye: { en: "Thanks. Bye.", es: "Gracias. Hasta luego." }
+  react_to_pressure: { en: "I told you, I'm already working with someone.", es: "Ya le dije, ya estoy trabajando con alguien." }
+spanish_reviewed: false

@@ -1,0 +1,188 @@
+code: S-other-store-L1
+module: car-market-2026
+title:
+  en: "\"I am already talking to another store\""
+  es: "\"Ya estoy hablando con otro dealer\""
+setting:
+  en: Saturday afternoon, on the lot, next to a 2026 Trax LT. You just said hello.
+  es: Sábado por la tarde, en el lote, al lado de una Trax LT 2026. Usted acaba de saludarla.
+persona: P-other-store
+objection: O26
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 20s, dental hygienist, is shopping for her first new car to replace a 2014 Corolla with 190,000 miles. She is looking at the 2026 Trax LT on the lot: $25,694 out the door, which includes your $899 dealer fee; only tax, tag and title are added. She sent an online inquiry to another Chevrolet store earlier this week."
+  es: "{name}, de unos 28 años, higienista dental, busca su primer carro nuevo para reemplazar un Corolla 2014 con 190,000 millas. Está mirando la Trax LT 2026 del lote: $25,694 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. A principios de semana mandó una solicitud por internet a otro dealer de Chevrolet."
+opening:
+  en: I'm already talking to another store.
+  es: Ya estoy hablando con otro dealer.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: LT, color: Summit White, stock: "6248", in_stock: true }
+  price_cents: 2479500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2569400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    other_store_payment_cents: 38900
+    other_store_quote: A monthly payment only, sent by text; no price, term or down payment stated
+    other_store_vehicle: 2026 Trax LT, color not discussed
+    free_tomorrow: Free after 1:00 tomorrow, Sunday
+numbers_sheet: false
+target_techniques: [T001, T003, T002, T005, T030, T086, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O26-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O26-ACK
+      behavior:
+        en: "Respected that she is working with another store, without running them down"
+        es: "Respetó que ella esté trabajando con otro dealer, sin hablar mal de ellos"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O26-QFIRST
+      behavior:
+        en: "Asked what the other store has shown her before offering anything"
+        es: "Preguntó qué le ha enseñado el otro dealer antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O26-ISOLATE
+      behavior:
+        en: "Checked whether the Trax is the right car, apart from the other store"
+        es: "Confirmó si la Trax es el carro para ella, aparte del otro dealer"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O26-HIDDEN
+      behavior:
+        en: "Surfaced that her only number is a monthly payment with no price, term or down behind it"
+        es: "Sacó a la luz que su único número es un pago mensual sin precio, plazo ni down detrás"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O26-OTD
+      behavior:
+        en: "Moved the comparison to out the door on the same basis, gave our all-in price, and guessed at nothing about the other store's numbers"
+        es: "Llevó la comparación al precio total sobre la misma base, dio nuestro precio total y no adivinó nada sobre los números del otro dealer"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T030, T086)"
+      technique: T030
+    - code: O26-NEXT
+      behavior:
+        en: "Set a specific day and time to compare both stores out the door"
+        es: "Fijó un día y una hora específicos para comparar los dos dealers con el precio total"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: disparaged_other_store
+      description:
+        en: "Ran down the other store or guessed at what their numbers hide"
+        es: "Habló mal del otro dealer o adivinó qué esconden sus números"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, promised to beat a number without authority, or left the fee out of our price"
+        es: "Dijo un número que no es real, prometió ganarle a un número sin autorización o dejó el cargo fuera de nuestro precio"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, authority]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he ran down the other store, piled on more cars, and pushed her to stop shopping. He never asked what the other store had sent her."
+      es: "Fíjese: habló mal del otro dealer, le echó más carros encima y la presionó para que dejara de buscar. Nunca le preguntó qué le había mandado el otro dealer."
+    script:
+      en:
+        - { speaker: customer, text: "I'm already talking to another store." }
+        - { speaker: rep, text: "Look, those internet guys will say anything to get you in the door. You're here now. Stick with me." }
+        - { speaker: customer, text: "I told you, I'm already working with someone." }
+        - { speaker: rep, text: "Okay, but while you're here, let me also show you the Trailblazer and the Equinox. You might like them more." }
+        - { speaker: customer, text: "She's been really nice. I don't want to go behind her back." }
+        - { speaker: rep, text: "Let's just write it up on the Trax and you can stop shopping." }
+        - { speaker: customer, text: "No. I think I'm going to go." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me if she doesn't come through." }
+      es:
+        - { speaker: customer, text: "Ya estoy hablando con otro dealer." }
+        - { speaker: rep, text: "Mire, esa gente de internet dice cualquier cosa para que uno vaya. Usted ya está aquí. Quédese conmigo." }
+        - { speaker: customer, text: "Ya le dije, ya estoy trabajando con alguien." }
+        - { speaker: rep, text: "Está bien, pero ya que está aquí, también le enseño la Trailblazer y la Equinox. A lo mejor le gustan más." }
+        - { speaker: customer, text: "Ella ha sido muy amable. No quiero quedar mal con ella." }
+        - { speaker: rep, text: "Dejemos escrita la Trax de una vez, y así deja de buscar." }
+        - { speaker: customer, text: "No. Creo que me voy a ir." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Llámeme si ella no le cumple." }
+  good:
+    notice:
+      en: "Notice that he never says a word against the other store. He asks what they sent, finds out it is only a payment, and puts both stores on the same out-the-door basis."
+      es: "Fíjese en que nunca dice nada en contra del otro dealer. Pregunta qué le mandaron, descubre que es solo un pago y pone a los dos dealers sobre la misma base, el precio total."
+    script:
+      en:
+        - { speaker: customer, text: "I'm already talking to another store." }
+        - { speaker: rep, text: "[pause] That's fine, and it's smart to shop around. So I can be useful and not waste your time, what have they shown you so far?" }
+        - { speaker: customer, text: "She was really fast. She already sent me a number." }
+        - { speaker: rep, text: "Good. Setting the stores aside for a second, is the Trax the car you want?" }
+        - { speaker: customer, text: "I like the Trax. I just want the number to be right." }
+        - { speaker: rep, text: "Then let's make sure you compare the same thing. The number she sent you, is it a price or a monthly payment?" }
+        - { speaker: customer, text: "Honestly, it's just $389 a month. She texted it. I don't know the price behind it, how many months, or how much down." }
+        - { speaker: rep, text: "Thanks for telling me. I'm not going to guess at her numbers. A payment depends on the price, the months, the down and the rate, so two stores can show very different payments on the same car. Here's ours: $25,694 out the door, which already includes our $899 dealer fee; only tax, tag and title are added. Ask her for her out-the-door price, the term and the down in writing, and I'll print ours on the same term and down." }
+        - { speaker: customer, text: "That's fair. I'd rather compare the real price." }
+        - { speaker: rep, text: "Can you come back tomorrow at 2:00 with what she sends you? I'll have our sheet printed and this Trax pulled up front." }
+        - { speaker: customer, text: "Okay, tomorrow at 2:00 works. I'll bring what she sends me." }
+      es:
+        - { speaker: customer, text: "Ya estoy hablando con otro dealer." }
+        - { speaker: rep, text: "[pausa] Está bien, y hace bien en comparar. Para serle útil y no hacerle perder el tiempo, ¿qué le han enseñado hasta ahora?" }
+        - { speaker: customer, text: "Ella fue rapidísima. Ya me mandó un número." }
+        - { speaker: rep, text: "Bien. Dejando a un lado los dealers por un momento, ¿la Trax es el carro que usted quiere?" }
+        - { speaker: customer, text: "La Trax me gusta. Lo que quiero es que el número esté bien." }
+        - { speaker: rep, text: "Entonces vamos a asegurarnos de que compare lo mismo. El número que ella le mandó, ¿es un precio o un pago al mes?" }
+        - { speaker: customer, text: "La verdad, son $389 al mes y ya. Me lo mandó por texto. No sé el precio que hay detrás, ni cuántos meses, ni cuánto de down." }
+        - { speaker: rep, text: "Gracias por decírmelo. No voy a adivinar los números de ella. Un pago depende del precio, los meses, el down y la tasa, así que dos dealers pueden enseñar pagos muy distintos por el mismo carro. Aquí tiene el nuestro: $25,694 con todo, con nuestro cargo del dealer de $899 ya incluido; solo se suman impuestos, placa y título. Pídale a ella por escrito el precio total, el plazo y el down, y yo le imprimo el nuestro con el mismo plazo y el mismo down." }
+        - { speaker: customer, text: "Me parece justo. Prefiero comparar el precio de verdad." }
+        - { speaker: rep, text: "¿Puede volver mañana a las 2:00 con lo que ella le mande? Le tengo nuestra hoja impresa y esta Trax parqueada al frente." }
+        - { speaker: customer, text: "Está bien, mañana a las 2:00 me funciona. Le traigo lo que ella me mande." }
+spanish_reviewed: false
