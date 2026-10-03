@@ -1,0 +1,79 @@
+code: L-grinder
+scenario: S-grinder-L3
+title:
+  en: "\"The price is too high\": make him earn every dollar"
+  es: "\"El precio está muy alto\": que se gane cada dólar"
+hook:
+  en: He names a big number, one hand on the door. That's his opening, not his offer.
+  es: Le tira un número grande con una mano en la puerta. Esa es su apertura, no su oferta.
+what:
+  en: Hold the real out-the-door price with a reason, and ask where his number comes from. Then move in small, shrinking steps, each one bought with a commitment.
+  es: Sostenga el precio real con todo, con una razón, y pregunte de dónde sale su número. Después muévase en pasos chicos, cada vez menores, y que cada uno le cueste un compromiso.
+why:
+  en: The grinder is testing you, not the truck. He wants proof he got your best. A big, fast drop says there's more in there, so he pushes harder. A move that costs him something, and is smaller than the last, says he's near the bottom. That's what lets him say yes and still feel he won.
+  es: El regatero lo está probando a usted, no a la camioneta. Quiere la prueba de que sacó lo mejor. Una rebaja grande y rápida le dice que ahí hay más, y aprieta más duro. Un paso que le cuesta algo, y que es más chico que el anterior, le dice que ya está cerca del fondo. Eso es lo que le deja decir que sí y sentir que ganó.
+when:
+  en: He names a figure and threatens to walk.
+  es: Él tira una cifra y amenaza con irse.
+when_not:
+  en: Never go past the desk's room, and never fake a floor. If the manager has room, "not a dollar more" is a lie.
+  es: Nunca se pase del margen que le dio el gerente, y nunca invente un tope. Si el gerente todavía tiene margen, "ni un dólar más" es mentira.
+say:
+  - en: I'd rather earn your business than watch you walk. Here's why it's priced there.
+    es: Prefiero ganarme su negocio que verlo irse. Le explico por qué tiene ese precio.
+  - en: Help me understand your number. Where does it come from?
+    es: Ayúdeme a entender su número. ¿De dónde sale?
+  - en: I'll move if you will. If I get you closer, do we have a deal?
+    es: Yo me muevo si usted se mueve. Si lo acerco, ¿cerramos?
+  - en: This step is smaller, because we're close to what this truck is worth.
+    es: Este paso es más chico, porque ya estamos cerca de lo que vale esta camioneta.
+mistakes:
+  - mistake:
+      en: '"Okay, I''ll knock it all off right now."'
+      es: '"Bueno, se lo quito todo ahora mismo."'
+    fix:
+      en: One big drop proves there's more. Small steps, a reason each.
+      es: Una rebaja grande prueba que hay más. Pasos chicos, cada uno con su razón.
+  - mistake:
+      en: '"Let me see what else I can do."'
+      es: '"Déjeme ver qué más puedo hacer."'
+    fix:
+      en: 'That''s a free concession. Ask first: "If I get you there, will you sign?"'
+      es: 'Eso es regalar. Pregunte primero: "Si se lo consigo, ¿firma?"'
+  - mistake:
+      en: '"That''s my bottom," when it isn''t.'
+      es: '"Eso es lo más bajo", cuando no lo es.'
+    fix:
+      en: A fake floor is a lie about facts. Say "my steps are getting smaller."
+      es: Un tope inventado es mentir sobre los hechos. Diga "mis pasos son cada vez más chicos".
+concepts:
+  - name: { en: "Real price, real reason", es: "Precio real, razón real" }
+    idea:
+      en: Let it land, then the out-the-door number and why, before a dollar moves.
+      es: Deje que la exigencia caiga, y después el precio con todo y por qué, antes de mover un dólar.
+    items: [O04-L3-PAUSE, O04-L3-ANCHOR]
+  - name: { en: His number is a clue, es: Su número es una pista }
+    idea:
+      en: Ask where it comes from. The answer leads to his real number.
+      es: Pregunte de dónde sale. La respuesta lo lleva a su número real.
+    items: [O04-L3-CLUE, O04-L3-HIDDEN]
+  - name: { en: "Trade, never give", es: "Intercambiar, nunca regalar" }
+    idea:
+      en: Every dollar buys a commitment.
+      es: Cada dólar compra un compromiso.
+    items: [O04-L3-TRADE]
+  - name: { en: Shrinking steps, es: Pasos cada vez menores }
+    idea:
+      en: Each move smaller, each with a reason, inside the desk's room.
+      es: Cada paso más chico, cada uno con su razón, dentro del margen del gerente.
+    items: [O04-L3-STEPS]
+  - name: { en: Sign and deliver, es: Firma y entrega }
+    idea:
+      en: The last step buys a signature and a delivery time today.
+      es: El último paso compra una firma y una hora de entrega hoy.
+    items: [O04-L3-NEXT]
+sources:
+  - T015 Anchor with the real price and a reason; T110 Treat a hard demand as a clue; T018 Trade, never give; T019 Small concessions, shrinking; T001 Pause and slow down; T014 Firm next step
+  - Malhotra and Bazerman's negotiation method, via T110
+  - Kwon and Weingart (2004) on concession patterns, via T019
+spanish_reviewed: false
