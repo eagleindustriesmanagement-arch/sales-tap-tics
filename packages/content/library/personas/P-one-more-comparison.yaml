@@ -1,0 +1,140 @@
+code: P-one-more-comparison
+name_pool:
+  en: [Denise, Karen, Monica, Tracy]
+  es: [Yamilé, Marisol, Odalys, Lourdes]
+age_range: 40-49
+temperament: [analytical, anxious]
+temperament_note:
+  en: Careful and polite. Reads every line of every comparison, likes having one more thing to read, and gets uneasy when asked to commit.
+  es: Cuidadosa y educada. Lee cada línea de cada comparación, le gusta tener algo más que leer y se pone nerviosa cuando le piden que se comprometa.
+buyer_orientation: task
+situation:
+  en: Early 40s, an ER nurse who works nights at a hospital in Kendall. Sent an internet lead two weeks ago on the 2026 Equinox LT. You have already emailed her three comparisons, and each one came out in favor of the Equinox LT. She would trade a paid-off 2012 Cruze. She has not applied for financing.
+  es: De unos 42 años, enfermera de emergencias que trabaja de noche en un hospital en Kendall. Hace dos semanas mandó una solicitud por internet por la Equinox LT 2026. Usted ya le mandó tres comparaciones por email, y en todas salió ganando la Equinox LT. Daría como trade-in un Cruze 2012 pagado. No ha solicitado financiamiento.
+stated_objection: O59
+stated_line:
+  en: Can you send me one more comparison? The Equinox LT against the Blazer this time.
+  es: ¿Me puede mandar otra comparación? Ahora la Equinox LT contra la Blazer.
+hidden_truth:
+  en: On paper she has already picked the Equinox LT. She keeps asking for comparisons because she has never driven one, and she is afraid it will feel small on the Turnpike at night next to the trucks. No comparison can answer that.
+  es: En el papel ya escogió la Equinox LT. Sigue pidiendo comparaciones porque nunca ha manejado una, y tiene miedo de que se sienta chiquita en el Turnpike de noche al lado de los camiones. Ninguna comparación puede contestar eso.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\b(never|haven''?t|have not|didn''?t|did not) (actually |even )?(driven|drove|drive|test[- ]driven|sat in)\b'
+    - '\bturnpike\b'
+    - '\b(feel|feels|feeling) (small|tiny|unsteady|light)\b'
+    - '\bnext to (the |all the )?(trucks|semis)\b'
+  es:
+    - '\bnunca (la |lo )?(he )?(manejado|manejé|probado|probé)\b'
+    - '\bno (la |lo )?he (manejado|probado)\b'
+    - '\bturnpike\b'
+    - '\b(se sienta|se siente|sentirse) (chiquita|pequeña|insegura|liviana)\b'
+    - '\bal lado de los (camiones|rastras)\b'
+unlock_conditions:
+  - code: asks_what_comparisons_miss
+    description:
+      en: Asks what the earlier comparisons did not answer, or what she hopes another one will show.
+      es: Pregunta qué no le contestaron las comparaciones anteriores, o qué espera que le muestre otra.
+    cues:
+      en:
+        - '\bwhat (the )?(last |other |first )?(three |3 )?(comparisons?|sheets?|ones)? ?(didn''?t|did not|haven''?t|have not|couldn''?t) (answer|tell you|show you|settle)\b'
+        - '\bwhat (would|will|do you want|are you hoping) (the |a |another |one more |that )?(fourth )?(comparison|sheet|one) (to )?(tell|show|answer|settle)\b'
+        - '\bwhat(''s| is) (the )?(one )?(question|thing) (that''?s |that is )?(still )?(open|left|unanswered)\b'
+        - '\bwhat (would|will) you need to (see|know) to (feel|be) (sure|confident)\b'
+      es:
+        - '\bqué (es lo que )?(no )?le (contestaron|resolvieron|aclararon|dijeron) las (otras |tres |últimas )?(tres )?comparaciones\b'
+        - '\bqué (pregunta|duda|cosa) (le )?(queda|sigue) (abierta|pendiente|sin contestar)\b'
+        - '\bqué (espera|quiere) que (le )?(diga|muestre|conteste|resuelva) (otra|la cuarta|una cuarta) comparación\b'
+        - '\bqué (necesitaría|le haría falta) (saber|ver) para (estar|sentirse) segur[oa]\b'
+  - code: asks_about_drive
+    description:
+      en: Asks whether she has driven one, or where she will really drive it.
+      es: Pregunta si ya la ha manejado, o por dónde la va a manejar de verdad.
+    cues:
+      en:
+        - '\bhave you (actually |already |ever )?(driven|test[- ]driven|sat in|been in) (one|an equinox|the equinox|it)\b'
+        - '\bdid you (get to |ever )?(drive|test[- ]drive|sit in) (one|an equinox|the equinox|it)\b'
+        - '\bwhere (do|will|would) you (drive|be driving) (it|most)\b'
+      es:
+        - '\b(ya |alguna vez )?(la |lo )?(ha|había) (manejado|probado)\b'
+        - '\b(llegó|pudo) a (manejar|probar)(la|lo)?\b'
+        - '\bpor dónde (la |lo )?(va a )?manejar más\b'
+walk_out_triggers:
+  - code: piles_on_comparisons
+    description:
+      en: Agrees to send several more comparisons or adds more vehicles to compare.
+      es: Acepta mandarle varias comparaciones más o le agrega más carros para comparar.
+    cues:
+      en:
+        - '\bI(''ll| will) (send|do|build|put together) (you )?(a few|a couple|some|two|three|four|several) (more )?(comparisons|sheets)\b'
+        - '\b(also|too) (add|throw in|compare)\b.{0,30}\b(Trax|Trailblazer|Blazer|Traverse)\b'
+        - '\bso you have (everything|all of them|every option)\b'
+      es:
+        - '\ble (mando|hago|preparo) (unas cuantas|un par de|dos|tres|cuatro|varias) comparaciones( más)?\b'
+        - '\b(también|además) (le )?(agrego|comparo|pongo)\b.{0,30}\b(Trax|Trailblazer|Blazer|Traverse)\b'
+        - '\bpara que (lo )?tenga todo\b'
+  - code: belittles_research
+    description:
+      en: Treats her research as too much ("You've compared enough").
+      es: Trata su investigación como exagerada ("Ya comparó bastante").
+    cues:
+      en: ['\byou(''ve| have) (compared|looked|read) (enough|plenty)\b', '\bwhat more do you (need|want)\b', '\b(stop|quit) (comparing|overthinking)\b']
+      es: ['\bya (comparó|vio|leyó) (bastante|suficiente)\b', '\bqué más (necesita|quiere)\b', '\bdeje de (comparar|darle (tantas )?vueltas)\b']
+  - code: refuses_until_visit
+    description:
+      en: Refuses any help on the phone until she comes in.
+      es: No la ayuda en nada por teléfono hasta que venga.
+    cues:
+      en: ['\bno more comparisons\b', '\byou (have|need) to come in\b', '\bcan''?t help you (over|on) the phone\b']
+      es: ['\bno (le )?(mando|hago) más comparaciones\b', '\btiene que venir\b', '\bno la puedo ayudar por teléfono\b']
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: She says what no comparison can answer (she has never driven one and fears how it feels on the Turnpike), plus a drive on her real route with a day and time.
+    es: Ella dice lo que ninguna comparación puede contestar (nunca la ha manejado y teme cómo se siente en el Turnpike), más una prueba de manejo por su ruta real con día y hora.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el trade-in", "el dealer", "el Turnpike"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-40s
+  es: tbd-es-miami-cuban-female-40s
+difficulty: 1
+variation:
+  moods: [just woke up after a night shift, on her lunch break, organized with a folder of printouts]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I just want to see them side by side one more time.", es: "Nada más quiero verlas lado a lado una vez más." }
+    - { en: "It's a lot of money. I like to be thorough.", es: "Es mucho dinero. Me gusta estar segura de todo." }
+    - { en: "Just the Blazer, and then I'll know.", es: "Nada más la Blazer, y ahí ya sé." }
+  hint: { en: "Honestly? On paper they all say the same thing. The Equinox.", es: "¿La verdad? En el papel todas dicen lo mismo. La Equinox." }
+  after_hint: { en: "No, the price is fine. It's in my budget.", es: "No, el precio está bien. Me cuadra en el presupuesto." }
+  reveal: { en: "No. That's the thing. I've never driven one. I'm on the Turnpike at night after my shift, next to all the trucks, and I'm afraid it'll feel small out there. No comparison is going to tell me that.", es: "No. Ese es el tema. Nunca la he manejado. Yo agarro el Turnpike de noche cuando salgo del turno, al lado de los camiones, y tengo miedo de que se sienta chiquita. Eso no me lo va a decir ninguna comparación." }
+  after_reveal:
+    - { en: "That would actually settle it. I just need to feel it.", es: "Eso sí me lo resolvería. Nada más necesito sentirla." }
+    - { en: "Okay. That makes more sense than another sheet.", es: "Bueno. Eso tiene más sentido que otra hoja." }
+  agree_next_step: { en: "Okay, that works. I'll be there.", es: "Está bien, me sirve. Allí estaré." }
+  not_now: { en: "Just send me the comparison and I'll call you.", es: "Mándeme la comparación y yo lo llamo." }
+  walk_away: { en: "Never mind. I'll figure it out myself.", es: "No se preocupe. Yo lo resuelvo sola." }
+  goodbye: { en: "Okay. Thanks. Bye.", es: "Bueno. Gracias. Hasta luego." }
+  react_to_pressure: { en: "Hold on. I just asked a simple question.", es: "Un momento. Le hice una pregunta sencilla." }
+spanish_reviewed: false

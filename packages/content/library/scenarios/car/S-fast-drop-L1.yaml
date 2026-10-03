@@ -1,0 +1,188 @@
+code: S-fast-drop-L1
+module: car-miami-indecision
+title:
+  en: "\"If you dropped it that fast, it's still too high\""
+  es: "\"Si lo bajó tan rápido, es porque todavía está caro\""
+setting:
+  en: Saturday afternoon, at your desk with the numbers sheet, a few minutes after you cut the price $1,000 without a reason.
+  es: Sábado por la tarde, en su escritorio con la hoja de números, unos minutos después de que usted bajó el precio $1,000 sin dar una razón.
+persona: P-fast-drop
+objection: O64
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: negotiation
+pre_brief:
+  en: "{name}, early 50s, a bookkeeper, just drove the 2026 Colorado LT. The sheet showed $41,394 out the door: $40,495 plus the $899 dealer fee; only tax, tag and title are added. When he winced, you dropped it $1,000 to $40,394 in seconds and gave no reason. The real reason there is room: this Colorado has been on the lot since July, and your manager approved going as low as $40,194 out the door, no lower. He finances through his own credit union and has no trade."
+  es: "{name}, de unos 52 años, contador, acaba de manejar la Colorado LT 2026. La hoja decía $41,394 precio total: $40,495 más el cargo de concesionario de $899; solo se suman los impuestos, la placa y el título. Cuando puso mala cara, usted se lo bajó $1,000 a $40,394 en segundos y no dio ninguna razón. La razón real de que haya margen: esta Colorado está en el lote desde julio, y su gerente aprobó bajar hasta $40,194 precio total, no menos. Financia con su propia cooperativa de crédito y no tiene trade-in."
+opening:
+  en: If you dropped it that fast, it's still too high.
+  es: Si lo bajó tan rápido, es porque todavía está caro.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Colorado, trim: LT, color: Harbor Blue Metallic, stock: "6085", in_stock: true }
+  price_cents: 4049500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4139400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: true, min_all_in_price_cents: 4019400 }
+  text_consent: false
+  customer_knows:
+    first_drop_cents: 100000
+    offered_now_cents: 4039400
+    financing: His own credit union
+    free_today: Free the rest of the afternoon
+numbers_sheet: true
+target_techniques: [T106, T001, T003, T002, T009, T018, T019, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O64-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying, instead of moving the price again"
+        es: "Hizo una pausa de al menos dos segundos antes de responder, en vez de mover el precio otra vez"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O64-OWN
+      behavior:
+        en: "Admitted the fast drop came with no explanation, without arguing"
+        es: "Reconoció que la rebaja rápida vino sin explicación, sin discutir"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O64-QFIRST
+      behavior:
+        en: "Asked what \"too high\" meant before moving the price again"
+        es: "Preguntó qué quería decir con \"caro\" antes de mover el precio otra vez"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0% (T002)"
+      technique: T002
+    - code: O64-HIDDEN
+      behavior:
+        en: "Surfaced what the fast drop made him think"
+        es: "Sacó a la luz lo que le hizo pensar la rebaja rápida"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O64-REASON
+      behavior:
+        en: "Gave the real reason behind the number and the full breakdown, the same for any customer"
+        es: "Dio la razón real del número y el desglose completo, igual para cualquier cliente"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Cox Automotive satisfaction research (T009)"
+      technique: T009
+    - code: O64-STEP
+      behavior:
+        en: "Any further move was smaller, had a reason, stayed inside the manager's real limit, and was traded for a commitment"
+        es: "Cualquier otro paso fue más pequeño, tuvo una razón, se quedó dentro del límite real del gerente y se cambió por un compromiso"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Kwon and Weingart 2004 (T106); spec 4.1"
+      technique: T106
+    - code: O64-NEXT
+      behavior:
+        en: "Set a specific time to sign and deliver, and he agreed"
+        es: "Fijó una hora específica para firmar y entregar, y el cliente aceptó"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: false_limit_story
+      description:
+        en: "Told a made-up story about the manager or the limit"
+        es: "Contó una historia inventada sobre el gerente o el límite"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number or the manager's limit"
+        es: "Dijo un número o un límite del gerente que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, authority]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep dropped the price again in seconds with no reason and nothing asked in return, brushed off the doubt, and went to \"see the manager\". He never asked what \"too high\" was compared to, so the customer decided there was still more."
+      es: "Fíjese: el vendedor volvió a bajar el precio en segundos, sin razón y sin pedir nada a cambio, le quitó importancia a la duda y se fue a \"ver al gerente\". Nunca preguntó comparado con qué estaba caro, así que el cliente decidió que todavía había más."
+    script:
+      en:
+        - { speaker: customer, text: "If you dropped it that fast, it's still too high." }
+        - { speaker: rep, text: "Okay, okay, I'll take another $200 off. That's $40,194 out the door." }
+        - { speaker: customer, text: "Another drop in five seconds? Then there's still more in there." }
+        - { speaker: rep, text: "Come on, you're getting a great deal here." }
+        - { speaker: customer, text: "See, that's what I mean. Slow down." }
+        - { speaker: rep, text: "Let me go see what my manager can do." }
+        - { speaker: customer, text: "Don't bother. I'll find a straight number somewhere else." }
+      es:
+        - { speaker: customer, text: "Si lo bajó tan rápido, es porque todavía está caro." }
+        - { speaker: rep, text: "Bueno, bueno, le quito otros $200. Queda en $40,194 precio total." }
+        - { speaker: customer, text: "¿Otra rebaja en cinco segundos? Entonces todavía hay más ahí." }
+        - { speaker: rep, text: "Ay, por favor, usted se está llevando un negocio buenísimo." }
+        - { speaker: customer, text: "¿Ve? A eso me refiero. Cálmese." }
+        - { speaker: rep, text: "Déjeme ir a ver qué más puede hacer mi gerente." }
+        - { speaker: customer, text: "No se moleste. Voy a buscar un número claro en otro lado." }
+  good:
+    notice:
+      en: "Notice that the rep owns the fast drop, asks what would make a number feel real and what it is compared to, gives the true reason and the breakdown, and makes one last, smaller move inside the manager's real limit, traded for a signature at a set time."
+      es: "Fíjese en que el vendedor reconoce la rebaja rápida, pregunta qué haría que un número se sienta real y con qué lo compara, da la razón verdadera y el desglose, y hace un último paso más pequeño dentro del límite real del gerente, a cambio de una firma a una hora fija."
+    script:
+      en:
+        - { speaker: customer, text: "If you dropped it that fast, it's still too high." }
+        - { speaker: rep, text: "[pause] That's a fair reaction, and it's on me. I moved fast and didn't tell you why. Before I say anything else, what would you need to see to know a number is the real one?" }
+        - { speaker: customer, text: "I'm not saying I won't buy it. Something just doesn't sit right." }
+        - { speaker: rep, text: "Okay. Setting the number aside for a second, is this the truck you want?" }
+        - { speaker: customer, text: "The truck's what I want. That's not the issue." }
+        - { speaker: rep, text: "Then help me understand. Too high compared to what? Did you see it lower somewhere?" }
+        - { speaker: customer, text: "No. Honestly, I don't need it a lot lower. When you dropped a thousand in ten seconds, I figured the real price was way lower, and I'd be the guy who paid more than the next one." }
+        - { speaker: rep, text: "I understand, and you deserve the why. There is room on this Colorado because it has been on our lot since July, so my manager approved a discount on it, and I gave you the first thousand of that too fast, without explaining it. Every customer gets the same pricing method here. Right now it's $40,394 out the door, with our $899 dealer fee included; only tax, tag and title are added. I'll print you the full breakdown, line by line." }
+        - { speaker: customer, text: "Okay. That's the first thing that's made sense today." }
+        - { speaker: rep, text: "And here's one more step, smaller than the first, and that uses all the room my manager approved on this truck: another $200 off, $40,194 out the door, if you sign the buyer's order now and take delivery today at 5:30. Do we have a deal?" }
+        - { speaker: customer, text: "Deal. Write it up. I'll be here at 5:30." }
+        - { speaker: rep, text: "Today at 5:30, then. I'll have the breakdown printed for you to check line by line, and the Colorado washed and ready." }
+      es:
+        - { speaker: customer, text: "Si lo bajó tan rápido, es porque todavía está caro." }
+        - { speaker: rep, text: "[pausa] Es una reacción justa, y la culpa es mía. Me moví muy rápido y no le dije por qué. Antes de decir nada más, ¿qué necesitaría ver para saber que un número es el de verdad?" }
+        - { speaker: customer, text: "No digo que no la vaya a comprar. Es que algo no me cuadra." }
+        - { speaker: rep, text: "Bien. Dejando el número a un lado un momento, ¿esta es la camioneta que usted quiere?" }
+        - { speaker: customer, text: "La camioneta es lo que quiero. Ese no es el problema." }
+        - { speaker: rep, text: "Entonces ayúdeme a entender. ¿Caro comparado con qué? ¿La vio más barata en algún lado?" }
+        - { speaker: customer, text: "No. La verdad, no necesito que la baje mucho. Cuando usted bajó mil en diez segundos, pensé que el precio de verdad era mucho más bajo, y que yo iba a ser el bobo que pagó más que el próximo." }
+        - { speaker: rep, text: "Lo entiendo, y usted merece saber el porqué. Esta Colorado tiene margen porque está en nuestro lote desde julio, así que mi gerente aprobó una rebaja, y yo le di los primeros mil demasiado rápido, sin explicárselo. Aquí todos los clientes reciben el mismo método de precio. Ahora mismo está en $40,394 precio total, con nuestro cargo de concesionario de $899 incluido; solo se suman los impuestos, la placa y el título. Le imprimo el desglose completo, punto por punto." }
+        - { speaker: customer, text: "Bueno. Eso es lo primero que me hace sentido hoy." }
+        - { speaker: rep, text: "Y este es un paso más, más pequeño que el primero, y con eso se usa todo el margen que aprobó mi gerente en esta camioneta: $200 menos, $40,194 precio total, si firma la orden de compra ahora y se la entregamos hoy a las 5:30. ¿Cerramos?" }
+        - { speaker: customer, text: "Cerramos. Prepare los papeles. Aquí estaré a las 5:30." }
+        - { speaker: rep, text: "Hoy a las 5:30, entonces. Le tengo el desglose impreso para que lo revise punto por punto, y la Colorado lavada y lista." }
+spanish_reviewed: false
