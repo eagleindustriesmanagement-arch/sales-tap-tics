@@ -4,6 +4,7 @@ import { isLanguage } from "@taptics/i18n";
 import { authSecret } from "@/lib/auth";
 import { withClient } from "@/lib/db";
 import { deliverCode, demoLogin, devLogin } from "@/lib/delivery";
+import { errorField, log } from "@/lib/log";
 
 /**
  * Step one of sign-in. Answers the same way whether or not the account exists, so the endpoint does not reveal who
@@ -19,7 +20,10 @@ export async function POST(request: Request) {
   if (result.status === "unknown") return NextResponse.json({ status: "sent" });
   // Demo accounts on the trial site have no inbox: the code goes on screen instead (decision 0014).
   if (demoLogin(identifier)) return NextResponse.json({ status: "sent", devCode: result.code });
-  const delivered = await deliverCode(identifier, result.code, language);
+  const delivered = await deliverCode(identifier, result.code, language).catch((e: unknown) => {
+    log("error", "login_email_failed", { error: errorField(e) });
+    return "unavailable" as const;
+  });
   if (delivered === "unavailable") return NextResponse.json({ status: "unavailable" }, { status: 503 });
   return NextResponse.json({ status: "sent", ...(devLogin() ? { devCode: result.code } : {}) });
 }

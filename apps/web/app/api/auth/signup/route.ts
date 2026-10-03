@@ -4,7 +4,7 @@ import { isLanguage } from "@taptics/i18n";
 import { authSecret } from "@/lib/auth";
 import { withClient } from "@/lib/db";
 import { deliverCode, devLogin } from "@/lib/delivery";
-import { log } from "@/lib/log";
+import { errorField, log } from "@/lib/log";
 
 /**
  * Step one of a sign-up (decisions 0029, 0032): a team, an individual, or a join through an invite link; the code
@@ -34,9 +34,10 @@ export async function POST(request: Request) {
     if (login.status === "sent") code = login.code;
   }
   if (!code) return NextResponse.json({ status: "sent" });
-  const delivered = await deliverCode(email, code, language).catch(() => "unavailable" as const);
+  let failure: unknown = null;
+  const delivered = await deliverCode(email, code, language).catch((e: unknown) => ((failure = e), "unavailable" as const));
   if (delivered === "unavailable") {
-    log("error", "signup_email_unavailable", {});
+    log("error", "signup_email_unavailable", { error: failure ? errorField(failure) : "no email sender configured" });
     return NextResponse.json({ status: "unavailable" }, { status: 503 });
   }
   if (result.status === "sent") log("info", "signup_requested", {});

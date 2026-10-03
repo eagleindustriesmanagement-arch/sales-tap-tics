@@ -21,6 +21,14 @@ export const demoLogin = (identifier: string) => process.env.TAPTICS_DEMO_LOGIN 
 /** The public address people sign in at, for emails. */
 export const appUrl = () => (process.env.TAPTICS_APP_URL ?? "https://salestaptics.com").replace(/\/$/, "");
 
+/** Resend's own answer on a refused send (status and its error message, never the key): the log names the cause. */
+async function refused(res: Response): Promise<Error> {
+  const body = await res.text().catch(() => "");
+  let reason = body.slice(0, 300);
+  try { reason = (JSON.parse(body) as { message?: string }).message ?? reason; } catch { /* not JSON */ }
+  return new Error(`email delivery failed: ${res.status} ${reason}`.trim());
+}
+
 async function sendEmail(to: string, subject: string, text: string): Promise<"sent" | "logged" | "unavailable"> {
   const outbox = process.env.TAPTICS_CODE_OUTBOX;
   if (outbox) {
@@ -34,7 +42,7 @@ async function sendEmail(to: string, subject: string, text: string): Promise<"se
     headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
     body: JSON.stringify({ from: process.env.TAPTICS_EMAIL_FROM ?? "Sales Taptics <login@salestaptics.com>", to: [to], subject, text }),
   });
-  if (!res.ok) throw new Error(`email delivery failed: ${res.status}`);
+  if (!res.ok) throw await refused(res);
   return "sent";
 }
 
@@ -68,12 +76,13 @@ export async function deliverCode(identifier: string, code: string, language: La
         text: t("login.emailBody", language, { code }),
       }),
     });
-    if (!res.ok) throw new Error(`email delivery failed: ${res.status}`);
+    if (!res.ok) throw await refused(res);
     return "sent";
   }
   if (process.env.NODE_ENV !== "production") {
     console.info(`[dev] login code for ${identifier}: ${code}`);
     return "logged";
   }
+  console.error(JSON.stringify({ level: "error", event: "email_not_configured", detail: key ? "not an email address" : "RESEND_API_KEY is not set in this deployment" }));
   return "unavailable";
 }
