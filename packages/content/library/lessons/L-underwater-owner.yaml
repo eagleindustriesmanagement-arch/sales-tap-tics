@@ -1,0 +1,86 @@
+code: L-underwater-owner
+scenario: S-underwater-owner-L2
+title:
+  en: "\"I'm upside down on my loan\": make it math, not shame"
+  es: "\"Estoy al revés con el préstamo\": que sean números, no vergüenza"
+hook:
+  en: She loves the car, then stops you before the numbers, braced to be judged.
+  es: Le encanta el carro, y lo para antes de los números, esperando que la juzguen.
+what:
+  en: Treat the old loan as math. Ask the payoff calmly, show the gap on its own line, state the trade's condition, and lay out honest options, waiting included.
+  es: Trate el préstamo viejo como números. Pregunte el payoff con calma, enseñe la diferencia en su propia línea, diga la condición del trade-in y presente las opciones honestas, incluyendo esperar.
+why:
+  en: She's hiding the number because she's embarrassed, not to beat you. One judging word and she leaves. Stay calm and she tells you the real size. Bury the gap in a payment and she starts the next loan deeper, and later finds out who did it.
+  es: Esconde el número porque le da vergüenza, no para ganarle. Una palabra que suene a juicio y se va para no pasar pena. Si usted está tranquilo, le dice cuánto es de verdad. Si esconde la diferencia en un pago, empieza el próximo préstamo más hundida, y después se entera de quién fue.
+when:
+  en: Whenever a customer owes, or fears they owe, more than the car is worth.
+  es: Cada vez que un cliente debe, o teme deber, más de lo que vale el carro.
+when_not:
+  en: Don't promise it works before the payoff letter. Sometimes the honest answer is wait.
+  es: No prometa que funciona antes de la carta del payoff. A veces la respuesta honesta es esperar.
+say:
+  - en: Thank you for telling me up front. No judgment here.
+    es: Gracias por decírmelo de entrada. Aquí nadie la va a juzgar.
+  - en: Do you have a rough idea of what you still owe on it?
+    es: ¿Tiene una idea más o menos de cuánto debe todavía?
+  - en: That trade number holds if your lender's payoff letter matches.
+    es: Ese valor del trade-in se mantiene si la carta del payoff de su banco coincide.
+  - en: I won't hide the difference inside a payment. You'll see it on its own line.
+    es: No le voy a esconder la diferencia dentro de un pago. La va a ver en su propia línea.
+  - en: Waiting and paying it down is a real option too.
+    es: Esperar y bajar la deuda también es una opción real.
+mistakes:
+  - mistake:
+      en: '"How did you end up owing that much?"'
+      es: '"¿Cómo llegó a deber tanto?"'
+    fix:
+      en: Ask what she owes, never why.
+      es: Pregunte cuánto debe, nunca por qué.
+  - mistake:
+      en: '"Don''t worry, we''ll roll it into the new loan."'
+      es: '"No se preocupe, eso se mete en el préstamo nuevo."'
+    fix:
+      en: That's hiding it. Name the gap and show it.
+      es: Eso es esconderlo. Diga la diferencia y enséñela.
+  - mistake:
+      en: Calling the trade number final before the payoff is confirmed.
+      es: Dar el trade-in como final antes de confirmar el payoff.
+    fix:
+      en: Say the condition out loud.
+      es: Diga la condición en voz alta.
+concepts:
+  - name: { en: 'Calm, no judgment', es: 'Calma, sin juzgar' }
+    idea:
+      en: Pause, thank her for telling you, keep your face and voice steady.
+      es: Haga la pausa, déle las gracias por decírselo, cara y voz tranquilas.
+    items: [O02-PAUSE, O02-ACK]
+  - name: { en: Ask the payoff, es: Pregunte el payoff }
+    idea:
+      en: Before any solution. She tells you the real size when she feels safe.
+      es: Antes de cualquier solución. Le dice cuánto es de verdad cuando se siente segura.
+    items: [O02-QFIRST, O02-HIDDEN]
+  - name: { en: Write the condition in, es: Ponga la condición por escrito }
+    idea:
+      en: The trade number holds only if the payoff letter matches.
+      es: El valor del trade-in se mantiene solo si la carta del payoff coincide.
+    items: [O02-CONDITION]
+  - name: { en: The gap on its own line, es: La diferencia en su propia línea }
+    idea:
+      en: What she owes over the value, never folded into a monthly.
+      es: Lo que debe por encima del valor, nunca metido en una mensualidad.
+    items: [O02-OPTIONS]
+  - name: { en: Waiting is an option, es: Esperar es una opción }
+    idea:
+      en: Cash down, a less expensive car, or keep paying it down. She picks.
+      es: Dinero de down, un carro que cueste menos, o seguir bajando la deuda. Ella escoge.
+    items: [O02-OPTIONS]
+  - name: { en: Bring the letter, es: Traiga la carta }
+    idea:
+      en: A day and time, payoff letter in hand.
+      es: Un día y una hora, con la carta del payoff en la mano.
+    items: [O02-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T111 Write the condition in; T029 Trade-value walkthrough; T096 Trade on its own line; T014 Firm next step
+  - Malhotra and Bazerman, Negotiation Genius (contingent terms), via T111
+  - O02 core moves (honest options, including waiting)
+spanish_reviewed: false
