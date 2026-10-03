@@ -110,6 +110,12 @@ marks scores partial; certification needs the key.
   superuser never see it); a migration must run as a non-superuser owner (CI runs `pnpm db:deploy` that way first).
   Never bake a build-machine path into the bundle (`next.config` `env`); resolve data directories at run time.
   Never keep state only in one server's memory: live sessions are rebuilt from stored turns on any instance.
+- **Deploys share the database and may go through a transaction pooler** (decisions 0025, 0026). A deploy step's
+  database work runs inside `withDeployLock` (one transaction, a transaction-scoped advisory lock, re-check inside).
+  Never rely on session state on a connection: no session-level `set`, `set_config(..., false)`, session advisory
+  locks or `LISTEN`. Connections are made with `pgConfig(url)` so `DATABASE_CA_CERT` applies. Roles are shared by a
+  whole Postgres server: to rehearse a fresh hosted database, use a new server (`pg_createcluster 16 x --port 5433`),
+  not just a new database.
 - **`pnpm --filter x deploy` runs pnpm's own deploy command**, not a script named deploy. The database release
   script is `release`, run through `pnpm db:deploy`.
 - **Voice is tested with a scripted recognizer and voice** (`e2e/flows.spec.ts`, the spoken session): real

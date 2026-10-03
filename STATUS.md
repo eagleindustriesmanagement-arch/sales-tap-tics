@@ -25,7 +25,8 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
   release each run in one transaction under a deploy lock, so Production and Preview can deploy to the same Supabase
   database at once, through its transaction pooler, from empty. CI rehearses exactly that on every push (a
   non-superuser owner, Supabase's roles, PgBouncer in transaction mode, two deploys at once). Locally, the full
-  browser suite passed through the pooler.
+  browser suite passed through the pooler. Supabase's own-CA certificates are verified through `DATABASE_CA_CERT`
+  (decision 0026), never by turning verification off.
 - **Practice and results** (spec 19.2 item 3, decision 0024). The Store numbers page relates each practice score
   to the reps' real close rate and add-ons kept, with sample sizes and a plain warning that correlation is not
   proof. It lists scores that relate to nothing as candidates for less weight, and waits for 5 reps with enough
@@ -261,6 +262,10 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
   in English and Spanish, on the showroom floor.
 - **Cloud voice tier** (decision 0013): a recognition provider account and a voice provider account, chosen by the
   spec 11.2 bake-off, plus a Miami listener to approve the voices.
+- **Preview and Production share one database** (set up 2026-10-03). Every branch's Preview build runs its
+  migrations on that database, so a migration on a branch reaches production data before it reaches `main`.
+  Concurrent deploys are safe (decision 0025), but a separate Preview database (a second free Supabase project, or
+  a Supabase branch) is the safer setup. That is a setup choice for Fluffy.
 - **Vercel deployment:** handled outside the build sessions by Fluffy (2026-10-03), following `docs/DEPLOY.md`.
   The database may be Supabase (decision 0023): use the pooler connection strings, never the IPv6-only direct
   address, and copy them from Supabase straight into Vercel. This environment cannot reach Supabase's API. All
