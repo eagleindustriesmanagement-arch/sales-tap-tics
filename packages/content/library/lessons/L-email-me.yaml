@@ -1,0 +1,83 @@
+code: L-email-me
+scenario: S-email-me-L2
+title:
+  en: "\"Just email me the out-the-door\": say it now, send the same number"
+  es: "\"Mándeme el precio final por email\": dígalo ahora, mande el mismo número"
+hook:
+  en: On her break, wants it in writing, wants off the phone. "Come in and we'll talk" loses her.
+  es: En su descanso, lo quiere por escrito y quiere colgar. Con "venga y hablamos" la pierde.
+what:
+  en: Say the all-in price on the call, then email the same number. Ask what happened before, offer two times, and confirm the car and the price.
+  es: Dígale el precio total en la llamada y después mándele el mismo número por email. Pregúntele qué le pasó antes, ofrézcale dos horarios y confirme el carro y el precio.
+why:
+  en: The email is her insurance. Somebody quoted her one number on the phone and another at the desk. Dodge the price and you're that dealer. Say the full walk-in number out loud and she hears no games. Put the same number in writing and coming in stops being a risk.
+  es: El email es su seguro. Alguien le dio un número por teléfono y otro en la tienda. Si le esquiva el precio, usted es ese dealer. Si le dice el número completo en voz alta, oye que no hay juego. Con el mismo número por escrito, venir deja de ser un riesgo.
+when:
+  en: Any call or lead asking for a price, especially "just send it."
+  es: Cada llamada o lead que pide un precio, sobre todo el "nada más mándemelo".
+when_not:
+  en: Don't text it. There's no consent on file, and she asked for email.
+  es: No se lo mande por texto. No hay permiso registrado, y ella pidió email.
+say:
+  - en: I'll send it, and I'll give it to you right now so you hear it from me first.
+    es: Con gusto se lo mando, y también se lo digo ahora mismo para que lo oiga de mí primero.
+  - en: That's the out-the-door price. It already includes our dealer fee; only tax, tag and title are added.
+    es: Ese es el precio total. Ya incluye nuestro cargo de concesionario; solo se suman los impuestos, la placa y el título.
+  - en: Can I ask, has a dealer ever changed the price on you when you got there?
+    es: ¿Le puedo preguntar algo? ¿Algún dealer le ha cambiado el precio cuando usted llegó?
+  - en: So we're set. The Blazer will be up front, at the same price that's in your email.
+    es: Entonces quedamos así. La Blazer la tengo al frente, con el mismo precio que tiene en su email.
+mistakes:
+  - mistake:
+      en: '"We don''t email prices. You''ll have to come in."'
+      es: '"No mandamos precios por email. Tiene que venir."'
+    fix:
+      en: That's the dealer from her story.
+      es: Ese es el dealer de su cuento.
+  - mistake:
+      en: Quoting it without the dealer fee to get her in.
+      es: Darle el precio sin el cargo de concesionario para que venga.
+    fix:
+      en: A phone price is the full walk-in price.
+      es: El precio por teléfono es el precio completo de la tienda.
+  - mistake:
+      en: '"That price is only good if you come in today."'
+      es: '"Ese precio vale solo si viene hoy."'
+    fix:
+      en: A made-up deadline. The written price counts either way.
+      es: Fecha límite inventada. El precio por escrito vale igual.
+concepts:
+  - name: { en: "Pause, don't rush off", es: "Pausa, sin apurarse a colgar" }
+    idea:
+      en: Short call, calm answer.
+      es: Llamada corta, respuesta con calma.
+    items: [O41-PAUSE]
+  - name: { en: Say it now, es: Dígalo ahora }
+    idea:
+      en: On the call, not just in the email.
+      es: En la llamada, no solo en el email.
+    items: [O41-NOW]
+  - name: { en: All-in price first, es: El precio total primero }
+    idea:
+      en: The walk-in price, total before any breakdown.
+      es: El precio de la tienda, el total antes del desglose.
+    items: [O41-ALLIN]
+  - name: { en: "Same number, in writing", es: "El mismo número, por escrito" }
+    idea:
+      en: Email, car and fee listed. No texts without consent.
+      es: Por email, carro y cargo detallados. Nada de textos sin permiso.
+    items: [O41-WRITING]
+  - name: { en: Has it happened before?, es: ¿Ya le pasó antes? }
+    idea:
+      en: A changed phone quote is the real reason.
+      es: Un precio que le cambiaron es la razón real.
+    items: [O41-HIDDEN]
+  - name: { en: "Two times, then confirm", es: "Dos horarios, y confirme" }
+    idea:
+      en: Day and time, then repeat the car and price.
+      es: Día y hora, y repita el carro y el precio.
+    items: [O41-NEXT, O41-CONFIRM]
+sources:
+  - T001 Pause and slow down; T118 All-in quote by phone or text; T062 Give the number, then a reason to visit; T014 Firm next step; T076 Two-touch confirmation
+  - Rules PRICE-02 (a phone price is the full walk-in price), PRICE-05, CONSENT-01
+spanish_reviewed: false
