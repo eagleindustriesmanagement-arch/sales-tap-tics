@@ -1,0 +1,83 @@
+code: L-package-objector
+scenario: S-package-objector-L2
+title:
+  en: "\"I didn't ask for that package\": optional, priced apart, a real answer"
+  es: "\"Yo no pedí ese paquete\": opcional, con su precio aparte, y una respuesta de verdad"
+hook:
+  en: He picked the car online. The sheet shows tint, door guards and mats he never asked for, already installed.
+  es: Escogió el carro por internet. La hoja trae tinte, protectores de puertas y alfombras que nunca pidió, ya instalados.
+what:
+  en: Agree he didn't ask for it and say optional right away. Price the car all-in without the package, the package on its own. Then get your manager's answer, by a set time.
+  es: Déle la razón de que no lo pidió y diga opcional enseguida. Déle el precio total sin el paquete, y el paquete aparte. Después busque la respuesta de su gerente, a una hora fija.
+why:
+  en: He isn't against tint. He's against being told what he's paying for. "It's already on the car" sounds like "no choice," and a cornered man walks. Optional hands the choice back, and then he'll often admit he buys today if the package gets handled. Keep selling it and you prove him right.
+  es: No está en contra del tinte. Está en contra de que le digan qué tiene que pagar. "Ya viene en el carro" suena a "no tiene opción", y el que se siente acorralado se va. Opcional le devuelve la decisión, y entonces muchas veces confiesa que compra hoy si se resuelve lo del paquete. Si sigue vendiéndolo, le da la razón.
+when:
+  en: Any time a dealer-installed item is on the sheet and he says he didn't ask.
+  es: Cada vez que un accesorio instalado por el dealer está en la hoja y el cliente dice que no lo pidió.
+when_not:
+  en: Don't promise it comes off or comes free. With no store policy set, you don't have that answer. Promise to get it, and when.
+  es: No prometa que se quita ni que se lo regalan. Sin política de la tienda, usted no tiene esa respuesta. Prometa conseguirla, y diga cuándo.
+say:
+  - en: You're right, you didn't ask for it. It's already on the car, but it's optional.
+    es: Tiene razón, usted no lo pidió. Ya está instalado, pero es opcional.
+  - en: Setting the package aside, is this the car you want?
+    es: Dejando el paquete a un lado, ¿este es el carro que usted quiere?
+  - en: Here's the out-the-door price without the package, and the package on its own line.
+    es: Este es el precio total sin el paquete, y el paquete con su precio aparte.
+  - en: Let me sit down with my manager to find a solution for the package.
+    es: Déjeme sentarme con mi gerente para buscarle una solución al paquete.
+mistakes:
+  - mistake:
+      en: '"It''s installed, so it can''t come off."'
+      es: '"Ya está instalado, así que no se puede quitar."'
+    fix:
+      en: Never. Say optional; go to the manager.
+      es: Nunca. Diga opcional; vaya al gerente.
+  - mistake:
+      en: '"In this Miami sun, you''ll want that tint."'
+      es: '"Con este sol de Miami, usted va a querer ese tinte."'
+    fix:
+      en: He said no. Stop selling, start solving.
+      es: Dijo que no. Deje de vender y resuelva.
+  - mistake:
+      en: '"Don''t worry, we''ll throw it in."'
+      es: '"No se preocupe, se lo dejamos de regalo."'
+    fix:
+      en: You don't have that answer, and a charged item is never free.
+      es: Usted no tiene esa respuesta, y lo que se cobra nunca es gratis.
+concepts:
+  - name: { en: Pause and agree, es: Pausa y déle la razón }
+    idea:
+      en: Two seconds, then "you didn't ask for it."
+      es: Dos segundos, y luego "usted no lo pidió".
+    items: [O65-PAUSE, O65-ACK]
+  - name: { en: Optional means optional, es: Opcional quiere decir opcional }
+    idea:
+      en: Installed isn't required. Say so, then offer the manager.
+      es: Instalado no es obligatorio. Dígalo y ofrezca al gerente.
+    items: [O65-OPTIONAL]
+  - name: { en: 'Never "can''t," never "free"', es: 'Nunca "no se puede", nunca "gratis"' }
+    idea:
+      en: Both are false about this package.
+      es: Las dos cosas son falsas con este paquete.
+    items: [O65-HONEST]
+  - name: { en: Price it without the package, es: El precio sin el paquete }
+    idea:
+      en: All-in total without it; the package as its own number.
+      es: El precio total sin él; el paquete con su propio número.
+    items: [O65-WITHOUT]
+  - name: { en: Set the package aside, es: Deje el paquete a un lado }
+    idea:
+      en: Isolate. If the car is right, the package is all that's left.
+      es: Aísle. Si el carro es el que quiere, solo queda el paquete.
+    items: [O65-HIDDEN]
+  - name: { en: "The answer, at a set time", es: "La respuesta, a una hora fija" }
+    idea:
+      en: A time today, in writing, both sheets side by side.
+      es: Una hora hoy, por escrito, las dos hojas lado a lado.
+    items: [O65-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T120 Optional means optional; T030 Out-the-door first; T005 Isolate; T014 Firm next step
+  - Rules ADD-02 (never "can't be removed"; no store policy set, so offer the manager) and ADD-03 (nothing charged is free)
+spanish_reviewed: false

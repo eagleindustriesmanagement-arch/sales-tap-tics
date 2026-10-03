@@ -1,0 +1,83 @@
+code: L-fee-surprised
+scenario: S-fee-surprised-L2
+title:
+  en: "\"Your online price didn't include these fees\": total first, then every line"
+  es: "\"El precio en internet no incluía estos cargos\": primero el total, después cada línea"
+hook:
+  en: He drove in for the number on his phone. Your sheet says more. He thinks he got baited.
+  es: Vino por el número que vio en el teléfono. Su hoja dice más. Él cree que lo engañaron.
+what:
+  en: Own the surprise, blame nobody, ask what bothers him. Then the out-the-door total before any line, and every line explained, dealer fee included, nothing made up.
+  es: Hágase cargo de la sorpresa, no culpe a nadie, pregunte qué le molesta. Después, el precio total antes de cualquier línea, y cada línea explicada, cargo de concesionario incluido, sin inventar nada.
+why:
+  en: He isn't haggling. He feels baited, and baited buyers leave. Often the total is fine; he's scared of the next surprise at signing. Blame the website and you sound like every lot that baits. Lines before the total land like new charges. Total first, and each line is just an explanation.
+  es: No está negociando. Se siente engañado, y el engañado se va. Muchas veces el total le sirve; le asusta la próxima sorpresa al firmar. Si culpa a la página, suena como cualquier dealer que engaña. Las líneas antes del total caen como cargos nuevos. Con el total primero, cada línea es solo una explicación.
+when:
+  en: Any time a customer compares your sheet to a number he saw elsewhere.
+  es: Cada vez que el cliente compara su hoja con un número que vio en otro lado.
+when_not:
+  en: Not a speech defending the fee. A lower price is the desk's call; promise nothing unapproved.
+  es: No es un discurso para defender el cargo. Un precio más bajo lo decide la mesa; no prometa nada sin aprobar.
+say:
+  - en: I'm sorry that number surprised you. You should see the full price first, every time.
+    es: Disculpe que ese número lo haya sorprendido. Usted debe ver el precio completo primero, siempre.
+  - en: Is it the total itself that bothers you, or not knowing what each line is for?
+    es: ¿Lo que le molesta es el total en sí, o no saber para qué es cada línea?
+  - en: Here's the out-the-door total first. Then I'll go through every line with you.
+    es: Primero el precio total. Después repasamos juntos cada línea.
+  - en: The dealer fee is ours, not the state's. Tax, tag and title are the only government charges.
+    es: El cargo de concesionario es nuestro, no del estado. Los únicos cargos del gobierno son los impuestos, la placa y el título.
+mistakes:
+  - mistake:
+      en: '"That''s just how online prices work."'
+      es: '"Así funcionan los precios en internet."'
+    fix:
+      en: You just confirmed the bait. Apologize, blame nobody.
+      es: Le acaba de confirmar el engaño. Discúlpese, sin culpar a nadie.
+  - mistake:
+      en: Explaining the fee before he hears the total.
+      es: Explicar el cargo antes de que oiga el total.
+    fix:
+      en: Total first. Lines without a total feel like new charges.
+      es: El total primero. Líneas sin total se sienten como cargos nuevos.
+  - mistake:
+      en: Making up what the fee covers, or calling it a state fee.
+      es: Inventar qué cubre el cargo, o decir que es del estado.
+    fix:
+      en: Use your store's approved wording, or ask the desk.
+      es: Use las palabras aprobadas por su tienda, o pregunte en la mesa.
+concepts:
+  - name: { en: The two-second pause, es: La pausa de dos segundos }
+    idea:
+      en: He's hot. A fast answer sounds like a defense.
+      es: Está caliente. Una respuesta rápida suena a defensa.
+    items: [O19-PAUSE]
+  - name: { en: "Own it, blame nobody", es: "Hágase cargo, sin culpar a nadie" }
+    idea:
+      en: Sorry for the surprise. No blaming the website or other dealers.
+      es: Disculpas por la sorpresa. Sin culpar a la página ni a otros dealers.
+    items: [O19-ACK]
+  - name: { en: Total or lines?, es: ¿El total o las líneas? }
+    idea:
+      en: One question splits money from trust. Here it's usually trust.
+      es: Una pregunta separa el dinero de la confianza. Aquí casi siempre es confianza.
+    items: [O19-QFIRST, O19-HIDDEN]
+  - name: { en: All-in price first, es: El precio total primero }
+    idea:
+      en: The out-the-door number before any breakdown.
+      es: El precio total antes de cualquier desglose.
+    items: [O19-TOTALFIRST]
+  - name: { en: "Every line, nothing invented", es: "Cada línea, sin inventar nada" }
+    idea:
+      en: Each charge with its amount and its true reason.
+      es: Cada cargo con su cantidad y su razón real.
+    items: [O19-ITEMIZE]
+  - name: { en: Lock a day and time, es: Amarre un día y una hora }
+    idea:
+      en: Sheet goes home; book when you'll review it together.
+      es: Se lleva la hoja; fije cuándo la repasan juntos.
+    items: [O19-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T030 Out-the-door first; T118 All-in quote; T014 Firm next step
+  - Rules PRICE-01 (any price is the all-in price) and PRICE-05 (total before itemizing)
+spanish_reviewed: false
