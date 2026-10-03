@@ -1,0 +1,73 @@
+code: L-walker
+scenario: S-walker-L3
+title:
+  en: "\"I want to shop other dealers\": let him go, ask one question"
+  es: "\"Quiero ver en otros dealers\": déjelo ir, haga una sola pregunta"
+hook:
+  en: He's up, keys in hand, heading for the door. Every instinct says chase. Don't.
+  es: Está parado, con las llaves en la mano, camino a la puerta. Todo el instinto le dice que lo persiga. No lo haga.
+what:
+  en: Agree he should shop. Ask one question about what didn't sit right. When the real number comes out, show exactly how it was figured, and set a time to go through it.
+  es: Déle la razón en que compare. Haga una sola pregunta sobre qué no le cuadró. Cuando salga el número que le molesta, enséñele exactamente cómo se calculó, y fijen una hora para revisarlo.
+why:
+  en: A walk like this is often theater. He's proud, he hates feeling played, and standing up is how he tests the store. Chase him and you prove he was being worked. Stay calm and you're the only one not selling, and that's when he tells you the truth, usually one number nobody explained. Showing the work answers him. Defending the number doesn't.
+  es: Una salida así muchas veces es teatro. Es orgulloso, no soporta que lo cojan de bobo, y pararse es su manera de probar la tienda. Si lo persigue, le confirma que lo estaban trabajando. Si mantiene la calma, usted es el único que no está vendiendo, y ahí es cuando él dice la verdad, casi siempre un número que nadie le explicó. Enseñarle el cálculo le contesta. Defender el número, no.
+when:
+  en: A customer stands up or says he's leaving to shop around.
+  es: El cliente se para o dice que se va a ver en otros lados.
+when_not:
+  en: Never block the door, plead, or claim nobody can beat you. Never bump the trade just to keep him.
+  es: Nunca le tape la puerta, le ruegue ni diga que nadie le gana. Nunca le suba el trade-in solo para retenerlo.
+say:
+  - en: That's fair. You should compare; I'd do the same with this kind of money.
+    es: Me parece justo. Hace bien en comparar; yo haría lo mismo con tanto dinero de por medio.
+  - en: Before you go, can I ask you one thing? What part of the numbers didn't sit right?
+    es: Antes de que se vaya, ¿le puedo hacer una sola pregunta? ¿Qué parte de los números no le cuadró?
+  - en: Was it the trade? Let me show you exactly how we got to that number.
+    es: ¿Fue el trade-in? Déjeme enseñarle exactamente cómo llegamos a ese número.
+  - en: I can't speak for the website, but you can ask them for a written offer after they inspect it.
+    es: Yo no puedo hablar por la página, pero usted les puede pedir una oferta por escrito después de que la inspeccionen.
+mistakes:
+  - mistake:
+      en: '"Wait, don''t go! Nobody in Miami will beat this deal."'
+      es: '"¡Espérese, no se vaya! Nadie en Miami le gana este negocio."'
+    fix:
+      en: You chased him and claimed what you can't prove. Pause; let him be right.
+      es: Lo persiguió y dijo algo que no puede probar. Haga una pausa; déle la razón.
+  - mistake:
+      en: '"What do I have to do to earn your business?"'
+      es: '"¿Qué tengo que hacer para ganarme su negocio?"'
+    fix:
+      en: That's a pitch, not a question. Ask what didn't sit right.
+      es: Eso es un pitch, no una pregunta. Pregunte qué no le cuadró.
+  - mistake:
+      en: '"That''s what your car is worth, period."'
+      es: '"Eso es lo que vale su carro, y punto."'
+    fix:
+      en: Show the basis, exactly as appraised.
+      es: Enséñele la base, tal como se tasó.
+concepts:
+  - name: { en: Let him go, es: Déjelo ir }
+    idea:
+      en: Pause, and agree he should compare. No chasing, no blocking.
+      es: Una pausa, y déle la razón en que compare. Sin perseguirlo, sin taparle el paso.
+    items: [O09-L3-PAUSE, O09-L3-CALM]
+  - name: { en: One good question, es: Una sola buena pregunta }
+    idea:
+      en: What didn't sit right? It's rarely about other dealers.
+      es: ¿Qué no le cuadró? Casi nunca tiene que ver con otros dealers.
+    items: [O09-L3-QUESTION, O09-L3-HIDDEN]
+  - name: { en: Show the work, es: Enseñe el cálculo }
+    idea:
+      en: The exact appraisal and its basis. Nothing invented about the website.
+      es: La tasación exacta y en qué se basa. Nada inventado sobre la página.
+    items: [O09-L3-BASIS]
+  - name: { en: A time to look together, es: Una hora para revisarlo juntos }
+    idea:
+      en: A set time to go through the appraisal, and he agrees to stay.
+      es: Una hora fija para revisar la tasación, y él acepta quedarse.
+    items: [O09-L3-NEXT]
+sources:
+  - T003 Acknowledge; T002 Clarify with a question; T109 "What would it have taken?"; T009 Transparent numbers; T001 Pause and slow down; T014 Firm next step
+  - Malhotra and Bazerman's negotiation method, via T109
+spanish_reviewed: false

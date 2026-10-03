@@ -1,0 +1,79 @@
+code: L-cross-shopper
+scenario: S-cross-shopper-L3
+title:
+  en: "\"Another dealer is cheaper\": same car, out the door, side by side"
+  es: "\"En otro dealer me lo dejan más barato\": mismo carro, con todo, lado a lado"
+hook:
+  en: She slides a printout across your desk. Same car, lower number. She's reading your face.
+  es: Le pone una cotización impresa en el escritorio. El mismo carro, un número más bajo. Le está leyendo la cara.
+what:
+  en: Don't argue her number or trash the other store. Put both deals on one basis, same vehicle and equipment, out the door, and ask what hers includes before you defend yours.
+  es: No le discuta el número ni hable mal del otro dealer. Ponga los dos negocios sobre la misma base, mismo carro, mismo equipo, con todo, y pregunte qué incluye su cotización antes de defender la suya.
+why:
+  en: She brought paper because she trusts paper. Say "that can't be right" and you've called her careless, so she goes cold. But a quote can leave things out, fees below the line, different equipment. Ask what's in it and let her read her own fine print. She'll trust what she finds more than anything you say.
+  es: Trajo papeles porque confía en los papeles. Si usted dice "eso no puede ser", la está llamando descuidada, y se enfría. Pero una cotización puede dejar cosas fuera, cargos en la letra chiquita, otro equipo. Pregunte qué incluye y deje que ella misma lea la letra chiquita. Va a confiar más en lo que ella encuentre que en cualquier cosa que usted le diga.
+when:
+  en: A customer brings a lower number from another dealer.
+  es: Un cliente trae un número más bajo de otro dealer.
+when_not:
+  en: Don't promise to match or beat a number without the desk. If theirs really is lower out the door, say so.
+  es: No prometa igualar ni mejorar un número sin el gerente. Si el de ellos de verdad sale más barato con todo, dígalo.
+say:
+  - en: Fair question, and you should ask it. Let's put them side by side, out the door.
+    es: Es una pregunta justa, y hace bien en hacerla. Vamos a ponerlas lado a lado, con todo.
+  - en: Does their number include their dealer fees? What does the line at the bottom say?
+    es: ¿Ese número incluye los cargos del dealer de ellos? ¿Qué dice la línea de abajo?
+  - en: Ours already has our dealer fee in it. Only tax, tag and title are added.
+    es: El nuestro ya tiene nuestro cargo del dealer incluido. Solo se suman impuestos, placa y título.
+  - en: Ask them for their out-the-door in writing, and bring both sheets. We'll go line by line.
+    es: Pídales el precio total por escrito, y traiga las dos hojas. Las revisamos línea por línea.
+mistakes:
+  - mistake:
+      en: '"That can''t be right. Nobody sells it for that."'
+      es: '"Eso no puede ser. Nadie lo vende en eso."'
+    fix:
+      en: You called her wrong with no proof. Ask what's in it.
+      es: La contradijo sin pruebas. Pregunte qué incluye.
+  - mistake:
+      en: '"Whatever they gave you, we''ll beat it."'
+      es: '"Lo que le hayan dado, se lo mejoramos."'
+    fix:
+      en: Not without the desk, and not before you know it's the same deal.
+      es: No sin el gerente, y no antes de saber si es el mismo negocio.
+  - mistake:
+      en: '"Their fees are probably through the roof."'
+      es: '"Seguro que los cargos de ellos son carísimos."'
+    fix:
+      en: You haven't seen them. Let her read the fine print.
+      es: Usted no los ha visto. Deje que ella lea la letra chiquita.
+concepts:
+  - name: { en: Pause and acknowledge, es: Pausa y reconocer }
+    idea:
+      en: Her question is fair. Say so first.
+      es: Su pregunta es justa. Dígaselo primero.
+    items: [O10-L3-PAUSE, O10-L3-ACK]
+  - name: { en: "Like for like, out the door", es: "Lo mismo con lo mismo, con todo" }
+    idea:
+      en: Same vehicle, same equipment, total price.
+      es: Mismo carro, mismo equipo, precio total.
+    items: [O10-L3-OTD]
+  - name: { en: Ask what's in it, es: Pregunte qué incluye }
+    idea:
+      en: Fees, equipment, fine print. Her answer usually settles it.
+      es: Cargos, equipo, letra chiquita. Casi siempre la respuesta de ella lo resuelve.
+    items: [O10-L3-QUOTE, O10-L3-HIDDEN]
+  - name: { en: "Your number, all in", es: "Su número, con todo" }
+    idea:
+      en: Fee already in, and nothing about theirs you can't see.
+      es: El cargo ya incluido, y nada sobre el de ellos que usted no pueda ver.
+    items: [O10-L3-HONEST]
+  - name: { en: "Both sheets, one table", es: "Las dos hojas, una mesa" }
+    idea:
+      en: A day and a time to compare both out-the-door numbers in writing.
+      es: Un día y una hora para comparar los dos precios totales por escrito.
+    items: [O10-L3-NEXT]
+sources:
+  - T028 Counter a low anchor by refocusing; T086 Side-by-side for "I've got you beat"; T002 Clarify with a question; T003 Acknowledge; T001 Pause and slow down; T014 Firm next step
+  - Galinsky and Mussweiler (2001) on first offers and anchoring, via T028
+  - Jonathan Dawson's side-by-side comparison, via T086
+spanish_reviewed: false

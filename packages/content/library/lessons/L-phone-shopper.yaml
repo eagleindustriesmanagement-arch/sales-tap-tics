@@ -1,0 +1,77 @@
+code: L-phone-shopper
+scenario: S-phone-shopper-L2
+title:
+  en: "\"Just give me your best price\" on the phone: the whole number first"
+  es: "\"Deme su mejor precio\" por teléfono: el número completo primero"
+hook:
+  en: He's in his truck between jobs, calling three dealers. Dodge the number and you're off his list.
+  es: Va en su camioneta entre un trabajo y otro, llamando a tres dealers. Si le esquiva el número, lo tacha de la lista.
+what:
+  en: Give the full out-the-door price, total first, the same price anyone pays walking in. Ask if his other numbers include the dealer fee. Then give him a reason to come, with two set times.
+  es: Déle el precio total, el total primero, el mismo que paga cualquiera que entre a la tienda. Pregúntele si los otros números incluyen el cargo del dealer. Después déle una razón para venir, con dos horarios fijos.
+why:
+  en: He isn't wasting your time; he's saving his. He may already have numbers he can't compare, with fees hiding below the line. "Come in and we'll work something out" sounds like you're hiding something too, so he calls the next store. A plain all-in number makes you the dealer he can trust, and trust is what gets him to drive over.
+  es: No le está haciendo perder el tiempo; está cuidando el suyo. Puede que ya tenga números que no puede comparar, con cargos escondidos abajo. "Venga y le resolvemos" suena a que usted también esconde algo, así que llama al próximo. Un precio total, dicho claro, lo convierte en el dealer en el que puede confiar, y esa confianza es lo que lo hace manejar hasta acá.
+when:
+  en: Any call or message asking for a price.
+  es: Cualquier llamada o mensaje que pide un precio.
+when_not:
+  en: Never quote "plus fees," a price only some buyers qualify for, or a number that changes when he walks in. No texting without his okay.
+  es: Nunca dé un precio "más cargos", un precio para el que solo algunos califican, ni un número que cambia cuando él llega. No le mande textos sin su permiso.
+say:
+  - en: Sure, I'll give you the full number right now.
+    es: Claro, le doy el número completo ahora mismo.
+  - en: That's out the door, our dealer fee already in it. Only tax, tag and title are added.
+    es: Ese es el precio total, con nuestro cargo del dealer ya incluido. Solo se suman impuestos, placa y título.
+  - en: The numbers you're getting from other dealers, do they include the dealer fee?
+    es: Los precios que le dan en otros dealers, ¿incluyen el cargo del dealer?
+  - en: I'll email you this exact price and have the truck up front, ready to drive. This afternoon or tomorrow morning?
+    es: Le mando este mismo precio por email y le tengo la camioneta al frente, lista para manejar. ¿Esta tarde o mañana por la mañana?
+mistakes:
+  - mistake:
+      en: '"Prices change every day; best thing is to come in."'
+      es: '"Los precios cambian todos los días; lo mejor es que venga."'
+    fix:
+      en: That's a dodge, and he hears it. Give the number.
+      es: Eso es esquivar, y él se da cuenta. Déle el número.
+  - mistake:
+      en: The vehicle price, then "plus fees."
+      es: El precio del carro, y después "más cargos".
+    fix:
+      en: Total first, fee in. The phone price is the walk-in price.
+      es: El total primero, con el cargo adentro. El precio por teléfono es el de la tienda.
+  - mistake:
+      en: '"Come by whenever and ask for me."'
+      es: '"Pase cuando pueda y pregunte por mí."'
+    fix:
+      en: Two set times and a reason to make the trip.
+      es: Dos horarios fijos y una razón para hacer el viaje.
+concepts:
+  - name: { en: Number first, es: El número primero }
+    idea:
+      en: A beat, then the full price. No dodging.
+      es: Una pausa, y después el precio completo. Sin esquivar.
+    items: [O14-PAUSE, O14-NUMBER]
+  - name: { en: All-in price first, es: El precio total primero }
+    idea:
+      en: The walk-in price, fee in, total before the parts.
+      es: El precio de la tienda, con el cargo, el total antes que las partes.
+    items: [O14-ALLIN]
+  - name: { en: "Are theirs all-in?", es: "¿Los de ellos son con todo?" }
+    idea:
+      en: One question shows why he really called.
+      es: Una pregunta saca por qué llamó de verdad.
+    items: [O14-CLARIFY, O14-HIDDEN]
+  - name: { en: "Two times, one reason", es: "Dos horarios, una razón" }
+    idea:
+      en: The truck ready to drive, and two times to pick from.
+      es: La camioneta lista para manejar, y dos horarios para escoger.
+    items: [O14-TWOTIMES]
+  - name: { en: Book it, es: Agéndelo }
+    idea:
+      en: A day and a time he says yes to.
+      es: Un día y una hora a los que él dice que sí.
+    items: [O14-NEXT]
+sources:
+  - T118 All-in quote by phone or text; T062 Give the number, then a reason to visit; T063 Two appointment times with a reason; T002 Clarify with a question; T001 Pause and slow down; T014 Firm next step
+spanish_reviewed: false
