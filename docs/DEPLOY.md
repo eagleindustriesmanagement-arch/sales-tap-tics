@@ -112,11 +112,13 @@ The app runs on any Postgres 16. With Supabase:
 
 ## 5. Try it
 
-Open https://salestaptics.com and tap one of the demo roles on the sign-in screen: a sales rep, a sales manager,
-or the general manager. On a phone, Share → Add to Home Screen installs it with the logo.
+Open https://salestaptics.com (the public home page) and choose "Try the demo": pick a sales rep, a sales manager
+or the general manager. On a phone, Share → Add to Home Screen installs the app with the logo.
 
 ## Before a real store signs in
 
-- Remove `TAPTICS_DEMO_LOGIN` and `TAPTICS_DEMO_SEED`.
-- Set up email (`RESEND_API_KEY`, `TAPTICS_EMAIL_FROM`).
-- See decision 0014.
+- Set up email (`RESEND_API_KEY`, `TAPTICS_EMAIL_FROM`): sign-up, sign-in and invitations all need it (decision
+  0029).
+- The demo can stay on beside real accounts: `TAPTICS_DEMO_LOGIN` shows codes on screen only for the demo store's
+  `@demo.test` addresses, which have no inbox (decisions 0014, 0029). Remove it and `TAPTICS_DEMO_SEED` to retire
+  the demo.
