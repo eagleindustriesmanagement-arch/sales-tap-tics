@@ -19,11 +19,13 @@ export function LoginForm({ language: lang, demo = [], demoFirst = false }: { la
     setBusy(true);
     setMessage(null);
     setIdentifier(who);
-    const res = await fetch("/api/auth/request", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ identifier: who, language: lang }) });
-    const data = (await res.json().catch(() => ({}))) as { status?: string; devCode?: string };
+    // A failed request is said plainly: never "we sent a code" when none was made.
+    const res = await fetch("/api/auth/request", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ identifier: who, language: lang }) }).catch(() => null);
+    const data = (await res?.json().catch(() => ({}))) as { status?: string; devCode?: string } | undefined;
     setBusy(false);
-    if (data.status === "rate_limited") return setMessage(ui("login.rateLimited"));
-    if (data.status === "unavailable") return setMessage(ui("login.unavailable"));
+    if (data?.status === "rate_limited") return setMessage(ui("login.rateLimited"));
+    if (data?.status === "unavailable") return setMessage(ui("login.unavailable"));
+    if (!res?.ok || data?.status !== "sent") return setMessage(ui("login.failed"));
     setDevCode(data.devCode ?? null);
     if (data.devCode && demo.some((d) => d.identifier === who)) setCode(data.devCode);
     setStep("code");
@@ -33,10 +35,11 @@ export function LoginForm({ language: lang, demo = [], demoFirst = false }: { la
   async function verify(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const res = await fetch("/api/auth/verify", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ identifier, code }) });
-    const data = (await res.json().catch(() => ({}))) as { status?: string };
+    const res = await fetch("/api/auth/verify", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ identifier, code }) }).catch(() => null);
+    const data = ((await res?.json().catch(() => ({}))) ?? {}) as { status?: string };
     setBusy(false);
     if (data.status === "ok") return location.assign("/today");
+    if (!res || res.status >= 500) return setMessage(ui("login.failed"));
     setMessage(ui(data.status === "locked" ? "login.locked" : data.status === "expired" ? "login.expired" : "login.invalid"));
   }
 

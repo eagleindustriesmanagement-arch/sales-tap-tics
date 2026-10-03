@@ -120,3 +120,12 @@ test("an individual signs up alone for any high-ticket sale; no team screens", a
   await page.goto("/manager/team");
   await expect(page).toHaveURL(/\/today$/);
 });
+
+test("sign-in never says a code was sent when the request failed", async ({ page }) => {
+  await page.route("**/api/auth/request", (r) => r.fulfill({ status: 500, contentType: "application/json", body: '{"error":"internal"}' }));
+  await page.goto("/login");
+  await page.getByLabel("Email or mobile number").fill("someone@example.test");
+  await page.getByRole("button", { name: "Send me a code" }).click();
+  await expect(page.getByText("Something went wrong on our side. Try again in a moment.")).toBeVisible();
+  await expect(page.getByLabel("Six-digit code")).toHaveCount(0);
+});

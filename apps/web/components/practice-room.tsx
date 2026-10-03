@@ -56,6 +56,45 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   const [voiceOk, setVoiceOk] = useState(false);
   const [answerBy, setAnswerBy] = useState<AnswerBy>("type");
   const [opening, setOpening] = useState("");
+  // An open conversation on this scenario, from before the screen was reloaded or redrawn: offered back, not lost.
+  const resumeKey = `taptics.session.${scenario.code}.${mode}`;
+  const [resumable, setResumable] = useState<{ id: string; language: Language; brief: string; name: string; lines: Line[] } | null>(null);
+  useEffect(() => {
+    const read = (): { id?: string; at?: number } | null => {
+      try { return JSON.parse(sessionStorage.getItem(resumeKey) ?? "null") as { id?: string; at?: number } | null; } catch { return null; }
+    };
+    const saved = read();
+    if (!saved?.id || !saved.at || Date.now() - saved.at > 55 * 60_000) return;
+    const id = saved.id;
+    void fetch(`/api/sessions/${id}`).then(async (res) => {
+      if (!res.ok) {
+        try { sessionStorage.removeItem(resumeKey); } catch { /* storage off */ }
+        return;
+      }
+      const d = (await res.json()) as { scenario: string; language: Language; preBrief: { brief: string; customerName: string }; lines: Line[] };
+      if (d.scenario === scenario.code && d.lines.length > 0) setResumable({ id, language: d.language, brief: d.preBrief.brief, name: d.preBrief.customerName, lines: d.lines });
+    }).catch(() => {});
+  }, [resumeKey, scenario.code]);
+  const remember = (id: string | null) => {
+    try { if (id) sessionStorage.setItem(resumeKey, JSON.stringify({ id, at: Date.now() })); else sessionStorage.removeItem(resumeKey); } catch { /* storage off */ }
+  };
+  const resume = () => {
+    if (!resumable) return;
+    setLang(resumable.language);
+    setSession({ id: resumable.id, brief: resumable.brief, name: resumable.name });
+    setLines(resumable.lines);
+    setOpening(resumable.lines.find((l) => l.speaker === "customer")?.text ?? "");
+    setAnswerBy("type");
+    setResumable(null);
+    setPhase("live");
+    window.scrollTo(0, 0);
+  };
+  const resumeCard = resumable && (
+    <Card className="space-y-3" data-testid="resume">
+      <p className="text-[16px] font-semibold text-ink">{t("practice.resumeTitle", lang, { name: resumable.name })}</p>
+      <button type="button" className={`${buttonClass} w-full`} onClick={resume}>{t("practice.resume", lang)}</button>
+    </Card>
+  );
   useEffect(() => {
     const ok = DeviceSpeechToText.supported() && DeviceTextToSpeech.supported();
     setVoiceOk(ok);
@@ -101,6 +140,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       const data = (await res.json()) as { id: string; language: Language; opening: string; preBrief: { brief: string; customerName: string } };
       setLang(data.language);
       setSession({ id: data.id, brief: data.preBrief.brief, name: data.preBrief.customerName });
+      remember(data.id);
       setLines([{ speaker: "customer", text: data.opening }]);
       setOpening(data.opening);
       setPhase("live");
@@ -174,6 +214,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
 
   async function finish() {
     if (!session) return;
+    remember(null);
     setBusy(true);
     setPhase("debrief");
     try {
@@ -332,6 +373,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
           </div>
         </div>
         <div className="mx-auto w-full max-w-2xl flex-1 space-y-6 px-4 pt-1 pb-48">
+          {resumeCard}
           <LessonSteps current="learn" lang={lang} />
           <Lesson lesson={scenario.lesson} lang={lang} />
         </div>
@@ -363,6 +405,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       </div>
 
       <div className="mx-auto w-full max-w-2xl flex-1 space-y-5 px-4 pt-2 pb-48">
+        {phase === "intro" && resumeCard}
         {scenario.lesson && mode === "practice" && <LessonSteps current={phase === "demo" ? "see" : "do"} lang={lang} />}
         <div className="space-y-2">
           <span className="grid h-14 w-14 place-items-center rounded-[1.1rem] bg-brand-soft text-brand ring-1 ring-brand/25 ring-inset"><IconMessage size={28} /></span>

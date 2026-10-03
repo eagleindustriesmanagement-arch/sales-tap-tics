@@ -689,3 +689,30 @@ test("a typed turn renders the reply, even when the stream is damaged or the pag
   await expect(free.or(page.getByText("The conversation has ended."))).toBeVisible();
   expect(crashes).toEqual([]);
 });
+
+test("a reload mid-conversation offers the conversation back, and it carries on", async ({ page }) => {
+  // Production (October 3): after a crash, "Try again" landed on the lesson and the conversation was gone.
+  const crashes: string[] = [];
+  page.on("pageerror", (e) => crashes.push(e.message));
+  await signInReady(page, "rep2@demo.test");
+  await page.goto("/practice/S-browser-L1");
+  await pastLesson(page);
+  await page.getByRole("radio", { name: "Type" }).check();
+  await page.getByRole("button", { name: "Start" }).click();
+  const customer = page.getByTestId("line-customer");
+  await expect(customer).toHaveCount(1);
+  await page.getByLabel("Type what you would say").fill("Take your time. What brought you in today?");
+  await page.getByRole("button", { name: "Send" }).click();
+  await expect(customer).toHaveCount(2);
+
+  await page.reload();
+  await expect(page.getByTestId("resume")).toBeVisible();
+  await page.getByRole("button", { name: "Pick it back up" }).click();
+  await expect(page.getByTestId("line-rep")).toHaveCount(1);
+  await expect(customer).toHaveCount(2);
+  await page.getByLabel("Type what you would say").fill("What would make today a good visit for you?");
+  await page.getByRole("button", { name: "Send" }).click();
+  await expect(page.getByTestId("line-rep")).toHaveCount(2);
+  await expect(customer).toHaveCount(3);
+  expect(crashes).toEqual([]);
+});

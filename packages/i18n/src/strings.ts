@@ -532,6 +532,8 @@ export const STRINGS = {
   },
   "practice.seeDebrief": { en: "See debrief", es: "Ver resumen" },
   "practice.error": { en: "Something went wrong. Try again.", es: "Algo salió mal. Intente de nuevo." },
+  "practice.resumeTitle": { en: "Your conversation with {name} is still open.", es: "Su conversación con {name} sigue abierta." },
+  "practice.resume": { en: "Pick it back up", es: "Retomarla" },
   "practice.recovered": {
     en: "This screen hit a problem. Your conversation is saved: you can see the debrief or start again.",
     es: "Esta pantalla tuvo un problema. Su conversación está guardada: puede ver el resumen o empezar de nuevo.",
@@ -574,6 +576,7 @@ export const STRINGS = {
   "login.expired": { en: "That code expired or was already used. Ask for a new one.", es: "Ese código venció o ya se usó. Pida uno nuevo." },
   "login.locked": { en: "Too many tries. Ask for a new code.", es: "Demasiados intentos. Pida un código nuevo." },
   "login.rateLimited": { en: "Too many codes requested. Wait 15 minutes and try again.", es: "Pidió demasiados códigos. Espere 15 minutos e intente de nuevo." },
+  "login.failed": { en: "Something went wrong on our side. Try again in a moment.", es: "Algo falló de nuestro lado. Intente de nuevo en un momento." },
   "login.unavailable": { en: "Sign-in codes cannot be delivered right now. Ask your manager.", es: "No se pueden enviar códigos en este momento. Consulte con su gerente." },
   "login.devCode": { en: "Development code: {code}", es: "Código de desarrollo: {code}" },
   "login.demoTitle": { en: "Try the demo as", es: "Pruebe la demostración como" },
