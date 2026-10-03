@@ -25,6 +25,8 @@ const items = [
   ...[...library.modules.values()].map((body) => ({ kind: "module", code: body.code, body })),
   { kind: "glossary", code: "terms", body: library.glossary },
   { kind: "lexicon", code: "lexicon", body: library.lexicon },
+  ...(library.lostReasons ? [{ kind: "lost_reasons", code: "lost-reasons", body: library.lostReasons }] : []),
+  ...(library.exampleDeal ? [{ kind: "example_deal", code: "deal", body: library.exampleDeal }] : []),
 ];
 const version = `sha-${createHash("sha256").update(JSON.stringify(items)).digest("hex").slice(0, 12)}`;
 const db = new pg.Client({ connectionString: process.env.DATABASE_URL });
