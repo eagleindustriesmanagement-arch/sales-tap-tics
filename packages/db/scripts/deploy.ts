@@ -8,7 +8,7 @@
  *   pnpm db:deploy     (TAPTICS_DEMO_SEED=1 also seeds the demo store, with no private window so managers see practice at once)
  */
 import pg from "pg";
-import { migrate } from "../src/index.js";
+import { migrate, pgConfig } from "../src/index.js";
 import { seedDemo } from "./seed-demo.js";
 
 const url = process.env.DATABASE_URL_UNPOOLED ?? process.env.POSTGRES_URL_NON_POOLING ?? process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
@@ -18,7 +18,7 @@ if (!url) {
 }
 process.env.DATABASE_URL = url;
 
-const db = new pg.Client({ connectionString: url });
+const db = new pg.Client(pgConfig(url));
 await db.connect();
 const applied = await migrate(db);
 console.log(applied.length ? `applied: ${applied.join(", ")}` : "database is up to date");

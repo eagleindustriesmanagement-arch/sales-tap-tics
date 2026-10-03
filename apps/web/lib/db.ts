@@ -1,6 +1,6 @@
 import "server-only";
 import pg from "pg";
-import { withTenant, type Queryable } from "@taptics/db";
+import { pgConfig, withTenant, type Queryable } from "@taptics/db";
 
 const g = globalThis as unknown as { __tapticsPool?: pg.Pool };
 
@@ -13,7 +13,7 @@ export function pool(): pg.Pool {
   // serves a few requests and many instances share the database's pooler, so each keeps only a few connections.
   // TAPTICS_DB_POOL overrides it.
   const max = Number(process.env.TAPTICS_DB_POOL ?? (process.env.VERCEL ? 5 : 20));
-  g.__tapticsPool ??= new pg.Pool({ connectionString: databaseUrl(), max });
+  g.__tapticsPool ??= new pg.Pool({ ...pgConfig(databaseUrl()!), max });
   return g.__tapticsPool;
 }
 

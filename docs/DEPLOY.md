@@ -97,8 +97,10 @@ The app runs on any Postgres 16. With Supabase:
    never paste them into a chat, a ticket or the repository.
 4. Migration 0018 takes away the access Supabase's Data API roles (`anon`, `authenticated`) get to every table.
    The app never uses that API. You can also turn the Data API off in Supabase's API settings.
-5. If the first deploy fails with a certificate error from the pooler, add Supabase's CA certificate (Database
-   settings, SSL) rather than turning verification off.
+5. **Certificate (decision 0026).** Supabase signs its certificates with its own CA. If the deploy fails with
+   "unable to verify the first certificate" or "self-signed certificate in certificate chain", download the CA
+   certificate (Database settings, SSL configuration) and add its contents to Vercel as `DATABASE_CA_CERT` for
+   Production and Preview. Every connection then verifies against it. Do not turn verification off.
 
 ## 4. Deploy and add the domain
 

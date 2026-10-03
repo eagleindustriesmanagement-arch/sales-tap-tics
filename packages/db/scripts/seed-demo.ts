@@ -6,6 +6,7 @@
  */
 import pg from "pg";
 import { migrate, withDeployLock } from "../src/migrate.js";
+import { pgConfig } from "../src/connection.js";
 
 export const DEMO = {
   tenant: "11111111-1111-4111-8111-111111111111",
@@ -46,7 +47,7 @@ async function seedDemoRows(db: pg.Client, privateWindowHours: number) {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const window = Number(process.argv.find((a) => a.startsWith("--private-window-hours="))?.split("=")[1] ?? 24);
-  const db = new pg.Client({ connectionString: process.env.DATABASE_URL });
+  const db = new pg.Client(pgConfig(process.env.DATABASE_URL!));
   await db.connect();
   await migrate(db);
   await seedDemo(db, window);

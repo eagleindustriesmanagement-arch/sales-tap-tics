@@ -8,6 +8,7 @@ import { createHash } from "node:crypto";
 import pg from "pg";
 import { loadLibrary } from "@taptics/content";
 import { publishPlatformRelease } from "../src/repo.js";
+import { pgConfig } from "../src/connection.js";
 
 const { library, errors } = loadLibrary();
 if (errors.length) {
@@ -29,7 +30,7 @@ const items = [
   ...(library.exampleDeal ? [{ kind: "example_deal", code: "deal", body: library.exampleDeal }] : []),
 ];
 const version = `sha-${createHash("sha256").update(JSON.stringify(items)).digest("hex").slice(0, 12)}`;
-const db = new pg.Client({ connectionString: process.env.DATABASE_URL });
+const db = new pg.Client(pgConfig(process.env.DATABASE_URL!));
 await db.connect();
 const id = await publishPlatformRelease(db, version, `Platform library: ${library.techniques.size} techniques, ${library.objections.size} objections, ${library.scenarios.size} scenarios`, items);
 console.log(`platform release ${version} (${id}) with ${items.length} items`);

@@ -22,7 +22,9 @@ pnpm --filter @taptics/web e2e                # browser tests against the produc
 
 | Variable | Purpose |
 | --- | --- |
-| `DATABASE_URL` | Postgres connection (required) |
+| `DATABASE_URL` | Postgres connection (required; `POSTGRES_URL` also works) |
+| `DATABASE_URL_UNPOOLED` | Direct connection for the deploy step (optional; the pooled URL works too, decision 0025) |
+| `DATABASE_CA_CERT` | The database host's CA certificate, PEM (optional; Supabase, decision 0026) |
 | `TAPTICS_SECRET` | 32+ characters; keys login-code hashes (required in production) |
 | `ANTHROPIC_API_KEY` | Live AI customer, classifier and judge; without it, the offline customer |
 | `RESEND_API_KEY`, `TAPTICS_EMAIL_FROM` | Email delivery of sign-in codes |
