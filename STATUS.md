@@ -34,6 +34,11 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
   - every server error, through `onRequestError`;
   - each turn's time to the first customer sentence;
   - `/api/health` for uptime monitors.
+- **Daily practice reminders by Web Push** (spec 15.3 item 5, decision 0022).
+  - A rep turns them on for each phone in Settings.
+  - An hourly job sends one reminder at the chosen time: never twice a day, never in the store's peak hours, and
+    not if the rep already practiced.
+  - It is off until the deployment has VAPID keys, a `CRON_SECRET` and an hourly schedule (`docs/DEPLOY.md`).
 - **Technique lines are checked against an example deal** (decision 0019). A model line can no longer state a
   number or deadline its deal does not hold, and the T020 and T107 flawed lines now show the made-up deadline their
   lesson is about.
@@ -179,7 +184,7 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
 | M5 | Coach-the-coach roleplay | Done offline: the manager reads a scene, gives the floor check, and is scored on the four parts (the spec 14.2 example scores 100 in both languages); private to the manager, visible to the general manager. With a key, an AI rep reply can be added |
 | M6 | Mastery tracking, spaced scheduling, certification with fixed seeds | Done; a simulated 30-day onboarding schedules all 20 objections and offers certification from day 30 |
 | M6 | Quarterly recertification | Done: a fixed random set of 3 per rep and quarter, passed at 75, renews level 1 for 90 days |
-| M6 | Reminders that respect peak hours | Timing done and tested (chosen time, once a day, moved past peak hours); **sending needs a push or SMS provider** |
+| M6 | Reminders that respect peak hours | Done by Web Push (decision 0022). The timing and the job are tested; the sender was checked against a local push endpoint, and the browser suite runs the job against the database. Real phones need the VAPID keys and an hourly schedule in the deployment |
 | M4 | Spanish reviewed by a Miami native speaker | **Needs a person**: the review screen is ready; 0 of 897 release 1 lines reviewed |
 
 ## Numbers
@@ -263,7 +268,7 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
 
 1. M3: run the suite with both layers (`pnpm compliance:suite --with-classifier`) once `ANTHROPIC_API_KEY` is set,
    and work the critical misses to zero on dev, reporting holdout.
-2. M6: send reminders once a push or SMS provider is chosen (the rep's reminder time is already a setting).
+2. Store setup: a peak-hours field (reminders use the spec default, Saturday 11:00 to 17:00).
 3. Spec 19.2 item 3, score validity (practice scores against close rate), once a store has 8 weeks of both.
 4. Engine notes from the content authors: walk-out trigger cues ignore negation ("I won't tell you there's only
    one bank" fires the trigger); the universal language item can score an opening as unknown.

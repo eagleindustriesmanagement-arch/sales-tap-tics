@@ -5,7 +5,9 @@ import { apiUser, principalOf } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { pushConfigured } from "@/lib/push";
 
-const Sub = z.object({ endpoint: z.string().url().startsWith("https://").max(2000), keys: z.object({ p256dh: z.string().min(1).max(200), auth: z.string().min(1).max(100) }) });
+// A P-256 public key is 65 bytes and the auth secret 16, base64url-encoded by the browser.
+const b64url = (bytes: number) => z.string().regex(/^[A-Za-z0-9_-]+={0,2}$/).refine((v) => Buffer.from(v, "base64url").length === bytes);
+const Sub = z.object({ endpoint: z.string().url().startsWith("https://").max(2000), keys: z.object({ p256dh: b64url(65), auth: b64url(16) }) });
 
 /** Turns practice reminders on for this phone (decision 0022). */
 export async function POST(request: Request) {
