@@ -32,7 +32,7 @@ describe.skipIf(SKIP)("product analytics (spec 19.4)", () => {
     await db.query("delete from sessions where store_id = $1 and started_at > now() - interval '1 day'", [DEMO.store]).catch(() => undefined);
     const before = (await as(GM, (q) => storeUsage(q, DEMO.store, new Date(Date.now() - 3_600_000))))!;
     const a = await session(REP, { demoWatched: true, ended: "next_step", voice: true });
-    await session(REP, { demoWatched: false, ended: "abandoned" });
+    const early = await session(REP, { demoWatched: false, ended: "abandoned" });
     await session(REP2, { demoWatched: false, ended: "walk_away" });
     // Spoken turns with recognizer confidence, and one model call.
     await db.query("insert into turns (tenant_id, session_id, index, speaker, text, asr_confidence, pause_before_ms) values ($1, $2, 0, 'rep', 'hola', 0.8, 1200), ($1, $2, 1, 'rep', 'sí', 0.9, 2400)", [DEMO.tenant, a]);
@@ -43,9 +43,13 @@ describe.skipIf(SKIP)("product analytics (spec 19.4)", () => {
     const other = await session(REP2, { demoWatched: null, ended: "next_step" });
     expect(await as(REP, (q) => markDebriefSeen(q, other))).toBe(false);
 
+    for (const id of [a, early]) {
+      await db.query("insert into scores (tenant_id, session_id, rubric_code, total, passed, honesty_passed, dimensions, items) values ($1, $2, 'R-objection', 50, false, true, '{}', '[]')", [DEMO.tenant, id]);
+    }
     const u = (await as(GM, (q) => storeUsage(q, DEMO.store, new Date(Date.now() - 3_600_000))))!;
     expect(u.sessions_started - before.sessions_started).toBe(4);
-    expect(u.sessions_completed - before.sessions_completed).toBe(3);
+    // Finished means a debrief was produced (a score exists), whatever the end reason: the one the rep ended early counts.
+    expect(u.sessions_completed - before.sessions_completed).toBe(2);
     expect(u.voice_sessions - before.voice_sessions).toBe(1);
     expect(u.demo_watched - before.demo_watched).toBe(1);
     expect(u.demo_skipped - before.demo_skipped).toBe(2);
