@@ -1,0 +1,189 @@
+code: S-charge-time-L1
+module: car-ev
+title:
+  en: "\"Charging takes too long\""
+  es: "\"Cargarlo se demora mucho\""
+setting:
+  en: Monday after work, beside the truck, right after the test drive in the Silverado EV.
+  es: Lunes después del trabajo, al lado de la camioneta, justo después de la prueba de manejo en la Silverado EV.
+persona: P-charge-time
+objection: O29
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, supervisor at a warehouse in Doral, drives a paid-off 2016 Silverado 1500 and is tired of paying for gas. He just drove the 2026 Silverado EV LT and liked how it pulls. You showed him the all-in price of $67,394 plus tax, tag and title. He crosses his arms."
+  es: "{name}, de unos 45 años, supervisor de un almacén en Doral, tiene una Silverado 1500 2016 pagada y está cansado de pagar gasolina. Acaba de manejar la Silverado EV LT 2026 y le gustó cómo jala. Usted le enseñó el precio total de $67,394 más impuestos, tag y título. Se cruza de brazos."
+opening:
+  en: Charging takes too long.
+  es: Cargarlo se demora mucho.
+facts:
+  session_date: "2026-10-05"
+  vehicle: { year: 2026, make: Chevrolet, model: Silverado EV, trim: LT, color: Summit White, stock: "9307", in_stock: true }
+  price_cents: 6649500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 6739400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  trade: { vehicle: 2016 Chevrolet Silverado 1500 LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    daily_miles: About 30 miles a day, home in Hialeah Gardens to work in Doral
+    parks_at_night: In his own two-car garage, every night
+    brother_in_law: Lives in an apartment and charges at a public charger near the Publix
+    home_charging_figures: The rep quotes no charging time and no charger or installation cost; what the garage needs depends on his electrical panel and a licensed electrician's look at it
+    free_tuesday: Free Tuesday after 5
+numbers_sheet: false
+target_techniques: [T001, T003, T002, T005, T006, T008, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O29-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O29-ACK
+      behavior:
+        en: "Agreed that waiting at a charger is a fair concern instead of arguing"
+        es: "Reconoció que esperar en un cargador es una preocupación válida en vez de discutir"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O29-QFIRST
+      behavior:
+        en: "Asked where he pictures charging before explaining anything"
+        es: "Preguntó dónde se imagina cargando antes de explicar nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O29-ISOLATE
+      behavior:
+        en: "Checked whether the truck itself was right for him, apart from charging"
+        es: "Confirmó si la camioneta en sí le servía, aparte de la carga"
+      dimension: discovery
+      method: judge
+      points: 10
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O29-HIDDEN
+      behavior:
+        en: "Asked where the truck sleeps at night and surfaced the garage he never thought of"
+        es: "Preguntó dónde duerme la camioneta de noche y sacó a la luz el garaje en que él nunca había pensado"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: "Scenario design; spec 9.3 (ask where the car sleeps at night)"
+      params: { event: hidden_revealed }
+    - code: O29-STRAIGHT
+      behavior:
+        en: "Tied home charging to his garage without promising a charging time or an installation cost"
+        es: "Relacionó la carga en casa con su garaje sin prometer un tiempo de carga ni un costo de instalación"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T008)"
+      technique: T008
+    - code: O29-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_charge_time
+      description:
+        en: "Promised a charging time or a charger cost that is not in the facts"
+        es: "Prometió un tiempo de carga o un costo de cargador que no está en los datos"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he called the concern old thinking, threw out a charging time he cannot back up, and pushed for today. He never asked where the truck would sleep, so he never learned about the garage."
+      es: "Fíjese: le dijo que era mentalidad vieja, le soltó un tiempo de carga que no puede respaldar y presionó para hoy. Nunca preguntó dónde dormiría la camioneta, así que nunca supo del garaje."
+    script:
+      en:
+        - { speaker: customer, text: "Charging takes too long." }
+        - { speaker: rep, text: "Charging? That's old thinking. These trucks charge super fast now." }
+        - { speaker: customer, text: "I'm not sitting around for an hour waiting on a truck." }
+        - { speaker: rep, text: "At a fast charger it only takes twenty minutes. Don't worry about charging." }
+        - { speaker: customer, text: "Gas takes five minutes. That's my problem with these." }
+        - { speaker: rep, text: "Let's just write it up, and you'll see how easy it is." }
+        - { speaker: customer, text: "I'll stick with gas. Thanks." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+      es:
+        - { speaker: customer, text: "Cargarlo se demora mucho." }
+        - { speaker: rep, text: "¿La carga? Eso es mentalidad vieja. Estas camionetas cargan rapidísimo ahora." }
+        - { speaker: customer, text: "Yo no me voy a sentar una hora a esperar por una camioneta." }
+        - { speaker: rep, text: "En un cargador rápido solo se demora veinte minutos. No se preocupe por la carga." }
+        - { speaker: customer, text: "La gasolina son cinco minutos. Ese es mi problema con estas." }
+        - { speaker: rep, text: "Hagámoslo ya, y usted va a ver lo fácil que es." }
+        - { speaker: customer, text: "Me quedo con la gasolina. Gracias." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice the pause, the question about what he pictures, and the one question that changes everything, where the truck sleeps at night, followed by straight talk with no promised times or costs.
+      es: Fíjese en la pausa, en la pregunta sobre lo que él se imagina, y en la pregunta que lo cambia todo, dónde duerme la camioneta de noche, seguida de una explicación clara sin prometer tiempos ni costos.
+    script:
+      en:
+        - { speaker: customer, text: "Charging takes too long." }
+        - { speaker: rep, text: "[pause] Nobody wants to spend an hour at a charger, I get it. When you picture charging this truck, where are you, and how long are you waiting?" }
+        - { speaker: customer, text: "I've seen it with my own eyes, people parked at the chargers by the shopping center. That's not for me." }
+        - { speaker: rep, text: "Fair enough. And charging aside for a second, is the truck itself the right one for you?" }
+        - { speaker: customer, text: "The truck I like. It's the waiting." }
+        - { speaker: rep, text: "Then let me ask you one thing. Where does the truck sleep at night?" }
+        - { speaker: customer, text: "Okay. My brother-in-law has one, but he lives in an apartment, so he sits at the charger by the Publix for an hour. Me, I park in my own garage every night. I never thought about charging it there." }
+        - { speaker: rep, text: "That changes the picture. If it sleeps in your garage, most of your charging could happen there overnight while you sleep, and public chargers would be mostly for long trips. What your garage needs depends on your electrical panel, and I won't guess at that or at the cost. A licensed electrician should look at it." }
+        - { speaker: customer, text: "Huh. I never looked at it that way." }
+        - { speaker: rep, text: "Can you come back Tuesday at 6? I'll have this Silverado EV plugged in so you can see how charging works, and bring a photo of your electrical panel to show the electrician." }
+        - { speaker: customer, text: "Tuesday at 6. I'll take the picture tonight." }
+      es:
+        - { speaker: customer, text: "Cargarlo se demora mucho." }
+        - { speaker: rep, text: "[pausa] Nadie quiere pasarse una hora en un cargador, lo entiendo. Cuando se imagina cargando esta camioneta, ¿dónde está, y cuánto tiempo está esperando?" }
+        - { speaker: customer, text: "Yo lo he visto con mis propios ojos, la gente parqueada en los cargadores del shopping. Eso no es para mí." }
+        - { speaker: rep, text: "Me parece justo. Y dejando la carga a un lado un momento, ¿la camioneta en sí es la que le sirve?" }
+        - { speaker: customer, text: "La camioneta me gusta. Es la espera." }
+        - { speaker: rep, text: "Entonces déjeme preguntarle una sola cosa. ¿Dónde duerme la camioneta de noche?" }
+        - { speaker: customer, text: "Bueno. Mi cuñado tiene una, pero vive en un apartamento, así que se sienta una hora en el cargador del Publix. Yo guardo la camioneta en mi propio garaje todas las noches. Nunca pensé en cargarla ahí." }
+        - { speaker: rep, text: "Eso cambia el panorama. Si duerme en su garaje, casi toda la carga la podría hacer ahí, de noche, mientras usted duerme, y los cargadores públicos quedarían más que nada para los viajes largos. Lo que haga falta en su garaje depende de su panel eléctrico, y eso no lo voy a adivinar, ni el costo tampoco. Eso lo tiene que ver un electricista con licencia." }
+        - { speaker: customer, text: "Mire eso. Nunca lo había visto así." }
+        - { speaker: rep, text: "¿Puede volver el martes a las 6? Le tengo esta Silverado EV enchufada para que vea cómo funciona la carga, y tráigase una foto de su panel eléctrico para enseñársela al electricista." }
+        - { speaker: customer, text: "El martes a las 6. Esta noche saco la foto." }
+spanish_reviewed: false

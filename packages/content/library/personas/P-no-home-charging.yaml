@@ -1,0 +1,130 @@
+code: P-no-home-charging
+name_pool:
+  en: [Jordan, Marcus, Ryan, Justin]
+  es: [Ernesto, Yasmany, Leandro, Dariel]
+age_range: 25-34
+temperament: [guarded]
+temperament_note:
+  en: Guarded and a little embarrassed. Did his homework on the Blazer EV, then realized he has nowhere to plug it in. Expects to be talked into it anyway, and relaxes when the rep is straight with him.
+  es: Reservado y un poco apenado. Investigó bien la Blazer EV y después se dio cuenta de que no tiene dónde enchufarla. Espera que lo convenzan de todas maneras, y se relaja cuando el vendedor le habla claro.
+buyer_orientation: task
+situation:
+  en: Late 20s, rents an apartment in Kendall with an open parking lot and no outlet near his space. Works in Fort Lauderdale, with no chargers at work. Drives a paid-off 2017 Malibu with about 120,000 miles. Good credit. Came in for the 2026 Blazer EV LT.
+  es: De unos 28 años, alquila un apartamento en Kendall con parqueo abierto y ningún enchufe cerca de su espacio. Trabaja en Fort Lauderdale, y en el trabajo no hay cargadores. Maneja un Malibu 2017 pagado con unas 120,000 millas. Buen crédito. Vino por la Blazer EV LT 2026.
+stated_objection: O30
+stated_line:
+  en: I can't charge at home.
+  es: No tengo dónde cargarlo en casa.
+hidden_truth:
+  en: He is not attached to electric at all. He spends about $280 a month on gas commuting to Fort Lauderdale and assumed an EV was the only way to cut that.
+  es: No está casado con lo eléctrico. Gasta unos $280 al mes de gasolina para ir y venir de Fort Lauderdale y pensó que un eléctrico era la única manera de bajar ese gasto.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\bgas\b'
+    - '\bcommut(e|ing)\b'
+    - '\bonly way\b'
+    - '\bfort lauderdale\b'
+    - '\$\s?\d'
+  es:
+    - '\bgasolina\b'
+    - '\bfort lauderdale\b'
+    - '\búnica (manera|salida|forma)\b'
+    - '\$\s?\d'
+unlock_conditions:
+  - code: asks_why_electric
+    description:
+      en: Asks what made him look at electric in the first place, or what he hoped an EV would do for him.
+      es: Pregunta qué lo hizo fijarse en los eléctricos en primer lugar, o qué esperaba que un eléctrico le resolviera.
+    cues:
+      en:
+        - '\bwhat (made|got|brought|led) you\b.{0,30}\b(electric|EVs?)\b'
+        - '\bwhy (electric|an EV|EV|an electric)\b'
+        - '\bwhat (were|are) you hoping (it|an EV|electric|the Blazer|this) (would|could|will)\b'
+        - '\bwhat (do|did) you want (it|an EV|electric|this) to (do|fix|solve)\b'
+      es:
+        - '\bqué (lo|la) (hizo|llevó a|trajo a|puso a) (mirar|buscar|pensar en|fijarse en|interesarse en)\b.{0,30}\beléctric'
+        - '\bpor qué (un |una )?eléctric[oa]\b'
+        - '\bqué (esperaba|quería) (usted )?que (le )?(resolviera|arreglara|hiciera|solucionara)\b'
+  - code: asks_gas_or_commute
+    description:
+      en: Asks what he spends on gas now or how far he drives to work.
+      es: Pregunta cuánto gasta ahora en gasolina o qué tan lejos maneja para el trabajo.
+    cues:
+      en:
+        - '\b(what|how much) (do|are) you (spend|spending|paying|put|putting)\b.{0,30}\b(gas|fuel)\b'
+        - '\bspend(ing)? (on|in) (gas|fuel)\b'
+        - '\b(gas|fuel) (bill|budget)\b'
+        - '\bhow (far|long) is (your|the) (drive|commute)\b'
+        - '\byour commute\b'
+      es:
+        - '\bcuánto (gasta|está gastando|paga|le echa)\b.{0,30}\bgasolina\b'
+        - '\b(gasta|gastando|gastar)\b.{0,20}\bgasolina\b'
+        - '\bqué tan lejos (queda|le queda) (el|su) trabajo\b'
+        - '\bcuánto maneja\b'
+walk_out_triggers:
+  - code: pushes_ev_anyway
+    description:
+      en: Brushes past the charging problem and keeps selling the EV ("Just use public chargers", "You'll figure it out").
+      es: Pasa por encima del problema de la carga y sigue vendiendo el eléctrico ("Use los cargadores públicos", "Usted se las arregla").
+    cues:
+      en:
+        - '\b(just|you can|you''ll) (use|charge at) (the )?public (chargers?|charging)\b'
+        - '\bchargers? (on|at) every corner\b'
+        - '\byou''ll figure it out\b'
+        - '\b(it''s|that''s) no big deal\b'
+      es:
+        - '\b(use|cargue en) (los )?cargadores públicos\b'
+        - '\bcargadores en (todas partes|cada esquina)\b'
+        - '\bse las (arregla|va a arreglar)\b'
+        - '\bno es para tanto\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The gas bill behind the EV interest comes out, the rep is straight that this EV does not fit how he lives, shows real alternatives, and they set a day and time to compare and drive them.
+    es: Sale a la luz el gasto de gasolina detrás del interés por el eléctrico, el vendedor le dice claro que este eléctrico no le encaja a su forma de vivir, le enseña alternativas reales, y fijan día y hora para compararlas y manejarlas.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: en
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el trade-in", "el down", "el parking"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-20s
+  es: tbd-es-miami-caribbean-male-20s
+difficulty: 1
+variation:
+  moods: [quiet, a little embarrassed, checking his phone for traffic on I-95]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I rent. There's no outlet anywhere near my parking spot.", es: "Yo alquilo. No hay un enchufe en ningún lado cerca de mi parqueo." }
+    - { en: "And there's nowhere to plug in at work either.", es: "Y en el trabajo tampoco hay dónde enchufarlo." }
+    - { en: "I'm not going to live at a public charger.", es: "Yo no voy a vivir metido en un cargador público." }
+  hint: { en: "Honestly? It was never really about it being electric.", es: "¿La verdad? Nunca fue por que fuera eléctrico." }
+  after_hint: { en: "I like the Blazer. I just have nowhere to plug it in.", es: "La Blazer me gusta. Es que no tengo dónde enchufarla." }
+  reveal: { en: "I'm spending about $280 a month on gas with this commute up to Fort Lauderdale. I figured electric was the only way out of that.", es: "Estoy gastando unos $280 al mes de gasolina para ir y venir de Fort Lauderdale. Pensé que lo eléctrico era la única salida." }
+  after_reveal:
+    - { en: "Wow. I thought you'd try to talk me into it anyway.", es: "Mire eso. Pensé que me iba a querer convencer de todas maneras." }
+    - { en: "Okay. That's honest. I appreciate it.", es: "Bueno. Eso es ser honesto. Se lo agradezco." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  not_now: { en: "Not today. I need to think about what makes sense.", es: "Hoy no. Tengo que pensar qué es lo que me conviene." }
+  walk_away: { en: "I'll keep driving my Malibu for now.", es: "Por ahora sigo con mi Malibu." }
+  goodbye: { en: "Thanks.", es: "Gracias." }
+  react_to_pressure: { en: "I just told you I can't plug it in. Are you listening?", es: "Le acabo de decir que no lo puedo enchufar. ¿Usted me está oyendo?" }
+spanish_reviewed: false

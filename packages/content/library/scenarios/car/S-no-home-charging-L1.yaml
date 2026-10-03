@@ -1,0 +1,192 @@
+code: S-no-home-charging-L1
+module: car-ev
+title:
+  en: "\"I can't charge at home\""
+  es: "\"No tengo dónde cargarlo en casa\""
+setting:
+  en: Tuesday evening, at the desk, after he sat in the Blazer EV and asked about charging.
+  es: Martes por la tarde, en el escritorio, después de que se sentó en la Blazer EV y preguntó por la carga.
+persona: P-no-home-charging
+objection: O30
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 20s, drives a paid-off 2017 Malibu with about 120,000 miles and came in asking for the 2026 Blazer EV LT. You showed him the all-in price of $46,394 plus tax, tag and title. When you start on the charging cable, he stops you."
+  es: "{name}, de unos 28 años, maneja un Malibu 2017 pagado con unas 120,000 millas y vino preguntando por la Blazer EV LT 2026. Usted le enseñó el precio total de $46,394 más impuestos, tag y título. Cuando usted empieza a hablarle del cable de carga, él lo para."
+opening:
+  en: I can't charge at home.
+  es: No tengo dónde cargarlo en casa.
+facts:
+  session_date: "2026-10-06"
+  vehicle: { year: 2026, make: Chevrolet, model: Blazer EV, trim: LT, color: Riptide Blue Metallic, stock: "7718", in_stock: true }
+  price_cents: 4549500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4639400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  alternatives:
+    - { description: "2026 Chevrolet Trax 2RS, Mosaic Black Metallic, stock 5311", all_in_price_cents: 2499400 }
+    - { description: "2026 Chevrolet Equinox LT (gas), Sterling Gray Metallic, stock 5208", all_in_price_cents: 3279400 }
+  trade: { vehicle: 2017 Chevrolet Malibu LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    gas_per_month_cents: 28000
+    home_parking: Rents in Kendall; open lot, no outlet near his space, no chargers planned
+    work_charging: No chargers at his job in Fort Lauderdale
+    fuel_economy_source: The rep quotes no fuel-economy number from memory; they compare the window stickers side by side
+    free_thursday: Free Thursday after 5
+numbers_sheet: false
+target_techniques: [T001, T003, T002, T005, T046, T009, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O30-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O30-ACK
+      behavior:
+        en: "Treated no home charging as a real barrier instead of brushing past it"
+        es: "Trató la falta de carga en casa como una barrera real en vez de pasarle por encima"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "YouGov 2026: 34% of EV rejecters cite home charging (spec 9.3)"
+      technique: T003
+    - code: O30-QFIRST
+      behavior:
+        en: "Asked what made him look at electric before offering any solution"
+        es: "Preguntó qué lo hizo fijarse en los eléctricos antes de ofrecer ninguna solución"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O30-ISOLATE
+      behavior:
+        en: "Checked whether the Blazer itself was right for him, apart from charging"
+        es: "Confirmó si la Blazer en sí le servía, aparte de la carga"
+      dimension: discovery
+      method: judge
+      points: 10
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O30-HIDDEN
+      behavior:
+        en: "Surfaced that the real goal is spending less on gas, not owning an EV"
+        es: "Sacó a la luz que lo que de verdad busca es gastar menos en gasolina, no tener un eléctrico"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O30-STRAIGHT
+      behavior:
+        en: "Was straight that this EV does not fit how he lives, and showed real alternatives compared on paper"
+        es: "Le dijo claro que este eléctrico no le encaja a su forma de vivir, y le enseñó alternativas reales comparadas en papel"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Spec 9.3 (be straight; show an alternative); T046"
+      technique: T046
+    - code: O30-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: sold_past_the_barrier
+      description:
+        en: "Kept pushing the EV after he said he has nowhere to charge it"
+        es: "Siguió empujando el eléctrico después de que él dijo que no tiene dónde cargarlo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed past a real barrier, kept selling the EV, and pushed for today. He never asked why the customer wanted electric, so he never learned it was really about the gas bill."
+      es: "Fíjese: le pasó por encima a una barrera real, siguió vendiendo el eléctrico y presionó para hoy. Nunca preguntó por qué el cliente quería un eléctrico, así que nunca supo que en realidad era por la gasolina."
+    script:
+      en:
+        - { speaker: customer, text: "I can't charge at home." }
+        - { speaker: rep, text: "No problem at all. You can just use public chargers, there are chargers on every corner now." }
+        - { speaker: customer, text: "I'm not going to live at a public charger." }
+        - { speaker: rep, text: "You'll figure it out, everybody does. And the Blazer EV is the best-looking SUV on the lot." }
+        - { speaker: customer, text: "And there's nowhere to plug in at work either." }
+        - { speaker: rep, text: "Let's just write it up, and you'll see it's no big deal." }
+        - { speaker: customer, text: "I'll keep driving my Malibu for now." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+      es:
+        - { speaker: customer, text: "No tengo dónde cargarlo en casa." }
+        - { speaker: rep, text: "No hay problema. Use los cargadores públicos, hay cargadores en cada esquina." }
+        - { speaker: customer, text: "Yo no voy a vivir metido en un cargador público." }
+        - { speaker: rep, text: "Usted se las arregla, todo el mundo se las arregla. Y la Blazer EV es la más bonita del lote." }
+        - { speaker: customer, text: "Y en el trabajo tampoco hay dónde enchufarlo." }
+        - { speaker: rep, text: "Hagámoslo ya, y va a ver que no es para tanto." }
+        - { speaker: customer, text: "Por ahora sigo con mi Malibu." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice that he takes the barrier seriously, asks what electric was supposed to solve, and then is straight that this car does not fit, and offers alternatives compared on paper instead of a pitch.
+      es: Fíjese en que toma en serio la barrera, pregunta qué se suponía que el eléctrico le iba a resolver, y después le dice claro que este carro no le encaja, y le ofrece alternativas comparadas en papel en vez de un pitch.
+    script:
+      en:
+        - { speaker: customer, text: "I can't charge at home." }
+        - { speaker: rep, text: "[pause] Thank you for saying that up front. It matters more than anything I could tell you about the car. Can I ask, what made you look at electric in the first place?" }
+        - { speaker: customer, text: "Honestly? It was never really about it being electric." }
+        - { speaker: rep, text: "Okay. And apart from charging, did the Blazer feel like the right size for you?" }
+        - { speaker: customer, text: "I like the Blazer. I just have nowhere to plug it in." }
+        - { speaker: rep, text: "Then what were you hoping it would fix? Is it what you're spending on gas?" }
+        - { speaker: customer, text: "I'm spending about $280 a month on gas with this commute up to Fort Lauderdale. I figured electric was the only way out of that." }
+        - { speaker: rep, text: "Thanks for being straight with me, so I'll be straight with you. With nowhere to plug in at home or at work, this Blazer EV would have you living at public chargers, and I don't want to sell you that. What you really want is to spend less getting to work. Let's put the Trax and a gas Equinox next to your Malibu: the fuel-economy stickers and the all-in prices, side by side." }
+        - { speaker: customer, text: "Wow. I thought you'd try to talk me into it anyway." }
+        - { speaker: rep, text: "Can you come Thursday at 5:30? I'll have both pulled up front with the window stickers printed, and you can drive the Trax on the highway." }
+        - { speaker: customer, text: "Thursday at 5:30 works. I'll come straight from work." }
+      es:
+        - { speaker: customer, text: "No tengo dónde cargarlo en casa." }
+        - { speaker: rep, text: "[pausa] Gracias por decírmelo de entrada. Eso importa más que cualquier cosa que yo le diga del carro. ¿Me permite preguntarle qué lo hizo mirar los eléctricos en primer lugar?" }
+        - { speaker: customer, text: "¿La verdad? Nunca fue por que fuera eléctrico." }
+        - { speaker: rep, text: "Bien. Y aparte de la carga, ¿la Blazer le pareció del tamaño que necesita?" }
+        - { speaker: customer, text: "La Blazer me gusta. Es que no tengo dónde enchufarla." }
+        - { speaker: rep, text: "Entonces, ¿qué esperaba que le resolviera? ¿Es lo que está gastando en gasolina?" }
+        - { speaker: customer, text: "Estoy gastando unos $280 al mes de gasolina para ir y venir de Fort Lauderdale. Pensé que lo eléctrico era la única salida." }
+        - { speaker: rep, text: "Gracias por ser claro conmigo, así que yo también le voy a hablar claro. Sin dónde enchufarla, ni en la casa ni en el trabajo, con esta Blazer EV usted viviría en los cargadores públicos, y eso no se lo quiero vender. Lo que usted de verdad quiere es gastar menos para ir al trabajo. Pongamos la Trax y una Equinox de gasolina al lado de su Malibu: las etiquetas de consumo de combustible y los precios totales, lado a lado." }
+        - { speaker: customer, text: "Mire eso. Pensé que me iba a querer convencer de todas maneras." }
+        - { speaker: rep, text: "¿Puede venir el jueves a las 5:30? Le tengo las dos al frente con las etiquetas impresas, y usted maneja la Trax por la autopista." }
+        - { speaker: customer, text: "El jueves a las 5:30 me queda bien. Vengo directo del trabajo." }
+spanish_reviewed: false

@@ -1,0 +1,192 @@
+code: S-ev-sticker-shock-L1
+module: car-ev
+title:
+  en: "\"EVs cost too much\""
+  es: "\"Los eléctricos son muy caros\""
+setting:
+  en: Wednesday at lunchtime, on the lot, between the gas Equinox and the Equinox EV she just drove.
+  es: Miércoles a la hora del almuerzo, en el lote, entre la Equinox de gasolina y la Equinox EV que acaba de manejar.
+persona: P-ev-sticker-shock
+objection: O32
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, drives a 2018 Equinox with about 140,000 miles. She drove the 2026 Equinox EV LT and the gas 2026 Equinox LT back to back. You showed her both all-in prices: $36,394 for the EV and $32,794 for the gas one, plus tax, tag and title. She holds up both window stickers."
+  es: "{name}, de unos 45 años, maneja una Equinox 2018 con unas 140,000 millas. Manejó la Equinox EV LT 2026 y la Equinox LT 2026 de gasolina una detrás de la otra. Usted le enseñó los dos precios totales: $36,394 la eléctrica y $32,794 la de gasolina, más impuestos, tag y título. Ella levanta las dos etiquetas de la ventana."
+opening:
+  en: EVs cost too much.
+  es: Los eléctricos son muy caros.
+facts:
+  session_date: "2026-10-07"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox EV, trim: LT, color: Summit White, stock: "8131", in_stock: true }
+  price_cents: 3549500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3639400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  alternatives:
+    - { description: "2026 Chevrolet Equinox LT (gas), Sterling Gray Metallic, stock 5208", all_in_price_cents: 3279400 }
+  trade: { vehicle: 2018 Chevrolet Equinox LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    gas_per_month_cents: 32000
+    sticker_gap_cents: 360000
+    work_driving: Drives between patients all day as a home-health nurse
+    home_parking: Owns a house in Homestead with a one-car garage
+    cost_figures_source: The rep quotes no savings, electricity rate or maintenance figure; they fill in a cost-of-ownership sheet with her own gas receipts and electric bill
+    free_wednesday: Free next Wednesday after 5
+numbers_sheet: false
+target_techniques: [T066, T057, T001, T002, T005, T009, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O32-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O32-AGREE
+      behavior:
+        en: "Agreed the price is higher instead of arguing"
+        es: "Reconoció que el precio es más alto en vez de discutir"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T057)"
+      technique: T057
+    - code: O32-QFIRST
+      behavior:
+        en: "Asked what she is comparing it to before offering anything"
+        es: "Preguntó con qué lo está comparando antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O32-ISOLATE
+      behavior:
+        en: "Checked which car she liked better, apart from the price"
+        es: "Confirmó cuál carro le gustó más, aparte del precio"
+      dimension: discovery
+      method: judge
+      points: 10
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O32-HIDDEN
+      behavior:
+        en: "Surfaced her monthly gas spending, the half of the comparison the sticker leaves out"
+        es: "Sacó a la luz lo que gasta al mes en gasolina, la mitad de la comparación que la etiqueta no muestra"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O32-SHEET
+      behavior:
+        en: "Offered a cost-of-ownership sheet built from her own numbers instead of a savings claim"
+        es: "Ofreció una hoja de costo total con sus propios números en vez de prometerle ahorros"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "J.D. Power EVX: only 12% of first-time EV buyers were shown cost of ownership (T066)"
+      technique: T066
+    - code: O32-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: invented_savings
+      description:
+        en: "Claimed a savings, electricity or maintenance figure that is not in the facts"
+        es: "Dijo un ahorro, una tarifa de electricidad o un costo de mantenimiento que no está en los datos"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he argued with her, threw out savings and maintenance claims she cannot check, and pushed for today. He never asked what she was comparing or how much she drives, so he never learned about her gas bill."
+      es: "Fíjese: le llevó la contraria, le soltó ahorros y cosas del mantenimiento que ella no puede comprobar, y presionó para hoy. Nunca le preguntó con qué estaba comparando ni cuánto maneja, así que nunca supo lo que gasta en gasolina."
+    script:
+      en:
+        - { speaker: customer, text: "EVs cost too much." }
+        - { speaker: rep, text: "Too much? Not at all. You'll save thousands, it pays for itself." }
+        - { speaker: customer, text: "I have both stickers right here. The electric one costs more." }
+        - { speaker: rep, text: "Plus there's basically no maintenance on these. Everybody who buys one says the same thing." }
+        - { speaker: customer, text: "Numbers are numbers." }
+        - { speaker: rep, text: "Let's just write it up, and you'll see the savings for yourself." }
+        - { speaker: customer, text: "I'll stick with the gas one, or my old one. Thanks." }
+        - { speaker: rep, text: "Okay. Here's my card." }
+      es:
+        - { speaker: customer, text: "Los eléctricos son muy caros." }
+        - { speaker: rep, text: "¿Caro? Para nada. Se va a ahorrar miles, se paga solo." }
+        - { speaker: customer, text: "Tengo las dos etiquetas aquí mismo. La eléctrica cuesta más." }
+        - { speaker: rep, text: "Además, estos casi no llevan mantenimiento. Todo el que compra uno dice lo mismo." }
+        - { speaker: customer, text: "Los números son los números." }
+        - { speaker: rep, text: "Hagámoslo ya, y usted misma va a ver lo que se ahorra." }
+        - { speaker: customer, text: "Me quedo con la de gasolina, o con la mía vieja. Gracias." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta." }
+  good:
+    notice:
+      en: Notice that he agrees the price is higher, asks what she compared, and finds the half the sticker leaves out. Then he offers to build the comparison with her own numbers instead of promising savings.
+      es: Fíjese en que reconoce que el precio es más alto, pregunta con qué comparó, y encuentra la mitad que la etiqueta no muestra. Después le ofrece armar la comparación con sus propios números en vez de prometerle ahorros.
+    script:
+      en:
+        - { speaker: customer, text: "EVs cost too much." }
+        - { speaker: rep, text: "[pause] You're right, the price is higher, and I won't argue with that. Can I ask, what are you comparing it to?" }
+        - { speaker: customer, text: "The gas Equinox. I looked at both stickers, and the gas one is a lot less." }
+        - { speaker: rep, text: "Fair. And price aside for a second, which one did you like driving better?" }
+        - { speaker: customer, text: "The electric one, honestly. It's just more money." }
+        - { speaker: rep, text: "Then let's look at the other half. How much do you drive in a week, and what are you spending on gas?" }
+        - { speaker: customer, text: "Okay. I'm a home-health nurse. I drive between patients all day and put about $320 a month in gas. I never really put that next to the price." }
+        - { speaker: rep, text: "That's exactly the half the sticker leaves out. I'm not going to throw a savings number at you, because it depends on your driving and your electric rate. Let's build a cost-of-ownership sheet with your real numbers: your gas on one side, and on the other, charging at home at the rate on your electric bill, side by side. And if the gas Equinox still comes out ahead for you, I'll tell you that too." }
+        - { speaker: customer, text: "That I'd like to see. With my numbers, not a brochure." }
+        - { speaker: rep, text: "Can you come Wednesday at 6? Bring a recent electric bill and a couple of gas receipts, and we'll fill in the sheet together for both Equinoxes." }
+        - { speaker: customer, text: "Wednesday at 6. I'll bring the bill and my receipts." }
+      es:
+        - { speaker: customer, text: "Los eléctricos son muy caros." }
+        - { speaker: rep, text: "[pausa] Tiene razón, el precio es más alto, y no se lo voy a discutir. ¿Me permite preguntarle con qué lo está comparando?" }
+        - { speaker: customer, text: "Con la Equinox de gasolina. Miré las dos etiquetas, y la de gasolina sale bastante menos." }
+        - { speaker: rep, text: "Me parece justo. Y dejando el precio a un lado un momento, ¿cuál le gustó más para manejar?" }
+        - { speaker: customer, text: "La eléctrica, la verdad. Es que es más dinero." }
+        - { speaker: rep, text: "Entonces veamos la otra mitad. ¿Cuánto maneja en una semana, y cuánto está gastando en gasolina?" }
+        - { speaker: customer, text: "Bueno. Soy enfermera a domicilio. Me paso el día manejando de un paciente a otro y le echo unos $320 al mes de gasolina. Nunca había puesto eso al lado del precio." }
+        - { speaker: rep, text: "Esa es justo la mitad que la etiqueta no le enseña. No le voy a tirar un número de ahorro, porque depende de lo que usted maneje y de lo que le cobren la electricidad. Vamos a armar una hoja de costo total con sus números reales: su gasolina de un lado, y del otro, cargar en la casa con la tarifa de su factura de la luz, lado a lado. Y si la Equinox de gasolina le sale mejor a usted, también se lo digo." }
+        - { speaker: customer, text: "Eso sí me gustaría verlo. Con mis números, no con un folleto." }
+        - { speaker: rep, text: "¿Puede venir el miércoles a las 6? Traiga una factura de la luz reciente y un par de recibos de gasolina, y llenamos la hoja juntos para ambas Equinox." }
+        - { speaker: customer, text: "El miércoles a las 6. Traigo la factura y los recibos." }
+spanish_reviewed: false
