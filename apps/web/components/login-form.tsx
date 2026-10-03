@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { t, type Language } from "@taptics/i18n";
-import { Card, buttonClass, fieldClass } from "@/components/ui";
+import { Card, buttonClass, fieldClass, ghostButtonClass } from "@/components/ui";
 
 /** `demo` lists the demo store's accounts on the trial site (decision 0014): one tap signs in as that role. */
-export function LoginForm({ language: lang, demo = [] }: { language: Language; demo?: { identifier: string; label: string }[] }) {
+export function LoginForm({ language: lang, demo = [], demoFirst = false }: { language: Language; demo?: { identifier: string; label: string }[]; demoFirst?: boolean }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
   const [step, setStep] = useState<"identifier" | "code">("identifier");
   const [identifier, setIdentifier] = useState("");
@@ -43,18 +43,21 @@ export function LoginForm({ language: lang, demo = [] }: { language: Language; d
   return (
     <Card>
       {step === "identifier" ? (
-        <form onSubmit={request} className="space-y-3">
-          <label className="block">
-            <span className="text-[14px] font-semibold text-muted">{ui("login.identifier")}</span>
-            <input value={identifier} onChange={(e) => setIdentifier(e.target.value)} autoComplete="username" inputMode="email" required className={`${fieldClass} mt-1.5`} type="text" />
-          </label>
-          <button className={`${buttonClass} w-full`} disabled={busy || !identifier.trim()}>{ui("login.sendCode")}</button>
+        <form onSubmit={request} className={`flex gap-4 ${demoFirst ? "flex-col-reverse" : "flex-col"}`}>
+          <div className="space-y-3">
+            {demoFirst && <p className="text-[14px] font-semibold text-muted">{ui("login.orEmail")}</p>}
+            <label className="block">
+              <span className="text-[14px] font-semibold text-muted">{ui("login.identifier")}</span>
+              <input value={identifier} onChange={(e) => setIdentifier(e.target.value)} autoComplete="username" inputMode="email" required={!demoFirst} className={`${fieldClass} mt-1.5`} type="text" />
+            </label>
+            <button className={`${demoFirst ? ghostButtonClass : buttonClass} w-full`} disabled={busy || !identifier.trim()}>{ui("login.sendCode")}</button>
+          </div>
           {demo.length > 0 && (
-            <div className="space-y-2 border-t border-line-soft pt-4">
-              <p className="text-[14px] font-semibold text-muted">{ui("login.demoTitle")}</p>
+            <div className={`space-y-2 ${demoFirst ? "border-b pb-4" : "border-t pt-4"} border-line-soft`} data-testid="demo-accounts">
+              <p className="text-[14px] font-semibold text-muted">{ui(demoFirst ? "login.demoPick" : "login.demoTitle")}</p>
               <div className="grid gap-2">
                 {demo.map((d) => (
-                  <button key={d.identifier} type="button" disabled={busy} onClick={() => void request(null, d.identifier)} className="liquid-glass liquid-glass-flat min-h-12 rounded-full px-4 text-[15px] font-semibold text-ink">
+                  <button key={d.identifier} type="button" disabled={busy} onClick={() => void request(null, d.identifier)} className={`liquid-glass ${demoFirst ? "liquid-glass-accent" : ""} liquid-glass-flat min-h-12 rounded-full px-4 text-[15px] font-semibold ${demoFirst ? "" : "text-ink"}`}>
                     {d.label}
                   </button>
                 ))}

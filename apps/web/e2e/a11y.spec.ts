@@ -9,8 +9,8 @@ async function signIn(page: Page, email: string) {
   await page.getByLabel("Email or mobile number").fill(email);
   await page.getByRole("button", { name: "Send me a code" }).click();
   await expect(page.getByLabel("Six-digit code")).toBeVisible();
-  const sent = readFileSync(OUTBOX, "utf8").trim().split("\n").map((l) => JSON.parse(l) as { identifier: string; code: string });
-  await page.getByLabel("Six-digit code").fill(sent.filter((m) => m.identifier === email).at(-1)!.code);
+  const sent = readFileSync(OUTBOX, "utf8").trim().split("\n").map((l) => JSON.parse(l) as { identifier: string; code?: string });
+  await page.getByLabel("Six-digit code").fill(sent.filter((m) => m.identifier === email && m.code).at(-1)!.code!);
   await page.getByRole("button", { name: "Sign in" }).click();
   await expect(page).not.toHaveURL(/\/login$/);
   if (/\/consent$/.test(page.url())) await page.getByRole("button", { name: "I understand and agree" }).click();
@@ -43,7 +43,7 @@ test("the login page", async ({ page }) => {
 
 test("rep screens", async ({ page }) => {
   await signIn(page, "rep@demo.test");
-  for (const path of ["/", "/practice", "/practice/S-partner-check-L1", "/history", "/progress", "/settings", "/library", "/library/T002"]) await audit(page, path);
+  for (const path of ["/today", "/practice", "/practice/S-partner-check-L1", "/history", "/progress", "/settings", "/library", "/library/T002"]) await audit(page, path);
 });
 
 test("a live practice session and its debrief", async ({ page }) => {

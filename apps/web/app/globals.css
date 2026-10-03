@@ -380,3 +380,23 @@ button.liquid-glass:disabled { opacity: 0.55; cursor: not-allowed; }
   animation-delay: calc(var(--i) * 70ms);
 }
 @keyframes voice-idle { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.6); } }
+
+/* ---------------------------------------------------------------- sign-up and sign-in stage (decision 0028) */
+
+/* Showroom light: two soft gold and bronze pools drifting slowly over charcoal, with a fine hairline at the edge. */
+.auth-stage {
+  background: radial-gradient(120% 80% at 20% 10%, #1b1712 0%, var(--background) 60%);
+  border-right: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.auth-light {
+  position: absolute; inset: -20%;
+  background:
+    radial-gradient(40% 35% at 30% 30%, color-mix(in srgb, var(--accent-fill) 34%, transparent), transparent 70%),
+    radial-gradient(45% 40% at 70% 75%, color-mix(in srgb, var(--brand-cyan) 30%, transparent), transparent 70%);
+  filter: blur(40px);
+  animation: auth-drift 18s ease-in-out infinite alternate;
+}
+@keyframes auth-drift {
+  from { transform: translate3d(-4%, -2%, 0) rotate(0deg) scale(1); }
+  to { transform: translate3d(5%, 4%, 0) rotate(8deg) scale(1.08); }
+}

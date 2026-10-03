@@ -3,6 +3,8 @@ import { z } from "zod";
 import { invitePerson, ROLES } from "@taptics/db";
 import { apiUser, principalOf } from "@/lib/auth";
 import { asUser } from "@/lib/db";
+import { deliverInvite } from "@/lib/delivery";
+import { log } from "@/lib/log";
 
 const Input = z
   .object({
@@ -24,10 +26,14 @@ export async function POST(request: Request) {
   const { email, phone, lastName, ...rest } = parsed.data;
   if (!email && !phone) return NextResponse.json({ error: "invalid", fields: ["email"] }, { status: 400 });
   try {
-    const id = await asUser(principalOf(user), (db) =>
-      invitePerson(db, user, { ...rest, lastName: lastName || undefined, email: email || undefined, phone: phone?.replace(/[^\d+]/g, "") || undefined, roles: rest.roles as never }),
-    );
-    return NextResponse.json({ ok: true, id });
+    const { id, store } = await asUser(principalOf(user), async (db) => ({
+      id: await invitePerson(db, user, { ...rest, lastName: lastName || undefined, email: email || undefined, phone: phone?.replace(/[^\d+]/g, "") || undefined, roles: rest.roles as never }),
+      store: ((await db.query("select name from stores where id = $1", [user.storeId])).rows[0]?.name as string | undefined) ?? "",
+    }));
+    // The person can sign in either way; the email only tells them so (decision 0029).
+    const invited = email ? await deliverInvite(email, { name: user.firstName ?? store, store, language: rest.language }) : "none";
+    log("info", "person_invited", { invited });
+    return NextResponse.json({ ok: true, id, invited });
   } catch (error) {
     const taken = error instanceof Error && /users_active_(email|phone)/.test(error.message);
     return NextResponse.json({ error: taken ? "taken" : "failed" }, { status: taken ? 409 : 500 });

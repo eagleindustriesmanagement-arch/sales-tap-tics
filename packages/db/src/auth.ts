@@ -75,6 +75,63 @@ export async function verifyLoginCode(db: Queryable, identifier: string, code: s
   });
 }
 
+export interface SignupInput {
+  email: string;
+  storeName: string;
+  firstName?: string;
+  language: "en" | "es";
+}
+
+export type SignupRequest = { status: "sent"; code: string } | { status: "exists" } | { status: "rate_limited" } | { status: "invalid" };
+
+/**
+ * Starts a dealership sign-up (decision 0029): stores the store name and a code for the work email. "exists" means
+ * an active account already uses that email: the caller sends an ordinary sign-in code instead and answers the
+ * same way, so sign-up does not reveal who has an account.
+ */
+export async function requestSignup(db: Queryable, input: SignupInput, secret: string): Promise<SignupRequest> {
+  const email = normalizeIdentifier(input.email);
+  const storeName = input.storeName.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200 || storeName.length < 2 || storeName.length > 120) return { status: "invalid" };
+  const code = String(randomInt(0, 1_000_000)).padStart(6, "0");
+  const r = await asApp(db, () =>
+    db.query<{ status: string }>("select app.signup_request($1, $2, $3, $4, $5, $6, $7, $8) as status", [
+      email,
+      storeName,
+      input.firstName?.trim().slice(0, 60) || null,
+      input.language,
+      hashCode(email, code, secret),
+      AUTH.codeTtlSeconds,
+      AUTH.codesPerWindow,
+      AUTH.windowSeconds,
+    ]),
+  );
+  const status = r.rows[0]!.status;
+  return status === "sent" ? { status: "sent", code } : { status: status as "exists" | "rate_limited" };
+}
+
+export type SignupCheck = { status: "ok"; token: string; userId: string; tenantId: string } | { status: "none" | "invalid" | "expired" | "locked" };
+
+/**
+ * Verifies a sign-up code. On success the tenant, its store and the owner (the store's general manager) now exist,
+ * and a login session is opened. "none" means there is no pending sign-up for the email: try it as a sign-in code.
+ */
+export async function verifySignup(db: Queryable, email: string, code: string, secret: string): Promise<SignupCheck> {
+  if (!/^\d{6}$/.test(code.trim())) return { status: "invalid" };
+  return asApp(db, async () => {
+    const r = await db.query<{ status: string; user_id: string | null; tenant_id: string | null }>("select * from app.signup_verify($1, $2, $3)", [
+      normalizeIdentifier(email),
+      hashCode(email, code.trim(), secret),
+      AUTH.maxAttempts,
+    ]);
+    const row = r.rows[0]!;
+    if (row.status !== "ok") return { status: row.status as "none" | "invalid" | "expired" | "locked" };
+    const token = randomBytes(32).toString("base64url");
+    await db.query("select app.auth_create_session($1, $2, $3)", [row.user_id, hashToken(token), AUTH.sessionTtlSeconds]);
+    return { status: "ok", token, userId: row.user_id!, tenantId: row.tenant_id! };
+  });
+}
+
 export interface Principal {
   sessionId: string;
   userId: string;

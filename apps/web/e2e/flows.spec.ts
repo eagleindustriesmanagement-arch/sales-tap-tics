@@ -16,7 +16,7 @@ async function signInReady(page: Page, email: string) {
   const saved = sessions.get(email);
   if (saved) {
     await page.context().addCookies(saved);
-    await page.goto("/");
+    await page.goto("/today");
     if (!/\/login$/.test(page.url())) return;
   }
   await signIn(page, email);
@@ -26,13 +26,13 @@ async function signInReady(page: Page, email: string) {
 }
 
 async function signIn(page: Page, email: string) {
-  await page.goto("/");
+  await page.goto("/today");
   await expect(page).toHaveURL(/\/login$/);
   await page.getByLabel("Email or mobile number").fill(email);
   await page.getByRole("button", { name: "Send me a code" }).click();
   await expect(page.getByLabel("Six-digit code")).toBeVisible();
-  const sent = readFileSync(OUTBOX, "utf8").trim().split("\n").map((l) => JSON.parse(l) as { identifier: string; code: string });
-  const code = sent.filter((m) => m.identifier === email).at(-1)!.code;
+  const sent = readFileSync(OUTBOX, "utf8").trim().split("\n").map((l) => JSON.parse(l) as { identifier: string; code?: string });
+  const code = sent.filter((m) => m.identifier === email && m.code).at(-1)!.code!;
   await page.getByLabel("Six-digit code").fill(code);
   await page.getByRole("button", { name: "Sign in" }).click();
   // Signed in only once the server has set the session and sent the browser on.
@@ -148,7 +148,7 @@ test("a rep cannot open manager screens or another rep's session", async ({ page
   await signIn(page, "rep2@demo.test");
   // The server refuses the manager screen and sends the rep home.
   await page.goto("/manager/floor").catch(() => undefined);
-  await expect(page).toHaveURL(/localhost:\d+\/$/);
+  await expect(page).toHaveURL(/localhost:\d+\/today$/);
   const c = db();
   await c.connect();
   const other = await c.query("select s.id from sessions s join users u on u.id = s.user_id where u.email = 'rep@demo.test' limit 1");
@@ -360,9 +360,9 @@ test("the general manager sees model costs; a rep cannot", async ({ page, browse
   const rep = await browser.newPage();
   await signInReady(rep, "rep2@demo.test");
   await rep.goto("/manager/costs");
-  await expect(rep).toHaveURL(/localhost:\d+\/$/);
+  await expect(rep).toHaveURL(/localhost:\d+\/today$/);
   await rep.goto("/manager/usage");
-  await expect(rep).toHaveURL(/localhost:\d+\/$/);
+  await expect(rep).toHaveURL(/localhost:\d+\/today$/);
 });
 
 test("the general manager adds a person who can sign in, then deactivates them", async ({ page, browser }) => {
@@ -383,7 +383,7 @@ test("the general manager adds a person who can sign in, then deactivates them",
   await page.getByTestId("person-Daniel").getByRole("button", { name: "Deactivate" }).click();
   await expect(page.getByTestId("person-Daniel")).toContainText("Deactivated");
   // Their next request is refused, whatever session they still hold.
-  await daniel.goto("/");
+  await daniel.goto("/today");
   await expect(daniel).toHaveURL(/\/login$/);
   // The same email can't be added twice while active, and a manager cannot add people.
   const manager = await browser.newPage();
@@ -407,7 +407,7 @@ test("a rep sees their progress; a manager opens a rep's detail from the team vi
   await expect(manager.getByTestId("progress-cards")).toContainText("Checked on the floor: Yes");
   // A rep cannot open another rep's detail.
   await page.goto(`/manager/team/${(await manager.url()).split("/").pop()}`);
-  await expect(page).toHaveURL(/localhost:\d+\/$/);
+  await expect(page).toHaveURL(/localhost:\d+\/today$/);
 });
 
 test("the general manager's dashboard and the team view's coaching focus", async ({ page }) => {
@@ -507,7 +507,7 @@ test("the general manager uploads the store's numbers; a bad file is refused by 
   const res = await rep.request.post("/api/store/import", { data: { kind: "ups", csv: "month,rep,ups,sold\n2026-08,Luis,1,1\n" } });
   expect(res.status()).toBe(403);
   await rep.goto("/manager/baseline");
-  await expect(rep).toHaveURL(/localhost:\d+\/$/);
+  await expect(rep).toHaveURL(/localhost:\d+\/today$/);
 });
 
 /**

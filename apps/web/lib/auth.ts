@@ -10,6 +10,12 @@ export const SESSION_COOKIE = "tt_session";
 /** Bump to make every rep accept the notice again (spec 20.1 item 4). */
 export const CONSENT_VERSION = "2026-10-01";
 
+/** Puts the login session in its cookie: http-only, same-site, secure in production. */
+export function setSessionCookie(response: NextResponse, token: string, maxAge: number) {
+  response.cookies.set(SESSION_COOKIE, token, { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge });
+  return response;
+}
+
 export function authSecret(): string {
   const secret = process.env.TAPTICS_SECRET;
   if (secret && secret.length >= 32) return secret;

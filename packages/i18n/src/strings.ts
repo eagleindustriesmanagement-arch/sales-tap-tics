@@ -201,6 +201,11 @@ export const STRINGS = {
   "progress.history": { en: "All sessions", es: "Todas las sesiones" },
   "people.title": { en: "People", es: "Personal" },
   "people.intro": { en: "Add people to the store, set their roles, or deactivate someone who left. They sign in with a one-time code to the email or phone you enter.", es: "Agregue personas a la tienda, asigne sus roles o desactive a alguien que se fue. Entran con un código de un solo uso al correo o teléfono que usted ponga." },
+  "people.welcomeTitle": { en: "Your store is open", es: "Su tienda está abierta" },
+  "people.welcomeBody": {
+    en: "Add your reps and managers. Each one signs in with a code sent to the email you enter here. Then set your fees and lenders in Store setup.",
+    es: "Agregue a sus vendedores y gerentes. Cada uno entra con un código que llega al correo que usted ponga aquí. Después ponga sus cargos y bancos en la configuración de la tienda.",
+  },
   "people.invite": { en: "Add a person", es: "Agregar una persona" },
   "people.firstName": { en: "First name", es: "Nombre" },
   "people.lastName": { en: "Last name (optional)", es: "Apellido (opcional)" },
@@ -531,6 +536,44 @@ export const STRINGS = {
     es: "Su código para entrar es {code}. Sirve por 10 minutos. Si usted no lo pidió, ignore este correo.",
   },
   "login.signOut": { en: "Sign out", es: "Cerrar sesión" },
+  "login.newStore": { en: "New dealership?", es: "¿Dealer nuevo?" },
+  "login.demoHeading": { en: "Try the demo store", es: "Pruebe el dealer de demostración" },
+  "login.demoIntro": {
+    en: "Pick a seat: rep, sales manager or GM. No email needed; the code fills itself in.",
+    es: "Escoja un puesto: vendedor, gerente de ventas o gerente general. No hace falta correo; el código se escribe solo.",
+  },
+  "login.demoPick": { en: "Sign in as", es: "Entrar como" },
+  "login.orEmail": { en: "Or sign in with your email", es: "O entre con su correo" },
+  "login.startPilot": { en: "Start a pilot", es: "Empiece un piloto" },
+  "login.orDemo": { en: "Just looking? Try the demo store, no email needed.", es: "¿Solo mirando? Pruebe el dealer de demostración, sin correo." },
+
+  "signup.title": { en: "Start a pilot", es: "Empiece un piloto" },
+  "signup.intro": {
+    en: "Set up your store in a minute. You will be its general manager; next you add your reps and managers.",
+    es: "Configure su tienda en un minuto. Usted será el gerente general; después agrega a sus vendedores y gerentes.",
+  },
+  "signup.storeName": { en: "Store name", es: "Nombre de la tienda" },
+  "signup.firstName": { en: "Your first name", es: "Su nombre" },
+  "signup.email": { en: "Work email", es: "Correo del trabajo" },
+  "signup.send": { en: "Email me a code", es: "Envíeme un código" },
+  "signup.codeSent": {
+    en: "We emailed a six-digit code to {email}. It works for 10 minutes.",
+    es: "Le enviamos un código de seis dígitos a {email}. Sirve por 10 minutos.",
+  },
+  "signup.verify": { en: "Open my store", es: "Abrir mi tienda" },
+  "signup.invalidInput": { en: "Check the store name and the email address.", es: "Revise el nombre de la tienda y el correo." },
+  "signup.unavailable": {
+    en: "We cannot send email codes right now. Try again in a few minutes.",
+    es: "No podemos enviar códigos por correo en este momento. Intente de nuevo en unos minutos.",
+  },
+  "signup.haveAccount": { en: "Already have an account?", es: "¿Ya tiene una cuenta?" },
+  "signup.otherEmail": { en: "Use a different email", es: "Usar otro correo" },
+
+  "invite.emailSubject": { en: "{store} added you to Sales Taptics", es: "{store} lo agregó a Sales Taptics" },
+  "invite.emailBody": {
+    en: "{name} added you to {store} on Sales Taptics, where you practice the hard conversations before the real ones. Sign in at {url} with this email address; we will send you a code.",
+    es: "{name} lo agregó a {store} en Sales Taptics, donde practica las conversaciones difíciles antes de las de verdad. Entre en {url} con este correo; le enviaremos un código.",
+  },
 
   "history.title": { en: "Your sessions", es: "Sus sesiones" },
   "history.empty": { en: "No sessions yet. Your first one takes about ten minutes.", es: "Todavía no hay sesiones. La primera toma unos diez minutos." },
