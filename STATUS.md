@@ -13,7 +13,7 @@ Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, on
   team, who get an invitation email and sign in with their own codes. "Try the demo" (`/login?demo=1`) is the
   second path. **Production needs `RESEND_API_KEY` for any real email.**
 - **One luxury theme across the app** (decision 0028): charcoal, champagne gold, ivory; Instrument Serif headlines;
-  glass throughout; page transitions; an animated score reveal on the debrief. The logo artwork is still blue.
+  glass throughout; page transitions; an animated score reveal on the debrief. The logo is the owner's second version (green on near-black).
 - **A customer for every objection: 65 scenarios** (decision 0017).
   - The 20 release 1 scenarios stay the **certification path**, by level.
   - **More customers:** one level 1 customer for each of the other 45 objections, grouped by topic (everyday

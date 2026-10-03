@@ -25,6 +25,6 @@
     - Sign-up is `/signup` (decision 0029); sign-in stays `/login`.
   - **Motion** respects `prefers-reduced-motion` everywhere: shader, parallax, page transitions, score reveal.
 - **Consequence.**
-  - The logo mark (`public/mark-128.png` and the app icons) is still the original blue artwork. A gold or
-    monochrome version is an owner decision.
+  - The owner supplied a new logo (green on near-black) on October 3; every icon is rebuilt from it with
+    `scripts/brand-icons.sh`. The interface palette stays gold.
   - `docs/DESIGN-GUIDELINES.md` describes the new language.
