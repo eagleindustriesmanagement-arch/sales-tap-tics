@@ -281,3 +281,20 @@ describe("a fee called free in either language (industry packs, decision 0033)",
     expect(free("La entrega son $299 y ya está en el total.", "es")).toBe(false);
   });
 });
+
+describe("interest promised away in words (industry packs, decision 0033)", () => {
+  const zero = (text: string, language: "en" | "es" = "en", facts = ctx().facts!) =>
+    checkUtterance({ text, language, speaker: "rep" }, { ...ctx({ language }), facts }).filter((v) => v.rule === "RATE-01").length;
+  it("flags no-interest promises when no 0% offer exists, once each", () => {
+    expect(zero("No interest if paid in full in 12 months.")).toBe(1);
+    expect(zero("It's interest-free for a year.")).toBe(1);
+    expect(zero("Son 12 meses sin intereses.", "es")).toBe(1);
+  });
+  it("allows it when a quoted option really is 0% APR, and leaves an honest disclosure alone", () => {
+    const base = ctx().facts!;
+    const promo = { ...base, payment_options: [{ code: "promo_12", cents: 79100, term_months: 12, apr_bps: 0, down_cents: 0, includes_add_ons: [] }] };
+    expect(zero("No interest if paid in full in 12 months.", "en", promo)).toBe(0);
+    expect(zero("I can't promise no interest; the lender sets the rate.")).toBe(0);
+    expect(zero("If you don't pay it off in 12 months, the interest comes back from day one.")).toBe(0);
+  });
+});

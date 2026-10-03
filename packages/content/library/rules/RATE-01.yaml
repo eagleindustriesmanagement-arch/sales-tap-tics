@@ -20,6 +20,18 @@ parameters:
   rate_cues:
     en: ['apr', 'rate', 'interest']
     es: ['apr', 'tasa', 'interés']
+  # Interest promised away in words (industry packs: store financing). A plain disclosure of deferred interest
+  # ("if you don't pay it off, the interest comes back") is not one of these.
+  zero_rate_claims:
+    en:
+      - '\b(no|zero) interest\b'
+      - '\binterest[- ]free\b'
+      - '\bsame as cash\b'
+    es:
+      - '\bsin intereses?\b'
+      - '\bcero (de )?inter[eé]s(es)?\b'
+      - '\bigual que (de )?contado\b'
+      - '\bno (paga|le cobran|le cobramos) inter[eé]s(es)?\b'
   approval_claims:
     en:
       - '\byou(''re| are)( already| pre)?[- ]?approved\b'

@@ -45,9 +45,10 @@ Fixed (RATE-01, with regression tests in `packages/rules/test/engine-gaps.test.t
   "no le puedo prometer", a question or a condition is not.
 - A fee can carry its name in both languages (`dealer_fees[].name`, `aliases`), so "La entrega es gratis" is caught
   (ADD-03). The furniture delivery fee and the solar permit and interconnection fee are named.
+- Interest promised away in words ("no interest if paid in full in 12 months", "sin intereses", "same as cash") is
+  flagged unless a quoted option or the approval really is 0% APR (RATE-01 `zero_rate_claims`).
 
 Still open (the live judge is the backstop):
 
 - "Ours is $9,498 with delivery" is not read as a price claim.
 - "You need the plan to get approved" is not tied to the protection plan add-on.
-- Deferred-interest promises without a percent ("no interest if paid in full in 12 months") are not caught.

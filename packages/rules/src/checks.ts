@@ -313,6 +313,27 @@ export function checkRate(rule: Rule, utterance: Utterance, ctx: CheckContext, m
     );
   }
 
+  // A zero rate said in words ("no interest for 12 months", "sin intereses"): true only when a quoted option or the
+  // approval really is 0% APR. The words carry their own "no", so only a negation or disclaimer before them counts.
+  const zeroIsReal = facts.payment_options.some((o) => o.apr_bps === 0) || (facts.lender_state === "approved" && facts.approved_apr_bps === 0);
+  if (!zeroIsReal) {
+    for (const pattern of patternsBoth(params["zero_rate_claims"], utterance.language)) {
+      for (const m of text.matchAll(compile(pattern, "giu"))) {
+        const start = m.index ?? 0;
+        const end = start + m[0].length;
+        const clause = clauseAt(text, start);
+        if (isNegated(ctx, text, clause, start, end, false) || isAttributed(ctx, text, clause, start)) continue;
+        if (isAskingOrConditional(ctx, text, clause, start)) continue;
+        out.push(
+          makeViolation(rule, ctx, utterance, spanOf(text, start, end), {
+            en: "No 0% offer is on the sheet, so interest is not free. Any rate comes from the lender.",
+            es: "No hay ninguna oferta de 0% en la hoja, así que los intereses no son gratis. La tasa la da el banco.",
+          }),
+        );
+      }
+    }
+  }
+
   // Approvals.
   if (facts.lender_state !== "approved") {
     for (const hit of patternHits(rule, utterance, ctx, "approval_claims")) {
