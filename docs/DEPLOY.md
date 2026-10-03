@@ -70,7 +70,8 @@ Optional, any time later:
 | Name | Value | Turns on |
 | --- | --- | --- |
 | `ANTHROPIC_API_KEY` | Your Anthropic API key | The live AI customer and full scoring (otherwise offline, partial scores). |
-| `RESEND_API_KEY`, `TAPTICS_EMAIL_FROM` | A Resend key; `Sales Taptics <login@salestaptics.com>` | Sign-in by email for real people. salestaptics.com must be verified in Resend first. |
+| `RESEND_API_KEY`, `TAPTICS_EMAIL_FROM` | A Resend key; `Sales Taptics <login@salestaptics.com>` | **Required for real accounts** (decision 0029): sign-up codes, sign-in codes and invitations. salestaptics.com must be verified in Resend first. Without it, only the demo works. |
+| `TAPTICS_APP_URL` | `https://salestaptics.com` (the default) | The sign-in address in invitation emails. |
 | `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` | From `npx web-push generate-vapid-keys`; subject `mailto:login@salestaptics.com` | Daily practice reminders on reps' phones (decision 0022). |
 | `CRON_SECRET` | A random string (`openssl rand -hex 32`) | Lets the hourly reminder job run. Then schedule an hourly call to `/api/cron/reminders`: on a Vercel Pro plan add `"crons": [{"path": "/api/cron/reminders", "schedule": "0 * * * *"}]` to `apps/web/vercel.json`; on Hobby (daily crons only) use any hourly scheduler that sends `Authorization: Bearer <CRON_SECRET>`. |
 

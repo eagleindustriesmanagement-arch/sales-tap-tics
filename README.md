@@ -27,7 +27,8 @@ pnpm --filter @taptics/web e2e                # browser tests against the produc
 | `DATABASE_CA_CERT` | The database host's CA certificate, PEM (optional; Supabase, decision 0026) |
 | `TAPTICS_SECRET` | 32+ characters; keys login-code hashes (required in production) |
 | `ANTHROPIC_API_KEY` | Live AI customer, classifier and judge; without it, the offline customer |
-| `RESEND_API_KEY`, `TAPTICS_EMAIL_FROM` | Email delivery of sign-in codes |
+| `RESEND_API_KEY`, `TAPTICS_EMAIL_FROM` | Email delivery of sign-up and sign-in codes and invitations (needed for real accounts, decision 0029) |
+| `TAPTICS_APP_URL` | The address put in invitation emails (default `https://salestaptics.com`) |
 | `TAPTICS_CODE_OUTBOX` | File that receives sign-in codes (staging, browser tests); set only on purpose |
 | `TAPTICS_DEV_LOGIN=1` | Shows sign-in codes on screen; ignored in production |
 
