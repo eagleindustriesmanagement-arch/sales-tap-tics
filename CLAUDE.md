@@ -19,9 +19,15 @@ STATUS.md first.
 ## Design
 
 **Every UI change follows `docs/DESIGN-GUIDELINES.md`** (Liquid Glass from BookFlows, `docs/LIQUID-GLASS.md`).
-Use the building blocks in `apps/web/components/ui.tsx` and the icons in `components/icons.tsx`; never put a
-`bg-*` or `border-*` utility on an element with a `liquid-glass` class. Review 390px screenshots in light and dark
-before calling a screen done; the accessibility suite audits both themes.
+One dark luxury theme (decision 0028): charcoal surfaces, warm ivory ink, champagne gold as the only accent (gold
+text and links, gold-metal primary buttons with dark ink, glass secondary buttons), Instrument Serif
+(`font-display`) for titles and big numbers, Inter for the rest. Colours are tokens in `app/globals.css`, never hex
+or `white`/`blue` utilities in a component; charts and rings are gold, green and red only for verdicts. Use the
+building blocks in `apps/web/components/ui.tsx` (every h1 is `PageHeader` or `titleClass`) and the icons in
+`components/icons.tsx`; never put a `bg-*` or `border-*` utility on an element with a `liquid-glass` class.
+Motion uses one curve, never holds content back (entrances end within 0.9s, `backwards` fill, reduced motion
+shows the final state) and never puts a lasting transform above the practice room's fixed bars. Review 390px and
+desktop screenshots before calling a screen done; the accessibility suite measures contrast on the dark theme.
 
 ## Deploying
 
@@ -101,7 +107,8 @@ marks scores partial; certification needs the key.
 - The phone-on-the-floor test: readable in sunlight, thumb-tappable (targets >= 48 px), understood in 3 seconds.
 - Spanish labels run about 30% longer: check every screen in Spanish for overflow. The language switch is one tap
   from anywhere.
-- Text contrast >= 4.5:1, measured (the axe audit in CI measures it). Dark mode is first-class.
+- Text contrast >= 4.5:1, measured (the axe audit in CI measures it). There is one theme, dark; every token pair is
+  checked against the surfaces it sits on.
 - Plain-talk copy: shorten, never slick-ify. A score is never shown without the one change that matters most.
 - Refine, don't reinvent: keep names, structure and voice the owner settled.
 
