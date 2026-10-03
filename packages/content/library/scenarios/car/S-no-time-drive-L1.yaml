@@ -1,0 +1,182 @@
+code: S-no-time-drive-L1
+module: car-core
+title:
+  en: "\"I don't have time for a test drive\""
+  es: "\"No tengo tiempo para la prueba de manejo\""
+setting:
+  en: Wednesday, 12:20 in the afternoon, on the lot next to the Trax. The store's short test route is a ten-minute loop that includes one on-ramp onto the Palmetto.
+  es: Miércoles, 12:20 de la tarde, en el lote al lado de la Trax. La ruta corta de prueba de la tienda es una vuelta de diez minutos que incluye una rampa de entrada al Palmetto.
+persona: P-no-time-drive
+objection: O15
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 40s, came in on his lunch break to see the 2026 Trax LT he found online. His 2012 Sentra has about 190,000 miles. He already has the all-in price, $25,494 plus tax, tag and title. You offered him a test drive."
+  es: "{name}, de unos 42 años, vino en su hora de almuerzo a ver la Trax LT 2026 que encontró en internet. Su Sentra 2012 tiene como 190,000 millas. Ya tiene el precio total, $25,494 más impuestos, tag y título. Usted le ofreció una prueba de manejo."
+opening:
+  en: I don't have time for a test drive.
+  es: No tengo tiempo para la prueba de manejo.
+facts:
+  session_date: "2026-10-07"
+  vehicle: { year: 2026, make: Chevrolet, model: Trax, trim: LT, color: Mosaic Black Metallic, stock: "5427", in_stock: true }
+  price_cents: 2459500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 2549400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: { vehicle: "2012 Nissan Sentra, about 190,000 miles", appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    back_at_work: Has to be back at work by 1:30 today
+    morning_commute: Gets on the Palmetto every morning
+    free_tomorrow: Lunch again tomorrow, Thursday, from 12:00 to 1:00
+numbers_sheet: false
+target_techniques: [T033, T001, T002, T003, T068, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O15-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O15-RESPECT
+      behavior:
+        en: "Respected his time instead of arguing that he has to drive it"
+        es: "Respetó su tiempo en vez de discutirle que tiene que manejarla"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O15-QFIRST
+      behavior:
+        en: "Asked what a drive would need to show him before offering a route"
+        es: "Preguntó qué tendría que demostrarle la prueba antes de ofrecerle una ruta"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O15-HIDDEN
+      behavior:
+        en: "Surfaced his doubt that the car feels slow getting onto the Palmetto"
+        es: "Sacó a la luz su duda de que el carro se sienta lento al entrar al Palmetto"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O15-SHORTROUTE
+      behavior:
+        en: "Offered a short route that tests his exact doubt, and let the car answer instead of a claim about how it drives"
+        es: "Le ofreció una ruta corta que prueba justo su duda, y dejó que el carro contestara en vez de afirmar cómo se maneja"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Objection O15 core move: offer a short route"
+    - code: O15-HANDS
+      behavior:
+        en: "Got him hands-on with the car in the time he had, or set it up for the next visit"
+        es: "Lo puso en contacto con el carro en el tiempo que tenía, o lo dejó preparado para la próxima visita"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Peck and Shu 2009 (T033)"
+      technique: T033
+    - code: O15-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: claimed_how_it_drives
+      description:
+        en: "Told him how the car feels getting onto the highway instead of letting him check"
+        es: "Le aseguró cómo se siente el carro al entrar a la autopista en vez de dejar que lo comprobara"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed off the customer's time, told him how the car drives instead of letting him find out, piled on more vehicles, and pushed to write it up. He never asked what the drive would need to show."
+      es: "Fíjese: le restó importancia al tiempo del cliente, le dijo cómo se maneja el carro en vez de dejar que lo descubriera, le echó más carros encima y presionó para cerrar. Nunca preguntó qué tendría que demostrarle la prueba."
+    script:
+      en:
+        - { speaker: customer, text: "I don't have time for a test drive." }
+        - { speaker: rep, text: "Everybody drives it first. It only takes half an hour, and lunch can wait." }
+        - { speaker: customer, text: "I told you, I'm on my lunch break." }
+        - { speaker: rep, text: "Trust me, this Trax has plenty of power. Let me show you the Trailblazer and the Equinox too while you're here." }
+        - { speaker: customer, text: "That's more time I don't have." }
+        - { speaker: rep, text: "Then let's just write it up on the Trax and get it done." }
+        - { speaker: customer, text: "No. I have to get back to work." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me when you have time." }
+      es:
+        - { speaker: customer, text: "No tengo tiempo para la prueba de manejo." }
+        - { speaker: rep, text: "Todo el mundo la maneja primero. Es solo media hora, y el almuerzo puede esperar." }
+        - { speaker: customer, text: "Ya le dije, estoy en mi hora de almuerzo." }
+        - { speaker: rep, text: "Confíe en mí, esta Trax tiene mucha fuerza. Y ya que está aquí, también le enseño la Trailblazer y la Equinox." }
+        - { speaker: customer, text: "Eso es más tiempo que no tengo." }
+        - { speaker: rep, text: "Entonces dejemos escrita la Trax de una vez y ya." }
+        - { speaker: customer, text: "No. Tengo que regresar al trabajo." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando tenga tiempo." }
+  good:
+    notice:
+      en: Notice the pause, the respect for his lunch break, the question about what a drive would need to show him, and how the doubt gets a short route that tests it instead of a promise about how the car feels.
+      es: Fíjese en la pausa, en el respeto por su hora de almuerzo, en la pregunta sobre qué tendría que demostrarle la prueba, y en cómo la duda se resuelve con una ruta corta que la pone a prueba en vez de una promesa sobre cómo se siente el carro.
+    script:
+      en:
+        - { speaker: customer, text: "I don't have time for a test drive." }
+        - { speaker: rep, text: "[pause] That's fair. You're on your lunch break, and your time matters. Can I ask one thing? If you did drive it, what would you want the drive to tell you?" }
+        - { speaker: customer, text: "Honestly, I'm not sure this is the right car for the way I drive." }
+        - { speaker: rep, text: "Okay. Walk me through your drive to work. Where does your morning start?" }
+        - { speaker: customer, text: "Okay. I get on the Palmetto every morning, and I've heard these small SUVs feel slow on the on-ramp. I figure a drive just proves it, and I lose my lunch." }
+        - { speaker: rep, text: "I'm glad you told me, because I'm not going to tell you how it feels. That's yours to decide. We have a short route from the lot: ten minutes, with a real on-ramp onto the Palmetto and back. Sit in it for a minute right now and set the seat and mirrors, so next time we just go." }
+        - { speaker: customer, text: "That's exactly what I need to know. I just don't want to waste the drive." }
+        - { speaker: rep, text: "Then let's not squeeze it into what's left of your lunch. Does tomorrow at 12:15 work? I'll have this same Trax LT out front with your seat set and the route ready, and you'll be back at work on time." }
+        - { speaker: customer, text: "Tomorrow at 12:15 works. Ten minutes, with the on-ramp." }
+      es:
+        - { speaker: customer, text: "No tengo tiempo para la prueba de manejo." }
+        - { speaker: rep, text: "[pausa] Tiene razón. Está en su hora de almuerzo, y su tiempo vale. ¿Le puedo preguntar una sola cosa? Si la manejara, ¿qué le gustaría que la prueba le dijera?" }
+        - { speaker: customer, text: "La verdad, no estoy seguro de que este sea el carro para como yo manejo." }
+        - { speaker: rep, text: "Bien. Cuénteme cómo es su camino al trabajo. ¿Por dónde empieza su mañana?" }
+        - { speaker: customer, text: "Bueno. Todas las mañanas cojo el Palmetto, y me han dicho que estas SUV chiquitas se sienten lentas en la rampa de entrada. Me imagino que manejarla solo me lo va a confirmar, y pierdo el almuerzo." }
+        - { speaker: rep, text: "Qué bueno que me lo dice, porque no le voy a decir yo cómo se siente. Eso lo decide usted. Tenemos una ruta corta desde el lote: diez minutos, con una rampa de verdad para entrar al Palmetto y regresar. Siéntese un minuto ahora mismo y ajuste el asiento y los espejos, así la próxima vez salimos directo." }
+        - { speaker: customer, text: "Eso es justo lo que necesito saber. Lo que no quiero es perder el viaje." }
+        - { speaker: rep, text: "Entonces no lo metamos en lo que le queda de almuerzo. ¿Le queda bien mañana a las 12:15? Le tengo esta misma Trax LT afuera, con su asiento ajustado y la ruta lista, y llega a tiempo al trabajo." }
+        - { speaker: customer, text: "Mañana a las 12:15 me queda bien. Diez minutos, con la rampa." }
+spanish_reviewed: false

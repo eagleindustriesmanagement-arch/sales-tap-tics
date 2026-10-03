@@ -1,0 +1,190 @@
+code: S-color-trim-L1
+module: car-core
+title:
+  en: "\"You don't have the color I want\""
+  es: "\"No la tienen en el color que quiero\""
+setting:
+  en: Saturday afternoon, at the desk, right after the test drive and the numbers.
+  es: Sábado por la tarde, en el escritorio, justo después de la prueba de manejo y los números.
+persona: P-color-trim
+objection: O16
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-30s, is trading a paid-off 2016 Cruze. She just drove the 2026 Equinox LT in Summit White and liked it. You showed her the all-in price of $33,394 plus tax, tag and title. You have two LTs in white on the lot and none in blue. You have not checked other dealers yet."
+  es: "{name}, de unos 35 años, tiene un Cruze 2016 pagado para el trade-in. Acaba de manejar la Equinox LT 2026 en Summit White y le gustó. Usted le enseñó el precio total de $33,394 más impuestos, tag y título. Tienen dos LT blancas en el lote y ninguna azul. Todavía no ha averiguado en otros dealers."
+opening:
+  en: I like it, but you don't have it in the color I want.
+  es: Me gusta, pero no la tienen en el color que yo quiero.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox, trim: LT, color: Summit White, stock: "6208", in_stock: true }
+  price_cents: 3249500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3339400
+  rebates: []
+  deadlines: []
+  # Two LTs in Summit White on the lot; none in blue. Nothing has been checked at other dealers.
+  inventory_same_trim_color: 2
+  trade: { vehicle: 2016 Chevrolet Cruze LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    wanted_color: Blue, like one she saw on social media
+    relative_at_other_store: Her cousin's husband sells at another Chevrolet store; she has no number from him
+    free_tuesday: Off at 5:00 on Tuesday
+numbers_sheet: false
+target_techniques: [T044, T001, T003, T005, T086, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O16-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O16-RESPECT
+      behavior:
+        en: "Took her color preference seriously instead of talking her out of it"
+        es: "Tomó en serio su preferencia de color en vez de quitársela de la cabeza"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O16-TEST
+      behavior:
+        en: "Tested the obstacle with a conditional question (if I find it in blue, is that the one?)"
+        es: "Puso a prueba el obstáculo con una pregunta condicional (si se la consigo en azul, ¿es la que se lleva?)"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Alex Dey, through summaries (T044)"
+      technique: T044
+    - code: O16-ISOLATE
+      behavior:
+        en: "Asked what else, besides the color, was in the way"
+        es: "Preguntó qué más, aparte del color, la estaba deteniendo"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O16-HIDDEN
+      behavior:
+        en: "Surfaced that she feels she owes a relative at another store a look"
+        es: "Sacó a la luz que siente que le debe una oportunidad a un pariente en otro dealer"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O16-LOCATE
+      behavior:
+        en: "Offered to check for the color honestly, promising only to look and report back, and a like-for-like written comparison"
+        es: "Ofreció averiguar el color con honestidad, prometiendo solo buscar y avisarle, y una comparación por escrito de lo mismo con lo mismo"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Objection O16 core move: locate or order; AVAIL rules (spec 4.2)"
+      technique: T086
+    - code: O16-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: invented_availability
+      description:
+        en: "Made a claim about stock, scarcity or another buyer that is not true"
+        es: "Afirmó algo sobre el inventario, la escasez u otro comprador que no es cierto"
+      method: rule_family
+      rule_families: [availability]
+    - code: asked_to_skip_family
+      description:
+        en: "Pressured her to leave her relative out instead of offering a fair comparison"
+        es: "La presionó para que dejara fuera a su pariente en vez de ofrecerle una comparación justa"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he talked her out of the color, piled on more models, and pushed to write it up. He never tested whether the color was the real obstacle, so he never learned what was."
+      es: "Fíjese: le quiso quitar el color de la cabeza, le echó más modelos encima y presionó para cerrar. Nunca puso a prueba si el color era el obstáculo de verdad, así que nunca supo cuál era."
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but you don't have it in the color I want." }
+        - { speaker: rep, text: "Honestly, it's just paint. You'll get used to the white in a week." }
+        - { speaker: customer, text: "I really had my heart set on the blue." }
+        - { speaker: rep, text: "Okay, then let me show you the Blazer and the Trax too. Maybe one of those catches your eye." }
+        - { speaker: customer, text: "That's more to look at, not less." }
+        - { speaker: rep, text: "Let's just write it up on the white one and get it done." }
+        - { speaker: customer, text: "No. I'll wait until one shows up in my color." }
+        - { speaker: rep, text: "Alright. Here's my card if you change your mind." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero no la tienen en el color que yo quiero." }
+        - { speaker: rep, text: "La verdad, eso es solo pintura. En una semana se acostumbra al blanco." }
+        - { speaker: customer, text: "Yo de verdad tenía el corazón puesto en la azul." }
+        - { speaker: rep, text: "Bueno, entonces también le enseño la Blazer y la Trax. A lo mejor alguna de esas le gusta más." }
+        - { speaker: customer, text: "Eso es más para mirar, no menos." }
+        - { speaker: rep, text: "Dejemos escrita la blanca de una vez y ya." }
+        - { speaker: customer, text: "No. Mejor espero a que salga una en mi color." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta por si cambia de idea." }
+  good:
+    notice:
+      en: Notice the pause, the respect for her preference, the conditional question that tests whether the color is really the obstacle, and the fair, written comparison instead of pressure to skip family.
+      es: Fíjese en la pausa, en el respeto por su preferencia, en la pregunta condicional que pone a prueba si el color es de verdad el obstáculo, y en la comparación justa y por escrito en vez de presionarla a dejar fuera a la familia.
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but you don't have it in the color I want." }
+        - { speaker: rep, text: "[pause] That makes sense. Color is personal, and you'll see it every day. Can I ask you something? If I can find it in blue, is that the one you'd take home?" }
+        - { speaker: customer, text: "Probably. I mean... the color isn't the only thing." }
+        - { speaker: rep, text: "I appreciate you saying that. Besides the color, what else is on your mind?" }
+        - { speaker: customer, text: "Okay, honestly? My cousin's husband sells at another Chevy store, and he keeps saying he'll take care of me. I don't even have a number from him, but I feel like I owe him a look." }
+        - { speaker: rep, text: "Thank you for telling me. That's family, and I would never ask you to skip him. Here's a fair way to do it: ask him for an all-in price in writing on the same Equinox LT, and bring it in. We'll put it next to ours, line by line, so you compare the same thing. In the meantime, I'll check whether a blue LT can be located, and I'll tell you exactly what I find." }
+        - { speaker: customer, text: "That's fair. I didn't want to feel like I went behind his back." }
+        - { speaker: rep, text: "Could you come back Tuesday at 6 with his number? I'll have ours printed and an answer on the blue." }
+        - { speaker: customer, text: "Tuesday at 6 works. I'll ask him tonight." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero no la tienen en el color que yo quiero." }
+        - { speaker: rep, text: "[pausa] Tiene sentido. El color es algo personal, y lo va a ver todos los días. ¿Le puedo preguntar algo? Si se la consigo en azul, ¿es la que se llevaría?" }
+        - { speaker: customer, text: "Probablemente. Bueno... el color no es lo único." }
+        - { speaker: rep, text: "Le agradezco que me lo diga. Aparte del color, ¿qué más la tiene pensando?" }
+        - { speaker: customer, text: "Bueno, la verdad... el esposo de mi prima vende en otro dealer de Chevrolet, y siempre me dice que él me resuelve. Ni siquiera tengo un número de él, pero siento que por lo menos le debo esa oportunidad." }
+        - { speaker: rep, text: "Gracias por decírmelo. Eso es familia, y yo nunca le pediría que lo deje fuera. Le propongo algo justo: pídale por escrito su precio total de la misma Equinox LT, y tráigalo. Lo ponemos al lado del nuestro, línea por línea, para que compare lo mismo con lo mismo. Mientras tanto, yo averiguo si se puede localizar una LT en azul, y le digo exactamente lo que encuentre." }
+        - { speaker: customer, text: "Eso es justo. No quería sentir que lo hice a sus espaldas." }
+        - { speaker: rep, text: "¿Puede volver el martes a las 6 con el número de él? Le tengo el nuestro impreso y una respuesta sobre la azul." }
+        - { speaker: customer, text: "El martes a las 6 me queda bien. Esta noche le pregunto." }
+spanish_reviewed: false
