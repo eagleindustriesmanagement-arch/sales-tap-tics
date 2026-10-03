@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Sales Taptics",
     short_name: "Taptics",
     description: "Voice roleplay practice for car sales, in English and Spanish.",
-    start_url: "/",
+    start_url: "/today",
     display: "standalone",
     background_color: "#040407",
     theme_color: "#040407",

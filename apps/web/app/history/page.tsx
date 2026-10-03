@@ -18,7 +18,7 @@ export default async function History() {
     <div className="space-y-5">
       <PageHeader title={t("history.title", lang)} back={{ href: "/progress", label: t("progress.title", lang) }} />
       {sessions.length === 0 ? (
-        <Empty icon={<IconClock size={22} />} action={<Link href="/" className={buttonClass}>{t("today.practiceNow", lang)}</Link>}>{t("history.empty", lang)}</Empty>
+        <Empty icon={<IconClock size={22} />} action={<Link href="/today" className={buttonClass}>{t("today.practiceNow", lang)}</Link>}>{t("history.empty", lang)}</Empty>
       ) : (
         <RowGroup>
           {sessions.map((s) => {

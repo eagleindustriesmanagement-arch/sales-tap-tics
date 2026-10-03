@@ -36,8 +36,8 @@ export async function requireUser(opts: { manager?: boolean; roles?: Role[] } = 
   const user = await currentUser();
   if (!user) redirect("/login");
   if (user.consentVersion !== CONSENT_VERSION) redirect("/consent");
-  if (opts.manager && !isManager(user)) redirect("/");
-  if (opts.roles && !opts.roles.some((r) => user.roles.includes(r))) redirect("/");
+  if (opts.manager && !isManager(user)) redirect("/today");
+  if (opts.roles && !opts.roles.some((r) => user.roles.includes(r))) redirect("/today");
   return user;
 }
 

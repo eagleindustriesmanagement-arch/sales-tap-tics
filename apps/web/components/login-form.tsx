@@ -36,7 +36,7 @@ export function LoginForm({ language: lang, demo = [] }: { language: Language; d
     const res = await fetch("/api/auth/verify", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ identifier, code }) });
     const data = (await res.json().catch(() => ({}))) as { status?: string };
     setBusy(false);
-    if (data.status === "ok") return location.assign("/");
+    if (data.status === "ok") return location.assign("/today");
     setMessage(ui(data.status === "locked" ? "login.locked" : data.status === "expired" ? "login.expired" : "login.invalid"));
   }
 

@@ -10,7 +10,7 @@ import { language } from "@/lib/server";
 export default async function Consent() {
   const user = await currentUser();
   if (!user) redirect("/login");
-  if (user.consentVersion === CONSENT_VERSION) redirect("/");
+  if (user.consentVersion === CONSENT_VERSION) redirect("/today");
   const lang = await language();
   return (
     <div className="pt-safe flex min-h-dvh flex-col px-5">

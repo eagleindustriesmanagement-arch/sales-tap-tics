@@ -7,7 +7,7 @@ import { LoginForm } from "@/components/login-form";
 
 /** Sign-in: the mark, one line of what this is, and a one-time code. Nothing else to read. */
 export default async function Login() {
-  if (await currentUser()) redirect("/");
+  if (await currentUser()) redirect("/today");
   const lang = await language();
   return (
     <div className="pt-safe flex min-h-dvh flex-col px-5">

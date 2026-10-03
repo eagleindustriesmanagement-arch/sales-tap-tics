@@ -13,8 +13,8 @@ const ICONS: Record<TabIcon, (p: { size?: number }) => ReactNode> = {
   team: IconUsers, dashboard: IconChart, store: IconStore, compliance: IconShield, review: IconGlobe,
 };
 
-/** Screens that own the whole display: a live practice room, sign-in and the first-run notice. */
-const immersive = (path: string) => /^\/practice\/[^/]+/.test(path) || path === "/login" || path === "/consent";
+/** Screens that own the whole display: the public home page, a live practice room, sign-up, sign-in and the first-run notice. */
+const immersive = (path: string) => /^\/practice\/[^/]+/.test(path) || ["/", "/login", "/signup", "/consent"].includes(path);
 
 function active(path: string, href: string) {
   return href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`);
@@ -34,7 +34,7 @@ export function AppChrome({ tabs, appName, lang, switchLabel, otherLang, setting
       {!full && (
         <header className="glass-chrome pt-safe sticky top-0 z-30">
           <div className="mx-auto flex h-14 max-w-5xl items-center gap-2 px-4">
-            <Link href="/" className="flex shrink-0 items-center gap-2 rounded-full pr-2 font-bold text-ink" aria-label={appName}>
+            <Link href={initial === null ? "/" : "/today"} className="flex shrink-0 items-center gap-2 rounded-full pr-2 font-bold text-ink" aria-label={appName}>
               <img src="/mark-128.png" alt="" width={32} height={32} className="bezel rounded-[9px]" />
               <span className="text-[17px] tracking-tight">{appName}</span>
             </Link>

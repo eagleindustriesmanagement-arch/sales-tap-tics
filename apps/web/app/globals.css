@@ -8,221 +8,91 @@
  * mode cannot drift from it (LIQUID-GLASS §5.3, §5.4).
  * ======================================================================= */
 
+/* One theme (decision 0028): the showroom at night. Deep charcoal surfaces, champagne gold, warm ivory text.
+   Every value is a token, so no screen picks its own colour. Contrast is checked by the accessibility tests. */
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
 
-  /* INK: text and structure. */
-  --ink: #0f1a2e;          /* headings, numbers, anything that must land first */
-  --foreground: #3a4659;   /* body copy, 9.6:1 on white */
-  --muted: #566276;        /* labels and captions, 6.0:1 on white */
-  --faint: #5f6b80;        /* the quietest readable text, 5.3:1 on white */
+  /* INK: text and structure, warm ivory rather than white. */
+  --ink: #f6f1e7;          /* headings, numbers, anything that must land first */
+  --foreground: #d8d1c4;   /* body copy */
+  --muted: #a9a194;        /* labels and captions */
+  --faint: #978f82;        /* the quietest readable text */
 
-  /* GROUND */
-  --background: #f3f6fa;
-  --surface: #ffffff;
-  --surface-2: #ecf0f6;    /* pressed states, sunk fills */
+  /* GROUND: near-black charcoal, lifted in two steps. */
+  --background: #0a0a0b;
+  --surface: #151517;
+  --surface-2: #1e1d20;    /* pressed states, sunk fills */
 
   /* LINES */
-  --border: #cbd4e0;
-  --border-soft: #e7ecf2;
+  --border: #3a362f;
+  --border-soft: #26241f;
 
-  /* ACCENT: the logo's electric blue (#0773fd), darkened only enough for white on it to read: 5.3:1. */
-  --accent: #0062e6;
-  --accent-hover: #0052c2;
-  --accent-soft: #e6f1ff;  /* accent text on it is 4.7:1 */
-  /* The logo's cyan, the top of its gradient: the ambient wash only, never text. */
-  --brand-cyan: #1bc6fc;
-  --accent-foreground: #ffffff;
-  /* ACCENT FILL: large tinted surfaces and primary buttons. Same as the accent in light; in dark it stays a deep
-     blue under white text, because the light text-accent would make every hero and button glare at night. */
-  --accent-fill: #0062e6;
-  --accent-fill-foreground: #ffffff;
+  /* ACCENT: champagne gold. Text and links in gold; buttons are gold with dark ink on them. */
+  --accent: #dcc08c;
+  --accent-hover: #ead5ab;
+  --accent-soft: #2a2417;
+  /* The second wash, a deep bronze: the ambient light only, never text. */
+  --brand-cyan: #9a7442;
+  --accent-foreground: #14110c;
+  --accent-fill: #d6b47a;
+  --accent-fill-foreground: #16120b;
 
-  /* SPARK: amber for streaks, stars and certification only (the learning-app convention). Never text. */
-  --spark: #f5b301;
-  --spark-soft: #fff6dc;
+  /* SPARK: streaks, stars and certification only. Never text. */
+  --spark: #f2c66d;
+  --spark-soft: #2c2412;
 
   /* STATE: separate from the brand on purpose. */
-  --success: #067647;
-  --success-soft: #e9f8ef;
-  --warning: #a64a06;
-  --warning-soft: #fff6e5;
-  --danger: #b42318;
-  --danger-soft: #fdf0ee;
+  --success: #62d49c;
+  --success-soft: #0f271c;
+  --warning: #f2a64c;
+  --warning-soft: #2a1d0d;
+  --danger: #ff8274;
+  --danger-soft: #2c1513;
 
-  /* MATERIAL TOKENS (light) */
-  --lg-base-opacity: 58%;
-  --lg-base-sheen: 58%;
-  --lg-base-rim: 82%;
-  --lg-edge: color-mix(in srgb, var(--ink) 8%, transparent);
-  --lg-edge-bottom: color-mix(in srgb, var(--ink) 15%, transparent);
-  --lg-lens: color-mix(in srgb, #fff 55%, transparent);
-  --lg-side: color-mix(in srgb, #fff 30%, transparent);
-  --lg-lip: color-mix(in srgb, var(--ink) 13%, transparent);
-  --lg-lip-glow: color-mix(in srgb, var(--ink) 10%, transparent);
-  --lg-drop-1: color-mix(in srgb, var(--ink) 10%, transparent);
-  --lg-drop-2: color-mix(in srgb, var(--ink) 10%, transparent);
-  --lg-drop-3: color-mix(in srgb, var(--ink) 14%, transparent);
-  --lg-drop-4: color-mix(in srgb, var(--ink) 16%, transparent);
-  --panel-opacity: 82%;
-  --panel-sheen: 46%;
-  --panel-rim: 88%;
-  --panel-lens: color-mix(in srgb, #fff 70%, transparent);
-  --panel-drop-1: color-mix(in srgb, var(--ink) 8%, transparent);
-  --panel-drop-2: color-mix(in srgb, var(--ink) 8%, transparent);
-  --panel-drop-3: color-mix(in srgb, var(--ink) 11%, transparent);
-  --panel-drop-4: color-mix(in srgb, var(--ink) 13%, transparent);
-  --panel-lip: color-mix(in srgb, var(--ink) 10%, transparent);
-  --panel-lip-glow: color-mix(in srgb, var(--ink) 8%, transparent);
-  --tint-opacity: 94%;
-  --tint-sheen: 38%;
-  --tint-rim: 44%;
-  --inset-bg: color-mix(in srgb, var(--surface-2) 70%, transparent);
-  --inset-edge: color-mix(in srgb, var(--ink) 7%, transparent);
-  --inset-shadow: inset 0 1px 2px color-mix(in srgb, var(--ink) 8%, transparent), inset 0 -1px 0 color-mix(in srgb, #fff 45%, transparent);
-  --field-bg: color-mix(in srgb, var(--surface) 88%, transparent);
-  --field-edge: color-mix(in srgb, var(--ink) 12%, transparent);
-  --field-shadow: inset 0 1px 2px color-mix(in srgb, var(--ink) 7%, transparent), inset 0 -1px 0 color-mix(in srgb, #fff 40%, transparent);
-  --chrome-bg: color-mix(in srgb, var(--background) 72%, transparent);
-  --chrome-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 7%, transparent), inset 0 -1px 0 color-mix(in srgb, #fff 30%, transparent), 0 6px 18px color-mix(in srgb, var(--ink) 7%, transparent);
-  --wash-1: 9%;
-  --wash-2: 7%;
-
-  /* Native shell insets, as variables so a test can set them (BookFlows lesson). */
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --tabbar-h: 4.25rem;
-}
-
-/* DARK, written twice on purpose: the OS preference (unless the user chose light)
-   and an explicit dark choice. Tokens only, so the two blocks are short. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ink: #f2f5fa;
-    --foreground: #c6cfdc;
-    --muted: #9ba7ba;
-    --faint: #8794a9;
-    --background: #0b1220;
-    --surface: #141c2b;
-    --surface-2: #1c2537;
-    --border: #2b3549;
-    --border-soft: #202a3c;
-    --accent: #4db4ff;
-    --accent-hover: #7cc8ff;
-    --accent-soft: #0f2340;
-    --accent-foreground: #0b1220;
-    --accent-fill: #0a5bd6;
-    --accent-fill-foreground: #ffffff;
-    --spark: #f7c23e;
-    --spark-soft: #2a2210;
-    --success: #42d18a;
-    --success-soft: #10291f;
-    --warning: #f0a02a;
-    --warning-soft: #2a1f0c;
-    --danger: #fb7a70;
-    --danger-soft: #2a1414;
-    --lg-base-opacity: 68%;
-    --lg-base-sheen: 14%;
-    --lg-base-rim: 22%;
-    --lg-edge: color-mix(in srgb, #fff 13%, transparent);
-    --lg-edge-bottom: rgba(0, 0, 0, 0.5);
-    --lg-lens: color-mix(in srgb, #fff 15%, transparent);
-    --lg-side: color-mix(in srgb, #fff 8%, transparent);
-    --lg-lip: rgba(0, 0, 0, 0.5);
-    --lg-lip-glow: rgba(0, 0, 0, 0.35);
-    --lg-drop-1: rgba(0, 0, 0, 0.55);
-    --lg-drop-2: rgba(0, 0, 0, 0.5);
-    --lg-drop-3: rgba(0, 0, 0, 0.58);
-    --lg-drop-4: rgba(0, 0, 0, 0.62);
-    --panel-opacity: 93%;
-    --panel-sheen: 11%;
-    --panel-rim: 18%;
-    --panel-lens: color-mix(in srgb, #fff 12%, transparent);
-    --panel-drop-1: rgba(0, 0, 0, 0.45);
-    --panel-drop-2: rgba(0, 0, 0, 0.4);
-    --panel-drop-3: rgba(0, 0, 0, 0.5);
-    --panel-drop-4: rgba(0, 0, 0, 0.55);
-    --panel-lip: rgba(0, 0, 0, 0.42);
-    --panel-lip-glow: rgba(0, 0, 0, 0.3);
-    --tint-opacity: 92%;
-    --tint-sheen: 14%;
-    --tint-rim: 22%;
-    --inset-bg: color-mix(in srgb, #000 22%, transparent);
-    --inset-edge: color-mix(in srgb, #fff 7%, transparent);
-    --inset-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 8%, transparent);
-    --field-bg: color-mix(in srgb, #000 18%, transparent);
-    --field-edge: color-mix(in srgb, #fff 12%, transparent);
-    --field-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45), inset 0 -1px 0 color-mix(in srgb, #fff 7%, transparent);
-    --chrome-bg: color-mix(in srgb, var(--background) 70%, transparent);
-    --chrome-shadow: 0 1px 0 rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 10%, transparent), 0 6px 18px rgba(0, 0, 0, 0.4);
-    --wash-1: 11%;
-    --wash-2: 8%;
-  }
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --ink: #f2f5fa;
-  --foreground: #c6cfdc;
-  --muted: #9ba7ba;
-  --faint: #8794a9;
-  --background: #0b1220;
-  --surface: #141c2b;
-  --surface-2: #1c2537;
-  --border: #2b3549;
-  --border-soft: #202a3c;
-  --accent: #4db4ff;
-  --accent-hover: #7cc8ff;
-  --accent-soft: #0f2340;
-  --accent-foreground: #0b1220;
-  --accent-fill: #0a5bd6;
-  --accent-fill-foreground: #ffffff;
-  --spark: #f7c23e;
-  --spark-soft: #2a2210;
-  --success: #42d18a;
-  --success-soft: #10291f;
-  --warning: #f0a02a;
-  --warning-soft: #2a1f0c;
-  --danger: #fb7a70;
-  --danger-soft: #2a1414;
-  --lg-base-opacity: 68%;
-  --lg-base-sheen: 14%;
-  --lg-base-rim: 22%;
-  --lg-edge: color-mix(in srgb, #fff 13%, transparent);
-  --lg-edge-bottom: rgba(0, 0, 0, 0.5);
-  --lg-lens: color-mix(in srgb, #fff 15%, transparent);
-  --lg-side: color-mix(in srgb, #fff 8%, transparent);
+  /* MATERIAL TOKENS: dark glass with a warm rim. */
+  --lg-base-opacity: 62%;
+  --lg-base-sheen: 13%;
+  --lg-base-rim: 20%;
+  --lg-edge: color-mix(in srgb, #fff 12%, transparent);
+  --lg-edge-bottom: rgba(0, 0, 0, 0.55);
+  --lg-lens: color-mix(in srgb, #fff 13%, transparent);
+  --lg-side: color-mix(in srgb, #fff 7%, transparent);
   --lg-lip: rgba(0, 0, 0, 0.5);
   --lg-lip-glow: rgba(0, 0, 0, 0.35);
   --lg-drop-1: rgba(0, 0, 0, 0.55);
   --lg-drop-2: rgba(0, 0, 0, 0.5);
   --lg-drop-3: rgba(0, 0, 0, 0.58);
   --lg-drop-4: rgba(0, 0, 0, 0.62);
-  --panel-opacity: 93%;
-  --panel-sheen: 11%;
-  --panel-rim: 18%;
-  --panel-lens: color-mix(in srgb, #fff 12%, transparent);
+  --panel-opacity: 88%;
+  --panel-sheen: 9%;
+  --panel-rim: 16%;
+  --panel-lens: color-mix(in srgb, #fff 10%, transparent);
   --panel-drop-1: rgba(0, 0, 0, 0.45);
   --panel-drop-2: rgba(0, 0, 0, 0.4);
   --panel-drop-3: rgba(0, 0, 0, 0.5);
   --panel-drop-4: rgba(0, 0, 0, 0.55);
   --panel-lip: rgba(0, 0, 0, 0.42);
   --panel-lip-glow: rgba(0, 0, 0, 0.3);
-  --tint-opacity: 92%;
-  --tint-sheen: 14%;
-  --tint-rim: 22%;
-  --inset-bg: color-mix(in srgb, #000 22%, transparent);
+  --tint-opacity: 94%;
+  --tint-sheen: 22%;
+  --tint-rim: 34%;
+  --inset-bg: color-mix(in srgb, #000 26%, transparent);
   --inset-edge: color-mix(in srgb, #fff 7%, transparent);
-  --inset-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 8%, transparent);
-  --field-bg: color-mix(in srgb, #000 18%, transparent);
+  --inset-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 6%, transparent);
+  --field-bg: color-mix(in srgb, #000 24%, transparent);
   --field-edge: color-mix(in srgb, #fff 12%, transparent);
-  --field-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45), inset 0 -1px 0 color-mix(in srgb, #fff 7%, transparent);
-  --chrome-bg: color-mix(in srgb, var(--background) 70%, transparent);
-  --chrome-shadow: 0 1px 0 rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 10%, transparent), 0 6px 18px rgba(0, 0, 0, 0.4);
-  --wash-1: 11%;
-  --wash-2: 8%;
+  --field-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45), inset 0 -1px 0 color-mix(in srgb, #fff 6%, transparent);
+  --chrome-bg: color-mix(in srgb, var(--background) 72%, transparent);
+  --chrome-shadow: 0 1px 0 rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 8%, transparent), 0 6px 18px rgba(0, 0, 0, 0.4);
+  --wash-1: 12%;
+  --wash-2: 10%;
+
+  /* Native shell insets, as variables so a test can set them (BookFlows lesson). */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-h: 4.25rem;
 }
-:root[data-theme="light"] { color-scheme: light; }
 
 /* Tailwind names. The older names (ground, line, brand, good, bad) stay so every
    screen reads the same tokens; `ground` is the sunk fill inside a card. */
@@ -249,7 +119,8 @@
   --color-warn-soft: var(--warning-soft);
   --color-bad: var(--danger);
   --color-bad-soft: var(--danger-soft);
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-serif), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --radius-glass: 1.5rem;
   --radius-card: 1.25rem;
   --radius-control: 0.875rem;

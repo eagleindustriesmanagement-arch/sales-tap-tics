@@ -160,7 +160,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
   const actions = (
     <>
       <button className={`${buttonClass} w-full`} onClick={onRetry}><IconRefresh size={18} />{ui("debrief.tryAgain")}</button>
-      <Link href="/" className={`${ghostButtonClass} w-full`}>{ui("debrief.backToday")}</Link>
+      <Link href="/today" className={`${ghostButtonClass} w-full`}>{ui("debrief.backToday")}</Link>
     </>
   );
 
@@ -177,7 +177,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
     <div className="flex min-h-dvh flex-col">
       <header className="glass-chrome pt-safe sticky top-0 z-30">
         <div className="mx-auto flex h-14 max-w-2xl items-center gap-3 px-4">
-          <Link href="/" aria-label={ui("practice.close")} className="liquid-glass liquid-glass-flat grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink"><IconX size={18} /></Link>
+          <Link href="/today" aria-label={ui("practice.close")} className="liquid-glass liquid-glass-flat grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink"><IconX size={18} /></Link>
           <h1 className="flex-1 text-center text-[17px] font-bold text-ink">{ui("debrief.title")}</h1>
           <span className="w-10" />
         </div>

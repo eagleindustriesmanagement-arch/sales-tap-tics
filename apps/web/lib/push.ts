@@ -35,7 +35,7 @@ export async function sendDueReminders(now = new Date(), everyMinutes = 60) {
           // Claim the day first, so two overlapping runs never send twice.
           if (!(await markReminderSent(db, tenant.id, c.userId, clock.day, c.subscriptions.length))) continue;
           people += 1;
-          const payload = JSON.stringify({ title: t("push.title", c.language), body: t("push.body", c.language), url: "/" });
+          const payload = JSON.stringify({ title: t("push.title", c.language), body: t("push.body", c.language), url: "/today" });
           for (const sub of c.subscriptions) {
             try {
               await webpush.sendNotification({ endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } }, payload, { TTL: 3600, urgency: "normal" });

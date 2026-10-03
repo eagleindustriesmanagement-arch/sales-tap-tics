@@ -18,7 +18,7 @@ export default function ScreenError({ error, reset }: { error: Error & { digest?
         <h1 className="text-[22px] font-bold text-ink">{t("error.title", lang)}</h1>
         <p className="text-[16px] text-body">{t("error.body", lang)}</p>
         <button type="button" className={`${buttonClass} w-full`} onClick={reset}>{t("error.retry", lang)}</button>
-        <Link href="/" className={`${ghostButtonClass} w-full`}>{t("nav.today", lang)}</Link>
+        <Link href="/today" className={`${ghostButtonClass} w-full`}>{t("nav.today", lang)}</Link>
       </div>
     </div>
   );
