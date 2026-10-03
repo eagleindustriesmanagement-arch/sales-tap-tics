@@ -91,9 +91,11 @@ review screen (decision 0010). Release 1 does not wait on these.
   - Any small number before a day counted as an appointment time.
 - Kept on purpose: "Si no decide hoy, termina pagando más" stays a DEAD-01 violation (strictest reading). An
   innocent "termina pagando" with no day in it is not flagged.
+- Also fixed:
+  - A walk-out trigger the rep explicitly refuses ("I won't tell you there's only one bank") no longer fires.
+  - The universal language item U-LANG skips an opener whose language cannot be told.
+  - Found along the way: "I'm not going to lie, …" had been excusing any violation after it. It no longer does.
 - Open:
-  - Walk-out trigger cues ignore negation ("I won't tell you there's only one bank" fires the trigger).
-  - The universal language item U-LANG can score an opening as "unknown" (1 point).
   - In a phone callback, the customer speaks first. O56's good rep now gives name, store and reason anyway.
 - Process: two authors used `git stash` at the same moment. Git keeps one stash for all worktrees, so their files
   were swapped. Nothing was lost. Parallel authors must never use `git stash`.

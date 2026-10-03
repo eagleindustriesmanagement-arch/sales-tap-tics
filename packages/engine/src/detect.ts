@@ -32,6 +32,23 @@ function matches(condition: BehaviorCondition, text: string): boolean {
   return [...condition.cues.en, ...condition.cues.es].some((cue) => compile(cue).test(text));
 }
 
+/**
+ * A walk-out trigger the rep explicitly refuses ("I won't tell you there's only one bank", "no le voy a decir que es
+ * el último") is not the trigger. Only a disclaimer earlier in the same sentence counts, from the lexicon's list of
+ * real refusals ("I'm not going to lie" is not one).
+ */
+function triggered(condition: BehaviorCondition, text: string, lexicon: Lexicon): boolean {
+  const disclaimers = [...lexicon.disclaimers.en, ...lexicon.disclaimers.es].map((d) => compile(d));
+  return [...condition.cues.en, ...condition.cues.es].some((cue) => {
+    for (const m of text.matchAll(new RegExp(compile(cue).source, `${compile(cue).flags.replace("g", "")}g`))) {
+      const head = text.slice(0, m.index);
+      const sentence = head.slice(Math.max(head.lastIndexOf(". "), head.lastIndexOf("! "), head.lastIndexOf("? ")) + 1);
+      if (!disclaimers.some((d) => d.test(sentence))) return true;
+    }
+    return false;
+  });
+}
+
 const REASON = compile("\\b(because|here'?s why|the reason|that'?s why|since|based on|porque|le explico por qué|la razón|ya que|según)\\b");
 const PARTNER_CALL = compile("\\b(video ?call|facetime|call (her|him|them) (now|right now)|get (her|him) on the phone|videollamada|llamarla ahora|llamarlo ahora|hacerle una llamada)\\b");
 const QUESTION_END = /[?？]\s*$/;
@@ -44,7 +61,7 @@ export function detectFromCues(input: { text: string; language: Language; person
   const money = findMoney(text, language, lexicon).filter((m) => (m.role === "price" || m.role === "payment") && !m.attributed);
   return {
     unlocks: persona.unlock_conditions.filter((c) => matches(c, text)).map((c) => c.code),
-    triggers: persona.walk_out_triggers.filter((c) => matches(c, text)).map((c) => c.code),
+    triggers: persona.walk_out_triggers.filter((c) => triggered(c, text, lexicon)).map((c) => c.code),
     closeAttempt: close || time,
     proposesTime: time,
     offersPartnerCall: PARTNER_CALL.test(text),

@@ -263,3 +263,14 @@ describe("a proposed time is a time, not any small number", () => {
     expect(time("You have 2 options to look at before Monday.")).toBe(false);
   });
 });
+
+describe("a walk-out trigger the rep explicitly refuses is not the trigger", () => {
+  const itin = platformLibrary().personas.get("P-itin-buyer")!;
+  const fires = (text: string, language: "en" | "es" = "en") => detectFromCues({ text, language, persona: itin, lexicon }).triggers.includes("only_one_lender");
+  it("fires on the claim, not on a refusal to make it", () => {
+    expect(fires("There's only one bank that takes ITIN, so we go with them.")).toBe(true);
+    expect(fires("I won't tell you there's only one bank that takes ITIN.")).toBe(false);
+    // "I'm not going to lie" is "honestly": the claim after it still counts.
+    expect(fires("I'm not going to lie, there's only one bank that takes ITIN.")).toBe(true);
+  });
+});

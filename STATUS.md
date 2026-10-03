@@ -278,8 +278,8 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
    and work the critical misses to zero on dev, reporting holdout.
 2. Text-message reminders as a second channel, behind the consent rules (CONSENT-01), if the store wants them.
 3. Spec 19.2 item 3, score validity (practice scores against close rate), once a store has 8 weeks of both.
-4. Engine notes from the content authors: walk-out trigger cues ignore negation ("I won't tell you there's only
-   one bank" fires the trigger); the universal language item can score an opening as unknown.
+4. Walk-out triggers now ignore claims the rep explicitly refuses, and "I'm not going to lie" no longer excuses a
+   violation. Next for the engine: the classifier layer once a key is set (item 1).
 5. Live-AI pass over the 45 release 2 customers once a key is set, starting with O39 (a customer who prefers
    English until asked).
 6. Voice gateway (`services/voice`) for the cloud tier, behind the `@taptics/voice` contracts, once the bake-off picks
