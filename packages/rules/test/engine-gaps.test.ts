@@ -298,3 +298,19 @@ describe("interest promised away in words (industry packs, decision 0033)", () =
     expect(zero("If you don't pay it off in 12 months, the interest comes back from day one.")).toBe(0);
   });
 });
+
+describe("this deal's own add-ons are never required (industry packs, decision 0033)", () => {
+  const library = platformLibrary();
+  const furniture = (language: "en" | "es") => ({ ...ctx({ language }), facts: library.scenarios.get("S-furniture-payment-L1")!.facts, industry: "furniture" as const });
+  const required = (text: string, language: "en" | "es" = "en") =>
+    checkUtterance({ text, language, speaker: "rep" }, furniture(language)).some((v) => v.rule === "ADD-01");
+  it("flags the plan, by its short name, said to be needed for approval", () => {
+    expect(required("You need the plan to get approved.")).toBe(true);
+    expect(required("Necesita el plan para que lo aprueben.", "es")).toBe(true);
+    expect(required("The leather protection plan is required.")).toBe(true);
+  });
+  it("leaves the plan offered as optional alone", () => {
+    expect(required("The plan is optional; you don't need it to get approved.")).toBe(false);
+    expect(required("El plan es opcional; no lo necesita para la aprobación.", "es")).toBe(false);
+  });
+});

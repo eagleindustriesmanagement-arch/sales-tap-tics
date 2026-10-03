@@ -21,6 +21,9 @@ parameters:
       - '\b(warranty|service contract|gap|protection|package|add-?ons?)\b.{0,40}\b(is|are|was|were)\b.{0,10}\b(required|mandatory|needed|a must)\b'
       - '\b(bank|lender|approval)\b.{0,40}\b(requires|needs|wants|insists on)\b.{0,30}\b(warranty|service contract|gap|protection|package)'
       - '\bto (get|be) approved\b.{0,40}\b(need|have to|must|take)\b.{0,30}\b(warranty|service contract|gap|protection|package)'
+      # This deal's own add-ons by name ("you need the plan to get approved"), for every industry (decision 0033).
+      - '\b(need|needs|have to|has to|must|required|requires|require|mandatory)\b.{0,40}\b({add_ons})\b.{0,50}\b(approv|rate|loan|financ|deliver|bank|lender|qualif)'
+      - '\b({add_ons})\b.{0,40}\b(is|are|was|were)\b.{0,10}\b(required|mandatory|needed|a must)\b'
       # Pre-judging a product as the norm (spec 8.12 finance-handoff flawed pattern).
       - '\beveryone (gets|takes|buys|needs) (it|the (warranty|gap|service contract|protection))\b'
     es:
@@ -28,6 +31,8 @@ parameters:
       - '\b(garantía|contrato de servicio|gap|protección|paquete)\b.{0,40}\b(es|son|era|eran)\b.{0,10}\b(obligatori[oa]s?|requisito|necesari[oa]s?)\b'
       - '\bpara (que (le|lo|la) )?(aprueben|aprobar|la aprobación)\b.{0,40}\b(necesita|hace falta|tiene que)\b.{0,30}\b(garantía|gap|contrato de servicio|protección|paquete)'
       - '\bel banco (pide|exige|requiere)\b.{0,30}\b(garantía|gap|contrato de servicio|protección|paquete)'
+      - '\b(necesita|hace falta|tiene que|tienen que|obligatori[oa]|requisito|se requiere|requiere|exige)\b.{0,40}\b({add_ons})\b.{0,50}\b(aprob|aprue|tasa|préstamo|financ|entreg|banco)'
+      - '\b({add_ons})\b.{0,40}\b(es|son|era|eran)\b.{0,10}\b(obligatori[oa]s?|requisito|necesari[oa]s?)\b'
       - '\btodo el mundo (la|lo) (compra|coge|lleva|toma)\b'
   fact:
     en: "Every protection product is optional. It is not required for approval, the rate or delivery."

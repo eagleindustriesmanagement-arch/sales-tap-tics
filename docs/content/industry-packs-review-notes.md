@@ -47,8 +47,9 @@ Fixed (RATE-01, with regression tests in `packages/rules/test/engine-gaps.test.t
   (ADD-03). The furniture delivery fee and the solar permit and interconnection fee are named.
 - Interest promised away in words ("no interest if paid in full in 12 months", "sin intereses", "same as cash") is
   flagged unless a quoted option or the approval really is 0% APR (RATE-01 `zero_rate_claims`).
+- A deal's own add-ons, by name and alias, are never required (ADD-01 `{add_ons}` patterns): "you need the plan to
+  get approved" on the furniture deal, the battery on a solar one.
 
 Still open (the live judge is the backstop):
 
 - "Ours is $9,498 with delivery" is not read as a price claim.
-- "You need the plan to get approved" is not tied to the protection plan add-on.

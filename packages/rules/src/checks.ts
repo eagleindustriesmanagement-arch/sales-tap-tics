@@ -96,12 +96,26 @@ interface Hit {
   groups: string[];
 }
 
+function withAddOns(pattern: string, ctx: CheckContext): string | null {
+  const names = (ctx.facts?.add_ons ?? []).flatMap((a) => [a.name.en, a.name.es, ...(a.aliases?.en ?? []), ...(a.aliases?.es ?? [])]);
+  if (names.length === 0) return null;
+  const alternation = [...new Set(names.map((n) => n.trim().toLowerCase()).filter(Boolean))]
+    .sort((x, y) => y.length - x.length)
+    .map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+  return pattern.replaceAll("{add_ons}", alternation);
+}
+
 /** Matches a rule's bilingual patterns, applying its negation, attribution and echo breaks. */
 export function patternHits(rule: Rule, utterance: Utterance, ctx: CheckContext, key = "patterns"): Hit[] {
   const params = rule.parameters as Params;
   const text = utterance.text;
   const hits: Hit[] = [];
-  for (const pattern of patternsBoth(params[key], utterance.language)) {
+  for (const raw of patternsBoth(params[key], utterance.language)) {
+    // "{add_ons}" stands for this deal's own add-ons, by name and alias, in both languages (a furniture protection
+    // plan, a solar battery); without add-ons the pattern does not apply.
+    const pattern = raw.includes("{add_ons}") ? withAddOns(raw, ctx) : raw;
+    if (pattern === null) continue;
     const re = compile(pattern, "giu");
     re.lastIndex = 0;
     for (const m of text.matchAll(re)) {
@@ -113,7 +127,7 @@ export function patternHits(rule: Rule, utterance: Utterance, ctx: CheckContext,
       if (params["attribution_breaks"] && isAttributed(ctx, text, clause, start)) continue;
       if (params["echo_breaks"] && isQuestion(clause) && utterance.previousCustomerText) {
         const previous = utterance.previousCustomerText;
-        if (patternsBoth(params[key], utterance.language).some((p) => compile(p).test(previous))) continue;
+        if (patternsBoth(params[key], utterance.language).some((p) => { const q = p.includes("{add_ons}") ? withAddOns(p, ctx) : p; return q !== null && compile(q).test(previous); })) continue;
       }
       hits.push({ start, end, clause, groups: [...m].slice(1).map((g) => g ?? "") });
     }
