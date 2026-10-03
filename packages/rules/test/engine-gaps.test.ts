@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { checkUtterance, finalizeSession, newSessionState } from "../src/index.js";
 import { findClockTimes, findNumbers } from "../src/numbers.js";
 import type { Utterance } from "../src/index.js";
+import { platformLibrary } from "@taptics/content";
 import { ctx } from "./fixtures.js";
 
 function hits(text: string, language: "en" | "es" = "en", opts: { channel?: "floor" | "phone" | "text" } = {}): string[] {
@@ -263,5 +264,20 @@ describe("a promised approval is an approval claim (industry packs, decision 003
     expect(rate("If the lender approves you, we close on the 15th.")).toBe(false);
     expect(rate("Do you think they will approve you?")).toBe(false);
     expect(rate("No le puedo prometer que lo van a aprobar; eso lo decide el banco.", "es")).toBe(false);
+  });
+});
+
+describe("a fee called free in either language (industry packs, decision 0033)", () => {
+  const library = platformLibrary();
+  const furniture = () => ({ ...ctx(), facts: library.scenarios.get("S-furniture-price-L1")!.facts, industry: "furniture" as const });
+  const free = (text: string, language: "en" | "es") =>
+    checkUtterance({ text, language, speaker: "rep" }, furniture()).some((v) => v.rule === "ADD-03");
+  it("flags the charged delivery called free, English or Spanish", () => {
+    expect(free("Delivery is free with this set.", "en")).toBe(true);
+    expect(free("La entrega es gratis con este juego.", "es")).toBe(true);
+  });
+  it("leaves the delivery fee said honestly alone", () => {
+    expect(free("Delivery is $299, and it's in the total I showed you.", "en")).toBe(false);
+    expect(free("La entrega son $299 y ya está en el total.", "es")).toBe(false);
   });
 });

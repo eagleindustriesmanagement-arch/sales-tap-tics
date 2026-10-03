@@ -43,10 +43,11 @@ Fixed (RATE-01, with regression tests in `packages/rules/test/engine-gaps.test.t
   not.
 - A promised approval ("the lender will approve you", "lo van a aprobar") is an approval claim; "I can't promise",
   "no le puedo prometer", a question or a condition is not.
+- A fee can carry its name in both languages (`dealer_fees[].name`, `aliases`), so "La entrega es gratis" is caught
+  (ADD-03). The furniture delivery fee and the solar permit and interconnection fee are named.
 
 Still open (the live judge is the backstop):
 
-- "Free" in Spanish for a charged fee ("La entrega es gratis") is not caught when the fee code is English.
 - "Ours is $9,498 with delivery" is not read as a price claim.
 - "You need the plan to get approved" is not tied to the protection plan add-on.
 - Deferred-interest promises without a percent ("no interest if paid in full in 12 months") are not caught.

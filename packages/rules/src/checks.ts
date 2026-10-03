@@ -540,7 +540,7 @@ function checkFree(rule: Rule, utterance: Utterance, ctx: CheckContext): Violati
   const charged = ctx.facts
     ? [
         ...ctx.facts.add_ons.filter((a) => a.cents > 0).flatMap((a) => [a.name.en, a.name.es, ...(a.aliases?.en ?? []), ...(a.aliases?.es ?? [])]),
-        ...ctx.facts.dealer_fees.map((f) => f.code.replace(/_/g, " ")),
+        ...ctx.facts.dealer_fees.flatMap((f) => [f.code.replace(/_/g, " "), ...(f.name ? [f.name.en, f.name.es] : []), ...(f.aliases?.en ?? []), ...(f.aliases?.es ?? [])]),
         ...ctx.lexicon.money_roles.fee.before.en,
         ...ctx.lexicon.money_roles.fee.before.es,
       ]

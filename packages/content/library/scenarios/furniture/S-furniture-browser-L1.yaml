@@ -25,7 +25,7 @@ facts:
   session_date: "2026-10-06"
   vehicle: { year: 2026, make: Vellora, model: Costa modular sectional, trim: "performance linen, 4-piece", color: Sand, stock: "VC-4407", in_stock: true }
   price_cents: 599900
-  dealer_fees: [{ code: delivery, cents: 29900 }]
+  dealer_fees: [{ code: delivery, cents: 29900, name: { en: delivery, es: entrega }, aliases: { en: [white-glove delivery, delivery fee], es: [entrega a domicilio, envío, el delivery] } }]
   government_charges_customer_pays: [sales_tax]
   all_in_price_cents: 629800
   rebates: []

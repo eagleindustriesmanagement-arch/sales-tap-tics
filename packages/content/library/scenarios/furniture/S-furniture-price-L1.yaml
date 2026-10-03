@@ -25,7 +25,7 @@ facts:
   session_date: "2026-10-03"
   vehicle: { year: 2026, make: Norcasa, model: Avila bedroom set, trim: "king, solid oak, 5 pieces", color: Natural oak, stock: "NA-7730", in_stock: true }
   price_cents: 949900
-  dealer_fees: [{ code: delivery, cents: 29900 }]
+  dealer_fees: [{ code: delivery, cents: 29900, name: { en: delivery, es: entrega }, aliases: { en: [white-glove delivery, delivery fee], es: [entrega a domicilio, envío, el delivery] } }]
   government_charges_customer_pays: [sales_tax]
   all_in_price_cents: 979800
   rebates:

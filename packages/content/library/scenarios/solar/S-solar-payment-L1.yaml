@@ -27,7 +27,7 @@ facts:
   session_date: "2026-10-01"
   vehicle: { year: 2026, make: Lumacay Solar, model: Rooftop system, trim: "8.4 kW, 21 panels", stock: "Q-26-0409", in_stock: true }
   price_cents: 2395000
-  dealer_fees: [{ code: permit_and_interconnection, cents: 65000 }]
+  dealer_fees: [{ code: permit_and_interconnection, cents: 65000, name: { en: permit and interconnection fee, es: permisos y conexión a la red }, aliases: { en: [permits, permit fee, interconnection], es: [permisos, conexión a la red] } }]
   government_charges_customer_pays: []
   all_in_price_cents: 2460000
   rebates: []

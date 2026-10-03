@@ -255,7 +255,8 @@ export const factsSchema = z
       })
       .strict(),
     price_cents: cents,
-    dealer_fees: z.array(z.object({ code: z.string(), cents }).strict()),
+    /** A fee may carry what it is called in each language, so "free" is caught in either ("la entrega es gratis"). */
+    dealer_fees: z.array(z.object({ code: z.string(), cents, name: bilingual.optional(), aliases: bilingualList.optional() }).strict()),
     government_charges_customer_pays: z.array(z.string()),
     all_in_price_cents: cents,
     rebates: z
