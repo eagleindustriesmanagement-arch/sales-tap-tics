@@ -16,8 +16,8 @@ stated_line:
   en: Another dealer already gave me a number. $24,900 on this same Colorado.
   es: Ya otro dealer me dio un número. $24,900 por esta misma Colorado.
 hidden_truth:
-  en: The $24,900 is after the other dealer took $13,000 off for his 2019 Colorado. He has not mentioned the trade here because he expects a lowball, so he is comparing their after-trade number with our price before any trade.
-  es: Los $24,900 son después de que el otro dealer le quitó $13,000 por su Colorado 2019. Aquí no ha mencionado el trade-in porque espera que se lo tasen bajo, así que está comparando el número de ellos, ya con el trade-in restado, con nuestro precio sin ningún trade-in.
+  en: The $24,900 is after the other dealer took $13,000 off for his 2019 Colorado. He keeps the trade out of it here because he expects a lowball, so he is comparing their after-trade number with our price before any trade.
+  es: Los $24,900 son después de que el otro dealer le quitó $13,000 por su Colorado 2019. Aquí no menciona el trade-in porque espera que se lo tasen bajo, así que está comparando el número de ellos, ya con el trade-in restado, con nuestro precio sin ningún trade-in.
 # Phrases that would give the hidden truth away before an unlock.
 hidden_truth_markers:
   en:

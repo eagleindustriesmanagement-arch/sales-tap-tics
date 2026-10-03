@@ -145,7 +145,7 @@ test("the manager sees the team's cards, records a floor check in under 60 secon
   // measurable offline, so he correctly has none.
   const card = page.locator("section").filter({ hasText: "Ana" }).first();
   await expect(card).toBeVisible();
-  await expect(page.locator("section").filter({ hasText: "Luis" })).toHaveCount(0);
+  await expect(page.locator("section:not(:has([data-testid=floor-new]))").filter({ hasText: "Luis" })).toHaveCount(0);
   const start = Date.now();
   await card.getByRole("button", { name: "Yes" }).click();
   await card.getByLabel("I named one specific behavior").check();
@@ -166,6 +166,21 @@ test("the manager sees the team's cards, records a floor check in under 60 secon
   const cards = await c.query("select u.email, c.status from behavior_card_issues c join users u on u.id = c.user_id");
   expect(cards.rows).toEqual([{ email: "rep2@demo.test", status: "checked" }]);
   await c.end();
+
+  // A rep with no card this week still gets a check: the manager starts one, picks the behavior, and records it.
+  await page.goto("/manager/floor");
+  const newCheck = page.getByTestId("floor-new");
+  await newCheck.getByLabel("Rep").selectOption({ label: "Luis" });
+  await newCheck.getByLabel("Behavior to watch").selectOption({ label: "Pause and slow down" });
+  await newCheck.getByRole("button", { name: "Start the check" }).click();
+  const luis = page.locator("section:not(:has([data-testid=floor-new]))").filter({ hasText: "Luis" }).first();
+  await expect(luis).toBeVisible();
+  await luis.getByRole("button", { name: "Yes" }).click();
+  await luis.getByRole("button", { name: "Record check" }).click();
+  await expect(luis.getByText(/Recorded in \d+ seconds/)).toBeVisible();
+  // Everyone now has this week's card, so the start form steps aside.
+  await page.reload();
+  await expect(page.getByTestId("floor-new")).toHaveCount(0);
 });
 
 test("a rep cannot open manager screens or another rep's session", async ({ page }) => {
@@ -233,10 +248,16 @@ test("a manager assigns practice with a reason; the rep sees it first and practi
   await page.getByRole("link", { name: "Assign practice" }).click();
   await page.getByLabel("Scenario").selectOption("S-partner-check-L1");
   await page.getByLabel("Luis").check();
-  await page.getByLabel("Due date (optional)").fill("2026-12-31");
+  // Due date: one tap for the common ones, the calendar for anything else (a typed date is accepted too).
+  await page.getByRole("radio", { name: "In a week" }).check();
+  await expect(page.getByTestId("due-summary")).toBeVisible();
+  await page.getByRole("radio", { name: "Pick a date" }).check();
+  await page.getByTestId("due-date").fill("2026-12-31");
   await page.getByLabel("Reason the rep will see").fill("Ask what she will ask first before you show options.");
   await page.getByRole("button", { name: "Assign", exact: true }).click();
   await expect(page.getByRole("status")).toHaveText("Assigned to 1.");
+  await page.goto("/manager/team");
+  await expect(page.getByTestId("assignments")).toContainText("Due Thu, Dec 31");
 
   const rep = await browser.newPage();
   await signInReady(rep, "rep@demo.test");
@@ -428,6 +449,8 @@ test("a rep sees their progress; a manager opens a rep's detail from the team vi
   await expect(page.getByTestId("progress-certified")).toHaveText("0/20");
   // Offline scores are partial, so no weekly dimension scores yet; that is said plainly.
   await expect(page.getByTestId("progress-no-scores")).toBeVisible();
+  // Mastery from offline practice is marked as covering only what could be scored, never a bare percentage.
+  await expect(page.getByTestId("mastery-partial")).toBeVisible();
 
   const manager = await browser.newPage();
   await signInReady(manager, "manager@demo.test");
@@ -743,6 +766,19 @@ test("a typed Send works in browsers whose scroll returns a promise", async ({ p
     await expect(customer).toHaveCount(i + 2);
   }
   await expect(page.getByText("This screen hit a problem")).toHaveCount(0);
+
+  // While the session is scored, the wait shows what is happening and keeps moving (production: "Scoring your
+  // session…" sat for over a minute with nothing changing). The scoring is held the way a slow judge would hold it.
+  await page.route("**/api/sessions/*/finish", async (route) => {
+    await new Promise((r) => setTimeout(r, 8000));
+    await route.continue();
+  });
+  await page.getByRole("button", { name: "End session" }).click();
+  const stage = page.getByTestId("scoring-stage");
+  await expect(stage).toHaveText("Reading your conversation, line by line…");
+  await expect(stage).toHaveText("Checking every line against the compliance rules…", { timeout: 9000 });
+  await expect(page.getByText(/\d+ s so far/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Debrief" })).toBeVisible({ timeout: 15000 });
   expect(crashes).toEqual([]);
 });
 
@@ -759,3 +795,4 @@ test("the app header's language picker: globe, current language, both languages"
   await page.getByTestId("app-lang").locator("select").selectOption("en");
   await expect(page.getByTestId("app-lang")).toContainText("English");
 });
+

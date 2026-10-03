@@ -16,8 +16,8 @@ stated_line:
   en: Will the battery die in this heat?
   es: ¿La batería se daña con este calor?
 hidden_truth:
-  en: She works three 12-hour shifts a week and parks on the open top level of the hospital garage, in full sun, with no charger. She is afraid the car will bake all day and wear the battery out early, and she has not said it because she assumes the answer is "buy something else".
-  es: Trabaja tres turnos de 12 horas a la semana y parquea en el último piso, descubierto, del garaje del hospital, a pleno sol y sin cargador. Le da miedo que el carro se cocine todo el día y que la batería se gaste antes de tiempo, y no lo ha dicho porque cree que la respuesta va a ser "cómprese otra cosa".
+  en: She works three 12-hour shifts a week and parks on the open top level of the hospital garage, in full sun, with no charger. She is afraid the car will bake all day and wear the battery out early, and she holds it back because she assumes the answer is "buy something else".
+  es: Trabaja tres turnos de 12 horas a la semana y parquea en el último piso, descubierto, del garaje del hospital, a pleno sol y sin cargador. Le da miedo que el carro se cocine todo el día y que la batería se gaste antes de tiempo, y no lo saca porque cree que la respuesta va a ser "cómprese otra cosa".
 # Phrases that would give the hidden truth away before an unlock.
 hidden_truth_markers:
   en:

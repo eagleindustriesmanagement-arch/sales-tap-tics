@@ -106,8 +106,8 @@ scoring:
       technique: T121
     - code: FUR-O03-OPTIONS
       behavior:
-        en: "Showed only real options from the sheet and called the longer term longer"
-        es: "Mostró solo opciones reales de la hoja y dijo claramente que el plazo más largo es más largo"
+        en: "Showed only real options from the sheet, and said plainly that the lower payment takes more months"
+        es: "Mostró solo opciones reales de la hoja y dijo claramente que el pago más bajo es a más meses"
       dimension: technique
       method: judge
       points: 20
@@ -174,8 +174,8 @@ demonstrations:
         - { speaker: customer, text: "Sí. Gracias." }
   good:
     notice:
-      en: Notice the question about his number before any new number, the plan called optional with the payment shown both ways, and the longer term called longer, out loud.
-      es: Fíjese en la pregunta por su número antes de cualquier número nuevo, en el plan dicho como opcional con el pago de las dos maneras, y en cómo dice en voz alta que el plazo más largo es más largo.
+      en: Notice the question about his number before any new number, the plan called optional with the payment shown both ways, and the rep saying out loud that the lower payment takes more months.
+      es: Fíjese en la pregunta por su número antes de cualquier número nuevo, en el plan dicho como opcional con el pago de las dos maneras, y en cómo dice en voz alta que el pago más bajo es a más meses.
     script:
       en:
         - { speaker: customer, text: "I like it, but the payment is too high." }

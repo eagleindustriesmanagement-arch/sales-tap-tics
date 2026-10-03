@@ -16,8 +16,8 @@ stated_line:
   en: The price is too high.
   es: El precio está muy alto.
 hidden_truth:
-  en: Last weekend he toured a resale house in Cutler Bay, built in 2005, about the same size, listed at $549,000. He has not mentioned it, and he has not asked that seller anything about the roof, the AC or insurance.
-  es: El fin de semana pasado vio una casa de reventa en Cutler Bay, construida en 2005, más o menos del mismo tamaño, listada en $549,000. No lo ha mencionado, y no le ha preguntado nada a ese vendedor sobre el techo, el aire acondicionado ni el seguro.
+  en: Last weekend he toured a resale house in Cutler Bay, built in 2005, about the same size, listed at $549,000. He keeps it to himself, and he has not asked that seller anything about the roof, the AC or insurance.
+  es: El fin de semana pasado vio una casa de reventa en Cutler Bay, construida en 2005, más o menos del mismo tamaño, listada en $549,000. Se lo guarda, y no le ha preguntado nada a ese vendedor sobre el techo, el aire acondicionado ni el seguro.
 # Phrases that would give the hidden truth away before an unlock.
 hidden_truth_markers:
   en:

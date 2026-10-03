@@ -235,12 +235,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     return debrief ? (
       <Debrief data={debrief} language={lang} seenId={session?.id} onRetry={() => location.reload()} />
     ) : (
-      <div className="grid min-h-dvh place-items-center px-6" role="status">
-        <div className="flex flex-col items-center gap-4 text-center">
-          <span className="h-12 w-12 animate-spin rounded-full border-[3px] border-brand-soft border-t-brand" aria-hidden="true" />
-          <p className="text-[17px] font-semibold text-ink">{ui("debrief.loading")}</p>
-        </div>
-      </div>
+      <ScoringProgress lang={lang} />
     );
   }
 
@@ -489,6 +484,43 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
             <button type="button" className="min-h-11 w-full text-[15px] font-semibold text-brand" onClick={() => { setPhase("lesson"); window.scrollTo(0, 0); }}>{ui("lesson.review")}</button>
           )}
         </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * While the session is scored (up to a minute or more with the AI judge): what is happening now, a bar that keeps
+ * moving and the seconds so far, so the wait never looks frozen. Stages follow the real order of the work.
+ */
+const SCORING_STAGES = [
+  { at: 0, key: "debrief.stage.read" },
+  { at: 6, key: "debrief.stage.rules" },
+  { at: 15, key: "debrief.stage.judge" },
+  { at: 45, key: "debrief.stage.write" },
+  { at: 75, key: "debrief.stage.long" },
+] as const;
+
+function ScoringProgress({ lang }: { lang: Language }) {
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    const started = Date.now();
+    const timer = setInterval(() => setSeconds(Math.floor((Date.now() - started) / 1000)), 1000);
+    return () => clearInterval(timer);
+  }, []);
+  const stage = [...SCORING_STAGES].reverse().find((s) => seconds >= s.at)!;
+  // Eases toward the end without reaching it: honest about not knowing exactly how long the judge takes.
+  const progress = 1 - Math.exp(-seconds / 35);
+  return (
+    <div className="grid min-h-dvh place-items-center px-6" role="status" aria-live="polite">
+      <div className="flex w-full max-w-sm flex-col items-center gap-4 text-center">
+        <span className="h-12 w-12 animate-spin rounded-full border-[3px] border-brand-soft border-t-brand" aria-hidden="true" />
+        <p className="text-[17px] font-semibold text-ink">{t("debrief.loading", lang)}</p>
+        <p className="min-h-6 text-[15px] text-body" data-testid="scoring-stage">{t(stage.key, lang)}</p>
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-ground" aria-hidden="true">
+          <div className="fill-gold-x h-full rounded-full transition-[width] duration-1000 ease-linear" style={{ width: `${Math.round(8 + progress * 88)}%` }} />
+        </div>
+        <p className="text-[13px] text-muted tabular-nums">{t("debrief.elapsed", lang, { n: seconds })}</p>
       </div>
     </div>
   );

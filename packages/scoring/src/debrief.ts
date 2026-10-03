@@ -1,4 +1,5 @@
 import type { BilingualText, EvidenceGrade, Library, Scenario } from "@taptics/content";
+import { compile } from "@taptics/rules";
 import type { ItemResult, JudgeResult, ScoreResult, ScoredTurn } from "./types.js";
 
 /** Evidence-grade weights: stronger evidence makes a weak item more worth fixing first (spec 12.4 item 1). */
@@ -16,8 +17,21 @@ export interface Debrief {
   turningPoint: { turnIndex: number; repLine: string; modelAlternative: BilingualText } | null;
   /** Revealed only after the session (spec 18.4 rule 1). */
   hiddenTruth: BilingualText | null;
+  /**
+   * Whether the customer actually said it in this conversation, read from the transcript (the persona's own
+   * hidden-truth markers): the first customer line that gave it away, or null when it never came out.
+   */
+  hiddenTruthSaid: { turnIndex: number; quote: string } | null;
   notScored: string[];
   reviewFlags: number;
+}
+
+/** The first customer line matching a hidden-truth marker, in either language. */
+export function firstSaid(transcript: ScoredTurn[], markers: { en: string[]; es: string[] }): { turnIndex: number; quote: string } | null {
+  const patterns = [...markers.en, ...markers.es].map((m) => compile(m));
+  if (patterns.length === 0) return null;
+  const turn = transcript.find((t) => t.speaker === "customer" && patterns.some((p) => p.test(t.text)));
+  return turn ? { turnIndex: turn.index, quote: turn.text } : null;
 }
 
 function gradeOf(library: Library, technique: string | undefined): EvidenceGrade {
@@ -88,6 +102,7 @@ export function buildDebrief(input: { library: Library; scenario: Scenario; scor
     change,
     turningPoint,
     hiddenTruth: persona?.hidden_truth ?? null,
+    hiddenTruthSaid: persona ? firstSaid(transcript, persona.hidden_truth_markers) : null,
     notScored: score.items.filter((i) => i.status === "not_scored").map((i) => i.code),
     reviewFlags: score.reviewFlags.length,
   };

@@ -16,8 +16,8 @@ stated_line:
   en: That price only works if I finance with you, right?
   es: Ese precio es solo si financio con ustedes, ¿verdad?
 hidden_truth:
-  en: His bank already pre-approved him, and the letter is on his phone. Last month at another store, the price went up $2,000 the moment he said he would use his own bank, so he has not mentioned the approval here.
-  es: Su banco ya lo pre-aprobó, y tiene la carta en el teléfono. El mes pasado, en otro dealer, el precio subió $2,000 en cuanto dijo que iba a usar su propio banco, así que aquí no ha mencionado la aprobación.
+  en: His bank already pre-approved him, and the letter is on his phone. Last month at another store, the price went up $2,000 the moment he said he would use his own bank, so he keeps the approval to himself here.
+  es: Su banco ya lo pre-aprobó, y tiene la carta en el teléfono. El mes pasado, en otro dealer, el precio subió $2,000 en cuanto dijo que iba a usar su propio banco, así que aquí se guarda la aprobación.
 # Phrases that would give the bank approval and the other store's price jump away before an unlock.
 hidden_truth_markers:
   en:

@@ -38,8 +38,8 @@ mistakes:
       en: Taking the desk's lower payment on a longer term without saying the months.
       es: Traer el pago más bajo del desk a un plazo más largo sin decir los meses.
     fix:
-      en: Longer is longer. Say the months and the extra interest.
-      es: Más largo es más largo. Diga los meses y los intereses de más.
+      en: A lower payment over more months costs more. Say the months and the extra interest.
+      es: Pagar menos al mes por más meses cuesta más. Diga los meses y los intereses de más.
   - mistake:
       en: A long pitch to a guy on his lunch break.
       es: Un discurso largo a un hombre en su hora de almuerzo.

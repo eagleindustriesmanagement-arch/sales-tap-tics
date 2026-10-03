@@ -16,8 +16,8 @@ stated_line:
   en: The payment is too high. And I'm on my lunch break, so I don't have long.
   es: El pago está muy alto. Y estoy en mi hora de almuerzo, así que no tengo mucho tiempo.
 hidden_truth:
-  en: He has a hard ceiling of $550 a month that he has not said yet. Above that, the budget does not work, no matter how much he likes the car.
-  es: Tiene un tope fijo de $550 al mes que todavía no ha dicho. Por encima de eso el presupuesto no le da, por mucho que le guste el carro.
+  en: He has a hard ceiling of $550 a month, and he does not lead with it. Above that, the budget does not work, no matter how much he likes the car.
+  es: Tiene un tope fijo de $550 al mes, y no empieza por decirlo. Por encima de eso el presupuesto no le da, por mucho que le guste el carro.
 # Phrases that would give the ceiling away before an unlock.
 hidden_truth_markers:
   en:

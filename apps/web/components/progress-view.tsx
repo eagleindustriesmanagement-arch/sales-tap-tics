@@ -19,11 +19,21 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
   const streak = practiceStreak(history.map((o) => o.at), now);
   const mastery = masteryFrom(history);
   const objections = release1
-    .map((s) => ({ code: s.code, title: lib.scenarios.get(s.code)!.title[lang], m: mastery.get(`scenario:${s.code}`) }))
+    .map((s) => ({
+      code: s.code,
+      title: lib.scenarios.get(s.code)!.title[lang],
+      m: mastery.get(`scenario:${s.code}`),
+      // Only offline (partial) scores so far: the figure covers just the behaviors that could be scored, so it is marked.
+      estimate: !history.some((o) => o.scenarioCode === s.code && !o.partial && o.total !== null),
+    }))
     .filter((x) => x.m)
     .sort((a, b) => a.m!.value - b.m!.value);
   const fmtWeek = (d: string) => new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${d}T00:00:00Z`));
   const latest = progress.weeks.at(-1);
+  // Weeks start on Monday (UTC), as the scores are grouped: say which week the tiles show, so this week's sessions
+  // are never mistaken for an old date.
+  const monday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - ((now.getUTCDay() + 6) % 7))).toISOString().slice(0, 10);
+  const fmtDay = (d: string) => new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${d}T00:00:00Z`));
   const prior = progress.weeks.at(-2);
   return (
     <div className="space-y-6">
@@ -55,6 +65,12 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
           {progress.weeks.length === 0 || !latest ? (
             <p className="text-[15px] text-muted" data-testid="progress-no-scores">{t("progress.noComplete", lang)}</p>
           ) : (
+            <>
+            <p className="mb-3 text-[13px] text-muted" data-testid="progress-week">
+              {latest.week === monday
+                ? t("progress.thisWeek", lang, { date: fmtDay(latest.week), n: latest.sessions })
+                : t("progress.latestWeek", lang, { date: fmtWeek(latest.week) })}
+            </p>
             <ul className="space-y-4">
               {DIMENSIONS.map((d) => {
                 const now = latest.dimensions[d];
@@ -80,6 +96,7 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
                 );
               })}
             </ul>
+            </>
           )}
         </Card>
       </section>
@@ -109,11 +126,12 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
             <ul className="space-y-3.5">
               {objections.map((o) => (
                 <li key={o.code}>
-                  <div className="flex justify-between gap-3 text-[15px]"><span className="text-ink">{o.title}</span><span className="font-semibold text-muted tabular-nums">{Math.round(o.m!.value * 100)}%</span></div>
+                  <div className="flex justify-between gap-3 text-[15px]"><span className="text-ink">{o.title}</span><span className="font-semibold text-muted tabular-nums">{Math.round(o.m!.value * 100)}%{o.estimate ? "*" : ""}</span></div>
                   <Bar value={o.m!.value} className="mt-1.5" />
                 </li>
               ))}
             </ul>
+            {objections.some((o) => o.estimate) && <p className="mt-3.5 border-t border-line-soft pt-3 text-[13px] text-muted" data-testid="mastery-partial">{t("progress.masteryPartial", lang)}</p>}
           </Card>
         </section>
       )}

@@ -16,8 +16,8 @@ stated_line:
   en: I like it, but the payment is too high.
   es: Me gusta, pero el pago está muy alto.
 hidden_truth:
-  en: He has a hard ceiling of $240 a month that he has not said yet, because his daughter's braces payment just started. Above that, the budget does not work.
-  es: Tiene un tope fijo de $240 al mes que todavía no ha dicho, porque acaba de empezar a pagar los brackets de su hija. Por encima de eso, el presupuesto no le da.
+  en: He has a hard ceiling of $240 a month, and he does not lead with it, because his daughter's braces payment just started. Above that, the budget does not work.
+  es: Tiene un tope fijo de $240 al mes, y no empieza por decirlo, porque acaba de empezar a pagar los brackets de su hija. Por encima de eso, el presupuesto no le da.
 # Phrases that would give the ceiling away before an unlock.
 hidden_truth_markers:
   en:

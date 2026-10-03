@@ -55,6 +55,8 @@ export interface DebriefPayload {
     change: { code: string; behavior: Bilingual; why: Bilingual; stretch: boolean; concept?: { name: Bilingual; idea: Bilingual } | null };
     turningPoint: { repLine: string; modelAlternative: Bilingual } | null;
     hiddenTruth: Bilingual | null;
+    /** Read from the transcript: the customer's own line that gave it away, or null if it never came out. */
+    hiddenTruthSaid?: { turnIndex: number; quote: string } | null;
     notScored: string[];
     reviewFlags: number;
   };
@@ -165,6 +167,11 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
         <Card className="reveal-rise space-y-1.5" style={cascade(step++)}>
           <h2 className="flex items-center gap-2 text-[17px] font-bold text-ink"><IconEye size={20} className="text-brand" />{ui("debrief.hiddenTruth")}</h2>
           <p className="text-[15px]">{d.hiddenTruth[lang]}</p>
+          {d.hiddenTruthSaid !== undefined && (
+            <p data-testid="truth-said" className="text-[14px] text-muted">
+              {d.hiddenTruthSaid ? ui("debrief.truthSaid", { quote: d.hiddenTruthSaid.quote }) : ui("debrief.truthNotSaid")}
+            </p>
+          )}
         </Card>
       )}
 

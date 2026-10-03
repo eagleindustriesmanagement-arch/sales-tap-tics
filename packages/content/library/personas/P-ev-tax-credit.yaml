@@ -16,8 +16,8 @@ stated_line:
   en: There's no tax credit anymore. I read it. So don't tell me there is.
   es: Ya no hay crédito federal. Yo lo leí. Así que no me diga que sí.
 hidden_truth:
-  en: He was counting on the $7,500 credit to bring the Blazer EV close to his limit. Without it, his real limit is $42,000 before tax, and he has not said it because he does not want to be stretched or steered.
-  es: Contaba con el crédito de $7,500 para que la Blazer EV le quedara cerca de su límite. Sin el crédito, su límite real es $42,000 antes de impuestos, y no lo ha dicho porque no quiere que lo estiren ni que lo lleven por donde no quiere.
+  en: He was counting on the $7,500 credit to bring the Blazer EV close to his limit. Without it, his real limit is $42,000 before tax, and he holds it back because he does not want to be stretched or steered.
+  es: Contaba con el crédito de $7,500 para que la Blazer EV le quedara cerca de su límite. Sin el crédito, su límite real es $42,000 antes de impuestos, y no lo suelta porque no quiere que lo estiren ni que lo lleven por donde no quiere.
 # Phrases that would give the hidden truth away before an unlock.
 hidden_truth_markers:
   en:
