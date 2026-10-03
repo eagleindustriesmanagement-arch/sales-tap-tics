@@ -60,6 +60,8 @@ export default async function Practice() {
           <span className="mt-0.5 flex flex-wrap items-center gap-x-2 text-[14px] text-muted">
             {state === "next" ? <span className="font-semibold text-brand">{t("practice.next", lang)}</span> : <span>{status}</span>}
             {state === "passed" && <span className="font-semibold text-good">{t("practice.passed", lang)}</span>}
+            {/* A complete score that did not pass: the lesson is not done (decision 0030). */}
+            {p && !p.passed && p.best !== null && !(counts && cert.state === "certified") && <span className="font-semibold text-warn" data-testid={`not-passed-${s.code}`}>{t("practice.notPassed", lang)}</span>}
             {counts && cert.state === "certified" && <span className="font-semibold text-good">{t("cert.until", lang, { date: fmt.format(cert.until) })}</span>}
             {counts && cert.state === "wait" && <span>{t(cert.reason === "24h" ? "cert.wait24" : "cert.waitPractice", lang)}</span>}
           </span>

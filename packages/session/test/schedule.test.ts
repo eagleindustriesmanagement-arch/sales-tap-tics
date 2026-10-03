@@ -63,6 +63,20 @@ describe("the daily plan", () => {
     expect(first).toEqual(["O01", "O02", "O03", "O04", "O05"]);
     expect(dailyPlan({ ...base, now: d(0), history: [] })[0]).toMatchObject({ scenarioCode: "S-partner-check-L1", reason: { kind: "onboarding", week: 1 } });
   });
+  it("a failed lesson is not done: it comes back first, with its best score, and the next new one still follows (decision 0030)", () => {
+    const failed = [obs(0, "S-partner-check-L1", { total: 48, passed: false }), obs(1, "S-partner-check-L1", { total: 61, passed: false })];
+    const plan = dailyPlan({ ...base, now: d(2), history: failed });
+    expect(plan[0]).toEqual({ scenarioCode: "S-partner-check-L1", mode: "practice", reason: { kind: "retry", best: 61 } });
+    expect(plan[1]!.reason.kind).toBe("onboarding");
+    expect(plan[1]!.scenarioCode).not.toBe("S-partner-check-L1");
+    // Once it passes, it stops coming back as a retry.
+    const passed = dailyPlan({ ...base, now: d(3), history: [...failed, obs(2, "S-partner-check-L1", { total: 78, passed: true })] });
+    expect(passed.some((p) => p.reason.kind === "retry")).toBe(false);
+  });
+  it("an offline (partial) score is neither a pass nor a failure", () => {
+    const plan = dailyPlan({ ...base, now: d(1), history: [obs(0, "S-partner-check-L1", { total: 30, partial: true, passed: false })] });
+    expect(plan.some((p) => p.reason.kind === "retry")).toBe(false);
+  });
 });
 
 describe("a simulated 30-day onboarding (M6 acceptance)", () => {
@@ -83,7 +97,8 @@ describe("a simulated 30-day onboarding (M6 acceptance)", () => {
         const n = (attempts.get(p.scenarioCode) ?? 0) + 1;
         attempts.set(p.scenarioCode, n);
         const total = Math.min(95, 50 + 12 * n);
-        history.push(obs(day, p.scenarioCode, { mode: p.mode, total, items: [{ code: `I-${p.scenarioCode}`, ratio: total / 100 }] }));
+        // The first attempt fails (62), the second passes (74): failed lessons come back, and onboarding still finishes.
+        history.push(obs(day, p.scenarioCode, { mode: p.mode, total, passed: total >= 70, items: [{ code: `I-${p.scenarioCode}`, ratio: total / 100 }] }));
       }
     }
     const release1 = scenarios.filter((s) => s.release1).map((s) => s.code);

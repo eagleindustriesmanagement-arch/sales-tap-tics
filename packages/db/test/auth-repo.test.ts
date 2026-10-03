@@ -174,18 +174,27 @@ describe.skipIf(SKIP)("assignments (spec 14.5 item 4)", () => {
     expect(r.rowCount).toBe(0);
   });
 
-  it("practicing the assigned scenario completes it", async () => {
-    const id = randomUUID();
-    await as(REP2, async (q) => {
-      const user = (await loadUser(q, REP2))!;
-      await createPracticeSession(q, user, { id, scenarioCode: "S-partner-check-L1", releaseId: null, language: "es", mode: "practice", channel: "floor", textMode: true, seed: "a", exitDraw: 0.5 });
-      await saveSessionResult(q, DEMO.tenant, id, {
-        endReason: "not_now", events: [], violations: [],
-        score: { rubric: "R-objection", total: 40, passed: false, honestyPassed: true, dimensions: {}, items: [], judgeModel: null, judgePromptVersion: null, partial: false, coverage: 1 },
-        debrief: {}, usage: [],
+  it("a failed attempt leaves the assignment open; only a pass completes it (decision 0030)", async () => {
+    const finish = async (total: number, passed: boolean) => {
+      const id = randomUUID();
+      await as(REP2, async (q) => {
+        const user = (await loadUser(q, REP2))!;
+        await createPracticeSession(q, user, { id, scenarioCode: "S-partner-check-L1", releaseId: null, language: "es", mode: "practice", channel: "floor", textMode: true, seed: "a", exitDraw: 0.5 });
+        await saveSessionResult(q, DEMO.tenant, id, {
+          endReason: "not_now", events: [], violations: [],
+          score: { rubric: "R-objection", total, passed, honestyPassed: true, dimensions: {}, items: [], judgeModel: null, judgePromptVersion: null, partial: false, coverage: 1 },
+          debrief: {}, usage: [],
+        });
       });
-    });
-    expect((await as(REP2, (q) => listAssignments(q, { open: true })))).toEqual([]);
+    };
+    await finish(40, false);
+    const open = await as(REP2, (q) => listAssignments(q, { open: true }));
+    expect(open.map((a) => [a.scenarioCode, a.attempts, a.best, a.completedAt])).toEqual([["S-partner-check-L1", 1, 40, null]]);
+    await finish(82, true);
+    expect(await as(REP2, (q) => listAssignments(q, { open: true }))).toEqual([]);
+    const done = await as(REP2, (q) => listAssignments(q));
+    expect(done[0]).toMatchObject({ attempts: 2, best: 82 });
+    expect(done[0]!.completedAt).toBeInstanceOf(Date);
     expect((await as(REP, (q) => listAssignments(q, { open: true })))).toHaveLength(1);
   });
 });

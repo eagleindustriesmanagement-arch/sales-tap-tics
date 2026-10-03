@@ -203,7 +203,7 @@ test("the general manager edits store setup, the reviewer signs it off and sees 
   await c.end();
 });
 
-test("a manager assigns practice with a reason; the rep sees it first, practices it, and it shows as done", async ({ page, browser }) => {
+test("a manager assigns practice with a reason; the rep sees it first and practices it; it is not done until it passes", async ({ page, browser }) => {
   await signInReady(page, "manager@demo.test");
   await page.goto("/manager/team");
   await page.getByRole("link", { name: "Assign practice" }).click();
@@ -230,7 +230,12 @@ test("a manager assigns practice with a reason; the rep sees it first, practices
 
   await page.goto("/manager/team");
   await expect(page.getByTestId("assignments").getByText(/Luis · .*talk to my wife/)).toBeVisible();
-  await expect(page.getByTestId("assignments").getByText("Done")).toBeVisible();
+  // Practiced is not passed (decision 0030): offline scores are partial, so it stays open and says so.
+  await expect(page.getByTestId("assignments").getByText("Tried, no complete score yet")).toBeVisible();
+  await expect(page.getByTestId("assignments").getByText("Done")).toHaveCount(0);
+  // The rep still sees it first.
+  await rep.goto("/today");
+  await expect(rep.getByText("Assigned by Carlos")).toBeVisible();
   // A rep cannot assign.
   expect((await rep.request.post("/api/assignments", { data: { userIds: [], scenarioCode: "S-partner-check-L1", dueDate: null, reason: "" } })).status()).toBe(403);
 });

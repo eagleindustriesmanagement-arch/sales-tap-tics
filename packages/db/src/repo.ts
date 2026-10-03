@@ -169,13 +169,16 @@ export interface SessionResultRow {
 /** Writes everything a finished session produced (spec 5.2 items 7 and 8). Scores are immutable once written. */
 export async function saveSessionResult(db: Queryable, tenantId: string, sessionId: string, r: SessionResultRow) {
   await db.query("update sessions set ended_at = now(), end_reason = $2 where id = $1 and ended_at is null", [sessionId, r.endReason]);
-  // Practicing an assigned scenario completes the assignment (spec 14.5 item 4).
-  await db.query(
-    `update assignments a set completed_at = now()
-     from sessions s where s.id = $1 and a.user_id = s.user_id and a.scenario_code = s.scenario_code
-       and a.completed_at is null and a.created_at <= s.started_at`,
-    [sessionId],
-  );
+  // Passing an assigned scenario completes the assignment (spec 14.5 item 4, decision 0030). A failed or partial
+  // score leaves it open: the rep has practiced it, not done it.
+  if (r.score.passed) {
+    await db.query(
+      `update assignments a set completed_at = now()
+       from sessions s where s.id = $1 and a.user_id = s.user_id and a.scenario_code = s.scenario_code
+         and a.completed_at is null and a.created_at <= s.started_at`,
+      [sessionId],
+    );
+  }
   for (const e of r.events) {
     await db.query("insert into scenario_state_events (tenant_id, session_id, turn_index, event, detail) values ($1, $2, $3, $4, $5)", [tenantId, sessionId, e.turnIndex, e.event, JSON.stringify(e.detail)]);
   }
@@ -535,13 +538,21 @@ export interface Assignment {
   reason: string;
   completedAt: Date | null;
   createdAt: Date;
+  /** Finished attempts since it was assigned, as far as the viewer may see them (row-level security, private window). */
+  attempts: number;
+  /** The best complete score among those attempts, if any. */
+  best: number | null;
 }
 
-const ASSIGNMENT_COLUMNS = `a.id, a.user_id, u.first_name, a.scenario_code, a.assigned_by, app.colleague_first_name(a.assigned_by) as assigned_by_name, a.due_at, a.reason, a.completed_at, a.created_at`;
+const ASSIGNMENT_COLUMNS = `a.id, a.user_id, u.first_name, a.scenario_code, a.assigned_by, app.colleague_first_name(a.assigned_by) as assigned_by_name, a.due_at, a.reason, a.completed_at, a.created_at,
+  (select count(*)::int from sessions s where s.user_id = a.user_id and s.scenario_code = a.scenario_code and s.ended_at is not null and s.started_at >= a.created_at) attempts,
+  (select max(sc.total) from sessions s join scores sc on sc.session_id = s.id where s.user_id = a.user_id and s.scenario_code = a.scenario_code
+     and s.started_at >= a.created_at and not coalesce((sc.dimensions->>'partial')::boolean, false)) best`;
 const toAssignment = (x: Record<string, unknown>): Assignment => ({
   id: x.id as string, userId: x.user_id as string, firstName: x.first_name as string | null, scenarioCode: x.scenario_code as string,
   assignedBy: x.assigned_by as string, assignedByName: x.assigned_by_name as string | null, dueAt: x.due_at as Date | null,
   reason: x.reason as string, completedAt: x.completed_at as Date | null, createdAt: x.created_at as Date,
+  attempts: (x.attempts as number | undefined) ?? 0, best: x.best === null || x.best === undefined ? null : Number(x.best),
 });
 
 /** A manager assigns one scenario to several reps. Row-level security refuses reps outside the manager's scope. */
@@ -585,7 +596,7 @@ export async function assignableReps(db: Queryable, manager: UserContext): Promi
 /** One rep's finished sessions, oldest first, as the scheduler reads them; and the rep's onboarding day 1. */
 export async function practiceHistory(db: Queryable, userId: string) {
   const r = await db.query(
-    `select s.started_at, s.scenario_code, s.mode, sc.total, sc.items, coalesce(sc.honesty_passed, true) honesty_passed,
+    `select s.started_at, s.scenario_code, s.mode, sc.total, sc.passed, sc.items, coalesce(sc.honesty_passed, true) honesty_passed,
             coalesce((sc.dimensions->>'partial')::boolean, false) partial,
             coalesce((select array_agg(distinct v.rule_code) from violations v where v.session_id = s.id and v.severity = 'critical' and not v.uncertain), '{}') critical_rules
      from sessions s join scores sc on sc.session_id = s.id
@@ -605,6 +616,7 @@ export async function practiceHistory(db: Queryable, userId: string) {
     items: ((x.items ?? []) as Item[]).filter((i) => i.status === "scored" && i.max > 0).map((i) => ({ code: i.code, ratio: i.points / i.max })),
     honestyPassed: x.honesty_passed as boolean,
     partial: x.partial as boolean,
+    passed: x.passed as boolean,
     criticalRules: x.critical_rules as string[],
   }));
   return { history, startedAt: (start.rows[0]?.started_at as Date | undefined) ?? new Date() };

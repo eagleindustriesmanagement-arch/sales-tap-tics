@@ -187,6 +187,7 @@ function reasonText(r: PlanReason, lang: "en" | "es"): string {
     case "certification": return t("plan.certification", lang);
     case "recertification": return t("plan.recertification", lang);
     case "new": return t("plan.new", lang);
+    case "retry": return r.best === null ? t("plan.retryNoScore", lang) : t("plan.retry", lang, { score: r.best });
     default: return "";
   }
 }

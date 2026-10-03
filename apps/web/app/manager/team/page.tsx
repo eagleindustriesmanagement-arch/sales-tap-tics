@@ -75,8 +75,15 @@ export default async function Team() {
                 return (
                   <li key={a.id} className="flex min-h-14 items-center justify-between gap-3 px-4 py-2.5">
                     <span className="min-w-0 text-[15px] text-ink">{a.firstName} · {lib.scenarios.get(a.scenarioCode)?.title[lang] ?? a.scenarioCode}</span>
-                    <Chip tone={a.completedAt ? "good" : overdue ? "bad" : "neutral"} className="shrink-0">
-                      {a.completedAt ? t("assign.statusDone", lang) : overdue ? t("assign.statusOverdue", lang) : a.dueAt ? t("assign.due.short", lang, { date: fmtDay(a.dueAt, lang) }) : t("assign.statusOpen", lang)}
+                    {/* Done means passed (decision 0030); a failed attempt shows as not passed yet. */}
+                    <Chip tone={a.completedAt ? "good" : overdue ? "bad" : a.attempts > 0 ? "warn" : "neutral"} className="shrink-0">
+                      {a.completedAt
+                        ? t("assign.statusDone", lang)
+                        : overdue
+                          ? t("assign.statusOverdue", lang)
+                          : a.attempts > 0
+                            ? a.best === null ? t("assign.statusTried", lang) : t("assign.statusNotPassed", lang, { score: Math.round(a.best) })
+                            : a.dueAt ? t("assign.due.short", lang, { date: fmtDay(a.dueAt, lang) }) : t("assign.statusOpen", lang)}
                     </Chip>
                   </li>
                 );

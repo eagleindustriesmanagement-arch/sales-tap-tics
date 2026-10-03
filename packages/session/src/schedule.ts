@@ -24,6 +24,8 @@ export interface Observation {
   total: number | null;
   honestyPassed: boolean;
   partial: boolean;
+  /** The stored verdict: a complete score at or above the pass mark with honesty passed. */
+  passed?: boolean;
   /** Rules broken with a critical, confident violation. */
   criticalRules: string[];
 }
@@ -112,10 +114,14 @@ export function levelOneCertified(scenarios: ScenarioMeta[], history: Observatio
 
 // ---------------------------------------------------------------- the daily plan (spec 15.2, 15.3)
 
+/** A complete score that did not pass (below the pass mark, or the honesty check failed). */
+export const failedAttempt = (o: Observation) => !o.partial && o.total !== null && o.passed === false;
+
 export type PlanReason =
   | { kind: "assigned"; assignedBy: string | null; reason: string; dueAt: Date | null }
   | { kind: "onboarding"; week: number }
   | { kind: "compliance"; rule: string }
+  | { kind: "retry"; best: number | null }
   | { kind: "due"; items: number; daysSince: number | null }
   | { kind: "certification" }
   | { kind: "recertification" }
@@ -176,6 +182,15 @@ export function dailyPlan(input: PlanInput, size = 2): PlanItem[] {
   const last = sorted.at(-1);
   if (last && last.criticalRules.length > 0 && now.getTime() - last.at.getTime() < 2 * DAY) {
     add({ scenarioCode: last.scenarioCode, mode: "practice", reason: { kind: "compliance", rule: last.criticalRules[0]! } });
+  }
+
+  // A lesson the rep failed is not done: it comes back before anything new (decision 0030). Only a complete score
+  // can fail; an offline (partial) score never claims a pass or a failure.
+  const passedCodes = new Set(history.filter((o) => o.passed).map((o) => o.scenarioCode));
+  const lastFailed = sorted.filter((o) => failedAttempt(o) && !passedCodes.has(o.scenarioCode) && known.has(o.scenarioCode)).at(-1);
+  if (lastFailed) {
+    const totals = history.filter((o) => o.scenarioCode === lastFailed.scenarioCode && !o.partial && o.total !== null).map((o) => o.total!);
+    add({ scenarioCode: lastFailed.scenarioCode, mode: "practice", reason: { kind: "retry", best: totals.length ? Math.round(Math.max(...totals)) : null } });
   }
 
   const tried = new Set(history.map((o) => o.scenarioCode));
