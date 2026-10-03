@@ -101,7 +101,7 @@ test("a manager signs up a team, sends an invite link, and whoever joins through
   await expect(page.getByRole("heading", { name: "Wrong lot." })).toBeVisible();
 });
 
-test("an individual signs up alone for any high-ticket sale; no team screens", async ({ page }) => {
+test("an individual signs up alone, whatever they sell; no team screens", async ({ page }) => {
   const email = `solo-${Date.now()}@solar.test`;
   await page.goto("/signup?for=me");
   await expect(page.getByRole("radio", { name: "Just for me" })).toBeChecked();
@@ -128,4 +128,14 @@ test("sign-in never says a code was sent when the request failed", async ({ page
   await page.getByRole("button", { name: "Send me a code" }).click();
   await expect(page.getByText("Something went wrong on our side. Try again in a moment.")).toBeVisible();
   await expect(page.getByLabel("Six-digit code")).toHaveCount(0);
+});
+
+test("the sign-in page's language picker matches the app's", async ({ page }) => {
+  await page.goto("/login");
+  const picker = page.getByTestId("auth-lang");
+  await expect(picker.locator("svg").first()).toBeVisible();
+  await expect(picker).toContainText("English");
+  await picker.locator("select").selectOption("es");
+  await expect(page.getByTestId("auth-lang")).toContainText("Español");
+  await expect(page.getByLabel("Correo o número de celular")).toBeVisible();
 });

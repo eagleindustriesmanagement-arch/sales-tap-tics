@@ -15,7 +15,7 @@ const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["nor
 
 export const metadata: Metadata = {
   title: "Sales Taptics",
-  description: "Voice roleplay practice for car sales, in English and Spanish.",
+  description: "Sales training for people who sell: learn a technique, practice it against an AI customer, get scored. English and Spanish.",
   manifest: "/manifest.webmanifest",
   // The mark alone at tab sizes (the wordmark is unreadable below 64px); the full logo for home screens.
   icons: {
@@ -37,7 +37,6 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await language();
-  const other = lang === "en" ? "es" : "en";
   const user = await currentUser();
   const tab = (href: string, key: Parameters<typeof t>[0], icon: Tab["icon"]): Tab => ({ href, label: t(key, lang), icon });
   const tabs: Tab[] = !user
@@ -62,8 +61,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           tabs={tabs}
           appName={t("app.name", lang)}
           lang={lang}
-          switchLabel={t("language.switch", lang)}
-          otherLang={other}
           settingsLabel={t("nav.settings", lang)}
           initial={user ? (user.firstName?.[0] ?? "?").toUpperCase() : null}
         >

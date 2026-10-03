@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { LanguageToggle } from "@/components/language-toggle";
 import { IconBook, IconChart, IconClipboard, IconGlobe, IconHome, IconPath, IconShield, IconStore, IconUsers } from "@/components/icons";
 
 export type TabIcon = "today" | "practice" | "progress" | "library" | "floor" | "team" | "dashboard" | "store" | "compliance" | "review";
@@ -24,8 +25,8 @@ function active(path: string, href: string) {
  * The app frame (docs/DESIGN-GUIDELINES.md §7): a glass top bar with the language one tap away and the person's
  * settings behind their initial, and a floating glass tab bar in thumb reach. Practice is immersive: no tabs.
  */
-export function AppChrome({ tabs, appName, lang, switchLabel, otherLang, settingsLabel, initial, children }: {
-  tabs: Tab[]; appName: string; lang: string; switchLabel: string; otherLang: string; settingsLabel: string; initial: string | null; children: ReactNode;
+export function AppChrome({ tabs, appName, lang, settingsLabel, initial, children }: {
+  tabs: Tab[]; appName: string; lang: string; settingsLabel: string; initial: string | null; children: ReactNode;
 }) {
   const path = usePathname() ?? "/";
   const full = immersive(path);
@@ -58,14 +59,9 @@ export function AppChrome({ tabs, appName, lang, switchLabel, otherLang, setting
                 </Link>
               ))}
             </nav>
-            <form action="/api/language" method="post" className="ml-auto">
-              <input type="hidden" name="lang" value={otherLang} />
-              <button className="liquid-glass liquid-glass-flat inline-flex min-h-10 items-center gap-1.5 rounded-full px-3 text-[14px] font-semibold text-ink" lang={otherLang}>
-                <IconGlobe size={16} />{switchLabel}
-              </button>
-            </form>
+            <LanguageToggle lang={lang === "es" ? "es" : "en"} className="ml-auto" testId="app-lang" />
             {initial !== null && (
-              <Link href="/settings" aria-label={settingsLabel} className="liquid-glass liquid-glass-flat grid h-10 w-10 shrink-0 place-items-center rounded-full text-[15px] font-bold text-ink">
+              <Link href="/settings" aria-label={settingsLabel} className="liquid-glass liquid-glass-flat grid h-11 w-11 shrink-0 place-items-center rounded-full text-[15px] font-bold text-ink">
                 {initial}
               </Link>
             )}

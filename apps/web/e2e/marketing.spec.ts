@@ -68,10 +68,33 @@ test.describe("the public home page", () => {
     expect(problems).toEqual([]);
   });
 
+  test("speaks to everyone who sells, in English and Spanish, with the globe language picker", async ({ page }) => {
+    await page.goto("/");
+    await expect(page).toHaveTitle("Sales Taptics: sales training for every close");
+    await expect(page.getByText("Sales training for people who sell: cars, homes, solar, furniture.")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Techniques for every close." })).toBeVisible();
+    await expect(page.getByTestId("hero-facts")).toContainText("English + Spanish");
+    // The picker names the current language beside the globe and offers both.
+    const picker = page.getByTestId("mkt-lang");
+    await expect(picker.locator("svg").first()).toBeVisible();
+    await expect(picker.locator("select option")).toHaveText(["English", "Español"]);
+    for (const path of ["/", "/pricing"]) {
+      for (const lang of ["en", "es"] as const) {
+        await page.context().addCookies([{ name: "lang", value: lang, url: page.url() }]);
+        await page.goto(path);
+        await expect(page.locator("[data-mkt]")).toHaveAttribute("lang", lang);
+        const text = (await page.locator("body").innerText()).toLowerCase();
+        for (const phrase of ["high-ticket", "something big", "miami spanish", "alto valor", "algo grande", "español de miami", "venta grande"]) {
+          expect(text, `${path} (${lang}) says "${phrase}"`).not.toContain(phrase);
+        }
+      }
+    }
+  });
+
   test("the language switch turns the page to Spanish", async ({ page }) => {
     const problems = watch(page);
     await page.goto("/");
-    await page.getByTestId("mkt-lang").click();
+    await page.getByTestId("mkt-lang").locator("select").selectOption("es");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Domine el cierre antes de que cuente\./);
     const hero = page.locator("section", { has: page.getByRole("heading", { level: 1 }) });
     await expect(hero.getByRole("link", { name: "Empiece gratis" })).toHaveAttribute("href", "/signup");

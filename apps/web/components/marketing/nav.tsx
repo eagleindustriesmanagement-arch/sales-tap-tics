@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { t, type Language } from "@taptics/i18n";
-import { IconGlobe } from "@/components/icons";
+import { LanguageToggle } from "@/components/language-toggle";
 import { copy, say } from "./copy";
 import { Brand } from "./parts";
 
@@ -11,26 +11,6 @@ const ANCHORS = [
   ["#results", copy.nav.results],
   ["#managers", copy.nav.managers],
 ] as const;
-
-/** The language, one tap away, posted exactly like the app frame does. */
-function LangForm({ lang }: { lang: Language }) {
-  const other = lang === "en" ? "es" : "en";
-  return (
-    <form action="/api/language" method="post">
-      <input type="hidden" name="lang" value={other} />
-      <button
-        className="liquid-glass liquid-glass-flat inline-flex min-h-11 items-center gap-1.5 rounded-full px-3.5 text-[14px] font-semibold text-ink"
-        lang={other}
-        data-testid="mkt-lang"
-      >
-        <IconGlobe size={16} />
-        <span className="hidden sm:inline">{t("language.switch", lang)}</span>
-        <span className="sm:hidden" aria-hidden="true">{other.toUpperCase()}</span>
-        <span className="sr-only sm:hidden">{t("language.switch", lang)}</span>
-      </button>
-    </form>
-  );
-}
 
 /** `page` says where the nav sits: on the home page the sections are anchors, elsewhere they lead back home. */
 export function Nav({ lang, page = "home" }: { lang: Language; page?: "home" | "pricing" }) {
@@ -50,7 +30,7 @@ export function Nav({ lang, page = "home" }: { lang: Language; page?: "home" | "
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
-          <LangForm lang={lang} />
+          <LanguageToggle lang={lang} testId="mkt-lang" />
           <Link href="/login" className="hidden min-h-11 items-center rounded-full px-3.5 text-[14px] font-semibold text-ink hover:text-brand sm:inline-flex">
             {say(copy.nav.signIn, lang)}
           </Link>

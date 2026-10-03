@@ -401,7 +401,7 @@ test("the general manager adds a person who can sign in, then deactivates them",
   await page.getByRole("link", { name: "People", exact: true }).click();
   await page.getByLabel("First name").fill("Daniel");
   await page.getByLabel("Email").fill("e2e-daniel@demo.test");
-  await page.getByLabel("Language").selectOption("es");
+  await page.getByRole("combobox", { name: /^Language/ }).selectOption("es");
   await page.getByRole("button", { name: "Add to the store" }).click();
   await expect(page.getByRole("status")).toHaveText("Daniel was added and can sign in now.");
   await expect(page.getByTestId("person-Daniel")).toContainText("Active");
@@ -744,4 +744,18 @@ test("a typed Send works in browsers whose scroll returns a promise", async ({ p
   }
   await expect(page.getByText("This screen hit a problem")).toHaveCount(0);
   expect(crashes).toEqual([]);
+});
+
+test("the app header's language picker: globe, current language, both languages", async ({ page }) => {
+  await signInReady(page, "rep2@demo.test");
+  await page.goto("/today");
+  const picker = page.getByTestId("app-lang");
+  await expect(picker).toBeVisible();
+  await expect(picker.locator("svg").first()).toBeVisible();
+  await expect(picker).toContainText("English");
+  await picker.locator("select").selectOption("es");
+  await expect(page.getByTestId("app-lang")).toContainText("Español");
+  await expect(page.getByRole("link", { name: "Hoy" }).first()).toBeVisible();
+  await page.getByTestId("app-lang").locator("select").selectOption("en");
+  await expect(page.getByTestId("app-lang")).toContainText("English");
 });

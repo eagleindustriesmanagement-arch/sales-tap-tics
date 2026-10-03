@@ -22,7 +22,7 @@ export interface LibraryFacts {
   rail: [L[], L[]];
 }
 
-/** Six that work on any high-ticket floor, in the order a conversation meets them. */
+/** Six that work on any sales floor, in the order a conversation meets them. */
 const FEATURED = ["T001", "T005", "T004", "T030", "T091", "T014"];
 /** The rail: more techniques that travel beyond the car floor. */
 const RAIL_A = ["T002", "T032", "T069", "T024", "T025", "T060", "T090", "T038", "T100", "T045", "T057", "T113"];

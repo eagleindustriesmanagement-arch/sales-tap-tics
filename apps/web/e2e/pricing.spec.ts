@@ -53,7 +53,7 @@ test.describe("the pricing page", () => {
     const faq = page.getByTestId("faq");
     await faq.getByText("Is it only for car sales?").click();
     await expect(faq).toContainText("homes, solar and furniture each have a starter set of their own");
-    await page.getByTestId("mkt-lang").click();
+    await page.getByTestId("mkt-lang").locator("select").selectOption("es");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Un precio por usuario\./);
     await expect(page.getByTestId("placeholder-notice")).toContainText("Estos son provisionales.");
     await expect(page.locator("[data-mkt]")).toHaveAttribute("lang", "es");

@@ -15,7 +15,7 @@ import { Start } from "./start";
 import { Techniques } from "./techniques";
 
 /**
- * The public home page (decision 0028): sales training for every high-ticket close, simple to use and deep to
+ * The public home page (decision 0028): sales training for every close, simple to use and deep to
  * learn. Server components throughout; only the hero's light (WebGL), the motion controller, the rail's pause
  * button and the ROI calculator run in the browser. It sits inside the app frame's <main>, so it brings its own
  * header and footer but never a second main.

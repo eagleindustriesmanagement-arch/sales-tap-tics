@@ -611,7 +611,7 @@ export const STRINGS = {
   "signup.forTeam": { en: "For my team", es: "Para mi equipo" },
   "signup.forMe": { en: "Just for me", es: "Solo para mí" },
   "signup.teamHint": { en: "You manage the team and get invite links for your people.", es: "Usted administra el equipo y recibe enlaces para invitar a su gente." },
-  "signup.meHint": { en: "Practice on your own, for any high-ticket sale. No dealership needed.", es: "Practique por su cuenta, para cualquier venta grande. No necesita un dealer." },
+  "signup.meHint": { en: "Practice on your own, whatever you sell. No dealership needed.", es: "Practique por su cuenta, venda lo que venda. No necesita un dealer." },
   "signup.emailAny": { en: "Email", es: "Correo" },
   "signup.industry": { en: "What do you sell?", es: "¿Qué vende?" },
   "signup.invalidEmail": { en: "Check the email address.", es: "Revise el correo." },
@@ -620,7 +620,7 @@ export const STRINGS = {
   "industry.homes": { en: "Homes and real estate", es: "Casas y bienes raíces" },
   "industry.solar": { en: "Solar", es: "Solar" },
   "industry.furniture": { en: "Furniture", es: "Muebles" },
-  "industry.other": { en: "Something else high-ticket", es: "Otra venta grande" },
+  "industry.other": { en: "Something else", es: "Otra cosa" },
   "industry.comingSoon": {
     en: "Role-play customers for {industry} are on the way. The techniques are universal: practice them now with our car-sales customers.",
     es: "Los clientes de práctica para {industry} vienen en camino. Las técnicas son universales: practíquelas ya con nuestros clientes de venta de carros.",

@@ -13,7 +13,7 @@ const GLYPHS: Record<string, ReactNode> = {
   furniture: <><path d="M5 11V8.5A2.5 2.5 0 0 1 7.5 6h9A2.5 2.5 0 0 1 19 8.5V11" /><path d="M3 13a2 2 0 0 1 4 0v1.5h10V13a2 2 0 0 1 4 0v4.5H3Z" /><path d="M5 17.5V20M19 17.5V20" /></>,
 };
 
-/** All high-ticket sales, said honestly: the techniques travel; an industry reads "Customers live" only once the library has its role-play customers. */
+/** Every kind of sale, said honestly: the techniques travel; an industry reads "Customers live" only once the library has its role-play customers. */
 export function Industries({ lang }: { lang: Language }) {
   const c = copy.industries;
   const lib = libraryFacts();

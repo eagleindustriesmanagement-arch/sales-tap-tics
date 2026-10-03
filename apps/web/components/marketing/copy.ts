@@ -35,8 +35,8 @@ export const copy = {
     h1a: { en: "Master the close", es: "Domine el cierre" },
     h1b: { en: "before it counts.", es: "antes de que cuente." },
     sub: {
-      en: "Sales training for anyone who sells something big: cars, homes, solar, furniture. Learn a proven technique in about a minute, practice it out loud against an AI customer, and get scored on every line.",
-      es: "Entrenamiento de ventas para quien vende algo grande: carros, casas, paneles solares, muebles. Aprenda una técnica probada en más o menos un minuto, practíquela en voz alta con un cliente de inteligencia artificial y reciba un puntaje en cada frase.",
+      en: "Sales training for people who sell: cars, homes, solar, furniture. Learn a proven technique in about a minute, practice it out loud against an AI customer, and get scored on every line.",
+      es: "Entrenamiento de ventas para la gente que vende: carros, casas, paneles solares, muebles. Aprenda una técnica probada en más o menos un minuto, practíquela en voz alta con un cliente de inteligencia artificial y reciba un puntaje en cada frase.",
     },
     ways: {
       en: "Sign up your whole team, or just yourself. No credit card.",
@@ -45,7 +45,7 @@ export const copy = {
     facts: {
       techniques: { en: "{n} techniques", es: "{n} técnicas" },
       lessons: { en: "{n} guided lessons", es: "{n} lecciones guiadas" },
-      languages: { en: "English + Miami Spanish", es: "Inglés + español de Miami" },
+      languages: { en: "English + Spanish", es: "Inglés + español" },
       talk: { en: "Talk or type", es: "Hablando o escribiendo" },
     },
   },
@@ -215,8 +215,8 @@ export const copy = {
   },
 
   industries: {
-    eyebrow: { en: "Every high-ticket close", es: "Cada cierre de alto valor" },
-    h2: { en: "Techniques for every high-ticket close.", es: "Técnicas para cada cierre de alto valor." },
+    eyebrow: { en: "Every close", es: "Cada cierre" },
+    h2: { en: "Techniques for every close.", es: "Técnicas para cada cierre." },
     sub: {
       en: "Pausing before you answer, finding the real objection, putting the whole price on the table, asking for a firm next step: that works wherever a customer makes a big decision. The role-play customers come one industry at a time. We built them on the car floor first. Homes, solar and furniture are next.",
       es: "Hacer una pausa antes de contestar, encontrar la objeción de verdad, poner el precio completo sobre la mesa, pedir un próximo paso firme: eso funciona dondequiera que un cliente toma una decisión grande. Los clientes de role-play llegan una industria a la vez. Los construimos primero en el piso de carros. Casas, solar y muebles vienen después.",
@@ -335,7 +335,7 @@ export const copy = {
   },
 
   bilingual: {
-    eyebrow: { en: "English and Miami Spanish", es: "Inglés y español de Miami" },
+    eyebrow: { en: "English and Spanish", es: "Inglés y español" },
     h2: { en: "It talks the way Miami buyers talk.", es: "Habla como habla el cliente de Miami." },
     body: {
       en: "Usted. El down. El trade-in. El dealer. The AI customer sounds like the people who walk through your door. Practice in either language, switch with one tap, and get scored on following the customer's lead.",
@@ -355,7 +355,7 @@ export const copy = {
 
   start: {
     eyebrow: { en: "Start free", es: "Empiece gratis" },
-    h2: { en: "Your next big close starts here.", es: "Su próximo gran cierre empieza aquí." },
+    h2: { en: "Your next close starts here.", es: "Su próximo cierre empieza aquí." },
     sub: { en: "Two ways in. Pick the one that fits.", es: "Dos maneras de entrar. Escoja la suya." },
     team: {
       title: { en: "For a team", es: "Para un equipo" },

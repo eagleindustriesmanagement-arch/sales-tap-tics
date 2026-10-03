@@ -56,7 +56,7 @@ export const pricingCopy = {
         { en: "Practice against the AI customer, talking or typing", es: "Práctica con el cliente de IA, hablando o escribiendo" },
         { en: "Every line scored, with the one change that matters most", es: "Cada frase con puntaje, y el cambio que más importa" },
         { en: "Certification path, good for 90 days", es: "Ruta de certificación, válida por 90 días" },
-        { en: "English and Miami Spanish", es: "Inglés y español de Miami" },
+        { en: "English and Spanish", es: "Inglés y español" },
       ] as L[],
       cta: { en: "Start on my own", es: "Empezar por mi cuenta" },
       href: "/signup?for=me",
@@ -117,15 +117,15 @@ export const pricingCopy = {
       {
         q: { en: "What languages does it speak?", es: "¿En qué idiomas funciona?" },
         a: {
-          en: "English and Miami Spanish: the lessons, the AI customer and the scoring. Each person picks a language and can switch with one tap.",
-          es: "Inglés y español de Miami: las lecciones, el cliente de IA y el puntaje. Cada persona escoge su idioma y lo puede cambiar con un toque.",
+          en: "English and Spanish: the lessons, the AI customer and the scoring. Each person picks a language and can switch with one tap.",
+          es: "Inglés y español: las lecciones, el cliente de IA y el puntaje. Cada persona escoge su idioma y lo puede cambiar con un toque.",
         },
       },
       {
         q: { en: "Is it only for car sales?", es: "¿Es solo para venta de carros?" },
         a: {
-          en: "No. The techniques work for any high-ticket sale. Car sales has the deepest set of role-play customers, one for every objection; homes, solar and furniture each have a starter set of their own, with more on the way. Anyone else practices the techniques with the car customers.",
-          es: "No. Las técnicas sirven para cualquier venta de alto valor. La venta de carros tiene el grupo más completo de clientes de role-play, uno para cada objeción; casas, solar y muebles tienen cada uno un primer grupo propio, y vienen más. Cualquier otra venta practica las técnicas con los clientes de carros.",
+          en: "No. The techniques work for any sale. Car sales has the deepest set of role-play customers, one for every objection; homes, solar and furniture each have a starter set of their own, with more on the way. Anyone else practices the techniques with the car customers.",
+          es: "No. Las técnicas sirven para cualquier venta. La venta de carros tiene el grupo más completo de clientes de role-play, uno para cada objeción; casas, solar y muebles tienen cada uno un primer grupo propio, y vienen más. Cualquier otra venta practica las técnicas con los clientes de carros.",
         },
       },
       {
