@@ -1,0 +1,84 @@
+code: L-trade-defender
+scenario: S-trade-defender-L2
+title:
+  en: "\"You're low on my trade\": show the build, then find his number"
+  es: "\"Me está dando muy poco por mi carro\": enséñele cómo se armó, y busque su número"
+hook:
+  en: Arms crossed, proud of that truck, and he hates your number. Don't defend it yet.
+  es: Brazos cruzados, orgulloso de su camioneta, y no le gusta su número. Todavía no lo defienda.
+what:
+  en: Show how the appraisal was built, then ask where his number came from. Hold the appraisal and keep the trade on its own line.
+  es: Enséñele cómo se armó la tasación y luego pregunte de dónde salió su número. Mantenga la tasación y deje el trade-in en su propia línea.
+why:
+  en: He's not haggling, he's defending his truck and his homework. Often he saw a number online after clicking a better condition than his truck is in. Argue, and he digs in. Show your proof, ask about his, and he finds the gap himself.
+  es: No está regateando, está defendiendo su camioneta y la tarea que hizo. Muchas veces vio un número en internet después de marcar una condición mejor que la que tiene su camioneta. Si discute, se atrinchera. Si enseña su prueba y pregunta por la de él, él solito encuentra la diferencia.
+when:
+  en: Any pushback on the trade number.
+  es: Cada vez que le pelean el número del trade-in.
+when_not:
+  en: Don't hold it against new proof, like service records. That goes to the used-car manager.
+  es: No lo sostenga contra una prueba nueva, como récords de servicio. Eso va al gerente de usados.
+say:
+  - en: I'd rather show you how we got there than argue about it.
+    es: Prefiero enseñarle cómo llegamos ahí que ponernos a discutir.
+  - en: Where did your number come from, and what condition did it ask you to pick?
+    es: ¿De dónde salió su número, y qué condición le pidió que marcara?
+  - en: Here are the closest auction sales for your truck, and here's what it needs. Nothing hidden.
+    es: Aquí están las ventas de subasta más parecidas a su camioneta, y aquí lo que necesita. Nada escondido.
+  - en: I won't change the number without a real reason, and the trade stays on its own line.
+    es: No voy a cambiar el número sin una razón real, y el trade-in va en su propia línea.
+mistakes:
+  - mistake:
+      en: '"Honestly, that''s a strong number for a truck with those miles."'
+      es: '"La verdad, ese es un buen número para una camioneta con tantas millas."'
+    fix:
+      en: You argued and knocked his truck. Show the build instead.
+      es: Discutió y le menospreció la camioneta. Enséñele cómo se armó.
+  - mistake:
+      en: Bumping it a few hundred to keep him happy.
+      es: Subirle unos cientos para tenerlo contento.
+    fix:
+      en: Now the first number looks fake. Hold it unless the manager has a showable reason.
+      es: Ahora el primer número parece inventado. Manténgalo, salvo que el gerente tenga una razón que se pueda enseñar.
+  - mistake:
+      en: '"With your trade, the payment comes out to…"'
+      es: '"Con su trade-in, el pago le queda en…"'
+    fix:
+      en: Buried trades look like tricks. Trade on its own line.
+      es: Un trade-in escondido parece truco. Póngalo en su propia línea.
+concepts:
+  - name: { en: The two-second pause, es: La pausa de dos segundos }
+    idea:
+      en: Let the heat pass before you say a word.
+      es: Deje que baje la calentura antes de decir una palabra.
+    items: [O08-PAUSE]
+  - name: { en: Respect the truck, es: Respete la camioneta }
+    idea:
+      en: Agree he did his homework. Never run down what he's proud of.
+      es: Reconozca que hizo su tarea. Nunca menosprecie lo que a él le enorgullece.
+    items: [O08-ACK]
+  - name: { en: "Where'd your number come from?", es: "¿De dónde salió su número?" }
+    idea:
+      en: His number, its source, the condition he clicked. That's the gap.
+      es: Su número, de dónde salió, qué condición marcó. Ahí está la diferencia.
+    items: [O08-QFIRST, O08-HIDDEN]
+  - name: { en: Trade-value walkthrough, es: Explique el valor del trade-in }
+    idea:
+      en: The auction sales and the reconditioning, on paper, line by line.
+      es: Las ventas de subasta y el reacondicionamiento, en papel, línea por línea.
+    items: [O08-BASIS]
+  - name: { en: Hold it on its own line, es: Manténgalo en su propia línea }
+    idea:
+      en: Same number, never buried in the payment.
+      es: El mismo número, nunca escondido en el pago.
+    items: [O08-HOLD]
+  - name: { en: Lock a day and time, es: Amarre un día y una hora }
+    idea:
+      en: A set time to go through every sale together.
+      es: Una hora fija para revisar cada venta juntos.
+    items: [O08-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T029 Trade-value walkthrough; T096 Trade on its own line; T014 Firm next step
+  - J.D. Power 2025 sales satisfaction study (explained deals score higher), via T029
+  - Kim and others 2022 (trade on its own line), via T096
+spanish_reviewed: false

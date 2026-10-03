@@ -1,0 +1,84 @@
+code: L-deadline-tester
+scenario: S-deadline-tester-L2
+title:
+  en: "\"I'm not buying today\": hand him the clock, then show the paper"
+  es: "\"Hoy no voy a comprar\": déle el control del tiempo, y enséñele el papel"
+hook:
+  en: He likes the car, but every store from Doral to Kendall told him "it ends this weekend." He's testing you.
+  es: Le gusta el carro, pero en todos los dealers de Doral a Kendall le dijeron "eso se acaba este fin de semana". Lo está probando.
+what:
+  en: Hand him control of the timeline out loud, then put the real deadline in his hands, with proof. Let the paper push, and let him pick the next step.
+  es: Déle el control del tiempo en voz alta, y después póngale en las manos la fecha real, con su prueba. Que el papel haga la presión, y que él escoja el próximo paso.
+why:
+  en: '"Not today" is a shield. He''s been played by fake deadlines, so any urgency from your mouth sounds like one more. Tell him he doesn''t have to buy, and the fight is over. Show the bulletin, and the deadline is the factory''s, not yours. A buyer who feels in control can finally say yes.'
+  es: 'El "hoy no" es un escudo. Ya lo han engañado con fechas inventadas, así que cualquier apuro que salga de su boca le suena a otra más. Dígale que no tiene que comprar, y se acabó la pelea. Enséñele el boletín, y la fecha es de la fábrica, no suya. Un cliente que siente el control por fin puede decir que sí.'
+when:
+  en: 'When he says "not today" and a real deadline with proof exists.'
+  es: 'Cuando dice "hoy no" y existe una fecha real con prueba.'
+when_not:
+  en: No bulletin in hand? Don't mention a deadline. Just set the next step.
+  es: ¿No tiene el boletín en la mano? No mencione ninguna fecha. Fije el próximo paso y ya.
+say:
+  - en: Fair question, and you don't have to buy anything today.
+    es: Buena pregunta, y usted no tiene que comprar nada hoy.
+  - en: Don't take my word for it. Here's the bulletin from Chevrolet, with the end date on it.
+    es: No me lo crea a mí nada más. Aquí está el boletín de Chevrolet, con la fecha en que se acaba.
+  - en: The bulletin is yours to keep. No rush from me.
+    es: El boletín es suyo, se lo lleva. De mi parte no hay apuro.
+  - en: Is later today after work or tomorrow morning better to sit down?
+    es: ¿Le queda mejor hoy más tarde, después del trabajo, o mañana por la mañana para sentarnos?
+mistakes:
+  - mistake:
+      en: '"Trust me, it''s really ending."'
+      es: '"Créame, de verdad se acaba."'
+    fix:
+      en: Trust is what he doesn't have. Show the paper.
+      es: Confianza es lo que no tiene. Enséñele el papel.
+  - mistake:
+      en: Adding "someone else wants it" or "today only."
+      es: Añadir "hay otro interesado" o "solo por hoy".
+    fix:
+      en: That's the lie he came in testing for. The real deadline is enough.
+      es: Esa es la mentira que vino a probar. La fecha real es suficiente.
+  - mistake:
+      en: '"Okay, let me know."'
+      es: '"Bueno, me avisa."'
+    fix:
+      en: He may want to buy. Offer two real times.
+      es: A lo mejor quiere comprar. Ofrézcale dos horas reales.
+concepts:
+  - name: { en: The two-second pause, es: La pausa de dos segundos }
+    idea:
+      en: A calm beat says you're not about to pressure him.
+      es: Una pausa tranquila le dice que no lo va a presionar.
+    items: [O07-PAUSE]
+  - name: { en: Hand him the clock, es: Déle el control del tiempo }
+    idea:
+      en: Say he doesn't have to buy today, and mean it.
+      es: Dígale que no tiene que comprar hoy, y que sea en serio.
+    items: [O07-RESPECT]
+  - name: { en: "Show, don't swear", es: "Enseñe, no jure" }
+    idea:
+      en: The bulletin and its date, in his hands.
+      es: El boletín y su fecha, en sus manos.
+    items: [O07-PROOF]
+  - name: { en: '"Not today" is a shield', es: 'El "hoy no" es un escudo' }
+    idea:
+      en: Behind it is a buyer who'd go today if the deadline is real.
+      es: Detrás hay un cliente que compraría hoy si la fecha es real.
+    items: [O07-HIDDEN]
+  - name: { en: 'Advance, not "let me know"', es: 'Avance, no "me avisa"' }
+    idea:
+      en: End with an action he agrees to, not a vague maybe.
+      es: Termine con una acción que él acepte, no con un "hablamos" en el aire.
+    items: [O07-ADVANCE]
+  - name: { en: He picks the time, es: Él escoge la hora }
+    idea:
+      en: Two real options, a day and a time he chooses.
+      es: Dos opciones reales, un día y una hora que él escoge.
+    items: [O07-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T107 Real deadline on the table; T068 Advance, not "let me know"; T014 Firm next step; T122 Graceful "not now"
+  - Gino and Moore 2008 (only real deadlines help), via T107
+  - Neil Rackham, SPIN Selling (advances versus continuations), via T068
+spanish_reviewed: false

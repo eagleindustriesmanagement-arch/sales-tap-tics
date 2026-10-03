@@ -1,0 +1,84 @@
+code: L-payment-buyer
+scenario: S-payment-buyer-L2
+title:
+  en: "\"The payment is too high\": get his number before you move yours"
+  es: "\"El pago está muy alto\": saque su número antes de mover el suyo"
+hook:
+  en: He saw the monthly, lunch is ending, and your reflex is to start cutting. Don't.
+  es: Vio la mensualidad, el almuerzo se le acaba y su reflejo es empezar a cortar. No lo haga.
+what:
+  en: The payment objection is a budget he hasn't told you. Get the number, confirm the car is right, then show only the real roads to it, and what each one costs.
+  es: La objeción del pago es un presupuesto que no le ha dicho. Saque el número, confirme que el carro es el correcto y enséñele solo los caminos reales para llegar, y lo que cuesta cada uno.
+why:
+  en: He won't go first because he thinks you'll build the deal right up to his number. Guess, and you either give away money or miss by fifty bucks and lose him. Ask, and he's working the deal with you.
+  es: No lo dice primero porque cree que usted va a armar el negocio justo hasta su número. Si adivina, o regala dinero o se queda corto por cincuenta dólares y lo pierde. Si pregunta, él trabaja el negocio con usted.
+when:
+  en: The moment the monthly is the complaint, before you touch a number.
+  es: En cuanto la queja es la mensualidad, antes de tocar un número.
+when_not:
+  en: Never stretch the term quietly to hit his number. If nothing real gets there, tell him straight.
+  es: Nunca alargue el plazo calladito para llegar a su número. Si nada real llega, dígaselo claro.
+say:
+  - en: Got it, I'll keep this quick. What payment were you expecting?
+    es: Entendido, voy a ser rápido. ¿Qué pago tenía en mente?
+  - en: Other than the payment, is this the right car for you?
+    es: Aparte del pago, ¿este es el carro para usted?
+  - en: Help me understand that number. What does it need to protect?
+    es: Ayúdeme a entender ese número. ¿Qué es lo que tiene que proteger?
+  - en: This one is lower because the term is longer, so you pay more interest overall.
+    es: Este sale más bajo porque el plazo es más largo, así que al final paga más intereses.
+mistakes:
+  - mistake:
+      en: '"Everybody says that at first. You''ll forget it after a month."'
+      es: '"Todo el mundo dice eso al principio. Al mes ni se acuerda."'
+    fix:
+      en: You argued with his budget. Ask for his number.
+      es: Le discutió el presupuesto. Pregúntele su número.
+  - mistake:
+      en: Taking the desk's lower payment on a longer term without saying the months.
+      es: Traer el pago más bajo del desk a un plazo más largo sin decir los meses.
+    fix:
+      en: Longer is longer. Say the months and the extra interest.
+      es: Más largo es más largo. Diga los meses y los intereses de más.
+  - mistake:
+      en: A long pitch to a guy on his lunch break.
+      es: Un discurso largo a un hombre en su hora de almuerzo.
+    fix:
+      en: Short turns. Out of time? Set the time to come back.
+      es: Turnos cortos. ¿Se le acabó el tiempo? Fije la hora para volver.
+concepts:
+  - name: { en: The two-second pause, es: La pausa de dos segundos }
+    idea:
+      en: Let it land. A fast answer sounds like a defense.
+      es: Deje que caiga. Una respuesta rápida suena a defensa.
+    items: [O03-PAUSE]
+  - name: { en: His number first, es: Primero su número }
+    idea:
+      en: Ask his payment, then what it protects. That's the real ceiling.
+      es: Pregunte su pago y luego qué protege. Ese es el tope real.
+    items: [O03-QFIRST, O03-HIDDEN]
+  - name: { en: '"Other than the payment…"', es: '"Aparte del pago…"' }
+    idea:
+      en: Isolate. If the car is right, you're solving math, not selling.
+      es: Aísle. Si el carro es el correcto, está resolviendo números, no vendiendo.
+    items: [O03-ISOLATE]
+  - name: { en: 'Walk the wheel, honestly', es: 'Recorra las opciones, con la verdad' }
+    idea:
+      en: More down or a longer term. Only what's on the sheet, each with its cost.
+      es: Más down o un plazo más largo. Solo lo que está en la hoja, cada uno con su costo.
+    items: [O03-OPTIONS]
+  - name: { en: Lunch-break pace, es: Ritmo de hora de almuerzo }
+    idea:
+      en: Short answers earn trust faster than a good pitch.
+      es: Las respuestas cortas ganan confianza más rápido que un buen discurso.
+    items: [O03-BRIEF]
+  - name: { en: Lock a day and time, es: Amarre un día y una hora }
+    idea:
+      en: Options printed and a time to come back and pick one.
+      es: Las opciones impresas y una hora para volver a escoger.
+    items: [O03-NEXT]
+sources:
+  - T001 Pause and slow down; T002 Clarify with a question; T005 Isolate; T110 Treat a hard demand as a clue; T083 Walk the wheel; T014 Firm next step
+  - Malhotra and Bazerman, Negotiation Genius (the interest behind a firm number), via T110
+  - Mark Tewart (walk the wheel), via T083
+spanish_reviewed: false
