@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { apiUser } from "@/lib/auth";
-import { liveSession, persistNewTurns } from "@/lib/server";
+import { errorField, log } from "@/lib/log";
+import { aiConfigured, liveSession, persistNewTurns } from "@/lib/server";
 
 const Timing = z
   .object({
@@ -17,6 +18,7 @@ const Timing = z
  * compliance guard, then one {"outcome"} line (spec 5.2 items 5 and 6). Both turns are written to the database.
  */
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const received = Date.now();
   const user = await apiUser();
   if (user instanceof NextResponse) return user;
   const { id } = await params;
@@ -35,14 +37,18 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       try {
         const turn = s.session.repTurn(text, timing);
         let step = await turn.next();
+        let firstSentenceMs: number | undefined;
         while (!step.done) {
+          firstSentenceMs ??= Date.now() - received;
           send({ sentence: step.value.text });
           step = await turn.next();
         }
         await persistNewTurns(s);
         send({ outcome: { ended: step.value.ended, endReason: step.value.endReason, stoppedOnCritical: Boolean(step.value.stoppedOnCritical) } });
+        // How long the rep waited: to the customer's first sentence, and for the whole turn (decision 0021).
+        log("info", "turn", { session: id, scenario: s.session.scenario.code, live: aiConfigured(), spoken: "pauseBeforeMs" in timing && timing.pauseBeforeMs !== undefined, firstSentenceMs, totalMs: Date.now() - received, ended: step.value.ended });
       } catch (error) {
-        console.error("turn failed", error instanceof Error ? `${error.constructor.name}: ${error.message}` : "unknown");
+        log("error", "turn_failed", { session: id, error: errorField(error), totalMs: Date.now() - received });
         send({ error: "turn failed" });
       } finally {
         controller.close();

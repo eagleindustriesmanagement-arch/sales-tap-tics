@@ -48,6 +48,7 @@ const ES_HUNDREDS: Record<string, number> = {
 };
 const ES_SCALES: Record<string, number> = { mil: 1000, "millón": 1_000_000, millon: 1_000_000, millones: 1_000_000 };
 
+const LONE_ONE = new Set(["un", "una", "uno", "one"]);
 const DOLLAR_WORDS = /^(dollars?|bucks?|d[oó]lares|d[oó]lar|usd)$/i;
 const CENT_WORDS = /^(cents?|centavos?|chavitos?)$/i;
 const PERCENT_WORDS = /^(percent|porciento)$/i;
@@ -330,7 +331,8 @@ export function findNumbers(input: string, language: Language): NumberMention[] 
     } else if (PERCENT_WORDS.test(next) || /^(por ciento)$/i.test(next2)) {
       unit = "percent";
       end = tokens[next === "por" ? j + 1 : j]!.end;
-    } else if (MONEY_HINT_AFTER.test(text.slice(end, end + 25))) {
+    } else if (MONEY_HINT_AFTER.test(text.slice(end, end + 25)) && !(words.length === 1 && LONE_ONE.has(words[0]!))) {
+      // "un precio total", "one more payment": a lone "one" is an article, not a dollar.
       unit = "dollar";
     }
     const start = t.start;

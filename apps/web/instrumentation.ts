@@ -11,3 +11,9 @@ export async function register() {
     await warmUp();
   }
 }
+
+/** Every server error, as one structured line (decision 0021): the route and the error, never the request body. */
+export async function onRequestError(error: unknown, request: { path: string; method: string }, context: { routePath: string; routeType: string }) {
+  const { log, errorField } = await import("./lib/log");
+  log("error", "request_failed", { method: request.method, route: context.routePath, kind: context.routeType, error: errorField(error), digest: (error as { digest?: string })?.digest });
+}

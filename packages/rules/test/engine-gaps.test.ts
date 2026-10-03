@@ -177,3 +177,12 @@ describe("Spanish \"las dos\" before a noun means both, not 2:00", () => {
     expect(findClockTimes("a las cinco y media")).toEqual(["5:30"]);
   });
 });
+
+describe("a lone \"un\" / \"one\" before a money word is an article", () => {
+  it("is not read as $1", () => {
+    expect(values("Le doy un precio total por escrito.", "es")).toEqual([]);
+    expect(values("I'll send one more payment option tonight.", "en")).toEqual([]);
+    // Real amounts still read.
+    expect(values("Le queda en un dólar más al día.", "es")).toEqual([[100, "dollar"]]);
+  });
+});
