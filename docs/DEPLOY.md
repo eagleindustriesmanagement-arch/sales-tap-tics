@@ -74,6 +74,29 @@ Optional, any time later:
 | `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` | From `npx web-push generate-vapid-keys`; subject `mailto:login@salestaptics.com` | Daily practice reminders on reps' phones (decision 0022). |
 | `CRON_SECRET` | A random string (`openssl rand -hex 32`) | Lets the hourly reminder job run. Then schedule an hourly call to `/api/cron/reminders`: on a Vercel Pro plan add `"crons": [{"path": "/api/cron/reminders", "schedule": "0 * * * *"}]` to `apps/web/vercel.json`; on Hobby (daily crons only) use any hourly scheduler that sends `Authorization: Bearer <CRON_SECRET>`. |
 
+### Using Supabase instead of Neon (decision 0023)
+
+The app runs on any Postgres 16. With Supabase:
+
+1. Create the project (East US, North Virginia, free plan is fine). Create no tables: the deploy step runs the
+   migrations.
+2. Use the **pooler** connection strings (host `aws-0-us-east-1.pooler.supabase.com`, under **Connect**). Do not
+   use the direct `db.<ref>.supabase.co` address: on the free plan it is reachable only over IPv6, which Vercel's
+   functions cannot reach.
+
+   | Vercel variable | Supabase connection string | Used by |
+   | --- | --- | --- |
+   | `DATABASE_URL_UNPOOLED` | Session pooler, port 5432 | The deploy step (migrations, seed, content release) |
+   | `DATABASE_URL` | Transaction pooler, port 6543 | The app (every request's settings are per transaction, so transaction mode is safe) |
+
+   Vercel's Supabase integration names them `POSTGRES_URL_NON_POOLING` and `POSTGRES_URL`; both names work.
+3. Copy the strings from Supabase straight into Vercel's environment variables. They hold the database password:
+   never paste them into a chat, a ticket or the repository.
+4. Migration 0018 takes away the access Supabase's Data API roles (`anon`, `authenticated`) get to every table.
+   The app never uses that API. You can also turn the Data API off in Supabase's API settings.
+5. If the first deploy fails with a certificate error from the pooler, add Supabase's CA certificate (Database
+   settings, SSL) rather than turning verification off.
+
 ## 4. Deploy and add the domain
 
 1. **Deployments → Redeploy** (or push to `main`). The build log shows `applied: 0001_init.sql …` and

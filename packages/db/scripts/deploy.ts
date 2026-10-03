@@ -9,7 +9,7 @@ import pg from "pg";
 import { migrate } from "../src/index.js";
 import { seedDemo } from "./seed-demo.js";
 
-const url = process.env.DATABASE_URL_UNPOOLED ?? process.env.POSTGRES_URL_NON_POOLING ?? process.env.DATABASE_URL;
+const url = process.env.DATABASE_URL_UNPOOLED ?? process.env.POSTGRES_URL_NON_POOLING ?? process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
 if (!url) {
   console.error("db:deploy needs DATABASE_URL (or DATABASE_URL_UNPOOLED)");
   process.exit(1);

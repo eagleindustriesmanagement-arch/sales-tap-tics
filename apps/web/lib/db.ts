@@ -4,13 +4,16 @@ import { withTenant, type Queryable } from "@taptics/db";
 
 const g = globalThis as unknown as { __tapticsPool?: pg.Pool };
 
+/** The app's connection: DATABASE_URL, or POSTGRES_URL as Vercel's Supabase and Postgres integrations name it. */
+export const databaseUrl = () => process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
+
 export function pool(): pg.Pool {
-  if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not set");
+  if (!databaseUrl()) throw new Error("DATABASE_URL is not set");
   // Sized for a store of reps practicing at once on one server (load test, M7). On a serverless host each instance
   // serves a few requests and many instances share the database's pooler, so each keeps only a few connections.
   // TAPTICS_DB_POOL overrides it.
   const max = Number(process.env.TAPTICS_DB_POOL ?? (process.env.VERCEL ? 5 : 20));
-  g.__tapticsPool ??= new pg.Pool({ connectionString: process.env.DATABASE_URL, max });
+  g.__tapticsPool ??= new pg.Pool({ connectionString: databaseUrl(), max });
   return g.__tapticsPool;
 }
 

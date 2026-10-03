@@ -253,7 +253,9 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
 - **Cloud voice tier** (decision 0013): a recognition provider account and a voice provider account, chosen by the
   spec 11.2 bake-off, plus a Miami listener to approve the voices.
 - **Vercel deployment:** handled outside the build sessions by Fluffy (2026-10-03), following `docs/DEPLOY.md`.
-  Migrations 0014 and 0015 run in the deploy step like the others.
+  The database may be Supabase (decision 0023): use the pooler connection strings, never the IPv6-only direct
+  address, and copy them from Supabase straight into Vercel. This environment cannot reach Supabase's API. All
+  migrations, 0018 included, run in the deploy step.
 - **App store accounts** (decision 0012): an Apple developer account, a Google Play developer account, a bundle id
   and a hosted URL, before the Capacitor shell can be built and submitted.
 
