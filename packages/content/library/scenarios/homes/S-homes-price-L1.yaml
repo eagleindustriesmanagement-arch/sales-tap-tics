@@ -1,0 +1,196 @@
+code: S-homes-price-L1
+module: homes-core
+industry: homes
+title:
+  en: "\"The price is too high\""
+  es: "\"El precio está muy alto\""
+setting:
+  en: Sunday afternoon, at the sales office, right after he and his wife walked a finished one-story home on the lake.
+  es: Domingo por la tarde, en la oficina de ventas, justo después de que él y su esposa recorrieran una casa terminada de un solo piso frente al lago.
+persona: P-homes-price
+objection: O04
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 50s, and his wife are selling their condo in Kendall and want a one-story home for when the grandkids visit. They have a preapproval from their own lender. They just walked the Gumbo Limbo on Lot 9 at Cayo Verde Reserve, a finished home on the lake. You showed him the price: $599,990, with no other builder charges; closing costs are separate and his lender estimates them. The builder's quick move-in savings takes $10,000 off finished homes contracted by October 31; everyone qualifies, and the sales bulletin is on your desk."
+  es: "{name}, de unos 58 años, y su esposa están vendiendo su condominio en Kendall y quieren una casa de un solo piso para cuando vengan los nietos. Tienen una preaprobación de su propio lender. Acaban de recorrer la Gumbo Limbo del Lote 9 en Cayo Verde Reserve, una casa terminada frente al lago. Usted le enseñó el precio: $599,990, sin ningún otro cargo del builder; los closing costs son aparte y se los estima su lender. El descuento de quick move-in del builder le quita $10,000 a las casas terminadas que se firmen hasta el 31 de octubre; aplica para todo el mundo, y el boletín de ventas está en su escritorio."
+opening:
+  en: The price is too high.
+  es: El precio está muy alto.
+# The item, mapped onto the shared facts schema (decision 0033): make = builder (fictional), model = plan,
+# trim = lot and elevation, stock = lot number, in_stock = a finished home, ready to close.
+facts:
+  session_date: "2026-10-04"
+  vehicle: { year: 2026, make: Cayo Verde Homes, model: Gumbo Limbo, trim: "Lot 9, lake view, 3 bed + den, 2 bath, one-story", stock: "Lot 9", in_stock: true }
+  # The lake premium is in the price. The builder adds no other mandatory charge.
+  price_cents: 59999000
+  dealer_fees: []
+  # Closing costs are not builder charges and not part of the price; the customer's lender estimates them.
+  government_charges_customer_pays: []
+  all_in_price_cents: 59999000
+  # A fictional builder incentive with a real, showable end date.
+  rebates:
+    - { code: qmi_savings, name: Quick move-in savings, cents: 1000000, eligibility: everyone, ends: "2026-10-31", proof: Cayo Verde Homes sales bulletin QMI-26-10 }
+  deadlines:
+    - { what: Quick move-in savings, date: "2026-10-31", proof: Cayo Verde Homes sales bulletin QMI-26-10 }
+  inventory_same_trim_color: 1
+  trade: null
+  # The customer's own lender issued a preapproval letter: not a loan approval, no rate. The builder has neither.
+  lender_state: pending
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    resale_list_price_cents: 54900000
+    resale_home: Resale house in Cutler Bay, built in 2005, about the same size; he has not asked about the roof, the AC or insurance
+    free_thursday: Free Thursday evening
+numbers_sheet: false
+target_techniques: [T017, T028, T086, T001, T002, T005, T014, T107]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: HOM-O04-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: HOM-O04-NOARGUE
+      behavior:
+        en: "Acknowledged the concern without arguing the price or cutting it"
+        es: "Reconoció la preocupación sin discutir el precio ni bajarlo"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: HOM-O04-QFIRST
+      behavior:
+        en: "Asked what he is comparing the price to before defending it or discounting"
+        es: "Preguntó con qué está comparando el precio antes de defenderlo o rebajarlo"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Floor tradition (T017); Gong: 54.3% versus 31.0%"
+      technique: T017
+    - code: HOM-O04-ISOLATE
+      behavior:
+        en: "Checked that the home itself is right, apart from the price"
+        es: "Confirmó que la casa en sí es la correcta, aparte del precio"
+      dimension: discovery
+      method: judge
+      points: 10
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: HOM-O04-HIDDEN
+      behavior:
+        en: "Surfaced the resale house he is comparing against"
+        es: "Sacó a la luz la casa de reventa con la que está comparando"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: HOM-O04-SIDEBYSIDE
+      behavior:
+        en: "Lined both houses up on the same terms (price plus what each will need, and real insurance quotes) without running down the other house"
+        es: "Puso las dos casas lado a lado en los mismos términos (el precio más lo que cada una va a necesitar, y cotizaciones reales del seguro) sin hablar mal de la otra casa"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Jonathan Dawson (T086); Galinsky and Mussweiler 2001 (T028)"
+      technique: T086
+    - code: HOM-O04-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: claimed_facts_about_other_house
+      description:
+        en: "Stated facts about the other house (its roof, its AC, its insurance) that the rep cannot know"
+        es: "Afirmó cosas de la otra casa (el techo, el aire, el seguro) que el vendedor no puede saber"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he argued the price, offered to cut it before asking a single question, and pushed for today. He never found out what the customer was comparing it to."
+      es: "Fíjese: discutió el precio, ofreció bajarlo antes de hacer una sola pregunta y presionó para hoy. Nunca supo con qué lo estaba comparando el cliente."
+    script:
+      en:
+        - { speaker: customer, text: "The price is too high." }
+        - { speaker: rep, text: "Honestly, it's a great price for a brand-new home on the lake." }
+        - { speaker: customer, text: "I like it. The price is the problem." }
+        - { speaker: rep, text: "Okay, let me go see what I can knock off for you." }
+        - { speaker: customer, text: "I'm not asking for a deal. I'm asking why it costs this much." }
+        - { speaker: rep, text: "What would it take to get you in this house today?" }
+        - { speaker: customer, text: "Not like this. I think we're going to go." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me if you change your mind." }
+      es:
+        - { speaker: customer, text: "El precio está muy alto." }
+        - { speaker: rep, text: "La verdad, es un excelente precio para una casa nueva frente al lago." }
+        - { speaker: customer, text: "Me gusta. El problema es el precio." }
+        - { speaker: rep, text: "Bueno, déjeme ir a ver qué le puedo bajar." }
+        - { speaker: customer, text: "No le estoy pidiendo una rebaja. Le estoy preguntando por qué cuesta tanto." }
+        - { speaker: rep, text: "¿Qué tengo que hacer para que se lleve esta casa hoy?" }
+        - { speaker: customer, text: "Así no. Creo que nos vamos a ir." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me llama si cambia de idea." }
+  good:
+    notice:
+      en: Notice the pause, the question "compared to what?", and how both houses get lined up on the same terms, with the real incentive shown last and in writing.
+      es: Fíjese en la pausa, en la pregunta "¿comparado con qué?", y en cómo las dos casas se ponen lado a lado en los mismos términos, con el incentivo real al final y por escrito.
+    script:
+      en:
+        - { speaker: customer, text: "The price is too high." }
+        - { speaker: rep, text: "[pause] I hear you. It's a lot of money, and you should feel sure about it. Compared to what? What are you measuring it against?" }
+        - { speaker: customer, text: "Let's just say I've been looking at other houses too." }
+        - { speaker: rep, text: "Fair enough. Setting the price aside for a second, is this the right home for you two? One story, the lake?" }
+        - { speaker: customer, text: "The house is great. My wife already picked the room for the grandkids." }
+        - { speaker: rep, text: "Then help me compare it right. Which is the other house you're looking at?" }
+        - { speaker: customer, text: "Okay. There's a resale in Cutler Bay, about the same size, built in 2005, listed at $549,000. Why would I pay more here?" }
+        - { speaker: rep, text: "That's a fair comparison, and I won't knock that house. Let's line them up the same way: the price, plus what each one will need in the next few years, like the roof, the AC and the water heater, plus what insurance costs on each. Ask the listing agent how old the roof and the AC are, and have your insurance agent quote both addresses." }
+        - { speaker: customer, text: "That's fair. Nobody had put it to me that way." }
+        - { speaker: rep, text: "And so you have every real number: the builder's quick move-in savings takes $10,000 off this home, and it ends October 31. It's in the sales bulletin, and I'll give you a copy. Can you come back Thursday at 6 with the insurance quotes? We'll put both houses on one page." }
+        - { speaker: customer, text: "Okay, that works. I'll bring the quotes." }
+      es:
+        - { speaker: customer, text: "El precio está muy alto." }
+        - { speaker: rep, text: "[pausa] Lo entiendo. Es mucho dinero, y usted tiene que sentirse seguro. ¿Comparado con qué? ¿Con qué lo está comparando?" }
+        - { speaker: customer, text: "Digamos que he estado mirando otras casas también." }
+        - { speaker: rep, text: "Me parece justo. Dejando el precio a un lado un momento, ¿esta es la casa para ustedes dos? ¿Un solo piso, el lago?" }
+        - { speaker: customer, text: "La casa está muy bien. Mi esposa ya escogió el cuarto de los nietos." }
+        - { speaker: rep, text: "Entonces ayúdeme a compararla bien. ¿Cuál es la otra casa que está mirando?" }
+        - { speaker: customer, text: "Bueno. Hay una casa de reventa en Cutler Bay, más o menos del mismo tamaño, construida en 2005, listada en $549,000. ¿Por qué voy a pagar más aquí?" }
+        - { speaker: rep, text: "Es una comparación justa, y no le voy a hablar mal de esa casa. Pongámoslas lado a lado de la misma manera: el precio, más lo que cada una va a necesitar en los próximos años, como el techo, el aire acondicionado y el calentador de agua, más lo que cuesta el seguro de cada una. Pregúntele al agente de esa casa cuántos años tienen el techo y el aire, y pídale a su agente de seguros que le cotice las dos direcciones." }
+        - { speaker: customer, text: "Me parece justo. Nadie me lo había planteado así." }
+        - { speaker: rep, text: "Y para que tenga todos los números reales: el descuento de quick move-in del builder le quita $10,000 a esta casa, y se vence el 31 de octubre. Está en el boletín de ventas, y le doy una copia. ¿Puede volver el jueves a las 6 con las cotizaciones del seguro? Ponemos las dos casas en una sola página." }
+        - { speaker: customer, text: "Está bien, me funciona. Traigo las cotizaciones." }
+spanish_reviewed: false

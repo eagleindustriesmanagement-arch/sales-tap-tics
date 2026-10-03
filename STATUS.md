@@ -23,6 +23,10 @@ Updated 2026-10-03 (eighth pass: teams and individuals, admin access as a privil
   links are hashed, counted and can be turned off. **Admin access** is a switch on People, not a role. Every path
   uses an emailed code. "Try the demo" (`/login?demo=1`) is the second path. **Production needs `RESEND_API_KEY`
   for any real email.**
+- **Industries** (decision 0033): homes, solar and furniture have five role-play customers each, with lessons, in
+  English and Miami Spanish (Spanish unreviewed). A rep practices their own industry's customers first; car-only
+  compliance rules (CANCEL-01, ADD-02, ADD-04, PRICE-02, PRICE-04) apply only to car sales; certification is the car
+  path. Reviewer notes and six engine gaps the authors found: `docs/content/industry-packs-review-notes.md`.
 - **One luxury theme across the app** (decision 0028): charcoal, champagne gold, ivory; Instrument Serif headlines;
   glass throughout; page transitions; an animated score reveal on the debrief. The logo is the owner's second version (green on near-black).
 - **A customer for every objection: 65 scenarios** (decision 0017).

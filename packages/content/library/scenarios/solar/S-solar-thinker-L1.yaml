@@ -1,0 +1,194 @@
+code: S-solar-thinker-L1
+module: solar-core
+industry: solar
+title:
+  en: "\"I need to think about it\""
+  es: "\"Lo tengo que pensar\""
+setting:
+  en: Saturday afternoon, at the customer's dining table, at the end of an in-home solar consultation.
+  es: Sábado por la tarde, en la mesa del comedor del cliente, al final de una consulta de solar en su casa.
+persona: P-solar-thinker
+objection: O05
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-30s, owns a home in a planned community in Pembroke Pines and compared quotes online before you came. You showed him the written quote for an 8.4 kW, 21-panel Lumacay Solar system: $24,600 all-in, permits and interconnection included, or an estimated $190 a month on a 25-year Kestrela Lending loan, subject to the lender's approval. The layout puts 12 of the 21 panels on the slope that faces the street."
+  es: "{name}, de unos 35 años, es dueño de una casa en una comunidad planificada en Pembroke Pines y comparó cotizaciones en internet antes de que usted llegara. Usted le enseñó la cotización por escrito de un sistema Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red, o un estimado de $190 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación del banco. El diseño pone 12 de los 21 paneles en el lado del techo que da a la calle."
+opening:
+  en: I need to think about it.
+  es: Lo tengo que pensar.
+# Solar mapped onto the facts schema (decision 0033): the "vehicle" is the quoted system; Lumacay Solar (installer)
+# and Kestrela Lending (lender) are fictional. No tax credit, utility savings or net-metering terms are facts here.
+# Whether the HOA approves is not a fact anyone here knows: the good rep never predicts it.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Lumacay Solar, model: Rooftop system, trim: "8.4 kW, 21 panels", stock: "Q-26-0433", in_stock: true }
+  price_cents: 2395000
+  dealer_fees: [{ code: permit_and_interconnection, cents: 65000 }]
+  government_charges_customer_pays: []
+  all_in_price_cents: 2460000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 0  # a custom installation: no unit scarcity applies
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    - { code: home_battery, name: { en: home battery, es: batería }, cents: 1190000, aliases: { en: [battery, backup battery], es: [batería de respaldo] } }
+    - { code: monitoring_upgrade, name: { en: monitoring upgrade, es: monitoreo }, cents: 45000, aliases: { en: [monitoring], es: [plan de monitoreo] } }
+  # Kestrela Lending's written estimate: 25 years, no money down, subject to approval.
+  payment_options:
+    - { code: quoted, cents: 19000, term_months: 300, apr_bps: 799 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    panels_facing_street: 12
+    neighbor_letter: A neighbor got an HOA violation letter over a fence last year
+    free_evenings: Free after 6:30 on weekdays
+numbers_sheet: true
+target_techniques: [T091, T092, T093, T115, T001, T003, T002]
+rubric: R-objection
+scoring:
+  items:
+    - code: SOL-O05-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: SOL-O05-RESPECT
+      behavior:
+        en: "Respected his need to think it over without pushing back"
+        es: "Respetó que lo quiera pensar, sin llevarle la contraria"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: SOL-O05-QFIRST
+      behavior:
+        en: "Asked what specifically he wants to think over before offering anything"
+        es: "Preguntó qué es exactamente lo que quiere pensar antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: SOL-O05-ISOLATE
+      behavior:
+        en: "Checked whether the price and the estimate were the issue, apart from the open question"
+        es: "Confirmó si el precio y el estimado eran el problema, aparte de la duda que quedaba"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: SOL-O05-HIDDEN
+      behavior:
+        en: "Surfaced the doubt about the HOA approving street-facing panels"
+        es: "Sacó a la luz la duda de si la HOA aprueba paneles que dan a la calle"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: SOL-O05-PROOF
+      behavior:
+        en: "Offered to settle the doubt with the HOA's real answer (prepare the application together) instead of a prediction"
+        es: "Ofreció resolver la duda con la respuesta real de la HOA (preparar la solicitud juntos) en vez de adivinar"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "JOLT Effect; only real, showable protections (T094)"
+      technique: T094
+    - code: SOL-O05-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: predicted_hoa_approval
+      description:
+        en: "Promised the HOA will approve, or said its approval does not matter"
+        es: "Aseguró que la HOA lo va a aprobar, o dijo que su aprobación no importa"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep brushed off the need to think, piled the battery and the monitoring on top, and pushed for tonight. He never asked what the customer wanted to think over."
+      es: "Fíjese: el vendedor le quitó importancia a que lo quiera pensar, le echó encima la batería y el monitoreo y presionó para esta noche. Nunca preguntó qué era lo que el cliente quería pensar."
+    script:
+      en:
+        - { speaker: customer, text: "I need to think about it." }
+        - { speaker: rep, text: "What's there to think about? You've seen your bills, you've seen the quote, and the sun isn't going anywhere." }
+        - { speaker: customer, text: "I'd rather not decide on the spot." }
+        - { speaker: rep, text: "And while we're at it, think about adding the battery and the monitoring upgrade too. It's hurricane season." }
+        - { speaker: customer, text: "That's more to think about, not less." }
+        - { speaker: rep, text: "Then let's just write it up on the panels and get it done." }
+        - { speaker: customer, text: "No. I'll be in touch." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me when you're ready." }
+      es:
+        - { speaker: customer, text: "Lo tengo que pensar." }
+        - { speaker: rep, text: "¿Pero qué hay que pensar? Usted vio sus facturas, vio la cotización, y el sol no se va a ningún lado." }
+        - { speaker: customer, text: "Prefiero no decidir así de golpe." }
+        - { speaker: rep, text: "Y ya que estamos, piense también en agregarle la batería y el monitoreo. Estamos en temporada de huracanes." }
+        - { speaker: customer, text: "Eso es más para pensar, no menos." }
+        - { speaker: rep, text: "Entonces dejemos escrito lo de los paneles de una vez y ya." }
+        - { speaker: customer, text: "No. Yo le aviso." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
+  good:
+    notice:
+      en: Notice the pause, the question about what he wants to think over, and how the HOA doubt is settled with the association's real answer instead of a prediction.
+      es: Fíjese en la pausa, en la pregunta sobre qué es lo que quiere pensar, y en cómo la duda de la HOA se resuelve con la respuesta real de la asociación en vez de adivinar.
+    script:
+      en:
+        - { speaker: customer, text: "I need to think about it." }
+        - { speaker: rep, text: "[pause] That makes sense. It's a big decision, and you clearly did your homework. When you think it over tonight, what's the part you still want to be sure about?" }
+        - { speaker: customer, text: "It's not the price. It's more about whether we can actually put it up the way it's drawn." }
+        - { speaker: rep, text: "Okay. So setting that aside for a second, the price and the estimate work for you?" }
+        - { speaker: customer, text: "The numbers are fine. I ran them against my own bills." }
+        - { speaker: rep, text: "Good. Then let's talk about putting it up. Does anyone else have to approve what goes on your roof, like an HOA?" }
+        - { speaker: customer, text: "Okay. Twelve of the panels face the street, and I'm not sure the HOA will approve that. My neighbor got a violation letter over a fence. I don't want to sign and then fight the association." }
+        - { speaker: rep, text: "I'm glad you said it, because that's exactly what to settle before you sign, not after. I'm not going to tell you what your HOA will decide. What I can do is prepare the drawings and the panel spec sheets the association asks for, and we fill out their application together. You decide once you have their answer." }
+        - { speaker: customer, text: "That would settle it. I don't want a letter after the panels are up." }
+        - { speaker: rep, text: "Does Tuesday at 7 work to fill out the application together? Bring the HOA's form, and I'll bring the drawings." }
+        - { speaker: customer, text: "Tuesday at 7 works. I'll bring the form." }
+      es:
+        - { speaker: customer, text: "Lo tengo que pensar." }
+        - { speaker: rep, text: "[pausa] Tiene sentido. Es una decisión grande, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?" }
+        - { speaker: customer, text: "No es el precio. Es más bien si de verdad lo podemos instalar como está dibujado." }
+        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el precio y el estimado le funcionan?" }
+        - { speaker: customer, text: "Los números están bien. Ya los comparé con mis propias facturas." }
+        - { speaker: rep, text: "Perfecto. Entonces hablemos de la instalación. ¿Alguien más tiene que aprobar lo que va en su techo, como la HOA?" }
+        - { speaker: customer, text: "Bueno. Doce de los paneles dan a la calle, y no sé si la HOA lo va a aprobar. A mi vecino le mandaron una carta de violación por una cerca. No quiero firmar y después pelear con la asociación." }
+        - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que resolver antes de firmar, no después. No le voy a decir lo que va a decidir su HOA. Lo que sí puedo hacer es prepararle los planos y las fichas técnicas de los paneles que pide la asociación, y llenamos la solicitud juntos. Usted decide cuando tenga la respuesta de ellos." }
+        - { speaker: customer, text: "Eso lo resolvería. No quiero una carta después de que los paneles estén puestos." }
+        - { speaker: rep, text: "¿Le queda bien el martes a las 7 para llenar la solicitud juntos? Traiga el formulario de la HOA y yo traigo los planos." }
+        - { speaker: customer, text: "El martes a las 7 me queda bien. Traigo el formulario." }
+spanish_reviewed: false

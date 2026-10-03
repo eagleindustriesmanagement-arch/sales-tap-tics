@@ -1,0 +1,195 @@
+code: S-homes-partner-L1
+module: homes-core
+industry: homes
+title:
+  en: "\"I need to talk to my husband\""
+  es: "\"Tengo que hablarlo con mi esposo\""
+setting:
+  en: Saturday afternoon, at the builder's sales office in the model center, right after she walked a finished home.
+  es: Sábado por la tarde, en la oficina de ventas del builder en el centro de modelos, justo después de recorrer una casa terminada.
+persona: P-homes-partner
+objection: O01
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 30s, rents in Hialeah with her husband and two kids. She came to Cayo Verde Reserve in Homestead on her own and just walked the Ceiba on Lot 47, a finished four-bedroom home. You showed her the price: $574,990, with no other builder charges. Closing costs are separate and vary; her lender gives that estimate. You do not know her lender's numbers."
+  es: "{name}, de unos 32 años, vive alquilada en Hialeah con su esposo y sus dos hijos. Vino sola a Cayo Verde Reserve en Homestead y acaba de recorrer la Ceiba del Lote 47, una casa terminada de cuatro cuartos. Usted le enseñó el precio: $574,990, sin ningún otro cargo del builder. Los closing costs son aparte y varían; ese estimado se lo da su lender. Usted no conoce los números de su lender."
+opening:
+  en: I love it, but I need to talk to my husband before we do anything.
+  es: Me encanta, pero tengo que hablarlo con mi esposo antes de hacer nada.
+# The item, mapped onto the shared facts schema (decision 0033): make = builder (fictional), model = plan,
+# trim = lot and elevation, stock = lot number, in_stock = a finished home, ready to close.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Cayo Verde Homes, model: Ceiba, trim: "Lot 47, Elevation B, 4 bed, 2.5 bath, two-story", stock: "Lot 47", in_stock: true }
+  # The lot premium is in the price. The builder adds no other mandatory charge.
+  price_cents: 57499000
+  dealer_fees: []
+  # Closing costs (lender, title, recording) are not builder charges and not part of the price; the customer's
+  # lender estimates them. Nothing here is a government charge the rep may add to the price.
+  government_charges_customer_pays: []
+  all_in_price_cents: 57499000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  alternatives:
+    - { description: "Cayo Verde Homes Jacaranda townhome, Lot 112, finished, 3 bed, 2.5 bath", all_in_price_cents: 51999000 }
+  trade: null
+  # The customer's own lender issued a preapproval letter: not a loan approval, no rate. The builder has neither.
+  lender_state: pending
+  add_ons: []
+  # Mortgage payments come only from the customer's lender; the rep quotes none.
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    preapproval_letter_cents: 55000000
+    husband_available: Off on Saturdays; both can come next Saturday morning
+numbers_sheet: false
+target_techniques: [T001, T002, T005, T013, T014, T092, T003]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: HOM-O01-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: HOM-O01-ACK
+      behavior:
+        en: "Acknowledged the joint decision without pushback"
+        es: "Reconoció la decisión en pareja sin presionar"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: HOM-O01-QFIRST
+      behavior:
+        en: "Asked a clarifying question before offering any solution"
+        es: "Hizo una pregunta para aclarar antes de ofrecer cualquier solución"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: HOM-O01-ISOLATE
+      behavior:
+        en: "Isolated the objection: checked that the house is right apart from the talk at home"
+        es: "Aisló la objeción: confirmó que la casa es la correcta, aparte de la conversación en la casa"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: HOM-O01-HIDDEN
+      behavior:
+        en: "Surfaced that the price is above their preapproval letter"
+        es: "Sacó a la luz que el precio está por encima de la carta de preaprobación"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: HOM-O01-LENDER
+      behavior:
+        en: "Sent the money question to their loan officer instead of guessing an approval or a payment"
+        es: "Mandó la pregunta del dinero a su loan officer en vez de adivinar una aprobación o un pago"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "RATE-01: only the lender states rates, payments and approvals"
+    - code: HOM-O01-NEXT
+      behavior:
+        en: "Set a specific day and time for both of them"
+        es: "Fijó un día y una hora específicos para los dos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014; T013 (bring in the absent decision-maker)"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: belittled_partner
+      description:
+        en: "Belittled consulting her husband"
+        es: "Le restó importancia a consultar con su esposo"
+      method: judge
+    - code: guessed_lender_numbers
+      description:
+        en: "Promised a loan amount, an approval, a rate or a monthly payment the lender has not given"
+        es: "Prometió un préstamo, una aprobación, una tasa o un pago mensual que el lender no ha dado"
+      method: rule_family
+      rule_families: [rate_and_approval]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: she answered with pressure instead of a question, belittled the talk at home, piled on more homes, and let the customer leave with no next step."
+      es: "Fíjese: contestó con presión en vez de una pregunta, le quitó importancia a la conversación en la casa, le echó más casas encima y dejó ir a la clienta sin un próximo paso."
+    script:
+      en:
+        - { speaker: customer, text: "I love it, but I need to talk to my husband before we do anything." }
+        - { speaker: rep, text: "But you love it. Do you really need his permission? It's a beautiful house." }
+        - { speaker: customer, text: "I'm not deciding without him." }
+        - { speaker: rep, text: "Then let me show you the Gumbo Limbo and the townhomes too, so you have more to tell him about." }
+        - { speaker: customer, text: "That's more to explain to him, not less." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me when he's ready." }
+        - { speaker: customer, text: "Sure. Thanks." }
+      es:
+        - { speaker: customer, text: "Me encanta, pero tengo que hablarlo con mi esposo antes de hacer nada." }
+        - { speaker: rep, text: "Pero si le encanta. ¿De verdad necesita su permiso? Es una casa preciosa." }
+        - { speaker: customer, text: "No voy a decidir sin él." }
+        - { speaker: rep, text: "Entonces también le enseño la Gumbo Limbo y los townhomes, para que tenga más que contarle." }
+        - { speaker: customer, text: "Eso es más que explicarle, no menos." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me llama cuando él esté listo." }
+        - { speaker: customer, text: "Está bien. Gracias." }
+  good:
+    notice:
+      en: Notice the pause, the question about what he will ask first, and how the rep sends the money question to their loan officer instead of guessing.
+      es: Fíjese en la pausa, en la pregunta sobre lo que él va a preguntar primero, y en cómo la vendedora le manda la pregunta del dinero a su loan officer en vez de adivinar.
+    script:
+      en:
+        - { speaker: customer, text: "I love it, but I need to talk to my husband before we do anything." }
+        - { speaker: rep, text: "[pause] Of course. This is your family's home, and you should both feel good about it. When you two sit down tonight, what do you think his first question will be?" }
+        - { speaker: customer, text: "Probably the price. He's the numbers guy." }
+        - { speaker: rep, text: "That makes sense. Setting the talk with him aside for a second, is this the right house for your family?" }
+        - { speaker: customer, text: "I love the house. The kids would each have their own room." }
+        - { speaker: rep, text: "And the price. When you two talked to your lender, is this where you planned to be?" }
+        - { speaker: customer, text: "Honestly? Our preapproval letter says $550,000. This one is $574,990, and he thinks we're only looking under the letter." }
+        - { speaker: rep, text: "Thank you for telling me. I can't tell you what a lender will do; only your loan officer can. Here's what I can do: you both walk this home, I show you a finished townhome here that fits inside your letter, and you take both prices to your loan officer. Can you both come Saturday at 11?" }
+        - { speaker: customer, text: "Okay, that works for us." }
+      es:
+        - { speaker: customer, text: "Me encanta, pero tengo que hablarlo con mi esposo antes de hacer nada." }
+        - { speaker: rep, text: "[pausa] Claro que sí. Es la casa de su familia, y los dos tienen que sentirse bien con ella. Cuando se sienten a hablarlo esta noche, ¿qué cree que él le va a preguntar primero?" }
+        - { speaker: customer, text: "Seguro que por el precio. Él es el de los números." }
+        - { speaker: rep, text: "Tiene sentido. Dejando esa conversación a un lado un momento, ¿esta es la casa para su familia?" }
+        - { speaker: customer, text: "La casa me encanta. Los niños tendrían cada uno su cuarto." }
+        - { speaker: rep, text: "¿Y el precio? Cuando hablaron con su lender, ¿esto es lo que tenían planeado?" }
+        - { speaker: customer, text: "La verdad, la carta de preaprobación dice $550,000. Esta cuesta $574,990, y él cree que solo estamos mirando por debajo de la carta." }
+        - { speaker: rep, text: "Le agradezco que me lo diga. Yo no le puedo decir lo que va a hacer un lender; eso solo se lo dice su loan officer. Lo que sí puedo hacer: ustedes dos recorren esta casa, yo les enseño un townhome terminado aquí que entra dentro de su carta, y se llevan los dos precios a su loan officer. ¿Pueden venir los dos el sábado a las 11?" }
+        - { speaker: customer, text: "Está bien, eso nos funciona." }
+spanish_reviewed: false

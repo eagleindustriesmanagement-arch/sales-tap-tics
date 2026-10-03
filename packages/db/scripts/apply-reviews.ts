@@ -7,7 +7,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import pg from "pg";
-import { applyToYaml, lineStatus, platformLibrary, reviewLines, yamlPath } from "@taptics/content";
+import { applyToYaml, lineStatus, platformLibrary, reviewLines, scenarioFile, yamlPath } from "@taptics/content";
 import { withTenant } from "../src/context.js";
 import { listSpanishReviews } from "../src/repo.js";
 
@@ -28,7 +28,7 @@ for (const s of library.scenarios.values()) {
   const lines = reviewLines(library, s.code);
   for (const kind of ["scenario", "persona"] as const) {
     const code = kind === "scenario" ? s.code : s.persona;
-    const file = kind === "scenario" ? join(LIBRARY, "scenarios/car", `${code}.yaml`) : join(LIBRARY, "personas", `${code}.yaml`);
+    const file = kind === "scenario" ? scenarioFile(LIBRARY, code) : join(LIBRARY, "personas", `${code}.yaml`);
     const mine = lines.filter((l) => l.kind === kind);
     const changes = mine.flatMap((l) => {
       const r = byKey.get(`${l.code}/${l.key}`);

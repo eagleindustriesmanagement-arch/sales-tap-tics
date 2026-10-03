@@ -112,7 +112,9 @@ test("an individual signs up alone for any high-ticket sale; no team screens", a
   await page.getByRole("button", { name: "Email me a code" }).click();
   await codeStep(page, email, "Start practicing");
   await expect(page).toHaveURL(/\/today$/);
-  await expect(page.getByTestId("industry-note")).toContainText("solar");
+  // Their own industry's customers (decision 0033): solar customers on the plan, no "coming soon" note.
+  await expect(page.getByTestId("industry-note")).toHaveCount(0);
+  await expect(page.locator('a[href^="/practice/S-solar-"]').first()).toBeVisible();
   // Alone: the rep's tabs, and manager screens send them home.
   await expect(page.getByRole("link", { name: "Team" })).toHaveCount(0);
   await page.goto("/manager/team");

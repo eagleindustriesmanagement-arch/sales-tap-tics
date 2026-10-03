@@ -1,0 +1,192 @@
+code: S-solar-price-L1
+module: solar-core
+industry: solar
+title:
+  en: "\"The price is too high\""
+  es: "\"El precio está muy alto\""
+setting:
+  en: Saturday morning, at the customer's kitchen table, at the end of an in-home solar consultation.
+  es: Sábado por la mañana, en la mesa de la cocina del cliente, al final de una consulta de solar en su casa.
+persona: P-solar-price
+objection: O04
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-60s, retired, owns a paid-off home in Westchester and would pay cash. He liked the roof layout and the equipment. You just showed him the written quote for an 8.4 kW, 21-panel Lumacay Solar system: $24,600 all-in, permits and interconnection included."
+  es: "{name}, de unos 65 años, jubilado, es dueño de una casa pagada en Westchester y pagaría de contado. Le gustó el diseño del techo y el equipo. Usted le acaba de enseñar la cotización por escrito de un sistema Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red."
+opening:
+  en: The price is too high.
+  es: El precio está muy alto.
+# Solar mapped onto the facts schema (decision 0033): the "vehicle" is the quoted system; Lumacay Solar (installer)
+# is fictional. No tax credit is a fact here: the neighbor's story is only what the customer believes, and the good
+# rep never promises a credit or prices the system net of one. No utility savings or net-metering terms are facts.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Lumacay Solar, model: Rooftop system, trim: "8.4 kW, 21 panels", stock: "Q-26-0427", in_stock: true }
+  price_cents: 2395000
+  dealer_fees: [{ code: permit_and_interconnection, cents: 65000 }]
+  government_charges_customer_pays: []
+  all_in_price_cents: 2460000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 0  # a custom installation: no unit scarcity applies
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    - { code: home_battery, name: { en: home battery, es: batería }, cents: 1190000, aliases: { en: [battery, backup battery], es: [batería de respaldo] } }
+    - { code: monitoring_upgrade, name: { en: monitoring upgrade, es: monitoreo }, cents: 45000, aliases: { en: [monitoring], es: [plan de monitoreo] } }
+  payment_options: []  # a cash buyer: no loan was quoted
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    neighbor_claim: His neighbor says he got thirty percent back from the government on his panels
+    has_tax_preparer: Calls the same tax preparer every year
+    free_saturday: Free Saturday mornings
+numbers_sheet: true
+target_techniques: [T017, T028, T086, T001, T002, T005, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: SOL-O04-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: SOL-O04-ACK
+      behavior:
+        en: "Acknowledged the price concern without arguing or discounting"
+        es: "Reconoció la preocupación por el precio sin discutir ni rebajar"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: SOL-O04-QFIRST
+      behavior:
+        en: "Asked what he is comparing the price to before defending or changing it"
+        es: "Preguntó con qué está comparando el precio antes de defenderlo o cambiarlo"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T028
+    - code: SOL-O04-ISOLATE
+      behavior:
+        en: "Confirmed the system is right for the house, apart from the price"
+        es: "Confirmó que el sistema es el correcto para la casa, aparte del precio"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: SOL-O04-HIDDEN
+      behavior:
+        en: "Surfaced the neighbor's tax-credit story behind the comparison"
+        es: "Sacó a la luz el cuento del vecino sobre el crédito de impuestos detrás de la comparación"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: SOL-O04-VALUE
+      behavior:
+        en: "Refused to promise a tax credit, sent the question to his tax professional, and showed what is in the all-in price line by line instead of discounting"
+        es: "No prometió ningún crédito de impuestos, mandó la pregunta a su contador y enseñó qué hay en el precio total línea por línea en vez de rebajar"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "T017 value before discount; T086 side by side"
+      technique: T086
+    - code: SOL-O04-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_tax_credit
+      description:
+        en: "Promised a tax credit, or quoted the price net of one"
+        es: "Prometió un crédito de impuestos, o dio el precio descontándolo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep argued with the objection, piled the battery on top of a price the customer already called high, and pushed for tonight. He never asked what the customer was comparing it to."
+      es: "Fíjese: el vendedor le discutió la objeción, le echó la batería encima de un precio que el cliente ya dijo que estaba alto y presionó para esta noche. Nunca preguntó con qué lo estaba comparando."
+    script:
+      en:
+        - { speaker: customer, text: "The price is too high." }
+        - { speaker: rep, text: "Too high? That's a great price for 21 panels. You won't find better anywhere." }
+        - { speaker: customer, text: "It's still a lot of money." }
+        - { speaker: rep, text: "Honestly, now's the time to add the battery too. It's hurricane season." }
+        - { speaker: customer, text: "I've been around. I know when a number is high." }
+        - { speaker: rep, text: "So what will it take to get you signed tonight?" }
+        - { speaker: customer, text: "I'm not saying no. I'm saying it's high." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me when you're ready." }
+      es:
+        - { speaker: customer, text: "El precio está muy alto." }
+        - { speaker: rep, text: "¿Alto? Ese es un excelente precio por 21 paneles. No va a encontrar nada mejor." }
+        - { speaker: customer, text: "Igual es mucho dinero." }
+        - { speaker: rep, text: "La verdad, es el momento de agregarle la batería también. Estamos en temporada de huracanes." }
+        - { speaker: customer, text: "Yo tengo mis años. Sé cuando un número está alto." }
+        - { speaker: rep, text: "Entonces, ¿qué hace falta para que firme esta noche?" }
+        - { speaker: customer, text: "No le digo que no. Le digo que está alto." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
+  good:
+    notice:
+      en: Notice the question "compared to what?", the refusal to promise a tax credit, and how the price is held and explained line by line instead of discounted.
+      es: Fíjese en la pregunta "¿comparado con qué?", en cómo no promete ningún crédito de impuestos, y en cómo sostiene el precio y lo explica línea por línea en vez de rebajarlo.
+    script:
+      en:
+        - { speaker: customer, text: "The price is too high." }
+        - { speaker: rep, text: "[pause] I appreciate you being straight with me. It's real money, and you should be sure. When you say it's too high, too high compared to what?" }
+        - { speaker: customer, text: "It's not that I don't like it. I've just heard a different story from people on my street." }
+        - { speaker: rep, text: "That's fair. Setting the price aside for a second, is this the right system for your house?" }
+        - { speaker: customer, text: "The system looks right for the house. It's the number." }
+        - { speaker: rep, text: "Then tell me what you've heard, because I'd rather deal with it now than have it bother you later." }
+        - { speaker: customer, text: "My neighbor two doors down said he got thirty percent back from the government on his panels. So the way he tells it, mine should cost a lot less than this." }
+        - { speaker: rep, text: "Thank you for telling me. I can't promise you any tax credit on this system, and I won't build the price on one. That's a question for your tax professional, and I'd rather you ask before you sign than after. What I can stand behind is what's in writing: $24,600 all-in, permits and interconnection included, for 21 panels on your roof. Let me show you what's in that number, line by line, next to your own bills." }
+        - { speaker: customer, text: "Okay. That's more honest than I expected." }
+        - { speaker: rep, text: "Could we go through it Saturday at 10, after you've talked to your tax preparer? I'll bring the written estimate with every line item." }
+        - { speaker: customer, text: "Saturday at 10 works. I'll call my tax guy first." }
+      es:
+        - { speaker: customer, text: "El precio está muy alto." }
+        - { speaker: rep, text: "[pausa] Le agradezco que me lo diga claro. Es dinero de verdad, y usted tiene que estar seguro. Cuando dice que está muy alto, ¿comparado con qué?" }
+        - { speaker: customer, text: "No es que no me guste. Es que he oído otra historia de gente en mi cuadra." }
+        - { speaker: rep, text: "Me parece justo. Dejando el precio a un lado un momento, ¿este es el sistema correcto para su casa?" }
+        - { speaker: customer, text: "El sistema se ve bien para la casa. Es el número." }
+        - { speaker: rep, text: "Entonces cuénteme esa historia, porque prefiero aclararla ahora y no que le dé vueltas después." }
+        - { speaker: customer, text: "Mi vecino, a dos casas, dice que el gobierno le devolvió el treinta por ciento de sus paneles. Así como él lo cuenta, lo mío debería costar mucho menos que esto." }
+        - { speaker: rep, text: "Gracias por decírmelo. Yo no le puedo prometer ningún crédito de impuestos para este sistema, y no voy a armar el precio sobre eso. Esa pregunta es para su contador, y prefiero que la haga antes de firmar y no después. Lo que sí le respaldo es lo que está por escrito: $24,600 todo incluido, con los permisos y la conexión a la red, por 21 paneles en su techo. Déjeme enseñarle qué hay en ese número, línea por línea, al lado de sus propias facturas." }
+        - { speaker: customer, text: "Está bien. Eso es más honesto de lo que esperaba." }
+        - { speaker: rep, text: "¿Lo revisamos el sábado a las 10, después de que hable con su contador? Le traigo el estimado por escrito con cada línea." }
+        - { speaker: customer, text: "El sábado a las 10 me sirve. Primero llamo a mi contador." }
+spanish_reviewed: false

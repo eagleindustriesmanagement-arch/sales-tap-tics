@@ -39,7 +39,7 @@ for (const t of library.techniques.values()) {
 }
 
 for (const s of library.scenarios.values()) {
-  const ctx = { ...base, facts: s.facts, channel: s.channel };
+  const ctx = { ...base, facts: s.facts, channel: s.channel, industry: s.industry };
   for (const kind of ["good", "flawed"] as const) {
     const demo = s.demonstrations[kind];
     const n = Math.min(demo.script.en.length, demo.script.es.length);
@@ -88,7 +88,7 @@ for (const s of library.scenarios.values()) {
 // Lesson phrases are what reps will say: checked against their scenario's facts (decision 0031).
 for (const l of library.lessons.values()) {
   const s = library.scenarios.get(l.scenario);
-  const ctx = { ...base, facts: s?.facts ?? null, channel: s?.channel ?? ("floor" as const) };
+  const ctx = { ...base, facts: s?.facts ?? null, channel: s?.channel ?? ("floor" as const), industry: s?.industry };
   l.say.forEach((line, i) => report(`${l.code} say[${i}]`, checkContentLine(line, ctx)));
 }
 

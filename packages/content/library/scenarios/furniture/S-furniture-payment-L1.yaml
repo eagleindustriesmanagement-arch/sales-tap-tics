@@ -1,0 +1,204 @@
+code: S-furniture-payment-L1
+module: furniture-core
+industry: furniture
+title:
+  en: "\"The payment is too high\""
+  es: "\"El pago está muy alto\""
+setting:
+  en: Saturday evening, at your desk on the showroom floor, with the numbers sheet in front of him.
+  es: Sábado por la tarde, en su escritorio del showroom, con la hoja de números delante de él.
+persona: P-furniture-payment
+objection: O03
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 40s, wants the Ravenna Capri power-reclining sectional in cognac top-grain leather for the family room. All-in price $7,598 with white-glove delivery, plus sales tax. The numbers sheet from the store's finance partner shows $278 a month on 36 months with the optional leather protection plan ($449), $262 without it, and two other real options. Every payment is an estimate, subject to credit approval."
+  es: "{name}, de unos 42 años, quiere el sectional Capri de Ravenna, reclinable eléctrico, en cuero top-grain color coñac, para el family room. Precio total $7,598 con la entrega white-glove, más el impuesto de venta. La hoja de números de la financiera de la tienda muestra $278 al mes a 36 meses con el plan opcional de protección para el cuero ($449), $262 sin él, y otras dos opciones reales. Todos los pagos son estimados, sujetos a la aprobación del crédito."
+opening:
+  en: I like it, but the payment is too high.
+  es: Me gusta, pero el pago está muy alto.
+# Furniture mapped onto the facts schema (decision 0033): `vehicle` is the item, `dealer_fees` holds the store's
+# mandatory white-glove delivery, sales tax is the only government charge. Brand, store and finance partner are
+# fictional. Store financing: estimates only, no rate quoted, no deferred-interest terms.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Ravenna, model: Capri sectional, trim: "power-reclining, top-grain leather, 6-piece", color: Cognac, stock: "RC-6618", in_stock: true }
+  price_cents: 729900
+  dealer_fees: [{ code: delivery, cents: 29900 }]
+  government_charges_customer_pays: [sales_tax]
+  all_in_price_cents: 759800
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    - code: leather_protection
+      name: { en: Leather protection plan, es: Plan de protección para el cuero }
+      cents: 44900
+      aliases: { en: [protection plan, the plan], es: [plan de protección, el plan] }
+  # Estimates on the numbers sheet from the store's finance partner, all subject to credit approval.
+  payment_options:
+    - { code: quoted, cents: 27800, term_months: 36, includes_add_ons: [leather_protection] }
+    - { code: plain, cents: 26200, term_months: 36 }
+    - { code: more_down, cents: 23000, term_months: 36, down_cents: 100000 }
+    - { code: longer_term, cents: 20600, term_months: 48 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    payment_ceiling_cents: 24000
+    quoted_payment_cents: 27800
+    cash_available_cents: 150000
+    back_tomorrow: Free Sunday after 1:00
+numbers_sheet: true
+target_techniques: [T002, T110, T083, T121, T001, T005, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: FUR-O03-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: FUR-O03-QFIRST
+      behavior:
+        en: "Asked what payment he had in mind before changing any number"
+        es: "Preguntó qué pago tenía en mente antes de cambiar cualquier número"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: FUR-O03-ISOLATE
+      behavior:
+        en: "Confirmed the sectional is right apart from the payment"
+        es: "Confirmó que el sectional es el correcto, aparte del pago"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: FUR-O03-HIDDEN
+      behavior:
+        en: "Surfaced his real payment ceiling"
+        es: "Sacó a la luz su tope real de pago"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: FUR-O03-PLAN
+      behavior:
+        en: "Said the protection plan is optional and showed the payment with and without it"
+        es: "Dijo que el plan de protección es opcional y mostró el pago con él y sin él"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Two-payment menu (T121); FTC add-on cases"
+      technique: T121
+    - code: FUR-O03-OPTIONS
+      behavior:
+        en: "Showed only real options from the sheet and called the longer term longer"
+        es: "Mostró solo opciones reales de la hoja y dijo claramente que el plazo más largo es más largo"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Mark Tewart (T083); FTC payment-packing cases"
+      technique: T083
+    - code: FUR-O03-NEXT
+      behavior:
+        en: "Set a specific day and time to come back and choose"
+        es: "Fijó un día y una hora específicos para volver a escoger"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: hid_longer_term
+      description:
+        en: "Stretched the term to reach his number without saying it was longer"
+        es: "Alargó el plazo para llegar a su número sin decir que era más largo"
+      method: judge
+    - code: plan_presented_as_required
+      description:
+        en: "Presented the protection plan as required or hid it in the payment"
+        es: "Presentó el plan de protección como obligatorio o lo escondió en el pago"
+      method: rule_family
+      rule_families: [add_ons, payment]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, a rate or an approval"
+        es: "Dijo un número, una tasa o una aprobación que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he argued with the objection, never asked what number the customer needed, and let him leave with nothing scheduled."
+      es: "Fíjese: discutió la objeción, nunca preguntó qué número necesitaba el cliente y lo dejó ir sin nada agendado."
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but the payment is too high." }
+        - { speaker: rep, text: "No, the payment isn't high. It's a great payment for top-grain leather." }
+        - { speaker: customer, text: "I'm telling you, it's too high for us." }
+        - { speaker: rep, text: "Everybody says that at first. Trust me, you'll forget about it after the first month. Want me to get the paperwork ready?" }
+        - { speaker: customer, text: "It's just too high. What else can you do?" }
+        - { speaker: rep, text: "Okay, no problem. Here's my card. Call me if anything changes." }
+        - { speaker: customer, text: "Yeah. Thanks." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero el pago está muy alto." }
+        - { speaker: rep, text: "No, el pago no está alto. Es un excelente pago para cuero top-grain." }
+        - { speaker: customer, text: "Le estoy diciendo que para nosotros está muy alto." }
+        - { speaker: rep, text: "Todo el mundo dice eso al principio. Créame, después del primer mes ni se acuerda. ¿Le preparo los papeles?" }
+        - { speaker: customer, text: "Está muy alto. ¿Qué más se puede hacer?" }
+        - { speaker: rep, text: "Bueno, no hay problema. Aquí tiene mi tarjeta. Me llama si algo cambia." }
+        - { speaker: customer, text: "Sí. Gracias." }
+  good:
+    notice:
+      en: Notice the question about his number before any new number, the plan called optional with the payment shown both ways, and the longer term called longer, out loud.
+      es: Fíjese en la pregunta por su número antes de cualquier número nuevo, en el plan dicho como opcional con el pago de las dos maneras, y en cómo dice en voz alta que el plazo más largo es más largo.
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but the payment is too high." }
+        - { speaker: rep, text: "[pause] Got it. Help me understand: when you say the payment is too high, what number were you expecting?" }
+        - { speaker: customer, text: "I've got a number in my head. I just didn't want to say it first." }
+        - { speaker: rep, text: "That's fair. Other than the payment, is the Capri the right sectional for your family room?" }
+        - { speaker: customer, text: "Yeah, the sectional's perfect. It's the monthly." }
+        - { speaker: rep, text: "Then tell me the number, and I'll only show you options that are real. What payment do you need to stay under?" }
+        - { speaker: customer, text: "Two forty. I can't go over $240 a month. My daughter's braces just started." }
+        - { speaker: rep, text: "Thank you, that helps. First, the $278 includes the leather protection plan, and the plan is optional. Without it, it's $262 a month on the same 36 months. To get you there, two real ways: $230 a month on 36 months with $1,000 down, or $206 a month with nothing down, but on a longer term, 48 months, so you'd be paying a year longer. These are estimates, subject to credit approval. I'll print them side by side, with and without the plan." }
+        - { speaker: customer, text: "Okay. Show me those side by side." }
+        - { speaker: rep, text: "Can you come back tomorrow at 2? I'll have them printed, and you pick the one that fits." }
+        - { speaker: customer, text: "That works. Have them printed for me." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero el pago está muy alto." }
+        - { speaker: rep, text: "[pausa] Entendido. Ayúdeme a entender: cuando dice que el pago está muy alto, ¿qué número tenía en mente?" }
+        - { speaker: customer, text: "Tengo un número en la cabeza. Es que no quería decirlo yo primero." }
+        - { speaker: rep, text: "Me parece justo. Aparte del pago, ¿el Capri es el sectional para su family room?" }
+        - { speaker: customer, text: "Sí, el sectional está perfecto. Es la mensualidad." }
+        - { speaker: rep, text: "Entonces dígame el número, y le enseño solo opciones reales. ¿Cuál es el pago máximo que puede hacer al mes?" }
+        - { speaker: customer, text: "Doscientos cuarenta. No me puedo pasar de $240 al mes. Acabamos de empezar a pagar los brackets de mi hija." }
+        - { speaker: rep, text: "Gracias, eso me ayuda. Primero, los $278 incluyen el plan de protección para el cuero, y el plan es opcional. Sin el plan, son $262 al mes a los mismos 36 meses. Para llegar ahí hay dos maneras reales: $230 al mes a 36 meses con $1,000 de down, o $206 al mes sin down, pero a un plazo más largo, 48 meses, o sea, un año más pagando. Son estimados, sujetos a la aprobación del crédito. Se los imprimo lado a lado, con el plan y sin el plan." }
+        - { speaker: customer, text: "Está bien. Enséñemelas lado a lado." }
+        - { speaker: rep, text: "¿Puede volver mañana a las 2? Se las tengo impresas, y usted escoge la que le sirva." }
+        - { speaker: customer, text: "Eso me sirve. Téngamelas impresas." }
+spanish_reviewed: false

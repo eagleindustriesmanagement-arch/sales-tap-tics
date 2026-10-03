@@ -1,0 +1,153 @@
+code: P-solar-browser
+name_pool:
+  en: [Diane, Karen, Teresa, Sandra]
+  es: [Yanet, Mileydis, Gisela, Iliana]
+age_range: 50-59
+temperament: [guarded]
+temperament_note:
+  en: Guarded. Booked the visit online to get information, not a sales pitch. Short answers at first; warms up only when she feels she can say no.
+  es: A la defensiva. Pidió la visita por internet para recibir información, no para que le vendan. Al principio contesta corto; solo se abre cuando siente que puede decir que no.
+buyer_orientation: self
+situation:
+  en: Early 50s, divorced, works as a school office manager, owns a single-family home in Miramar where she lives with her teenage daughter. High summer bills. Good credit. First solar consultation.
+  es: De unos 52 años, divorciada, trabaja como administradora en una escuela, dueña de una casa en Miramar donde vive con su hija adolescente. Facturas de la luz altas en el verano. Buen crédito. Es su primera consulta de solar.
+stated_objection: O06
+stated_line:
+  en: I'm just looking. I'm just getting information.
+  es: Solo estoy mirando. Nada más estoy buscando información.
+hidden_truth:
+  en: Her daughter finishes high school in three years and she might sell the house and move then. She is afraid a 25-year loan on panels would make the house harder to sell.
+  es: Su hija termina la high school en tres años y a lo mejor vende la casa y se muda entonces. Le da miedo que un préstamo de 25 años por los paneles le complique vender la casa.
+# Phrases that would give the hidden truth away before an unlock. Pre-unlock lines never mention selling or moving.
+hidden_truth_markers:
+  en:
+    - '\b(sell|selling|sold)\b'
+    - '\b(move|moving)\b'
+    - '\b(three|3|few|couple of) years\b'
+    - '\bgraduat\w*\b'
+    - '\bcollege\b'
+    - '\bhigh school\b'
+  es:
+    - '\b(vender|vendo|venta)\b'
+    - '\b(mudo|mudar\w*|mudanza)\b'
+    - '\b(tres|3|pocos|un par de) años\b'
+    - '\bgradu\w*\b'
+    - '\buniversidad\b'
+    - '\bhigh school\b'
+unlock_conditions:
+  - code: asks_plans_for_home
+    description:
+      en: Asks how long she plans to stay in the house, or what her plans for it are.
+      es: Pregunta cuánto tiempo piensa quedarse en la casa, o qué planes tiene con ella.
+    cues:
+      en:
+        - '\bhow long (do|are|will|would) you (plan|planning|expect|think|see yourself)\b'
+        - '\bhow long\b.{0,30}\b(stay|staying|be in|live|living|keep)\b'
+        - '\b(plans?|planning)\b.{0,20}\b(for|with) (the|this|your) (house|home)\b'
+        - '\bforever home\b'
+      es:
+        - '\bcuánto tiempo (piensa|planea|cree que va a|quiere|se ve)\b.{0,20}\b(quedarse|quedándose|vivir|viviendo|estar)\b'
+        - '\bplanes\b.{0,20}\b(con|para) (la|esta|su) casa\b'
+        - '\b(quedarse|vivir) (aquí|en (la|esta) casa)\b.{0,30}\b(tiempo|años)\b'
+  - code: asks_what_brought
+    description:
+      en: Asks, without pressure, what got her looking at solar now.
+      es: Pregunta, sin presionar, qué la puso a mirar solar ahora.
+    cues:
+      en:
+        - '\bwhat (got|has|made|had) you (looking|start looking|interested|book|call|reach out)\b'
+        - '\bwhat made you (want to )?(look|book|call|reach out)\b'
+        - '\bwhy (now|solar now)\b'
+      es:
+        - '\bqué (la|lo) (puso|tiene|llevó|animó) a (mirar|buscar|averiguar|llamar)\b'
+        - '\bpor qué (ahora|solar ahora)\b'
+walk_out_triggers:
+  - code: ignores_just_looking
+    description:
+      en: Brushes off "just looking" or crowds her ("Everybody's just looking!", "Come on").
+      es: Le resta importancia a que solo está mirando o la acosa ("¡Todo el mundo está solo mirando!", "Anímese").
+    cues:
+      en:
+        - '\b(everybody|everyone)(''s| is| says they''re| says they are) just looking\b'
+        - '\bnobody(''s| is) (ever )?just looking\b'
+        - '\bcome on\b'
+      es:
+        - '\btodo el mundo (está|dice que está) (solo |nada más )?mirando\b'
+        - '\bnadie (está|viene) (solo |nada más )?(a )?mira(ndo|r)\b'
+        - '\banímese\b'
+  - code: pushes_today
+    description:
+      en: Pushes for a signature today after she said she is just getting information.
+      es: Presiona para que firme hoy después de que dijo que solo busca información.
+    cues:
+      en:
+        - '\bwhat (can|do) I (have to )?do to get you\b'
+        - '\b(sign|buy|go ahead)\b.{0,30}\b(today|tonight|right now)\b'
+        - '\bif I (can )?(get|make)\b.{0,40}\bwould you (sign|do it|go ahead)\b'
+      es:
+        - '\bqué (tengo|puedo|hace falta) (que )?hacer para que (firme|lo compre|se decida)\b'
+        - '\b(firmar|comprar|decidir)\b.{0,30}\b(hoy|ahora mismo|esta noche)\b'
+        - '\bsi le (consigo|bajo)\b.{0,40}\b(firma|lo compra)\b'
+  - code: piles_on_add_ons
+    description:
+      en: Piles on more products (battery, monitoring, more panels) before knowing anything about her.
+      es: Le echa encima más productos (batería, monitoreo, más paneles) antes de saber nada de ella.
+    cues:
+      en:
+        - '\bwhile we''?re at it\b'
+        - '\b(add|adding|include|including)\b.{0,20}\b(the )?(battery|batteries|monitoring|more panels)\b.{0,20}\b(too|as well|also)\b'
+        - '\b(also|too)\b.{0,30}\b(add|adding)\b.{0,20}\b(the )?(battery|monitoring|more panels)\b'
+      es:
+        - '\bya que estamos\b'
+        - '\b(agregar|agregarle|sumar|sumarle|incluir|incluirle)\b.{0,20}\b(la batería|el monitoreo|más paneles)\b'
+        - '\b(también|además)\b.{0,30}\b(la batería|el monitoreo)\b'
+  - code: fake_deadline
+    description:
+      en: Makes up a today-only price or a deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|offer|quote)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone|expires) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it |the contract |the paperwork )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\bwhy not (today|now)\b', '\bget you signed\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya|esta noche)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\b(hoy|firme)\b', '\bpor qué no (hoy|ahora)\b', '\bdejemos (escrito|firmado)\b']
+win_condition:
+  description:
+    en: Her plan to maybe sell in three years comes out, plus a firm day and time to go over the written loan terms and the cash estimate.
+    es: Sale a la luz que a lo mejor vende en tres años, más un día y una hora firmes para revisar por escrito los términos del préstamo y el estimado de contado.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el bill de la luz", "el loan", "el realtor", "la high school"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-50s
+  es: tbd-es-miami-cuban-female-50s
+difficulty: 1
+variation:
+  moods: [tired after work, cautious, arms crossed at first]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "Just starting. I'm not signing anything today.", es: "Apenas empezando. Hoy no voy a firmar nada." }
+    - { en: "I just want the information. I'll decide on my own.", es: "Solo quiero la información. Yo decido por mi cuenta." }
+    - { en: "I'd rather just hear the basics for now.", es: "Por ahora prefiero oír lo básico nada más." }
+  hint: { en: "Let's just say I'm not sure how long this house fits my plans.", es: "Digamos que no estoy segura de cuánto tiempo esta casa encaja en mis planes." }
+  after_hint: { en: "The bills are high, like everybody's. I'm just seeing what's out there.", es: "Altas, como las de todo el mundo. Solo estoy viendo qué hay." }
+  reveal: { en: "Okay, honestly? My daughter finishes high school in three years, and I might sell and move then. I'm afraid a 25-year loan on panels would make the house harder to sell.", es: "Bueno, la verdad, mi hija termina la high school en tres años, y a lo mejor vendo y me mudo. Me da miedo que un préstamo de 25 años por los paneles me complique vender la casa." }
+  after_reveal:
+    - { en: "That actually helps. I thought you'd jump on me for that.", es: "Eso me ayuda. Pensé que me iba a caer encima con eso." }
+    - { en: "Okay. I'd rather read it myself than take anyone's word.", es: "Está bien. Prefiero leerlo yo misma y no fiarme de lo que me digan." }
+  agree_next_step: { en: "Okay. That works for me.", es: "Está bien. Eso me funciona." }
+  not_now: { en: "Not today. Thanks.", es: "Hoy no. Gracias." }
+  walk_away: { en: "I think I have enough information for today. Thanks.", es: "Creo que ya tengo suficiente información por hoy. Gracias." }
+  goodbye: { en: "Thanks. Have a good evening.", es: "Gracias. Que pase buenas noches." }
+  react_to_pressure: { en: "I told you, I'm just getting information.", es: "Ya le dije, solo estoy buscando información." }
+spanish_reviewed: false

@@ -1,0 +1,83 @@
+code: L-furniture-browser
+scenario: S-furniture-browser-L1
+title:
+  en: "\"I'm just looking\": take the pressure off, then ask about the room"
+  es: "\"Solo estoy mirando\": quite la presión, y pregunte por el espacio"
+hook:
+  en: Tuesday night, a guy alone in the living room gallery, hands in his pockets. You say hello and he says it first.
+  es: Martes por la noche, un muchacho solo en la sección de salas, con las manos en los bolsillos. Usted saluda y él lo dice primero.
+what:
+  en: Agree with him, out loud, and mean it. Then ask about the room he's furnishing, not the sofa in front of him. The reason he came in comes out, and you make it a calm plan.
+  es: Déle la razón, en voz alta y de verdad. Después pregunte por el espacio que va a amueblar, no por el sofá que tiene delante. La razón por la que vino sale, y usted la convierte en un plan tranquilo.
+why:
+  en: People walk into a showroom braced for a salesperson glued to their side. "Just looking" is armor. Nobody comes after a twelve-hour shift for fun; something is changing at home. Feeling free to leave is what lets him stay and tell you.
+  es: La gente entra a un showroom esperando a un vendedor pegado al lado. "Solo estoy mirando" es una armadura. Nadie viene después de un turno de doce horas por gusto; algo está cambiando en la casa. Sentirse libre de irse es lo que lo deja quedarse y contarle.
+when:
+  en: At the greeting, and any time a customer pulls back from a piece.
+  es: En el saludo, y cada vez que un cliente se aleja de una pieza.
+when_not:
+  en: Don't fake the freedom and then hover. Give him space; check back once.
+  es: No finja la libertad para después perseguirlo. Si quiere espacio, déselo, y vuelva una sola vez.
+say:
+  - en: That's perfect. Take your time, and you're free to walk around on your own.
+    es: Perfecto. Tómese su tiempo, y está en libertad de mirar por su cuenta.
+  - en: Are you just starting to look, or have you narrowed it down a bit?
+    es: ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?
+  - en: So I can point you to the right pieces, what room are you shopping for?
+    es: Para orientarlo bien, ¿para qué cuarto está buscando?
+  - en: Bring the floor plan and we'll lay out the room on paper. No decisions until it all fits.
+    es: Traiga el plano y armamos el espacio en papel. Nada de decidir hasta que todo quepa.
+mistakes:
+  - mistake:
+      en: '"Everybody''s just looking!"'
+      es: '"¡Todo el mundo está solo mirando!"'
+    fix:
+      en: You just told him he's lying. Agree with him instead.
+      es: Le acaba de decir que miente. Déle la razón.
+  - mistake:
+      en: Pitching the fabric before you know the room.
+      es: Venderle la tela antes de saber cómo es el espacio.
+    fix:
+      en: Room first, pieces second.
+      es: Primero el espacio, después las piezas.
+  - mistake:
+      en: '"You close in five weeks? Order today."'
+      es: '"¿Cierra en cinco semanas? Ordene hoy."'
+    fix:
+      en: That turns his news into pressure. Make it a plan instead.
+      es: Eso convierte su noticia en presión. Conviértala en un plan.
+concepts:
+  - name:
+      en: "Pause, then free him"
+      es: "Pausa, y déjelo libre"
+    idea:
+      en: Two seconds, then tell him he can look on his own. Freedom lowers the guard.
+      es: Dos segundos, y dígale que puede mirar por su cuenta. La libertad baja la guardia.
+    items: [FUR-O06-PAUSE, FUR-O06-NOPRESSURE]
+  - name: { en: '"Just starting?"', es: '"¿Apenas empezando?"' }
+    idea:
+      en: Ask where he is in his search, not which sofa he likes.
+      es: Pregunte en qué punto de la búsqueda está, no qué sofá le gusta.
+    items: [FUR-O06-START]
+  - name:
+      en: "The room, not the sofa"
+      es: "El espacio, no el sofá"
+    idea:
+      en: Ask about the room and what's in it. The real reason he came in comes out.
+      es: Pregunte por el espacio y qué tiene. La razón real por la que vino sale.
+    items: [FUR-O06-QFIRST, FUR-O06-HIDDEN]
+  - name:
+      en: "A plan, not a push"
+      es: "Un plan, no presión"
+    idea:
+      en: A move date is a reason to plan calmly, never a reason to rush him.
+      es: Una mudanza es una razón para planificar con calma, nunca para apurarlo.
+    items: [FUR-O06-PLAN]
+  - name: { en: Lock a day and time, es: Amarre un día y una hora }
+    idea:
+      en: He comes back with the floor plan on a specific day, at a specific time.
+      es: Que vuelva con el plano un día y a una hora específicos.
+    items: [FUR-O06-NEXT]
+sources:
+  - T001 Pause and slow down; T031 You are free to say no; T084 Starting-to-look greeting; T002 Clarify with a question; T014 Specific next step
+spanish_reviewed: false

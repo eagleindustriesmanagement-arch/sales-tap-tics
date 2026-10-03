@@ -17,5 +17,10 @@
     written and reviewed for them.
   - **Honesty on the way.** While an industry has no customers, Today says so and offers the car customers to
     practice the techniques. The note goes away by itself once that industry has scenarios.
+- **The first packs.** Five level-1 customers each for homes, solar and furniture, on the five most common
+  objections (homes swaps the payment objection for "my advisor says wait": these reps never quote a mortgage
+  payment). Each industry onboards through its own customers in the same order the car path uses; with no
+  certification path, its reps are never asked to certify. The home page counts customers per industry from the
+  library and marks one live only when it has them. Review notes: `docs/content/industry-packs-review-notes.md`.
 - **Consequences.** Adding an industry is content work: personas, scenarios and lessons tagged with the industry,
   passing the same validation and release gate. A new rule that only binds one kind of sale must say so.

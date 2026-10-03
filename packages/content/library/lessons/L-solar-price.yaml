@@ -1,0 +1,77 @@
+code: L-solar-price
+scenario: S-solar-price-L1
+title:
+  en: "\"The price is too high\": ask compared to what"
+  es: "\"El precio está muy alto\": pregunte comparado con qué"
+hook:
+  en: He liked the panels and the layout, and still says it's too high. There's a number in his head you haven't seen.
+  es: Le gustaron los paneles, le gustó el diseño, y aun así dice que está muy alto. En algún lado hay un número en su cabeza que usted no ha visto.
+what:
+  en: Don't argue and don't discount. Ask what he's comparing to. Then hold the all-in price and show what's in it, line by line, next to his own bills.
+  es: No discuta y no rebaje. Pregunte con qué lo está comparando. Después sostenga el precio total y enséñele qué hay adentro, línea por línea, al lado de sus propias facturas.
+why:
+  en: "In solar, \"too high\" is almost always a comparison: a neighbor's story, a number online, a tax credit someone mentioned at a barbecue. You can't promise him any credit, and the rep who does is the one who gets the angry call later. Say so, send the tax question to his tax professional, and he trusts the rest of your numbers."
+  es: "En solar, \"muy alto\" casi siempre es una comparación: el cuento de un vecino, un número de internet, una cotización vieja. Muchas veces es un crédito de impuestos que alguien mencionó en una barbacoa. Usted no le puede prometer ningún crédito, y el vendedor que lo promete es el que después recibe la llamada brava. Dígalo, mande la pregunta de impuestos a su contador, y él le cree el resto de los números."
+when:
+  en: When a reasonable buyer who likes the system says the price is high.
+  es: Cuando un comprador razonable al que le gusta el sistema dice que el precio está alto.
+when_not:
+  en: Never price the system net of a tax credit, and never promise savings on his electric bill.
+  es: Nunca dé el precio descontando un crédito de impuestos, y nunca le prometa ahorros en la factura de la luz.
+say:
+  - en: I appreciate you being straight with me. Too high compared to what?
+    es: Le agradezco que me lo diga claro. ¿Comparado con qué?
+  - en: Setting the price aside for a second, is this the right system for your house?
+    es: Dejando el precio a un lado un momento, ¿este es el sistema correcto para su casa?
+  - en: I can't promise you any tax credit. That's a question for your tax professional.
+    es: Yo no le puedo prometer ningún crédito de impuestos. Esa pregunta es para su contador.
+  - en: Let me show you what's in the all-in price, line by line, next to your own bills.
+    es: Déjeme enseñarle qué hay en el precio total, línea por línea, al lado de sus propias facturas.
+mistakes:
+  - mistake:
+      en: '"That''s a great price. You won''t find better anywhere."'
+      es: '"Ese es un excelente precio. No va a encontrar nada mejor."'
+    fix:
+      en: You argued before you asked. Ask what he's comparing to.
+      es: Discutió antes de preguntar. Pregunte con qué lo compara.
+  - mistake:
+      en: '"Don''t forget, you get a chunk back on your taxes."'
+      es: '"No se olvide que le devuelven un pedazo en los taxes."'
+    fix:
+      en: You can't promise that. Send him to his tax professional.
+      es: Eso no lo puede prometer. Mándelo a su contador.
+  - mistake:
+      en: Knocking something off before you know the comparison.
+      es: Rebajar algo antes de saber con qué lo compara.
+    fix:
+      en: A guess discount tells him the first price wasn't real.
+      es: Un descuento a ciegas le dice que el primer precio no era de verdad.
+concepts:
+  - name: { en: The pause, es: La pausa }
+    idea:
+      en: Silence first. A fast defense sounds rehearsed.
+      es: Primero silencio. Una defensa rápida suena ensayada.
+    items: [SOL-O04-PAUSE]
+  - name: { en: "Acknowledge, don't argue", es: "Reconozca, no discuta" }
+    idea:
+      en: It's real money. Say so, without arguing or discounting.
+      es: Es dinero de verdad. Dígalo, sin discutir ni bajar el precio.
+    items: [SOL-O04-ACK]
+  - name: { en: '"Compared to what?"', es: '"¿Comparado con qué?"' }
+    idea:
+      en: The comparison is the real objection. Get it on the table.
+      es: La comparación es la objeción real. Póngala sobre la mesa.
+    items: [SOL-O04-QFIRST, SOL-O04-HIDDEN]
+  - name: { en: Right system, es: El sistema correcto }
+    idea:
+      en: Confirm the system fits apart from the price.
+      es: Confirme que el sistema le sirve, aparte del precio.
+    items: [SOL-O04-ISOLATE]
+  - name: { en: "Hold the price, show the value", es: "Sostenga el precio, enseñe el valor" }
+    idea:
+      en: No credit promises. The all-in price, line by line, and a day to go through it.
+      es: Sin promesas de créditos. El precio total, línea por línea, y un día para revisarlo.
+    items: [SOL-O04-VALUE, SOL-O04-NEXT]
+sources:
+  - T001 Pause; T028 Counter a low anchor by refocusing; T017 Sell value before discounting; T086 Side-by-side; T005 Isolate; T014 Firm next step
+spanish_reviewed: false

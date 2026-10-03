@@ -12,7 +12,8 @@ const obs = (day: number, scenarioCode: string, over: Partial<Observation> = {})
 });
 
 const library = platformLibrary();
-const scenarios: ScenarioMeta[] = [...library.scenarios.values()].map((s) => {
+// A car rep's plan, as the app builds it (decision 0033): their industry's customers; certification is the car path.
+const scenarios: ScenarioMeta[] = [...library.scenarios.values()].filter((s) => s.industry === "cars").map((s) => {
   const o = library.objections.get(s.objection)!;
   return { code: s.code, objection: s.objection, difficulty: s.difficulty, weight: o.frequency_weight, release1: o.release_1 };
 });
@@ -173,5 +174,19 @@ describe("practice streak", () => {
     expect(practiceStreak([at("2026-10-04T12:00:00Z")], now)).toBe(0);
     // 11:30 pm in Miami on the 6th is 03:30 UTC on the 7th: still the 6th for the rep.
     expect(practiceStreak([at("2026-10-07T03:30:00Z")], at("2026-10-07T12:00:00Z"))).toBe(1);
+  });
+});
+
+describe("an industry without a certification path (decision 0033)", () => {
+  const solar: ScenarioMeta[] = [...library.scenarios.values()].filter((s) => s.industry === "solar").map((s) => ({ code: s.code, objection: s.objection, difficulty: s.difficulty, weight: 1, release1: false }));
+  it("onboards through its own customers and never asks for certification", () => {
+    expect(solar.length).toBeGreaterThan(0);
+    const plan = dailyPlan({ startedAt: d(0), now: d(0), scenarios: solar, history: [], assignments: [], itemsByScenario });
+    expect(plan.length).toBeGreaterThan(0);
+    expect(plan[0]!.reason.kind).toBe("onboarding");
+    expect(plan.every((p) => solar.some((s) => s.code === p.scenarioCode) && p.mode === "practice")).toBe(true);
+    const history = solar.map((s) => obs(1, s.code, { total: 90 }));
+    const later = dailyPlan({ startedAt: d(0), now: d(40), scenarios: solar, history, assignments: [], itemsByScenario });
+    expect(later.every((p) => p.mode === "practice")).toBe(true);
   });
 });

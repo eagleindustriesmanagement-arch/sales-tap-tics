@@ -54,9 +54,9 @@ test.describe("the public home page", () => {
       await expect(page.locator("#techniques").getByRole("heading", { name, exact: true })).toBeVisible();
     }
 
-    // Industries, honestly: cars live, the rest next.
-    await expect(page.getByTestId("industries")).toContainText("Customers live");
-    await expect(page.getByTestId("industries")).toContainText("Home-buyer customers are next.");
+    // Industries, counted from the library (decision 0033): each one live only once it has its customers.
+    await expect(page.getByTestId("industries").getByText("Customers live")).toHaveCount(4);
+    await expect(page.getByTestId("industries")).toContainText(/\d+ role-play home buyers/);
 
     // Two ways in at the end, and pricing one tap away.
     await expect(page.getByTestId("start-team")).toHaveAttribute("href", "/signup");

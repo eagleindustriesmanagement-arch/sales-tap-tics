@@ -1,0 +1,151 @@
+code: P-homes-thinker
+name_pool:
+  en: [Kevin, Jason, Brian, Eric]
+  es: [Andrés, Javier, Rafael, Osmany]
+age_range: 40-49
+temperament: [analytical]
+temperament_note:
+  en: Analytical and polite. Has a spreadsheet for everything and does not like being rushed. Answers questions precisely but does not volunteer much.
+  es: Analítico y educado. Tiene una hoja de cálculo para todo y no le gusta que lo apuren. Contesta las preguntas con precisión, pero no ofrece mucha información por su cuenta.
+buyer_orientation: task
+situation:
+  en: Early 40s, married, three kids. Rents a three-bedroom in Kendall. Works as an accountant at a firm in Brickell, in the office by 8 every weekday. He and his wife want four bedrooms and a yard, and Homestead is where that fits their budget. They already have a preapproval from their own lender. He just walked a finished Ceiba on Lot 22 and has the price in hand.
+  es: De unos 42 años, casado, con tres hijos. Vive alquilado en un apartamento de tres cuartos en Kendall. Es contador en una firma en Brickell y tiene que estar en la oficina a las 8 todos los días de semana. Él y su esposa quieren cuatro cuartos y patio, y Homestead es donde eso les cuadra en el presupuesto. Ya tienen una preaprobación de su propio lender. Acaba de recorrer una Ceiba terminada en el Lote 22 y ya tiene el precio.
+stated_objection: O05
+stated_line:
+  en: I need to think about it.
+  es: Lo tengo que pensar.
+hidden_truth:
+  en: He has never done the drive from Homestead to his office in Brickell at rush hour, and he is not sure he can face it every weekday.
+  es: Nunca ha hecho el viaje de Homestead a su oficina en Brickell en hora pico, y no está seguro de poder aguantarlo todos los días de semana.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\b(commute|commuting|rush hour|traffic|turnpike)\b'
+    - '\bbrickell\b'
+    - '\b(the|that) drive\b'
+    - '\bdrive (to|into|from) (work|the office|downtown|brickell)\b'
+    - '\b(leave|leaving) (the house|home) at\b'
+  es:
+    - '\b(commute|hora pico|tráfico|tranque|turnpike)\b'
+    - '\bbrickell\b'
+    - '\b(el|ese) viaje\b'
+    - '\bmanejar (hasta|al|a la) (trabajo|oficina|downtown|brickell)\b'
+    - '\bsalir de la casa a las\b'
+unlock_conditions:
+  - code: asks_what_to_think_over
+    description:
+      en: Asks what specifically he wants to think over, or what he would need to know or see to feel sure.
+      es: Pregunta qué es exactamente lo que quiere pensar, o qué necesitaría saber o ver para sentirse seguro.
+    cues:
+      en:
+        - '\bwhat (part|piece|specifically|exactly|in particular)\b.{0,40}\b(think|thinking|mull|sleep on|weigh|figure out|be sure|sure about)\b'
+        - '\bwhat(''s| is| are) (the )?(one )?(part|thing|piece|question)s?\b.{0,40}\b(think(ing)? (about|over|through)|not sure|unsure|on the fence|still open|be sure|sure about|holding you)\b'
+        - '\bwhat (do|did|would) you (want|need|still need|have) to think (about|over|through)\b'
+        - '\bwhat (would|will|do) you (need|want) to (know|see|check|confirm|be sure)\b'
+        - '\bwhat(''s| is) (still )?(missing|unanswered|left to figure out)\b'
+      es:
+        - '\bqué (es lo que |parte |cosa )?(quiere|necesita|le gustaría|tiene que) (pensar|pensarlo|revisar|consultar con la almohada|tener segur[oa])\b'
+        - '\bqué (es lo que )?(le )?(falta|queda) por (saber|ver|aclarar|resolver|pensar)\b'
+        - '\bqué (necesitaría|le haría falta|tendría que) (saber|ver|comprobar|confirmar)\b'
+        - '\bqué parte\b.{0,40}\b(pensar|duda|segur[oa])\b'
+        - '\bqué (es lo que )?(le )?(tiene|deja) (con )?(duda|dudas|pensando)\b'
+  - code: asks_about_daily_life
+    description:
+      en: Asks about his normal weekday, where he works, or how he would get there from here.
+      es: Pregunta cómo es un día normal de semana, dónde trabaja o cómo llegaría desde aquí.
+    cues:
+      en:
+        - '\bwhere (do|does) (you|your wife|she|he) work\b'
+        - '\b(walk|tell) me (through|about) (a |your )?(normal|typical|regular) (week|weekday|day|morning)\b'
+        - '\bhow (far|long)\b.{0,25}\b(work|the office|your job)\b'
+        - '\bwhat time do you (leave|have to be|start)\b'
+        - '\b(commute|commuting|rush hour)\b'
+        - '\bhow (would|will|do) you get to (work|the office)\b'
+      es:
+        - '\bdónde (trabaja|trabajan)\b'
+        - '\b(cuénteme|dígame) cómo es (un|su) (día|lunes) (normal|típico|de semana)\b'
+        - '\b(qué tan lejos|cuánto tiempo)\b.{0,25}\b(trabajo|oficina)\b'
+        - '\ba qué hora (sale|tiene que estar|entra|empieza)\b'
+        - '\b(commute|hora pico)\b'
+        - '\bcómo (llegaría|va a llegar|llega) al (trabajo|oficina)\b'
+walk_out_triggers:
+  - code: belittles_thinking
+    description:
+      en: Treats the need to think as silly ("What's there to think about?").
+      es: Trata la necesidad de pensarlo como una tontería ("¿Qué hay que pensar?").
+    cues:
+      en:
+        - '\bwhat(''s| is) there to think (about|over)\b'
+        - '\bnothing to think (about|over)\b'
+        - '\byou(''ve| have) (already )?(done|did) (all )?(the|your) (thinking|research)\b'
+        - '\b(don''?t|stop) over ?think(ing)?\b'
+      es:
+        - '\bqué (hay|tiene) que pensar\b'
+        - '\bno hay nada que pensar\b'
+        - '\bno lo piense tanto\b'
+        - '\b(ya )?usted (ya )?lo pensó\b'
+  - code: piles_on_options
+    description:
+      en: Adds more plans or lots instead of settling the one open question.
+      es: Agrega más modelos o lotes en vez de resolver la única duda que queda.
+    cues:
+      en:
+        - '\b(also|too) (look at|see|show you)\b.{0,30}\b(Gumbo Limbo|Jacaranda|townhomes?|other (plans|lots|homes))\b'
+        - '\blet me show you (all|every|a few more|some more|the others)\b'
+        - '\bshow you the (Gumbo Limbo|Jacaranda|townhomes?)\b.{0,30}\b(too|as well|also)\b'
+        - '\b(a few|a couple|some|two|three|four) (more|other) (plans|lots|models|homes)\b'
+      es:
+        - '\b(también|además) (le )?(enseño|muestro|puede ver)\b.{0,30}\b(Gumbo Limbo|Jacaranda|townhomes?|otr[oa]s?)\b'
+        - '\b(le enseño|le muestro) (todas|todos|unas cuantas|otras|otros)\b'
+        - '\b(unos cuantos|un par de|dos|tres|cuatro) (modelos|lotes|planos) más\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b', '\bif you (leave|walk)\b.{0,40}\b(price|deal|offer|house|home)\b.{0,20}\b(gone|go away|disappear)']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\bsi se va\b.{0,40}\b(precio|oferta|casa)\b.{0,20}\b(se pierde|ya no|desaparece)']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\b(put|leave) (down )?(the|a) deposit (down )?(today|now|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\b(deje|ponga) el depósito (hoy|ahora|ya)\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The commute worry comes out, plus a firm day and time to do the real drive at rush hour and meet at the house.
+    es: Sale a la luz la preocupación por el viaje al trabajo, más un día y una hora firmes para hacer el viaje de verdad en hora pico y verse en la casa.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: en
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el closing", "el lender", "el down", "el Turnpike"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-40s
+  es: tbd-es-miami-cuban-male-40s
+difficulty: 1
+variation:
+  moods: [calm, has a spreadsheet open on his phone, a little tired]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I just need to think it over. It's a house, not a sofa.", es: "Es que lo tengo que pensar. Es una casa, no un sofá." }
+    - { en: "I'd rather not decide on the spot.", es: "Prefiero no decidir así de golpe." }
+    - { en: "I like to sleep on things like this.", es: "Con estas cosas me gusta consultarlo con la almohada." }
+  hint: { en: "It's not the house. It's more about what everyday life would look like out here.", es: "No es la casa. Es más bien cómo sería la vida de todos los días aquí." }
+  after_hint: { en: "The house is right. My wife loves it, and the numbers are in my spreadsheet.", es: "La casa es la correcta. A mi esposa le encanta, y los números están en mi hoja de cálculo." }
+  reveal: { en: "Okay. I have to be in Brickell by 8 every day, and I've never done that drive from down here at rush hour. I don't know if I can do it five days a week.", es: "Bueno. Tengo que estar en Brickell a las 8 todos los días, y nunca he hecho ese viaje desde aquí abajo en hora pico. No sé si lo puedo aguantar cinco días a la semana." }
+  after_reveal:
+    - { en: "That would settle it. I'd rather know before I sign than after.", es: "Eso lo resolvería. Prefiero saberlo antes de firmar y no después." }
+    - { en: "Okay. Nobody has told me to just go try it.", es: "Está bien. Nadie me había dicho que simplemente lo probara." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  not_now: { en: "Not today. I'll be in touch.", es: "Hoy no. Yo le aviso." }
+  walk_away: { en: "I think I'm going to head out.", es: "Creo que me voy a ir yendo." }
+  goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }
+  react_to_pressure: { en: "I said I need to think about it. I don't decide like this.", es: "Le dije que lo tengo que pensar. Yo no decido así." }
+spanish_reviewed: false

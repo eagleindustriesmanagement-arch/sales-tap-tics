@@ -1,0 +1,190 @@
+code: S-furniture-thinker-L1
+module: furniture-core
+industry: furniture
+title:
+  en: "\"I need to think about it\""
+  es: "\"Lo tengo que pensar\""
+setting:
+  en: Saturday afternoon, in the dining room gallery of the showroom, right after he went over the all-in price.
+  es: Sábado por la tarde, en la sección de comedores del showroom, justo después de revisar el precio total.
+persona: P-furniture-thinker
+objection: O05
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-50s, lives in Westchester and has been back three weekends in a row for the Tallerra Alameda dining set: a walnut extension table, 96 inches opening to 120, and ten chairs. You showed him the all-in price of $8,798 with white-glove delivery, plus sales tax. He measured his dining room twice."
+  es: "{name}, de unos 55 años, vive en Westchester y lleva tres fines de semana seguidos viniendo a ver el juego de comedor Alameda de Tallerra: una mesa extensible de nogal, de 96 pulgadas que abre a 120, y diez sillas. Usted le enseñó el precio total de $8,798 con la entrega white-glove, más el impuesto de venta. Midió su comedor dos veces."
+opening:
+  en: I need to think about it.
+  es: Lo tengo que pensar.
+# Furniture mapped onto the facts schema (decision 0033): `vehicle` is the item, `dealer_fees` holds the store's
+# mandatory white-glove delivery, sales tax is the only government charge. Brand and store are fictional.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Tallerra, model: Alameda dining set, trim: "96-120 in. extension table, 10 chairs", color: Walnut, stock: "TA-2210", in_stock: true }
+  price_cents: 849900
+  dealer_fees: [{ code: delivery, cents: 29900 }]
+  government_charges_customer_pays: [sales_tax]
+  all_in_price_cents: 879800
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    nochebuena: Hosts fourteen people on December 24
+    sister_story: His sister's table from another store arrived in January
+    free_weekdays: Free after 5:30 on weekdays
+numbers_sheet: false
+target_techniques: [T091, T093, T115, T001, T003, T002, T094]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: FUR-O05-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: FUR-O05-RESPECT
+      behavior:
+        en: "Respected his need to think it over without pushing back"
+        es: "Respetó que lo quiera pensar, sin llevarle la contraria"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: FUR-O05-QFIRST
+      behavior:
+        en: "Asked what specifically he wants to think over before offering anything"
+        es: "Preguntó qué es exactamente lo que quiere pensar antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: FUR-O05-ISOLATE
+      behavior:
+        en: "Checked whether the set and the price were the issue, apart from the open question"
+        es: "Confirmó si el juego y el precio eran el problema, aparte de la duda que quedaba"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: FUR-O05-HIDDEN
+      behavior:
+        en: "Surfaced the worry about delivery before Nochebuena"
+        es: "Sacó a la luz la preocupación por la entrega antes de Nochebuena"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: FUR-O05-PROOF
+      behavior:
+        en: "Offered a delivery date confirmed in writing instead of promising one"
+        es: "Ofreció una fecha de entrega confirmada por escrito en vez de prometer una"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "JOLT Effect; only real, showable protections (T094)"
+      technique: T094
+    - code: FUR-O05-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_unconfirmed_delivery
+      description:
+        en: "Promised a delivery date without confirming it"
+        es: "Prometió una fecha de entrega sin confirmarla"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: she brushed off the need to think, piled on more dining sets, and pushed to order. She never asked what the customer wanted to think over."
+      es: "Fíjese: le quitó importancia a que lo quiera pensar, le echó más juegos de comedor encima y presionó para ordenar. Nunca preguntó qué era lo que el cliente quería pensar."
+    script:
+      en:
+        - { speaker: customer, text: "I need to think about it." }
+        - { speaker: rep, text: "What's there to think about? You've been here three weekends, you love it, and the price works." }
+        - { speaker: customer, text: "I said I need to think about it. I don't decide like this." }
+        - { speaker: rep, text: "Okay, if the Alameda isn't it, let me show you a few more sets in the back. We have a lot to choose from." }
+        - { speaker: customer, text: "That's more to think about, not less." }
+        - { speaker: rep, text: "Then let's just put the Alameda on order and get it done." }
+        - { speaker: customer, text: "No. I'll be in touch." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me when you're ready." }
+      es:
+        - { speaker: customer, text: "Lo tengo que pensar." }
+        - { speaker: rep, text: "¿Pero qué hay que pensar? Usted lleva tres fines de semana viniendo, le encanta y el precio le funciona." }
+        - { speaker: customer, text: "Le dije que lo tengo que pensar. Yo no decido así." }
+        - { speaker: rep, text: "Bueno, si el Alameda no es, le enseño unos cuantos juegos más que tenemos atrás. Hay mucho para escoger." }
+        - { speaker: customer, text: "Eso es más para pensar, no menos." }
+        - { speaker: rep, text: "Entonces dejemos ordenado el Alameda de una vez y ya." }
+        - { speaker: customer, text: "No. Yo le aviso." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
+  good:
+    notice:
+      en: Notice the pause, the question about what he wants to think over, and how the doubt is settled with a date in writing instead of a promise.
+      es: Fíjese en la pausa, en la pregunta sobre qué es lo que quiere pensar, y en cómo la duda se resuelve con una fecha por escrito en vez de una promesa.
+    script:
+      en:
+        - { speaker: customer, text: "I need to think about it." }
+        - { speaker: rep, text: "[pause] That makes sense. It's a big purchase for the family, and you clearly did your homework. When you think it over tonight, what's the part you still want to be sure about?" }
+        - { speaker: customer, text: "It's not the table. It's more about the timing." }
+        - { speaker: rep, text: "Okay. So setting that aside for a second, the set itself and the price work for you?" }
+        - { speaker: customer, text: "The set is right, and the price is fine. I did my homework." }
+        - { speaker: rep, text: "Good. Then tell me about the table's first big night. Is there an occasion you're buying it for?" }
+        - { speaker: customer, text: "Okay. I host Nochebuena for fourteen people, and I need this set in my house before December 24. My sister paid another store and her table showed up in January. I don't want that." }
+        - { speaker: rep, text: "I'm glad you told me, because that's exactly what to check before you buy, not after. I'm not going to guess a date. The set is in our warehouse, and our delivery team sets the calendar. I'll have them confirm a delivery date in writing, and you decide once you have it on paper." }
+        - { speaker: customer, text: "That would settle it. I don't want to find out in December." }
+        - { speaker: rep, text: "Can you come back Tuesday at 6? I'll have the confirmed date in writing, and the table opened to its full length so you can see it." }
+        - { speaker: customer, text: "Okay, that works." }
+      es:
+        - { speaker: customer, text: "Lo tengo que pensar." }
+        - { speaker: rep, text: "[pausa] Tiene sentido. Es una compra grande para la familia, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?" }
+        - { speaker: customer, text: "No es la mesa. Es más bien cuestión de fechas." }
+        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el juego y el precio le funcionan?" }
+        - { speaker: customer, text: "El juego es el que quiero, y el precio está bien. Yo hice mi tarea." }
+        - { speaker: rep, text: "Perfecto. Entonces cuénteme de la primera gran cena en esa mesa. ¿Hay alguna ocasión para la que la está comprando?" }
+        - { speaker: customer, text: "Bueno. Yo hago la Nochebuena para catorce personas, y necesito este juego de comedor en mi casa antes del 24 de diciembre. Mi hermana pagó en otra tienda y la mesa le llegó en enero. Yo no quiero eso." }
+        - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que comprobar antes de comprar, no después. No voy a adivinar una fecha. El juego está en nuestro almacén, y el equipo de entrega es el que maneja el calendario. Les pido que le confirmen la fecha de entrega por escrito, y usted decide cuando la tenga en papel." }
+        - { speaker: customer, text: "Eso lo resolvería. No quiero enterarme en diciembre." }
+        - { speaker: rep, text: "¿Puede volver el martes a las 6? Le tengo la fecha confirmada por escrito, y la mesa abierta a todo lo largo para que la vea." }
+        - { speaker: customer, text: "Está bien, me funciona." }
+spanish_reviewed: false

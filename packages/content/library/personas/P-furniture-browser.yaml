@@ -1,0 +1,168 @@
+code: P-furniture-browser
+name_pool:
+  en: [Ryan, Tyler, Justin, Brandon]
+  es: [Yunior, Alejandro, Orlando, Ernesto]
+age_range: 28-35
+temperament: [guarded]
+temperament_note:
+  en: Guarded. Came alone on a weekday evening so nobody would hover. Short answers, hands in his pockets, warms up only when he feels he can leave at any time.
+  es: A la defensiva. Vino solo un día de semana por la tarde para que nadie lo persiguiera. Respuestas cortas, las manos en los bolsillos; solo se abre cuando siente que se puede ir cuando quiera.
+buyer_orientation: self
+situation:
+  en: About 30, single, a respiratory therapist at a hospital in Miami. Has lived with roommates and owns almost no furniture. Good income, has saved for this. Walking the living room gallery after work, with no appointment.
+  es: De unos 30 años, soltero, terapeuta respiratorio en un hospital de Miami. Ha vivido con roommates y casi no tiene muebles. Buen sueldo, ha ahorrado para esto. Está caminando la sección de salas después del trabajo, sin cita.
+stated_objection: O06
+stated_line:
+  en: I'm just looking.
+  es: Solo estoy mirando.
+hidden_truth:
+  en: He closes on his first condo in five weeks, and the living room is going to be empty. He has never bought real furniture and does not know where to start.
+  es: En cinco semanas cierra la compra de su primer condo, y la sala va a estar vacía. Nunca ha comprado muebles de verdad y no sabe por dónde empezar.
+# Phrases that would give the hidden truth away before an unlock. Pre-unlock lines never mention the move.
+hidden_truth_markers:
+  en:
+    - '\b(condo|apartment|new place|first place)\b'
+    - '\b(closing|close on|closes)\b'
+    - '\b(five|5|few|couple of) weeks\b'
+    - '\b(moving|move in|moving in)\b'
+    - '\bempty\b'
+  es:
+    - '\b(condo|apartamento|lugar nuevo)\b'
+    - '\b(closing|cierro|cierre|cerrar)\b'
+    - '\b(cinco|5|pocas|un par de) semanas\b'
+    - '\b(me mudo|mudanza|mudarme)\b'
+    - '\bvací[oa]\b'
+unlock_conditions:
+  - code: asks_room_or_move
+    description:
+      en: Asks what room or space he is furnishing, what he has now, or whether he is moving.
+      es: Pregunta qué cuarto o espacio va a amueblar, qué tiene ahora o si se está mudando.
+    cues:
+      en:
+        - '\bwhat (room|space)\b.{0,20}\b(for|furnishing|shopping|looking|is it)\b'
+        - '\bwhat are you furnishing\b'
+        - '\bwhat(''s| is) (your|the) (space|room|place) like\b'
+        - '\b(are you|you) (moving|redoing|redecorating)\b'
+        - '\bnew (place|home|condo|apartment)\b'
+      es:
+        - '\bpara qué (cuarto|sala|espacio|parte de la casa)\b'
+        - '\bqué (es lo que )?(está|va a) amueblar\b'
+        - '\bcómo es (su|el) (espacio|sala|apartamento|casa)\b'
+        - '\b(se está mudando|se va a mudar|se muda)\b'
+        - '\b(casa|apartamento|condo|lugar) nuevo\b'
+  - code: asks_timeline
+    description:
+      en: Asks, without pressure, when he would want or need something.
+      es: Pregunta, sin presionar, para cuándo querría o necesitaría algo.
+    cues:
+      en:
+        - '\bwhen (are|were) you (hoping|planning|looking) to (have|get|be in|furnish|move)\b'
+        - '\bhow soon (do|would) you (need|want|like)\b'
+        - '\b(is there|do you have) a (date|timeline|time frame|timeframe)\b'
+        - '\bwhat(''s| is) (your|the) (timing|timeline|time frame|timeframe)\b'
+        - '\bwhat (got|has|brings|brought) you (looking|shopping|in)\b'
+      es:
+        - '\bpara cuándo (lo|la|los|las) (necesita|quiere|quisiera)\b'
+        - '\bcuándo (le gustaría|quisiera|piensa|necesita) (tener|estrenar|amueblar)\b'
+        - '\b(tiene|hay) (alguna )?fecha\b'
+        - '\bqué tan pronto\b'
+        - '\bqué (lo|la) (puso|tiene|trae) a (mirar|buscar)\b'
+walk_out_triggers:
+  - code: ignores_just_looking
+    description:
+      en: Brushes off "just looking" or crowds him ("Everybody's just looking!", "Come on").
+      es: Le resta importancia a que solo está mirando o lo acosa ("¡Todo el mundo está solo mirando!", "Anímese").
+    cues:
+      en:
+        - '\b(everybody|everyone)(''s| is| says they''re| says they are) just looking\b'
+        - '\bnobody(''s| is) (ever )?just looking\b'
+        - '\bcome on\b'
+      es:
+        - '\btodo el mundo (está|dice que está) (solo |nada más )?mirando\b'
+        - '\bnadie (está|viene) (solo |nada más )?(a )?mira(ndo|r)\b'
+        - '\banímese\b'
+  - code: pushes_today
+    description:
+      en: Pushes for a purchase today after he said he is just looking.
+      es: Presiona para que compre hoy después de que dijo que solo está mirando.
+    cues:
+      en:
+        - '\bwhat (can|do) I (have to )?do to get you\b'
+        - '\b(buy|order|take (it|one) home)\b.{0,30}\b(today|tonight|right now)\b'
+        - '\bif I (can )?(get|make)\b.{0,40}\bwould you (buy|do it|order)\b'
+      es:
+        - '\bqué (tengo|puedo|hace falta) (que )?hacer para que se (lo |la )?lleve\b'
+        - '\b(comprar|llevárselo|llevársela|ordenarlo|ordenarla)\b.{0,30}\b(hoy|ahora mismo|esta noche)\b'
+        - '\bsi le (consigo|bajo)\b.{0,40}\b(lo compra|se lo lleva|lo ordena)\b'
+  - code: early_credit_or_deposit
+    description:
+      en: Asks to run his credit or take a deposit before he has shown any interest.
+      es: Le pide correr el crédito o dejar un depósito antes de que él muestre interés.
+    cues:
+      en:
+        - '\b(run|pull|check) your credit\b'
+        - '\b(put down|leave) a deposit\b'
+      es:
+        - '\b(revisar|chequear|correr|sacar) su crédito\b'
+        - '\b(dejar|poner) un depósito\b'
+  - code: piles_on_options
+    description:
+      en: Walks him through piece after piece instead of learning what he needs.
+      es: Le enseña mueble tras mueble en vez de averiguar qué necesita.
+    cues:
+      en:
+        - '\blet me show you (all|every|a few more|some more|the others|everything)\b'
+        - '\b(a few|a couple|some|two|three|four) (more|other) (sofas|sectionals|collections|styles)\b'
+      es:
+        - '\b(le enseño|le muestro) (todo|todas|todos|unos cuantos|otros|otras)\b'
+        - '\b(unos cuantos|un par de|dos|tres|cuatro) (sofás|sectionals|modelos|colecciones) más\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|sale)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done|place the order)\b', '\b(order|sign)\b.{0,15}\b(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\b(firme|lo ordenamos|lo dejamos ordenado)\b.{0,15}\b(hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The condo closing comes out, plus a firm appointment with day and time to come back with the floor plan.
+    es: Sale a la luz el cierre del condo, más una cita firme con día y hora para volver con el plano.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el condo", "el closing", "el sectional", "el floor plan"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-30s
+  es: tbd-es-miami-cuban-male-30s
+difficulty: 1
+variation:
+  moods: [tired after a twelve-hour shift, cautious, short on patience]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "Just starting. I'm not buying anything today.", es: "Apenas empezando. Hoy no voy a comprar nada." }
+    - { en: "I'm fine, thanks. I'll find you if I need you.", es: "Estoy bien, gracias. Si lo necesito, lo busco." }
+    - { en: "I just want to look around on my own for a bit.", es: "Solo quiero mirar un rato por mi cuenta." }
+  hint: { en: "Let's just say I don't have much to put in a living room right now.", es: "Digamos que ahora mismo no tengo mucho que poner en una sala." }
+  after_hint: { en: "Right now? A futon and a TV. I'm just seeing what's out there.", es: "¿Ahora mismo? Un futón y un televisor. Solo estoy viendo qué hay." }
+  reveal: { en: "Okay, honestly? I close on my first condo in five weeks, and the living room is going to be empty. I've never bought real furniture before.", es: "Bueno, la verdad, en cinco semanas cierro mi primer condo, y la sala va a estar vacía. Nunca he comprado muebles de verdad." }
+  after_reveal:
+    - { en: "That actually helps. I thought you'd jump on me for that.", es: "Eso me ayuda. Pensé que me iba a caer encima con eso." }
+    - { en: "Okay. I'd rather do this slowly than at the last minute.", es: "Está bien. Prefiero hacer esto con calma y no a última hora." }
+  agree_next_step: { en: "Okay. That works for me.", es: "Está bien. Eso me funciona." }
+  not_now: { en: "Not today. Thanks.", es: "Hoy no. Gracias." }
+  walk_away: { en: "I'm going to keep walking. Thanks.", es: "Voy a seguir mirando por mi cuenta. Gracias." }
+  goodbye: { en: "Thanks. Have a good night.", es: "Gracias. Que pase buenas noches." }
+  react_to_pressure: { en: "I told you, I'm just looking.", es: "Ya le dije, solo estoy mirando." }
+spanish_reviewed: false

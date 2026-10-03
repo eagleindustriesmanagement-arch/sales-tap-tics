@@ -1,0 +1,75 @@
+code: L-solar-partner
+scenario: S-solar-partner-L1
+title:
+  en: "\"I need to talk to my husband\": find out what he'll ask"
+  es: "\"Tengo que hablarlo con mi esposo\": averigüe qué va a preguntar él"
+hook:
+  en: Great consult, she nodded through the whole layout, then she says it. Most reps leave a brochure. Not you.
+  es: La consulta salió buenísima, ella asintió con todo el diseño, y entonces lo dice. Casi todos dejan el folleto. Usted no.
+what:
+  en: Treat the spouse who isn't at the table as a buyer who hasn't seen the roof yet. Don't fight it. Find out what the talk tonight will be about, and give them both a reason to sit down with you.
+  es: Trate al esposo que no está en la mesa como un comprador que todavía no ha visto el techo. No lo pelee. Averigüe de qué se va a tratar la conversación de esta noche y deles a los dos una razón para sentarse con usted.
+why:
+  en: Solar goes on the house, and the house belongs to both of them. Often she's carrying his objection, usually about the house itself, not the panels. Push, and you prove his doubts right. Ask what he'll ask, and you're on her side.
+  es: El solar va en la casa, y la casa es de los dos. Muchas veces ella trae la objeción de él, casi siempre sobre la casa, no sobre los paneles. Si presiona, le da la razón a él. Si pregunta qué va a preguntar él, usted está del lado de ella.
+when:
+  en: Whenever a homeowner names someone who isn't at the table.
+  es: Cada vez que el dueño de la casa nombra a alguien que no está en la mesa.
+when_not:
+  en: Not a trick to get a signature tonight. If he decides, leave it all in writing and set the visit with him there.
+  es: No es un truco para que firme esta noche. Si decide él, deje todo por escrito y fije la visita con él presente.
+say:
+  - en: Of course. It's your home, and you should both be comfortable with it.
+    es: Claro que sí. Es su casa, y los dos tienen que sentirse cómodos.
+  - en: When you sit down with him tonight, what do you think his first question will be?
+    es: Cuando lo hablen esta noche, ¿qué cree que él le va a preguntar primero?
+  - en: I'm not going to guess about your roof. Let's have the site survey check it with both of you here.
+    es: No voy a adivinar sobre su techo. Que la visita técnica lo revise con los dos presentes.
+mistakes:
+  - mistake:
+      en: '"What if you sign tonight and tell him in the morning?"'
+      es: '"¿Y si firma esta noche y se lo cuenta a él en la mañana?"'
+    fix:
+      en: You just made him the enemy. Ask about him instead.
+      es: Lo acaba de convertir en el enemigo. Pregunte por él.
+  - mistake:
+      en: '"The roof looks fine to me."'
+      es: '"El techo se ve bien."'
+    fix:
+      en: You haven't inspected it. Offer the site survey and a written result.
+      es: Usted no lo ha inspeccionado. Ofrezca la visita técnica y el resultado por escrito.
+  - mistake:
+      en: Leaving a brochure with "let me know."
+      es: Dejar el folleto con un "me avisa".
+    fix:
+      en: That's a lost deal. Leave with a day, a time, and him at the table.
+      es: Eso es un cliente perdido. Termine con un día, una hora y él en la mesa.
+concepts:
+  - name: { en: The two-second pause, es: La pausa de dos segundos }
+    idea:
+      en: Let it land. Silence says you heard her and won't argue.
+      es: Deje que caiga. El silencio dice que usted la escuchó y no va a discutir.
+    items: [SOL-O01-PAUSE]
+  - name: { en: Respect the partner, es: Respete a la pareja }
+    idea:
+      en: He's a buyer, not an obstacle. Agree, and invite him to the next visit.
+      es: Él es comprador, no un obstáculo. Déle la razón e invítelo a la próxima visita.
+    items: [SOL-O01-ACK, SOL-O01-PARTNER]
+  - name: { en: His first question, es: La primera pregunta de él }
+    idea:
+      en: Asking what he'll ask brings out the real worry, often the roof.
+      es: Preguntar qué va a preguntar él saca la preocupación real, muchas veces el techo.
+    items: [SOL-O01-QFIRST, SOL-O01-HIDDEN]
+  - name: { en: '"Setting that aside…"', es: '"Dejando eso a un lado…"' }
+    idea:
+      en: Isolate. Is the talk at home the only thing between her and the system?
+      es: Aísle. ¿La conversación en la casa es lo único entre ella y el sistema?
+    items: [SOL-O01-ISOLATE]
+  - name: { en: Lock a day and time, es: Amarre un día y una hora }
+    idea:
+      en: A site survey they both agree to, with a day and a time.
+      es: Una visita técnica que los dos aceptan, con día y hora.
+    items: [SOL-O01-NEXT]
+sources:
+  - T001 Pause and slow down; T002 Clarify with a question; T005 Isolate; T013 Include the decision maker; T014 Specific next step
+spanish_reviewed: false

@@ -1,0 +1,83 @@
+code: L-furniture-price
+scenario: S-furniture-price-L1
+title:
+  en: "\"The price is too high\": ask \"compared to what?\""
+  es: "\"El precio está muy alto\": pregunte \"¿comparado con qué?\""
+hook:
+  en: She loves the bedroom set, she has the budget, and she still says it's too high. She's not haggling. She's holding a number you haven't seen.
+  es: Le encanta el juego de cuarto, tiene el presupuesto, y aun así dice que está muy alto. No está regateando. Tiene un número que usted no ha visto.
+what:
+  en: Don't defend the price and don't cut it. Ask what she's comparing it to. Then line both up side by side, all-in, same features.
+  es: No defienda el precio y no lo rebaje. Pregunte con qué lo está comparando. Después ponga los dos lado a lado, precio total, mismas características.
+why:
+  en: Every furniture buyer has a phone full of pictures. Online, veneer and solid oak look the same, and the delivery charge shows up at checkout. She's afraid of feeling foolish later. Ask, and you see the comparison. Argue, and she goes home to it.
+  es: Todo cliente de muebles tiene el teléfono lleno de fotos. En internet, el enchapado y el roble macizo se ven iguales, y el cargo de entrega aparece en el checkout. Ella tiene miedo de sentirse boba después. Si pregunta, ve la comparación. Si discute, ella se va a la casa con ella.
+when:
+  en: Any time a customer who wants the piece says the price is too high.
+  es: Cada vez que un cliente que quiere la pieza dice que el precio está muy alto.
+when_not:
+  en: Not to knock a set you haven't seen. If theirs is the better buy for her, say so.
+  es: No para hablar mal de un juego que usted no ha visto. Si el otro le conviene más, dígaselo.
+say:
+  - en: I appreciate you saying it straight. Too high compared to what?
+    es: Le agradezco que me lo diga claro. ¿Muy alto comparado con qué?
+  - en: Setting the price aside for a second, is this the set you want in your bedroom?
+    es: Dejando el precio a un lado un momento, ¿este es el juego que quiere en su cuarto?
+  - en: I haven't seen that set, so I won't tell you it's worse. Let's line them up side by side.
+    es: Yo no he visto ese juego, así que no le voy a decir que es peor. Pongámoslos lado a lado.
+  - en: Here's ours all-in, with white-glove delivery, plus sales tax. Now let's see theirs the same way.
+    es: Aquí está el nuestro con precio total, con la entrega white-glove, más el impuesto de venta. Ahora veamos el otro igual.
+mistakes:
+  - mistake:
+      en: '"You get what you pay for."'
+      es: '"Lo barato sale caro."'
+    fix:
+      en: That's a lecture, not a question. Ask what she saw.
+      es: Eso es un sermón, no una pregunta. Pregúntele qué vio.
+  - mistake:
+      en: '"What if I knock something off?"'
+      es: '"¿Y si le rebajo algo?"'
+    fix:
+      en: A discount on a guess tells her the price was fake.
+      es: Un descuento a ciegas le dice que el precio era de mentira.
+  - mistake:
+      en: Calling the online set junk.
+      es: Decir que el juego de internet es basura.
+    fix:
+      en: You haven't seen it. Compare materials, drawers and delivery, item by item.
+      es: Usted no lo ha visto. Compare materiales, gavetas y entrega, punto por punto.
+concepts:
+  - name:
+      en: "Pause, then thank her"
+      es: "Pausa, y agradézcale"
+    idea:
+      en: Two seconds, then thank her for saying it. No defense.
+      es: Dos segundos, y agradézcale que lo dijera. Sin defenderse.
+    items: [FUR-O04-PAUSE, FUR-O04-ACK]
+  - name: { en: '"Compared to what?"', es: '"¿Comparado con qué?"' }
+    idea:
+      en: The most useful question in furniture. It brings out the number she's holding.
+      es: La pregunta más útil en muebles. Saca el número que ella tiene en la cabeza.
+    items: [FUR-O04-QFIRST, FUR-O04-HIDDEN]
+  - name:
+      en: "The set, apart from the price"
+      es: "El juego, aparte del precio"
+    idea:
+      en: Confirm she wants this set, so price is the only gap.
+      es: Confirme que quiere este juego, para que el precio sea lo único que falta.
+    items: [FUR-O04-ISOLATE]
+  - name:
+      en: "Side by side, all-in"
+      es: "Lado a lado, precio total"
+    idea:
+      en: Same features, delivery included. Never trash what you haven't seen.
+      es: Mismas características, con la entrega. Nunca hable mal de lo que no ha visto.
+    items: [FUR-O04-SIDE]
+  - name: { en: Lock a day and time, es: Amarre un día y una hora }
+    idea:
+      en: She comes back with the link at a set time, and you compare together.
+      es: Ella vuelve con el link a una hora fija, y comparan juntos.
+    items: [FUR-O04-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T017 Sell value before discounting; T005 Isolate; T086 Side-by-side; T028 Counter a low anchor by refocusing; T014 Specific next step
+spanish_reviewed: false

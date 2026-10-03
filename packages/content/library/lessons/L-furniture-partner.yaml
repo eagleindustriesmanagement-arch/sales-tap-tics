@@ -1,0 +1,83 @@
+code: L-furniture-partner
+scenario: S-furniture-partner-L1
+title:
+  en: "\"I need to talk to my husband\": find out what he'll ask"
+  es: "\"Tengo que hablarlo con mi esposo\": averigüe qué va a preguntar él"
+hook:
+  en: Third time on the sectional, she's in love, then she says it. Half the floor hands her a card. Not you.
+  es: Tercera vez en el sectional, está enamorada, y entonces lo dice. Medio showroom le da la tarjeta. Usted no.
+what:
+  en: Treat the husband as a buyer who isn't here yet. Find out what the talk at home will be about, settle it with something real, and get them both back.
+  es: Trate al esposo como un comprador que todavía no llegó. Averigüe de qué se va a tratar la conversación en la casa, resuélvalo con algo real, y tráigalos a los dos de vuelta.
+why:
+  en: A sofa lives in the house ten years. She isn't stalling; she can already hear the argument about the color, the dog, the kids. Push, and you prove it's coming. Ask what he'll say, and you're on her side.
+  es: Un sofá vive en la casa diez años, y todo el mundo opina. No está dando largas; ya está oyendo la discusión del color, del perro, de los niños. Si presiona, le confirma que la discusión viene. Si pregunta qué va a decir él, usted está de su lado.
+when:
+  en: Whenever she names someone who isn't there, before price or delivery.
+  es: Cada vez que la clienta nombra a alguien que no está, antes de volver a hablar de precio o entrega.
+when_not:
+  en: Not as a trick to keep her seated. If he decides, set the visit.
+  es: No como truco para tenerla sentada. Si decide él, ayúdela a llevarse todo y fijen la visita.
+say:
+  - en: Of course. It's a big piece for your home, and you should both love it.
+    es: Claro que sí. Es una pieza grande para su casa, y los dos tienen que estar contentos.
+  - en: When you show him the pictures tonight, what do you think his first question will be?
+    es: Cuando esta noche le enseñe las fotos, ¿qué cree que él le va a preguntar primero?
+  - en: Setting his opinion aside for a second, is this the right sectional for you?
+    es: Dejando la opinión de él a un lado, ¿este es el sectional para usted?
+  - en: I won't promise a fabric can't stain. Take the swatches home and test them.
+    es: No le voy a prometer que una tela no se mancha. Llévese las muestras y pruébelas.
+mistakes:
+  - mistake:
+      en: '"Men don''t care about sofas. Surprise him."'
+      es: '"A los hombres no les importan los muebles. Dele la sorpresa."'
+    fix:
+      en: You just made him the enemy. Ask about him instead.
+      es: Lo acaba de convertir en el enemigo. Pregunte por él.
+  - mistake:
+      en: '"Performance fabric is pet-proof."'
+      es: '"La tela performance es a prueba de mascotas."'
+    fix:
+      en: A promise you can't keep. Hand over swatches and the care sheet.
+      es: Una promesa que no puede cumplir. Dele muestras y la hoja de cuidado.
+  - mistake:
+      en: A card and "let me know."
+      es: La tarjeta y un "me avisa".
+    fix:
+      en: That's a walk. Leave with a day, a time, and both of them coming.
+      es: Esa clienta se fue. Termine con un día, una hora, y los dos viniendo.
+concepts:
+  - name:
+      en: "Pause, then respect him"
+      es: "Pausa, y respeto"
+    idea:
+      en: Two seconds of silence, then agree it's a decision for both of them.
+      es: "Dos segundos de silencio, y después déle la razón: es una decisión de los dos."
+    items: [FUR-O01-PAUSE, FUR-O01-ACK]
+  - name: { en: His first question, es: La primera pregunta de él }
+    idea:
+      en: Asking what he'll ask brings out the real worry, usually the color or who lives on it.
+      es: Preguntar qué va a preguntar él saca la preocupación real, casi siempre el color o quién lo usa.
+    items: [FUR-O01-QFIRST, FUR-O01-HIDDEN]
+  - name: { en: '"Other than that…"', es: '"Aparte de eso…"' }
+    idea:
+      en: Isolate. Is the talk at home the only thing in the way?
+      es: Aísle. ¿La conversación en la casa es lo único que falta?
+    items: [FUR-O01-ISOLATE]
+  - name:
+      en: "Swatches, not promises"
+      es: "Muestras, no promesas"
+    idea:
+      en: Settle a fabric worry with fabric they can test, never with "it won't stain".
+      es: Una duda de tela se resuelve con tela que puedan probar, nunca con un "no se mancha".
+    items: [FUR-O01-PROOF]
+  - name:
+      en: "Both of them, a day and a time"
+      es: "Los dos, un día y una hora"
+    idea:
+      en: Invite him in, or a video call now, at a time both agree to.
+      es: Invítelo a venir, o una videollamada ahora, a una hora que los dos aceptan.
+    items: [FUR-O01-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T005 Isolate; T094 Remove real risk; T013 Include the decision maker; T014 Specific next step
+spanish_reviewed: false

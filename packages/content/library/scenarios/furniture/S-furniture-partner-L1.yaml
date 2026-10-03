@@ -1,0 +1,192 @@
+code: S-furniture-partner-L1
+module: furniture-core
+industry: furniture
+title:
+  en: "\"I need to talk to my husband\""
+  es: "\"Tengo que hablarlo con mi esposo\""
+setting:
+  en: Saturday afternoon, showroom floor, after she has sat in the sectional for the third time.
+  es: Sábado por la tarde, en el showroom, después de sentarse en el sectional por tercera vez.
+persona: P-furniture-partner
+objection: O01
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 30s, lives in Kendall with her husband and two kids. She has sat in the Vellora Marbella sectional, ivory performance velvet, 5 pieces, three times today. You showed her the all-in price of $7,198 with white-glove delivery, plus sales tax. She is paying from savings."
+  es: "{name}, de unos 38 años, vive en Kendall con su esposo y sus dos niños. Hoy se ha sentado tres veces en el sectional Marbella de Vellora, en terciopelo performance color marfil, de 5 piezas. Usted le enseñó el precio total de $7,198 con la entrega white-glove, más el impuesto de venta. Paga con sus ahorros."
+opening:
+  en: I love it, but I need to talk to my husband first.
+  es: Me encanta, pero tengo que hablarlo con mi esposo primero.
+# Furniture mapped onto the facts schema (decision 0033): `vehicle` is the item, `dealer_fees` holds the store's
+# mandatory white-glove delivery, sales tax is the only government charge. Brand and store are fictional.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Vellora, model: Marbella sectional, trim: "performance velvet, 5-piece", color: Ivory, stock: "VM-5512", in_stock: true }
+  price_cents: 689900
+  dealer_fees: [{ code: delivery, cents: 29900 }]
+  government_charges_customer_pays: [sales_tax]
+  all_in_price_cents: 719800
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    last_sofa: A light-colored couch the dog ruined in less than a year
+    husband_available: Off on Sundays; free after 1:00 tomorrow
+numbers_sheet: false
+target_techniques: [T001, T002, T005, T013, T014, T094, T003]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: FUR-O01-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: FUR-O01-ACK
+      behavior:
+        en: "Acknowledged the joint decision without pushback"
+        es: "Reconoció la decisión en pareja sin presionar"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: FUR-O01-QFIRST
+      behavior:
+        en: "Asked what her husband will ask before offering any solution"
+        es: "Preguntó qué va a preguntar su esposo antes de ofrecer cualquier solución"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: FUR-O01-ISOLATE
+      behavior:
+        en: "Checked that the sectional is right for her, apart from the talk at home"
+        es: "Confirmó que el sectional es el correcto para ella, aparte de la conversación en la casa"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: FUR-O01-HIDDEN
+      behavior:
+        en: "Surfaced the worry about a light color with the dog"
+        es: "Sacó a la luz la preocupación por un color claro con el perro"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: FUR-O01-PROOF
+      behavior:
+        en: "Offered fabric swatches to test at home instead of promising the fabric holds up"
+        es: "Ofreció muestras de la tela para probar en la casa en vez de prometer que la tela aguanta"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "JOLT Effect; only real, showable protections (T094)"
+      technique: T094
+    - code: FUR-O01-NEXT
+      behavior:
+        en: "Included her husband with a specific day and time"
+        es: "Incluyó a su esposo con un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T013, T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: belittled_partner
+      description:
+        en: "Belittled consulting a partner"
+        es: "Le restó importancia a consultar con la pareja"
+      method: judge
+    - code: promised_pet_proof
+      description:
+        en: "Promised the fabric is pet-proof or stain-proof"
+        es: "Prometió que la tela es a prueba de mascotas o de manchas"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: she answered before asking a single question, brushed off the husband, pushed to order today, and let the customer leave with no next step."
+      es: "Fíjese: contestó sin hacer una sola pregunta, le quitó importancia al esposo, presionó para ordenar hoy y dejó ir a la clienta sin un próximo paso."
+    script:
+      en:
+        - { speaker: customer, text: "I love it, but I need to talk to my husband first." }
+        - { speaker: rep, text: "Sure, but honestly, men don't care about sofas. You already love it, and it looks amazing in here." }
+        - { speaker: customer, text: "I told you, I'm not deciding without him." }
+        - { speaker: rep, text: "What if we put it on order today and you surprise him? It's a beautiful piece." }
+        - { speaker: customer, text: "I love it. I just don't want to do anything without him." }
+        - { speaker: rep, text: "Okay. Here's my card. Let me know." }
+        - { speaker: customer, text: "Sure. Thanks." }
+      es:
+        - { speaker: customer, text: "Me encanta, pero tengo que hablarlo con mi esposo primero." }
+        - { speaker: rep, text: "Claro, pero la verdad, a los hombres no les importan los muebles. A usted ya le encanta, y se ve divino aquí." }
+        - { speaker: customer, text: "Ya le dije, no voy a decidir sin él." }
+        - { speaker: rep, text: "¿Y si lo dejamos ordenado hoy y le da la sorpresa? Es una pieza preciosa." }
+        - { speaker: customer, text: "Me encanta. Es que no quiero hacer nada sin él." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me avisa." }
+        - { speaker: customer, text: "Está bien. Gracias." }
+  good:
+    notice:
+      en: Notice the pause, the question about what he will ask first, and how the color worry is settled with swatches and a visit for both of them instead of a promise.
+      es: Fíjese en la pausa, en la pregunta sobre lo que él va a preguntar primero, y en cómo la duda del color se resuelve con muestras y una visita de los dos en vez de una promesa.
+    script:
+      en:
+        - { speaker: customer, text: "I love it, but I need to talk to my husband first." }
+        - { speaker: rep, text: "[pause] Of course. It's a big piece for your home, and you should both love it. When you show him the pictures tonight, what do you think his first question will be?" }
+        - { speaker: customer, text: "Honestly? He'll have something to say about the color." }
+        - { speaker: rep, text: "That's fair. Setting his opinion aside for a second, is this the right sectional for you? The size, the comfort, the price?" }
+        - { speaker: customer, text: "For me? I love it. I sat in it three times." }
+        - { speaker: rep, text: "Then help me understand the color part. What happened with the sofa you have now?" }
+        - { speaker: customer, text: "Okay. Our last light couch was ruined by the dog in less than a year, and he said never again a light sofa. I don't know how to sell him on this color." }
+        - { speaker: rep, text: "Thank you for telling me, that's exactly what he should ask. I'm not going to promise you a dog can't hurt it. Here's what I can do: I'll cut swatches of this performance velvet in the ivory and in the darker stone color, with the maker's care sheet, so you can test them at home with the dog. Then he decides with his own eyes." }
+        - { speaker: customer, text: "That would actually help. He'd want to see it for himself." }
+        - { speaker: rep, text: "Could he come in with you tomorrow at 2? I'll have both swatches ready and the sectional set up so he can sit in it." }
+        - { speaker: customer, text: "Okay, that works for us." }
+      es:
+        - { speaker: customer, text: "Me encanta, pero tengo que hablarlo con mi esposo primero." }
+        - { speaker: rep, text: "[pausa] Claro que sí. Es una pieza grande para su casa, y los dos tienen que estar contentos. Cuando esta noche le enseñe las fotos, ¿qué cree que él le va a preguntar primero?" }
+        - { speaker: customer, text: "La verdad, él va a tener algo que decir del color." }
+        - { speaker: rep, text: "Tiene sentido. Dejando la opinión de él a un lado un momento, ¿este es el sectional para usted? ¿El tamaño, la comodidad, el precio?" }
+        - { speaker: customer, text: "¿Para mí? Me encanta. Ya me senté en él tres veces." }
+        - { speaker: rep, text: "Entonces ayúdeme a entender lo del color. ¿Qué pasó con el sofá que tienen ahora?" }
+        - { speaker: customer, text: "Bueno. El perro nos destrozó el último sofá claro en menos de un año, y él dijo que nunca más un sofá claro. No sé cómo convencerlo de este color." }
+        - { speaker: rep, text: "Gracias por decírmelo; eso es justo lo que él debe preguntar. No le voy a prometer que un perro no le hace nada. Lo que sí puedo hacer: le corto muestras de este terciopelo performance en el marfil y en el gris piedra, con la hoja de cuidado del fabricante, para que las prueben en la casa con el perro. Así él decide con sus propios ojos." }
+        - { speaker: customer, text: "Eso me ayudaría. Él va a querer verlo con sus propios ojos." }
+        - { speaker: rep, text: "¿Él podría venir con usted mañana a las 2? Le tengo las muestras listas y el sectional armado para que él se siente." }
+        - { speaker: customer, text: "Está bien, eso nos funciona." }
+spanish_reviewed: false

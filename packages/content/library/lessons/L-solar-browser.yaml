@@ -1,0 +1,77 @@
+code: L-solar-browser
+scenario: S-solar-browser-L1
+title:
+  en: "\"I'm just looking\": take the pressure off, then ask why now"
+  es: "\"Solo estoy mirando\": quite la presión y pregunte por qué ahora"
+hook:
+  en: She booked the visit herself, then opens the door with "I'm just getting information." Believe her. Then find out why she booked.
+  es: Ella misma pidió la visita, y abre la puerta con "nada más estoy buscando información". Créale. Y después averigüe por qué la pidió.
+what:
+  en: Agree the visit is for information, tell her she's free to say no, and ask what brought her to solar now. The reason behind the booking is your next step.
+  es: "Déle la razón: la visita es para informarse. Dígale que está en libertad de decir que no, y pregúntele qué la trajo a solar ahora. La razón real detrás de la cita es su próximo paso."
+why:
+  en: A homeowner who expects a pitch at her door puts up a wall. When she feels free to say no, it comes down. Here the worry is long term. She might sell in a few years, and a long loan on her roof scares her. Promise the house will sell for more and you lose her. Get her the written terms.
+  es: "La dueña que espera que le vendan en su propia puerta pone un muro. Cuando siente que puede decir que no, el muro se cae. Aquí la preocupación escondida es a largo plazo: a lo mejor vende en unos años, y un préstamo largo sobre su techo le da miedo. Si le promete que la casa se va a vender por más, la pierde. Si le consigue los términos por escrito, la mantiene."
+when:
+  en: At the door, when she says she's only gathering information.
+  es: En la puerta, cuando dice que solo está buscando información.
+when_not:
+  en: Never turn her plans into pressure, and never promise what a buyer would pay for her house.
+  es: Nunca convierta sus planes en presión, y nunca le prometa lo que un comprador pagaría por su casa.
+say:
+  - en: That's perfect. Information is what this visit is for, and you're free to say no to all of it.
+    es: Perfecto. Para eso es esta visita, para información, y usted está en libertad de decirle que no a todo.
+  - en: So I show you what matters to you, what made you book the visit now?
+    es: Para enseñarle lo que a usted le importa, ¿qué la puso a buscar esto ahora?
+  - en: How long do you see yourself staying in this house?
+    es: ¿Cuánto tiempo se ve viviendo en esta casa?
+  - en: I'll get you the loan terms in writing, including what happens if you sell, with the cash price next to them.
+    es: Le consigo los términos del préstamo por escrito, incluido qué pasa si vende, con el precio de contado al lado.
+mistakes:
+  - mistake:
+      en: '"Everybody''s just looking!"'
+      es: '"¡Todo el mundo está solo mirando!"'
+    fix:
+      en: You just told her she's lying. Agree with her.
+      es: Le acaba de decir que está mintiendo. Déle la razón.
+  - mistake:
+      en: Opening with the battery and the monitoring app.
+      es: Empezar con la batería y la aplicación del monitoreo.
+    fix:
+      en: Ask about her before you show any equipment.
+      es: Pregunte por ella antes de enseñar cualquier equipo.
+  - mistake:
+      en: '"Panels add value. Your house will sell faster."'
+      es: '"Los paneles le suben el valor. La casa se le vende más rápido."'
+    fix:
+      en: You can't promise that. Put the written terms in her hands.
+      es: Eso no lo puede prometer. Póngale los términos por escrito en la mano.
+concepts:
+  - name: { en: The pause, es: La pausa }
+    idea:
+      en: Let it land before you answer.
+      es: Deje que el "solo estoy mirando" caiga antes de contestar.
+    items: [SOL-O06-PAUSE]
+  - name: { en: '"You''re free to say no"', es: '"Está en libertad de decir que no"' }
+    idea:
+      en: Saying it out loud is what lowers the wall.
+      es: Decirlo en voz alta es lo que baja el muro.
+    items: [SOL-O06-NOPRESSURE]
+  - name: { en: Where is she in the search?, es: ¿En qué punto de la búsqueda está? }
+    idea:
+      en: Starting or comparing? Then ask why now, or how long she'll stay.
+      es: ¿Empezando o comparando? Después pregunte por qué ahora, o cuánto tiempo se queda.
+    items: [SOL-O06-START, SOL-O06-QFIRST]
+  - name: { en: The plan behind the visit, es: El plan detrás de la visita }
+    idea:
+      en: Her timeline comes out. Answer it with paper, not a promise.
+      es: Sale su plan. Respóndalo con papeles, no con promesas.
+    items: [SOL-O06-HIDDEN, SOL-O06-PLAN]
+  - name: { en: A calm next visit, es: Una próxima visita con calma }
+    idea:
+      en: A day and a time to read the written terms together.
+      es: Un día y una hora para leer juntos los términos por escrito.
+    items: [SOL-O06-NEXT]
+sources:
+  - T084 "Starting to look" greeting; T031 "You are free to say no"; T002 Clarify with a question; T094 Remove real risk; T014 Firm next step
+spanish_reviewed: false

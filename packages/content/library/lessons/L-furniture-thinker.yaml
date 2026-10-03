@@ -1,0 +1,79 @@
+code: L-furniture-thinker
+scenario: S-furniture-thinker-L1
+title:
+  en: "\"I need to think about it\": find the one open question"
+  es: "\"Lo tengo que pensar\": encuentre la única duda que queda"
+hook:
+  en: Three weekends at the same dining set, tape measure in his pocket, and he still needs to think. He's not browsing. Something specific is open.
+  es: Tres fines de semana frente al mismo comedor, con la cinta de medir en el bolsillo, y todavía lo tiene que pensar. No está paseando. Hay algo concreto pendiente.
+what:
+  en: Respect the thinking, then ask what exactly he wants to think over. Rule out the set and the price. Settle the open question with something in writing, and set a time.
+  es: Respete que lo quiera pensar, y pregunte qué es exactamente lo que quiere pensar. Descarte el juego y el precio. Resuelva la duda con algo por escrito, y fije una hora.
+why:
+  en: In furniture, "think about it" is rarely the money. A dining set is bought for a night that matters, Nochebuena, a graduation, the in-laws, and the fear is that it won't be there in time. He doesn't want to look foolish asking. Ask for him.
+  es: En muebles, "lo tengo que pensar" casi nunca es el dinero. Un comedor se compra para una noche que importa, la Nochebuena, una graduación, los suegros, y el miedo es que no llegue a tiempo. Él no quiere quedar mal preguntando. Pregunte usted.
+when:
+  en: When a customer who likes the piece says he needs to think, before price or other sets.
+  es: Cuando un cliente al que claramente le gusta la pieza dice que lo tiene que pensar, antes de hablar de precio o de otros juegos.
+when_not:
+  en: Not to corner him. If he needs a night, set the time first.
+  es: No para acorralarlo. Si de verdad necesita una noche, fije la hora y mándelo a la casa con respuestas.
+say:
+  - en: That makes sense. It's a big purchase for the family.
+    es: Tiene sentido. Es una compra grande para la familia.
+  - en: When you think it over tonight, what's the part you still want to be sure about?
+    es: Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?
+  - en: Setting that aside, do the set and the price work for you?
+    es: Dejando eso a un lado, ¿el juego y el precio le funcionan?
+  - en: I'm not going to guess a delivery date. I'll get it confirmed in writing before you decide.
+    es: No voy a adivinar una fecha de entrega. Se la consigo confirmada por escrito antes de que usted decida.
+mistakes:
+  - mistake:
+      en: '"What''s there to think about?"'
+      es: '"¿Pero qué hay que pensar?"'
+    fix:
+      en: That calls his question silly. Ask for the question.
+      es: Eso le dice que su duda es una bobería. Pídale la duda.
+  - mistake:
+      en: '"No problem, it''ll be there before Christmas."'
+      es: '"No se preocupe, llega antes de Navidad."'
+    fix:
+      en: You don't run the delivery calendar. Get the date in writing.
+      es: Usted no maneja el calendario de entregas. Consiga la fecha por escrito.
+  - mistake:
+      en: Walking him to three more dining sets.
+      es: Llevarlo a ver tres comedores más.
+    fix:
+      en: More choices, more thinking. Settle the one question on the table.
+      es: Más opciones, más que pensar. Resuelva la duda que está sobre la mesa.
+concepts:
+  - name:
+      en: "Pause, then respect it"
+      es: "Pausa, y respeto"
+    idea:
+      en: Two seconds of silence, then agree it's worth thinking about.
+      es: Dos segundos de silencio, y después déle la razón.
+    items: [FUR-O05-PAUSE, FUR-O05-RESPECT]
+  - name: { en: '"What part?"', es: '"¿Qué parte?"' }
+    idea:
+      en: Ask what exactly he wants to think over. One question brings out the real one.
+      es: Pregunte qué es lo que quiere pensar. Una pregunta saca la de verdad.
+    items: [FUR-O05-QFIRST, FUR-O05-HIDDEN]
+  - name: { en: Rule out the money, es: Descarte el dinero }
+    idea:
+      en: Check that the set and the price work, so you solve the right problem.
+      es: Confirme que el juego y el precio le funcionan, para resolver el problema correcto.
+    items: [FUR-O05-ISOLATE]
+  - name: { en: A date on paper, es: Una fecha en papel }
+    idea:
+      en: A confirmed date in writing, never a promise from memory.
+      es: Una fecha confirmada por escrito, nunca una promesa de memoria.
+    items: [FUR-O05-PROOF]
+  - name: { en: Lock a day and time, es: Amarre un día y una hora }
+    idea:
+      en: He comes back to see the date in writing and the table at full length.
+      es: Que vuelva a ver la fecha por escrito y la mesa abierta a todo lo largo.
+    items: [FUR-O05-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T091 Name the fear; T005 Isolate; T094 Remove real risk; T093 Limit the exploration; T115 Set the time, then ask; T014 Specific next step
+spanish_reviewed: false

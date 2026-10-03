@@ -1,0 +1,77 @@
+code: L-solar-thinker
+scenario: S-solar-thinker-L1
+title:
+  en: "\"I need to think about it\": ask what part"
+  es: "\"Lo tengo que pensar\": pregunte qué parte"
+hook:
+  en: He ran your quote through his own spreadsheet, and he still says it. He's not stalling. Something is still open.
+  es: Pasó su cotización por su propia hoja de cálculo, y todavía lo dice. No le está dando largas. Algo sigue abierto.
+what:
+  en: Respect the need to think, then ask what specifically he wants to think over. Usually it's one question. Settle that one with something real, not a promise.
+  es: Respete que lo quiera pensar, y después pregunte qué es exactamente lo que quiere pensar. Casi siempre es una sola duda. Resuélvala con algo real, no con una promesa.
+why:
+  en: An analytical homeowner doesn't fear the price; he fears the thing he can't check yet. In planned communities that's often the HOA. He doesn't want to sign a contract and then get a letter. Rush him and you confirm the risk. Help him get the real answer and you remove it.
+  es: Al dueño analítico no le asusta el precio; le asusta lo que todavía no puede comprobar. En las comunidades planificadas muchas veces es la HOA. No quiere firmar un contrato y después recibir una carta. Si lo apura, le confirma el riesgo. Si lo ayuda a conseguir la respuesta real, se lo quita.
+when:
+  en: When a homeowner who has done the math says he needs time.
+  es: Cuando un dueño que ya hizo las cuentas dice que necesita tiempo.
+when_not:
+  en: Never predict what an HOA, a city or a lender will decide. If he truly needs time, set the day he'll have his answer.
+  es: Nunca adivine lo que va a decidir una HOA, la ciudad o el banco. Si de verdad necesita tiempo, fije el día en que va a tener la respuesta.
+say:
+  - en: That makes sense. It's a big decision, and you clearly did your homework.
+    es: Tiene sentido. Es una decisión grande, y se nota que usted hizo su tarea.
+  - en: When you think it over tonight, what's the part you still want to be sure about?
+    es: Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?
+  - en: Does anyone else have to approve what goes on your roof, like an HOA?
+    es: ¿Alguien más tiene que aprobar lo que va en su techo, como la HOA?
+  - en: I'm not going to tell you what your HOA will decide. Let's fill out their application together.
+    es: No le voy a decir lo que va a decidir su HOA. Llenemos juntos la solicitud de ellos.
+mistakes:
+  - mistake:
+      en: '"What''s there to think about?"'
+      es: '"¿Pero qué hay que pensar?"'
+    fix:
+      en: You just called his homework silly. Ask what part instead.
+      es: Le acaba de decir que su tarea es una tontería. Pregunte qué parte.
+  - mistake:
+      en: Piling on the battery and the monitoring "while we're at it."
+      es: Echarle encima la batería y el monitoreo "ya que estamos".
+    fix:
+      en: More options mean more to think about. Settle the one open question.
+      es: Más opciones es más que pensar. Resuelva la única duda abierta.
+  - mistake:
+      en: '"Don''t worry, the HOA always approves these."'
+      es: '"No se preocupe, la HOA siempre aprueba eso."'
+    fix:
+      en: You don't know that. Get him their written answer.
+      es: Usted no lo sabe. Consígale la respuesta por escrito.
+concepts:
+  - name: { en: The pause, es: La pausa }
+    idea:
+      en: Two seconds of silence tells him you won't argue with his process.
+      es: Dos segundos de silencio le dicen que usted no va a discutirle su manera de decidir.
+    items: [SOL-O05-PAUSE]
+  - name: { en: Respect the thinking, es: Respete el pensarlo }
+    idea:
+      en: Agree it deserves thought. Then he'll tell you what part.
+      es: "Déle la razón: merece pensarse. Así le dice qué parte."
+    items: [SOL-O05-RESPECT]
+  - name: { en: '"What part?"', es: '"¿Qué parte?"' }
+    idea:
+      en: One question turns "think about it" into the real doubt.
+      es: Una pregunta convierte el "lo tengo que pensar" en la duda real.
+    items: [SOL-O05-QFIRST, SOL-O05-HIDDEN]
+  - name: { en: Price aside, es: Aparte del precio }
+    idea:
+      en: Check the numbers work, so you know the doubt isn't money.
+      es: Confirme que los números funcionan, para saber que la duda no es dinero.
+    items: [SOL-O05-ISOLATE]
+  - name: { en: "The real answer, then a time", es: "La respuesta real, y después la hora" }
+    idea:
+      en: Prepare the HOA application together and set the day and time to do it.
+      es: Preparen juntos la solicitud de la HOA y fijen el día y la hora para hacerlo.
+    items: [SOL-O05-PROOF, SOL-O05-NEXT]
+sources:
+  - T001 Pause; T003 Acknowledge; T002 Clarify with a question; T005 Isolate; T094 Remove real risk; T014 Firm next step
+spanish_reviewed: false

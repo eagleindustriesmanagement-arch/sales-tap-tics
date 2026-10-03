@@ -1,0 +1,78 @@
+code: L-homes-partner
+scenario: S-homes-partner-L1
+title:
+  en: "\"I need to talk to my husband\": find out what he'll ask"
+  es: "\"Tengo que hablarlo con mi esposo\": averigüe qué va a preguntar él"
+hook:
+  en: She walked every room, the kids already have bedrooms, and then she says it. Reach for a question, not the brochure.
+  es: Recorrió cada cuarto, los niños ya tienen cuarto, y entonces lo dice. Agarre una pregunta, no el folleto.
+what:
+  en: Treat the husband as a buyer who isn't here yet. Agree, find out what the talk at home is about, and send money questions to their loan officer.
+  es: Trate al esposo como un comprador que todavía no llegó. Déle la razón, averigüe de qué se va a tratar la conversación en la casa y mande las preguntas de dinero a su loan officer.
+why:
+  en: A house is the biggest check a family writes, so it's often a real joint decision. Just as often there's a number she can't defend at home, usually the preapproval letter. She isn't lying; she's dreading that talk. Push and you prove the fight is coming. Ask what he'll ask, and you're on her side.
+  es: Una casa es el cheque más grande que firma una familia, así que muchas veces es una decisión de pareja de verdad. Igual de seguido hay un número que ella no puede defender en la casa, casi siempre la carta de preaprobación. No miente; le tiene miedo a esa conversación. Si presiona, le confirma la pelea. Si pregunta qué va a preguntar él, usted está de su lado.
+when:
+  en: Whenever a buyer names someone who isn't here, before you talk price again.
+  es: Cada vez que el cliente nombra a alguien que no está en la oficina de ventas, antes de volver a hablar de precio.
+when_not:
+  en: Not as a trick to keep her seated. Never answer a lender question yourself.
+  es: No como truco para tenerla sentada. Nunca conteste usted una pregunta del lender.
+say:
+  - en: Of course. This is your family's home, and you should both feel good about it.
+    es: Claro que sí. Es la casa de su familia, y los dos tienen que sentirse bien con ella.
+  - en: When you two sit down tonight, what do you think his first question will be?
+    es: Cuando se sienten a hablarlo esta noche, ¿qué cree que él le va a preguntar primero?
+  - en: When you two talked to your lender, is this where you planned to be?
+    es: Cuando hablaron con su lender, ¿esto es lo que tenían planeado?
+  - en: I can't tell you what a lender will do. Your loan officer can, so let's take both prices to them.
+    es: Yo no le puedo decir lo que va a hacer un lender. Su loan officer sí, así que llevémosle los dos precios.
+mistakes:
+  - mistake:
+      en: '"Do you really need his permission?"'
+      es: '"¿De verdad necesita su permiso?"'
+    fix:
+      en: You made him the enemy. Ask about him instead.
+      es: Lo acaba de convertir en el enemigo. Pregunte por él.
+  - mistake:
+      en: Guessing what the lender will approve, or quoting a monthly payment.
+      es: Adivinar lo que va a aprobar el lender, o decir un pago mensual.
+    fix:
+      en: That's the lender's number, not yours.
+      es: Ese número es del lender, no suyo.
+  - mistake:
+      en: Handing over a card with "call me when he's ready."
+      es: Dar la tarjeta con un "me llama cuando él esté listo".
+    fix:
+      en: That's a walk. Leave with a day and a time for both of them.
+      es: Eso es una clienta que se va. Termine con un día y una hora para los dos.
+concepts:
+  - name: { en: The two-second pause, es: La pausa de dos segundos }
+    idea:
+      en: Let it land. Silence says you heard her and won't argue.
+      es: Deje que caiga. El silencio dice que usted la escuchó y no va a discutir.
+    items: [HOM-O01-PAUSE]
+  - name: { en: Respect the partner, es: Respete a la pareja }
+    idea:
+      en: He's a buyer, not an obstacle. Agree, then plan the visit for both.
+      es: Él es comprador, no un obstáculo. Déle la razón y planee la visita para los dos.
+    items: [HOM-O01-ACK, HOM-O01-NEXT]
+  - name: { en: His first question, es: La primera pregunta de él }
+    idea:
+      en: Asking what he'll ask brings out the real worry.
+      es: Preguntar qué va a preguntar él saca la preocupación real.
+    items: [HOM-O01-QFIRST, HOM-O01-HIDDEN]
+  - name: { en: '"Other than that…"', es: '"Aparte de eso…"' }
+    idea:
+      en: Isolate. Is the talk at home the only thing in the way?
+      es: Aísle. ¿La conversación en la casa es lo único entre ella y esta casa?
+    items: [HOM-O01-ISOLATE]
+  - name: { en: The lender's number, es: El número del lender }
+    idea:
+      en: Loans, rates and payments come from their loan officer. You bring prices.
+      es: El préstamo, la tasa y el pago salen de su loan officer. Usted pone los precios.
+    items: [HOM-O01-LENDER]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T005 Isolate; T013 Include the decision maker; T014 Specific next step
+  - RATE-01 Rates, payments and approvals match the facts
+spanish_reviewed: false

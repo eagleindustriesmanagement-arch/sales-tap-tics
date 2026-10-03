@@ -1,0 +1,161 @@
+code: P-solar-price
+name_pool:
+  en: [Frank, Richard, Gary, Walter]
+  es: [Ernesto, Orlando, Rigoberto, Manolo]
+age_range: 60-69
+temperament: [skeptical]
+temperament_note:
+  en: Skeptical but reasonable. Retired, pays cash, has heard every pitch. Respects a straight answer; shuts down at a hard sell or a quick discount.
+  es: Desconfiado pero razonable. Jubilado, paga de contado, ya ha oído todos los cuentos. Respeta una respuesta directa; se cierra ante la presión o un descuento rápido.
+buyer_orientation: task
+situation:
+  en: Mid-60s, retired from the post office, married, owns a paid-off home in Westchester. Would pay cash from savings. Liked the roof layout and the equipment; just saw the written quote.
+  es: De unos 65 años, jubilado del correo, casado, dueño de una casa pagada en Westchester. Pagaría de contado con sus ahorros. Le gustó el diseño del techo y el equipo; acaba de ver la cotización por escrito.
+stated_objection: O04
+stated_line:
+  en: The price is too high.
+  es: El precio está muy alto.
+hidden_truth:
+  en: His neighbor told him he got thirty percent back from the government on his panels, so in his head this system should cost a lot less. He is comparing the quote to a number that depends on a tax credit nobody here can promise him.
+  es: Su vecino le dijo que el gobierno le devolvió el treinta por ciento de sus paneles, así que en su cabeza este sistema debería costar mucho menos. Está comparando la cotización con un número que depende de un crédito de impuestos que aquí nadie le puede prometer.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\bneighbors?\b'
+    - '\b(thirty|30) ?(percent|%)'
+    - '\btax credits?\b'
+    - '\b(got|get|getting) (\w+ )?(money )?back\b'
+    - '\bfrom the government\b'
+  es:
+    - '\bvecinos?\b'
+    - '\b(treinta|30) ?(por ciento|%)'
+    - '\bcrédito (de|del) (impuestos?|taxes|income tax)\b'
+    - '\bcrédito fiscal\b'
+    - '\bdel gobierno\b'
+    - '\bel gobierno\b'
+    - '\ble devolvieron\b'
+unlock_conditions:
+  - code: asks_compared_to_what
+    description:
+      en: Asks what he is comparing the price to, or what number he heard or expected.
+      es: Pregunta con qué está comparando el precio, o qué número escuchó o esperaba.
+    cues:
+      en:
+        - '\b(compared|comparing) (it |that )?(to|with) what\b'
+        - '\btoo high compared to\b'
+        - '\bwhat (are|were) you comparing\b'
+        - '\bwhat (number|price) (did you|were you|do you) (have in mind|expect|expecting|hear|see)\b'
+        - '\bwhat (did|have) you (hear|heard|see|seen|read)\b'
+        - '\bwhat did (they|your neighbors?|people|someone) (tell|say)\b'
+        - '\bwhere (does|did) (that|the|this) (number|price) come from\b'
+        - '\bwhat (would|did|do) you expect(ed)? (it|this) to (cost|be)\b'
+      es:
+        - '\bcomparado con qué\b'
+        - '\bcon qué (lo|la) (está )?compar\w*\b'
+        - '\bqué (número|precio) (tenía en mente|esperaba|escuchó|oyó|vio)\b'
+        - '\bqué (le )?(han dicho|ha oído|ha escuchado|escuchó|oyó|dijeron)\b'
+        - '\bde dónde (sale|salió) ese (número|precio)\b'
+  - code: asks_about_incentives
+    description:
+      en: Asks whether he is counting on a tax credit or an incentive, or what someone else told him.
+      es: Pregunta si cuenta con un crédito de impuestos o un incentivo, o qué le dijo otra persona.
+    cues:
+      en:
+        - '\btax credits?\b[^.!]{0,60}\?'
+        - '\b(incentive|rebate)s?\b[^.!]{0,40}\?'
+        - '\b(neighbor|friend|someone|somebody)\b[^.!]{0,40}\?'
+      es:
+        - '\bcrédito\b.{0,20}\b(impuestos?|taxes|fiscal)\b[^.!]{0,40}\?'
+        - '\b(incentivo|reembolso)s?\b[^.!]{0,40}\?'
+        - '\b(vecino|amigo|alguien)\b[^.!]{0,40}\?'
+walk_out_triggers:
+  - code: argues_price
+    description:
+      en: Argues that the price is fine instead of asking ("That's a great price").
+      es: Discute que el precio está bien en vez de preguntar ("Ese es un excelente precio").
+    cues:
+      en:
+        - '\b(great|good|fair|excellent|amazing) (price|deal)\b'
+        - '\byou won''?t find (better|cheaper|a better)\b'
+        - '\b(the )?price (isn''?t|is not) (that |really |even )?(high|bad)\b'
+      es:
+        - '\b(buen|excelente|muy buen) (precio|negocio)\b'
+        - '\bno va a encontrar (nada )?(mejor|más barato)\b'
+        - '\b(el precio )?no está (tan |muy )?(alto|mal)\b'
+  - code: drops_price_on_a_guess
+    description:
+      en: Offers a discount or a manager call before learning what he is comparing to.
+      es: Ofrece un descuento o llamar al gerente antes de saber con qué está comparando.
+    cues:
+      en:
+        - '\b(knock|take) (some|something|a little|a bit) off\b'
+        - '\blet me (call|ask|talk to) my manager\b'
+        - '\bwhat if I (drop|lower|bring down|cut) the price\b'
+      es:
+        - '\b(le )?(bajo|rebajo|quito) (algo|un poco|un poquito)\b'
+        - '\bdéjeme (llamar|hablar con|preguntarle a) (a )?mi (gerente|manager)\b'
+        - '\by si le bajo el precio\b'
+  - code: piles_on_add_ons
+    description:
+      en: Piles on more products (battery, monitoring, more panels) when he already says it costs too much.
+      es: Le echa encima más productos (batería, monitoreo, más paneles) cuando ya dice que cuesta demasiado.
+    cues:
+      en:
+        - '\bwhile we''?re at it\b'
+        - '\b(add|adding|include|including)\b.{0,20}\b(the )?(battery|batteries|monitoring|more panels)\b.{0,20}\b(too|as well|also)\b'
+        - '\b(also|too)\b.{0,30}\b(add|adding)\b.{0,20}\b(the )?(battery|monitoring|more panels)\b'
+        - '\btime to add the (battery|monitoring)\b'
+      es:
+        - '\bya que estamos\b'
+        - '\b(agregar|agregarle|sumar|sumarle|incluir|incluirle)\b.{0,20}\b(la batería|el monitoreo|más paneles)\b'
+        - '\b(también|además)\b.{0,30}\b(la batería|el monitoreo)\b'
+  - code: fake_deadline
+    description:
+      en: Makes up a today-only price or a deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|offer|quote)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone|expires) tomorrow\b', '\bif you (wait|don''?t sign)\b.{0,40}\b(price|deal|offer|quote)\b.{0,20}\b(gone|go away|goes up|disappear)']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\bsi (espera|no firma)\b.{0,40}\b(precio|oferta|cotización)\b.{0,20}\b(se pierde|ya no|sube|desaparece)']
+  - code: third_push
+    description:
+      en: Pushes for a signature a third time after two refusals.
+      es: Insiste por tercera vez en que firme después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it |the contract |the paperwork )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\bwhy not (today|now)\b', '\bget you signed\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya|esta noche)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\b(hoy|firme)\b', '\bpor qué no (hoy|ahora)\b', '\bdejemos (escrito|firmado)\b']
+win_condition:
+  description:
+    en: The neighbor's tax-credit story comes out, plus a firm day and time to go over the written estimate line by line after he asks his tax preparer.
+    es: Sale a la luz el cuento del vecino sobre el crédito de impuestos, más un día y una hora firmes para revisar el estimado por escrito línea por línea después de que pregunte a su preparador de taxes.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["los taxes", "el contador", "el estimate", "el permit"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-60s
+  es: tbd-es-miami-cuban-male-60s
+difficulty: 1
+variation:
+  moods: [calm, reading glasses on, a little impatient]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "It's still a lot of money.", es: "Igual es mucho dinero." }
+    - { en: "I've been around. I know when a number is high.", es: "Yo tengo mis años. Sé cuando un número está alto." }
+    - { en: "I'm not saying no. I'm saying it's high.", es: "No le digo que no. Le digo que está alto." }
+  hint: { en: "It's not that I don't like it. I've just heard a different story from people on my street.", es: "No es que no me guste. Es que he oído otra historia de gente en mi cuadra." }
+  after_hint: { en: "The system looks right for the house. It's the number.", es: "El sistema se ve bien para la casa. Es el número." }
+  reveal: { en: "My neighbor two doors down said he got thirty percent back from the government on his panels. So the way he tells it, mine should cost a lot less than this.", es: "Mi vecino, a dos casas, dice que el gobierno le devolvió el treinta por ciento de sus paneles. Así como él lo cuenta, lo mío debería costar mucho menos que esto." }
+  after_reveal:
+    - { en: "Okay. That's more honest than I expected.", es: "Está bien. Eso es más honesto de lo que esperaba." }
+    - { en: "Show me what's in the number, then.", es: "Entonces enséñeme qué hay en ese número." }
+  agree_next_step: { en: "That works. I'll call my tax guy first.", es: "Eso me sirve. Primero llamo a mi contador." }
+  not_now: { en: "Not today. Thanks.", es: "Hoy no. Gracias." }
+  walk_away: { en: "I think we're done here.", es: "Creo que ya terminamos." }
+  goodbye: { en: "Thanks for coming out.", es: "Gracias por venir." }
+  react_to_pressure: { en: "Don't push me. I said it's high.", es: "No me presione. Le dije que está alto." }
+spanish_reviewed: false

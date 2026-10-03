@@ -621,6 +621,10 @@ export const STRINGS = {
     en: "Role-play customers for {industry} are on the way. The techniques are universal: practice them now with our car-sales customers.",
     es: "Los clientes de práctica para {industry} vienen en camino. Las técnicas son universales: practíquelas ya con nuestros clientes de venta de carros.",
   },
+  "industry.otherNote": {
+    en: "The techniques are universal: practice them here with our car-sales customers, then take them to your own floor.",
+    es: "Las técnicas son universales: practíquelas aquí con nuestros clientes de venta de carros y llévelas a su propio piso.",
+  },
   "join.title": { en: "Join {team}", es: "Únase a {team}" },
   "join.intro": { en: "Your team practices on Sales Taptics. Sign up with your email and you're in, as a {role}.", es: "Su equipo practica en Sales Taptics. Regístrese con su correo y ya está adentro, como {role}." },
   "join.deadLink": { en: "This invite link no longer works. Ask your manager for a new one.", es: "Este enlace de invitación ya no sirve. Pídale uno nuevo a su gerente." },

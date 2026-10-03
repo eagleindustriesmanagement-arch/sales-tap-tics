@@ -1,0 +1,189 @@
+code: S-homes-thinker-L1
+module: homes-core
+industry: homes
+title:
+  en: "\"I need to think about it\""
+  es: "\"Lo tengo que pensar\""
+setting:
+  en: Saturday morning, at the sales office desk, right after he walked a finished home and saw the price.
+  es: Sábado por la mañana, en el escritorio de la oficina de ventas, justo después de recorrer una casa terminada y ver el precio.
+persona: P-homes-thinker
+objection: O05
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 40s, rents in Kendall with his wife and three kids. They want four bedrooms and a yard, and they already have a preapproval from their own lender. He just walked the Ceiba on Lot 22 at Cayo Verde Reserve in Homestead, a finished home. You showed him the price: $559,990, with no other builder charges; closing costs are separate and his lender estimates them. He read every review of the builder before he came in."
+  es: "{name}, de unos 42 años, vive alquilado en Kendall con su esposa y sus tres hijos. Quieren cuatro cuartos y patio, y ya tienen una preaprobación de su propio lender. Acaba de recorrer la Ceiba del Lote 22 en Cayo Verde Reserve, en Homestead, una casa terminada. Usted le enseñó el precio: $559,990, sin ningún otro cargo del builder; los closing costs son aparte y se los estima su lender. Leyó todas las reseñas del builder antes de venir."
+opening:
+  en: I need to think about it.
+  es: Lo tengo que pensar.
+# The item, mapped onto the shared facts schema (decision 0033): make = builder (fictional), model = plan,
+# trim = lot and elevation, stock = lot number, in_stock = a finished home, ready to close.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Cayo Verde Homes, model: Ceiba, trim: "Lot 22, Elevation A, 4 bed, 2.5 bath, two-story", stock: "Lot 22", in_stock: true }
+  # The lot premium is in the price. The builder adds no other mandatory charge.
+  price_cents: 55999000
+  dealer_fees: []
+  # Closing costs are not builder charges and not part of the price; the customer's lender estimates them.
+  government_charges_customer_pays: []
+  all_in_price_cents: 55999000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  trade: null
+  # The customer's own lender issued a preapproval letter: not a loan approval, no rate. The builder has neither.
+  lender_state: pending
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    work: Accountant in Brickell, in the office by 8:00 every weekday
+    never_drove_it: Has never driven from Homestead to Brickell at rush hour
+    free_thursday: Leaves the office around 5:30 on Thursday
+numbers_sheet: false
+target_techniques: [T091, T092, T093, T115, T001, T003, T002]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: HOM-O05-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: HOM-O05-RESPECT
+      behavior:
+        en: "Respected his need to think it over without pushing back"
+        es: "Respetó que lo quiera pensar, sin llevarle la contraria"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: HOM-O05-QFIRST
+      behavior:
+        en: "Asked what specifically he wants to think over before offering anything"
+        es: "Preguntó qué es exactamente lo que quiere pensar antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: HOM-O05-ISOLATE
+      behavior:
+        en: "Checked whether the house and the price were the issue, apart from the open question"
+        es: "Confirmó si la casa y el precio eran el problema, aparte de la duda que quedaba"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: HOM-O05-HIDDEN
+      behavior:
+        en: "Surfaced the worry about the daily drive to Brickell"
+        es: "Sacó a la luz la preocupación por el viaje diario a Brickell"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: HOM-O05-PROOF
+      behavior:
+        en: "Offered to settle the doubt with a real test (drive it at rush hour) instead of promising a drive time"
+        es: "Ofreció resolver la duda con una prueba real (hacer el viaje en hora pico) en vez de prometer cuánto se demora"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "JOLT Effect; only real, showable protections (T094)"
+      technique: T094
+    - code: HOM-O05-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_drive_time
+      description:
+        en: "Promised how long the commute takes instead of letting him test it"
+        es: "Prometió cuánto se demora el viaje en vez de dejar que él lo probara"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed off the need to think, piled on more homes, and pushed for a deposit. He never asked what the customer wanted to think over."
+      es: "Fíjese: le quitó importancia a que lo quiera pensar, le echó más casas encima y presionó para que dejara el depósito. Nunca preguntó qué era lo que el cliente quería pensar."
+    script:
+      en:
+        - { speaker: customer, text: "I need to think about it." }
+        - { speaker: rep, text: "What's there to think about? Four bedrooms, a big yard. It checks every box." }
+        - { speaker: customer, text: "I'd rather not decide on the spot." }
+        - { speaker: rep, text: "Okay, if the Ceiba isn't it, let me show you the Gumbo Limbo and the townhomes too. We have a lot to choose from." }
+        - { speaker: customer, text: "That's more to think about, not less." }
+        - { speaker: rep, text: "Then let's just put the deposit down on the Ceiba and get it done." }
+        - { speaker: customer, text: "No. I'll be in touch." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me when you're ready." }
+      es:
+        - { speaker: customer, text: "Lo tengo que pensar." }
+        - { speaker: rep, text: "¿Pero qué hay que pensar? Cuatro cuartos, un patio grande. Tiene todo lo que buscaba." }
+        - { speaker: customer, text: "Prefiero no decidir así de golpe." }
+        - { speaker: rep, text: "Bueno, si la Ceiba no es, también le enseño la Gumbo Limbo y los townhomes. Tenemos mucho para escoger." }
+        - { speaker: customer, text: "Eso es más para pensar, no menos." }
+        - { speaker: rep, text: "Entonces dejemos el depósito en la Ceiba de una vez y ya." }
+        - { speaker: customer, text: "No. Yo le aviso." }
+        - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
+  good:
+    notice:
+      en: Notice the pause, the question about what he wants to think over, and how the doubt is settled with a real drive instead of a promised drive time.
+      es: Fíjese en la pausa, en la pregunta sobre qué es lo que quiere pensar, y en cómo la duda se resuelve con un viaje de verdad en vez de prometerle cuánto se demora.
+    script:
+      en:
+        - { speaker: customer, text: "I need to think about it." }
+        - { speaker: rep, text: "[pause] That makes sense. It's a home, and you clearly did your homework. When you think it over tonight, what's the part you still want to be sure about?" }
+        - { speaker: customer, text: "It's not the house. It's more about what everyday life would look like out here." }
+        - { speaker: rep, text: "Okay. So setting that aside for a second, the house and the price work for you?" }
+        - { speaker: customer, text: "The house is right. My wife loves it, and the numbers are in my spreadsheet." }
+        - { speaker: rep, text: "Good. Then walk me through a normal weekday. Where do you work, and what time do you have to be there?" }
+        - { speaker: customer, text: "Okay. I have to be in Brickell by 8 every day, and I've never done that drive from down here at rush hour. I don't know if I can do it five days a week." }
+        - { speaker: rep, text: "I'm glad you said it, because that's exactly what to find out before you buy, not after. I'm not going to guess a drive time for you. Do it for real: Thursday, leave your office at 5:30 like any workday, drive straight here, and I'll meet you at the house. If you can, do one early morning drive from here before then too." }
+        - { speaker: customer, text: "Okay, that works. Thursday after work." }
+      es:
+        - { speaker: customer, text: "Lo tengo que pensar." }
+        - { speaker: rep, text: "[pausa] Tiene sentido. Es una casa, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que quiere tener seguro antes de decidir?" }
+        - { speaker: customer, text: "No es la casa. Es más bien cómo sería la vida de todos los días aquí." }
+        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿la casa y el precio le funcionan?" }
+        - { speaker: customer, text: "La casa es la correcta. A mi esposa le encanta, y los números están en mi hoja de cálculo." }
+        - { speaker: rep, text: "Perfecto. Entonces cuénteme cómo es un día normal de semana. ¿Dónde trabaja, y a qué hora tiene que estar allá?" }
+        - { speaker: customer, text: "Bueno. Tengo que estar en Brickell a las 8 todos los días, y nunca he hecho ese viaje desde aquí abajo en hora pico. No sé si lo puedo aguantar cinco días a la semana." }
+        - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que averiguar antes de comprar, no después. No le voy a adivinar cuánto se demora. Hágalo de verdad: el jueves salga de la oficina a las 5:30 como cualquier día de trabajo, maneje directo hasta aquí, y yo lo espero en la casa. Si puede, haga también un viaje temprano en la mañana desde aquí antes de eso." }
+        - { speaker: customer, text: "Está bien, me funciona. El jueves después del trabajo." }
+spanish_reviewed: false

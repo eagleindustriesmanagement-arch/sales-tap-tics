@@ -155,9 +155,13 @@ export function onboardingDay(input: Pick<PlanInput, "now" | "startedAt">): numb
   return Math.floor((input.now.getTime() - input.startedAt.getTime()) / DAY) + 1;
 }
 
-/** Release 1 scenarios in the order onboarding teaches them: the first five objections, then the rest by level. */
+/**
+ * Release 1 scenarios in the order onboarding teaches them: the first five objections, then the rest by level. An
+ * industry with no certification path yet (decision 0033) onboards through all of its own customers the same way.
+ */
 export function onboardingOrder(scenarios: ScenarioMeta[]): ScenarioMeta[] {
-  const r1 = scenarios.filter((s) => s.release1);
+  const certifying = scenarios.filter((s) => s.release1);
+  const r1 = certifying.length > 0 ? certifying : scenarios;
   const byObjection = [...r1].sort((a, b) => a.objection.localeCompare(b.objection));
   const first = byObjection.slice(0, WEEK_ONE_OBJECTIONS);
   const rest = byObjection.slice(WEEK_ONE_OBJECTIONS).sort((a, b) => a.difficulty - b.difficulty || b.weight - a.weight || a.objection.localeCompare(b.objection));

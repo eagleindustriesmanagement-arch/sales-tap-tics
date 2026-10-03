@@ -1,0 +1,200 @@
+code: S-solar-payment-L1
+module: solar-core
+industry: solar
+title:
+  en: "\"The payment is too high\""
+  es: "\"El pago está muy alto\""
+setting:
+  en: Thursday evening, at the customer's kitchen table, at the end of an in-home solar consultation.
+  es: Jueves por la noche, en la mesa de la cocina del cliente, al final de una consulta de solar en su casa.
+persona: P-solar-payment
+objection: O03
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, late 30s, owns a home in Homestead, good credit, and would finance. The written quote you showed him is for an 8.4 kW, 21-panel Lumacay Solar system with the home battery and the monitoring upgrade: an estimated $285 a month on a 25-year Kestrela Lending loan, subject to the lender's approval. The estimate sheet also shows the system without the battery and without the monitoring."
+  es: "{name}, de unos 38 años, es dueño de una casa en Homestead, tiene buen crédito y lo financiaría. La cotización por escrito que usted le enseñó es de un sistema Lumacay Solar de 8.4 kW y 21 paneles con la batería y el monitoreo: un estimado de $285 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación del banco. La hoja del estimado también muestra el sistema sin la batería y sin el monitoreo."
+opening:
+  en: The payment is too high. I can't do that every month.
+  es: El pago está muy alto. No puedo con eso todos los meses.
+# Solar mapped onto the facts schema (decision 0033): the "vehicle" is the quoted system; Lumacay Solar (installer)
+# and Kestrela Lending (lender) are fictional. The battery and the monitoring are optional add-ons; every estimate is
+# 25 years with no money down and subject to the lender's approval. No tax credit, utility savings or net-metering
+# terms are facts here, and no estimate assumes a tax-credit paydown.
+facts:
+  session_date: "2026-10-01"
+  vehicle: { year: 2026, make: Lumacay Solar, model: Rooftop system, trim: "8.4 kW, 21 panels", stock: "Q-26-0409", in_stock: true }
+  price_cents: 2395000
+  dealer_fees: [{ code: permit_and_interconnection, cents: 65000 }]
+  government_charges_customer_pays: []
+  all_in_price_cents: 2460000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 0  # a custom installation: no unit scarcity applies
+  alternatives:
+    - { description: "System with the home battery and the monitoring upgrade", all_in_price_cents: 3695000 }
+    - { description: "System with the home battery", all_in_price_cents: 3650000 }
+    - { description: "System with the monitoring upgrade", all_in_price_cents: 2505000 }
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    - { code: home_battery, name: { en: home battery, es: batería }, cents: 1190000, aliases: { en: [battery, backup battery], es: [batería de respaldo] } }
+    - { code: monitoring_upgrade, name: { en: monitoring upgrade, es: monitoreo }, cents: 45000, aliases: { en: [monitoring], es: [plan de monitoreo] } }
+  # Kestrela Lending's written estimates.
+  payment_options:
+    - { code: quoted, cents: 28500, term_months: 300, apr_bps: 799, includes_add_ons: [home_battery, monitoring_upgrade] }
+    - { code: battery_only, cents: 28100, term_months: 300, apr_bps: 799, includes_add_ons: [home_battery] }
+    - { code: system_only, cents: 19000, term_months: 300, apr_bps: 799 }
+    - { code: monitoring_only, cents: 19300, term_months: 300, apr_bps: 799, includes_add_ons: [monitoring_upgrade] }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    budget_cents: 20000
+    quoted_payment_cents: 28500
+    battery_story: A door-to-door rep from another company told him the battery was required
+    free_evenings: Free after 6 on weekdays
+numbers_sheet: true
+target_techniques: [T002, T110, T083, T121, T001, T005, T014]
+rubric: R-objection
+scoring:
+  items:
+    - code: SOL-O03-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: SOL-O03-QFIRST
+      behavior:
+        en: "Asked what payment he had in mind before changing anything"
+        es: "Preguntó qué pago tenía en mente antes de cambiar nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: SOL-O03-ISOLATE
+      behavior:
+        en: "Confirmed the system is right for the house, apart from the payment"
+        es: "Confirmó que el sistema es el correcto para la casa, aparte del pago"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: SOL-O03-HIDDEN
+      behavior:
+        en: "Surfaced that he thought the battery was required"
+        es: "Sacó a la luz que él pensaba que la batería era obligatoria"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: SOL-O03-OPTIONAL
+      behavior:
+        en: "Said plainly that the battery and the monitoring are optional"
+        es: "Dijo claramente que la batería y el monitoreo son opcionales"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "FTC add-on cases (spec 4.2); ADD-01"
+    - code: SOL-O03-OPTIONS
+      behavior:
+        en: "Showed only real estimates, with and without the battery, on the same term and subject to approval"
+        es: "Mostró solo estimados reales, con y sin la batería, al mismo plazo y sujetos a la aprobación"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "Two-payment menu (T121); PAY-01, PAY-02"
+      technique: T121
+    - code: SOL-O03-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: hid_or_required_add_ons
+      description:
+        en: "Called the battery required, or quoted a payment with it without saying so"
+        es: "Dijo que la batería era obligatoria, o dio un pago que la incluye sin decirlo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep argued that the payment is fine, never asked what number the customer needed or what he wanted in it, and let him go with nothing scheduled."
+      es: "Fíjese: el vendedor discutió que el pago está bien, nunca preguntó qué número necesitaba el cliente ni qué quería en él, y lo dejó ir sin nada agendado."
+    script:
+      en:
+        - { speaker: customer, text: "The payment is too high. I can't do that every month." }
+        - { speaker: rep, text: "Honestly, that's a great payment for everything you're getting: the panels, the battery and the monitoring." }
+        - { speaker: customer, text: "It's just too high for me." }
+        - { speaker: rep, text: "Think of it this way: you're paying the utility anyway. You'll forget about it after the first bill." }
+        - { speaker: customer, text: "I came into this to lower my bills, not to add a bill." }
+        - { speaker: rep, text: "Okay. Here's my card. Call me if anything changes." }
+        - { speaker: customer, text: "Not today. I'm beat." }
+      es:
+        - { speaker: customer, text: "El pago está muy alto. No puedo con eso todos los meses." }
+        - { speaker: rep, text: "La verdad, ese es un excelente pago por todo lo que lleva: los paneles, la batería y el monitoreo." }
+        - { speaker: customer, text: "Está muy alto para mí." }
+        - { speaker: rep, text: "Piénselo así: a la compañía de la luz le va a pagar de todas formas. Después de la primera factura ni se acuerda." }
+        - { speaker: customer, text: "Yo me metí en esto para bajar la cuenta de la luz, no para sumar otra cuenta." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me llama si algo cambia." }
+        - { speaker: customer, text: "Hoy no. Estoy muerto del cansancio." }
+  good:
+    notice:
+      en: Notice the question about his number before any new number, the plain statement that the battery is optional, and the payment shown with and without it, same term, subject to approval.
+      es: Fíjese en la pregunta por su número antes de cualquier número nuevo, en cómo dice claramente que la batería es opcional, y en el pago con ella y sin ella, al mismo plazo y sujeto a la aprobación.
+    script:
+      en:
+        - { speaker: customer, text: "The payment is too high. I can't do that every month." }
+        - { speaker: rep, text: "[pause] Got it, and I'd rather fix that now than have you stuck with it. Help me understand: when you say too high, what payment were you expecting?" }
+        - { speaker: customer, text: "I've got a number in my head. And honestly, I'm not even sure what all is in that payment." }
+        - { speaker: rep, text: "That's fair. Other than the payment, is the system itself right for your house?" }
+        - { speaker: customer, text: "The panels are fine. It's the monthly." }
+        - { speaker: rep, text: "Then let's look at what's in that $285. It includes the home battery and the monitoring upgrade, and both are optional. Did you want the battery?" }
+        - { speaker: customer, text: "Okay. I thought the battery was required to get the panels and the loan. Another company's guy told me that. I never asked for it. I budgeted about two hundred a month." }
+        - { speaker: rep, text: "Thank you, that matters. The battery is optional, and so is the monitoring upgrade. Side by side, on Kestrela's estimate: $285 a month with the home battery and the monitoring upgrade, or $190 a month for the same system without either one. Same 25-year term, and both are subject to their approval." }
+        - { speaker: customer, text: "Okay. Show me that on paper." }
+        - { speaker: rep, text: "I'll put both in writing side by side, with and without the battery, so you see exactly what each one costs. Could you sit down Monday at 6:30 to go over the written estimate?" }
+        - { speaker: customer, text: "Monday at 6:30 works. Have both ready." }
+      es:
+        - { speaker: customer, text: "El pago está muy alto. No puedo con eso todos los meses." }
+        - { speaker: rep, text: "[pausa] Entendido, y prefiero arreglar eso ahora y no que usted se quede atrapado con un pago. Ayúdeme a entender: cuando dice que está muy alto, ¿qué pago tenía en mente?" }
+        - { speaker: customer, text: "Tengo un número en la cabeza. Y la verdad, no estoy seguro de todo lo que hay en ese pago." }
+        - { speaker: rep, text: "Me parece justo. Aparte del pago, ¿el sistema en sí es el correcto para su casa?" }
+        - { speaker: customer, text: "Los paneles están bien. Es la mensualidad." }
+        - { speaker: rep, text: "Entonces miremos qué hay en esos $285. Incluyen la batería y el monitoreo, y los dos son opcionales. ¿Usted quería la batería?" }
+        - { speaker: customer, text: "Bueno. Yo pensé que la batería era obligatoria para los paneles y para el préstamo. Eso me lo dijo el de otra compañía. Yo nunca la pedí. Yo había calculado como doscientos al mes." }
+        - { speaker: rep, text: "Gracias, eso es importante. La batería es opcional, y el monitoreo también. Lado a lado, con el estimado de Kestrela: $285 al mes con la batería y el monitoreo, o $190 al mes por el mismo sistema sin ninguno de los dos. El mismo plazo de 25 años, y los dos sujetos a la aprobación de ellos." }
+        - { speaker: customer, text: "Está bien. Enséñemelo en papel." }
+        - { speaker: rep, text: "Le pongo los dos por escrito lado a lado, con la batería y sin ella, para que vea exactamente lo que cuesta cada uno. ¿Puede sentarse el lunes a las 6:30 para revisar el estimado por escrito?" }
+        - { speaker: customer, text: "El lunes a las 6:30 me funciona. Téngame los dos listos." }
+spanish_reviewed: false

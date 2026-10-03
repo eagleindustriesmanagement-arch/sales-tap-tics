@@ -1,0 +1,160 @@
+code: P-furniture-price
+name_pool:
+  en: [Michelle, Karen, Denise, Lisa]
+  es: [Maritza, Odalys, Iliana, Mayra]
+age_range: 40-49
+temperament: [analytical, friendly]
+temperament_note:
+  en: Reasonable and friendly, not a haggler. Says what she thinks, compares carefully, and hates the feeling of being taken. Relaxes when the rep is straight with her.
+  es: Razonable y amable, no es de regatear. Dice lo que piensa, compara con cuidado y odia sentir que la cogieron de boba. Se relaja cuando el vendedor le habla claro.
+buyer_orientation: task
+situation:
+  en: Mid-40s, married, a house in Pinecrest. Redoing the main bedroom for the first time in twenty years. Loves the Norcasa Avila king bedroom set in solid oak. The budget is there; she is paying with savings, no financing. Has the all-in price in hand.
+  es: De unos 45 años, casada, vive en una casa en Pinecrest. Va a renovar el cuarto principal por primera vez en veinte años. Le encanta el juego de cuarto king Avila de Norcasa, en roble macizo. El presupuesto lo tiene; paga con sus ahorros, sin financiamiento. Ya tiene el precio total.
+stated_objection: O04
+stated_line:
+  en: I love it, but the price is too high.
+  es: Me encanta, pero el precio está muy alto.
+hidden_truth:
+  en: She saw a set online that looks almost the same for about $2,000 less, and she is afraid of overpaying. She has not checked what the online set is made of or whether delivery and setup are included.
+  es: Vio en internet un juego que se ve casi igual por como $2,000 menos, y le da miedo pagar de más. No ha revisado de qué está hecho el de internet ni si incluye la entrega y el armado.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\b(online|website|internet|instagram|facebook|marketplace)\b'
+    - '\b(two thousand|2,000|2000)\b'
+    - '\blooks? (almost |just )?(the same|identical|just like)\b'
+    - '\b(another|other) (store|site|website|place)\b'
+    - '\boverpay(ing)?\b'
+  es:
+    - '\b(en internet|por internet|online|en línea)\b'
+    - '\b(página|instagram|facebook|marketplace)\b'
+    - '\b(dos mil|2,000|2000)\b'
+    - '\b(igualito|casi igual|idéntic[oa])\b'
+    - '\botr[oa] (tienda|página|sitio)\b'
+    - '\bpagar de más\b'
+unlock_conditions:
+  - code: asks_compared_to_what
+    description:
+      en: Asks what she is comparing the price to, or what else she has seen.
+      es: Pregunta con qué está comparando el precio, o qué más ha visto.
+    cues:
+      en:
+        - '\bcompared (to|with) what\b'
+        - '\bcompared (to|with) (something|another|anything)\b'
+        - '\bwhat (are|were) you comparing\b'
+        - '\b(have|did) you (seen|see|find|found) (something|another|a similar|one)\b'
+        - '\bwhat (else )?(have|did) you (seen|see|look at|looked at)\b'
+        - '\bwhere (else )?(did|have) you (look|looked|shop|shopped)\b'
+      es:
+        - '\bcomparado con qué\b'
+        - '\bcon qué (lo|la) (está )?compara(ndo)?\b'
+        - '\b(vio|ha visto|encontró) (algo|otro|otra|uno|una)\b'
+        - '\bqué (más )?ha (visto|mirado)\b'
+        - '\bdónde (más )?ha (mirado|buscado|visto)\b'
+  - code: asks_expected_price
+    description:
+      en: Asks what price she expected or had in mind for a set like this.
+      es: Pregunta qué precio esperaba o tenía en mente para un juego así.
+    cues:
+      en:
+        - '\bwhat (price|number|budget)\b.{0,30}\b(had in mind|have in mind|were you (expecting|hoping for)|are you (expecting|hoping for))'
+        - '\bwhat did you (expect|think) (it|a set like this) would (cost|be)\b'
+      es:
+        - '\bqué (precio|número|presupuesto)\b.{0,30}\b(tenía en mente|esperaba|pensaba)\b'
+        - '\bcuánto (esperaba|pensaba) (pagar|que costara)\b'
+walk_out_triggers:
+  - code: argues_price
+    description:
+      en: Argues that the price is fine instead of asking ("You get what you pay for").
+      es: Discute que el precio está bien en vez de preguntar ("Lo barato sale caro").
+    cues:
+      en:
+        - '\b(it''s|it is|the price is|that''s) not (that |really |even )?(high|expensive|bad)\b'
+        - '\byou get what you pay for\b'
+        - '\bworth every penny\b'
+      es:
+        - '\bno está (tan |muy )?(caro|alto)\b'
+        - '\blo barato sale caro\b'
+        - '\bvale cada centavo\b'
+  - code: guesses_discount
+    description:
+      en: Offers to cut the price before knowing what she is comparing.
+      es: Ofrece rebajar el precio sin saber con qué lo está comparando.
+    cues:
+      en:
+        - '\b(knock|take|shave) (something|a little|some|a bit) off\b'
+        - '\bwhat if I (knock|take|drop|shave)\b'
+      es:
+        - '\b(le )?(rebajo|bajo|quito) algo\b'
+        - '\by si le (rebajo|bajo|quito)\b'
+  - code: trashes_unseen_competitor
+    description:
+      en: Calls the other set junk without having seen it.
+      es: Dice que el otro juego es basura sin haberlo visto.
+    cues:
+      en:
+        - '\b(junk|garbage|trash|cheap stuff)\b'
+      es:
+        - '\b(basura|porquería|cualquier cosa)\b'
+  - code: piles_on_options
+    description:
+      en: Walks her through other bedroom sets instead of finding out what she is comparing.
+      es: Le enseña otros juegos de cuarto en vez de averiguar con qué está comparando.
+    cues:
+      en:
+        - '\blet me show you (all|every|a few more|some more|the others)\b'
+        - '\b(a few|a couple|some|two|three|four) (more|other) (sets|collections|styles|options)\b'
+      es:
+        - '\b(le enseño|le muestro) (todos|todas|unos cuantos|otros|otras)\b'
+        - '\b(unos cuantos|un par de|dos|tres|cuatro) (juegos|colecciones|modelos|opciones) más\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|sale)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b', '\bif you (leave|walk)\b.{0,40}\b(price|deal|offer)\b.{0,20}\b(gone|go away|disappear)']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\bsi se va\b.{0,40}\b(precio|oferta)\b.{0,20}\b(se pierde|ya no|desaparece)']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done|place the order)\b', '\b(order|sign)\b.{0,15}\b(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\b(firme|lo ordenamos|lo ordene|lo dejamos ordenado)\b.{0,15}\b(hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The online comparison comes out, plus a firm appointment with day and time to compare both sets side by side.
+    es: Sale a la luz la comparación con el juego de internet, más una cita firme con día y hora para comparar los dos lado a lado.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el set", "el delivery", "el link"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-40s
+  es: tbd-es-miami-cuban-female-40s
+difficulty: 1
+variation:
+  moods: [relaxed, a little tired, happy to finally be doing the bedroom]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I just think it's a lot for a bedroom set.", es: "Es que me parece mucho para un juego de cuarto." }
+    - { en: "I love it. The number is the problem.", es: "Me encanta. El problema es el número." }
+    - { en: "I'm not trying to haggle. I just want it to make sense.", es: "No es que quiera regatear. Es que quiero que tenga sentido." }
+  hint: { en: "It's not that I don't like it. I've seen something that makes me wonder.", es: "No es que no me guste. Es que vi algo que me tiene pensando." }
+  after_hint: { en: "I love the set. That's not the question.", es: "El juego me encanta. Esa no es la pregunta." }
+  reveal: { en: "Okay. I saw a set online that looks almost the same for about two thousand less. I don't want to overpay.", es: "Bueno. Vi un juego en internet que se ve casi igual por como dos mil dólares menos. No quiero pagar de más." }
+  after_reveal:
+    - { en: "That's fair. I just don't want to feel like I got taken.", es: "Me parece justo. Es que no quiero sentir que me cogieron de boba." }
+    - { en: "Okay. If it's apples to apples, I can decide.", es: "Está bien. Si es comparando lo mismo con lo mismo, yo puedo decidir." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  not_now: { en: "Not today. Thanks, though.", es: "Hoy no. Pero gracias." }
+  walk_away: { en: "I think I'm going to go.", es: "Creo que me voy a ir." }
+  goodbye: { en: "Thanks. Have a good one.", es: "Gracias. Que le vaya bien." }
+  react_to_pressure: { en: "I'm not trying to haggle. I just want it to make sense.", es: "No es que quiera regatear. Es que quiero que tenga sentido." }
+spanish_reviewed: false

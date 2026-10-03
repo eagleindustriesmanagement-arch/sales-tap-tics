@@ -72,7 +72,9 @@ export default async function Today() {
       {/* Honest about what exists (decision 0032): the techniques are universal; the customers are car buyers for now. */}
       {user.industry !== "cars" && !hasIndustry(user.industry, lib) && (
         <p className="liquid-glass-inset rounded-[0.875rem] p-3 text-[15px] text-ink" data-testid="industry-note">
-          {t("industry.comingSoon", lang, { industry: t(`industry.${user.industry}` as "industry.homes", lang).toLowerCase() })}
+          {user.industry === "other"
+            ? t("industry.otherNote", lang)
+            : t("industry.comingSoon", lang, { industry: t(`industry.${user.industry}` as "industry.homes", lang).toLowerCase() })}
         </p>
       )}
 

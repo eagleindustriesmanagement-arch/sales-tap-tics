@@ -1,4 +1,16 @@
+import { existsSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { isScalar, parseDocument } from "yaml";
+
+/** The file a scenario is authored in: scenarios live in one folder per industry (`scenarios/car`, `scenarios/solar`). */
+export function scenarioFile(libraryDir: string, code: string): string {
+  const root = join(libraryDir, "scenarios");
+  for (const folder of readdirSync(root)) {
+    const file = join(root, folder, `${code}.yaml`);
+    if (existsSync(file)) return file;
+  }
+  throw new Error(`no file for scenario ${code}`);
+}
 
 /**
  * Writes reviewed Spanish into a content file (decision 0010). Only the edited values change: each is replaced in

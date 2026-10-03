@@ -1,0 +1,73 @@
+code: L-homes-thinker
+scenario: S-homes-thinker-L1
+title:
+  en: "\"I need to think about it\": find the one open question"
+  es: "\"Lo tengo que pensar\": encuentre la única duda que queda"
+hook:
+  en: He read every review, ran the numbers twice, and still says he needs to think. Something specific is left. Find it.
+  es: Leyó todas las reseñas, sacó las cuentas dos veces, y todavía dice que lo tiene que pensar. Queda algo concreto. Encuéntrelo.
+what:
+  en: Respect the need to think, then ask what exactly he wants to be sure about. Settle that one doubt with a real test he does himself, not with your promise.
+  es: Respete que lo quiera pensar y pregunte qué es exactamente lo que quiere tener seguro. Resuelva esa duda con una prueba real que haga él mismo, no con una promesa suya.
+why:
+  en: In new homes, "I need to think" rarely means the house. It means a piece of everyday life he can't picture yet. Here it's the drive to Brickell at rush hour. He won't say it because it sounds small next to a house. Name nothing, guess nothing; ask, and let him test it.
+  es: En casas nuevas, "lo tengo que pensar" casi nunca es la casa. Es un pedazo de la vida diaria que todavía no se puede imaginar. Aquí es el viaje a Brickell en hora pico. No lo dice porque al lado de una casa suena a poca cosa. No adivine nada; pregunte, y deje que lo pruebe.
+when:
+  en: A buyer who likes the home and the numbers but stalls with no clear objection.
+  es: Un cliente al que le gustan la casa y los números, pero se frena sin una objeción clara.
+when_not:
+  en: Never answer the doubt with a number you can't stand behind, like a drive time. Set up the test.
+  es: Nunca conteste la duda con un número que usted no puede respaldar, como cuánto se demora el viaje. Si no lo sabe, dígalo y organice la prueba.
+say:
+  - en: That makes sense. When you think it over tonight, what's the part you still want to be sure about?
+    es: Tiene sentido. Cuando lo piense esta noche, ¿qué es lo que quiere tener seguro antes de decidir?
+  - en: Setting that aside for a second, do the house and the price work for you?
+    es: Dejando eso a un lado un momento, ¿la casa y el precio le funcionan?
+  - en: Walk me through a normal weekday. Where do you work, and what time do you have to be there?
+    es: Cuénteme cómo es un día normal de semana. ¿Dónde trabaja, y a qué hora tiene que estar allá?
+  - en: I'm not going to guess a drive time for you. Let's have you do the drive for real.
+    es: No le voy a adivinar cuánto se demora. Mejor haga el viaje de verdad.
+mistakes:
+  - mistake:
+      en: '"What''s there to think about?"'
+      es: '"¿Qué hay que pensar?"'
+    fix:
+      en: You called a careful buyer silly. Ask what he's weighing.
+      es: Le dijo a un cliente cuidadoso que está haciendo una tontería. Pregunte qué está pesando.
+  - mistake:
+      en: Showing him two more plans and the townhomes.
+      es: Enseñarle dos modelos más y los townhomes.
+    fix:
+      en: More homes, more to think about. Settle the one doubt.
+      es: Más casas, más que pensar. Resuelva la única duda.
+  - mistake:
+      en: '"Oh, it''s an easy drive."'
+      es: '"Ay, ese viaje es facilito."'
+    fix:
+      en: You don't know his morning. Let him drive it.
+      es: Usted no conoce su mañana. Deje que lo maneje.
+concepts:
+  - name: { en: Pause and respect, es: Pausa y respeto }
+    idea:
+      en: A beat of silence, then agree that a home deserves thought.
+      es: Un momento de silencio, y déle la razón, porque una casa merece pensarse.
+    items: [HOM-O05-PAUSE, HOM-O05-RESPECT]
+  - name: { en: '"What part?"', es: '"¿Qué parte?"' }
+    idea:
+      en: One question turns a vague stall into a doubt you can work on.
+      es: Una pregunta convierte un freno vago en una duda con la que se puede trabajar.
+    items: [HOM-O05-QFIRST, HOM-O05-HIDDEN]
+  - name: { en: '"Apart from that…"', es: '"Aparte de eso…"' }
+    idea:
+      en: Check the house and the price are settled, so the doubt is all that's left.
+      es: Confirme que la casa y el precio están resueltos, para saber que la duda es lo único que queda.
+    items: [HOM-O05-ISOLATE]
+  - name: { en: "Test, don't promise", es: "Pruebe, no prometa" }
+    idea:
+      en: A real drive at rush hour beats any number you could say.
+      es: Un viaje de verdad en hora pico vale más que cualquier número que usted diga.
+    items: [HOM-O05-PROOF, HOM-O05-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T005 Isolate; T094 Remove real risk; T014 Specific next step
+  - The JOLT Effect (Dixon and McKenna, 2022) on fear of a wrong choice, via T094
+spanish_reviewed: false

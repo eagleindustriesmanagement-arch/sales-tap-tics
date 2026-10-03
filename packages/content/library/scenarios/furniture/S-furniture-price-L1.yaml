@@ -1,0 +1,197 @@
+code: S-furniture-price-L1
+module: furniture-core
+industry: furniture
+title:
+  en: "\"The price is too high\""
+  es: "\"El precio está muy alto\""
+setting:
+  en: Saturday afternoon, in the bedroom gallery of the showroom, right after you went over the all-in price.
+  es: Sábado por la tarde, en la sección de cuartos del showroom, justo después de revisar el precio total.
+persona: P-furniture-price
+objection: O04
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, lives in Pinecrest and is redoing the main bedroom. She loves the Norcasa Avila king bedroom set in solid oak: bed, two nightstands, dresser and mirror. You showed her the all-in price of $9,798 with white-glove delivery, and $9,298 with the store's fall bedroom event, which takes $500 off through October 31 (the flyer is at your desk), plus sales tax. She is paying from savings."
+  es: "{name}, de unos 45 años, vive en Pinecrest y está renovando el cuarto principal. Le encanta el juego de cuarto king Avila de Norcasa, en roble macizo: cama, dos mesitas de noche, cómoda y espejo. Usted le enseñó el precio total de $9,798 con la entrega white-glove, y $9,298 con el evento de otoño de la tienda, que le quita $500 hasta el 31 de octubre (el volante está en su escritorio), más el impuesto de venta. Paga con sus ahorros."
+opening:
+  en: I love it, but the price is too high.
+  es: Me encanta, pero el precio está muy alto.
+# Furniture mapped onto the facts schema (decision 0033): `vehicle` is the item, `dealer_fees` holds the store's
+# mandatory white-glove delivery, sales tax is the only government charge. Brand, store and promotion are fictional.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Norcasa, model: Avila bedroom set, trim: "king, solid oak, 5 pieces", color: Natural oak, stock: "NA-7730", in_stock: true }
+  price_cents: 949900
+  dealer_fees: [{ code: delivery, cents: 29900 }]
+  government_charges_customer_pays: [sales_tax]
+  all_in_price_cents: 979800
+  rebates:
+    - { code: fall_bedroom_event, name: Fall bedroom event, cents: 50000, eligibility: everyone, ends: "2026-10-31", proof: Store promotion flyer FBE-2610 }
+  deadlines:
+    - { what: Fall bedroom event, date: "2026-10-31", proof: Store promotion flyer FBE-2610 }
+  inventory_same_trim_color: 3
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    online_price_cents: 729800
+    online_gap_cents: 200000
+    online_set: Looks similar in photos; she has not checked the material or whether delivery and setup are included
+    free_tomorrow: Free Sunday afternoon
+numbers_sheet: false
+target_techniques: [T017, T086, T028, T001, T002, T005, T014, T003]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: FUR-O04-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: FUR-O04-ACK
+      behavior:
+        en: "Acknowledged the price concern without arguing or defending"
+        es: "Reconoció la preocupación por el precio sin discutir ni defenderse"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: FUR-O04-QFIRST
+      behavior:
+        en: "Asked what she is comparing it to before defending or discounting"
+        es: "Preguntó con qué lo está comparando antes de defender el precio o rebajarlo"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%; value before discount (T017)"
+      technique: T017
+    - code: FUR-O04-ISOLATE
+      behavior:
+        en: "Confirmed the set is right for her, apart from the price"
+        es: "Confirmó que el juego es el correcto para ella, aparte del precio"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: FUR-O04-HIDDEN
+      behavior:
+        en: "Surfaced the online set she is comparing against"
+        es: "Sacó a la luz el juego de internet con el que está comparando"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: FUR-O04-SIDE
+      behavior:
+        en: "Offered an all-in, same-features side-by-side without trashing a set he had not seen or cutting the price on a guess"
+        es: "Ofreció comparar lado a lado, precio total y mismas características, sin hablar mal de un juego que no ha visto ni rebajar a ciegas"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T086); FTC pricing guidance"
+      technique: T086
+    - code: FUR-O04-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: trashed_unseen_competitor
+      description:
+        en: "Called the other set junk without having seen it"
+        es: "Dijo que el otro juego es malo sin haberlo visto"
+      method: judge
+    - code: unauthorized_discount
+      description:
+        en: "Offered a discount the store has not authorized"
+        es: "Ofreció un descuento que la tienda no ha autorizado"
+      method: rule_family
+      rule_families: [authority, price]
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he defended the price before asking a single question, offered to cut it on a guess, and pushed for today. He never learned what she was comparing it to."
+      es: "Fíjese: defendió el precio sin hacer una sola pregunta, ofreció rebajarlo a ciegas y presionó para hoy. Nunca supo con qué lo estaba comparando ella."
+    script:
+      en:
+        - { speaker: customer, text: "I love it, but the price is too high." }
+        - { speaker: rep, text: "Honestly, it's not that expensive for solid oak. You get what you pay for." }
+        - { speaker: customer, text: "I'm not trying to haggle. I just want it to make sense." }
+        - { speaker: rep, text: "Okay, what if I knock something off? What would it take for you to order it today?" }
+        - { speaker: customer, text: "I just think it's a lot for a bedroom set." }
+        - { speaker: rep, text: "Here's my card. Think about it and let me know." }
+        - { speaker: customer, text: "Sure. Thanks." }
+      es:
+        - { speaker: customer, text: "Me encanta, pero el precio está muy alto." }
+        - { speaker: rep, text: "La verdad, no está tan caro para ser roble macizo. Lo barato sale caro." }
+        - { speaker: customer, text: "No es que quiera regatear. Es que quiero que tenga sentido." }
+        - { speaker: rep, text: "Bueno, ¿y si le rebajo algo? ¿Qué hace falta para que lo ordene hoy?" }
+        - { speaker: customer, text: "Es que me parece mucho para un juego de cuarto." }
+        - { speaker: rep, text: "Aquí tiene mi tarjeta. Piénselo y me avisa." }
+        - { speaker: customer, text: "Está bien. Gracias." }
+  good:
+    notice:
+      en: Notice the question "compared to what?" before any defense, the honest side-by-side of a set he has not seen, and the real promotion stated without pressure.
+      es: Fíjese en la pregunta "¿comparado con qué?" antes de cualquier defensa, en la comparación honesta con un juego que él no ha visto, y en la promoción real dicha sin presionar.
+    script:
+      en:
+        - { speaker: customer, text: "I love it, but the price is too high." }
+        - { speaker: rep, text: "[pause] I appreciate you saying it straight. It's a real investment. Help me understand: too high compared to what?" }
+        - { speaker: customer, text: "It's not that I don't like it. I've seen something that makes me wonder." }
+        - { speaker: rep, text: "Fair enough. Setting the price aside for a second, is this the set you want in your bedroom?" }
+        - { speaker: customer, text: "I love the set. That's not the question." }
+        - { speaker: rep, text: "Then tell me what you saw. I'd rather know than guess." }
+        - { speaker: customer, text: "Okay. I saw a set online that looks almost the same for about two thousand less. I don't want to overpay." }
+        - { speaker: rep, text: "Thank you, that's a smart thing to check. I haven't seen that set, so I won't tell you it's worse. Let's line them up side by side: what each one is made of, solid oak or veneer, the drawers, and whether delivery and setup are in the price. Ours is $9,298 with white-glove delivery during the fall bedroom event, plus sales tax. The event is real, it ends October 31, and the flyer is at my desk, but take the time you need to compare. If theirs is the better buy for you, I'll say so." }
+        - { speaker: customer, text: "That's fair. I just don't want to feel like I got taken." }
+        - { speaker: rep, text: "Could you come back tomorrow at 2 with the link? We'll go through both, line by line." }
+        - { speaker: customer, text: "Okay, that works." }
+      es:
+        - { speaker: customer, text: "Me encanta, pero el precio está muy alto." }
+        - { speaker: rep, text: "[pausa] Le agradezco que me lo diga claro. Es una inversión de verdad. Ayúdeme a entender: ¿muy alto comparado con qué?" }
+        - { speaker: customer, text: "No es que no me guste. Es que vi algo que me tiene pensando." }
+        - { speaker: rep, text: "Me parece justo. Dejando el precio a un lado un momento, ¿este es el juego que quiere en su cuarto?" }
+        - { speaker: customer, text: "El juego me encanta. Esa no es la pregunta." }
+        - { speaker: rep, text: "Entonces cuénteme qué vio. Prefiero saberlo que adivinar." }
+        - { speaker: customer, text: "Bueno. Vi un juego en internet que se ve casi igual por como dos mil dólares menos. No quiero pagar de más." }
+        - { speaker: rep, text: "Gracias, eso es algo inteligente de revisar. Yo no he visto ese juego, así que no le voy a decir que es peor. Pongámoslos lado a lado: de qué está hecho cada uno, roble macizo o enchapado, las gavetas, y si la entrega y el armado están incluidos en el precio. El nuestro está en $9,298 con la entrega white-glove durante el evento de otoño, más el impuesto de venta. El evento es real, se termina el 31 de octubre y el volante está en mi escritorio, pero tómese el tiempo que necesite para comparar. Si el otro le conviene más, se lo digo." }
+        - { speaker: customer, text: "Me parece justo. Es que no quiero sentir que me cogieron de boba." }
+        - { speaker: rep, text: "¿Puede volver mañana a las 2 con el link? Revisamos los dos, punto por punto." }
+        - { speaker: customer, text: "Está bien, me funciona." }
+spanish_reviewed: false

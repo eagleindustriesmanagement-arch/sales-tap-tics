@@ -1,0 +1,143 @@
+code: P-solar-partner
+name_pool:
+  en: [Jennifer, Lisa, Michelle, Angela]
+  es: [Yamilé, Marisol, Lourdes, Odalys]
+age_range: 40-49
+temperament: [friendly]
+temperament_note:
+  en: Friendly, a little evasive. Liked the presentation and does not want an argument at her own kitchen table.
+  es: Amable, un poco evasiva. Le gustó la presentación y no quiere discutir en la mesa de su propia cocina.
+buyer_orientation: relationship
+situation:
+  en: Mid-40s, married, two kids, owns a single-family home in Kendall. Her husband works days and was not home for the consultation. She printed her last 12 electric bills. Just saw the roof layout and the written quote.
+  es: De unos 45 años, casada, con dos hijos, dueña de una casa en Kendall. Su esposo trabaja de día y no estaba para la consulta. Imprimió sus últimas 12 facturas de la luz. Acaba de ver el diseño del techo y la cotización por escrito.
+stated_objection: O01
+stated_line:
+  en: I like it, but I need to talk to my husband before I sign anything.
+  es: Me gusta, pero tengo que hablarlo con mi esposo antes de firmar nada.
+hidden_truth:
+  en: The roof is about 17 years old and her husband keeps saying it needs replacing. She is afraid he will say "roof first," and she does not know what happens to the panels if the roof is redone later.
+  es: El techo tiene como 17 años y su esposo siempre dice que hay que cambiarlo. Teme que él diga "primero el techo", y no sabe qué pasa con los paneles si después hay que cambiar el techo.
+# Phrases that would give the hidden truth away before an unlock. Pre-unlock lines never mention the roof.
+hidden_truth_markers:
+  en:
+    - '\broof\b'
+    - '\bshingles?\b'
+    - '\bre-?roof(ing)?\b'
+    - '\b(seventeen|17) years\b'
+  es:
+    - '\btecho\b'
+    - '\btejas?\b'
+    - '\b(roof|shingles?)\b'
+    - '\b(diecisiete|17) años\b'
+unlock_conditions:
+  - code: asks_partner_question
+    description:
+      en: Asks what her husband will want to know or ask first.
+      es: Pregunta qué va a querer saber o preguntar primero su esposo.
+    cues:
+      en:
+        - '\bwhat (do you think )?(will|would|is) (he|she|your husband|your wife|your partner)\b.{0,25}\b(ask|want to know|say|think|worry)'
+        - '\bwhat (do you think )?(he|she|your husband|your wife)(''ll| will| would)\b.{0,25}\b(ask|want to know|say|think|worry)'
+        - '\b(his|her) first question\b'
+        - '\bwhat(''s| is) (he|she) going to (ask|say|want)'
+        - '\bwhat will you tell (him|her)\b'
+      es:
+        - '\bqué (cree que |piensa que )?((ella|él|su esposa|su esposo|su pareja) )?(le )?(va|van) a (preguntar|decir|querer saber)\b'
+        - '\bsu primera pregunta\b'
+        - '\bqué (le )?va a (preguntar|decir) (él|su esposo|ella)\b'
+        - '\bqué (le )?(va a|piensa) decir(le)?\b'
+  - code: asks_about_house
+    description:
+      en: Asks about the roof, its age, or what else the house needs.
+      es: Pregunta por el techo, su edad, o qué otra cosa necesita la casa.
+    cues:
+      en:
+        - '\b(roof|shingles?)\b[^.!]{0,60}\?'
+        - '\bhow old is (the|your) (roof|house|home)\b'
+        - '\b(age|condition) of (the|your) (roof|house|home)\b'
+        - '\bwhat (else )?(does|is) (the|your) (house|home)\b.{0,20}\b(need|needing)\b'
+      es:
+        - '\b(techo|tejas?|roof)\b[^.!]{0,60}\?'
+        - '\b(cuántos años|qué edad|qué tiempo) tiene (el|su) techo\b'
+        - '\bqué (más )?(le )?(hace falta|necesita) (a )?(la|su) casa\b'
+walk_out_triggers:
+  - code: belittles_partner
+    description:
+      en: Belittles consulting her husband ("Can't you decide yourself?").
+      es: Le resta importancia a consultar con el esposo ("¿No puede decidir usted sola?").
+    cues:
+      en:
+        - '\b(can''?t|cannot) you decide\b'
+        - '\bdo you (really )?need (his|her|your husband''?s?|your wife''?s?) (permission|ok|okay|approval)\b'
+        - '\bwho wears the pants\b'
+        - '\byou(''re| are) a grown (man|woman|adult)\b'
+        - '\byou don''?t need (his|her) (permission|ok|okay)\b'
+      es:
+        - '\bno puede decidir (usted )?sol[oa]\b'
+        - '\bnecesita (el )?permiso\b'
+        - '\bquién manda en (su )?casa\b'
+        - '\busted (ya )?es (un hombre|una mujer|grande|adulta?)\b'
+  - code: piles_on_add_ons
+    description:
+      en: Piles on more products (battery, monitoring, more panels) instead of answering her.
+      es: Le echa encima más productos (batería, monitoreo, más paneles) en vez de contestarle.
+    cues:
+      en:
+        - '\bwhile we''?re at it\b'
+        - '\b(add|adding|include|including)\b.{0,20}\b(the )?(battery|batteries|monitoring|more panels)\b.{0,20}\b(too|as well|also)\b'
+        - '\b(also|too)\b.{0,30}\b(add|adding)\b.{0,20}\b(the )?(battery|monitoring|more panels)\b'
+      es:
+        - '\bya que estamos\b'
+        - '\b(agregar|agregarle|sumar|sumarle|incluir|incluirle)\b.{0,20}\b(la batería|el monitoreo|más paneles)\b'
+        - '\b(también|además)\b.{0,30}\b(la batería|el monitoreo)\b'
+  - code: fake_deadline
+    description:
+      en: Makes up a today-only price or a deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal|offer|quote)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone|expires) tomorrow\b', '\bif you (wait|don''?t sign)\b.{0,40}\b(price|deal|offer|quote)\b.{0,20}\b(gone|go away|goes up|disappear)']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\bsi (espera|no firma)\b.{0,40}\b(precio|oferta|cotización)\b.{0,20}\b(se pierde|ya no|sube|desaparece)']
+  - code: third_push
+    description:
+      en: Pushes for a signature a third time after two refusals.
+      es: Insiste por tercera vez en que firme después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it |the contract |the paperwork )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\bwhy not (today|now)\b', '\bget you signed\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya|esta noche)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\b(hoy|firme)\b', '\bpor qué no (hoy|ahora)\b', '\bdejemos (escrito|firmado)\b']
+win_condition:
+  description:
+    en: The roof worry comes out, plus a firm day and time for the site survey with her husband there.
+    es: Sale a la luz la preocupación por el techo, más un día y una hora firmes para la visita técnica con el esposo presente.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el bill de la luz", "el roof", "el permit", "el estimate"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-40s
+  es: tbd-es-miami-cuban-female-40s
+difficulty: 1
+variation:
+  moods: [relaxed, a little tired, keeps an eye on the kids' homework]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I like it. I just don't want to sign anything without him.", es: "Me gusta. Es que no quiero firmar nada sin él." }
+    - { en: "I hear you. I still need to talk to him.", es: "Lo entiendo. Igual tengo que hablarlo con él." }
+    - { en: "It's a big decision for us. It's our house.", es: "Es una decisión grande para nosotros. Es nuestra casa." }
+  hint: { en: "Probably the house. He has his own list of things it needs.", es: "Seguro que por la casa. Él tiene su propia lista de cosas que le hacen falta." }
+  after_hint: { en: "The panels look good. And the bills are what they are.", es: "Los paneles se ven bien. Y las facturas de la luz son las que son." }
+  reveal: { en: "Honestly? The roof. It's about seventeen years old, and he keeps saying it needs replacing. I don't know what happens to the panels if we redo it later.", es: "La verdad, el techo. Tiene como diecisiete años y él siempre dice que hay que cambiarlo. No sé qué pasa con los paneles si lo cambiamos después." }
+  after_reveal:
+    - { en: "Okay. I'd rather know now than after.", es: "Está bien. Prefiero saberlo ahora y no después." }
+    - { en: "That's what he'll want to see. In writing.", es: "Eso es lo que él va a querer ver. Por escrito." }
+  agree_next_step: { en: "Okay, that works for us. He'll be here.", es: "Está bien, eso nos funciona. Él va a estar." }
+  not_now: { en: "Not today. Thanks, though.", es: "Hoy no. Pero gracias." }
+  walk_away: { en: "I think we're done for today.", es: "Creo que por hoy terminamos." }
+  goodbye: { en: "Thanks for coming by. Take care.", es: "Gracias por venir. Que le vaya bien." }
+  react_to_pressure: { en: "I told you, I'm not signing without him.", es: "Ya le dije, no voy a firmar sin él." }
+spanish_reviewed: false

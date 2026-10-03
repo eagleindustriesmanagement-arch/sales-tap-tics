@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { parse } from "yaml";
-import { applyToYaml, lineStatus, platformLibrary, reviewLines, yamlPath } from "../src/index.js";
+import { applyToYaml, lineStatus, platformLibrary, reviewLines, scenarioFile, yamlPath } from "../src/index.js";
 
 const library = platformLibrary();
 const file = join(import.meta.dirname, "../library/scenarios/car/S-partner-check-L1.yaml");
@@ -12,7 +12,7 @@ describe("Spanish review write-back (decision 0010)", () => {
   it("every review line of every scenario maps to its field, in the scenario and the persona", () => {
     let checked = 0;
     for (const s of library.scenarios.values()) {
-      const scenario = parse(readFileSync(join(import.meta.dirname, `../library/scenarios/car/${s.code}.yaml`), "utf8"));
+      const scenario = parse(readFileSync(scenarioFile(join(import.meta.dirname, "../library"), s.code), "utf8"));
       const persona = parse(readFileSync(join(import.meta.dirname, `../library/personas/${s.persona}.yaml`), "utf8"));
       for (const l of reviewLines(library, s.code)) {
         const doc = l.kind === "scenario" ? scenario : persona;

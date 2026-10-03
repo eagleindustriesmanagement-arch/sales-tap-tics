@@ -1,0 +1,196 @@
+code: S-homes-browser-L1
+module: homes-core
+industry: homes
+title:
+  en: "\"I'm just looking\""
+  es: "\"Solo estoy mirando\""
+setting:
+  en: Saturday afternoon, inside the Jacaranda townhome model next to the sales office. She walked in alone, without an appointment.
+  es: Sábado por la tarde, dentro del modelo del townhome Jacaranda, al lado de la oficina de ventas. Entró sola y sin cita.
+persona: P-homes-browser
+objection: O06
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: greeting
+pre_brief:
+  en: "{name}, late 30s, is walking through the Jacaranda townhome model at Cayo Verde Reserve in Homestead. She came alone and has not asked for anyone. A finished Jacaranda on Lot 108 is for sale at $489,990, with no other builder charges. You walk over and say hello."
+  es: "{name}, de unos 38 años, está recorriendo el modelo del townhome Jacaranda en Cayo Verde Reserve, en Homestead. Vino sola y no ha pedido a nadie. Hay una Jacaranda terminada a la venta en el Lote 108 por $489,990, sin ningún otro cargo del builder. Usted se acerca a saludarla."
+opening:
+  en: I'm just looking.
+  es: Solo estoy mirando.
+# The item, mapped onto the shared facts schema (decision 0033): make = builder (fictional), model = plan,
+# trim = lot and elevation, stock = lot number, in_stock = a finished home, ready to close.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Cayo Verde Homes, model: Jacaranda, trim: "Lot 108, end unit, 3 bed, 2.5 bath townhome", stock: "Lot 108", in_stock: true }
+  price_cents: 48999000
+  dealer_fees: []
+  # Closing costs are not builder charges and not part of the price; the customer's lender estimates them.
+  government_charges_customer_pays: []
+  all_in_price_cents: 48999000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 1
+  alternatives:
+    - { description: "Cayo Verde Homes Jacaranda townhome, Lot 111, finished, interior unit, 3 bed, 2.5 bath", all_in_price_cents: 47999000 }
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    move_out_date: Has to be out of her rental by January 31
+    lender: Has not talked to a lender yet
+    free_evenings: Off on Tuesdays; free after 5
+numbers_sheet: false
+target_techniques: [T084, T031, T033, T001, T002, T014, T003]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: HOM-O06-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: HOM-O06-NOPRESSURE
+      behavior:
+        en: "Took the pressure off and made it clear she was free to look on her own"
+        es: "Le quitó la presión y le dejó claro que estaba en libertad de mirar por su cuenta"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "But-you-are-free meta-analysis, 42 studies (T031)"
+      technique: T031
+    - code: HOM-O06-START
+      behavior:
+        en: "Asked where she is in her search instead of pitching the home"
+        es: "Preguntó en qué punto de la búsqueda está en vez de venderle la casa"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T084)"
+      technique: T084
+    - code: HOM-O06-QFIRST
+      behavior:
+        en: "Asked about where she lives now or her timing before talking about features"
+        es: "Preguntó dónde vive ahora o para cuándo, antes de hablar de las terminaciones"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: HOM-O06-HIDDEN
+      behavior:
+        en: "Surfaced that she has to be out of her rental by January 31"
+        es: "Sacó a la luz que tiene que salir de donde alquila antes del 31 de enero"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: HOM-O06-PLAN
+      behavior:
+        en: "Turned her move-out date into a calm plan (lender first, then the homes that fit), without using it as pressure"
+        es: "Convirtió su fecha de salida en un plan tranquilo (primero el lender, después las casas que le sirven), sin usarla para presionar"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Deadline research supports only real deadlines (Gino and Moore 2008)"
+    - code: HOM-O06-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: move_date_as_pressure
+      description:
+        en: "Used her move-out date to push for a contract or deposit today"
+        es: "Usó su fecha de salida para presionarla a firmar o dejar un depósito hoy"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: she brushed off \"just looking,\" asked yes-or-no questions, pitched a home before learning anything, and pushed for today. She never learned a thing about the customer."
+      es: "Fíjese: le restó importancia a que solo estaba mirando, hizo preguntas de sí o no, le vendió una casa antes de saber nada y presionó para hoy. Nunca supo nada de la clienta."
+    script:
+      en:
+        - { speaker: customer, text: "I'm just looking." }
+        - { speaker: rep, text: "Everybody's just looking! Do you like the kitchen? Look at this island." }
+        - { speaker: customer, text: "I'm fine, thanks. I'll let you know if I need anything." }
+        - { speaker: rep, text: "Do you want to see the finished one on Lot 108? Come on, it's right down the street." }
+        - { speaker: customer, text: "I just want to look around on my own for a bit." }
+        - { speaker: rep, text: "What can I do to get you into this home today?" }
+        - { speaker: customer, text: "Nothing. I'm going to keep looking on my own. Thanks." }
+        - { speaker: rep, text: "Okay. Here's my card if you change your mind." }
+      es:
+        - { speaker: customer, text: "Solo estoy mirando." }
+        - { speaker: rep, text: "¡Todo el mundo está solo mirando! ¿Le gusta la cocina? Mire esta isla." }
+        - { speaker: customer, text: "Estoy bien, gracias. Si necesito algo, le aviso." }
+        - { speaker: rep, text: "¿Quiere ver la terminada del Lote 108? Dale, anímese, está aquí mismo en la otra cuadra." }
+        - { speaker: customer, text: "Solo quiero mirar un rato por mi cuenta." }
+        - { speaker: rep, text: "¿Qué tengo que hacer para que se lleve esta casa hoy?" }
+        - { speaker: customer, text: "Nada. Voy a seguir mirando por mi cuenta. Gracias." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta por si cambia de idea." }
+  good:
+    notice:
+      en: Notice how she takes the pressure off first, then asks where the customer lives now, and turns the move-out date into a calm plan instead of a push.
+      es: Fíjese en cómo primero le quita la presión, después pregunta dónde vive ahora, y convierte la fecha de salida en un plan tranquilo en vez de presionarla.
+    script:
+      en:
+        - { speaker: customer, text: "I'm just looking." }
+        - { speaker: rep, text: "[pause] That's perfect. Take your time, and you're free to walk through on your own. Are you just starting to look, or have you narrowed it down a bit?" }
+        - { speaker: customer, text: "Just starting. I'm not buying anything today." }
+        - { speaker: rep, text: "Fair enough. No pressure from me. So I can point you to the right homes, where are you living now?" }
+        - { speaker: customer, text: "Let's just say where I live now won't be mine much longer." }
+        - { speaker: rep, text: "Got it. And what do you like about your place, and what would you change?" }
+        - { speaker: customer, text: "It's been fine. I'm just seeing what's out there." }
+        - { speaker: rep, text: "Sounds like you might be renting. Is there a date you need to be out by?" }
+        - { speaker: customer, text: "Okay, honestly? The owner is selling the house I rent, and I have to be out by January 31. I haven't figured out what's next." }
+        - { speaker: rep, text: "Thanks for telling me. That's almost four months, which is enough to do this calmly, one step at a time. Here's an easy plan: first you talk to a lender you choose, so you know your real numbers, and I show you the finished homes here that fit what you need." }
+        - { speaker: customer, text: "That actually helps. I thought you'd jump on me for that." }
+        - { speaker: rep, text: "Could you come back Tuesday at 6? I'll have the finished townhomes open. If you've talked to a lender by then, bring the letter; if not, we'll just look." }
+        - { speaker: customer, text: "Tuesday at 6 works." }
+      es:
+        - { speaker: customer, text: "Solo estoy mirando." }
+        - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y está en libertad de recorrerla por su cuenta. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
+        - { speaker: customer, text: "Apenas empezando. Hoy no voy a comprar nada." }
+        - { speaker: rep, text: "Me parece bien. Sin presión de mi parte. Para orientarla bien, ¿dónde vive ahora?" }
+        - { speaker: customer, text: "Digamos que donde vivo ahora no va a ser mío por mucho tiempo." }
+        - { speaker: rep, text: "Entiendo. ¿Y qué le gusta de donde vive, y qué le cambiaría?" }
+        - { speaker: customer, text: "Ha estado bien. Solo estoy viendo qué hay." }
+        - { speaker: rep, text: "Suena como que a lo mejor está alquilada. ¿Hay alguna fecha en que tenga que salir de ahí?" }
+        - { speaker: customer, text: "Bueno, la verdad, el dueño está vendiendo la casa que alquilo, y tengo que salir antes del 31 de enero. Todavía no sé qué voy a hacer." }
+        - { speaker: rep, text: "Gracias por decírmelo. Faltan casi cuatro meses, y eso alcanza para hacer esto con calma, paso a paso. Le propongo algo fácil: primero usted habla con un lender que usted escoja, para saber sus números reales, y yo le enseño las casas terminadas de aquí que le sirven." }
+        - { speaker: customer, text: "Eso me ayuda. Pensé que me iba a caer encima con eso." }
+        - { speaker: rep, text: "¿Puede volver el martes a las 6? Le tengo los townhomes terminados abiertos. Si ya habló con un lender, traiga la carta; si no, solo miramos." }
+        - { speaker: customer, text: "El martes a las 6 me queda bien." }
+spanish_reviewed: false

@@ -1,0 +1,193 @@
+code: S-furniture-browser-L1
+module: furniture-core
+industry: furniture
+title:
+  en: "\"I'm just looking\""
+  es: "\"Solo estoy mirando\""
+setting:
+  en: Tuesday evening, in the living room gallery of the showroom. He walked in alone, without an appointment.
+  es: Martes por la tarde, en la sección de salas del showroom. Llegó solo y sin cita.
+persona: P-furniture-browser
+objection: O06
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: greeting
+pre_brief:
+  en: "{name}, about 30, came in after work and is standing by the Vellora Costa modular sectional in sand performance linen. He came alone and has not asked for anyone. You walk over and say hello."
+  es: "{name}, de unos 30 años, vino después del trabajo y está parado al lado del sectional modular Costa de Vellora, en lino performance color arena. Vino solo y no ha pedido a nadie. Usted se acerca a saludarlo."
+opening:
+  en: I'm just looking.
+  es: Solo estoy mirando.
+# Furniture mapped onto the facts schema (decision 0033): `vehicle` is the item, `dealer_fees` holds the store's
+# mandatory white-glove delivery, sales tax is the only government charge. Brand and store are fictional.
+facts:
+  session_date: "2026-10-06"
+  vehicle: { year: 2026, make: Vellora, model: Costa modular sectional, trim: "performance linen, 4-piece", color: Sand, stock: "VC-4407", in_stock: true }
+  price_cents: 599900
+  dealer_fees: [{ code: delivery, cents: 29900 }]
+  government_charges_customer_pays: [sales_tax]
+  all_in_price_cents: 629800
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 3
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    condo_closing: Closes on his first condo in five weeks, on November 10
+    living_room_now: A futon and a TV
+    free_evenings: Free after 5:30 on weekdays
+numbers_sheet: false
+target_techniques: [T084, T031, T033, T001, T002, T014, T003]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: FUR-O06-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: FUR-O06-NOPRESSURE
+      behavior:
+        en: "Took the pressure off and made it clear he was free to look on his own"
+        es: "Le quitó la presión y le dejó claro que estaba en libertad de mirar por su cuenta"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "But-you-are-free meta-analysis, 42 studies (T031)"
+      technique: T031
+    - code: FUR-O06-START
+      behavior:
+        en: "Asked where he is in his search instead of pitching a piece"
+        es: "Preguntó en qué punto de la búsqueda está en vez de venderle un mueble"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T084)"
+      technique: T084
+    - code: FUR-O06-QFIRST
+      behavior:
+        en: "Asked about the room he is furnishing or his timing before talking about fabrics and features"
+        es: "Preguntó por el espacio que va a amueblar o sus tiempos antes de hablar de telas y detalles"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: FUR-O06-HIDDEN
+      behavior:
+        en: "Surfaced that he closes on a condo in five weeks"
+        es: "Sacó a la luz que en cinco semanas cierra la compra de un condo"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: FUR-O06-PLAN
+      behavior:
+        en: "Turned the move into a calm plan (floor plan, measurements), without using it as pressure"
+        es: "Convirtió la mudanza en un plan tranquilo (plano, medidas), sin usarla para presionar"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Deadline research supports only real deadlines (Gino and Moore 2008)"
+    - code: FUR-O06-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: move_as_pressure
+      description:
+        en: "Used his move-in date to push for a purchase today"
+        es: "Usó la fecha de la mudanza para presionarlo a comprar hoy"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed off \"just looking,\" pitched a fabric the customer never asked about, crowded him, and pushed for today. He never learned a thing about him."
+      es: "Fíjese: le restó importancia a que solo estaba mirando, le habló de una tela que el cliente no preguntó, lo acosó y presionó para hoy. Nunca supo nada de él."
+    script:
+      en:
+        - { speaker: customer, text: "I'm just looking." }
+        - { speaker: rep, text: "Everybody's just looking! This Costa sectional is gorgeous, and the performance linen is amazing." }
+        - { speaker: customer, text: "I told you, I'm just looking." }
+        - { speaker: rep, text: "Want to sit in it? Come on, try it out." }
+        - { speaker: customer, text: "Just starting. I'm not buying anything today." }
+        - { speaker: rep, text: "What can I do to get you into this sectional today?" }
+        - { speaker: customer, text: "Nothing. I'm going to keep walking. Thanks." }
+        - { speaker: rep, text: "Okay. Here's my card if you change your mind." }
+      es:
+        - { speaker: customer, text: "Solo estoy mirando." }
+        - { speaker: rep, text: "¡Todo el mundo está solo mirando! Este sectional Costa es precioso, y el lino performance es buenísimo." }
+        - { speaker: customer, text: "Ya le dije, solo estoy mirando." }
+        - { speaker: rep, text: "¿Quiere sentarse? Dale, anímese, pruébelo." }
+        - { speaker: customer, text: "Apenas empezando. Hoy no voy a comprar nada." }
+        - { speaker: rep, text: "¿Qué tengo que hacer para que se lleve este sectional hoy?" }
+        - { speaker: customer, text: "Nada. Voy a seguir mirando por mi cuenta. Gracias." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta por si cambia de idea." }
+  good:
+    notice:
+      en: Notice how she takes the pressure off first, then asks what room he is shopping for, and turns the move into a calm plan instead of a push.
+      es: Fíjese en cómo primero le quita la presión, después pregunta para qué cuarto está buscando, y convierte la mudanza en un plan tranquilo en vez de presionarlo.
+    script:
+      en:
+        - { speaker: customer, text: "I'm just looking." }
+        - { speaker: rep, text: "[pause] That's perfect. Take your time, and you're free to walk around on your own. Are you just starting to look, or have you narrowed it down a bit?" }
+        - { speaker: customer, text: "Just starting. I'm not buying anything today." }
+        - { speaker: rep, text: "Fair enough. No pressure from me. So I can point you to the right pieces, what room are you shopping for?" }
+        - { speaker: customer, text: "Let's just say I don't have much to put in a living room right now." }
+        - { speaker: rep, text: "Got it. And what's in that living room right now?" }
+        - { speaker: customer, text: "Right now? A futon and a TV. I'm just seeing what's out there." }
+        - { speaker: rep, text: "A futon and a TV. Sounds like a fresh start. Are you moving, or redoing the place you have?" }
+        - { speaker: customer, text: "Okay, honestly? I close on my first condo in five weeks, and the living room is going to be empty. I've never bought real furniture before." }
+        - { speaker: rep, text: "Congratulations, that's a big step. Five weeks is enough time to do this calmly, no rush. Here's an easy plan: bring the condo's floor plan, we lay out the living room on paper, and you sit in the two or three pieces that actually fit. No decisions until it all fits." }
+        - { speaker: customer, text: "That actually helps. I thought you'd jump on me for that." }
+        - { speaker: rep, text: "Could you come back Thursday at 6? Bring the floor plan, and I'll have the Costa sectional's measurements ready so we can see if it fits." }
+        - { speaker: customer, text: "Okay. That works for me." }
+      es:
+        - { speaker: customer, text: "Solo estoy mirando." }
+        - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y está en libertad de mirar por su cuenta. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
+        - { speaker: customer, text: "Apenas empezando. Hoy no voy a comprar nada." }
+        - { speaker: rep, text: "Me parece bien. Sin presión de mi parte. Para orientarlo bien, ¿para qué cuarto está buscando?" }
+        - { speaker: customer, text: "Digamos que ahora mismo no tengo mucho que poner en una sala." }
+        - { speaker: rep, text: "Entiendo. ¿Y qué tiene en esa sala ahora mismo?" }
+        - { speaker: customer, text: "¿Ahora mismo? Un futón y un televisor. Solo estoy viendo qué hay." }
+        - { speaker: rep, text: "Un futón y un televisor. Suena a un comienzo nuevo. ¿Se está mudando, o va a renovar donde vive?" }
+        - { speaker: customer, text: "Bueno, la verdad, en cinco semanas cierro mi primer condo, y la sala va a estar vacía. Nunca he comprado muebles de verdad." }
+        - { speaker: rep, text: "Felicidades, eso es un paso grande. Cinco semanas alcanzan para hacer esto con calma, sin apuro. Le propongo algo fácil: traiga el plano del condo, armamos la sala en papel, y usted se sienta en las dos o tres piezas que de verdad caben. Nada de decidir hasta que todo quepa." }
+        - { speaker: customer, text: "Eso me ayuda. Pensé que me iba a caer encima con eso." }
+        - { speaker: rep, text: "¿Puede volver el jueves a las 6? Traiga el plano, y le tengo las medidas del sectional Costa listas para ver si cabe." }
+        - { speaker: customer, text: "Está bien. Eso me funciona." }
+spanish_reviewed: false

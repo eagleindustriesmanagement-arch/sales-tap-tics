@@ -1,0 +1,78 @@
+code: L-homes-advice
+scenario: S-homes-advice-L1
+title:
+  en: "\"What would you do?\": earn the answer, then own it"
+  es: "\"¿Usted qué haría?\": gánese la respuesta y dígala claro"
+hook:
+  en: Second visit, both homes walked twice, and she turns to you. That's trust. Don't waste it on the bigger commission.
+  es: Segunda visita, las dos casas recorridas dos veces, y se voltea hacia usted. Eso es confianza. No la bote por la comisión más grande.
+what:
+  en: Promise a straight answer, then earn it with questions about who will live in the house. Give one recommendation with a reason from her own words, stay with the two homes she's weighing, and set a visit to prove it.
+  es: Prométale una respuesta clara y gánesela con preguntas sobre quién va a vivir en la casa. Déle una sola recomendación con una razón sacada de lo que ella dijo, quédese con las dos casas que está comparando y fije una visita para comprobarlo.
+why:
+  en: A house is a bet on the next ten years, and she's tired of carrying it alone. "What would you do?" means "stand next to me." Dodge it and she's alone again. Answer before you ask and it sounds like the house you'd rather sell. Here the tie-breaker is family moving in.
+  es: Una casa es una apuesta a los próximos diez años, y ella está cansada de cargarla sola. "¿Usted qué haría?" quiere decir "párese a mi lado". Si lo esquiva, la deja sola otra vez. Si contesta antes de preguntar, suena a la casa que a usted le conviene vender. Aquí lo que desempata es la familia que se viene a vivir.
+when:
+  en: A torn buyer asks your opinion between two homes.
+  es: Una clienta indecisa le pide su opinión entre dos casas.
+when_not:
+  en: Never steer her to the pricier home. If her life points to the smaller one, say so.
+  es: Nunca la lleve a la casa más cara. Si su vida apunta a la más chica, dígaselo.
+say:
+  - en: I'll tell you exactly what I'd do. I just want it to be about your life, not mine.
+    es: Le voy a decir exactamente lo que yo haría. Solo quiero que sea sobre su vida, no la mía.
+  - en: Who's going to live in the house with you?
+    es: ¿Quién va a vivir con usted en la casa?
+  - en: That changes my answer. If I were you, I'd lean that way, and here's why.
+    es: Eso cambia mi respuesta. Si yo fuera usted, me inclinaría por esa, y le digo por qué.
+  - en: Don't take my word for it. Bring him, and we'll walk both homes together.
+    es: No lo crea solo porque yo lo digo. Tráigalo y recorremos las dos casas juntos.
+mistakes:
+  - mistake:
+      en: '"Easy, the Ceiba. Everybody wants the bigger one."'
+      es: '"Fácil, la Ceiba. Todo el mundo quiere la más grande."'
+    fix:
+      en: No question, no reason. Ask first, then answer.
+      es: Sin pregunta y sin razón. Pregunte primero, conteste después.
+  - mistake:
+      en: '"Only you can decide that."'
+      es: '"Eso solo lo puede decidir usted."'
+    fix:
+      en: She asked for help and got a shrug. Take a stand.
+      es: Le pidió ayuda y usted se encogió de hombros. Dígale lo que haría.
+  - mistake:
+      en: '"Let me show you two more lots to compare."'
+      es: '"Le enseño dos lotes más para que compare."'
+    fix:
+      en: Two is hard. Four is worse. Stay with her two.
+      es: Entre dos ya es difícil. Entre cuatro, peor. Quédese con las dos.
+concepts:
+  - name: { en: "Pause, promise, ask", es: "Pausa, promesa, pregunta" }
+    idea:
+      en: A beat of quiet, promise an answer, then ask who will live there.
+      es: Un momento de silencio, prometa una respuesta y pregunte quién va a vivir ahí.
+    items: [HOM-O58-PAUSE, HOM-O58-QFIRST]
+  - name: { en: "Who lives there", es: "Quién vive ahí" }
+    idea:
+      en: The tie-breaker is usually a person. A parent, a grandchild, a walker.
+      es: Lo que desempata casi siempre es una persona. Un papá, un nieto, un andador.
+    items: [HOM-O58-HIDDEN]
+  - name: { en: "Own one answer", es: "Una sola respuesta" }
+    idea:
+      en: '"If I were you," one home, and a reason in her own words.'
+      es: '"Si yo fuera usted", una casa, y una razón con las palabras de ella.'
+    items: [HOM-O58-RECOMMEND]
+  - name: { en: "Two, not four", es: "Dos, no cuatro" }
+    idea:
+      en: Limit the exploration. More homes, more doubt.
+      es: Limite la búsqueda. Más casas, más dudas.
+    items: [HOM-O58-LIMIT]
+  - name: { en: "Prove it on a day and time", es: "Compruébelo con día y hora" }
+    idea:
+      en: Never promise it works for him. Walk it with him, on a set day and time.
+      es: Nunca prometa que le sirve a él. Recórranla con él, con día y hora fijos.
+    items: [HOM-O58-NEXT]
+sources:
+  - T001 Pause and slow down; T002 Clarify with a question; T092 Personal recommendation; T093 Limit the exploration; T014 Firm next step
+  - The JOLT Effect (Dixon and McKenna, 2022) on recommending to indecisive buyers; choice overload meta-analysis (Chernev and others, 2015), via T093
+spanish_reviewed: false

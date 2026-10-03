@@ -1,0 +1,196 @@
+code: S-solar-browser-L1
+module: solar-core
+industry: solar
+title:
+  en: "\"I'm just looking\""
+  es: "\"Solo estoy mirando\""
+setting:
+  en: Wednesday evening, at the customer's front door and then her living room. She booked the in-home consultation online.
+  es: Miércoles por la tarde, en la puerta de la clienta y después en su sala. Ella pidió la consulta en casa por internet.
+persona: P-solar-browser
+objection: O06
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: greeting
+pre_brief:
+  en: "{name}, early 50s, booked a solar consultation online for her home in Miramar. You just introduced yourself at the door. You have Lumacay Solar's standard 8.4 kW, 21-panel system to show her: $24,600 all-in, permits and interconnection included, or an estimated $190 a month on a 25-year Kestrela Lending loan, subject to the lender's approval."
+  es: "{name}, de unos 52 años, pidió por internet una consulta de solar para su casa en Miramar. Usted se acaba de presentar en la puerta. Tiene para enseñarle el sistema estándar de Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red, o un estimado de $190 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación del banco."
+opening:
+  en: I'm just looking. I'm just getting information.
+  es: Solo estoy mirando. Nada más estoy buscando información.
+# Solar mapped onto the facts schema (decision 0033): the "vehicle" is the quoted system; Lumacay Solar (installer)
+# and Kestrela Lending (lender) are fictional. No tax credit, utility savings, net-metering terms or effect on the
+# home's sale value are facts here, so none may be stated as true.
+facts:
+  session_date: "2026-09-30"
+  vehicle: { year: 2026, make: Lumacay Solar, model: Rooftop system, trim: "8.4 kW, 21 panels", stock: "Q-26-0402", in_stock: true }
+  price_cents: 2395000
+  dealer_fees: [{ code: permit_and_interconnection, cents: 65000 }]
+  government_charges_customer_pays: []
+  all_in_price_cents: 2460000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 0  # a custom installation: no unit scarcity applies
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    - { code: home_battery, name: { en: home battery, es: batería }, cents: 1190000, aliases: { en: [battery, backup battery], es: [batería de respaldo] } }
+    - { code: monitoring_upgrade, name: { en: monitoring upgrade, es: monitoreo }, cents: 45000, aliases: { en: [monitoring], es: [plan de monitoreo] } }
+  # Kestrela Lending's written estimate: 25 years, no money down, subject to approval.
+  payment_options:
+    - { code: quoted, cents: 19000, term_months: 300, apr_bps: 799 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    daughter_graduates: Her daughter finishes high school in three years
+    might_sell: Might sell the house and move then
+    free_evenings: Free after 6 on weekdays
+numbers_sheet: false
+target_techniques: [T084, T031, T033, T001, T002, T014, T003]
+rubric: R-objection
+scoring:
+  items:
+    - code: SOL-O06-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: SOL-O06-NOPRESSURE
+      behavior:
+        en: "Took the pressure off and made it clear she was free to say no"
+        es: "Le quitó la presión y le dejó claro que estaba en libertad de decir que no"
+      dimension: technique
+      method: judge
+      points: 20
+      evidence: "But-you-are-free meta-analysis, 42 studies (T031)"
+      technique: T031
+    - code: SOL-O06-START
+      behavior:
+        en: "Asked where she is in her search instead of pitching the system"
+        es: "Preguntó en qué punto de la búsqueda está en vez de venderle el sistema"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T084)"
+      technique: T084
+    - code: SOL-O06-QFIRST
+      behavior:
+        en: "Asked what brought her to solar now, or her plans for the house, before talking about equipment"
+        es: "Preguntó qué la trajo a solar ahora, o qué planes tiene con la casa, antes de hablar del equipo"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: SOL-O06-HIDDEN
+      behavior:
+        en: "Surfaced that she might sell the house in three years"
+        es: "Sacó a la luz que a lo mejor vende la casa en tres años"
+      dimension: discovery
+      method: engine
+      points: 20
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: SOL-O06-PLAN
+      behavior:
+        en: "Answered her plan to sell with written loan terms and the cash price, without promising anything about the home's sale value"
+        es: "Respondió a su plan de vender con los términos del préstamo por escrito y el precio de contado, sin prometer nada sobre el valor de venta de la casa"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Only real, showable protections (T094)"
+      technique: T094
+    - code: SOL-O06-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: promised_resale_value
+      description:
+        en: "Promised the panels raise the home's value or make it easy to sell"
+        es: "Aseguró que los paneles suben el valor de la casa o que la hacen fácil de vender"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep brushed off \"just looking,\" pitched a battery she never asked about, and pushed for a signature today. He never learned a thing about her."
+      es: "Fíjese: el vendedor le restó importancia a que solo estaba mirando, le ofreció una batería que ella no pidió y presionó para que firmara hoy. Nunca supo nada de ella."
+    script:
+      en:
+        - { speaker: customer, text: "I'm just looking. I'm just getting information." }
+        - { speaker: rep, text: "Everybody's just looking! But once you see these numbers, you won't be. Let me show you the battery and the monitoring app too." }
+        - { speaker: customer, text: "Just starting. I'm not signing anything today." }
+        - { speaker: rep, text: "What can I do to get you to sign today?" }
+        - { speaker: customer, text: "I just want the information. I'll decide on my own." }
+        - { speaker: rep, text: "Okay. Here's my card and the brochure. Call me if you change your mind." }
+        - { speaker: customer, text: "I think I have enough information for today. Thanks." }
+      es:
+        - { speaker: customer, text: "Solo estoy mirando. Nada más estoy buscando información." }
+        - { speaker: rep, text: "¡Todo el mundo está solo mirando! Pero cuando vea estos números, se le quita. Déjeme enseñarle también la batería y la aplicación del monitoreo." }
+        - { speaker: customer, text: "Apenas empezando. Hoy no voy a firmar nada." }
+        - { speaker: rep, text: "¿Qué tengo que hacer para que firme hoy?" }
+        - { speaker: customer, text: "Solo quiero la información. Yo decido por mi cuenta." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta y el folleto. Me llama si cambia de idea." }
+        - { speaker: customer, text: "Creo que ya tengo suficiente información por hoy. Gracias." }
+  good:
+    notice:
+      en: Notice how the rep takes the pressure off first, asks what brought her to solar now, and answers her plan to sell with written terms instead of a promise about the house.
+      es: Fíjese en cómo el vendedor primero le quita la presión, pregunta qué la trajo a solar ahora, y responde a su plan de vender con términos por escrito en vez de una promesa sobre la casa.
+    script:
+      en:
+        - { speaker: customer, text: "I'm just looking. I'm just getting information." }
+        - { speaker: rep, text: "[pause] That's perfect. Information is exactly what this visit is for, and you're free to say no to all of it. Are you just starting to look at solar, or have you compared a few companies already?" }
+        - { speaker: customer, text: "Just starting. I'm not signing anything today." }
+        - { speaker: rep, text: "Fair enough. No pressure from me. So I show you what matters to you, what made you book the visit now?" }
+        - { speaker: customer, text: "Let's just say I'm not sure how long this house fits my plans." }
+        - { speaker: rep, text: "Got it. And how have the electric bills been this summer?" }
+        - { speaker: customer, text: "The bills are high, like everybody's. I'm just seeing what's out there." }
+        - { speaker: rep, text: "That sounds like there may be a change coming. How long do you see yourself staying in this house?" }
+        - { speaker: customer, text: "Okay, honestly? My daughter finishes high school in three years, and I might sell and move then. I'm afraid a 25-year loan on panels would make the house harder to sell." }
+        - { speaker: rep, text: "Thank you for telling me. That changes what I'd show you, and three years is plenty of time to decide calmly. I'm not going to promise you what a buyer would pay for a house with panels. What I can do is get you Kestrela's loan terms in writing, including what happens to the loan if you sell, and put the cash price next to them, so you can read it yourself or with your realtor." }
+        - { speaker: customer, text: "That actually helps. I thought you'd jump on me for that." }
+        - { speaker: rep, text: "Could we sit down again Monday at 6:30? I'll bring the loan terms in writing and the cash estimate, and you bring any questions from your realtor." }
+        - { speaker: customer, text: "Monday at 6:30 works for me." }
+      es:
+        - { speaker: customer, text: "Solo estoy mirando. Nada más estoy buscando información." }
+        - { speaker: rep, text: "[pausa] Perfecto. Para eso es esta visita, para información, y usted está en libertad de decirle que no a todo. ¿Apenas está empezando a mirar lo de solar, o ya ha comparado algunas compañías?" }
+        - { speaker: customer, text: "Apenas empezando. Hoy no voy a firmar nada." }
+        - { speaker: rep, text: "Me parece bien. Sin presión de mi parte. Para enseñarle lo que a usted le importa, ¿qué la puso a buscar esto ahora?" }
+        - { speaker: customer, text: "Digamos que no estoy segura de cuánto tiempo esta casa encaja en mis planes." }
+        - { speaker: rep, text: "Entiendo. ¿Y cómo han estado las facturas de la luz este verano?" }
+        - { speaker: customer, text: "Altas, como las de todo el mundo. Solo estoy viendo qué hay." }
+        - { speaker: rep, text: "Suena como que puede venir un cambio. ¿Cuánto tiempo se ve viviendo en esta casa?" }
+        - { speaker: customer, text: "Bueno, la verdad, mi hija termina la high school en tres años, y a lo mejor vendo y me mudo. Me da miedo que un préstamo de 25 años por los paneles me complique vender la casa." }
+        - { speaker: rep, text: "Gracias por decírmelo. Eso cambia lo que le voy a enseñar, y tres años alcanzan para decidir con calma. No le voy a prometer lo que un comprador pagaría por una casa con paneles. Lo que sí puedo hacer es conseguirle por escrito los términos del préstamo de Kestrela, incluido qué pasa con el préstamo si vende, y ponerle al lado el precio de contado, para que usted lo lea, sola o con su realtor." }
+        - { speaker: customer, text: "Eso me ayuda. Pensé que me iba a caer encima con eso." }
+        - { speaker: rep, text: "¿Podemos sentarnos otra vez el lunes a las 6:30? Le traigo los términos del préstamo por escrito y el estimado de contado, y usted trae las preguntas de su realtor." }
+        - { speaker: customer, text: "El lunes a las 6:30 me queda bien." }
+spanish_reviewed: false

@@ -1,0 +1,77 @@
+code: L-solar-payment
+scenario: S-solar-payment-L1
+title:
+  en: "\"The payment is too high\": ask his number, then what's in it"
+  es: "\"El pago está muy alto\": pregunte su número, y después qué hay adentro"
+hook:
+  en: He wanted solar to lower his bills, and your quote just added a bill. Before you touch a number, find out what he thinks he's paying for.
+  es: Él quería solar para bajar la cuenta de la luz, y su cotización le acaba de sumar otra cuenta. Antes de tocar un número, averigüe qué cree él que está pagando.
+what:
+  en: Ask what payment he had in mind. Then walk through what's in it, say plainly which parts are optional, and show the real estimates with and without them.
+  es: Pregunte qué pago tenía en mente. Después repase qué hay adentro, diga claramente qué partes son opcionales y enseñe los estimados reales con ellas y sin ellas.
+why:
+  en: Solar buyers hear a lot at the door before you sit down. Some were told a battery is required. A customer who thinks an add-on is mandatory won't ask to drop it; he'll just say the payment is high and leave. Your question is what gives him permission to tell you.
+  es: El cliente de solar oye mucho en la puerta antes de que usted se siente. A algunos les dijeron que la batería es obligatoria. El que piensa que algo es obligatorio no pide que se lo quiten; dice que el pago está alto y se va. Su pregunta es lo que le da permiso para decírselo.
+when:
+  en: When a financed quote includes an optional add-on and the payment is the objection.
+  es: Cuando una cotización financiada incluye un adicional opcional y la objeción es el pago.
+when_not:
+  en: Never stretch the term to hit his number without saying so, and never quote a payment that only works if a tax credit gets paid in.
+  es: Nunca alargue el plazo para llegar a su número sin decirlo, y nunca dé un pago que solo funciona si le entra un crédito de impuestos.
+say:
+  - en: Help me understand. When you say too high, what payment were you expecting?
+    es: Ayúdeme a entender. Cuando dice que está muy alto, ¿qué pago tenía en mente?
+  - en: Other than the payment, is the system itself right for your house?
+    es: Aparte del pago, ¿el sistema en sí es el correcto para su casa?
+  - en: That payment includes the home battery and the monitoring upgrade, and both are optional.
+    es: Ese pago incluye la batería y el monitoreo, y los dos son opcionales.
+  - en: I'll put both estimates in writing, with and without the battery, same term, subject to approval.
+    es: Le pongo los dos estimados por escrito, con la batería y sin ella, al mismo plazo, sujetos a la aprobación.
+mistakes:
+  - mistake:
+      en: '"That''s a great payment for everything you''re getting."'
+      es: '"Ese es un excelente pago por todo lo que lleva."'
+    fix:
+      en: You argued with his budget. Ask for his number.
+      es: Le discutió su presupuesto. Pregúntele su número.
+  - mistake:
+      en: Stretching the term until the payment fits.
+      es: Alargar el plazo hasta que el pago quepa.
+    fix:
+      en: First find out what's in the payment he doesn't want.
+      es: Primero averigüe qué hay en el pago que él no quiere.
+  - mistake:
+      en: Quoting a payment with the battery and never naming it.
+      es: Dar un pago con la batería y nunca nombrarla.
+    fix:
+      en: Name every add-on in the payment and say it's optional.
+      es: Nombre cada adicional del pago y diga que es opcional.
+concepts:
+  - name: { en: The pause, es: La pausa }
+    idea:
+      en: Let it land before you reach for the calculator.
+      es: Deje que caiga antes de buscar la calculadora.
+    items: [SOL-O03-PAUSE]
+  - name: { en: His number first, es: Primero su número }
+    idea:
+      en: His number tells you where to look.
+      es: Su número le dice dónde buscar.
+    items: [SOL-O03-QFIRST]
+  - name: { en: Right system, es: El sistema correcto }
+    idea:
+      en: Confirm the panels are right apart from the payment.
+      es: Confirme que los paneles son los correctos, aparte del pago.
+    items: [SOL-O03-ISOLATE]
+  - name: { en: What's in the payment, es: Qué hay en el pago }
+    idea:
+      en: Ask what he wants in it. Then say plainly what's optional.
+      es: Pregunte qué quiere ahí. Después diga claramente qué es opcional.
+    items: [SOL-O03-HIDDEN, SOL-O03-OPTIONAL]
+  - name: { en: "Two real estimates, then a time", es: "Dos estimados reales, y después la hora" }
+    idea:
+      en: With and without, same term, and a day to go over them.
+      es: Con y sin, al mismo plazo, y un día para revisarlos.
+    items: [SOL-O03-OPTIONS, SOL-O03-NEXT]
+sources:
+  - T001 Pause; T002 Clarify with a question; T005 Isolate; T110 Treat a hard demand as a clue; T121 Two-payment menu; T014 Firm next step
+spanish_reviewed: false

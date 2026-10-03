@@ -1,0 +1,197 @@
+code: S-solar-partner-L1
+module: solar-core
+industry: solar
+title:
+  en: "\"I need to talk to my husband\""
+  es: "\"Tengo que hablarlo con mi esposo\""
+setting:
+  en: Saturday morning, at the customer's kitchen table, at the end of an in-home solar consultation.
+  es: Sábado por la mañana, en la mesa de la cocina de la clienta, al final de una consulta de solar en su casa.
+persona: P-solar-partner
+objection: O01
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, owns her home in Kendall with her husband and two kids. Her husband works days and isn't here. You've gone through her last 12 electric bills, the roof layout, and a written quote for an 8.4 kW, 21-panel Lumacay Solar system: $24,600 all-in, permits and interconnection included, or an estimated $190 a month on a 25-year Kestrela Lending loan, subject to the lender's approval."
+  es: "{name}, de unos 45 años, es dueña de su casa en Kendall con su esposo y sus dos hijos. El esposo trabaja de día y no está. Usted revisó con ella sus últimas 12 facturas de la luz, el diseño del techo y una cotización por escrito de un sistema Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red, o un estimado de $190 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación del banco."
+opening:
+  en: I like it, but I need to talk to my husband before I sign anything.
+  es: Me gusta, pero tengo que hablarlo con mi esposo antes de firmar nada.
+# Solar mapped onto the facts schema (decision 0033): the "vehicle" is the quoted system; Lumacay Solar (installer)
+# and Kestrela Lending (lender) are fictional. No tax credit, utility savings or net-metering terms are facts here,
+# so none may be stated as true.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Lumacay Solar, model: Rooftop system, trim: "8.4 kW, 21 panels", stock: "Q-26-0418", in_stock: true }
+  price_cents: 2395000
+  dealer_fees: [{ code: permit_and_interconnection, cents: 65000 }]
+  government_charges_customer_pays: []
+  all_in_price_cents: 2460000
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 0  # a custom installation: no unit scarcity applies
+  trade: null
+  lender_state: not_applied
+  add_ons:
+    - { code: home_battery, name: { en: home battery, es: batería }, cents: 1190000, aliases: { en: [battery, backup battery], es: [batería de respaldo] } }
+    - { code: monitoring_upgrade, name: { en: monitoring upgrade, es: monitoreo }, cents: 45000, aliases: { en: [monitoring], es: [plan de monitoreo] } }
+  # Kestrela Lending's written estimate: 25 years, no money down, subject to approval.
+  payment_options:
+    - { code: quoted, cents: 19000, term_months: 300, apr_bps: 799 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    roof_age_years: 17
+    quoted_payment_cents: 19000
+    husband_home: Home after 5:30 on weekdays
+numbers_sheet: true
+target_techniques: [T001, T002, T005, T013, T014, T092, T003]
+rubric: R-objection
+scoring:
+  items:
+    - code: SOL-O01-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: SOL-O01-ACK
+      behavior:
+        en: "Acknowledged the joint decision without pushback"
+        es: "Reconoció la decisión en pareja sin presionar"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: SOL-O01-QFIRST
+      behavior:
+        en: "Asked what her husband will ask before offering any solution"
+        es: "Preguntó qué va a preguntar el esposo antes de ofrecer cualquier solución"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: SOL-O01-ISOLATE
+      behavior:
+        en: "Isolated the objection: checked the system and the numbers apart from the talk at home"
+        es: "Aisló la objeción: confirmó el sistema y los números aparte de la conversación en la casa"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: SOL-O01-HIDDEN
+      behavior:
+        en: "Surfaced the worry about the roof"
+        es: "Sacó a la luz la preocupación por el techo"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: SOL-O01-PARTNER
+      behavior:
+        en: "Offered to include her husband in the next visit"
+        es: "Ofreció incluir al esposo en la próxima visita"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Practitioner tradition (T013)"
+      technique: T013
+    - code: SOL-O01-NEXT
+      behavior:
+        en: "Set a specific day and time"
+        es: "Fijó un día y una hora específicos"
+      dimension: outcome
+      method: engine_and_judge
+      points: 10
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: belittled_partner
+      description:
+        en: "Belittled consulting her husband"
+        es: "Le restó importancia a consultar con el esposo"
+      method: judge
+    - code: promised_roof_is_fine
+      description:
+        en: "Said the roof is fine, or the panels are no problem on it, without an inspection"
+        es: "Dijo que el techo está bien, o que los paneles no son problema, sin inspeccionarlo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: the rep answered for the husband instead of asking about him, pushed for a signature tonight, and left with no next step."
+      es: "Fíjese: el vendedor contestó por el esposo en vez de preguntar por él, presionó para firmar esta noche y se fue sin un próximo paso."
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but I need to talk to my husband before I sign anything." }
+        - { speaker: rep, text: "Sure, but you're the one who sat through the whole presentation. You've seen the numbers, and you know it makes sense." }
+        - { speaker: customer, text: "I like it. I just don't want to sign anything without him." }
+        - { speaker: rep, text: "What if you sign tonight and tell him in the morning? The paperwork takes two minutes." }
+        - { speaker: customer, text: "I hear you. I still need to talk to him." }
+        - { speaker: rep, text: "Okay. Here's my card and the brochure. Let me know what he says." }
+        - { speaker: customer, text: "Sure. Thanks." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero tengo que hablarlo con mi esposo antes de firmar nada." }
+        - { speaker: rep, text: "Claro, pero usted fue la que se sentó toda la presentación. Ya vio los números, y ya sabe que tiene sentido." }
+        - { speaker: customer, text: "Me gusta. Es que no quiero firmar nada sin él." }
+        - { speaker: rep, text: "¿Y si firma esta noche y se lo cuenta a él en la mañana? Los papeles toman dos minutos." }
+        - { speaker: customer, text: "Lo entiendo. Igual tengo que hablarlo con él." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta y el folleto. Me avisa lo que él diga." }
+        - { speaker: customer, text: "Está bien. Gracias." }
+  good:
+    notice:
+      en: Notice the pause, the question about what her husband will ask first, and how the roof is settled with an inspection and a written result instead of a promise.
+      es: Fíjese en la pausa, en la pregunta sobre lo que el esposo va a preguntar primero, y en cómo lo del techo se resuelve con una inspección y un resultado por escrito en vez de una promesa.
+    script:
+      en:
+        - { speaker: customer, text: "I like it, but I need to talk to my husband before I sign anything." }
+        - { speaker: rep, text: "[pause] Of course. It's your home and a big decision, and you should both be comfortable with it. When you sit down with him tonight, what do you think his first question will be?" }
+        - { speaker: customer, text: "Probably the house. He has his own list of things it needs." }
+        - { speaker: rep, text: "That makes sense. Setting that conversation aside for a second, do the system and the numbers make sense to you?" }
+        - { speaker: customer, text: "The panels look good. And the bills are what they are." }
+        - { speaker: rep, text: "Then help me with his list. Is the roof one of the things he's worried about?" }
+        - { speaker: customer, text: "Honestly? The roof. It's about seventeen years old, and he keeps saying it needs replacing. I don't know what happens to the panels if we redo it later." }
+        - { speaker: rep, text: "I'm glad you said it, because that's exactly what to settle before anyone signs. I'm not going to guess about your roof. Our site survey checks it, and you both get the result in writing with the estimate. If the roof needs work first, you'll know before you decide." }
+        - { speaker: customer, text: "Okay. I'd rather know now than after." }
+        - { speaker: rep, text: "Could we do the site survey Thursday at 6, with him here? I'll go over the roof with both of you and bring the written estimate and your bills side by side." }
+        - { speaker: customer, text: "Thursday at 6 works. He'll be here." }
+      es:
+        - { speaker: customer, text: "Me gusta, pero tengo que hablarlo con mi esposo antes de firmar nada." }
+        - { speaker: rep, text: "[pausa] Claro que sí. Es su casa y es una decisión grande, y los dos tienen que sentirse cómodos. Cuando lo hablen esta noche, ¿qué cree que él le va a preguntar primero?" }
+        - { speaker: customer, text: "Seguro que por la casa. Él tiene su propia lista de cosas que le hacen falta." }
+        - { speaker: rep, text: "Tiene sentido. Dejando esa conversación a un lado un momento, ¿el sistema y los números tienen sentido para usted?" }
+        - { speaker: customer, text: "Los paneles se ven bien. Y las facturas de la luz son las que son." }
+        - { speaker: rep, text: "Entonces ayúdeme con la lista de él. ¿El techo es una de las cosas que le preocupan?" }
+        - { speaker: customer, text: "La verdad, el techo. Tiene como diecisiete años y él siempre dice que hay que cambiarlo. No sé qué pasa con los paneles si lo cambiamos después." }
+        - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que resolver antes de firmar. No voy a adivinar sobre su techo. Nuestra visita técnica lo revisa, y los dos reciben el resultado por escrito con el estimado. Si el techo necesita trabajo primero, lo van a saber antes de decidir." }
+        - { speaker: customer, text: "Está bien. Prefiero saberlo ahora y no después." }
+        - { speaker: rep, text: "¿Hacemos la visita técnica el jueves a las 6, con él aquí? Reviso el techo con los dos presentes y les traigo el estimado por escrito y sus facturas lado a lado." }
+        - { speaker: customer, text: "El jueves a las 6 nos sirve. Él va a estar." }
+spanish_reviewed: false

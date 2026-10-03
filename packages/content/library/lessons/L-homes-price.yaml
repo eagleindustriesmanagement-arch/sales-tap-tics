@@ -1,0 +1,73 @@
+code: L-homes-price
+scenario: S-homes-price-L1
+title:
+  en: "\"The price is too high\": ask \"compared to what?\""
+  es: "\"El precio está muy alto\": pregunte \"¿comparado con qué?\""
+hook:
+  en: He likes the house. His wife already picked the grandkids' room. And he says the price is too high. He's not haggling. He's comparing.
+  es: Le gusta la casa. Su esposa ya escogió el cuarto de los nietos. Y dice que el precio está muy alto. No está regateando. Está comparando.
+what:
+  en: Don't defend the price or cut it. Ask what he's comparing it to, confirm the house is right, then line both homes up on the same terms. A real incentive goes last, in writing.
+  es: No defienda el precio ni lo baje. Pregunte con qué lo está comparando, confirme que la casa es la correcta y ponga las dos casas lado a lado en los mismos términos. El incentivo real va al final, y por escrito.
+why:
+  en: '"Too high" always means "too high compared to something." Sometimes it''s another builder; here it''s a resale down the street with a lower list price. On paper it wins. But he hasn''t asked about the roof, the AC or the insurance. Run it down and you sound scared of it. Compare it fairly and he trusts your numbers.'
+  es: '"Muy alto" siempre quiere decir "muy alto comparado con algo". A veces es otro builder; aquí es una casa de reventa en la otra cuadra con un precio de lista más bajo. En el papel gana. Pero él no ha preguntado por el techo, el aire ni el seguro. Si habla mal de ella, suena a que le tiene miedo. Si la compara con justicia, él confía en sus números.'
+when:
+  en: A reasonable buyer who likes the home and says the price is high.
+  es: Un cliente razonable al que le gusta la casa y dice que el precio está alto, sin dar todavía un número propio.
+when_not:
+  en: Never invent facts about the other house. Tell him what to ask its seller and his insurance agent.
+  es: Nunca invente cosas de la otra casa. Dígale qué preguntarle a ese vendedor y a su agente de seguros.
+say:
+  - en: I hear you. It's a lot of money. Compared to what? What are you measuring it against?
+    es: Lo entiendo. Es mucho dinero. ¿Comparado con qué? ¿Con qué lo está comparando?
+  - en: Setting the price aside for a second, is this the right home for you two?
+    es: Dejando el precio a un lado un momento, ¿esta es la casa para ustedes dos?
+  - en: That's a fair comparison. Let's line them up the same way, price plus what each one will need.
+    es: Es una comparación justa. Pongámoslas lado a lado de la misma manera, el precio más lo que cada una va a necesitar.
+  - en: Have your insurance agent quote both addresses, and we'll put both houses on one page.
+    es: Pídale a su agente de seguros que le cotice las dos direcciones, y ponemos las dos casas en una sola página.
+mistakes:
+  - mistake:
+      en: '"Honestly, it''s a great price."'
+      es: '"La verdad, es un excelente precio."'
+    fix:
+      en: You argued before you understood. Ask "compared to what?"
+      es: Discutió antes de entender. Pregunte "¿comparado con qué?"
+  - mistake:
+      en: Running to see what you can knock off.
+      es: Salir corriendo a ver qué le puede bajar.
+    fix:
+      en: You cut the price against a house you haven't seen.
+      es: Acaba de bajar el precio contra una casa que no ha visto. Compare primero.
+  - mistake:
+      en: '"Old houses are money pits."'
+      es: '"Las casas viejas son un barril sin fondo."'
+    fix:
+      en: You don't know that house. Give him the questions, not the verdict.
+      es: Usted no conoce esa casa. Déle las preguntas, no el veredicto.
+concepts:
+  - name: { en: "Pause, don't argue", es: "Pausa, sin discutir" }
+    idea:
+      en: Let it land. No defense, no discount.
+      es: Deje que caiga. Ni defensa ni descuento.
+    items: [HOM-O04-PAUSE, HOM-O04-NOARGUE]
+  - name: { en: '"Compared to what?"', es: '"¿Comparado con qué?"' }
+    idea:
+      en: The question that brings out the comparison he hasn't shown you.
+      es: La pregunta que saca la comparación que él no le ha enseñado.
+    items: [HOM-O04-QFIRST, HOM-O04-HIDDEN]
+  - name: { en: The right house?, es: ¿La casa correcta? }
+    idea:
+      en: Confirm the home fits before you talk money again.
+      es: Confirme que la casa le sirve antes de volver a hablar de dinero.
+    items: [HOM-O04-ISOLATE]
+  - name: { en: Side by side, es: Lado a lado }
+    idea:
+      en: Same terms for both houses, real quotes, then a day and a time to put them on one page.
+      es: Los mismos términos para las dos casas, cotizaciones reales, y un día y una hora para ponerlas en una sola página.
+    items: [HOM-O04-SIDEBYSIDE, HOM-O04-NEXT]
+sources:
+  - T001 Pause and slow down; T003 Acknowledge; T017 Sell value before discounting; T005 Isolate; T086 Side-by-side; T028 Counter a low anchor by refocusing; T107 Real deadline on the table; T014 Specific next step
+  - Galinsky and Mussweiler (2001) on anchors, via T028
+spanish_reviewed: false

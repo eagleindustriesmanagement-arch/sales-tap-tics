@@ -1,0 +1,156 @@
+code: P-homes-advice
+name_pool:
+  en: [Linda, Patricia, Donna, Carol]
+  es: [Gladys, Marisol, Mirtha, Zuleima]
+age_range: 50-59
+temperament: [warm]
+temperament_note:
+  en: Warm, talkative, worn out by the choice. Trusts people more than brochures and wants someone to take a stand with her. Goes quiet when she feels sold to.
+  es: Cálida, conversadora, cansada de tanto decidir. Confía más en la gente que en los folletos y quiere que alguien se comprometa con ella. Se queda callada cuando siente que le están vendiendo.
+buyer_orientation: relationship
+situation:
+  en: Mid-50s, Venezuelan, an office manager in Doral. Divorced, lives with her college-age son in a rented apartment. She has a preapproval from her own lender. She has walked two finished homes at Cayo Verde Reserve twice and keeps going back and forth between the two-story Ceiba and the one-story Gumbo Limbo.
+  es: De unos 55 años, venezolana, gerente de oficina en Doral. Divorciada, vive alquilada con su hijo, que está en la universidad. Tiene una preaprobación de su propio lender. Ya recorrió dos veces las dos casas terminadas en Cayo Verde Reserve y no termina de decidirse entre la Ceiba de dos pisos y la Gumbo Limbo de un piso.
+stated_objection: O58
+stated_line:
+  en: What would you do if you were me?
+  es: ¿Usted qué haría si fuera yo?
+hidden_truth:
+  en: Her father, who is 81 and uses a walker, moves in with her in the spring. Every bedroom in the Ceiba is upstairs, and she has not said a word about him.
+  es: Su papá, que tiene 81 años y usa andador, se viene a vivir con ella en la primavera. En la Ceiba todos los cuartos están arriba, y ella no ha dicho nada de él.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\bwalker\b'
+    - '\b(my )?(dad|father|papi)\b'
+    - '\b(stairs|steps)\b'
+    - '\bmoves? in with me\b'
+  es:
+    - '\bandador\b'
+    - '\b(mi )?(papá|padre|papi)\b'
+    - '\bescaleras?\b'
+    - '\bse viene a vivir\b'
+unlock_conditions:
+  - code: asks_about_daily_life
+    description:
+      en: Asks who will live in the house, how a normal week would go there, or what the house has to make easy.
+      es: Pregunta quién va a vivir en la casa, cómo sería una semana normal ahí o qué le tiene que hacer fácil la casa.
+    cues:
+      en:
+        - '\bwho(''s| is)? (going to|gonna|will) (live|be living|stay)\b'
+        - '\bwho (else )?(lives|will live|is moving in) with you\b'
+        - '\b(walk|tell) me (through|about) (a |your )?(normal|typical|regular) (week|day)\b'
+        - '\bwhat (does|will|would) (the|this|your) house (have|need) to\b'
+        - '\bwhat(''s| is) (most important|the most important thing|the one thing)\b.{0,30}\b(to you|for you|you need)\b'
+      es:
+        - '\bquién(es)? (más )?(va|van) a vivir\b'
+        - '\bquién(es)? (más )?(vive|viven) con usted\b'
+        - '\b(cuénteme|dígame) cómo (es|sería) (una|su) semana (normal|típica)\b'
+        - '\bqué (tiene|necesita) que hacer(le)? (fácil )?la casa\b'
+        - '\bqué es lo (más importante|que más le importa)\b'
+  - code: asks_what_makes_it_hard
+    description:
+      en: Asks what is making the choice hard, or what pulls her toward each one.
+      es: Pregunta qué le hace difícil la decisión, o qué la atrae de cada una.
+    cues:
+      en:
+        - '\bwhat(''s| is) (making|keeping) (it|this|the choice|the decision) (so )?(hard|tough|difficult)\b'
+        - '\bwhat(''s| is) (pulling|pushing|drawing) you (toward|to)\b'
+        - '\bwhat (makes|made) you (hesitate|unsure|torn)\b'
+        - '\bwhat would make (one|either|it) (clearly )?(the )?(right|better|obvious)\b'
+      es:
+        - '\bqué (es lo que )?(le )?(hace|está haciendo) (tan )?(difícil|complicad[oa]) (decidir|escoger|elegir|la decisión)\b'
+        - '\bqué (le )?(jala|atrae|tira) (hacia|de) (cada|una|la otra)\b'
+        - '\bqué (la|lo) tiene (indecis[oa]|dudando)\b'
+        - '\bqué haría que (una|alguna) (fuera|sea) (la correcta|mejor)\b'
+walk_out_triggers:
+  - code: pressures_decision
+    description:
+      en: Tells her to just trust him and commit now, instead of owning the advice with a reason.
+      es: Le dice que confíe en él y se comprometa ya, en vez de hacerse responsable del consejo con una razón.
+    cues:
+      en:
+        - '\b(just )?trust me\b'
+        - '\b(put|leave) (down )?(the|a) deposit\b.{0,30}\b(today|tonight|now)\b'
+        - '\b(want|shall) (me|I) to write it up\b'
+      es:
+        - '\bconfíe en mí\b'
+        - '\b(deje|ponga) el depósito\b.{0,30}\b(hoy|ya|ahora)\b'
+        - '\bse (lo|la) (preparo|dejo escrit[oa])\b'
+  - code: piles_on_options
+    description:
+      en: Adds more homes or lots to compare when she is already torn between two.
+      es: Le agrega más casas o lotes para comparar cuando ya está indecisa entre dos.
+    cues:
+      en:
+        - '\bcompare (all|them all|every|the (three|four|five)|all (three|four|five))\b'
+        - '\blet me show you (all|every|a few more|some more|the others)\b'
+        - '\bshow you the \w+ and the [\w ]+ too\b'
+      es:
+        - '\bcompare (las|los) (tres|cuatro|cinco|todas|todos)\b'
+        - '\b(también|además) le (enseño|muestro)\b'
+  - code: refuses_to_advise
+    description:
+      en: Refuses to give an opinion ("That's not for me to say").
+      es: Se niega a dar una opinión ("Eso no me toca a mí decirlo").
+    cues:
+      en:
+        - '\bI can''?t (tell|answer) (you )?that\b'
+        - '\bthat''?s not (for me|my place) to (say|decide)\b'
+        - '\bit doesn''?t matter what I(''d| would) do\b'
+        - '\bonly you can (decide|answer|know)\b'
+      es:
+        - '\beso no (se )?(lo )?(le )?puedo (decir|contestar)\b'
+        - '\bno me toca (a mí )?(decir|decidir)\b'
+        - '\bsolo usted (puede|sabe)\b'
+        - '\bno importa lo que yo haría\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: Her father's move comes out, the rep gives one recommendation with a reason, and they set a day and time to walk both homes with him and his walker.
+    es: Sale a la luz que su papá se viene a vivir con ella, el vendedor da una recomendación con una razón, y fijan día y hora para recorrer las dos casas con él y su andador.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el closing", "el lender", "el down", "el walk-in closet"]
+register: usted
+voice_ids:
+  en: tbd-en-us-female-50s
+  es: tbd-es-miami-venezuelan-female-50s
+difficulty: 1
+variation:
+  moods: [chatty, tired after work, a little overwhelmed]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "I'm asking you. You see people buy houses every day.", es: "Le estoy preguntando a usted. Usted ve gente comprar casas todos los días." }
+    - { en: "They both look beautiful to me. That's the problem.", es: "Las dos me parecen preciosas. Ese es el problema." }
+    - { en: "I just don't want to choose wrong.", es: "Es que no quiero escoger mal." }
+  hint: { en: "Mostly it's me and my son. But I'm not only buying for us.", es: "Más que nada somos mi hijo y yo. Pero no estoy comprando solo para nosotros." }
+  after_hint: { en: "They both feel like home. That's why I can't decide.", es: "Las dos se sienten como mi casa. Por eso es que no me decido." }
+  reveal: { en: "It's my dad. He's 81, he uses a walker, and he moves in with me in the spring. In the Ceiba every bedroom is upstairs.", es: "Es mi papá. Tiene 81 años, usa andador, y se viene a vivir conmigo en la primavera. En la Ceiba todos los cuartos están arriba." }
+  after_reveal:
+    - { en: "That's what I needed. Someone to just tell me straight.", es: "Eso es lo que necesitaba. Que alguien me lo dijera claro." }
+    - { en: "Okay. That makes sense to me.", es: "Bueno. Eso tiene sentido." }
+  agree_next_step: { en: "Okay, that works. I'll bring him.", es: "Está bien, me funciona. Lo traigo." }
+  not_now: { en: "Not today. Thank you, though.", es: "Hoy no. Pero gracias." }
+  walk_away: { en: "I think I'll go home and think about it.", es: "Creo que me voy a la casa a pensarlo." }
+  goodbye: { en: "Thank you. Take care.", es: "Gracias. Que le vaya bien." }
+  react_to_pressure: { en: "I asked what you would do. That's not an answer.", es: "Le pregunté qué haría usted. Eso no es una respuesta." }
+spanish_reviewed: false

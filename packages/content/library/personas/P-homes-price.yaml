@@ -1,0 +1,154 @@
+code: P-homes-price
+name_pool:
+  en: [Robert, Richard, Steven, Mark]
+  es: [Ernesto, Raúl, Orlando, Rigoberto]
+age_range: 50-59
+temperament: [skeptical]
+temperament_note:
+  en: Reasonable and polite, careful with money. Not a haggler; he just needs the price to make sense against what he has seen. Goes cold if he feels argued with.
+  es: Razonable y educado, cuidadoso con el dinero. No es de regatear; solo necesita que el precio tenga sentido al lado de lo que ha visto. Se enfría si siente que le están llevando la contraria.
+buyer_orientation: task
+situation:
+  en: Late 50s, married, kids grown. He and his wife are selling their condo in Kendall and want a one-story home with a yard for when the grandkids visit. They have a preapproval from their own lender. They just walked a finished Gumbo Limbo on Lot 9, on the lake.
+  es: De unos 58 años, casado, con los hijos ya grandes. Él y su esposa están vendiendo su condominio en Kendall y quieren una casa de un solo piso con patio para cuando vengan los nietos. Tienen una preaprobación de su propio lender. Acaban de recorrer una Gumbo Limbo terminada en el Lote 9, frente al lago.
+stated_objection: O04
+stated_line:
+  en: The price is too high.
+  es: El precio está muy alto.
+hidden_truth:
+  en: Last weekend he toured a resale house in Cutler Bay, built in 2005, about the same size, listed at $549,000. He has not mentioned it, and he has not asked that seller anything about the roof, the AC or insurance.
+  es: El fin de semana pasado vio una casa de reventa en Cutler Bay, construida en 2005, más o menos del mismo tamaño, listada en $549,000. No lo ha mencionado, y no le ha preguntado nada a ese vendedor sobre el techo, el aire acondicionado ni el seguro.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\bresale\b'
+    - '\bcutler bay\b'
+    - '\blisted (at|for)\b'
+    - '\$\s?549\b'
+    - '\bfive forty-nine\b'
+    - '\b(older|used) (house|home)\b'
+  es:
+    - '\b(reventa|casa usada|de uso)\b'
+    - '\bcutler bay\b'
+    - '\b(listada|anunciada) (en|por)\b'
+    - '\$\s?549\b'
+    - '\bquinientos cuarenta y nueve\b'
+unlock_conditions:
+  - code: asks_comparison
+    description:
+      en: Asks what he is comparing the price to, or what other homes he has seen.
+      es: Pregunta con qué está comparando el precio, o qué otras casas ha visto.
+    cues:
+      en:
+        - '\bcompared (to|with) what\b'
+        - '\bwhat are you (comparing|measuring)\b'
+        - '\bwhat (else )?have you (seen|looked at|toured)\b'
+        - '\b(what|which)(''s| is| are)? the other (house|home|place|community)s?\b'
+        - '\bother (houses|homes|communities) (you(''ve| have| are)? )?(seen|looked at|toured|looking at)\b'
+        - '\bwhere else (have you|are you) (looked|looking)\b'
+      es:
+        - '\bcomparad[oa] con qué\b'
+        - '\bcon qué (lo|la) (está|anda) (comparando|midiendo)\b'
+        - '\bqué (otras casas|más) ha (visto|mirado)\b'
+        - '\bcuál es la otra casa\b'
+        - '\bdónde más (ha|está) (mirado|buscando|mirando)\b'
+  - code: asks_number_in_mind
+    description:
+      en: Asks what price he had in mind or what would feel fair, and why.
+      es: Pregunta qué precio tenía en mente o qué le parecería justo, y por qué.
+    cues:
+      en:
+        - '\bwhat (price|number) (did you have|do you have|were you expecting)\b'
+        - '\bwhat (price|number) (would|did) (feel|seem) (fair|right)\b'
+        - '\bwhat would (feel|seem) (fair|right) to you\b'
+      es:
+        - '\bqué (precio|número) (tenía|tiene) en mente\b'
+        - '\bqué (precio|número) le (parecería|parece) (justo|razonable)\b'
+walk_out_triggers:
+  - code: argues_price
+    description:
+      en: Argues that the price is fine instead of asking ("It's a great price").
+      es: Discute que el precio está bien en vez de preguntar ("Es un excelente precio").
+    cues:
+      en:
+        - '\b(great|good|fair|excellent|amazing) price\b'
+        - '\bworth every (penny|dollar)\b'
+        - '\b(it''s|that''s|it is|that is) not (that |really )?(high|expensive)\b'
+      es:
+        - '\b(buen|excelente|muy buen) precio\b'
+        - '\bvale cada (centavo|dólar|peso)\b'
+        - '\bno está (tan |muy )?(alto|caro)\b'
+  - code: discounts_first
+    description:
+      en: Offers to cut the price before asking a single question.
+      es: Ofrece bajar el precio antes de hacer una sola pregunta.
+    cues:
+      en:
+        - '\b(knock|take|shave) (something|some|a little|a bit)\b.{0,10}\boff\b'
+        - '\bsee what I can (do|knock off|take off)\b'
+        - '\blower the price\b'
+      es:
+        - '\b(le )?(bajo|rebajo|quito) (algo|un poco|un poquito)\b'
+        - '\bver qué (le )?puedo (bajar|rebajar|quitar|hacer)\b'
+        - '\bbajarle el precio\b'
+  - code: trashes_comparison
+    description:
+      en: Runs down the other house instead of comparing it fairly.
+      es: Habla mal de la otra casa en vez de compararla con justicia.
+    cues:
+      en:
+        - '\b(old|used|older) (houses?|homes?) (are|is) (a )?(money pits?|junk|nothing but problems)\b'
+        - '\byou don''?t want (a|an|that) (old|used|older) (house|home)\b'
+      es:
+        - '\b(las casas viejas|una casa vieja|esa casa vieja) (son|es) un barril sin fondo\b'
+        - '\bno (le )?conviene (una|esa) casa (vieja|usada)\b'
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b', '\bif you (leave|walk)\b.{0,40}\b(price|deal|offer|savings)\b.{0,20}\b(gone|go away|disappear)']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b', '\bsi se va\b.{0,40}\b(precio|oferta|descuento)\b.{0,20}\b(se pierde|ya no|desaparece)']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\b(put|leave) (down )?(the|a) deposit (down )?(today|now|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\bhoy\b', '\b(deje|ponga) el depósito (hoy|ahora|ya)\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: The resale comparison comes out, plus a firm day and time to put both houses side by side on the same terms.
+    es: Sale a la luz la comparación con la casa de reventa, más un día y una hora firmes para poner las dos casas lado a lado en los mismos términos.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el closing", "el lender", "el down", "el listing"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-50s
+  es: tbd-es-miami-cuban-male-50s
+difficulty: 1
+variation:
+  moods: [calm, a little tired from a day of open houses, his wife is still looking at the backyard]
+  amount_ranges: {}
+offline_lines:
+  deflect:
+    - { en: "It's just more than I want to pay for a house this size.", es: "Es que es más de lo que quiero pagar por una casa de este tamaño." }
+    - { en: "I'm not trying to haggle. It just seems high.", es: "No estoy tratando de regatear. Es que me parece alto." }
+    - { en: "I like it. The price is the problem.", es: "Me gusta. El problema es el precio." }
+  hint: { en: "Let's just say I've been looking at other houses too.", es: "Digamos que he estado mirando otras casas también." }
+  after_hint: { en: "The house is great. My wife already picked the room for the grandkids.", es: "La casa está muy bien. Mi esposa ya escogió el cuarto de los nietos." }
+  reveal: { en: "Okay. There's a resale in Cutler Bay, about the same size, built in 2005, listed at $549,000. Why would I pay more here?", es: "Bueno. Hay una casa de reventa en Cutler Bay, más o menos del mismo tamaño, construida en 2005, listada en $549,000. ¿Por qué voy a pagar más aquí?" }
+  after_reveal:
+    - { en: "That's fair. Nobody had put it to me that way.", es: "Me parece justo. Nadie me lo había planteado así." }
+    - { en: "Okay. If the numbers on paper make sense, I can move.", es: "Está bien. Si los números en papel tienen sentido, yo me muevo." }
+  agree_next_step: { en: "Okay, that works. I'll bring the quotes.", es: "Está bien, me funciona. Traigo las cotizaciones." }
+  not_now: { en: "Not today. Thanks, though.", es: "Hoy no. Pero gracias." }
+  walk_away: { en: "I think we're going to go.", es: "Creo que nos vamos a ir." }
+  goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }
+  react_to_pressure: { en: "I'm not asking for a deal. I'm asking why it costs this much.", es: "No le estoy pidiendo una rebaja. Le estoy preguntando por qué cuesta tanto." }
+spanish_reviewed: false
