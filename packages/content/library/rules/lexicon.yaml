@@ -71,7 +71,8 @@ tie_downs:
   es: [", ¿verdad\\?", ", ¿no\\?", ", ¿cierto\\?", "¿no es así\\?", "¿no cree\\?"]
 # A specific day and time for a next step (U-NEXT, T014).
 next_step_time:
-  en: ["\\b(at )?\\d{1,2}(:\\d{2})?\\s?(am|pm|a\\.m\\.|p\\.m\\.)?\\b.*\\b(today|tomorrow|tonight|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b", "\\b(today|tomorrow|tonight|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b.*\\b\\d{1,2}(:\\d{2})\\b", "\\b(today|tomorrow|monday|tuesday|wednesday|thursday|friday|saturday|sunday) at \\d{1,2}"]
+  # A time is "at 5", "around 5", "5:30" or "5 pm" (not any small number: "$38,450 ... Saturday" is not a time).
+  en: ["(\\b(at|around|by) \\d{1,2}(:\\d{2})?|(?<![\\d$,.])\\d{1,2}:\\d{2}|(?<![\\d$,.])\\d{1,2}\\s?(am|pm|a\\.m\\.|p\\.m\\.))\\b.*\\b(today|tomorrow|tonight|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b", "\\b(today|tomorrow|tonight|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b.*\\b\\d{1,2}(:\\d{2})\\b", "\\b(today|tomorrow|monday|tuesday|wednesday|thursday|friday|saturday|sunday) at \\d{1,2}"]
   es: ["\\b(hoy|mañana|lunes|martes|miércoles|jueves|viernes|sábado|domingo)\\b.*\\b(a las|las) \\d{1,2}(:\\d{2})?", "\\ba las \\d{1,2}(:\\d{2})?\\b.*\\b(hoy|mañana|lunes|martes|miércoles|jueves|viernes|sábado|domingo)\\b", "\\b(cinco|seis|siete|ocho|nueve|diez|once|doce|una|dos|tres|cuatro) y media\\b"]
 # Someone else's claim being reported or questioned ("another dealer told you GAP was required"). Breaks a pattern
 # match on rules with attribution_breaks, and stops a reported number from counting as the rep's own price.

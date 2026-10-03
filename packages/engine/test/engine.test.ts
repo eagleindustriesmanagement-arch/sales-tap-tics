@@ -249,3 +249,17 @@ describe("demonstrations exercise the engine the way they teach (every scenario,
     }
   }
 });
+
+describe("a proposed time is a time, not any small number", () => {
+  const time = (text: string, language: "en" | "es" = "en") => detectFromCues({ text, language, persona, lexicon }).proposesTime;
+  it("reads real times before or after a day", () => {
+    expect(time("Does tomorrow at 5:30 work?")).toBe(true);
+    expect(time("Come by at 10 on Saturday.")).toBe(true);
+    expect(time("I can do 6 pm tomorrow.")).toBe(true);
+    expect(time("¿Le queda bien el sábado a las 10?", "es")).toBe(true);
+  });
+  it("does not read a price or a count next to a day as an appointment", () => {
+    expect(time("It's $38,450 all in, and that holds through Saturday's appointment if you want it.")).toBe(false);
+    expect(time("You have 2 options to look at before Monday.")).toBe(false);
+  });
+});
