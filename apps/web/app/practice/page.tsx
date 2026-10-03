@@ -28,7 +28,7 @@ export default async function Practice() {
   }));
   const list = practiceList(lib);
   const now = new Date();
-  const inputs = scheduleInputs(lib, weights);
+  const inputs = scheduleInputs(lib, weights, user.industry);
   const next = dailyPlan({ now, startedAt: past.startedAt, history: past.history, assignments: assigned.map((a) => ({ scenarioCode: a.scenarioCode, assignedBy: a.assignedByName, reason: a.reason, dueAt: a.dueAt })), ...inputs, userId: user.id })[0]?.scenarioCode;
   // Certification opens once onboarding has met every release 1 scenario (spec 15.2).
   const tried = new Set(past.history.map((o) => o.scenarioCode));
@@ -39,7 +39,9 @@ export default async function Practice() {
   const core = list.filter((s) => release1.has(s.code)).map((s) => lib.scenarios.get(s.code)!);
   const more = list.filter((s) => !release1.has(s.code)).map((s) => lib.scenarios.get(s.code)!);
   const levels = [...new Set(core.map((s) => s.difficulty))].sort();
-  const topics = [...new Set(more.map((s) => s.module))].sort((a, b) => topicRank(a) - topicRank(b));
+  // The rep's own industry's customers come first (decision 0033); the other industries follow the car topics.
+  const own = `${user.industry}-core`;
+  const topics = [...new Set(more.map((s) => s.module))].sort((a, b) => Number(b === own) - Number(a === own) || topicRank(a) - topicRank(b));
   const row = (s: Scenario, i: number, all: Scenario[]) => {
     const p = progress.get(s.code);
     const cert = certificationState(s.code, past.history, now);
@@ -123,7 +125,7 @@ export default async function Practice() {
   );
 }
 
-const TOPICS = ["car-core", "car-phone-finance", "car-market-2026", "car-ev", "car-language-trust", "car-miami-indecision"] as const;
+const TOPICS = ["car-core", "car-phone-finance", "car-market-2026", "car-ev", "car-language-trust", "car-miami-indecision", "homes-core", "solar-core", "furniture-core"] as const;
 function topicRank(module: string) {
   const i = TOPICS.indexOf(module as (typeof TOPICS)[number]);
   return i === -1 ? TOPICS.length : i;

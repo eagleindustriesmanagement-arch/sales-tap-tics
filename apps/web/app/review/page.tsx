@@ -14,7 +14,7 @@ export default async function Review() {
   const lib = library();
   const reviews = await asUser(principalOf(user), (db) => listSpanishReviews(db));
   const row = (code: string) => ({ code, title: lib.scenarios.get(code)!.title[lang], ...reviewProgress(code, reviews) });
-  const all = scheduleInputs(lib).scenarios;
+  const all = scheduleInputs(lib, {}, "all").scenarios;
   const rows = all.filter((s) => s.release1).map((s) => row(s.code));
   // Release 2 customers: reviewed the same way, but release 1 does not wait on them (spec 16.3 item 4).
   const later = all.filter((s) => !s.release1).map((s) => row(s.code)).sort((a, b) => a.title.localeCompare(b.title, lang));

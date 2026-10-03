@@ -134,7 +134,7 @@ export function crossReference(library: Library): Finding[] {
     if (!l.spanish_reviewed) warn(l.code, "Spanish not yet reviewed by a native speaker");
   }
   for (const s of library.scenarios.values()) {
-    if (library.objections.get(s.objection)?.release_1 && !lessonFor.has(s.code)) warn(s.code, "certification scenario has no lesson yet (decision 0031)");
+    if (s.industry === "cars" && library.objections.get(s.objection)?.release_1 && !lessonFor.has(s.code)) warn(s.code, "certification scenario has no lesson yet (decision 0031)");
   }
 
   for (const m of library.modules.values()) {

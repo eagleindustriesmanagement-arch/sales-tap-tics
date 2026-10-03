@@ -5,7 +5,8 @@ const library = platformLibrary();
 
 describe("lessons (decision 0031)", () => {
   it("every certification scenario opens with a lesson", () => {
-    const certification = [...library.scenarios.values()].filter((s) => library.objections.get(s.objection)?.release_1);
+    // The certification path is the car path (decision 0033): other industries reuse the objections, not the path.
+    const certification = [...library.scenarios.values()].filter((s) => s.industry === "cars" && library.objections.get(s.objection)?.release_1);
     expect(certification).toHaveLength(20);
     const taught = new Set([...library.lessons.values()].map((l) => l.scenario));
     expect(certification.map((s) => s.code).filter((c) => !taught.has(c))).toEqual([]);

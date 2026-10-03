@@ -7,7 +7,7 @@ import { IconBulb, IconCheck, IconClock, IconFlame, IconPlay, IconTarget, IconTr
 import { Card, Chip, Inset, ListRow, Ring, RowGroup, ScoreBadge, SectionTitle, buttonClass, quoted, titleClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
-import { language, library, scheduleInputs } from "@/lib/server";
+import { hasIndustry, language, library, scheduleInputs } from "@/lib/server";
 
 const DAILY_GOAL = 1;
 const TZ = "America/New_York";
@@ -32,7 +32,7 @@ export default async function Today() {
     weights: user.storeId ? await currentObjectionWeights(db, user.storeId) : {},
   }));
   const now = new Date();
-  const inputs = scheduleInputs(lib, weights);
+  const inputs = scheduleInputs(lib, weights, user.industry);
   const card = cards[0] ? lib.behaviorCards.get(cards[0].cardCode) : undefined;
   // Spec 15.3: assignments first, then compliance, onboarding, certification and due items.
   const plan = dailyPlan({
@@ -70,7 +70,7 @@ export default async function Today() {
       </header>
 
       {/* Honest about what exists (decision 0032): the techniques are universal; the customers are car buyers for now. */}
-      {user.industry !== "cars" && (
+      {user.industry !== "cars" && !hasIndustry(user.industry, lib) && (
         <p className="liquid-glass-inset rounded-[0.875rem] p-3 text-[15px] text-ink" data-testid="industry-note">
           {t("industry.comingSoon", lang, { industry: t(`industry.${user.industry}` as "industry.homes", lang).toLowerCase() })}
         </p>

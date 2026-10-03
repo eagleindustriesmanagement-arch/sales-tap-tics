@@ -226,15 +226,24 @@ export function endOfDayInStore(date: string, timeZone = "America/New_York"): Da
  * store's objection weights from its lost-deal reasons (spec 19.2 item 2, decision 0018); they multiply the authored
  * weight.
  */
-export function scheduleInputs(lib = library(), storeWeights: Record<string, number> = {}) {
-  const scenarios: ScenarioMeta[] = [...lib.scenarios.values()]
-    .filter((s) => s.status === "active")
-    .map((s) => {
-      const o = lib.objections.get(s.objection);
-      return { code: s.code, objection: s.objection, difficulty: s.difficulty, weight: (o?.frequency_weight ?? 1) * (storeWeights[s.objection] ?? 1), release1: o?.release_1 ?? false };
-    });
+export function scheduleInputs(lib = library(), storeWeights: Record<string, number> = {}, industry: string = "cars") {
+  // A rep is scheduled their own industry's customers (decision 0033); an industry with none yet falls back to cars.
+  // "all" is for screens that list everything (the Spanish review). Certification is the car path only.
+  const active = [...lib.scenarios.values()].filter((s) => s.status === "active");
+  const mine = industry === "all" ? active : active.filter((s) => s.industry === industry);
+  const pool = mine.length > 0 ? mine : active.filter((s) => s.industry === "cars");
+  const scenarios: ScenarioMeta[] = pool.map((s) => {
+    const o = lib.objections.get(s.objection);
+    return { code: s.code, objection: s.objection, difficulty: s.difficulty, weight: (o?.frequency_weight ?? 1) * (storeWeights[s.objection] ?? 1), release1: (o?.release_1 ?? false) && s.industry === "cars" };
+  });
   const itemsByScenario = new Map([...lib.scenarios.values()].map((s) => [s.code, (s.scoring?.items ?? []).map((i) => i.code)]));
   return { scenarios, itemsByScenario };
+}
+
+/** Whether the library has role-play customers for an industry yet (decision 0033). */
+export function hasIndustry(industry: string, lib = library()) {
+  for (const s of lib.scenarios.values()) if (s.industry === industry && s.status === "active") return true;
+  return false;
 }
 
 /** The lesson read before a scenario (decision 0031), if it has one. */
