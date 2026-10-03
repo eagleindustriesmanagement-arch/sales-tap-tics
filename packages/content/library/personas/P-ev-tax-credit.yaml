@@ -1,0 +1,143 @@
+code: P-ev-tax-credit
+name_pool:
+  en: [Robert, David, Mark, Richard]
+  es: [Ernesto, Raúl, Jorge, Manuel]
+age_range: 60-69
+temperament: [skeptical]
+temperament_note:
+  en: Skeptical and well read. Did his homework and expects a salesman to pretend the credit still exists. Warms up fast to someone who tells him the truth first.
+  es: Desconfiado y bien informado. Hizo su tarea y espera que el vendedor le haga creer que el crédito todavía existe. Entra en confianza rápido con alguien que le dice la verdad primero.
+buyer_orientation: task
+situation:
+  en: Early 60s, retired Miami-Dade firefighter in Westchester, married. Has wanted a Blazer EV since last year, has a garage and charges at home, mostly drives around town. Paying with savings and a small loan. Good credit. No trade; his old pickup stays with him.
+  es: De unos 62 años, bombero retirado de Miami-Dade, vive en Westchester, casado. Quiere una Blazer EV desde el año pasado, tiene garaje y carga en la casa, y casi siempre maneja por la ciudad. Va a pagar con sus ahorros y un préstamo pequeño. Buen crédito. Sin trade-in; se queda con su pickup viejo.
+stated_objection: O44
+stated_line:
+  en: There's no tax credit anymore. I read it. So don't tell me there is.
+  es: Ya no hay crédito federal. Yo lo leí. Así que no me diga que sí.
+hidden_truth:
+  en: He was counting on the $7,500 credit to bring the Blazer EV close to his limit. Without it, his real limit is $42,000 before tax, and he has not said it because he does not want to be stretched or steered.
+  es: Contaba con el crédito de $7,500 para que la Blazer EV le quedara cerca de su límite. Sin el crédito, su límite real es $42,000 antes de impuestos, y no lo ha dicho porque no quiere que lo estiren ni que lo lleven por donde no quiere.
+# Phrases that would give the hidden truth away before an unlock.
+hidden_truth_markers:
+  en:
+    - '\$?42,000\b'
+    - '\bforty[- ]two (thousand|grand)\b'
+    - '\b(my )?(limit|budget|ceiling)\b'
+    - '\bbefore tax\b'
+    - '\b(can''t|cannot|won''t) go (over|past|above)\b'
+  es:
+    - '\$?42,000\b'
+    - '\bcuarenta y dos mil\b'
+    - '\b(mi )?(límite|presupuesto|tope)\b'
+    - '\bantes de impuestos\b'
+    - '\bno me (puedo|voy a) pasar\b'
+unlock_conditions:
+  - code: asks_what_the_credit_meant
+    description:
+      en: Asks what the credit was going to do for him, or what losing it changes in his plan.
+      es: Pregunta qué iba a hacer el crédito por él, o qué le cambia en su plan no tenerlo.
+    cues:
+      en:
+        - '\bwhat was (the|that) credit (going to|gonna|supposed to) do\b'
+        - '\bwhat (did|does|would) (the|that) credit (mean|do|change)\b'
+        - '\bhow (were|was) you (planning|going) to use (the|that) credit\b'
+        - '\bwhat does (losing|not having) (the|that) credit change\b'
+      es:
+        - '\bqué (iba a hacer|hacía|significaba|le resolvía) (ese|el) crédito\b'
+        - '\bcómo (pensaba|iba a) usar (ese|el) crédito\b'
+        - '\bqué le cambia (no tener|perder) (ese|el) crédito\b'
+        - '\bpara qué (iba a usar|era) (ese|el) crédito\b'
+  - code: asks_his_number
+    description:
+      en: Asks what price or budget he needs to stay under.
+      es: Pregunta cuál es el precio o el presupuesto que no puede pasar.
+    cues:
+      en:
+        - '\bwhat (price|number|budget) do you need to (stay|be) (under|at|below)\b'
+        - '\bwhat(''s| is) your (budget|limit|number|ceiling)\b'
+        - '\bwhere do you need (it|the price|to be)\b'
+        - '\bhow much (were you|are you) (planning|looking|wanting) to spend\b'
+      es:
+        - '\bcuál es su (presupuesto|límite|número|tope)\b'
+        - '\bqué (precio|número) (necesita|tiene que) (no pasar|estar por debajo)\b'
+        - '\bhasta cuánto (quiere|puede|piensa) (gastar|llegar)\b'
+walk_out_triggers:
+  - code: implies_credit_exists
+    description:
+      en: Implies the credit still exists or that he can still get it.
+      es: Da a entender que el crédito todavía existe o que todavía lo puede recibir.
+    cues:
+      en:
+        - '\b(you''ll|you will|you can|you could|we can) still (get|claim|qualify for|use) (the |a |that )?(tax )?credit\b'
+        - '\bthere(''s| is) still (a |the )?(federal |tax )?credit\b'
+        - '\b(the )?credit (is )?(still (there|available|good)|came back)\b'
+        - '\bdon''t believe everything you read\b'
+      es:
+        - '\btodavía (hay|existe|aplica|le (dan|toca))\b.{0,20}\bcrédito\b'
+        - '\b(puede|va a) (coger|recibir|sacar|reclamar|usar) (todavía )?(el|un) crédito\b'
+        - '\bel crédito (todavía|sigue)\b'
+        - '\bno se crea todo lo que lee\b'
+  - code: dodges_the_question
+    description:
+      en: Dodges his question instead of confirming it ("Don't worry about the tax stuff").
+      es: Esquiva la pregunta en vez de confirmarla ("No se preocupe por eso de los impuestos").
+    cues:
+      en: ['\bdon''t worry about (the )?(tax|credit)', '\bthat''?s (for|up to) your accountant\b']
+      es: ['\bno se preocupe por (eso de )?(los impuestos|el crédito)\b', '\beso es cosa de su contador\b']
+  - code: piles_on_options
+    description:
+      en: Adds pricier vehicles instead of finding out what the credit meant to him.
+      es: Le echa encima carros más caros en vez de averiguar qué significaba el crédito para él.
+    cues:
+      en: ['\b(also|too) (look at|see|show you)\b.{0,30}\b(Silverado|Tahoe|Suburban|others?)\b', '\blet me show you (all|every|a few more|some more|the others)\b']
+      es: ['\b(también|además) (le )?(enseño|muestro)\b.{0,30}\b(Silverado|Tahoe|Suburban|otr[oa]s?)\b', '\b(le enseño|le muestro) (todas|todos|unas cuantas|otras|otros)\b']
+  - code: fake_today_price
+    description:
+      en: Makes up a today-only price or deadline.
+      es: Inventa un precio o una fecha límite solo para hoy.
+    cues:
+      en: ['\b(today|tonight|right now) only\b', '\bonly (good|valid) (today|tonight)\b', '\b(price|deal)\b.{0,20}\b(goes up|won''?t be (here|there)|is gone) tomorrow\b']
+      es: ['\bsolo (por )?hoy\b', '\bmañana (ya )?(no|sube)\b']
+  - code: third_push
+    description:
+      en: Pushes for a decision a third time after two refusals.
+      es: Insiste por tercera vez después de dos negativas.
+    min_hits: 3
+    cues:
+      en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\btake it home (today|tonight)\b', '\bwhy not (today|now)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya)\b', '\bdejémoslo (escrito|hecho)\b', '\bllévese(lo|la)? hoy\b', '\bpor qué no (hoy|ahora)\b']
+win_condition:
+  description:
+    en: His real limit comes out, plus a firm day and time to drive an option that fits it, with prices and current incentives in writing.
+    es: Sale a la luz su límite real, más un día y una hora firmes para manejar una opción que le quepa, con los precios y los incentivos actuales por escrito.
+  requires_all: [hidden_revealed]
+  requires_any: [next_step]
+language:
+  preferred: es
+  mixes_when_rep_mixes: true
+  everyday_terms: ["el dealer", "el down"]
+register: usted
+voice_ids:
+  en: tbd-en-us-male-60s
+  es: tbd-es-miami-caribbean-male-60s
+difficulty: 1
+variation:
+  moods: [testy, calm but watchful, holding a printed news article]
+offline_lines:
+  deflect:
+    - { en: "I read it in the paper. The credit is gone.", es: "Lo leí en el periódico. El crédito se acabó." }
+    - { en: "Every salesman I've talked to dances around it.", es: "Todos los vendedores con los que he hablado le dan vueltas al tema." }
+    - { en: "That $7,500 was the whole reason I waited for an EV.", es: "Esos $7,500 eran la razón por la que esperé para un eléctrico." }
+  hint: { en: "It was what made the numbers work. Now they don't.", es: "Era lo que hacía que los números funcionaran. Ahora no funcionan." }
+  after_hint: { en: "I still want an EV. I charge at home and I'm done with gas stations.", es: "Todavía quiero un eléctrico. Cargo en la casa y ya me cansé de las gasolineras." }
+  reveal: { en: "$42,000, before tax. With the credit, the Blazer got close. Without it, it doesn't, and I didn't want to get stretched or steered.", es: "$42,000, antes de impuestos. Con el crédito, la Blazer quedaba cerca. Sin él, no, y no quería que me estiraran ni que me llevaran por donde no quiero." }
+  after_reveal:
+    - { en: "Okay. At least you didn't pretend. I'd like to drive the Equinox EV.", es: "Está bien. Por lo menos usted no me vino con cuentos. Me gustaría manejar la Equinox EV." }
+    - { en: "Good. I want it in writing.", es: "Bien. Lo quiero por escrito." }
+  agree_next_step: { en: "That works. I'll bring my wife.", es: "Me funciona. Traigo a mi esposa." }
+  not_now: { en: "Not today. I'll keep reading.", es: "Hoy no. Voy a seguir leyendo." }
+  walk_away: { en: "I'm done here.", es: "Hasta aquí llegué." }
+  goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }
+  react_to_pressure: { en: "I asked you a straight question. Answer it.", es: "Le hice una pregunta clara. Contésteme." }
+spanish_reviewed: false

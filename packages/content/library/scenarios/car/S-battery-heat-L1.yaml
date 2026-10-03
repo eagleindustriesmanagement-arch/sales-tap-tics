@@ -1,0 +1,188 @@
+code: S-battery-heat-L1
+module: car-phone-finance
+title:
+  en: "\"Will the battery die in this heat?\""
+  es: "\"¿La batería se daña con este calor?\""
+setting:
+  en: Tuesday afternoon, in the parking lot, right after the test drive. It is 91 degrees.
+  es: Martes por la tarde, en el parqueo, justo después de la prueba de manejo. Hace 91 grados.
+persona: P-battery-heat
+objection: O48
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 30s, ICU nurse, lives in Doral and can charge in her garage at home. She just drove the 2026 Equinox EV LT: $36,294 out the door, which includes your $899 dealer fee; only tax, tag and title are added. Chevrolet's warranty booklet for this car, with its battery coverage, is in your system to print. You have no battery figures of your own to quote: if she wants numbers, show her the paperwork."
+  es: "{name}, de unos 32 años, enfermera de cuidados intensivos, vive en Doral y puede cargar en el garaje de su casa. Acaba de manejar la Equinox EV LT 2026: $36,294 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. El folleto de garantía de Chevrolet para este carro, con la cobertura de la batería, está en su sistema para imprimirlo. Usted no tiene cifras propias de la batería para dar: si ella quiere números, enséñele los papeles."
+opening:
+  en: Will the battery die in this heat?
+  es: ¿La batería se daña con este calor?
+facts:
+  session_date: "2026-10-06"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox EV, trim: LT, color: Sterling Gray Metallic, stock: "6377", in_stock: true }
+  price_cents: 3539500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3629400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    work_parking: Open top level of the hospital garage, full sun, no charger
+    shifts: Three 12-hour shifts a week
+    home_charging: Can charge in her garage at home
+    free_saturday: Off Saturday; free from 9:00
+numbers_sheet: false
+target_techniques: [T001, T003, T002, T005, T073, T094, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O48-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O48-ACK
+      behavior:
+        en: "Treated the heat question as a fair one, without brushing it off"
+        es: "Trató la pregunta del calor como una pregunta válida, sin quitarle importancia"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O48-QFIRST
+      behavior:
+        en: "Asked what made her ask before answering"
+        es: "Preguntó qué la hizo preguntar antes de contestar"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O48-ISOLATE
+      behavior:
+        en: "Checked whether the Equinox EV is the right car, apart from the heat"
+        es: "Confirmó si la Equinox EV es el carro para ella, aparte del calor"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O48-HIDDEN
+      behavior:
+        en: "Surfaced where the car sits all day while she works"
+        es: "Sacó a la luz dónde se queda el carro todo el día mientras ella trabaja"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O48-STRAIGHT
+      behavior:
+        en: "Was straight that heat costs batteries a little, promised nothing beyond that, and offered the written battery warranty instead of reassurance"
+        es: "Le habló claro: el calor afecta un poco la batería; no prometió nada más y ofreció la garantía de la batería por escrito en vez de decirle que no se preocupe"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Geotab, 22,700 EVs (T073); only real, showable protections (T094)"
+      technique: T073
+    - code: O48-NEXT
+      behavior:
+        en: "Set a specific day and time to go over the paperwork and drive her real route"
+        es: "Fijó un día y una hora específicos para revisar los papeles y manejar su ruta de verdad"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: invented_battery_facts
+      description:
+        en: "Promised the battery will be fine in the heat, or quoted warranty terms, range or battery figures without showing them in writing"
+        es: "Prometió que la batería va a estar bien con el calor, o dio términos de garantía, autonomía o cifras de la batería sin enseñarlos por escrito"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed off the heat with a promise he cannot show, called her worry common, and tried to change the subject to another car. He never asked what made her ask."
+      es: "Fíjese: le quitó importancia al calor con una promesa que no puede demostrar, le dijo que su preocupación es de todo el mundo y trató de cambiar el tema a otro carro. Nunca le preguntó qué la hizo preguntar."
+    script:
+      en:
+        - { speaker: customer, text: "Will the battery die in this heat?" }
+        - { speaker: rep, text: "Oh, don't worry about the heat. Everybody asks that." }
+        - { speaker: customer, text: "Please don't brush it off. That's why I'm asking." }
+        - { speaker: rep, text: "Honestly, if you're nervous about EVs, let me also show you the Trax. Same family, and it runs on gas." }
+        - { speaker: customer, text: "I've heard batteries hate heat." }
+        - { speaker: rep, text: "Let's just write it up on the Equinox EV, and you'll see for yourself." }
+        - { speaker: customer, text: "Not today. I need to read more." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me when you're ready." }
+      es:
+        - { speaker: customer, text: "¿La batería se daña con este calor?" }
+        - { speaker: rep, text: "Ay, no se preocupe por el calor. Todo el mundo pregunta eso." }
+        - { speaker: customer, text: "Por favor, no le quite importancia. Por eso es que pregunto." }
+        - { speaker: rep, text: "Mire, si los eléctricos la ponen nerviosa, también le enseño la Trax. La misma familia, y es de gasolina." }
+        - { speaker: customer, text: "Yo he oído que a las baterías no les gusta el calor." }
+        - { speaker: rep, text: "Dejémoslo escrito en la Equinox EV, y usted misma va a ver." }
+        - { speaker: customer, text: "Hoy no. Necesito leer más." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Llámeme cuando esté lista." }
+  good:
+    notice:
+      en: "Notice that he asks what is behind the question before answering, is straight that heat costs batteries a little, and offers Chevrolet's paperwork instead of his own promise."
+      es: "Fíjese en que pregunta qué hay detrás de la pregunta antes de contestar, le habla claro de que el calor afecta un poco la batería y le ofrece los papeles de Chevrolet en vez de una promesa suya."
+    script:
+      en:
+        - { speaker: customer, text: "Will the battery die in this heat?" }
+        - { speaker: rep, text: "[pause] That's a fair question, and down here you should ask it. Before I answer, what made you ask?" }
+        - { speaker: customer, text: "It's more about where the car would spend its day." }
+        - { speaker: rep, text: "Okay. Apart from the heat, is the Equinox EV the right car for you?" }
+        - { speaker: customer, text: "I like it a lot. The heat is the only thing holding me back." }
+        - { speaker: rep, text: "Then walk me through a normal workday. Where does the car sit while you're at work?" }
+        - { speaker: customer, text: "I'm a nurse. Three 12-hour shifts a week, and I park on the open top level of the hospital garage, full sun, no charger. I'm afraid it'll bake all day and wear the battery out." }
+        - { speaker: rep, text: "Thank you, that's exactly the right thing to ask about. I'll be straight with you: heat costs batteries a little down here, a bit more than in cooler places, and charging at home is the best habit. I'm not going to promise you more than that. What I can do is print Chevrolet's battery warranty for this car, so you read the years, the miles and what it covers yourself, and we'll go through what the owner's manual says about parking in the heat, together." }
+        - { speaker: customer, text: "That's more honest than I expected. I'd like to read it myself." }
+        - { speaker: rep, text: "Can you come in Saturday at 10:00? I'll have the warranty pages and the manual section printed, and the car charged so you can drive your real route to the hospital." }
+        - { speaker: customer, text: "Saturday at 10:00 works. I'll bring my questions." }
+      es:
+        - { speaker: customer, text: "¿La batería se daña con este calor?" }
+        - { speaker: rep, text: "[pausa] Es una pregunta válida, y aquí en Miami hay que hacerla. Antes de contestarle, ¿qué la hizo preguntar?" }
+        - { speaker: customer, text: "Es más bien por dónde se quedaría el carro durante el día." }
+        - { speaker: rep, text: "Bien. Aparte del calor, ¿la Equinox EV es el carro para usted?" }
+        - { speaker: customer, text: "Me gusta mucho. El calor es lo único que me frena." }
+        - { speaker: rep, text: "Entonces cuénteme cómo es un día normal de trabajo. ¿Dónde se queda el carro mientras usted trabaja?" }
+        - { speaker: customer, text: "Soy enfermera. Tres turnos de 12 horas a la semana, y parqueo en el último piso del garaje del hospital, descubierto, a pleno sol, sin cargador. Me da miedo que se cocine todo el día y que se gaste la batería." }
+        - { speaker: rep, text: "Gracias, eso es justo lo que hay que preguntar. Le voy a hablar claro: aquí el calor afecta un poco la batería, un poco más que en lugares más frescos, y lo mejor es cargar en la casa. No le voy a prometer más que eso. Lo que sí puedo hacer es imprimirle la garantía de la batería de Chevrolet para este carro, para que usted misma lea los años, las millas y lo que cubre, y revisamos juntos lo que dice el manual del dueño sobre parquear con calor." }
+        - { speaker: customer, text: "Eso es más honesto de lo que esperaba. Me gustaría leerlo yo misma." }
+        - { speaker: rep, text: "¿Puede venir el sábado a las 10:00? Le tengo impresas las páginas de la garantía y la parte del manual, y el carro cargado para que maneje su ruta de verdad hasta el hospital." }
+        - { speaker: customer, text: "El sábado a las 10:00 me funciona. Traigo mis preguntas." }
+spanish_reviewed: false

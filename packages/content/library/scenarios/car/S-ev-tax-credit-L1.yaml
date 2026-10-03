@@ -1,0 +1,192 @@
+code: S-ev-tax-credit-L1
+module: car-phone-finance
+title:
+  en: "\"There is no tax credit anymore\""
+  es: "\"Ya no hay crédito federal\""
+setting:
+  en: Saturday morning, next to a 2026 Blazer EV in the showroom. He is holding a printed news article.
+  es: Sábado por la mañana, al lado de una Blazer EV 2026 en el showroom. Él tiene en la mano un artículo de periódico impreso.
+persona: P-ev-tax-credit
+objection: O44
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, early 60s, retired firefighter, has wanted a Blazer EV since last year and charges at home. The 2026 Blazer EV LT on the floor is $48,394 out the door, which includes your $899 dealer fee; only tax, tag and title are added. A 2026 Equinox EV LT is in stock at $36,294 out the door on the same basis. He is right about the credit: the federal clean vehicle credit for new EVs ended for vehicles acquired after September 30, 2025. Chevrolet has no current incentive on either vehicle in your system this week."
+  es: "{name}, de unos 62 años, bombero retirado, quiere una Blazer EV desde el año pasado y carga en la casa. La Blazer EV LT 2026 del showroom está en $48,394 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Hay en inventario una Equinox EV LT 2026 en $36,294 con todo, sobre la misma base. Él tiene razón sobre el crédito: el crédito federal para eléctricos nuevos se terminó para los vehículos adquiridos después del 30 de septiembre de 2025. Esta semana, en su sistema, Chevrolet no tiene ningún incentivo vigente en ninguno de los dos."
+opening:
+  en: There's no tax credit anymore. I read it. So don't tell me there is.
+  es: Ya no hay crédito federal. Yo lo leí. Así que no me diga que sí.
+facts:
+  session_date: "2026-10-10"
+  vehicle: { year: 2026, make: Chevrolet, model: Blazer EV, trim: LT AWD, color: Summit White, stock: "6415", in_stock: true }
+  price_cents: 4749500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 4839400
+  # No manufacturer incentive on either vehicle this week. The federal new clean vehicle credit ended for vehicles
+  # acquired after September 30, 2025, so none applies to this sale.
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  alternatives:
+    - { description: "2026 Chevrolet Equinox EV LT, Summit White, stock 6402, in stock", all_in_price_cents: 3629400 }
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    federal_credit_was_cents: 750000
+    federal_credit_status: Ended for new EVs acquired after September 30, 2025; he read it in the news
+    limit_before_tax_cents: 4200000
+    free_monday: Free all day Monday; his wife can come after 10:00
+numbers_sheet: false
+target_techniques: [T001, T057, T002, T005, T021, T009, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O44-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O44-CONFIRM
+      behavior:
+        en: "Confirmed plainly that he is right and the federal credit is gone, without hedging or implying a replacement"
+        es: "Le confirmó claramente que tiene razón y que el crédito federal ya no existe, sin rodeos y sin dar a entender que algo lo reemplaza"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Agree first (T057); spec 4: lies about facts no"
+      technique: T057
+    - code: O44-QFIRST
+      behavior:
+        en: "Asked what the credit was going to do for him before offering anything"
+        es: "Preguntó qué iba a hacer el crédito por él antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O44-ISOLATE
+      behavior:
+        en: "Checked whether an EV is still right for him, apart from the money"
+        es: "Confirmó si un eléctrico todavía es lo que le conviene, aparte del dinero"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O44-HIDDEN
+      behavior:
+        en: "Surfaced his real limit"
+        es: "Sacó a la luz su límite real"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O44-WRITING
+      behavior:
+        en: "Showed real all-in prices against his limit, offered an option that fits without stretching him, and put current incentives in writing"
+        es: "Le enseñó precios totales reales contra su límite, le ofreció una opción que le cabe sin estirarlo y le puso los incentivos actuales por escrito"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Takeaway (T021); transparent numbers (T009)"
+      technique: T021
+    - code: O44-NEXT
+      behavior:
+        en: "Set a specific day and time to drive the option that fits"
+        es: "Fijó un día y una hora específicos para manejar la opción que le cabe"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: implied_a_credit
+      description:
+        en: "Said or implied that a federal credit still applies, or that something replaces it that is not in writing"
+        es: "Dijo o dio a entender que todavía aplica un crédito federal, o que algo lo reemplaza sin tenerlo por escrito"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he dodged a question the customer already knew the answer to, hinted the credit might still be out there, and pushed a pricier truck. He never confirmed the truth or asked what the credit meant to him."
+      es: "Fíjese: esquivó una pregunta que el cliente ya sabía contestar, insinuó que el crédito a lo mejor todavía existe y le empujó una camioneta más cara. Nunca le confirmó la verdad ni le preguntó qué significaba el crédito para él."
+    script:
+      en:
+        - { speaker: customer, text: "There's no tax credit anymore. I read it. So don't tell me there is." }
+        - { speaker: rep, text: "Don't believe everything you read. And don't worry about the tax stuff, that's for your accountant." }
+        - { speaker: customer, text: "I asked you a straight question. Answer it." }
+        - { speaker: rep, text: "Look, the Blazer is worth it either way. While you're here, let me also show you the Silverado EV." }
+        - { speaker: customer, text: "Every salesman I've talked to dances around it." }
+        - { speaker: rep, text: "Let's just get it done today, and you can stop reading the news." }
+        - { speaker: customer, text: "I'm done here." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me if you change your mind." }
+      es:
+        - { speaker: customer, text: "Ya no hay crédito federal. Yo lo leí. Así que no me diga que sí." }
+        - { speaker: rep, text: "No se crea todo lo que lee. Y no se preocupe por eso de los impuestos, eso es cosa de su contador." }
+        - { speaker: customer, text: "Le hice una pregunta clara. Contésteme." }
+        - { speaker: rep, text: "Mire, la Blazer vale la pena de todas maneras. Ya que está aquí, también le enseño la Silverado EV." }
+        - { speaker: customer, text: "Todos los vendedores con los que he hablado le dan vueltas al tema." }
+        - { speaker: rep, text: "Dejémoslo hecho hoy, y así deja de leer las noticias." }
+        - { speaker: customer, text: "Hasta aquí llegué." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Llámeme si cambia de idea." }
+  good:
+    notice:
+      en: "Notice that he confirms the customer is right in the first breath, never hints at a replacement, asks what the credit meant to him, and answers with real prices in writing."
+      es: "Fíjese en que le confirma que tiene razón desde la primera frase, nunca insinúa que algo lo reemplaza, le pregunta qué significaba el crédito para él y le responde con precios reales por escrito."
+    script:
+      en:
+        - { speaker: customer, text: "There's no tax credit anymore. I read it. So don't tell me there is." }
+        - { speaker: rep, text: "[pause] You're right, and I won't pretend otherwise. The federal credit for new EVs ended for vehicles bought after September 30, 2025, so there's no federal credit on this Blazer. Can I ask, what was the credit going to do for you?" }
+        - { speaker: customer, text: "It was what made the numbers work. Now they don't." }
+        - { speaker: rep, text: "That's fair. Setting the money aside for a second, is an EV still the right fit for how you drive?" }
+        - { speaker: customer, text: "I still want an EV. I charge at home and I'm done with gas stations." }
+        - { speaker: rep, text: "Then tell me the number. What price do you need to stay under?" }
+        - { speaker: customer, text: "$42,000, before tax. With the credit, the Blazer got close. Without it, it doesn't, and I didn't want to get stretched or steered." }
+        - { speaker: rep, text: "Thank you. Then I won't try to stretch you. Here's what's real today. The Blazer EV LT is $48,394 out the door, plus tax, tag and title, so it's over your number. The Equinox EV LT is $36,294 out the door on the same basis, with our $899 dealer fee already in, so it's under. Chevrolet has no incentive on either one this week, and I'll print the incentive page for both so you see that in writing instead of taking my word for it." }
+        - { speaker: customer, text: "Okay. At least you didn't pretend. I'd like to drive the Equinox EV." }
+        - { speaker: rep, text: "Can you come back Monday at 10:00 with your wife? I'll have the Equinox EV charged and ready, with both price sheets and the incentive page on my desk." }
+        - { speaker: customer, text: "Monday at 10:00 works. I'll bring my wife." }
+      es:
+        - { speaker: customer, text: "Ya no hay crédito federal. Yo lo leí. Así que no me diga que sí." }
+        - { speaker: rep, text: "[pausa] Usted tiene razón, y no le voy a decir otra cosa. El crédito federal para eléctricos nuevos se terminó para los carros comprados después del 30 de septiembre de 2025, así que esta Blazer no tiene crédito federal. ¿Le puedo preguntar qué iba a hacer ese crédito por usted?" }
+        - { speaker: customer, text: "Era lo que hacía que los números funcionaran. Ahora no funcionan." }
+        - { speaker: rep, text: "Me parece justo. Dejando el dinero a un lado un momento, ¿un eléctrico todavía es lo que le conviene para cómo usted maneja?" }
+        - { speaker: customer, text: "Todavía quiero un eléctrico. Cargo en la casa y ya me cansé de las gasolineras." }
+        - { speaker: rep, text: "Entonces dígame el número. ¿Hasta cuánto puede llegar?" }
+        - { speaker: customer, text: "$42,000, antes de impuestos. Con el crédito, la Blazer quedaba cerca. Sin él, no, y no quería que me estiraran ni que me llevaran por donde no quiero." }
+        - { speaker: rep, text: "Gracias. Entonces no lo voy a estirar. Esto es lo real hoy. La Blazer EV LT está en $48,394 con todo, más impuestos, placa y título, así que se pasa de su número. La Equinox EV LT está en $36,294 con todo, sobre la misma base, con nuestro cargo del dealer de $899 ya incluido, así que le queda por debajo. Esta semana Chevrolet no tiene ningún incentivo en ninguna de las dos, y le imprimo la hoja de incentivos de las dos para que lo vea por escrito, en vez de creerme a mí." }
+        - { speaker: customer, text: "Está bien. Por lo menos usted no me vino con cuentos. Me gustaría manejar la Equinox EV." }
+        - { speaker: rep, text: "¿Puede volver el lunes a las 10:00 con su esposa? Le tengo la Equinox EV cargada y lista, con las dos hojas de precios y la de incentivos impresas en mi escritorio." }
+        - { speaker: customer, text: "El lunes a las 10:00 me funciona. Traigo a mi esposa." }
+spanish_reviewed: false

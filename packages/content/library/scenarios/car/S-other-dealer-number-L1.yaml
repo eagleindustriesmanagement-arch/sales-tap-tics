@@ -1,0 +1,189 @@
+code: S-other-dealer-number-L1
+module: car-phone-finance
+title:
+  en: "\"Another dealer already gave me a number\""
+  es: "\"Ya otro dealer me dio un número\""
+setting:
+  en: Thursday at lunchtime, at your desk. He walked straight in from the lot and did not sit down.
+  es: Jueves a la hora del almuerzo, en su escritorio. Entró directo del lote y no se sentó.
+persona: P-other-dealer-number
+objection: O42
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-40s, HVAC technician, wants a 2026 Colorado LT for work. Your price is $38,394 out the door, which includes your $899 dealer fee; only tax, tag and title are added. Your manager has no room on this unit. He owns a 2019 Colorado and has not said whether he wants to trade it. He is on his lunch break and got a written offer from another Chevrolet dealer this week."
+  es: "{name}, de unos 45 años, técnico de aire acondicionado, quiere una Colorado LT 2026 para el trabajo. Su precio es $38,394 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Su gerente no tiene margen en esta unidad. Él tiene una Colorado 2019 y no ha dicho si la quiere dar en trade-in. Está en su hora de almuerzo y esta semana le dieron una oferta por escrito en otro dealer de Chevrolet."
+opening:
+  en: Another dealer already gave me a number. $24,900 on this same Colorado.
+  es: Ya otro dealer me dio un número. $24,900 por esta misma Colorado.
+facts:
+  session_date: "2026-10-08"
+  vehicle: { year: 2026, make: Chevrolet, model: Colorado, trim: LT Crew Cab, color: Sterling Gray Metallic, stock: "6312", in_stock: true }
+  price_cents: 3749500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3839400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  # Not appraised yet: the rep may not state any value for it.
+  trade: { vehicle: 2019 Chevrolet Colorado LT, appraisal_cents: null, payoff_cents: 0, conditions: [] }
+  lender_state: not_applied
+  add_ons: []
+  payment_options: []
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    other_dealer_number_cents: 2490000
+    other_dealer_trade_allowance_cents: 1300000
+    other_dealer_number_basis: Their $24,900 is after $13,000 off for his 2019 Colorado; he has not looked at the rest of their sheet
+    free_tomorrow: Can come at 10:00 tomorrow, Friday, if he tells his boss today
+numbers_sheet: false
+target_techniques: [T001, T003, T002, T005, T086, T029, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O42-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O42-ACK
+      behavior:
+        en: "Took the other number seriously, without arguing or calling it fake"
+        es: "Tomó en serio el otro número, sin discutir ni decir que es falso"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O42-QFIRST
+      behavior:
+        en: "Asked what the other number includes before defending our price"
+        es: "Preguntó qué incluye el otro número antes de defender nuestro precio"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O42-ISOLATE
+      behavior:
+        en: "Checked whether the Colorado LT is the right truck, apart from the number"
+        es: "Confirmó si la Colorado LT es la camioneta para él, aparte del número"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O42-HIDDEN
+      behavior:
+        en: "Surfaced that the other number already has his trade taken off"
+        es: "Sacó a la luz que el otro número ya tiene restado su trade-in"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O42-SIDE
+      behavior:
+        en: "Put both deals on the same basis (price out the door, then the trade) and offered a real appraisal instead of guessing a trade value"
+        es: "Puso los dos negocios sobre la misma base (precio total y después el trade-in) y ofreció una tasación de verdad en vez de adivinar un valor"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Trainer Jonathan Dawson (T086); trade-value walkthrough (T029)"
+      technique: T086
+    - code: O42-NEXT
+      behavior:
+        en: "Set a specific day and time to appraise the truck and compare both deals"
+        es: "Fijó un día y una hora específicos para tasar la camioneta y comparar los dos negocios"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: guessed_their_numbers
+      description:
+        en: "Called the other quote fake, ran down the other dealer, or guessed a trade value before an appraisal"
+        es: "Dijo que la otra cotización era falsa, habló mal del otro dealer o adivinó un valor del trade-in antes de tasarlo"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number, matched a price without authority, or left the fee out of our price"
+        es: "Dijo un número que no es real, igualó un precio sin autorización o dejó el cargo fuera de nuestro precio"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade, authority]
+exit_policy: { walk_away_base: 0.15, not_now_base: 0.25, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he called the other number fake, promised to beat it without knowing what it was, and threw more trucks at him. He never asked what the $24,900 included."
+      es: "Fíjese: dijo que el otro número era falso, prometió mejorarlo sin saber qué era y le echó más camionetas encima. Nunca preguntó qué incluían los $24,900."
+    script:
+      en:
+        - { speaker: customer, text: "Another dealer already gave me a number. $24,900 on this same Colorado." }
+        - { speaker: rep, text: "That can't be right. Nobody sells this Colorado for that. Whatever they wrote down, it's fake." }
+        - { speaker: customer, text: "Don't play games with me. I came for a straight answer." }
+        - { speaker: rep, text: "Okay, okay. Look, we'll beat whatever they gave you. Let's get the paperwork going." }
+        - { speaker: customer, text: "It's in writing. I'm not making it up." }
+        - { speaker: rep, text: "And if the Colorado isn't it, let me also show you the Silverado. It's a lot more truck." }
+        - { speaker: customer, text: "Forget it. I'm going back to them." }
+        - { speaker: rep, text: "Alright. Here's my card. Let me know if they don't come through." }
+      es:
+        - { speaker: customer, text: "Ya otro dealer me dio un número. $24,900 por esta misma Colorado." }
+        - { speaker: rep, text: "Eso no puede ser. Nadie vende esta Colorado en eso. Lo que le hayan escrito, eso es un invento." }
+        - { speaker: customer, text: "No me venga con juegos. Vine por una respuesta clara." }
+        - { speaker: rep, text: "Está bien, está bien. Mire, se lo mejoro, sea lo que sea. Empecemos los papeles." }
+        - { speaker: customer, text: "Está por escrito. No me lo estoy inventando." }
+        - { speaker: rep, text: "Y si la Colorado no es, también le enseño la Silverado. Es mucha más camioneta." }
+        - { speaker: customer, text: "Olvídelo. Me voy para allá con ellos." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me avisa si no le cumplen." }
+  good:
+    notice:
+      en: "Notice that he never argues with the number. He asks what it includes, finds the trade inside it, and puts both deals on the same basis instead of guessing what the truck is worth."
+      es: "Fíjese en que nunca le discute el número. Pregunta qué incluye, encuentra el trade-in que hay dentro y pone los dos negocios sobre la misma base en vez de adivinar lo que vale la camioneta."
+    script:
+      en:
+        - { speaker: customer, text: "Another dealer already gave me a number. $24,900 on this same Colorado." }
+        - { speaker: rep, text: "[pause] Thanks for telling me straight, that helps. Before I say anything about ours, what does that number include? Is it the truck by itself?" }
+        - { speaker: customer, text: "It's the number at the bottom of their sheet. That's all I looked at." }
+        - { speaker: rep, text: "Okay. Setting the numbers aside for a second, is the Colorado LT the truck you want?" }
+        - { speaker: customer, text: "It's the truck I want. I just don't want to overpay." }
+        - { speaker: rep, text: "Then let's make sure we compare the same thing. Is there a trade-in in that number?" }
+        - { speaker: customer, text: "Okay. They took $13,000 off for my 2019 Colorado. I didn't mention it here because I figured you'd lowball my truck." }
+        - { speaker: rep, text: "I appreciate you telling me. So their number is after your trade, and ours is before any trade: $38,394 out the door, which includes our $899 dealer fee; only tax, tag and title are added. I won't guess what your truck is worth, and I won't guess what else is on their sheet. Let's appraise your Colorado here and put both deals on one page the same way: price out the door first, then the trade." }
+        - { speaker: customer, text: "That's fair. I just want apples to apples." }
+        - { speaker: rep, text: "Can you bring the Colorado in tomorrow at 10:00 with their sheet? We'll appraise it while you watch, and you'll leave with both deals side by side." }
+        - { speaker: customer, text: "Okay. Tomorrow at 10:00. I'll bring the truck and their sheet." }
+      es:
+        - { speaker: customer, text: "Ya otro dealer me dio un número. $24,900 por esta misma Colorado." }
+        - { speaker: rep, text: "[pausa] Gracias por decírmelo claro, eso me ayuda. Antes de hablarle del nuestro, ¿qué incluye ese número? ¿Es la camioneta sola?" }
+        - { speaker: customer, text: "Es el número que está abajo en la hoja de ellos. Es lo único que miré." }
+        - { speaker: rep, text: "Bien. Dejando los números a un lado por un momento, ¿la Colorado LT es la camioneta que usted quiere?" }
+        - { speaker: customer, text: "Es la camioneta que quiero. Lo que no quiero es pagar de más." }
+        - { speaker: rep, text: "Entonces vamos a asegurarnos de comparar lo mismo. En ese número, ¿hay un trade-in?" }
+        - { speaker: customer, text: "Bueno. Me quitaron $13,000 por mi Colorado 2019. Aquí no lo mencioné porque pensé que me la iban a tasar bajo." }
+        - { speaker: rep, text: "Le agradezco que me lo diga. Entonces el número de ellos es con el trade-in ya restado, y el nuestro es sin ningún trade-in: $38,394 con todo, con nuestro cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. No voy a adivinar lo que vale su camioneta, ni lo que dice el resto de la hoja de ellos. Vamos a tasar su Colorado aquí y a poner los dos negocios en una hoja de la misma manera: primero el precio total, después el trade-in." }
+        - { speaker: customer, text: "Me parece justo. Lo que quiero es comparar lo mismo con lo mismo." }
+        - { speaker: rep, text: "¿Puede traer la Colorado mañana a las 10:00 con la hoja de ellos? La tasamos delante de usted, y se va con los dos negocios lado a lado." }
+        - { speaker: customer, text: "Está bien. Mañana a las 10:00. Le traigo la camioneta y la hoja de ellos." }
+spanish_reviewed: false

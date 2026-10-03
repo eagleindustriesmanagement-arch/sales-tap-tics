@@ -1,0 +1,195 @@
+code: S-ev-price-wait-L1
+module: car-phone-finance
+title:
+  en: "\"I will wait, EV prices keep dropping\""
+  es: "\"Mejor espero; los eléctricos siguen bajando\""
+setting:
+  en: Saturday morning, at your desk, right after the test drive.
+  es: Sábado por la mañana, en su escritorio, justo después de la prueba de manejo.
+persona: P-ev-price-wait
+objection: O43
+channel: floor
+language_options: [en, es]
+difficulty: 1
+start_state: objection
+pre_brief:
+  en: "{name}, mid-50s, middle-school teacher, drives about 30 miles a day and can charge at home. She just drove the 2026 Equinox EV LT and loved it. The all-in price is $36,294 plus tax, tag and title, which includes your $899 dealer fee. Your numbers sheet, subject to the bank's approval, has a purchase at $615 a month for 72 months with $3,000 down, and a 36-month lease at $399 a month with $3,000 down."
+  es: "{name}, de unos 55 años, maestra de secundaria, maneja unas 30 millas al día y puede cargar en la casa. Acaba de manejar la Equinox EV LT 2026 y le encantó. El precio total es $36,294 más impuestos, placa y título, con su cargo del dealer de $899 incluido. Su hoja de números, sujeta a la aprobación del banco, tiene una compra a $615 al mes por 72 meses con $3,000 de down, y un lease de 36 meses a $399 al mes con $3,000 de down."
+opening:
+  en: I'll wait. EV prices keep dropping.
+  es: Mejor espero. Los eléctricos siguen bajando.
+facts:
+  session_date: "2026-10-03"
+  vehicle: { year: 2026, make: Chevrolet, model: Equinox EV, trim: LT, color: Mosaic Black Metallic, stock: "6390", in_stock: true }
+  price_cents: 3539500
+  dealer_fees: [{ code: dealer_fee, cents: 89900 }]
+  government_charges_customer_pays: [sales_tax, tag, title]
+  all_in_price_cents: 3629400
+  rebates: []
+  deadlines: []
+  inventory_same_trim_color: 2
+  # A used EV the rep may also offer (the objection's core move: a lease or a used EV).
+  alternatives:
+    - { description: "2023 Chevrolet Bolt EUV LT, used, 28,000 miles, stock U4471", all_in_price_cents: 2189900 }
+  trade: null
+  lender_state: not_applied
+  add_ons: []
+  # Estimates on the numbers sheet, all subject to the lender's approval. No add-ons in any of them.
+  payment_options:
+    - { code: purchase_72, cents: 61500, term_months: 72, down_cents: 300000 }
+    - { code: lease_36, cents: 39900, term_months: 36, down_cents: 300000 }
+  authority: { manager_has_room: false }
+  text_consent: false
+  customer_knows:
+    daily_miles: About 30
+    home_charging: Can charge in her garage
+    plan: Moving to Orlando in about three years; will change cars then
+    neighbor_story: Her neighbor's three-year-old EV got a much lower trade-in offer than he expected
+    free_next_week: Free after school, from 4:00, Tuesday through Thursday
+numbers_sheet: true
+target_techniques: [T001, T003, T002, T005, T091, T009, T014]
+rubric: R-objection
+# Spec 10.5. The scenario table defines the total; universal items still run for coaching and mastery.
+scoring:
+  items:
+    - code: O43-PAUSE
+      behavior:
+        en: "Paused at least two seconds before replying"
+        es: "Hizo una pausa de al menos dos segundos antes de responder"
+      dimension: composure
+      method: timing
+      points: 10
+      voice_only: true
+      evidence: "Gong: top reps pause longer after objections"
+      technique: T001
+      params: { min_pause_ms: 2000, after: objection }
+    - code: O43-STRAIGHT
+      behavior:
+        en: "Took the worry seriously and was straight that nobody can promise where EV prices go"
+        es: "Tomó en serio la preocupación y le habló claro: nadie puede prometer hacia dónde van los precios de los eléctricos"
+      dimension: technique
+      method: judge
+      points: 15
+      evidence: "Practitioner tradition (T003)"
+      technique: T003
+    - code: O43-QFIRST
+      behavior:
+        en: "Asked what worries her about buying now before offering anything"
+        es: "Preguntó qué le preocupa de comprar ahora antes de ofrecer nada"
+      dimension: discovery
+      method: judge
+      points: 20
+      evidence: "Gong: 54.3% versus 31.0%"
+      technique: T002
+    - code: O43-ISOLATE
+      behavior:
+        en: "Checked whether the Equinox EV is the right car, apart from the timing"
+        es: "Confirmó si la Equinox EV es el carro para ella, aparte del momento"
+      dimension: discovery
+      method: judge
+      points: 15
+      evidence: Stated-versus-real reason data (CAR-Research XRM)
+      technique: T005
+    - code: O43-HIDDEN
+      behavior:
+        en: "Surfaced her three-year plan and the fear of the trade-in hit"
+        es: "Sacó a la luz su plan de tres años y el miedo al golpe del trade-in"
+      dimension: discovery
+      method: engine
+      points: 15
+      evidence: Scenario design
+      params: { event: hidden_revealed }
+    - code: O43-OPTION
+      behavior:
+        en: "Matched an option to her plan (a lease or a used EV) with real numbers from the sheet, and promised nothing about future prices or values"
+        es: "Le buscó una opción a su plan (un lease o un eléctrico usado) con números reales de la hoja, sin prometer nada sobre precios o valores futuros"
+      dimension: technique
+      method: judge
+      points: 10
+      evidence: "Transparent numbers (T009)"
+      technique: T009
+    - code: O43-NEXT
+      behavior:
+        en: "Set a specific day and time to see the options side by side in writing"
+        es: "Fijó un día y una hora específicos para ver las opciones lado a lado por escrito"
+      dimension: outcome
+      method: engine_and_judge
+      points: 15
+      evidence: "T014"
+      technique: T014
+      params: { event: next_step }
+  auto_fail:
+    - code: predicted_prices
+      description:
+        en: "Promised that prices will not drop, or promised a future value or resale price"
+        es: "Prometió que los precios no van a bajar, o prometió un valor futuro o un precio de reventa"
+      method: judge
+    - code: made_up_deadline
+      description:
+        en: "Made up a deadline"
+        es: "Inventó una fecha límite"
+      method: rule_family
+      rule_families: [deadlines]
+    - code: misstated_number
+      description:
+        en: "Misstated a number"
+        es: "Dijo un número que no es real"
+      method: rule_family
+      rule_families: [price, payment, rate_and_approval, trade]
+exit_policy: { walk_away_base: 0.10, not_now_base: 0.30, triggers_raise_by: 0.25 }
+max_turns: 24
+time_limit_seconds: 480
+demonstrations:
+  flawed:
+    notice:
+      en: "Notice: he brushed off her worry, predicted prices as if he could know, piled on another car, and pushed for today. He never asked what worried her."
+      es: "Fíjese: le quitó importancia a su preocupación, adivinó los precios como si lo pudiera saber, le echó otro carro encima y la presionó para hoy. Nunca le preguntó qué le preocupaba."
+    script:
+      en:
+        - { speaker: customer, text: "I'll wait. EV prices keep dropping." }
+        - { speaker: rep, text: "That's what everybody says. Trust me, prices aren't going any lower." }
+        - { speaker: customer, text: "Please don't rush me. That's exactly what worries me." }
+        - { speaker: rep, text: "If the Equinox feels like too much, let me also show you the Blazer EV while you're here." }
+        - { speaker: customer, text: "I don't want to be the one who paid too much." }
+        - { speaker: rep, text: "Let's just write it up today, and you can stop reading those articles." }
+        - { speaker: customer, text: "No. I'm going to wait." }
+        - { speaker: rep, text: "Alright. Here's my card. Call me when you're ready." }
+      es:
+        - { speaker: customer, text: "Mejor espero. Los eléctricos siguen bajando." }
+        - { speaker: rep, text: "Eso lo dice todo el mundo. Créame, los precios no van a bajar más." }
+        - { speaker: customer, text: "Por favor, no me apure. Eso es justo lo que me preocupa." }
+        - { speaker: rep, text: "Si la Equinox le parece mucho, ya que está aquí, también le enseño la Blazer EV." }
+        - { speaker: customer, text: "No quiero ser la que pagó de más." }
+        - { speaker: rep, text: "Dejémoslo escrito de una vez, y así deja de leer esos artículos." }
+        - { speaker: customer, text: "No. Voy a esperar." }
+        - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Llámeme cuando esté lista." }
+  good:
+    notice:
+      en: "Notice that he never predicts prices. He asks what worries her, finds the three-year plan, and answers it with a real option and real numbers in writing."
+      es: "Fíjese en que nunca adivina los precios. Le pregunta qué le preocupa, descubre el plan de tres años y le responde con una opción real y números reales por escrito."
+    script:
+      en:
+        - { speaker: customer, text: "I'll wait. EV prices keep dropping." }
+        - { speaker: rep, text: "[pause] That's a fair worry, and I won't tell you where EV prices are going, because I don't know and nobody can promise that. Help me understand: when you think about buying now, what's the part that worries you most?" }
+        - { speaker: customer, text: "I just don't want to buy it and watch it lose its value." }
+        - { speaker: rep, text: "That makes sense. Setting the timing aside for a second, is the Equinox EV the right car for how you drive?" }
+        - { speaker: customer, text: "I love how it drives. It's the timing that bothers me." }
+        - { speaker: rep, text: "Then let me ask it this way. How long do you plan to keep it?" }
+        - { speaker: customer, text: "Honestly? In about three years we're moving to Orlando to be near the grandkids, and I'll change cars then. My neighbor traded in his EV after three years and got much less than he expected. That's what scares me." }
+        - { speaker: rep, text: "Thank you, that changes what I'd show you. If three years is the plan, a lease may fit better than buying. On a lease, the value at the end is written into the contract today, so if prices drop, you can turn it in at the end instead of selling it. Any end-of-lease charges, like going over the miles or extra wear, are in the contract too, and I'll print those terms for you. The lease is $399 a month for 36 months with $3,000 down, subject to the bank's approval. I'll put it next to buying, $615 a month for 72 months with the same $3,000 down, so you can see both on one page." }
+        - { speaker: customer, text: "I didn't know it could work like that. I'd want to see it on paper." }
+        - { speaker: rep, text: "Can you come in Tuesday at 4:00, after school? I'll have the lease and the purchase printed side by side, with every term on the page, and your husband is welcome too." }
+        - { speaker: customer, text: "Tuesday at 4:00 works. I'll bring my husband." }
+      es:
+        - { speaker: customer, text: "Mejor espero. Los eléctricos siguen bajando." }
+        - { speaker: rep, text: "[pausa] Es una preocupación válida, y no le voy a decir hacia dónde van los precios de los eléctricos, porque no lo sé y nadie se lo puede prometer. Ayúdeme a entender: cuando piensa en comprar ahora, ¿qué es lo que más le preocupa?" }
+        - { speaker: customer, text: "Es que no quiero comprarlo y ver cómo pierde valor." }
+        - { speaker: rep, text: "Tiene sentido. Dejando el momento a un lado, ¿la Equinox EV es el carro para lo que usted maneja?" }
+        - { speaker: customer, text: "Me encanta cómo se maneja. Lo que me preocupa es el momento." }
+        - { speaker: rep, text: "Entonces se lo pregunto de otra manera. ¿Cuánto tiempo piensa tenerlo?" }
+        - { speaker: customer, text: "¿La verdad? En unos tres años nos mudamos a Orlando para estar cerca de los nietos, y ahí voy a cambiar de carro. Mi vecino dio su eléctrico en trade-in a los tres años y le dieron mucho menos de lo que esperaba. Eso es lo que me da miedo." }
+        - { speaker: rep, text: "Gracias, eso cambia lo que le enseñaría. Si el plan son tres años, puede que un lease le convenga más que comprar. En un lease, el valor al final queda por escrito en el contrato desde hoy, así que si los precios bajan, usted lo puede devolver al final en vez de tener que venderlo. Los cargos al final del lease, como pasarse de las millas o el desgaste de más, también están en el contrato, y le imprimo esos términos. El lease es de $399 al mes por 36 meses con $3,000 de down, sujeto a la aprobación del banco. Se lo pongo al lado de la compra, $615 al mes a 72 meses con los mismos $3,000 de down, para que vea las dos cosas en una hoja." }
+        - { speaker: customer, text: "No sabía que podía ser así. Me gustaría verlo en papel." }
+        - { speaker: rep, text: "¿Puede venir el martes a las 4:00, después de clases? Le tengo el lease y la compra impresos lado a lado, con todos los términos en la hoja, y su esposo también es bienvenido." }
+        - { speaker: customer, text: "El martes a las 4:00 me funciona. Traigo a mi esposo." }
+spanish_reviewed: false
