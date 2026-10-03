@@ -1,0 +1,77 @@
+code: L-partner-check
+scenario: S-partner-check-L1
+title:
+  en: "\"I need to talk to my wife\": find out what she'll ask"
+  es: "\"Tengo que hablarlo con mi esposa\": averigüe qué va a preguntar ella"
+hook:
+  en: Great test drive, he loves it, then he says it. Half the floor reaches for a card. Not you.
+  es: La prueba salió buenísima, le encanta el carro, y entonces lo dice. Medio piso saca la tarjeta. Usted no.
+what:
+  en: Treat the spouse as a buyer who isn't here yet. Don't fight it. Find out what the talk at home will be about, and give them both a reason to come back.
+  es: Trate a la esposa como una compradora que todavía no llegó. No lo pelee. Averigüe de qué se va a tratar la conversación en la casa y deles a los dos una razón para volver.
+why:
+  en: Sometimes it's a real joint decision. Often it's a polite exit hiding a number he can't defend at home. He's not lying; he's avoiding a fight at home. Push, and you prove the fight is coming. Ask what she'll ask, and you're on his side.
+  es: A veces es una decisión de pareja de verdad. Muchas veces es una salida educada que esconde un número que él no puede defender en la casa. No miente; está evitando una pelea en la casa. Si presiona, le confirma que la pelea viene. Si pregunta qué va a preguntar ella, usted está de su lado.
+when:
+  en: Whenever a customer names someone who isn't there, before you talk numbers again.
+  es: Cada vez que el cliente nombra a alguien que no está, antes de volver a hablar de números.
+when_not:
+  en: Not as a trick to keep him seated. If she truly decides, help him take it all home and set the visit.
+  es: No como truco para tenerlo sentado. Si de verdad decide ella, ayúdelo a llevarse todo y fijen la visita.
+say:
+  - en: Of course. It's a big decision and you should both be comfortable.
+    es: Claro que sí. Es una decisión grande y los dos tienen que sentirse cómodos.
+  - en: When you talk tonight, what do you think her first question will be?
+    es: Cuando lo hablen esta noche, ¿cuál cree que va a ser la primera pregunta de ella?
+  - en: Other than talking it over at home, is anything about the car or the numbers holding you back?
+    es: Aparte de hablarlo en la casa, ¿hay algo del carro o de los números que lo detenga?
+  - en: Would she rather see it in person, or should we set up a quick video call?
+    es: ¿Ella prefiere verlo en persona, o hacemos una videollamada rapidita?
+mistakes:
+  - mistake:
+      en: '"What if you sign now and tell her tonight?"'
+      es: '"¿Y si firma ahora y se lo cuenta esta noche?"'
+    fix:
+      en: You just made her the enemy. Ask about her instead.
+      es: La acaba de convertir en la enemiga. Pregunte por ella.
+  - mistake:
+      en: Dropping the price or stretching the term on a guess.
+      es: Bajar el precio o alargar el plazo a ciegas.
+    fix:
+      en: One question first. The real concern usually comes out next.
+      es: Primero una pregunta. La preocupación real casi siempre sale después.
+  - mistake:
+      en: Handing over a card with "let me know."
+      es: Dar la tarjeta con un "me avisa".
+    fix:
+      en: That's a walk. Leave with a day and a time.
+      es: Eso es un cliente que se va sin próximo paso. Termine con un día y una hora.
+concepts:
+  - name: { en: The two-second pause, es: La pausa de dos segundos }
+    idea:
+      en: Let it land. Silence says you heard him and won't argue.
+      es: Deje que caiga. El silencio dice que usted escuchó y no va a discutir.
+    items: [O01-PAUSE]
+  - name: { en: Respect the partner, es: Respete a la pareja }
+    idea:
+      en: She's a buyer, not an obstacle. Agree, and offer to include her.
+      es: Ella es compradora, no un obstáculo. Déle la razón y ofrezca incluirla.
+    items: [O01-ACK, O01-PARTNER]
+  - name: { en: Her first question, es: La primera pregunta de ella }
+    idea:
+      en: Asking what she'll ask brings out the real worry, usually the payment.
+      es: Preguntar qué va a preguntar ella saca la preocupación real, casi siempre el pago.
+    items: [O01-QFIRST, O01-HIDDEN]
+  - name: { en: '"Other than that…"', es: '"Aparte de eso…"' }
+    idea:
+      en: Isolate. Is home the only thing between him and the car?
+      es: Aísle. ¿La casa es lo único entre él y el carro?
+    items: [O01-ISOLATE]
+  - name: { en: Lock a day and time, es: Amarre un día y una hora }
+    idea:
+      en: A specific next step both agree to, with a day, a time and who's coming.
+      es: Un próximo paso concreto que los dos aceptan, con día, hora y quién viene.
+    items: [O01-NEXT]
+sources:
+  - T001 Pause and slow down; T002 Clarify with a question; T005 Isolate; T013 Include the decision maker; T014 Specific next step
+spanish_reviewed: false

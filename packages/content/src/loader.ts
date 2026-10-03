@@ -5,6 +5,7 @@ import { parse } from "yaml";
 import { z, type ZodType } from "zod";
 import {
   behaviorCardSchema,
+  lessonSchema,
   glossarySchema,
   lostReasonMapSchema,
   factsSchema,
@@ -19,6 +20,7 @@ import {
   scenarioSchema,
   techniqueSchema,
   type BehaviorCard,
+  type Lesson,
   type GlossaryTerm,
   type Lexicon,
   type Module,
@@ -56,6 +58,8 @@ export interface Library {
   rubrics: Map<string, Rubric>;
   rules: Map<string, Rule>;
   behaviorCards: Map<string, BehaviorCard>;
+  /** The lesson read before each scenario, by lesson code (decision 0031). */
+  lessons: Map<string, Lesson>;
   modules: Map<string, Module>;
   glossary: GlossaryTerm[];
   lexicon: Lexicon | null;
@@ -163,6 +167,7 @@ export function emptyLibrary(): Library {
     rubrics: new Map(),
     rules: new Map(),
     behaviorCards: new Map(),
+    lessons: new Map(),
     modules: new Map(),
     glossary: [],
     lexicon: null,
@@ -193,6 +198,7 @@ export function loadLibrary(layers: ContentLayer[] = [{ scope: "platform", dir: 
     loadInto(library.rubrics, d("rubrics"), rubricSchema as unknown as ZodType<Rubric>, errors, root, layer, override ? allow() : undefined);
     loadInto(library.behaviorCards, d("behavior-cards"), behaviorCardSchema, errors, root, layer, override ? allow() : undefined);
     loadInto(library.modules, d("modules"), moduleSchema, errors, root, layer, override ? allow() : undefined);
+    loadInto(library.lessons, d("lessons"), lessonSchema, errors, root, layer, override ? allow() : undefined);
     const ruleDir = d("rules");
     for (const file of yamlFiles(ruleDir)) {
       if (basename(file) === "lexicon.yaml") {

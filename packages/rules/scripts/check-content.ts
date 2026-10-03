@@ -85,6 +85,13 @@ for (const s of library.scenarios.values()) {
   }
 }
 
+// Lesson phrases are what reps will say: checked against their scenario's facts (decision 0031).
+for (const l of library.lessons.values()) {
+  const s = library.scenarios.get(l.scenario);
+  const ctx = { ...base, facts: s?.facts ?? null, channel: s?.channel ?? ("floor" as const) };
+  l.say.forEach((line, i) => report(`${l.code} say[${i}]`, checkContentLine(line, ctx)));
+}
+
 for (const c of library.behaviorCards.values()) {
   report(`${c.code} line`, checkContentLine(c.floor_check_script.line, base));
 }

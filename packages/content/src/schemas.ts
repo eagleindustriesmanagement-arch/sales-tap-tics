@@ -518,6 +518,39 @@ export const behaviorCardSchema = z
   .strict();
 export type BehaviorCard = z.infer<typeof behaviorCardSchema>;
 
+// ---------------------------------------------------------------- lessons (decision 0031)
+
+/**
+ * The lesson a rep reads before a scenario: the tactic, why it works, when to use it and when not, the words that
+ * make it land, and the mistakes that kill it. 60 to 90 seconds of reading. Its named concepts are the scenario's
+ * scored behaviors, so the debrief can point back to the lesson by name.
+ */
+export const lessonSchema = z
+  .object({
+    code: z.string().regex(/^L-[a-z0-9-]+$/),
+    scenario: z.string().regex(/^S-[a-z0-9-]+-L[1-3]$/),
+    title: bilingual,
+    /** One line that frames the moment on the floor. */
+    hook: bilingual,
+    what: bilingual,
+    /** The psychology: what is going on in the customer's head. */
+    why: bilingual,
+    when: bilingual,
+    when_not: bilingual,
+    /** The exact words. Each is checked by the compliance engine against the scenario's facts. */
+    say: z.array(bilingual).min(2).max(6),
+    mistakes: z.array(z.object({ mistake: bilingual, fix: bilingual }).strict()).min(2).max(5),
+    /** Named moves, each tied to the scored behaviors (rubric item codes) it teaches. */
+    concepts: z
+      .array(z.object({ name: bilingual, idea: bilingual, items: z.array(z.string()).min(1) }).strict())
+      .min(2)
+      .max(6),
+    sources: z.array(z.string()).default([]),
+    spanish_reviewed: z.boolean().default(false),
+  })
+  .strict();
+export type Lesson = z.infer<typeof lessonSchema>;
+
 // ---------------------------------------------------------------- modules and glossary
 
 export const moduleSchema = z

@@ -1,4 +1,4 @@
-import { factsSchema } from "./schemas.js";
+import { factsSchema, type Lesson } from "./schemas.js";
 import type { Library } from "./loader.js";
 
 export interface Finding {
@@ -30,6 +30,14 @@ function regexOk(pattern: string): boolean {
  * Checks that content references resolve and that what a scenario needs at runtime is present (spec 7.4).
  * Schema validity and bilingual completeness are already enforced by the loader.
  */
+/** Words a rep reads in a lesson, in one language: everything on the lesson screen. */
+export function lessonWords(l: Lesson, lang: "en" | "es"): number {
+  const parts = [l.title, l.hook, l.what, l.why, l.when, l.when_not, ...l.say, ...l.mistakes.flatMap((m) => [m.mistake, m.fix]), ...l.concepts.flatMap((c) => [c.name, c.idea])];
+  return parts.reduce((n, p) => n + p[lang].split(/\s+/).filter(Boolean).length, 0);
+}
+/** 60 to 90 seconds at a typical reading pace (about 230 words a minute); Spanish runs about 15% longer. */
+export const LESSON_WORDS = { en: { min: 200, max: 340 }, es: { min: 220, max: 400 } };
+
 export function crossReference(library: Library): Finding[] {
   const out: Finding[] = [];
   const err = (item: string, message: string) => out.push({ level: "error", item, message });
@@ -101,6 +109,32 @@ export function crossReference(library: Library): Finding[] {
   for (const c of library.behaviorCards.values()) {
     if (!technique(c.technique)) err(c.code, `technique ${c.technique} does not exist`);
     for (const i of c.rubric_items) if (!knownItems.has(i)) err(c.code, `rubric item ${i} does not exist in any rubric or scenario`);
+  }
+
+  // Lessons (decision 0031): one per scenario, concepts tied to behaviors the scenario scores, 60 to 90 seconds.
+  const lessonFor = new Map<string, string>();
+  for (const l of library.lessons.values()) {
+    const s = library.scenarios.get(l.scenario);
+    if (!s) {
+      err(l.code, `scenario ${l.scenario} does not exist`);
+      continue;
+    }
+    if (lessonFor.has(l.scenario)) err(l.code, `scenario ${l.scenario} already has lesson ${lessonFor.get(l.scenario)}`);
+    lessonFor.set(l.scenario, l.code);
+    const scored = new Set([...(s.scoring?.items.map((i) => i.code) ?? []), ...rubricItems(library, s.rubric)]);
+    for (const c of l.concepts) for (const i of c.items) if (!scored.has(i)) err(l.code, `concept "${c.name.en}" names ${i}, which ${l.scenario} does not score`);
+    // Every behavior the scenario scores belongs to a concept, so any debrief can point back to the lesson.
+    const taught = new Set(l.concepts.flatMap((c) => c.items));
+    for (const i of s.scoring?.items ?? []) if (!taught.has(i.code)) err(l.code, `${i.code} ("${i.behavior.en}") is scored but no concept teaches it`);
+    for (const lang of ["en", "es"] as const) {
+      const words = lessonWords(l, lang);
+      const { min, max } = LESSON_WORDS[lang];
+      if (words < min || words > max) err(l.code, `${lang} lesson is ${words} words; keep it to ${min}-${max} (60 to 90 seconds of reading)`);
+    }
+    if (!l.spanish_reviewed) warn(l.code, "Spanish not yet reviewed by a native speaker");
+  }
+  for (const s of library.scenarios.values()) {
+    if (library.objections.get(s.objection)?.release_1 && !lessonFor.has(s.code)) warn(s.code, "certification scenario has no lesson yet (decision 0031)");
   }
 
   for (const m of library.modules.values()) {
