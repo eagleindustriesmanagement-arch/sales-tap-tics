@@ -9,7 +9,7 @@ const ROLES = ["rep", "bdc_agent", "manager", "general_manager", "content_editor
 type Role = (typeof ROLES)[number];
 interface Person { id: string; firstName: string | null; lastName: string | null; email: string | null; phone: string | null; status: string; roles: Role[] }
 
-const input = "min-h-12 w-full rounded-xl border border-line bg-surface px-3 text-ink";
+const input = "min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
 
 export function PeopleManager({ language: lang, people, me }: { language: Language; people: Person[]; me: string }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
@@ -80,9 +80,9 @@ export function PeopleManager({ language: lang, people, me }: { language: Langua
                 <p className="text-sm text-muted">{[p.email, p.phone].filter(Boolean).join(" · ")}</p>
                 {roleBoxes(roles, (r) => setEdits({ ...edits, [p.id]: r }), `roles-${p.id}`)}
                 <div className="flex flex-wrap gap-2">
-                  <button className="min-h-11 rounded-xl border border-brand px-4 font-semibold text-brand" onClick={() => update(p.id, { roles })}>{ui("people.saveRoles")}</button>
+                  <button className="min-h-11 liquid-glass liquid-glass-flat liquid-glass-ring rounded-full px-5 font-semibold text-brand" onClick={() => update(p.id, { roles })}>{ui("people.saveRoles")}</button>
                   {p.id !== me && (
-                    <button className="min-h-11 rounded-xl border border-line px-4 font-semibold text-ink" onClick={() => update(p.id, { status: p.status === "active" ? "inactive" : "active" })}>
+                    <button className="min-h-11 liquid-glass liquid-glass-flat rounded-full px-5 font-semibold text-ink" onClick={() => update(p.id, { status: p.status === "active" ? "inactive" : "active" })}>
                       {ui(p.status === "active" ? "people.deactivate" : "people.reactivate")}
                     </button>
                   )}

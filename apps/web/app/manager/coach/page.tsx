@@ -16,7 +16,7 @@ export default async function Coach({ searchParams }: { searchParams: Promise<{ 
   const scene = coachScene(lib, card, seed);
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{t("coach.title", lang)}</h1>
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("coach.title", lang)}</h1>
       <p className="text-muted">{t("coach.intro", lang)}</p>
       <CoachForm
         language={lang}

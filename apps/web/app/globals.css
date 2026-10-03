@@ -1,34 +1,486 @@
 @import "tailwindcss";
 
-/* Calm, high-contrast, large targets for a showroom floor (spec 18.4 rule 7). Dealer branding overrides --brand. */
-@theme {
-  --color-ink: #0f172a;
-  --color-body: #334155;
-  --color-muted: #475569;
-  --color-line: #cbd5e1;
-  --color-surface: #ffffff;
-  --color-ground: #f1f5f9;
-  --color-brand: #0b5cad;
-  --color-brand-ink: #ffffff;
-  --color-good: #15803d;
-  --color-warn: #b45309;
-  --color-bad: #b91c1c;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+/* =======================================================================
+ * Sales Tap-tics design system. Rules: docs/DESIGN-GUIDELINES.md.
+ * The material is BookFlows' Liquid Glass (docs/LIQUID-GLASS.md), ported with
+ * its shipped values. One structural change: every value that differs between
+ * light and dark is a token below, so the material is written once and dark
+ * mode cannot drift from it (LIQUID-GLASS §5.3, §5.4).
+ * ======================================================================= */
+
+:root {
+  color-scheme: light dark;
+
+  /* INK: text and structure. */
+  --ink: #0f1a2e;          /* headings, numbers, anything that must land first */
+  --foreground: #3a4659;   /* body copy, 9.6:1 on white */
+  --muted: #566276;        /* labels and captions, 6.0:1 on white */
+  --faint: #5f6b80;        /* the quietest readable text, 5.3:1 on white */
+
+  /* GROUND */
+  --background: #f3f6fa;
+  --surface: #ffffff;
+  --surface-2: #ecf0f6;    /* pressed states, sunk fills */
+
+  /* LINES */
+  --border: #cbd4e0;
+  --border-soft: #e7ecf2;
+
+  /* ACCENT: the blue of the mark. White on it is 6.6:1. */
+  --accent: #0b5cad;
+  --accent-hover: #094c8f;
+  --accent-soft: #e5effa;  /* accent text on it is 5.8:1 */
+  --accent-foreground: #ffffff;
+  /* ACCENT FILL: large tinted surfaces and primary buttons. Same as the accent in light; in dark it stays a deep
+     blue under white text, because the light text-accent would make every hero and button glare at night. */
+  --accent-fill: #0b5cad;
+  --accent-fill-foreground: #ffffff;
+
+  /* SPARK: the amber dot of the mark. Streaks, stars, celebration only. Never text. */
+  --spark: #f5b301;
+  --spark-soft: #fff6dc;
+
+  /* STATE: separate from the brand on purpose. */
+  --success: #067647;
+  --success-soft: #e9f8ef;
+  --warning: #a64a06;
+  --warning-soft: #fff6e5;
+  --danger: #b42318;
+  --danger-soft: #fdf0ee;
+
+  /* MATERIAL TOKENS (light) */
+  --lg-base-opacity: 58%;
+  --lg-base-sheen: 58%;
+  --lg-base-rim: 82%;
+  --lg-edge: color-mix(in srgb, var(--ink) 8%, transparent);
+  --lg-edge-bottom: color-mix(in srgb, var(--ink) 15%, transparent);
+  --lg-lens: color-mix(in srgb, #fff 55%, transparent);
+  --lg-side: color-mix(in srgb, #fff 30%, transparent);
+  --lg-lip: color-mix(in srgb, var(--ink) 13%, transparent);
+  --lg-lip-glow: color-mix(in srgb, var(--ink) 10%, transparent);
+  --lg-drop-1: color-mix(in srgb, var(--ink) 10%, transparent);
+  --lg-drop-2: color-mix(in srgb, var(--ink) 10%, transparent);
+  --lg-drop-3: color-mix(in srgb, var(--ink) 14%, transparent);
+  --lg-drop-4: color-mix(in srgb, var(--ink) 16%, transparent);
+  --panel-opacity: 82%;
+  --panel-sheen: 46%;
+  --panel-rim: 88%;
+  --panel-lens: color-mix(in srgb, #fff 70%, transparent);
+  --panel-drop-1: color-mix(in srgb, var(--ink) 8%, transparent);
+  --panel-drop-2: color-mix(in srgb, var(--ink) 8%, transparent);
+  --panel-drop-3: color-mix(in srgb, var(--ink) 11%, transparent);
+  --panel-drop-4: color-mix(in srgb, var(--ink) 13%, transparent);
+  --panel-lip: color-mix(in srgb, var(--ink) 10%, transparent);
+  --panel-lip-glow: color-mix(in srgb, var(--ink) 8%, transparent);
+  --tint-opacity: 94%;
+  --tint-sheen: 38%;
+  --tint-rim: 44%;
+  --inset-bg: color-mix(in srgb, var(--surface-2) 70%, transparent);
+  --inset-edge: color-mix(in srgb, var(--ink) 7%, transparent);
+  --inset-shadow: inset 0 1px 2px color-mix(in srgb, var(--ink) 8%, transparent), inset 0 -1px 0 color-mix(in srgb, #fff 45%, transparent);
+  --field-bg: color-mix(in srgb, var(--surface) 88%, transparent);
+  --field-edge: color-mix(in srgb, var(--ink) 12%, transparent);
+  --field-shadow: inset 0 1px 2px color-mix(in srgb, var(--ink) 7%, transparent), inset 0 -1px 0 color-mix(in srgb, #fff 40%, transparent);
+  --chrome-bg: color-mix(in srgb, var(--background) 72%, transparent);
+  --chrome-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 7%, transparent), inset 0 -1px 0 color-mix(in srgb, #fff 30%, transparent), 0 6px 18px color-mix(in srgb, var(--ink) 7%, transparent);
+  --wash-1: 9%;
+  --wash-2: 7%;
+
+  /* Native shell insets, as variables so a test can set them (BookFlows lesson). */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-h: 4.25rem;
 }
 
+/* DARK, written twice on purpose: the OS preference (unless the user chose light)
+   and an explicit dark choice. Tokens only, so the two blocks are short. */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --color-ink: #f1f5f9;
-    --color-body: #cbd5e1;
-    --color-muted: #94a3b8;
-    --color-line: #334155;
-    --color-surface: #111827;
-    --color-ground: #030712;
-    --color-brand: #60a5fa;
-    --color-brand-ink: #0b1220;
+  :root:not([data-theme="light"]) {
+    --ink: #f2f5fa;
+    --foreground: #c6cfdc;
+    --muted: #9ba7ba;
+    --faint: #8794a9;
+    --background: #0b1220;
+    --surface: #141c2b;
+    --surface-2: #1c2537;
+    --border: #2b3549;
+    --border-soft: #202a3c;
+    --accent: #6aa6ef;
+    --accent-hover: #8dbbf3;
+    --accent-soft: #14243d;
+    --accent-foreground: #0b1220;
+  --accent-fill: #2a63b0;
+  --accent-fill-foreground: #ffffff;
+    --accent-fill: #2a63b0;
+    --accent-fill-foreground: #ffffff;
+    --spark: #f7c23e;
+    --spark-soft: #2a2210;
+    --success: #42d18a;
+    --success-soft: #10291f;
+    --warning: #f0a02a;
+    --warning-soft: #2a1f0c;
+    --danger: #fb7a70;
+    --danger-soft: #2a1414;
+    --lg-base-opacity: 68%;
+    --lg-base-sheen: 14%;
+    --lg-base-rim: 22%;
+    --lg-edge: color-mix(in srgb, #fff 13%, transparent);
+    --lg-edge-bottom: rgba(0, 0, 0, 0.5);
+    --lg-lens: color-mix(in srgb, #fff 15%, transparent);
+    --lg-side: color-mix(in srgb, #fff 8%, transparent);
+    --lg-lip: rgba(0, 0, 0, 0.5);
+    --lg-lip-glow: rgba(0, 0, 0, 0.35);
+    --lg-drop-1: rgba(0, 0, 0, 0.55);
+    --lg-drop-2: rgba(0, 0, 0, 0.5);
+    --lg-drop-3: rgba(0, 0, 0, 0.58);
+    --lg-drop-4: rgba(0, 0, 0, 0.62);
+    --panel-opacity: 93%;
+    --panel-sheen: 11%;
+    --panel-rim: 18%;
+    --panel-lens: color-mix(in srgb, #fff 12%, transparent);
+    --panel-drop-1: rgba(0, 0, 0, 0.45);
+    --panel-drop-2: rgba(0, 0, 0, 0.4);
+    --panel-drop-3: rgba(0, 0, 0, 0.5);
+    --panel-drop-4: rgba(0, 0, 0, 0.55);
+    --panel-lip: rgba(0, 0, 0, 0.42);
+    --panel-lip-glow: rgba(0, 0, 0, 0.3);
+    --tint-opacity: 92%;
+    --tint-sheen: 14%;
+    --tint-rim: 22%;
+    --inset-bg: color-mix(in srgb, #000 22%, transparent);
+    --inset-edge: color-mix(in srgb, #fff 7%, transparent);
+    --inset-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 8%, transparent);
+    --field-bg: color-mix(in srgb, #000 18%, transparent);
+    --field-edge: color-mix(in srgb, #fff 12%, transparent);
+    --field-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45), inset 0 -1px 0 color-mix(in srgb, #fff 7%, transparent);
+    --chrome-bg: color-mix(in srgb, var(--background) 70%, transparent);
+    --chrome-shadow: 0 1px 0 rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 10%, transparent), 0 6px 18px rgba(0, 0, 0, 0.4);
+    --wash-1: 11%;
+    --wash-2: 8%;
   }
 }
 
-html { -webkit-text-size-adjust: 100%; }
-body { background: var(--color-ground); color: var(--color-body); }
-:focus-visible { outline: 3px solid var(--color-brand); outline-offset: 2px; }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #f2f5fa;
+  --foreground: #c6cfdc;
+  --muted: #9ba7ba;
+  --faint: #8794a9;
+  --background: #0b1220;
+  --surface: #141c2b;
+  --surface-2: #1c2537;
+  --border: #2b3549;
+  --border-soft: #202a3c;
+  --accent: #6aa6ef;
+  --accent-hover: #8dbbf3;
+  --accent-soft: #14243d;
+  --accent-foreground: #0b1220;
+  --accent-fill: #2a63b0;
+  --accent-fill-foreground: #ffffff;
+  --spark: #f7c23e;
+  --spark-soft: #2a2210;
+  --success: #42d18a;
+  --success-soft: #10291f;
+  --warning: #f0a02a;
+  --warning-soft: #2a1f0c;
+  --danger: #fb7a70;
+  --danger-soft: #2a1414;
+  --lg-base-opacity: 68%;
+  --lg-base-sheen: 14%;
+  --lg-base-rim: 22%;
+  --lg-edge: color-mix(in srgb, #fff 13%, transparent);
+  --lg-edge-bottom: rgba(0, 0, 0, 0.5);
+  --lg-lens: color-mix(in srgb, #fff 15%, transparent);
+  --lg-side: color-mix(in srgb, #fff 8%, transparent);
+  --lg-lip: rgba(0, 0, 0, 0.5);
+  --lg-lip-glow: rgba(0, 0, 0, 0.35);
+  --lg-drop-1: rgba(0, 0, 0, 0.55);
+  --lg-drop-2: rgba(0, 0, 0, 0.5);
+  --lg-drop-3: rgba(0, 0, 0, 0.58);
+  --lg-drop-4: rgba(0, 0, 0, 0.62);
+  --panel-opacity: 93%;
+  --panel-sheen: 11%;
+  --panel-rim: 18%;
+  --panel-lens: color-mix(in srgb, #fff 12%, transparent);
+  --panel-drop-1: rgba(0, 0, 0, 0.45);
+  --panel-drop-2: rgba(0, 0, 0, 0.4);
+  --panel-drop-3: rgba(0, 0, 0, 0.5);
+  --panel-drop-4: rgba(0, 0, 0, 0.55);
+  --panel-lip: rgba(0, 0, 0, 0.42);
+  --panel-lip-glow: rgba(0, 0, 0, 0.3);
+  --tint-opacity: 92%;
+  --tint-sheen: 14%;
+  --tint-rim: 22%;
+  --inset-bg: color-mix(in srgb, #000 22%, transparent);
+  --inset-edge: color-mix(in srgb, #fff 7%, transparent);
+  --inset-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 8%, transparent);
+  --field-bg: color-mix(in srgb, #000 18%, transparent);
+  --field-edge: color-mix(in srgb, #fff 12%, transparent);
+  --field-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45), inset 0 -1px 0 color-mix(in srgb, #fff 7%, transparent);
+  --chrome-bg: color-mix(in srgb, var(--background) 70%, transparent);
+  --chrome-shadow: 0 1px 0 rgba(0, 0, 0, 0.5), inset 0 -1px 0 color-mix(in srgb, #fff 10%, transparent), 0 6px 18px rgba(0, 0, 0, 0.4);
+  --wash-1: 11%;
+  --wash-2: 8%;
+}
+:root[data-theme="light"] { color-scheme: light; }
+
+/* Tailwind names. The older names (ground, line, brand, good, bad) stay so every
+   screen reads the same tokens; `ground` is the sunk fill inside a card. */
+@theme inline {
+  --color-ink: var(--ink);
+  --color-body: var(--foreground);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--border);
+  --color-line-soft: var(--border-soft);
+  --color-surface: var(--surface);
+  --color-ground: var(--surface-2);
+  --color-page: var(--background);
+  --color-brand: var(--accent);
+  --color-brand-ink: var(--accent-foreground);
+  --color-brand-soft: var(--accent-soft);
+  --color-brand-fill: var(--accent-fill);
+  --color-brand-fill-ink: var(--accent-fill-foreground);
+  --color-spark: var(--spark);
+  --color-spark-soft: var(--spark-soft);
+  --color-good: var(--success);
+  --color-good-soft: var(--success-soft);
+  --color-warn: var(--warning);
+  --color-warn-soft: var(--warning-soft);
+  --color-bad: var(--danger);
+  --color-bad-soft: var(--danger-soft);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius-glass: 1.5rem;
+  --radius-card: 1.25rem;
+  --radius-control: 0.875rem;
+}
+
+/* ---------------------------------------------------------------- ground */
+
+html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+
+/* LIQUID-GLASS §1: give the glass something to be glass about. Two faint washes
+   at opposite corners of the viewport, fixed to the screen: the mark's blue at
+   the top, its amber at the bottom. */
+body {
+  background:
+    radial-gradient(120% 90% at 8% -10%, color-mix(in srgb, var(--accent) var(--wash-1), transparent), transparent 60%),
+    radial-gradient(110% 80% at 100% 108%, color-mix(in srgb, var(--spark) var(--wash-2), transparent), transparent 62%),
+    var(--background);
+  background-attachment: fixed;
+  color: var(--foreground);
+  text-wrap: pretty;
+  overscroll-behavior-y: none;
+}
+h1, h2, h3 { text-wrap: balance; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+:focus:not(:focus-visible) { outline: none; }
+
+/* Native controls take the brand colour and a thumb-sized box. */
+input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); width: 1.375rem; height: 1.375rem; }
+
+/* iOS zooms into any field under 16px. */
+input, select, textarea { font-size: 16px; }
+
+/* ---------------------------------------------------------------- material */
+
+.liquid-glass {
+  --lg-tint: var(--surface);
+  --lg-opacity: var(--lg-base-opacity);
+  --lg-sheen: var(--lg-base-sheen);
+  --lg-rim: var(--lg-base-rim);
+  position: relative;
+  background:
+    linear-gradient(177deg,
+      color-mix(in srgb, #fff var(--lg-sheen), transparent) 0%,
+      color-mix(in srgb, #fff calc(var(--lg-sheen) * 0.34), transparent) 13%,
+      transparent 48%,
+      color-mix(in srgb, var(--ink) 3%, transparent) 88%,
+      color-mix(in srgb, #fff calc(var(--lg-sheen) * 0.22), transparent) 100%),
+    color-mix(in srgb, var(--lg-tint) var(--lg-opacity), transparent);
+  /* Prefixed first, always (LIQUID-GLASS §5.1). */
+  -webkit-backdrop-filter: blur(30px) saturate(200%) brightness(1.07);
+  backdrop-filter: blur(30px) saturate(200%) brightness(1.07);
+  border: 1px solid var(--lg-edge);
+  border-bottom-color: var(--lg-edge-bottom);
+  box-shadow:
+    0 1px 1px var(--lg-drop-1),
+    0 4px 8px -2px var(--lg-drop-2),
+    0 14px 28px -6px var(--lg-drop-3),
+    0 30px 60px -20px var(--lg-drop-4),
+    inset 0 0 0 0.5px var(--lg-lens),
+    inset 0 1.5px 0 color-mix(in srgb, #fff var(--lg-rim), transparent),
+    inset 1px 0 0 var(--lg-side),
+    inset -1px 0 0 var(--lg-side),
+    inset 0 -1.5px 0 var(--lg-lip),
+    inset 0 -10px 16px -10px var(--lg-lip-glow);
+  transition:
+    box-shadow 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    background 220ms ease;
+}
+.liquid-glass.fixed { position: fixed; }
+.liquid-glass.absolute { position: absolute; }
+.liquid-glass.sticky { position: sticky; }
+
+/* Tinted controls: 92-94% so labels clear 4.5:1, and shadows cast in their own tint. */
+.liquid-glass-accent, .liquid-glass-ink, .liquid-glass-success, .liquid-glass-danger {
+  --lg-opacity: var(--tint-opacity);
+  --lg-sheen: var(--tint-sheen);
+  --lg-rim: var(--tint-rim);
+  border-color: color-mix(in srgb, #fff 24%, transparent);
+  border-bottom-color: color-mix(in srgb, #000 18%, transparent);
+  box-shadow:
+    0 1px 1px color-mix(in srgb, var(--lg-tint) 30%, transparent),
+    0 4px 10px -2px color-mix(in srgb, var(--lg-tint) 34%, transparent),
+    0 12px 26px -6px color-mix(in srgb, var(--lg-tint) 40%, transparent),
+    0 24px 48px -18px color-mix(in srgb, var(--lg-tint) 34%, transparent),
+    inset 0 0 0 0.5px color-mix(in srgb, #fff 30%, transparent),
+    inset 0 1.5px 0 color-mix(in srgb, #fff 46%, transparent),
+    inset 0 -1.5px 0 color-mix(in srgb, #000 16%, transparent),
+    inset 0 -10px 16px -10px color-mix(in srgb, #000 12%, transparent);
+}
+.liquid-glass-accent { --lg-tint: var(--accent-fill); color: var(--accent-fill-foreground); }
+.liquid-glass-ink { --lg-tint: var(--ink); color: var(--background); }
+.liquid-glass-success { --lg-tint: var(--success); color: var(--surface); }
+.liquid-glass-danger { --lg-tint: var(--danger); color: var(--surface); }
+
+/* Cards: no blur (nothing behind a card on a flat ground to refract), 82% so the
+   wash reaches each card and a stack is not six identical rectangles. */
+.liquid-glass-panel {
+  --lg-opacity: var(--panel-opacity);
+  --lg-sheen: var(--panel-sheen);
+  --lg-rim: var(--panel-rim);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow:
+    0 1px 1px var(--panel-drop-1),
+    0 3px 6px -1px var(--panel-drop-2),
+    0 12px 24px -6px var(--panel-drop-3),
+    0 28px 52px -18px var(--panel-drop-4),
+    inset 0 0 0 0.5px var(--panel-lens),
+    inset 0 1.5px 0 color-mix(in srgb, #fff var(--lg-rim), transparent),
+    inset 0 -1.5px 0 var(--panel-lip),
+    inset 0 -12px 18px -12px var(--panel-lip-glow);
+}
+/* A tinted hero panel: the accent material at card scale. */
+.liquid-glass-panel.liquid-glass-accent {
+  /* A card-sized tint shows the specular across far more text than a button does: half the sheen, full tint. */
+  --lg-opacity: 100%;
+  --lg-sheen: calc(var(--tint-sheen) * 0.5);
+  --lg-rim: var(--tint-rim);
+  box-shadow:
+    0 1px 1px color-mix(in srgb, var(--accent-fill) 30%, transparent),
+    0 6px 14px -4px color-mix(in srgb, var(--accent-fill) 30%, transparent),
+    0 18px 38px -10px color-mix(in srgb, var(--accent-fill) 38%, transparent),
+    inset 0 0 0 0.5px color-mix(in srgb, #fff 26%, transparent),
+    inset 0 1.5px 0 color-mix(in srgb, #fff 40%, transparent),
+    inset 0 -1.5px 0 color-mix(in srgb, #000 18%, transparent);
+}
+
+.liquid-glass-inset {
+  background: var(--inset-bg);
+  border: 1px solid var(--inset-edge);
+  box-shadow: var(--inset-shadow);
+}
+.liquid-glass-field {
+  background: var(--field-bg);
+  border: 1px solid var(--field-edge);
+  box-shadow: var(--field-shadow);
+  color: var(--ink);
+}
+.liquid-glass-field:focus, .liquid-glass-field:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: var(--field-shadow), 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.liquid-glass-ring { border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+input.liquid-glass, select.liquid-glass, textarea.liquid-glass { -webkit-backdrop-filter: none; backdrop-filter: none; }
+/* Controls that sit on a flat panel or on the chrome keep the material but not the blur: there is nothing
+   behind them to refract, and the four-blurred-layers budget is for the chrome (LIQUID-GLASS §6). */
+.liquid-glass-flat { -webkit-backdrop-filter: none; backdrop-filter: none; }
+/* A neutral control that must read as solid on a tinted card (the hero's start button). */
+.liquid-glass-solid { --lg-opacity: 94%; }
+
+/* Shadow only, for surfaces that keep their own fill (a state colour, a badge). */
+.bezel {
+  box-shadow:
+    0 1px 1px var(--panel-drop-1),
+    0 3px 7px -1px var(--panel-drop-2),
+    inset 0 1px 0 color-mix(in srgb, #fff 40%, transparent),
+    inset 0 -1.5px 0 var(--panel-lip);
+}
+
+/* States move in the third dimension (LIQUID-GLASS §2.1). */
+button.liquid-glass:hover:not(:disabled), a.liquid-glass:hover { transform: translateY(-1px); }
+button.liquid-glass:active:not(:disabled), a.liquid-glass:active, label.liquid-glass:active {
+  transform: translateY(1.5px) scale(0.99);
+  box-shadow:
+    0 1px 1px var(--lg-drop-1),
+    0 2px 4px -1px var(--lg-drop-2),
+    inset 0 0 0 0.5px var(--lg-lens),
+    inset 0 1px 0 color-mix(in srgb, #fff 30%, transparent),
+    inset 0 -1px 0 var(--lg-lip);
+}
+button.liquid-glass:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* Chrome: the top bar and the tab bar. */
+.glass-chrome {
+  background: var(--chrome-bg);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: var(--chrome-shadow);
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .liquid-glass { background: var(--lg-tint); }
+  .glass-chrome { background: var(--surface); }
+}
+
+/* A promise, not a nicety (LIQUID-GLASS §5.6). */
+@media (prefers-reduced-transparency: reduce) {
+  .liquid-glass { background: var(--lg-tint); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .liquid-glass-field { background: var(--surface); }
+  .liquid-glass-inset { background: var(--surface-2); }
+  .glass-chrome { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------- app shell */
+
+.pt-safe { padding-top: var(--safe-top); }
+.pb-tabbar { padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 1.5rem); }
+.bottom-safe { bottom: calc(var(--safe-bottom) + 0.5rem); }
+.pb-safe { padding-bottom: calc(var(--safe-bottom) + 0.75rem); }
+
+/* The one loud moment: the next node on the path breathes, and stops for reduced motion. */
+@keyframes node-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 35%, transparent); }
+  50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+.node-current { animation: node-breathe 2.4s ease-in-out infinite; }
+
+/* Rings and bars draw in once. */
+@keyframes ring-draw { from { stroke-dashoffset: var(--ring-full); } }
+.ring-value { animation: ring-draw 900ms cubic-bezier(0.32, 0.72, 0, 1) both; }
+@keyframes bar-grow { from { transform: scaleX(0); } }
+.bar-value { transform-origin: left; animation: bar-grow 700ms cubic-bezier(0.32, 0.72, 0, 1) both; }
+
+/* A chat bubble arriving. */
+@keyframes bubble-in { from { opacity: 0; transform: translateY(6px) scale(0.98); } }
+.bubble-in { animation: bubble-in 260ms cubic-bezier(0.32, 0.72, 0, 1) both; }
+
+/* Typing dots while the customer answers. */
+@keyframes typing { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
+.typing span { animation: typing 1.2s infinite; }
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }

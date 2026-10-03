@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
-import { Card, Grade, Pill, buttonClass, ghostButtonClass } from "@/components/ui";
 import { Debrief, type DebriefPayload } from "@/components/debrief";
+import { IconAlert, IconEye, IconMessage, IconPlay, IconSend, IconTrophy, IconX } from "@/components/icons";
+import { Avatar, Card, Chip, Grade, Inset, buttonClass, ghostButtonClass } from "@/components/ui";
 
 type Line = { speaker: "rep" | "customer"; text: string };
 
@@ -11,6 +13,8 @@ export interface RoomScenario {
   code: string;
   title: Bilingual;
   setting: Bilingual;
+  level: number;
+  maxTurns: number;
   languages: Language[];
   targets: { code: string; name: Bilingual; grade: string }[];
   demos: Record<"flawed" | "good", { notice: Bilingual; script: Record<Language, Line[]> }>;
@@ -20,6 +24,10 @@ type Phase = "intro" | "demo" | "live" | "debrief";
 
 const strip = (s: string) => s.replace(/\[[^\]]*\]\s*/g, "");
 
+/**
+ * The practice room (spec 12.2), immersive like a lesson in a learning app: the briefing, an optional
+ * demonstration, the conversation, then the debrief. No tab bar; one way out at the top left.
+ */
 export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: { scenario: RoomScenario; uiLanguage: Language; live: boolean; mode?: "practice" | "certification" }) {
   const [phase, setPhase] = useState<Phase>("intro");
   const [choice, setChoice] = useState<Language | "follow">(uiLanguage);
@@ -32,9 +40,21 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   const [error, setError] = useState<string | null>(null);
   const [debrief, setDebrief] = useState<DebriefPayload | null>(null);
   const bottom = useRef<HTMLDivElement>(null);
+  const field = useRef<HTMLTextAreaElement>(null);
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
+  const repTurns = lines.filter((l) => l.speaker === "rep").length;
+  const turnBudget = Math.max(1, Math.floor(scenario.maxTurns / 2));
+  const turnsLeft = Math.max(0, turnBudget - repTurns);
+  const waiting = busy && lines.at(-1)?.speaker === "rep";
 
-  useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth", block: "end" }), [lines, phase]);
+  useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth", block: "end" }), [lines, phase, ended, waiting]);
+  // The field grows with what is typed, up to five lines.
+  useEffect(() => {
+    const el = field.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 132)}px`;
+  }, [draft]);
 
   async function start() {
     setBusy(true);
@@ -113,105 +133,187 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   }
 
   if (phase === "debrief") {
-    return debrief ? <Debrief data={debrief} language={lang} onRetry={() => location.reload()} /> : <p className="text-muted" role="status">{ui("debrief.loading")}</p>;
+    return debrief ? (
+      <Debrief data={debrief} language={lang} onRetry={() => location.reload()} />
+    ) : (
+      <div className="grid min-h-dvh place-items-center px-6" role="status">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <span className="h-12 w-12 animate-spin rounded-full border-4 border-brand-soft border-t-brand" aria-hidden="true" />
+          <p className="text-[17px] font-semibold text-ink">{ui("debrief.loading")}</p>
+        </div>
+      </div>
+    );
   }
 
+  // ------------------------------------------------------------- live conversation
+  if (phase === "live" && session) {
+    return (
+      <div className="flex min-h-dvh flex-col">
+        <header className="glass-chrome pt-safe sticky top-0 z-30">
+          <div className="mx-auto flex h-16 max-w-2xl items-center gap-3 px-4">
+            <Avatar name={session.name} size={40} />
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[17px] font-bold text-ink">{session.name}</p>
+              <p className="truncate text-[13px] text-muted">{scenario.title[lang]}</p>
+            </div>
+            {!ended && <button type="button" onClick={finish} className="liquid-glass liquid-glass-flat min-h-10 shrink-0 rounded-full px-3.5 text-[14px] font-semibold text-ink">{ui("practice.end")}</button>}
+          </div>
+          {/* Turns left: the conversation has a limit, and the rep should feel it coming. */}
+          <div className="mx-auto flex max-w-2xl items-center gap-2 px-4 pb-2">
+            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-ground" aria-hidden="true">
+              <div className="h-full rounded-full bg-brand transition-[width] duration-500" style={{ width: `${Math.min(100, (repTurns / turnBudget) * 100)}%` }} />
+            </div>
+            <span className="text-[12px] font-semibold text-muted tabular-nums">{ui("practice.turnsLeft", { n: turnsLeft })}</span>
+          </div>
+        </header>
+
+        <div className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-40">
+          <div className="mx-auto mb-5 max-w-md space-y-2 text-center">
+            <p className="text-[15px] text-body">{session.brief}</p>
+            <p className="text-[13px] text-muted">{ui("practice.textModeNotice")}{!live && <> {ui("practice.offlineNotice")}</>}</p>
+          </div>
+          <ol className="space-y-2.5" aria-live="polite">
+            {lines.map((l, i) => {
+              const rep = l.speaker === "rep";
+              const firstOfRun = i === 0 || lines[i - 1]!.speaker !== l.speaker;
+              return (
+                <li key={i} className={`bubble-in flex items-end gap-2 ${rep ? "justify-end" : "justify-start"}`}>
+                  {!rep && <span className="w-8 shrink-0">{firstOfRun && <Avatar name={session.name} size={32} />}</span>}
+                  <p className={`max-w-[80%] px-4 py-2.5 text-[16px] leading-snug ${rep
+                    ? "bezel rounded-[1.25rem] rounded-br-md bg-brand-fill text-brand-fill-ink"
+                    : "liquid-glass liquid-glass-panel rounded-[1.25rem] rounded-bl-md text-ink"}`}>
+                    <span className="sr-only">{ui(rep ? "practice.you" : "practice.customer")}: </span>
+                    {l.text}
+                  </p>
+                </li>
+              );
+            })}
+            {waiting && (
+              <li className="flex items-end gap-2">
+                <span className="w-8 shrink-0" />
+                <span className="sr-only">{ui("practice.typing", { name: session.name })}</span>
+                <span className="typing liquid-glass liquid-glass-panel flex gap-1 rounded-[1.25rem] rounded-bl-md px-4 py-3.5" aria-hidden="true">
+                  <span className="h-2 w-2 rounded-full bg-muted" /><span className="h-2 w-2 rounded-full bg-muted" /><span className="h-2 w-2 rounded-full bg-muted" />
+                </span>
+              </li>
+            )}
+          </ol>
+          {error && <p role="alert" className="mt-4 flex items-center justify-center gap-2 font-semibold text-bad"><IconAlert size={18} />{error}</p>}
+          <div ref={bottom} />
+        </div>
+
+        <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
+          <div className="mx-auto max-w-2xl px-4">
+            {ended ? (
+              <div className="space-y-3 pb-1">
+                <p className={`flex items-center justify-center gap-2 text-center text-[16px] font-semibold ${ended.stopped ? "text-bad" : "text-ink"}`}>
+                  {ended.stopped && <IconAlert size={18} />}{ui(ended.stopped ? "practice.stoppedCritical" : "practice.ended")}
+                </p>
+                <button className={`${buttonClass} w-full`} onClick={finish}>{ui("practice.seeDebrief")}</button>
+              </div>
+            ) : (
+              <form data-testid="composer" data-busy={busy ? "true" : "false"} className="flex items-end gap-2" onSubmit={(e) => { e.preventDefault(); void send(); }}>
+                <label htmlFor="say" className="sr-only">{ui("practice.typeHere")}</label>
+                <textarea
+                  ref={field}
+                  id="say"
+                  rows={1}
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); void send(); } }}
+                  placeholder={ui("practice.typeHere")}
+                  className="liquid-glass-field min-h-12 flex-1 resize-none rounded-[1.5rem] px-4 py-3 leading-snug"
+                  lang={lang}
+                  enterKeyHint="send"
+                />
+                <button aria-label={ui("practice.send")} className="liquid-glass liquid-glass-accent liquid-glass-flat grid h-12 w-12 shrink-0 place-items-center rounded-full" disabled={busy || !draft.trim()}>
+                  <IconSend size={22} />
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ------------------------------------------------------------- briefing and demonstration
+  const demoLang: Language = choice === "follow" ? lang : choice;
+  const close = phase === "demo"
+    ? <button type="button" onClick={() => setPhase("intro")} aria-label={ui("practice.close")} className="liquid-glass liquid-glass-flat grid h-11 w-11 shrink-0 place-items-center rounded-full text-ink"><IconX size={20} /></button>
+    : <Link href="/practice" aria-label={ui("practice.close")} className="liquid-glass liquid-glass-flat grid h-11 w-11 shrink-0 place-items-center rounded-full text-ink"><IconX size={20} /></Link>;
   return (
-    <div className="space-y-4">
-      <div>
-        {mode === "certification" && <p className="text-sm font-semibold uppercase tracking-wide text-brand" data-testid="cert-badge">{t("cert.badge", lang)}</p>}
-        <h1 className="text-2xl font-bold text-ink">{scenario.title[lang]}</h1>
-        <p className="text-muted">{scenario.setting[lang]}</p>
+    <div className="flex min-h-dvh flex-col">
+      <div className="pt-safe">
+        <div className="mx-auto flex h-16 max-w-2xl items-center gap-3 px-4">
+          {close}
+          <div className="flex-1" />
+          {mode === "certification"
+            ? <Chip tone="spark" icon={<IconTrophy size={15} />} data-testid="cert-badge">{t("cert.badge", lang)}</Chip>
+            : <Chip tone="brand">{t("practice.level", lang, { n: scenario.level })}</Chip>}
+        </div>
       </div>
 
-      {phase === "intro" && (
-        <Card className="space-y-4">
-          <div>
-            <p className="text-sm font-semibold text-muted">{ui("scenario.targets")}</p>
-            <ul className="mt-2 space-y-2">
-              {scenario.targets.map((x) => (
-                <li key={x.code} className="flex items-center gap-2 text-ink">
-                  <Grade grade={x.grade} label={ui(`evidence.${x.grade}` as "evidence.A")} /> {x.name[lang]}
+      <div className="mx-auto w-full max-w-2xl flex-1 space-y-5 px-4 pt-2 pb-48">
+        <div className="space-y-2">
+          <span className="grid h-14 w-14 place-items-center rounded-[1.1rem] bg-brand-soft text-brand"><IconMessage size={28} /></span>
+          <h1 className="pt-1 text-[28px] leading-tight font-bold tracking-tight text-ink">{scenario.title[lang]}</h1>
+          <p className="text-[17px] text-body">{scenario.setting[lang]}</p>
+        </div>
+
+        {phase === "intro" && (
+          <>
+            <Card className="space-y-3">
+              <h2 className="text-[17px] font-bold text-ink">{ui("scenario.targets")}</h2>
+              <ul className="space-y-2.5">
+                {scenario.targets.map((x) => (
+                  <li key={x.code} className="flex items-center gap-3 text-[16px] text-ink">
+                    <Grade grade={x.grade} label={ui("scenario.evidence", { grade: x.grade })} /> {x.name[lang]}
+                  </li>
+                ))}
+              </ul>
+              <p className="border-t border-line-soft pt-3 text-[14px] text-muted">{ui("scenario.howItWorks")}</p>
+            </Card>
+            <fieldset className="space-y-2">
+              <legend className="px-1 text-[15px] font-semibold text-muted">{ui("scenario.language")}</legend>
+              <div className="liquid-glass-inset grid grid-cols-3 gap-1 rounded-[1.1rem] p-1">
+                {([...scenario.languages, "follow"] as const).map((option) => (
+                  <label key={option} className={`flex min-h-12 cursor-pointer items-center justify-center rounded-[0.85rem] px-2 text-center text-[14px] leading-tight font-semibold transition-colors ${choice === option ? "liquid-glass liquid-glass-flat text-ink" : "text-muted"}`}>
+                    <input type="radio" name="lang" value={option} className="sr-only" checked={choice === option} onChange={() => setChoice(option)} />
+                    {ui(option === "follow" ? "scenario.language.follow" : (`scenario.language.${option}` as "scenario.language.en"))}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <p className="px-1 text-[14px] text-muted">{ui(live ? "practice.liveNotice" : "practice.offlineNotice")}</p>
+          </>
+        )}
+
+        {phase === "demo" && (["flawed", "good"] as const).map((kind) => (
+          <Card key={kind} className="space-y-3">
+            <h2 className={`text-[17px] font-bold ${kind === "flawed" ? "text-bad" : "text-good"}`}>{ui(kind === "flawed" ? "demo.flawed" : "demo.good")}</h2>
+            <ol className="space-y-2">
+              {scenario.demos[kind].script[demoLang].map((l, i) => (
+                <li key={i} className={`flex ${l.speaker === "rep" ? "justify-end" : "justify-start"}`}>
+                  <p className={`max-w-[85%] rounded-[1.1rem] px-3.5 py-2 text-[15px] text-ink ${l.speaker === "rep" ? "bg-brand-soft" : "bg-ground"}`}>
+                    <span className="sr-only">{ui(l.speaker === "rep" ? "practice.you" : "practice.customer")}: </span>{strip(l.text)}
+                  </p>
                 </li>
               ))}
-            </ul>
-          </div>
-          <fieldset>
-            <legend className="text-sm font-semibold text-muted">{ui("scenario.language")}</legend>
-            <div className="mt-2 grid grid-cols-3 gap-2">
-              {([...scenario.languages, "follow"] as const).map((option) => (
-                <label key={option} className={`flex min-h-12 cursor-pointer items-center justify-center rounded-xl border px-2 text-center text-sm font-semibold ${choice === option ? "border-brand bg-brand text-brand-ink" : "border-line text-ink"}`}>
-                  <input type="radio" name="lang" value={option} className="sr-only" checked={choice === option} onChange={() => setChoice(option)} />
-                  {ui(option === "follow" ? "scenario.language.follow" : (`scenario.language.${option}` as "scenario.language.en"))}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <button className={ghostButtonClass} onClick={() => setPhase("demo")}>{ui("scenario.watchDemo")}</button>
-            <button className={buttonClass} onClick={start} disabled={busy}>{ui("scenario.start")}</button>
-          </div>
-          <p className="text-sm text-muted">{ui(live ? "practice.liveNotice" : "practice.offlineNotice")}</p>
-        </Card>
-      )}
-
-      {phase === "demo" && (
-        <div className="space-y-4">
-          {(["flawed", "good"] as const).map((kind) => {
-            const demoLang: Language = choice === "follow" ? lang : choice;
-            return (
-              <Card key={kind} className="space-y-3">
-                <h2 className="font-bold text-ink">{ui(kind === "flawed" ? "demo.flawed" : "demo.good")}</h2>
-                <ol className="space-y-2">
-                  {scenario.demos[kind].script[demoLang].map((l, i) => (
-                    <li key={i} className={l.speaker === "rep" ? "text-ink" : "text-body"}>
-                      <span className="font-semibold">{ui(l.speaker === "rep" ? "practice.you" : "practice.customer")}:</span> {strip(l.text)}
-                    </li>
-                  ))}
-                </ol>
-                <p className="rounded-xl bg-ground p-3 text-sm font-medium text-ink">{scenario.demos[kind].notice[demoLang]}</p>
-              </Card>
-            );
-          })}
-          <button className={`${buttonClass} w-full`} onClick={start} disabled={busy}>{ui("scenario.start")}</button>
-        </div>
-      )}
-
-      {phase === "live" && session && (
-        <div className="space-y-3">
-          <Card>
-            <p className="text-ink">{session.brief}</p>
-            <div className="mt-2 flex flex-wrap gap-2"><Pill>{ui("practice.textModeNotice")}</Pill>{!live && <Pill>{ui("practice.offlineNotice")}</Pill>}</div>
+            </ol>
+            <Inset className="text-[14px] font-medium">{scenario.demos[kind].notice[demoLang]}</Inset>
           </Card>
-          <ol className="space-y-2" aria-live="polite">
-            {lines.map((l, i) => (
-              <li key={i} className={`flex ${l.speaker === "rep" ? "justify-end" : "justify-start"}`}>
-                <p className={`max-w-[85%] rounded-2xl px-4 py-2.5 ${l.speaker === "rep" ? "bg-brand text-brand-ink" : "border border-line bg-surface text-ink"}`}>
-                  <span className="sr-only">{ui(l.speaker === "rep" ? "practice.you" : "practice.customer")}: </span>
-                  {l.text}
-                </p>
-              </li>
-            ))}
-          </ol>
-          <div ref={bottom} />
-          {ended ? (
-            <Card className="space-y-3">
-              <p className="font-semibold text-ink">{ui(ended.stopped ? "practice.stoppedCritical" : "practice.ended")}</p>
-              <button className={`${buttonClass} w-full`} onClick={finish}>{ui("practice.seeDebrief")}</button>
-            </Card>
-          ) : (
-            <form data-testid="composer" data-busy={busy ? "true" : "false"} className="sticky bottom-16 flex gap-2 sm:bottom-2 rounded-2xl border border-line bg-surface p-2" onSubmit={(e) => { e.preventDefault(); void send(); }}>
-              <label htmlFor="say" className="sr-only">{ui("practice.typeHere")}</label>
-              <textarea id="say" rows={2} value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); void send(); } }} placeholder={ui("practice.typeHere")} className="min-h-12 flex-1 resize-none rounded-xl bg-ground px-3 py-2 text-ink" lang={lang} />
-              <div className="flex flex-col gap-2">
-                <button className={buttonClass} disabled={busy || !draft.trim()}>{ui("practice.send")}</button>
-                <button type="button" className="text-sm font-semibold text-muted underline" onClick={finish}>{ui("practice.end")}</button>
-              </div>
-            </form>
-          )}
+        ))}
+        {error && <p role="alert" className="flex items-center gap-2 font-semibold text-bad"><IconAlert size={18} />{error}</p>}
+      </div>
+
+      {/* Primary actions live in the bottom 40% (guidelines §7). */}
+      <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
+        <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4">
+          <button className={`${buttonClass} w-full`} onClick={start} disabled={busy}><IconPlay size={18} className="fill-current" />{ui("scenario.start")}</button>
+          {phase === "intro" && <button className={`${ghostButtonClass} w-full`} onClick={() => setPhase("demo")}><IconEye size={18} />{ui("scenario.watchDemo")}</button>}
         </div>
-      )}
-      {error && <p role="alert" className="font-semibold text-bad">{error}</p>}
+      </div>
     </div>
   );
 }

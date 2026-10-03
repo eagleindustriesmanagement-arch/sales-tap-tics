@@ -26,7 +26,7 @@ export default async function Baseline() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold text-ink">{t("baseline.title", lang)}</h1>
+        <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("baseline.title", lang)}</h1>
         <p className="mt-1 text-sm">{t("baseline.intro", lang)}</p>
       </div>
       <Card><ImportForm language={lang} kinds={kinds} /></Card>

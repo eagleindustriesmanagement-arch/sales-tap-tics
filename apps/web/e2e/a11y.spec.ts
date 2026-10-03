@@ -17,9 +17,17 @@ async function signIn(page: Page, email: string) {
   await expect(page).not.toHaveURL(/\/consent$/);
 }
 
+/** Every screen in both themes: dark mode is first-class (docs/DESIGN-GUIDELINES.md §7), so its contrast is audited too. */
 async function check(page: Page, label: string) {
-  const r = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
-  const found = r.violations.map((v) => `${label}: ${v.id} (${v.impact}) ${v.nodes.map((n) => n.target.join(" ")).slice(0, 3).join(", ")}`);
+  const found: string[] = [];
+  for (const scheme of ["light", "dark"] as const) {
+    await page.emulateMedia({ colorScheme: scheme });
+    // Let the ring and bar draw-in animations finish so colours are measured at rest (LIQUID-GLASS §7).
+    await page.waitForTimeout(950);
+    const r = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+    found.push(...r.violations.map((v) => `${label} (${scheme}): ${v.id} (${v.impact}) ${v.nodes.map((n) => n.target.join(" ")).slice(0, 3).join(", ")}`));
+  }
+  await page.emulateMedia({ colorScheme: "light" });
   expect(found).toEqual([]);
 }
 

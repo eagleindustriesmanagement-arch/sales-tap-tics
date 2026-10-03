@@ -1,3 +1,4 @@
+import { IconChevronLeft } from "@/components/icons";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { t } from "@taptics/i18n";
@@ -25,11 +26,11 @@ export default async function Detail({ params }: { params: Promise<{ code: strin
   if (tech) {
     return (
       <div className="space-y-4">
-        <Link href="/library" className="text-sm font-semibold text-brand">← {t("library.title", lang)}</Link>
+        <Link href="/library" className="-ml-2 inline-flex min-h-11 items-center gap-1 rounded-full pr-3 pl-1 text-[15px] font-semibold text-brand"><IconChevronLeft size={20} />{t("library.title", lang)}</Link>
         <div className="flex items-start gap-3">
           <Grade grade={tech.evidence.grade} label={t(`evidence.${tech.evidence.grade}` as "evidence.A", lang)} />
           <div>
-            <h1 className="text-2xl font-bold text-ink">{tech.name[lang]}</h1>
+            <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{tech.name[lang]}</h1>
             <p className="text-sm text-muted">{tech.code} · {t(`evidence.${tech.evidence.grade}` as "evidence.A", lang)}</p>
           </div>
         </div>
@@ -63,8 +64,8 @@ export default async function Detail({ params }: { params: Promise<{ code: strin
   if (!obj) notFound();
   return (
     <div className="space-y-4">
-      <Link href="/library?tab=objections" className="text-sm font-semibold text-brand">← {t("library.objections", lang)}</Link>
-      <h1 className="text-2xl font-bold text-ink">{obj.code} · {obj.says[lang] || obj.says[lang === "en" ? "es" : "en"]}</h1>
+      <Link href="/library?tab=objections" className="-ml-2 inline-flex min-h-11 items-center gap-1 rounded-full pr-3 pl-1 text-[15px] font-semibold text-brand"><IconChevronLeft size={20} />{t("library.objections", lang)}</Link>
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{obj.code} · {obj.says[lang] || obj.says[lang === "en" ? "es" : "en"]}</h1>
       <Card className="space-y-4">
         <Both label={t("library.behind", lang)} value={obj.behind} />
         {obj.behind_source && <p className="text-sm text-muted">{t("library.source", lang)}: {obj.behind_source}</p>}

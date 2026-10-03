@@ -8,7 +8,7 @@ import { Card, buttonClass } from "@/components/ui";
 type Part = "saw" | "behavior" | "line" | "check_again";
 interface Result { parts: Record<Part, boolean>; oneBehavior: boolean; score: number; missing: { part: Part; model: string }[] }
 
-const input = "min-h-12 w-full rounded-xl border border-line bg-surface px-3 text-ink";
+const input = "min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
 
 export function CoachForm({ language: lang, cardCode, cardTitle, scene, cards }: { language: Language; cardCode: string; cardTitle: string; scene: string; cards: { code: string; title: string }[] }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
@@ -33,7 +33,7 @@ export function CoachForm({ language: lang, cardCode, cardTitle, scene, cards }:
         </select>
       </label>
       <Card>
-        <p className="text-sm font-semibold uppercase tracking-wide text-muted">{ui("coach.youSaw")}</p>
+        <p className="text-[14px] font-semibold text-muted">{ui("coach.youSaw")}</p>
         <p className="mt-1 text-ink" data-testid="coach-scene">{scene}</p>
         <p className="mt-2 text-sm text-muted">{ui("coach.task", { card: cardTitle })}</p>
       </Card>
@@ -55,7 +55,7 @@ export function CoachForm({ language: lang, cardCode, cardTitle, scene, cards }:
           {result.missing.length > 0 && (
             <div className="space-y-1">
               <p className="font-semibold text-ink">{ui("coach.model")}</p>
-              {result.missing.map((m) => <p key={m.part} className="rounded-xl bg-ground p-3 text-ink">{m.model}</p>)}
+              {result.missing.map((m) => <p key={m.part} className="liquid-glass-inset rounded-[0.875rem] p-3 text-ink">{m.model}</p>)}
             </div>
           )}
         </Card>

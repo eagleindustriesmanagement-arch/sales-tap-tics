@@ -44,16 +44,16 @@ export function ReviewLines({ language: lang, scenario, lines: initial, canEdit,
               <span className={`font-semibold ${STATUS_CLASS[l.status]}`} data-testid="status">{ui(`review.status.${l.status}`)}</span>
             </div>
             <div className="grid gap-2 sm:grid-cols-2">
-              <p className="rounded-xl bg-ground p-3 text-ink" lang="en">{l.en}</p>
+              <p className="liquid-glass-inset rounded-[0.875rem] p-3 text-ink" lang="en">{l.en}</p>
               {canEdit ? (
-                <textarea aria-label={ui("review.spanish")} lang="es" className="min-h-20 w-full rounded-xl border border-line bg-surface p-3 text-ink" value={l.es} onChange={(e) => update(l, { es: e.target.value })} />
+                <textarea aria-label={ui("review.spanish")} lang="es" className="min-h-20 w-full liquid-glass-field rounded-[0.875rem] p-3 text-ink" value={l.es} onChange={(e) => update(l, { es: e.target.value })} />
               ) : (
-                <p className="rounded-xl border border-line p-3 text-ink" lang="es">{l.es}</p>
+                <p className="liquid-glass-inset rounded-[0.875rem] p-3 text-ink" lang="es">{l.es}</p>
               )}
             </div>
             <div className="flex flex-wrap gap-2">
-              {canEdit && <button className="min-h-11 rounded-xl bg-brand px-4 font-semibold text-white" onClick={() => save(l)}>{ui("review.approve")}</button>}
-              {canSignOff && l.status === "needs_compliance" && <button className="min-h-11 rounded-xl border border-brand px-4 font-semibold text-brand" onClick={() => signOff(l)}>{ui("review.signOff")}</button>}
+              {canEdit && <button className="min-h-11 liquid-glass liquid-glass-accent liquid-glass-flat rounded-full px-5 font-semibold" onClick={() => save(l)}>{ui("review.approve")}</button>}
+              {canSignOff && l.status === "needs_compliance" && <button className="min-h-11 liquid-glass liquid-glass-flat liquid-glass-ring rounded-full px-5 font-semibold text-brand" onClick={() => signOff(l)}>{ui("review.signOff")}</button>}
             </div>
             {notes[id(l)] && <p role="alert" className="font-semibold text-bad">{notes[id(l)]}</p>}
           </Card>

@@ -129,9 +129,9 @@ test("the manager sees the team's cards, records a floor check in under 60 secon
   expect(Date.now() - start).toBeLessThan(60_000);
 
   await page.goto("/manager/team");
-  await expect(page.getByRole("cell", { name: "Luis" })).toBeVisible();
-  await expect(page.getByRole("cell", { name: "Ana" })).toBeVisible();
-  await expect(page.getByText(/\(checked\)/)).toBeVisible();
+  await expect(page.getByRole("link", { name: "Luis", exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Ana", exact: true })).toBeVisible();
+  await expect(page.getByText(/\(Checked\)/)).toBeVisible();
 
   const c = db();
   await c.connect();
@@ -354,7 +354,7 @@ test("the general manager adds a person who can sign in, then deactivates them",
 
 test("a rep sees their progress; a manager opens a rep's detail from the team view", async ({ page, browser }) => {
   await signInReady(page, "rep@demo.test");
-  await page.getByRole("link", { name: "See my progress" }).click();
+  await page.getByRole("link", { name: "Progress", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Progress" })).toBeVisible();
   await expect(page.getByTestId("progress-certified")).toHaveText("0/20");
   // Offline scores are partial, so no weekly dimension scores yet; that is said plainly.

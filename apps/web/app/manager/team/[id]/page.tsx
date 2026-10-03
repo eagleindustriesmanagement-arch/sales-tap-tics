@@ -23,7 +23,7 @@ export default async function RepDetail({ params }: { params: Promise<{ id: stri
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-ink">{data.name}</h1>
+        <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{data.name}</h1>
         <Link href={`/manager/assign?rep=${id}`} className={buttonClass}>{t("assign.title", lang)}</Link>
       </div>
       <ProgressView progress={data.progress} history={data.past.history} lang={lang} />

@@ -16,7 +16,7 @@ export default async function Costs() {
   const usd = (n: number) => new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: n < 1 ? 4 : 2 }).format(n);
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{t("costs.title", lang)}</h1>
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("costs.title", lang)}</h1>
       {!aiConfigured() && <p className="text-muted">{t("costs.offline", lang)}</p>}
       <div className="grid gap-3 sm:grid-cols-4">
         <Card><p className="text-sm text-muted">{t("costs.total", lang)}</p><p className="text-xl font-bold text-ink" data-testid="cost-total">{usd(total)}</p></Card>

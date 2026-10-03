@@ -2,16 +2,30 @@ import { redirect } from "next/navigation";
 import { t } from "@taptics/i18n";
 import { currentUser } from "@/lib/auth";
 import { language } from "@/lib/server";
+import { LangSwitch } from "@/components/lang-switch";
 import { LoginForm } from "@/components/login-form";
 
+/** Sign-in: the mark, one line of what this is, and a one-time code. Nothing else to read. */
 export default async function Login() {
   if (await currentUser()) redirect("/");
   const lang = await language();
   return (
-    <div className="mx-auto max-w-md space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{t("login.title", lang)}</h1>
-      <p className="text-muted">{t("app.tagline", lang)}</p>
-      <LoginForm language={lang} />
+    <div className="pt-safe flex min-h-dvh flex-col px-5">
+      <div className="mx-auto flex w-full max-w-md justify-end py-3"><LangSwitch lang={lang} /></div>
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-8 pb-10">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <img src="/icon.svg" alt="" width={84} height={84} className="bezel rounded-[22px]" />
+          <div className="space-y-2">
+            <h1 className="text-[32px] leading-tight font-bold tracking-tight text-ink">{t("app.name", lang)}</h1>
+            <p className="text-[17px] text-body">{t("app.tagline", lang)}</p>
+          </div>
+        </div>
+        <div className="space-y-3">
+          <h2 className="px-1 text-[19px] font-bold text-ink">{t("login.title", lang)}</h2>
+          <LoginForm language={lang} />
+        </div>
+      </div>
+      <p className="pb-safe mx-auto max-w-md pb-6 text-center text-[12px] text-muted">{t("app.disclaimer", lang)}</p>
     </div>
   );
 }

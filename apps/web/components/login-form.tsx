@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { t, type Language } from "@taptics/i18n";
-import { Card, buttonClass } from "@/components/ui";
+import { Card, buttonClass, fieldClass } from "@/components/ui";
 
 export function LoginForm({ language: lang }: { language: Language }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
@@ -42,23 +42,23 @@ export function LoginForm({ language: lang }: { language: Language }) {
       {step === "identifier" ? (
         <form onSubmit={request} className="space-y-3">
           <label className="block">
-            <span className="text-sm font-semibold text-muted">{ui("login.identifier")}</span>
-            <input value={identifier} onChange={(e) => setIdentifier(e.target.value)} autoComplete="username" inputMode="email" required className="mt-1 min-h-12 w-full rounded-xl border border-line bg-surface px-4 text-ink" />
+            <span className="text-[14px] font-semibold text-muted">{ui("login.identifier")}</span>
+            <input value={identifier} onChange={(e) => setIdentifier(e.target.value)} autoComplete="username" inputMode="email" required className={`${fieldClass} mt-1.5`} type="text" />
           </label>
           <button className={`${buttonClass} w-full`} disabled={busy || !identifier.trim()}>{ui("login.sendCode")}</button>
         </form>
       ) : (
         <form onSubmit={verify} className="space-y-3">
           <label className="block">
-            <span className="text-sm font-semibold text-muted">{ui("login.code")}</span>
-            <input value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))} autoComplete="one-time-code" inputMode="numeric" pattern="\d{6}" required className="mt-1 min-h-12 w-full rounded-xl border border-line bg-surface px-4 text-center font-mono text-2xl tracking-[0.4em] text-ink" />
+            <span className="text-[14px] font-semibold text-muted">{ui("login.code")}</span>
+            <input value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))} autoComplete="one-time-code" inputMode="numeric" pattern="\d{6}" required className={`${fieldClass} mt-1.5 min-h-14 text-center font-mono text-2xl tracking-[0.4em]`} />
           </label>
-          {devCode && <p className="rounded-xl bg-ground p-3 text-sm text-ink" data-testid="dev-code">{ui("login.devCode", { code: devCode })}</p>}
+          {devCode && <p className="liquid-glass-inset rounded-[0.875rem] p-3 text-sm text-ink" data-testid="dev-code">{ui("login.devCode", { code: devCode })}</p>}
           <button className={`${buttonClass} w-full`} disabled={busy || code.length !== 6}>{ui("login.verify")}</button>
-          <button type="button" className="w-full text-sm font-semibold text-muted underline" onClick={() => { setStep("identifier"); setCode(""); setMessage(null); }}>{ui("login.otherIdentifier")}</button>
+          <button type="button" className="min-h-11 w-full text-[15px] font-semibold text-brand" onClick={() => { setStep("identifier"); setCode(""); setMessage(null); }}>{ui("login.otherIdentifier")}</button>
         </form>
       )}
-      {message && <p role="status" className="mt-3 text-sm text-ink">{message}</p>}
+      {message && <p role="status" className="mt-3 text-[14px] text-ink">{message}</p>}
     </Card>
   );
 }

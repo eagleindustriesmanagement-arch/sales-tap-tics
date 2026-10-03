@@ -13,7 +13,7 @@ export default async function Audit() {
   const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/New_York" });
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{t("audit.title", lang)}</h1>
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("audit.title", lang)}</h1>
       <p className="text-muted">{t("audit.intro", lang)}</p>
       <Card className="overflow-x-auto" tabIndex={0} role="region" aria-label={t("audit.title", lang)}>
         <table className="w-full text-left text-sm">

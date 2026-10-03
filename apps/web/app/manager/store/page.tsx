@@ -16,7 +16,7 @@ export default async function StorePage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold text-ink">{t("store.title", lang)}</h1>
+        <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("store.title", lang)}</h1>
         <p className="text-muted">{setup.storeName}</p>
         <p className="mt-1 text-sm">{t("store.intro", lang)}</p>
       </div>

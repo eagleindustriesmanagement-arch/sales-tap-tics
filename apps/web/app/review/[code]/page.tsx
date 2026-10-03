@@ -17,7 +17,7 @@ export default async function ReviewScenario({ params }: { params: Promise<{ cod
   const progress = reviewProgress(code, reviews);
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{s.title[lang]}</h1>
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{s.title[lang]}</h1>
       <p className="text-muted">{t("review.progress", lang, { approved: progress.approved, total: progress.total })}</p>
       <ReviewLines
         language={lang}

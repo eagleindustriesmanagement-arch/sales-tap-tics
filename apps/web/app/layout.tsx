@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
 import { t } from "@taptics/i18n";
 import { isManager } from "@taptics/db";
+import { AppChrome, type Tab } from "@/components/app-chrome";
 import { currentUser } from "@/lib/auth";
 import { language } from "@/lib/server";
 import "./globals.css";
@@ -10,60 +10,55 @@ export const metadata: Metadata = {
   title: "Sales Tap-tics",
   description: "Voice roleplay practice for car sales, in English and Spanish.",
   manifest: "/manifest.webmanifest",
-  icons: { icon: "/icon.svg" },
+  icons: { icon: "/icon.svg", apple: "/icon.svg" },
+  appleWebApp: { capable: true, title: "Tap-tics", statusBarStyle: "default" },
+  formatDetection: { telephone: false },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0b5cad" };
+// viewport-fit=cover lets the app draw under the notch and home indicator; the chrome insets itself.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f3f6fa" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+  ],
+};
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await language();
   const other = lang === "en" ? "es" : "en";
   const user = await currentUser();
-  const links: [string, string][] = !user
+  const tab = (href: string, key: Parameters<typeof t>[0], icon: Tab["icon"]): Tab => ({ href, label: t(key, lang), icon });
+  const tabs: Tab[] = !user
     ? []
     : user.roles.includes("general_manager")
-      ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/manager/dashboard", t("nav.dashboard", lang)], ["/manager/store", t("nav.store", lang)]]
+      ? [tab("/manager/floor", "nav.floor", "floor"), tab("/manager/team", "nav.team", "team"), tab("/manager/dashboard", "nav.dashboard", "dashboard"), tab("/manager/store", "nav.store", "store")]
       : isManager(user)
-        ? [["/manager/floor", t("nav.floor", lang)], ["/manager/team", t("nav.team", lang)], ["/manager/compliance", t("nav.compliance.view", lang)]]
+        ? [tab("/manager/floor", "nav.floor", "floor"), tab("/manager/team", "nav.team", "team"), tab("/manager/compliance", "nav.compliance.view", "compliance")]
         : user.roles.includes("compliance_reviewer")
-          ? [["/manager/compliance", t("nav.compliance.view", lang)], ["/manager/store", t("nav.store", lang)], ["/review", t("nav.review", lang)], ["/library", t("nav.library", lang)]]
+          ? [tab("/manager/compliance", "nav.compliance.view", "compliance"), tab("/manager/store", "nav.store", "store"), tab("/review", "nav.review", "review"), tab("/library", "nav.library", "library")]
           : user.roles.includes("content_editor")
-          ? [["/review", t("nav.review", lang)], ["/library", t("nav.library", lang)]]
-          : [["/", t("nav.today", lang)], ["/practice", t("nav.practice", lang)], ["/history", t("nav.history", lang)], ["/library", t("nav.library", lang)]];
+            ? [tab("/review", "nav.review", "review"), tab("/library", "nav.library", "library")]
+            : [tab("/", "nav.today", "today"), tab("/practice", "nav.practice", "practice"), tab("/progress", "nav.progress", "progress"), tab("/library", "nav.library", "library")];
   return (
     <html lang={lang}>
       <body className="min-h-dvh font-sans antialiased">
-        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded focus:bg-surface focus:p-2">
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-surface focus:px-4 focus:py-2 focus:text-ink">
           {lang === "es" ? "Ir al contenido" : "Skip to content"}
         </a>
-        <header className="sticky top-0 z-10 border-b border-line bg-surface/95 backdrop-blur">
-          <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
-            <Link href="/" className="flex shrink-0 items-center gap-2 whitespace-nowrap font-bold text-ink">
-              <img src="/icon.svg" alt="" width={28} height={28} />
-              <span>{t("app.name", lang)}</span>
-            </Link>
-            <nav aria-label="Main" className="ml-auto hidden items-center gap-1 text-sm font-medium sm:flex">
-              {links.map(([href, label]) => (
-                <Link key={href} className="whitespace-nowrap rounded-lg px-3 py-2 text-ink hover:bg-ground" href={href}>{label}</Link>
-              ))}
-            </nav>
-            {user && (
-              <Link href="/settings" className="ml-auto inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-ink hover:bg-ground sm:ml-0">{t("settings.title", lang)}</Link>
-            )}
-            <form action="/api/language" method="post" className={user ? "" : "ml-auto sm:ml-0"}>
-              <input type="hidden" name="lang" value={other} />
-              <button className="min-h-11 rounded-lg border border-line px-3 text-sm font-medium text-ink hover:bg-ground" lang={other}>{t("language.switch", lang)}</button>
-            </form>
-          </div>
-        </header>
-        {/* Phones: thumb-reach tab bar (spec 18.4 rule 7). */}
-        {links.length > 0 && <nav aria-label="Main" className={`fixed inset-x-0 bottom-0 z-10 grid ${["grid-cols-1", "grid-cols-1", "grid-cols-2", "grid-cols-3", "grid-cols-4"][links.length] ?? "grid-cols-4"} border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] sm:hidden`}>
-          {links.map(([href, label]) => (
-            <Link key={href} href={href} className="flex min-h-14 items-center justify-center text-sm font-semibold text-ink">{label}</Link>
-          ))}
-        </nav>}
-        <main id="main" className="mx-auto max-w-3xl px-4 py-6">{children}</main>
-        <footer className="mx-auto max-w-3xl px-4 pb-24 text-xs text-muted sm:pb-10">{t("app.disclaimer", lang)}</footer>
+        <AppChrome
+          tabs={tabs}
+          appName={t("app.name", lang)}
+          lang={lang}
+          switchLabel={t("language.switch", lang)}
+          otherLang={other}
+          settingsLabel={t("nav.settings", lang)}
+          initial={user ? (user.firstName?.[0] ?? "?").toUpperCase() : null}
+        >
+          {children}
+        </AppChrome>
       </body>
     </html>
   );

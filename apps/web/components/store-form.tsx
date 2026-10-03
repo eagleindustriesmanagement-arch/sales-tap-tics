@@ -22,7 +22,7 @@ export interface StoreFormValue {
   approvedAt: string | null;
 }
 
-const input = "min-h-12 w-full rounded-xl border border-line bg-surface px-3 text-ink disabled:opacity-70";
+const input = "min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink disabled:opacity-70";
 
 export function StoreForm({ initial, language: lang, canEdit, canApprove }: { initial: StoreFormValue; language: Language; canEdit: boolean; canApprove: boolean }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
@@ -69,7 +69,7 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove }: { in
       <Card className="space-y-3">
         <h2 className="font-bold text-ink">{ui("store.fees")}</h2>
         {v.fees.map((f, i) => (
-          <fieldset key={i} disabled={!canEdit} className="grid gap-2 rounded-xl border border-line p-3 sm:grid-cols-2">
+          <fieldset key={i} disabled={!canEdit} className="grid gap-2 liquid-glass-inset rounded-[0.875rem] p-3 sm:grid-cols-2">
             <label className="text-sm">{ui("store.feeCode")}<input className={input} value={f.code} onChange={(e) => setFee(i, { code: e.target.value })} /></label>
             <label className="text-sm">{ui("store.feeAmount")}<input className={input} inputMode="decimal" value={(f.amountCents / 100).toString()} onChange={(e) => setFee(i, { amountCents: Math.round(Number(e.target.value || 0) * 100) })} /></label>
             <label className="text-sm">{ui("store.feeNameEn")}<input className={input} value={f.nameEn} onChange={(e) => setFee(i, { nameEn: e.target.value })} /></label>

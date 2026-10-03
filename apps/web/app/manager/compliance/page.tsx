@@ -15,14 +15,14 @@ export default async function Compliance() {
   if (flags.recent.length === 0) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold text-ink">{t("compliance.title", lang)}</h1>
+        <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("compliance.title", lang)}</h1>
         <p className="text-muted">{t("compliance.none", lang)}</p>
       </div>
     );
   }
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{t("compliance.title", lang)}</h1>
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("compliance.title", lang)}</h1>
       <div className="grid gap-4 sm:grid-cols-2">
         <Card>
           <h2 className="mb-2 font-bold text-ink">{t("compliance.byRule", lang)}</h2>
@@ -38,7 +38,7 @@ export default async function Compliance() {
         {flags.recent.map((v) => (
           <li key={v.id}>
             <Link href={`/history/${v.session_id}`} className="block">
-              <Card className="space-y-1 hover:border-brand">
+              <Card className="space-y-1">
                 <p className="text-sm text-muted">{v.first_name} · {fmt.format(new Date(v.created_at))}</p>
                 <p className={`font-semibold ${v.severity === "critical" ? "text-bad" : "text-ink"}`}>{v.rule_code} · {v.severity}</p>
                 {v.span && <p className="text-ink">“{v.span}”</p>}

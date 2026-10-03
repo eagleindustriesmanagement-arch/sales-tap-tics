@@ -12,7 +12,7 @@ export default async function People() {
   const people = await asUser(principalOf(user), (db) => listPeople(db, user.storeId!));
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{t("people.title", lang)}</h1>
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("people.title", lang)}</h1>
       <p className="text-muted">{t("people.intro", lang)}</p>
       <PeopleManager language={lang} people={people} me={user.id} />
     </div>

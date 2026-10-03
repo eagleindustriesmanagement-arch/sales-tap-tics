@@ -1,6 +1,8 @@
 import { weekCards } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { FloorCheck, type FloorCard } from "@/components/floor-check";
+import { IconClipboard } from "@/components/icons";
+import { Card, Empty, PageHeader } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library } from "@/lib/server";
@@ -14,12 +16,9 @@ export default async function FloorMode() {
   const groups = new Map<string, typeof issued>();
   for (const c of issued) groups.set(c.cardCode, [...(groups.get(c.cardCode) ?? []), c]);
   return (
-    <div className="space-y-4">
-      <div>
-        <h1 className="text-2xl font-bold text-ink">{t("floor.title", lang)}</h1>
-        <p className="text-muted">{t("floor.subtitle", lang)}</p>
-      </div>
-      {issued.length === 0 && <p className="text-muted">{t("team.noCards", lang)}</p>}
+    <div className="space-y-5">
+      <PageHeader title={t("floor.title", lang)} subtitle={t("floor.subtitle", lang)} />
+      {issued.length === 0 && <Card><Empty icon={<IconClipboard size={22} />}>{t("team.noCards", lang)}</Empty></Card>}
       {[...groups].map(([code, cards]) => {
         const c = lib.behaviorCards.get(code);
         if (!c) return null;

@@ -18,7 +18,7 @@ export default async function Review() {
   const total = rows.reduce((n, r) => n + r.total, 0);
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{t("review.title", lang)}</h1>
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("review.title", lang)}</h1>
       <p className="text-muted">{t("review.intro", lang)}</p>
       <p className="font-semibold text-ink" data-testid="review-total">{t("review.total", lang, { approved, total })}</p>
       <ul className="space-y-2">

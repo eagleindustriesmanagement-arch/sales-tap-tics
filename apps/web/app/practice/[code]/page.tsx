@@ -15,6 +15,8 @@ export default async function Practice({ params, searchParams }: { params: Promi
     code: s.code,
     title: s.title,
     setting: s.setting,
+    level: s.difficulty,
+    maxTurns: s.max_turns,
     languages: s.language_options,
     targets: s.target_techniques.map((c) => {
       const tech = lib.techniques.get(c)!;

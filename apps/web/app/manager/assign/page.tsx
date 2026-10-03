@@ -17,7 +17,7 @@ export default async function Assign({ searchParams }: { searchParams: Promise<{
   const { rep } = await searchParams;
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{t("assign.title", lang)}</h1>
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-ink">{t("assign.title", lang)}</h1>
       <AssignForm language={lang} reps={reps} scenarios={scenarios} preselected={rep ? [rep] : []} />
     </div>
   );

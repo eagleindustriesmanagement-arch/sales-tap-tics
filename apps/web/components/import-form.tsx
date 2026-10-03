@@ -8,7 +8,7 @@ import { Card, buttonClass } from "@/components/ui";
 type Kind = "ups" | "lost_reasons" | "be_backs" | "leads" | "addons";
 interface Result { ok: boolean; rows: number; errors: string[]; unmatchedReps: string[] }
 
-const input = "min-h-12 w-full rounded-xl border border-line bg-surface px-3 text-ink";
+const input = "min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
 
 /** `kinds` maps each import kind to its required header line, from the server's definitions. */
 export function ImportForm({ language: lang, kinds }: { language: Language; kinds: Record<Kind, string> }) {

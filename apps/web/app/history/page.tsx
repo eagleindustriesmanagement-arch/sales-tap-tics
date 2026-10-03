@@ -1,36 +1,40 @@
 import Link from "next/link";
 import { listSessions } from "@taptics/db";
 import { t } from "@taptics/i18n";
-import { Card, Pill } from "@/components/ui";
+import { IconClock, IconLock } from "@/components/icons";
+import { Empty, ListRow, PageHeader, RowGroup, ScoreBadge, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library } from "@/lib/server";
 
+/** Every session the rep ran, newest first, with the score and how the customer left. */
 export default async function History() {
   const user = await requireUser();
   const lang = await language();
   const sessions = await asUser(principalOf(user), (db) => listSessions(db, { userId: user.id }));
   const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/New_York" });
+  const now = new Date();
   return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-ink">{t("history.title", lang)}</h1>
-      {sessions.length === 0 && <p className="text-muted">{t("history.empty", lang)}</p>}
-      <ul className="space-y-3">
-        {sessions.map((s) => (
-          <li key={s.id}>
-            <Link href={`/history/${s.id}`} className="block">
-              <Card className="flex items-center justify-between gap-3 hover:border-brand">
-                <div>
-                  <p className="font-semibold text-ink">{library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode}</p>
-                  <p className="text-sm text-muted">{fmt.format(new Date(s.startedAt))} · {s.endReason ? t(`endReason.${s.endReason}` as "endReason.sale", lang) : t("history.inProgress", lang)}</p>
-                  {s.privateUntil && new Date(s.privateUntil) > new Date() && <div className="mt-1"><Pill>{t("history.private", lang, { time: fmt.format(new Date(s.privateUntil)) })}</Pill></div>}
-                </div>
-                <span className="font-mono text-xl text-ink">{s.total === null ? "—" : Math.round(s.total)}{s.partial ? "*" : ""}</span>
-              </Card>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="space-y-5">
+      <PageHeader title={t("history.title", lang)} back={{ href: "/progress", label: t("progress.title", lang) }} />
+      {sessions.length === 0 ? (
+        <Empty icon={<IconClock size={22} />} action={<Link href="/" className={buttonClass}>{t("today.practiceNow", lang)}</Link>}>{t("history.empty", lang)}</Empty>
+      ) : (
+        <RowGroup>
+          {sessions.map((s) => {
+            const isPrivate = s.privateUntil && new Date(s.privateUntil) > now;
+            return (
+              <ListRow
+                key={s.id}
+                href={`/history/${s.id}`}
+                title={library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode}
+                subtitle={<>{fmt.format(new Date(s.startedAt))} · {s.endReason ? t(`endReason.${s.endReason}` as "endReason.sale", lang) : t("history.inProgress", lang)}{isPrivate && <span className="mt-0.5 flex items-center gap-1"><IconLock size={13} />{t("history.private", lang, { time: fmt.format(new Date(s.privateUntil!)) })}</span>}</>}
+                trailing={<ScoreBadge total={s.total} partial={s.partial} />}
+              />
+            );
+          })}
+        </RowGroup>
+      )}
     </div>
   );
 }

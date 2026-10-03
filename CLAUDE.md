@@ -16,6 +16,13 @@ STATUS.md first.
 - **Decisions** go in `docs/decisions/NNNN-*.md`; plans in `docs/plans/`; update STATUS.md after each milestone.
 - Do not put model identifiers in commits or docs beyond `packages/ai/src/models.ts` and decision 0006.
 
+## Design
+
+**Every UI change follows `docs/DESIGN-GUIDELINES.md`** (Liquid Glass from BookFlows, `docs/LIQUID-GLASS.md`).
+Use the building blocks in `apps/web/components/ui.tsx` and the icons in `components/icons.tsx`; never put a
+`bg-*` or `border-*` utility on an element with a `liquid-glass` class. Review 390px screenshots in light and dark
+before calling a screen done; the accessibility suite audits both themes.
+
 ## Commands
 
     pnpm install

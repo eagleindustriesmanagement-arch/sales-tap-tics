@@ -6,7 +6,7 @@ import { t, type Language } from "@taptics/i18n";
 import { Card } from "@/components/ui";
 
 const FLAGS = ["judge_disagrees", "audio_problem", "scenario_problem", "other"] as const;
-const input = "min-h-12 w-full rounded-xl border border-line bg-surface px-3 text-ink";
+const input = "min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
 
 /** A manager's flag and reason next to the score; the score itself never changes (spec 3.3 rule 4). */
 export function OverrideForm({ sessionId, language: lang }: { sessionId: string; language: Language }) {
@@ -32,7 +32,7 @@ export function OverrideForm({ sessionId, language: lang }: { sessionId: string;
           </select>
         </label>
         <label className="block text-sm">{ui("override.reason")}<textarea className={`${input} min-h-20 py-2`} required maxLength={500} value={reason} onChange={(e) => setReason(e.target.value)} /></label>
-        <button className="min-h-12 rounded-xl border border-brand px-4 font-semibold text-brand" disabled={reason.trim().length < 3}>{ui("override.submit")}</button>
+        <button className="min-h-12 liquid-glass liquid-glass-flat liquid-glass-ring rounded-full px-5 font-semibold text-brand" disabled={reason.trim().length < 3}>{ui("override.submit")}</button>
       </Card>
     </form>
   );
