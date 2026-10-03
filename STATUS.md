@@ -1,9 +1,19 @@
 # Status
 
-Updated 2026-10-03 (sixth pass: a customer for every objection, store calibration, usage, observability). Build plan: spec section 22. Decisions: `docs/decisions/`. Plan: `docs/plans/`.
+Updated 2026-10-03 (seventh pass: public home page, real dealership accounts, one luxury theme). Build plan: spec section 22. Decisions: `docs/decisions/`. Plan: `docs/plans/`.
 
 ## What runs today
 
+- **Public home page at `/`** (decision 0028): cinematic hero (WebGL gold-light shader with a CSS fallback, floating
+  glass cards, scroll parallax, a live-typing phone of the practice room), how it works, the objection library rail
+  (from the content), scoring and the compliance engine, the manager floor check, Miami Spanish, the pilot offer.
+  English and Spanish; reduced motion honoured; axe-clean. Signed-in people go to the app, whose home is `/today`.
+- **Real accounts** (decision 0029): a dealership signs up at `/signup` (store name, work email, emailed code);
+  the code creates the tenant, its store and the owner as general manager. The owner lands on People and adds the
+  team, who get an invitation email and sign in with their own codes. "Try the demo" (`/login?demo=1`) is the
+  second path. **Production needs `RESEND_API_KEY` for any real email.**
+- **One luxury theme across the app** (decision 0028): charcoal, champagne gold, ivory; Instrument Serif headlines;
+  glass throughout; page transitions; an animated score reveal on the debrief. The logo artwork is still blue.
 - **A customer for every objection: 65 scenarios** (decision 0017).
   - The 20 release 1 scenarios stay the **certification path**, by level.
   - **More customers:** one level 1 customer for each of the other 45 objections, grouped by topic (everyday
