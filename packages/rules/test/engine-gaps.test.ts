@@ -314,3 +314,12 @@ describe("this deal's own add-ons are never required (industry packs, decision 0
     expect(required("El plan es opcional; no lo necesita para la aprobación.", "es")).toBe(false);
   });
 });
+
+describe("our price against theirs (industry packs, decision 0033)", () => {
+  const library = platformLibrary();
+  const furniture = () => ({ ...ctx(), facts: library.scenarios.get("S-furniture-price-L1")!.facts, industry: "furniture" as const });
+  it("reads 'ours is $X' as our price claim", () => {
+    const rules = checkUtterance({ text: "Ours is $9,498 with delivery.", language: "en", speaker: "rep" }, furniture()).map((v) => v.rule);
+    expect(rules).toContain("PRICE-01");
+  });
+});

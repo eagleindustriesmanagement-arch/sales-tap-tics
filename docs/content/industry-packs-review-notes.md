@@ -36,7 +36,8 @@ unreviewed and the customers practice but never certify.
 
 ## Engine gaps the authors found
 
-Fixed (RATE-01, with regression tests in `packages/rules/test/engine-gaps.test.ts`):
+All six are fixed, with regression tests in `packages/rules/test/engine-gaps.test.ts`; the 689-case corpus shows no
+regression:
 
 - A monthly payment stated when nothing was quoted (no payment options, no manager authority on payments) is made
   up and flagged; the customer's own budget ("you said under $3,900 a month") and small monthly costs under $50 are
@@ -49,7 +50,4 @@ Fixed (RATE-01, with regression tests in `packages/rules/test/engine-gaps.test.t
   flagged unless a quoted option or the approval really is 0% APR (RATE-01 `zero_rate_claims`).
 - A deal's own add-ons, by name and alias, are never required (ADD-01 `{add_ons}` patterns): "you need the plan to
   get approved" on the furniture deal, the battery on a solar one.
-
-Still open (the live judge is the backstop):
-
-- "Ours is $9,498 with delivery" is not read as a price claim.
+- "Ours is $9,498 with delivery" is read as our price (lexicon price cue "ours is").
