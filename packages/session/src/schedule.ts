@@ -292,6 +292,32 @@ export function reminderTime(opts: { chosen: string; weekday: number; nowLocal: 
   return `${String(Math.floor(at / 60)).padStart(2, "0")}:${String(at % 60).padStart(2, "0")}`;
 }
 
+/** Spec 15.3 item 5: the store's peak hours default to Saturday 11:00 to 17:00. */
+export const DEFAULT_PEAKS: PeakWindow[] = [{ day: 6, from: "11:00", to: "17:00" }];
+
+/**
+ * Whether the reminder job, running every `everyMinutes`, should send now: today's reminder time (moved past peak
+ * hours) has come within the last run's window, nothing went out today, and the rep has not practiced yet today.
+ */
+export function reminderDue(opts: { chosen: string; weekday: number; nowLocal: string; sentToday: boolean; practicedToday: boolean; peaks?: PeakWindow[]; everyMinutes?: number }): boolean {
+  if (opts.sentToday || opts.practicedToday) return false;
+  const window = opts.everyMinutes ?? 60;
+  const now = minutes(opts.nowLocal);
+  const from = Math.max(0, now - window + 1);
+  const at = reminderTime({ chosen: opts.chosen, weekday: opts.weekday, nowLocal: `${String(Math.floor(from / 60)).padStart(2, "0")}:${String(from % 60).padStart(2, "0")}`, sentToday: false, peaks: opts.peaks ?? DEFAULT_PEAKS });
+  return at !== null && minutes(at) <= now;
+}
+
+/** The store's calendar day ("2026-10-05"), weekday (0 = Sunday) and clock time ("18:30") at an instant. */
+export function storeClock(now: Date, timeZone = "America/New_York") {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-US", { timeZone, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23", weekday: "short" })
+      .formatToParts(now)
+      .map((p) => [p.type, p.value]),
+  );
+  return { day: `${parts["year"]}-${parts["month"]}-${parts["day"]}`, weekday: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(parts["weekday"]!), time: `${parts["hour"]}:${parts["minute"]}` };
+}
+
 // ---------------------------------------------------------------- streak (spec 18.1 Home)
 
 /** Consecutive days with practice, ending today or yesterday, in the store's time zone. */

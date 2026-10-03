@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import webpush from "web-push";
 
 /**
  * End-to-end tests for the rep and manager flows (spec 21.1). They run against a real Postgres seeded with the
@@ -6,6 +7,9 @@ import { defineConfig, devices } from "@playwright/test";
  */
 const port = 3200;
 export const OUTBOX = `${process.env.TMPDIR ?? "/tmp"}/taptics-e2e-outbox.jsonl`;
+/** The reminder job's secret in tests; the VAPID keys are made fresh each run, so none is ever committed. */
+export const CRON_SECRET = "e2e-cron-only-0123456789";
+const vapid = (process.env.E2E_VAPID ??= JSON.stringify(webpush.generateVAPIDKeys()));
 export default defineConfig({
   testDir: "./e2e",
   globalSetup: "./e2e/global-setup.ts",
@@ -32,6 +36,10 @@ export default defineConfig({
       TAPTICS_OFFLINE: "1",
       NEXT_TELEMETRY_DISABLED: "1",
       DATABASE_URL: process.env.DATABASE_URL ?? "",
+      CRON_SECRET,
+      VAPID_PUBLIC_KEY: (JSON.parse(vapid) as { publicKey: string }).publicKey,
+      VAPID_PRIVATE_KEY: (JSON.parse(vapid) as { privateKey: string }).privateKey,
+      VAPID_SUBJECT: "mailto:login@salestaptics.com",
     },
   },
 });

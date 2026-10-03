@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import pg from "pg";
-import { OUTBOX } from "../playwright.config";
+import { CRON_SECRET, OUTBOX } from "../playwright.config";
 
 const db = () => new pg.Client({ connectionString: process.env.DATABASE_URL });
 /** The demo store (packages/db/scripts/seed-demo.ts); other tenants, such as the load test's, may share the database. */
@@ -307,6 +307,30 @@ test("the Spanish reviewer approves and edits lines; an edit that breaks a rule 
   await expect(rosa.getByTestId("review-total")).toHaveText(/^2 of \d{3} lines approved$/);
   // A rep cannot review.
   expect((await page.context().request.post("/api/review/compliance", { data: { code: "S-partner-check-L1", lineKey: "opening" } })).status()).toBe(403);
+});
+
+test("the reminder job sends once a day to someone whose time has come, and only with its secret", async ({ page }) => {
+  // The settings screen offers reminders on this phone (the test browser has no push service to finish subscribing).
+  await signInReady(page, "manager@demo.test");
+  await page.goto("/settings");
+  await expect(page.getByTestId("reminder-push")).toBeVisible();
+  const c = db();
+  await c.connect();
+  // Carlos has not practiced today; his reminder time is a minute ago in Miami, and his one phone's push service is down.
+  const carlos = (await c.query("select id, tenant_id from users where email = 'manager@demo.test'")).rows[0] as { id: string; tenant_id: string };
+  await c.query("update users set reminder_time = ((now() at time zone 'America/New_York') - interval '1 minute')::time where id = $1", [carlos.id]);
+  await c.query("insert into push_subscriptions (tenant_id, user_id, endpoint, p256dh, auth) values ($1, $2, 'https://localhost:1/push/e2e', 'BAAA', 'AAAA') on conflict do nothing", [carlos.tenant_id, carlos.id]);
+  const job = (auth?: string) => page.context().request.get("/api/cron/reminders", { headers: auth ? { authorization: auth } : {} });
+  expect((await job()).status()).toBe(401);
+  expect((await job("Bearer wrong")).status()).toBe(401);
+  const first = await job(`Bearer ${CRON_SECRET}`);
+  expect(first.status()).toBe(200);
+  expect(await first.json()).toMatchObject({ configured: true, people: 1 });
+  expect((await c.query("select devices from reminders_sent where user_id = $1", [carlos.id])).rows).toEqual([{ devices: 1 }]);
+  // Never two in a day.
+  expect(await (await job(`Bearer ${CRON_SECRET}`)).json()).toMatchObject({ people: 0 });
+  await c.query("update users set reminder_time = null where id = $1", [carlos.id]);
+  await c.end();
 });
 
 test("the general manager sees model costs; a rep cannot", async ({ page, browser }) => {

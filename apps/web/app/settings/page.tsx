@@ -4,7 +4,9 @@ import { IconBulb, IconClock, IconGlobe, IconLock } from "@/components/icons";
 import { Avatar, Card, PageHeader, buttonClass, fieldClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
+import { pushConfigured, vapidPublicKey } from "@/lib/push";
 import { language } from "@/lib/server";
+import { ReminderPush } from "@/components/reminder-push";
 
 /** Settings (spec 18.1): language, reminder time, the store's private window, sign out. */
 export default async function Settings({ searchParams }: { searchParams: Promise<{ saved?: string }> }) {
@@ -48,6 +50,7 @@ export default async function Settings({ searchParams }: { searchParams: Promise
           <input id="reminder" name="reminder" type="time" defaultValue={reminderTime ?? ""} className={fieldClass} />
           <button className={`${buttonClass} w-full`}>{t("settings.save", lang)}</button>
         </form>
+        {pushConfigured() && <div className="mt-3"><ReminderPush language={lang} publicKey={vapidPublicKey()!} /></div>}
       </Card>
       <Card className="flex items-start gap-3">
         <span className={icon}><IconLock size={20} /></span>
