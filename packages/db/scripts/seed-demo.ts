@@ -5,7 +5,7 @@
  *   DATABASE_URL=... pnpm db:seed [--private-window-hours=0]
  */
 import pg from "pg";
-import { migrate } from "../src/migrate.js";
+import { migrate, withDeployLock } from "../src/migrate.js";
 
 export const DEMO = {
   tenant: "11111111-1111-4111-8111-111111111111",
@@ -20,7 +20,12 @@ export const DEMO = {
   ],
 } as const;
 
+/** In one transaction under the deploy lock (decision 0025): two builds seeding at once cannot duplicate a row. */
 export async function seedDemo(db: pg.Client, privateWindowHours = 24) {
+  await withDeployLock(db, () => seedDemoRows(db, privateWindowHours));
+}
+
+async function seedDemoRows(db: pg.Client, privateWindowHours: number) {
   await db.query("insert into tenants (id, name) values ($1, 'Demo dealer group') on conflict do nothing", [DEMO.tenant]);
   await db.query("insert into stores (id, tenant_id, name, brands) values ($1, $2, 'Demo Chevrolet store', '{Chevrolet}') on conflict do nothing", [DEMO.store, DEMO.tenant]);
   await db.query(

@@ -23,13 +23,36 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # Neon's owner is not a superuser (decision 0014). Run first, on the fresh database server, so this owner creates
-      # the app roles itself, as it does on a new Neon project; twice, because every deploy runs it again.
-      - name: Deploy step as a hosted database owner (not a superuser)
+      # A fresh hosted database, as on Supabase or Neon (decisions 0014, 0023, 0025): an owner that is not a superuser
+      # and creates the app roles itself, Supabase's Data API roles with default grants on new tables, pgcrypto
+      # already in an extensions schema, every connection through a transaction pooler, and Production and Preview
+      # deploying at the same moment. Runs first, so this owner creates the app roles on this fresh server.
+      - name: Deploy step on a fresh hosted database, through a transaction pooler, twice at once
         run: |
-          psql "$DATABASE_URL" -c "create role hosted_owner login createrole password 'hosted-ci-only'" -c "create database hosted owner hosted_owner"
-          DATABASE_URL=postgresql://hosted_owner:hosted-ci-only@localhost:5432/hosted TAPTICS_DEMO_SEED=1 pnpm db:deploy
-          DATABASE_URL=postgresql://hosted_owner:hosted-ci-only@localhost:5432/hosted TAPTICS_DEMO_SEED=1 pnpm db:deploy
+          psql "$DATABASE_URL" -c "create role hosted_owner login createrole password 'hosted-ci-only'" -c "create role anon nologin" -c "create role authenticated nologin" -c "create database hosted owner hosted_owner"
+          psql postgresql://postgres:postgres@localhost:5432/hosted -c "create schema extensions" -c "create extension pgcrypto schema extensions" \
+            -c "alter default privileges for role hosted_owner in schema public grant all on tables to anon, authenticated" \
+            -c "alter default privileges for role hosted_owner in schema public grant all on sequences to anon, authenticated"
+          sudo apt-get install -y -q pgbouncer > /dev/null
+          mkdir -p /tmp/pgb
+          printf '"hosted_owner" "hosted-ci-only"\n' > /tmp/pgb/userlist.txt
+          printf '[databases]\nhosted = host=localhost port=5432 dbname=hosted\n[pgbouncer]\nlisten_addr = 127.0.0.1\nlisten_port = 6543\nauth_type = scram-sha-256\nauth_file = /tmp/pgb/userlist.txt\npool_mode = transaction\nunix_socket_dir =\npidfile = /tmp/pgb/pgbouncer.pid\nlogfile = /tmp/pgb/pgbouncer.log\nignore_startup_parameters = extra_float_digits\n' > /tmp/pgb/pgbouncer.ini
+          pgbouncer -d /tmp/pgb/pgbouncer.ini
+          export POOLED=postgresql://hosted_owner:hosted-ci-only@127.0.0.1:6543/hosted
+          (DATABASE_URL=$POOLED TAPTICS_DEMO_SEED=1 pnpm db:deploy > /tmp/pgb/d1.log 2>&1; echo $? > /tmp/pgb/d1.rc) &
+          (DATABASE_URL=$POOLED TAPTICS_DEMO_SEED=1 pnpm db:deploy > /tmp/pgb/d2.log 2>&1; echo $? > /tmp/pgb/d2.rc) &
+          wait
+          cat /tmp/pgb/d1.log /tmp/pgb/d2.log
+          test "$(cat /tmp/pgb/d1.rc)" = 0 && test "$(cat /tmp/pgb/d2.rc)" = 0
+          DATABASE_URL=$POOLED TAPTICS_DEMO_SEED=1 pnpm db:deploy | tee /tmp/pgb/d3.log
+          grep -q "database is up to date" /tmp/pgb/d3.log
+          psql "$POOLED" -v ON_ERROR_STOP=1 -Atc "do \$\$ begin
+            if (select count(*) from content_releases) <> 1 then raise exception 'expected one content release'; end if;
+            if exists (select name from schema_migrations group by name having count(*) > 1) then raise exception 'a migration ran twice'; end if;
+            if exists (select 1 from memberships group by user_id, store_id, role having count(*) > 1) then raise exception 'a demo membership was seeded twice'; end if;
+            if exists (select 1 from store_fees group by store_id, code having count(*) > 1) then raise exception 'a demo fee was seeded twice'; end if;
+            if exists (select 1 from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind = 'r' and has_table_privilege('anon', c.oid, 'select')) then raise exception 'anon can read a table'; end if;
+          end \$\$"
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm content:validate

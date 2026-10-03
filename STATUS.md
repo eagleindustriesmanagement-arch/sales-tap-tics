@@ -21,6 +21,11 @@ Updated 2026-10-03 (sixth pass: a customer for every objection, store calibratio
   - The store's weights reorder onboarding after week 1, break ties between due reviews, and pick the next new
     customer once onboarding is done.
   - The store numbers page shows what is practiced first and the reasons that could not be matched.
+- **Deploys are safe on a fresh, shared database** (decision 0025). Migrations, the demo seed and the content
+  release each run in one transaction under a deploy lock, so Production and Preview can deploy to the same Supabase
+  database at once, through its transaction pooler, from empty. CI rehearses exactly that on every push (a
+  non-superuser owner, Supabase's roles, PgBouncer in transaction mode, two deploys at once). Locally, the full
+  browser suite passed through the pooler.
 - **Practice and results** (spec 19.2 item 3, decision 0024). The Store numbers page relates each practice score
   to the reps' real close rate and add-ons kept, with sample sizes and a plain warning that correlation is not
   proof. It lists scores that relate to nothing as candidates for less weight, and waits for 5 reps with enough

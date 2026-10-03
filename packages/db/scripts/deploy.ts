@@ -1,7 +1,9 @@
 /**
- * Runs on every production build (decision 0014): migrations, then the content release, then, on the trial site, the
- * demo store. Each step is safe to repeat: migrations are applied once, a release is keyed by its content hash, and
- * the demo seed upserts. Uses the direct connection when the host provides one (DDL through a pooler is fragile).
+ * Runs on every build (decisions 0014, 0025): migrations, then, on the trial site, the demo store, then the content
+ * release. Starts from an empty database or an up-to-date one. Each step is safe to repeat and safe to run while
+ * another build runs it on the same database: each holds the deploy lock inside its own transaction, which also works
+ * through a transaction pooler (Supabase port 6543, Neon's pooled URL). Prefers the direct connection when the host
+ * provides one.
  *
  *   pnpm db:deploy     (TAPTICS_DEMO_SEED=1 also seeds the demo store, with no private window so managers see practice at once)
  */

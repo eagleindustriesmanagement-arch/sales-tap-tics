@@ -90,6 +90,9 @@ The app runs on any Postgres 16. With Supabase:
    | `DATABASE_URL` | Transaction pooler, port 6543 | The app (every request's settings are per transaction, so transaction mode is safe) |
 
    Vercel's Supabase integration names them `POSTGRES_URL_NON_POOLING` and `POSTGRES_URL`; both names work.
+   If only `DATABASE_URL` is set (the transaction pooler), the deploy step runs through it too: every migration, the
+   seed and the content release run in their own transaction under one lock (decision 0025). Production and Preview
+   may share the database; two builds deploying at once apply each migration once.
 3. Copy the strings from Supabase straight into Vercel's environment variables. They hold the database password:
    never paste them into a chat, a ticket or the repository.
 4. Migration 0018 takes away the access Supabase's Data API roles (`anon`, `authenticated`) get to every table.

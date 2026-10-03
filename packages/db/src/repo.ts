@@ -1,4 +1,5 @@
 import type { Queryable } from "./context.js";
+import { withDeployLock } from "./migrate.js";
 
 /**
  * Data access for the app (spec 6). Every function runs inside `withTenant`, so row-level security applies; the
@@ -376,15 +377,23 @@ export async function teamOverview(db: Queryable, week = weekOf()) {
 // ---------------------------------------------------------------- content releases (spec 6.2, 7.4)
 
 /** Publishes a platform release: one immutable row per validated content item. Run as the database owner. */
+/**
+ * Publishes an immutable platform release: all its items in one transaction under the deploy lock (decision 0025), so a
+ * build killed half way leaves nothing, and two builds publishing at once make one release, not two.
+ */
 export async function publishPlatformRelease(db: Queryable, version: string, changelog: string, items: { kind: string; code: string; body: unknown }[]): Promise<string> {
-  const existing = await db.query<{ id: string }>("select id from content_releases where scope = 'platform' and version = $1", [version]);
-  if (existing.rows[0]) return existing.rows[0].id;
-  const r = await db.query<{ id: string }>("insert into content_releases (tenant_id, version, scope, changelog) values (null, $1, 'platform', $2) returning id", [version, changelog]);
-  const id = r.rows[0]!.id;
-  for (const item of items) {
-    await db.query("insert into content_items (tenant_id, release_id, kind, code, body) values (null, $1, $2, $3, $4)", [id, item.kind, item.code, JSON.stringify(item.body)]);
-  }
-  return id;
+  return withDeployLock(db, async () => {
+    const existing = await db.query<{ id: string }>("select id from content_releases where scope = 'platform' and version = $1", [version]);
+    if (existing.rows[0]) return existing.rows[0].id;
+    const r = await db.query<{ id: string }>("insert into content_releases (tenant_id, version, scope, changelog) values (null, $1, 'platform', $2) returning id", [version, changelog]);
+    const id = r.rows[0]!.id;
+    await db.query(
+      `insert into content_items (tenant_id, release_id, kind, code, body)
+       select null, $1, x.kind, x.code, x.body from jsonb_to_recordset($2::jsonb) as x(kind text, code text, body jsonb)`,
+      [id, JSON.stringify(items)],
+    );
+    return id;
+  });
 }
 
 export async function latestPlatformRelease(db: Queryable): Promise<{ id: string; version: string } | null> {
