@@ -1,5 +1,5 @@
 import { t, type Language } from "@taptics/i18n";
-import { IconCheck, IconClipboard, IconStore, IconUsers } from "@/components/icons";
+import { IconCheck, IconClipboard, IconEye, IconLock, IconSend, IconUsers } from "@/components/icons";
 import { copy, say } from "./copy";
 import { Eyebrow, MiniRing } from "./parts";
 
@@ -81,7 +81,7 @@ function Dashboard({ lang }: { lang: Language }) {
   );
 }
 
-const FEATURE_ICONS = [IconUsers, IconClipboard, IconStore] as const;
+const FEATURE_ICONS = [IconSend, IconUsers, IconClipboard, IconEye, IconLock] as const;
 
 export function Managers({ lang }: { lang: Language }) {
   const c = copy.managers;
@@ -90,7 +90,7 @@ export function Managers({ lang }: { lang: Language }) {
       <div className="mkt-glow top-1/3 right-0 h-[28rem] w-[28rem] opacity-70" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         <div data-reveal>
-          <Eyebrow index="04">{say(c.eyebrow, lang)}</Eyebrow>
+          <Eyebrow index="06">{say(c.eyebrow, lang)}</Eyebrow>
           <h2 id="mkt-managers" className="mkt-h2 mt-5">{say(c.h2, lang)}</h2>
           <p className="mt-6 text-[17px] leading-relaxed text-body">{say(c.sub, lang)}</p>
           <ul className="mt-8 space-y-4">

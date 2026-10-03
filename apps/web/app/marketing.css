@@ -347,3 +347,27 @@
 @media (prefers-reduced-motion: reduce) and (max-width: 640px) {
   .mkt-track li:nth-child(n + 6) { display: none; }
 }
+
+/* ------------------------------------------------------------ the research figure (home: results) */
+
+.mkt-figure { font-size: clamp(7.5rem, 38vw, 15rem); }
+.mkt-figure .mkt-gold { padding-right: 0.06em; }
+
+/* ------------------------------------------------------------ pricing: the billing switch */
+
+.mkt-bill { display: inline-flex; gap: 0.25rem; margin: 0; }
+.mkt-bill-seg { color: var(--muted); transition: color 220ms ease, background 220ms ease; }
+.mkt-bill-seg:hover { color: var(--ink); }
+.mkt-bill-seg:has(input:checked) {
+  color: var(--accent-fill-foreground);
+  background: linear-gradient(170deg, var(--gold-hi), var(--accent-fill));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 6px 16px -8px color-mix(in srgb, var(--accent-fill) 70%, transparent);
+}
+.mkt-bill-seg:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* The price wording follows the checked radio; monthly is the default before anything is chosen. */
+.mkt-pricing:has(input[name="billing"][value="annual"]:checked) [data-bill="monthly"],
+.mkt-pricing:not(:has(input[name="billing"][value="annual"]:checked)) [data-bill="annual"] { display: none; }
+
+/* FAQ: the summary is the whole row. */
+.mkt-faq > summary { list-style: none; }
+.mkt-faq > summary::-webkit-details-marker { display: none; }

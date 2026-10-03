@@ -45,7 +45,7 @@ export function Scoring({ lang }: { lang: Language }) {
     <section id="scoring" aria-labelledby="mkt-scoring" className="mkt-section py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div data-reveal className="max-w-4xl">
-          <Eyebrow index="03">{say(c.eyebrow, lang)}</Eyebrow>
+          <Eyebrow index="05">{say(c.eyebrow, lang)}</Eyebrow>
           <h2 id="mkt-scoring" className="mkt-h2 mt-5">
             {say(c.h2a, lang)} <span className="mkt-gold italic">{say(c.h2b, lang)}</span>
           </h2>

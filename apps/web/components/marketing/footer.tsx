@@ -13,8 +13,9 @@ export function Footer({ lang }: { lang: Language }) {
           <Brand label={say(copy.nav.home, lang)} />
           <nav aria-label={say(copy.footer.links, lang)}>
             <ul className="flex flex-wrap gap-x-7 gap-y-1">
+              <li><Link href="/pricing" className={link}>{say(copy.nav.pricing, lang)}</Link></li>
               <li><Link href="/login" className={link}>{say(copy.nav.signIn, lang)}</Link></li>
-              <li><Link href="/signup" className={link}>{say(copy.nav.startPilot, lang)}</Link></li>
+              <li><Link href="/signup" className={link}>{say(copy.nav.startFree, lang)}</Link></li>
               <li><Link href="/login?demo=1" className={link}>{say(copy.nav.tryDemo, lang)}</Link></li>
             </ul>
           </nav>
