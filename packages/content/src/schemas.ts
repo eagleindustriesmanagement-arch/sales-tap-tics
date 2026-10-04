@@ -548,9 +548,9 @@ export const lessonSchema = z
     /** One line that frames the moment on the floor. */
     hook: bilingual,
     /** The tactic itself, plainly, in one or two short sentences: the first thing the rep reads. */
-    tactic: bilingual.optional(),
+    tactic: bilingual,
     /** What to do, in order: three to five short steps a rep can follow on the floor. */
-    steps: z.array(bilingual).min(3).max(5).optional(),
+    steps: z.array(bilingual).min(3).max(5),
     what: bilingual,
     /** The psychology: what is going on in the customer's head. */
     why: bilingual,
