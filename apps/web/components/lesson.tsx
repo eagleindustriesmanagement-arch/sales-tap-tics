@@ -6,6 +6,8 @@ import { Card, quoted } from "@/components/ui";
 export interface LessonView {
   title: Bilingual;
   hook: Bilingual;
+  tactic: Bilingual | null;
+  steps: Bilingual[];
   what: Bilingual;
   why: Bilingual;
   when: Bilingual;
@@ -43,26 +45,33 @@ export function Lesson({ lesson, lang }: { lesson: LessonView; lang: Language })
         <p className="font-display text-[21px] leading-snug text-body italic">{x(lesson.hook)}</p>
       </header>
 
-      <Card className="space-y-2">
-        <h2 className="text-[13px] font-semibold tracking-[0.14em] text-muted uppercase">{t("lesson.what", lang)}</h2>
-        <p className="text-[17px] leading-relaxed text-ink">{x(lesson.what)}</p>
-      </Card>
-
-      <Card className="space-y-2">
-        <h2 className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.14em] text-brand uppercase"><IconBulb size={16} />{t("lesson.why", lang)}</h2>
-        <p className="text-[16px] leading-relaxed text-body">{x(lesson.why)}</p>
-      </Card>
-
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Card className="space-y-1.5">
-          <h2 className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.14em] text-good uppercase"><IconCheck size={16} />{t("lesson.when", lang)}</h2>
-          <p className="text-[15px] leading-relaxed text-body">{x(lesson.when)}</p>
+      {/* First the tactic in plain words, then what to do, in order: the lesson must be clear in ten seconds. */}
+      {lesson.tactic ? (
+        <section className="liquid-glass liquid-glass-panel liquid-glass-hero space-y-4 rounded-[1.5rem] p-5" data-testid="lesson-tactic">
+          <div className="space-y-1.5">
+            <h2 className="text-[13px] font-semibold tracking-[0.14em] text-brand uppercase">{t("lesson.tactic", lang)}</h2>
+            <p className="text-[19px] leading-snug font-semibold text-ink">{x(lesson.tactic)}</p>
+          </div>
+          {lesson.steps.length > 0 && (
+            <div className="space-y-2">
+              <h2 className="text-[13px] font-semibold tracking-[0.14em] text-muted uppercase">{t("lesson.doThis", lang)}</h2>
+              <ol className="space-y-2" data-testid="lesson-steps">
+                {lesson.steps.map((s, i) => (
+                  <li key={i} className="flex gap-3">
+                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand-soft text-[14px] font-bold text-brand ring-1 ring-brand/25 ring-inset">{i + 1}</span>
+                    <span className="pt-0.5 text-[16px] leading-snug text-ink">{x(s)}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+        </section>
+      ) : (
+        <Card className="space-y-2">
+          <h2 className="text-[13px] font-semibold tracking-[0.14em] text-muted uppercase">{t("lesson.what", lang)}</h2>
+          <p className="text-[17px] leading-relaxed text-ink">{x(lesson.what)}</p>
         </Card>
-        <Card className="space-y-1.5">
-          <h2 className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.14em] text-warn uppercase"><IconX size={16} />{t("lesson.whenNot", lang)}</h2>
-          <p className="text-[15px] leading-relaxed text-body">{x(lesson.when_not)}</p>
-        </Card>
-      </div>
+      )}
 
       <section className="space-y-2.5">
         <h2 className="flex items-center gap-2 px-1 font-display text-[24px] text-ink"><IconMessage size={20} className="text-brand" />{t("lesson.say", lang)}</h2>
@@ -86,6 +95,34 @@ export function Lesson({ lesson, lang }: { lesson: LessonView; lang: Language })
           ))}
         </ul>
       </section>
+
+      {/* The background, for whoever wants it: closed by default so the tactic and the steps stay in front. */}
+      <details className="liquid-glass liquid-glass-panel group rounded-[1.25rem] p-4" data-testid="lesson-more">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-[16px] font-semibold text-ink">
+          {t("lesson.more", lang)}
+          <span aria-hidden="true" className="text-muted transition-transform group-open:rotate-90">›</span>
+        </summary>
+        <div className="mt-3 space-y-4">
+          {lesson.tactic && (
+            <div className="space-y-1">
+              <h3 className="text-[13px] font-semibold tracking-[0.14em] text-muted uppercase">{t("lesson.what", lang)}</h3>
+              <p className="text-[16px] leading-relaxed text-body">{x(lesson.what)}</p>
+            </div>
+          )}
+          <div className="space-y-1">
+            <h3 className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.14em] text-brand uppercase"><IconBulb size={16} />{t("lesson.why", lang)}</h3>
+            <p className="text-[16px] leading-relaxed text-body">{x(lesson.why)}</p>
+          </div>
+          <div className="space-y-1">
+            <h3 className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.14em] text-good uppercase"><IconCheck size={16} />{t("lesson.when", lang)}</h3>
+            <p className="text-[15px] leading-relaxed text-body">{x(lesson.when)}</p>
+          </div>
+          <div className="space-y-1">
+            <h3 className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.14em] text-warn uppercase"><IconX size={16} />{t("lesson.whenNot", lang)}</h3>
+            <p className="text-[15px] leading-relaxed text-body">{x(lesson.when_not)}</p>
+          </div>
+        </div>
+      </details>
 
       <section className="space-y-2.5">
         <h2 className="flex items-center gap-2 px-1 font-display text-[24px] text-ink"><IconTarget size={20} className="text-brand" />{t("lesson.concepts", lang)}</h2>

@@ -32,11 +32,14 @@ function regexOk(pattern: string): boolean {
  */
 /** Words a rep reads in a lesson, in one language: everything on the lesson screen. */
 export function lessonWords(l: Lesson, lang: "en" | "es"): number {
-  const parts = [l.title, l.hook, l.what, l.why, l.when, l.when_not, ...l.say, ...l.mistakes.flatMap((m) => [m.mistake, m.fix]), ...l.concepts.flatMap((c) => [c.name, c.idea])];
+  const parts = [l.title, l.hook, ...(l.tactic ? [l.tactic] : []), ...(l.steps ?? []), l.what, l.why, l.when, l.when_not, ...l.say, ...l.mistakes.flatMap((m) => [m.mistake, m.fix]), ...l.concepts.flatMap((c) => [c.name, c.idea])];
   return parts.reduce((n, p) => n + p[lang].split(/\s+/).filter(Boolean).length, 0);
 }
 /** 60 to 90 seconds at a typical reading pace (about 230 words a minute); Spanish runs about 15% longer. */
-export const LESSON_WORDS = { en: { min: 200, max: 340 }, es: { min: 220, max: 400 } };
+export const LESSON_WORDS = { en: { min: 200, max: 400 }, es: { min: 220, max: 470 } };
+/** Plain and short (Ernesto, October 4: "state the tactic plainly, then what to do step by step"). */
+export const TACTIC_WORDS = { en: 40, es: 48 };
+export const STEP_WORDS = { en: 20, es: 24 };
 
 export function crossReference(library: Library): Finding[] {
   const out: Finding[] = [];
@@ -130,6 +133,12 @@ export function crossReference(library: Library): Finding[] {
       const words = lessonWords(l, lang);
       const { min, max } = LESSON_WORDS[lang];
       if (words < min || words > max) err(l.code, `${lang} lesson is ${words} words; keep it to ${min}-${max} (60 to 90 seconds of reading)`);
+    }
+    if (!l.tactic || !l.steps) warn(l.code, "lesson has no plain tactic and steps yet");
+    for (const lang of ["en", "es"] as const) {
+      const n = (b: { en: string; es: string }) => b[lang].split(/\s+/).filter(Boolean).length;
+      if (l.tactic && n(l.tactic) > TACTIC_WORDS[lang]) err(l.code, `${lang} tactic is ${n(l.tactic)} words; keep it to ${TACTIC_WORDS[lang]}, one or two plain sentences`);
+      l.steps?.forEach((s, i) => { if (n(s) > STEP_WORDS[lang]) err(l.code, `${lang} step ${i + 1} is ${n(s)} words; keep each step to ${STEP_WORDS[lang]}`); });
     }
     if (!l.spanish_reviewed) warn(l.code, "Spanish not yet reviewed by a native speaker");
   }

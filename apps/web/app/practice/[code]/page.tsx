@@ -24,7 +24,7 @@ export default async function Practice({ params, searchParams }: { params: Promi
     }),
     lesson: (() => {
       const l = lessonFor(s.code, lib);
-      return l ? { title: l.title, hook: l.hook, what: l.what, why: l.why, when: l.when, when_not: l.when_not, say: l.say, mistakes: l.mistakes, concepts: l.concepts.map((c) => ({ name: c.name, idea: c.idea })) } : null;
+      return l ? { title: l.title, hook: l.hook, tactic: l.tactic ?? null, steps: l.steps ?? [], what: l.what, why: l.why, when: l.when, when_not: l.when_not, say: l.say, mistakes: l.mistakes, concepts: l.concepts.map((c) => ({ name: c.name, idea: c.idea })) } : null;
     })(),
     demos: {
       flawed: { notice: s.demonstrations.flawed.notice, script: s.demonstrations.flawed.script },
