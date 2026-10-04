@@ -23,7 +23,9 @@ export function PeopleManager({ language: lang, people, me }: { language: Langua
     e.preventDefault();
     const res = await fetch("/api/people", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(form) });
     if (res.ok) {
-      setStatus(ui("people.invited", { name: form.firstName }));
+      const { invited } = (await res.json().catch(() => ({}))) as { invited?: string };
+      // The person is added either way; only the welcome email may not have gone out.
+      setStatus(ui(invited === "failed" || invited === "unavailable" ? "people.invitedNoEmail" : "people.invited", { name: form.firstName }));
       setForm({ ...form, firstName: "", lastName: "", email: "", phone: "" });
       router.refresh();
     } else setStatus(ui(res.status === 409 ? "people.taken" : "people.invalid"));

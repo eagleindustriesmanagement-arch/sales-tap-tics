@@ -29,12 +29,13 @@ export function SignupForm({ language: lang, initialKind = "team", invite }: { l
     e.preventDefault();
     setBusy(true);
     setMessage(null);
+    // A failed send or a lost connection is said plainly, and the form stays usable for another try.
     const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ kind: joining ? "join" : kind, storeName, firstName, email, industry, invite, language: lang }),
-    });
-    const data = (await res.json().catch(() => ({}))) as { status?: string; devCode?: string };
+    }).catch(() => null);
+    const data = ((await res?.json().catch(() => ({}))) ?? {}) as { status?: string; devCode?: string };
     setBusy(false);
     if (data.status === "invalid") return setMessage(ui(kind === "team" && !joining ? "signup.invalidInput" : "signup.invalidEmail"));
     if (data.status === "invalid_link") return setMessage(ui("join.deadLink"));
@@ -48,10 +49,11 @@ export function SignupForm({ language: lang, initialKind = "team", invite }: { l
   async function verify(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const res = await fetch("/api/auth/signup/verify", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email, code }) });
-    const data = (await res.json().catch(() => ({}))) as { status?: string };
+    const res = await fetch("/api/auth/signup/verify", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email, code }) }).catch(() => null);
+    const data = ((await res?.json().catch(() => ({}))) ?? {}) as { status?: string };
     if (data.status === "ok") return location.assign("/consent");
     setBusy(false);
+    if (!res || res.status >= 500) return setMessage(ui("login.failed"));
     setMessage(ui(data.status === "invalid_link" ? "join.deadLink" : data.status === "locked" ? "login.locked" : data.status === "expired" ? "login.expired" : "login.invalid"));
   }
 

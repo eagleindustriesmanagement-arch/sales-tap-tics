@@ -139,3 +139,23 @@ test("the sign-in page's language picker matches the app's", async ({ page }) =>
   await expect(page.getByTestId("auth-lang")).toContainText("Español");
   await expect(page.getByLabel("Correo o número de celular")).toBeVisible();
 });
+
+test("when the code email cannot be sent, sign-up says so kindly and can be tried again", async ({ page }) => {
+  // Production: the email provider refused the sending domain. The person sees a plain message, never an error page.
+  let calls = 0;
+  await page.route("**/api/auth/signup", (r) => {
+    calls += 1;
+    return calls === 1 ? r.fulfill({ status: 503, contentType: "application/json", body: '{"status":"unavailable"}' }) : r.abort();
+  });
+  await page.goto("/signup?for=me");
+  await page.getByLabel("Your first name").fill("Iris");
+  await page.getByLabel("Email").fill("iris@example.test");
+  const send = page.getByRole("button", { name: "Email me a code" });
+  await send.click();
+  await expect(page.getByText("We couldn't send your code just now. Please try again in a few minutes.")).toBeVisible();
+  // A lost connection on the retry: still a message, and the button works again.
+  await send.click();
+  await expect(page.getByText("Something went wrong on our side. Try again in a moment.").or(page.getByText("We couldn't send your code just now. Please try again in a few minutes."))).toBeVisible();
+  await expect(send).toBeEnabled();
+  await expect(page.getByLabel("Six-digit code")).toHaveCount(0);
+});
