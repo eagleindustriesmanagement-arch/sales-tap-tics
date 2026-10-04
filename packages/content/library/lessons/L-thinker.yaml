@@ -4,20 +4,27 @@ title:
   en: "\"I need to think about it\": find the one open question"
   es: "\"Lo tengo que pensar\": encuentre la duda que queda"
 hook:
-  en: Drive's done, numbers on the desk, and he says it. Half the floor hears "no." You hear "one question left."
-  es: Ya manejó, los números están en el escritorio, y lo dice. Medio piso oye un "no". Usted oye "me queda una duda".
+  en: The drive is done and the numbers are on the desk. Then he says he needs to think.
+  es: Ya manejó y los números están en el escritorio. Entonces dice que lo tiene que pensar.
+tactic: { en: "Respect that he wants to think. Ask what exactly he wants to be sure about, then settle that doubt with a real test, not a promise.", es: "Respete que lo quiera pensar. Pregúntele qué es exactamente lo que quiere tener claro, y resuelva esa duda con una prueba real, no con una promesa." }
+steps:
+  - { en: "Pause, then agree: \"That makes sense. It's a big purchase.\"", es: "Haga una pausa y déle la razón: \"Tiene sentido. Es una compra grande.\"" }
+  - { en: "Ask: \"What's the part you still want to be sure about?\"", es: "Pregunte: \"¿Qué es lo que todavía quiere tener seguro?\"" }
+  - { en: "Check that the price and the payment are not the problem.", es: "Confirme que el precio y el pago no son el problema." }
+  - { en: "Ask how he will really use the car in a normal week.", es: "Pregunte cómo va a usar el carro de verdad en una semana normal." }
+  - { en: "Offer a real test for his doubt, and set a day and time.", es: "Ofrezca una prueba real para su duda, y fije un día y una hora." }
 what:
-  en: Respect the thinking, then ask what exactly he wants to think over. Check it isn't the numbers. When the real doubt comes out, settle it with a test he can see, not a promise.
-  es: Respete que lo quiera pensar y pregúntele qué es exactamente lo que quiere pensar. Confirme que no son los números. Cuando salga la duda real, resuélvala con una prueba que él vea, no con una promesa.
+  en: Behind "I'll think about it" is one question. Find it, and answer it with a test.
+  es: Detrás de "lo tengo que pensar" hay una sola pregunta. Encuéntrela y contéstela con una prueba.
 why:
-  en: A buyer who read every review isn't stalling. He has one question he hasn't said, usually how the car fits his real week, and he's scared of choosing wrong. Belittle it and he takes it home. More cars means more to think about. Ask, and he hands it to you.
-  es: Un cliente que se leyó todas las reseñas no está dando largas. Tiene una pregunta que no ha dicho, casi siempre de cómo el carro encaja en su semana de verdad, y le da miedo escoger mal. Si le resta importancia, se la lleva para la casa. Más carros, más que pensar. Si pregunta, él se la entrega.
+  en: A buyer who read every review is not making excuses. He has one question he hasn't said. Usually it's how the car fits his real week. If you say it's no big deal, or show more cars, he takes it home. If you ask, he tells you.
+  es: Un cliente que leyó todas las reseñas no está buscando excusas. Tiene una pregunta que no ha dicho. Casi siempre es cómo el carro encaja en su semana de verdad. Si usted le resta importancia o le enseña más carros, se la lleva para la casa. Si pregunta, él se lo dice.
 when:
   en: Any "I'll think about it" after the drive and the numbers.
-  es: Cada "lo tengo que pensar" después de la prueba y los números.
+  es: Cada "lo tengo que pensar" después de la prueba de manejo y los números.
 when_not:
-  en: Not as a lever to sign today. If he truly needs the night, set the time first, then ask.
-  es: No como palanca para que firme hoy. Si de verdad necesita la noche, fije la hora primero y después pregunte.
+  en: Don't use it to push him to sign today. If he really needs the night, set the time first. Then ask.
+  es: No lo use para presionarlo a firmar hoy. Si de verdad necesita la noche, fije la hora primero. Después pregunte.
 say:
   - en: That makes sense. It's a big purchase, and you clearly did your homework.
     es: Tiene sentido. Es una compra grande, y se nota que usted hizo su tarea.
@@ -32,55 +39,55 @@ mistakes:
       en: '"What''s there to think about? You liked it."'
       es: '"¿Pero qué hay que pensar? Si le gustó."'
     fix:
-      en: You just called his doubt silly. Ask what it is.
-      es: Le acaba de decir que su duda es una bobería. Pregunte cuál es.
+      en: That tells him his doubt is silly. Ask what it is.
+      es: Eso es decirle que su duda es una bobería. Pregunte cuál es.
   - mistake:
       en: '"Let me show you the Tahoe too."'
       es: '"Déjeme enseñarle la Tahoe también."'
     fix:
-      en: More cars, more thinking. Settle the one question.
-      es: Más carros, más que pensar. Resuelva la única duda.
+      en: More cars mean more to think about. Settle his one question.
+      es: Más carros es más que pensar. Resuelva su única duda.
   - mistake:
       en: '"Oh, that fits, no problem."'
       es: '"Ay, eso cabe, no hay problema."'
     fix:
-      en: You don't know that. Be wrong and he's gone for good. Test it.
+      en: You don't know that. If you're wrong, you lose him. Test it.
       es: Usted no lo sabe. Si se equivoca, lo pierde para siempre. Pruébelo.
 concepts:
   - name:
       en: "Pause and respect it"
       es: "Pausa y respeto"
     idea:
-      en: Two seconds of quiet, then agree it deserves thought. Nothing left to defend.
-      es: Dos segundos de silencio, y déle la razón. Ya no tiene nada que defender.
+      en: Two seconds of quiet, then agree it deserves thought.
+      es: Dos segundos de silencio, y déle la razón. Es bueno pensarlo.
     items: [O05-PAUSE, O05-RESPECT]
   - name:
       en: '"What''s the part…?"'
       es: '"¿Qué es lo que…?"'
     idea:
-      en: Ask what exactly he'd think over, then about his real week.
-      es: Pregunte qué exactamente pensaría, y después por su semana de verdad.
+      en: Ask what exactly he would think about. Then ask about his real week.
+      es: Pregunte qué es exactamente lo que pensaría. Después pregunte por su semana de verdad.
     items: [O05-QFIRST, O05-HIDDEN]
   - name:
       en: "Isolate the numbers"
       es: "Aísle los números"
     idea:
-      en: Confirm price and payment are fine, so you work the right problem.
-      es: Confirme que el precio y el pago están bien, para trabajar el problema correcto.
+      en: Confirm the price and payment are fine, so you work on the right problem.
+      es: Confirme que el precio y el pago están bien, para trabajar en el problema correcto.
     items: [O05-ISOLATE]
   - name:
       en: "Prove it, don't promise it"
       es: "Pruébelo, no lo prometa"
     idea:
-      en: A real test he watches beats any claim you make.
-      es: Una prueba real que él ve vale más que cualquier cosa que usted diga.
+      en: A real test he can watch beats any promise.
+      es: Una prueba real que él pueda ver es mejor que una promesa.
     items: [O05-PROOF]
   - name:
       en: "Lock a day and time"
       es: "Amarre un día y una hora"
     idea:
-      en: The test needs a date. "Call me" is a walk.
-      es: La prueba necesita fecha. "Llámeme" es un cliente perdido.
+      en: The test needs a date. "Call me" usually means he's gone.
+      es: La prueba necesita fecha. "Llámeme" casi siempre quiere decir que no vuelve.
     items: [O05-NEXT]
 sources:
   - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T005 Isolate; T091 Name the fear; T093 Limit the exploration; T094 Remove real risk; T115 Set the time, then ask what to think over; T014 Firm next step

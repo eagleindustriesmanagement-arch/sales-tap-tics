@@ -4,20 +4,27 @@ title:
   en: "\"I didn't ask for that\": say optional, then find the fear"
   es: "\"Yo no pedí eso\": diga opcional, y después busque el miedo"
 hook:
-  en: First car, first job, reading every line with his finger. He stops at nitrogen and wheel locks.
-  es: Primer carro, primer trabajo, leyendo cada línea con el dedo. Se para en el nitrógeno y las tuercas de seguridad.
+  en: His first car and first job. He reads every line with his finger, and stops at nitrogen and wheel locks.
+  es: Es su primer carro y su primer trabajo. Lee cada línea con el dedo. Se detiene en el nitrógeno y las tuercas de seguridad.
+tactic: { en: "Thank him and say \"optional\" in your first answer. Ask what worries him before you take it off. Then show both payments, each one labeled.", es: "Agradézcale y diga \"opcional\" en su primera respuesta. Pregúntele qué le preocupa antes de quitarlo. Después enséñele los dos pagos, cada uno identificado." }
+steps:
+  - { en: "Pause, then say: \"Good question, and thank you for asking before you sign anything.\"", es: "Haga una pausa y diga: \"Buena pregunta, y gracias por preguntar antes de firmar nada.\"" }
+  - { en: "Say right away: \"That's optional, and it comes off if you don't want it.\"", es: "Diga enseguida: \"Eso es opcional, y se quita si usted no lo quiere.\"" }
+  - { en: "Ask what worries him, and if it happened to someone he knows.", es: "Pregúntele qué le preocupa, y si le pasó a alguien que él conoce." }
+  - { en: "Show his payment with it and without it, each one labeled. Then take it off.", es: "Enséñele su pago con eso y sin eso, cada uno identificado. Después quíteselo." }
+  - { en: "Print a clean sheet, and set a time to read it together.", es: "Imprima una hoja nueva y fije una hora para leerla juntos." }
 what:
-  en: Thank him and say optional in your first answer. Before taking it off, ask what worries him. Then show both payments, each labeled, and take it off.
-  es: Agradézcale y diga opcional en su primera respuesta. Antes de quitarlo, pregúntele qué le preocupa. Después enséñele los dos pagos, cada uno identificado, y quíteselo.
+  en: His question is about one line. His worry is bigger. Answer both.
+  es: Su pregunta es sobre una línea. Su preocupación es más grande. Conteste las dos.
 why:
-  en: A first-time buyer has heard the stories, often from someone close. He isn't asking about nitrogen; he's asking if you're the dealer from the story. Strike the line fast and he wonders what else is hiding. Ask what worries him and he tells you. Then "nothing without your yes" answers the fear, not just the line.
-  es: El que compra su primer carro ha oído los cuentos, muchas veces de alguien cercano. No pregunta por el nitrógeno; pregunta si usted es el dealer del cuento. Si tacha la línea rápido, se queda pensando qué más hay escondido. Si le pregunta qué le preocupa, se lo cuenta. Entonces "nada sin su sí" contesta el miedo, no solo la línea.
+  en: First-time buyers have heard bad stories, often from someone close. He's really asking if you are the dealer from the story. If you cross out the line fast, he wonders what else is hidden. If you ask what worries him, he tells you.
+  es: El que compra su primer carro ha oído cuentos malos, muchas veces de alguien cercano. En realidad pregunta si usted es el dealer del cuento. Si tacha la línea rápido, se queda pensando qué más está escondido. Si le pregunta qué le preocupa, se lo cuenta.
 when:
-  en: Any time a customer questions an add-on, especially a first-time buyer reading every word.
-  es: Cada vez que el cliente pregunta por un accesorio, sobre todo si es su primer carro y lee cada palabra.
+  en: Any time a customer asks about an add-on, most of all a first-time buyer.
+  es: Cada vez que el cliente pregunta por un accesorio, sobre todo si es su primer carro.
 when_not:
-  en: One question, not an interrogation. If he just wants it gone, take it off. It's optional.
-  es: Una pregunta, no un interrogatorio. Si solo quiere que lo quite, quíteselo. Es opcional.
+  en: Ask one question, not ten. If he just wants it gone, take it off. It's optional.
+  es: Haga una pregunta, no diez. Si solo quiere que lo quite, quíteselo. Es opcional.
 say:
   - en: Good question, and thank you for asking before you sign anything.
     es: Buena pregunta, y gracias por preguntar antes de firmar nada.
@@ -34,11 +41,11 @@ mistakes:
       en: '"Everybody gets nitrogen. It''s good for the tires."'
       es: '"Todo el mundo lo lleva. El nitrógeno es bueno para las gomas."'
     fix:
-      en: Defending it is what the story warned him about.
+      en: Defending it is exactly what the story warned him about.
       es: Defenderlo es justo lo que el cuento le advirtió.
   - mistake:
-      en: Striking the line in silence and moving on.
-      es: Tachar la línea callado y seguir.
+      en: Crossing out the line without a word and moving on.
+      es: Tachar la línea sin decir nada y seguir.
     fix:
       en: You fixed the line, not the fear. Ask first.
       es: Arregló la línea, no el miedo. Pregunte primero.
@@ -46,8 +53,8 @@ mistakes:
       en: Quoting only the payment with it in.
       es: Dar solo el pago con eso incluido.
     fix:
-      en: Both payments, each labeled.
-      es: Los dos pagos, cada uno identificado.
+      en: Show both payments, each one labeled.
+      es: Enseñe los dos pagos, cada uno identificado.
 concepts:
   - name: { en: Pause and thank him, es: Pausa y agradézcale }
     idea:
@@ -59,15 +66,15 @@ concepts:
       en: Say it plainly, then take it off.
       es: Dígalo claro, y después quíteselo.
     items: [O20-OPTIONAL]
-  - name: { en: What worries you?, es: ¿Qué le preocupa? }
+  - name: { en: "What worries you?", es: "¿Qué le preocupa?" }
     idea:
       en: Ask before you explain or remove anything.
       es: Pregunte antes de explicar o quitar nada.
     items: [O20-QFIRST]
-  - name: { en: Whose story is it?, es: ¿De quién es el cuento? }
+  - name: { en: "Whose story is it?", es: "¿De quién es el cuento?" }
     idea:
-      en: Somebody he knows got packed. Ask, and he'll tell you.
-      es: A alguien que él conoce le metieron extras. Pregunte, y se lo cuenta.
+      en: Someone he knows paid for extras they never agreed to. Ask, and he'll tell you.
+      es: A alguien que él conoce le cobraron extras que nunca aceptó. Pregunte, y se lo cuenta.
     items: [O20-HIDDEN]
   - name: { en: Two-payment menu, es: Menú de dos pagos }
     idea:
@@ -76,8 +83,8 @@ concepts:
     items: [O20-MENU]
   - name: { en: "Clean sheet, set time", es: "Hoja limpia, hora fija" }
     idea:
-      en: Print the new sheet; pick a time to read it together.
-      es: Imprima la hoja nueva; fije una hora para leerla juntos.
+      en: Print the new sheet. Pick a time to read it together.
+      es: Imprima la hoja nueva. Fije una hora para leerla juntos.
     items: [O20-NEXT]
 sources:
   - T001 Pause and slow down; T003 Acknowledge; T120 Optional means optional; T002 Clarify with a question; T121 Two-payment menu; T014 Firm next step
