@@ -42,19 +42,19 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove }: { in
       fees, addOnRemoval, referralReward, textConsentEn, textConsentEs, privateWindowHours, audioRetentionDays, stopOnCritical, walkInMetric, languages, spanishRegister, peakHours,
       lenders: lenders.split("\n").map((l) => l.trim()).filter(Boolean).map((l) => ({ name: l.replace(/\s*\*$/, ""), isCreditAcceptance: l.endsWith("*") })),
     };
-    const res = await fetch("/api/store", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-    if (res.ok) {
+    const res = await fetch("/api/store", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).catch(() => null);
+    if (res?.ok) {
       setApprovedAt(null);
       setStatus(ui("store.saved"));
     } else {
-      const err = (await res.json().catch(() => ({}))) as { issues?: { path: string; message: string }[] };
+      const err = ((await res?.json().catch(() => ({}))) ?? {}) as { issues?: { path: string; message: string }[] };
       setStatus(ui("store.invalid", { fields: (err.issues ?? []).map((i) => i.path || i.message).join(", ") || "?" }));
     }
   }
 
   async function approve() {
-    const res = await fetch("/api/store/approve", { method: "POST" });
-    if (res.ok) setApprovedAt(new Date().toISOString());
+    const res = await fetch("/api/store/approve", { method: "POST" }).catch(() => null);
+    if (res?.ok) setApprovedAt(new Date().toISOString());
   }
 
   const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { dateStyle: "medium", timeZone: "America/New_York" });

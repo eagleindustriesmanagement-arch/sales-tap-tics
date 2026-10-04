@@ -21,20 +21,20 @@ export function PeopleManager({ language: lang, people, me }: { language: Langua
 
   async function invite(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("/api/people", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(form) });
-    if (res.ok) {
-      const { invited } = (await res.json().catch(() => ({}))) as { invited?: string };
+    const res = await fetch("/api/people", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(form) }).catch(() => null);
+    if (res?.ok) {
+      const { invited } = ((await res?.json().catch(() => ({}))) ?? {}) as { invited?: string };
       // The person is added either way; only the welcome email may not have gone out.
       setStatus(ui(invited === "failed" || invited === "unavailable" ? "people.invitedNoEmail" : "people.invited", { name: form.firstName }));
       setForm({ ...form, firstName: "", lastName: "", email: "", phone: "" });
       router.refresh();
-    } else setStatus(ui(res.status === 409 ? "people.taken" : "people.invalid"));
+    } else setStatus(ui(res?.status === 409 ? "people.taken" : "people.invalid"));
   }
 
   async function update(id: string, body: object) {
-    const res = await fetch(`/api/people/${id}`, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-    setStatus(res.ok ? ui("people.saved") : ((await res.json().catch(() => ({}))) as { error?: string }).error ?? ui("people.invalid"));
-    if (res.ok) router.refresh();
+    const res = await fetch(`/api/people/${id}`, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).catch(() => null);
+    setStatus(res?.ok ? ui("people.saved") : (((await res?.json().catch(() => ({}))) ?? {}) as { error?: string }).error ?? ui("people.invalid"));
+    if (res?.ok) router.refresh();
   }
 
   const roleBoxes = (chosen: Role[], onChange: (r: Role[]) => void, name: string) => (

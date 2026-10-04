@@ -20,9 +20,9 @@ export function CoachForm({ language: lang, cardCode, cardTitle, scene, cards }:
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const res = await fetch("/api/coach", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ cardCode, text }) });
+    const res = await fetch("/api/coach", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ cardCode, text }) }).catch(() => null);
     setBusy(false);
-    if (res.ok) setResult((await res.json()) as Result);
+    if (res?.ok) setResult((await res.json()) as Result);
   }
 
   return (

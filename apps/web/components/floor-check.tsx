@@ -27,8 +27,8 @@ export function FloorCheck({ card, issueId, repName, status, language: lang }: {
 
   async function save() {
     const seconds = Math.round((Date.now() - (started.current ?? Date.now())) / 1000);
-    const res = await fetch("/api/floor-checks", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ cardIssueId: issueId, observed, note, specific, modeled, seconds }) });
-    if (res.ok) setSaved(seconds);
+    const res = await fetch("/api/floor-checks", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ cardIssueId: issueId, observed, note, specific, modeled, seconds }) }).catch(() => null);
+    if (res?.ok) setSaved(seconds);
     else setError(true);
   }
 

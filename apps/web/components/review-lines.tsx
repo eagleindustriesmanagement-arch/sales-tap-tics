@@ -18,20 +18,20 @@ export function ReviewLines({ language: lang, scenario, lines: initial, canEdit,
   const update = (l: Line, patch: Partial<Line>) => setLines((all) => all.map((x) => (id(x) === id(l) ? { ...x, ...patch } : x)));
 
   async function save(l: Line) {
-    const res = await fetch("/api/review", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario, code: l.code, lineKey: l.key, es: l.es }) });
-    if (res.ok) {
+    const res = await fetch("/api/review", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario, code: l.code, lineKey: l.key, es: l.es }) }).catch(() => null);
+    if (res?.ok) {
       const body = (await res.json()) as { needsCompliance: boolean };
       update(l, { status: body.needsCompliance ? "needs_compliance" : "approved" });
       setNotes((n) => ({ ...n, [id(l)]: "" }));
     } else {
-      const body = (await res.json().catch(() => ({}))) as { problems?: string[] };
+      const body = ((await res?.json().catch(() => ({}))) ?? {}) as { problems?: string[] };
       setNotes((n) => ({ ...n, [id(l)]: ui("review.blocked", { rules: (body.problems ?? []).join(", ") || "?" }) }));
     }
   }
 
   async function signOff(l: Line) {
-    const res = await fetch("/api/review/compliance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ code: l.code, lineKey: l.key }) });
-    if (res.ok) update(l, { status: "approved" });
+    const res = await fetch("/api/review/compliance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ code: l.code, lineKey: l.key }) }).catch(() => null);
+    if (res?.ok) update(l, { status: "approved" });
   }
 
   return (

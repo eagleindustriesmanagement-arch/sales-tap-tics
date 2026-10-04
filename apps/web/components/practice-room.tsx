@@ -49,6 +49,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   const [lines, setLines] = useState<Line[]>([]);
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
+  const [finishFailed, setFinishFailed] = useState(false);
   const [ended, setEnded] = useState<{ stopped: boolean } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [debrief, setDebrief] = useState<DebriefPayload | null>(null);
@@ -221,23 +222,32 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     if (!session) return;
     remember(null);
     setBusy(true);
+    setFinishFailed(false);
     setPhase("debrief");
     try {
       const res = await fetch(`/api/sessions/${session.id}/finish`, { method: "POST" });
+      // Already scored by an earlier try whose answer was lost: the saved debrief is in the history.
+      if (res.status === 404) return location.assign(`/history/${session.id}`);
+      // An error body is not a debrief: drawing it would crash the screen.
+      if (!res.ok) throw new Error(String(res.status));
       setDebrief((await res.json()) as DebriefPayload);
     } catch {
-      setError(t("practice.error", lang));
+      setFinishFailed(true);
     } finally {
       setBusy(false);
     }
   }
 
   if (phase === "debrief") {
-    return debrief ? (
-      <Debrief data={debrief} language={lang} seenId={session?.id} onRetry={() => location.reload()} />
-    ) : (
-      <ScoringProgress lang={lang} />
-    );
+    if (debrief) return <Debrief data={debrief} language={lang} seenId={session?.id} onRetry={() => location.reload()} />;
+    if (finishFailed)
+      return (
+        <div role="alert" className="mx-auto max-w-md space-y-4 py-16 text-center" data-testid="finish-failed">
+          <p className="flex items-center justify-center gap-2 font-semibold text-bad"><IconAlert size={18} />{t("practice.finishFailed", lang)}</p>
+          <button type="button" className={buttonClass} onClick={() => void finish()}>{t("debrief.tryAgain", lang)}</button>
+        </div>
+      );
+    return <ScoringProgress lang={lang} />;
   }
 
   // ------------------------------------------------------------- live conversation

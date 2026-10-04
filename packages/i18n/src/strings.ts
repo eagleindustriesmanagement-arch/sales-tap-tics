@@ -568,6 +568,7 @@ export const STRINGS = {
   },
   "practice.seeDebrief": { en: "See debrief", es: "Ver resumen" },
   "practice.error": { en: "Something went wrong. Try again.", es: "Algo salió mal. Intente de nuevo." },
+  "practice.finishFailed": { en: "We couldn't finish scoring this session. Check your connection and try again.", es: "No pudimos terminar de calificar esta sesión. Revise su conexión e intente de nuevo." },
   "practice.resumeTitle": { en: "Your conversation with {name} is still open.", es: "Su conversación con {name} sigue abierta." },
   "practice.resume": { en: "Pick it back up", es: "Retomarla" },
   "practice.recovered": {

@@ -27,9 +27,9 @@ export function ImportForm({ language: lang, kinds }: { language: Language; kind
     setTooBig(file.size > 1_000_000);
     if (file.size > 1_000_000) return;
     setBusy(true);
-    const res = await fetch("/api/store/import", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind, csv: await file.text() }) });
+    const res = await fetch("/api/store/import", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ kind, csv: await file.text() }) }).catch(() => null);
     setBusy(false);
-    if (res.status === 200 || res.status === 422) {
+    if (res?.status === 200 || res?.status === 422) {
       setResult((await res.json()) as Result);
       router.refresh();
     }

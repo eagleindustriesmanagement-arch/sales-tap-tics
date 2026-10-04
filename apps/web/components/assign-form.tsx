@@ -44,8 +44,8 @@ export function AssignForm({ language: lang, reps, scenarios, preselected }: {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (chosen.length === 0) return setStatus(ui("assign.pickRep"));
-    const res = await fetch("/api/assignments", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ userIds: chosen, scenarioCode: scenario, dueDate: due || null, reason }) });
-    if (res.ok) {
+    const res = await fetch("/api/assignments", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ userIds: chosen, scenarioCode: scenario, dueDate: due || null, reason }) }).catch(() => null);
+    if (res?.ok) {
       setStatus(ui("assign.done", { n: chosen.length }));
       setChosen([]);
       setReason("");

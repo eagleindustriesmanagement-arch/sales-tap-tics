@@ -773,13 +773,19 @@ test("a typed Send works in browsers whose scroll returns a promise", async ({ p
   }
   await expect(page.getByText("This screen hit a problem")).toHaveCount(0);
 
+  // When scoring fails, the rep is told and can try again: never a crashed debrief, never a wait that never ends.
+  await page.route("**/api/sessions/*/finish", (route) => route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ error: "judge unavailable" }) }));
+  await page.getByRole("button", { name: "End session" }).click();
+  await expect(page.getByTestId("finish-failed")).toContainText("We couldn't finish scoring");
+  await page.unroute("**/api/sessions/*/finish");
+
   // While the session is scored, the wait shows what is happening and keeps moving (production: "Scoring your
   // session…" sat for over a minute with nothing changing). The scoring is held the way a slow judge would hold it.
   await page.route("**/api/sessions/*/finish", async (route) => {
     await new Promise((r) => setTimeout(r, 8000));
     await route.continue();
   });
-  await page.getByRole("button", { name: "End session" }).click();
+  await page.getByTestId("finish-failed").getByRole("button", { name: "Try again" }).click();
   const stage = page.getByTestId("scoring-stage");
   await expect(stage).toHaveText("Reading your conversation, line by line…");
   await expect(stage).toHaveText("Checking every line against the compliance rules…", { timeout: 9000 });

@@ -16,8 +16,8 @@ export function OverrideForm({ sessionId, language: lang }: { sessionId: string;
   const [reason, setReason] = useState("");
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch(`/api/sessions/${sessionId}/override`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ flag, reason }) });
-    if (res.ok) {
+    const res = await fetch(`/api/sessions/${sessionId}/override`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ flag, reason }) }).catch(() => null);
+    if (res?.ok) {
       setReason("");
       router.refresh();
     }

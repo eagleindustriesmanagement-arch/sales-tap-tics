@@ -34,8 +34,8 @@ export function ReminderPush({ language: lang, publicKey }: { language: Language
       if ((await Notification.requestPermission()) !== "granted") return setState("blocked");
       const reg = await navigator.serviceWorker.ready;
       const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: keyBytes(publicKey) });
-      const res = await fetch("/api/push", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(sub.toJSON()) });
-      setState(res.ok ? "on" : "off");
+      const res = await fetch("/api/push", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(sub.toJSON()) }).catch(() => null);
+      setState(res?.ok ? "on" : "off");
     } catch {
       setState("off");
     }
@@ -46,7 +46,7 @@ export function ReminderPush({ language: lang, publicKey }: { language: Language
     try {
       const sub = await (await navigator.serviceWorker.ready).pushManager.getSubscription();
       if (sub) {
-        await fetch("/api/push", { method: "DELETE", headers: { "content-type": "application/json" }, body: JSON.stringify({ endpoint: sub.endpoint }) });
+        await fetch("/api/push", { method: "DELETE", headers: { "content-type": "application/json" }, body: JSON.stringify({ endpoint: sub.endpoint }) }).catch(() => null);
         await sub.unsubscribe();
       }
     } finally {

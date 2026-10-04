@@ -22,14 +22,14 @@ export function InvitePanel({ language: lang, links, canInviteManagers }: { lang
   async function make(role: "rep" | "manager") {
     setBusy(true);
     setCopied(false);
-    const res = await fetch("/api/invites", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ role }) });
-    const data = (await res.json().catch(() => ({}))) as { url?: string };
+    const res = await fetch("/api/invites", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ role }) }).catch(() => null);
+    const data = ((await res?.json().catch(() => ({}))) ?? {}) as { url?: string };
     setBusy(false);
     if (data.url) setFresh({ url: data.url, role });
     router.refresh();
   }
   async function revoke(id: string) {
-    await fetch(`/api/invites/${id}`, { method: "DELETE" });
+    await fetch(`/api/invites/${id}`, { method: "DELETE" }).catch(() => null);
     router.refresh();
   }
   async function copy() {
