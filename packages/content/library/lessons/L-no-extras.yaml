@@ -4,20 +4,34 @@ title:
   en: "\"No extras in finance\": honor the no, then show the menu"
   es: "\"No quiero extras en financiamiento\": respete el no, y enseñe el menú"
 hook:
-  en: He sits down in the box, arms crossed, and says no before hello. Somebody burned him.
-  es: Se sienta en F&I con los brazos cruzados y dice que no antes del saludo. A este lo quemaron.
+  en: He sits down in the finance office, arms crossed, and says no before hello.
+  es: Se sienta en la oficina de financiamiento con los brazos cruzados y dice que no antes de saludar.
+tactic:
+  en: When he says no extras, accept it. Ask what happened last time. Then show every payment side by side, labeled, and let him choose.
+  es: Cuando diga que no quiere extras, acéptelo. Pregunte qué le pasó la última vez. Después enséñele todos los pagos lado a lado, identificados, y que él escoja.
+steps:
+  - en: "Pause, then agree: \"That's your decision. Nothing goes in without your yes.\""
+    es: "Haga una pausa y déle la razón: \"Eso lo decide usted. No se agrega nada sin su sí.\""
+  - en: "Ask: \"Can I ask what happened last time that makes you say that?\""
+    es: "Pregunte: \"¿Le puedo preguntar qué le pasó la última vez para que me diga eso?\""
+  - en: Show every payment side by side, including the one with no products.
+    es: Enséñele todos los pagos lado a lado, también el que no tiene productos.
+  - en: Say every product is optional. None affects approval, rate or delivery.
+    es: Diga que todo producto es opcional. Ninguno afecta la aprobación, la tasa ni la entrega.
+  - en: Print what he chose and set a delivery time he agrees to.
+    es: Imprima lo que él escogió y fije una hora de entrega que él acepte.
 what:
-  en: "Accept the no: nothing goes in without his yes. Ask what happened last time. Then show every payment side by side, each labeled, and let him choose."
-  es: "Acepte el no: no entra nada sin su sí. Pregúntele qué le pasó la última vez. Después enséñele todos los pagos lado a lado, cada uno identificado, y que él escoja."
+  en: Respect his no, and let him see every choice clearly.
+  es: Respete su no y deje que vea cada opción con claridad.
 why:
-  en: That no isn't about your products. It's about the last box, where something got buried in his payment. He's braced for a fight; agree and there's none. Ask about last time and he tells you what he'd consider. A labeled menu shows every dollar, so nothing hides in a payment.
-  es: Ese no no es contra sus productos. Es contra la última oficina, donde le metieron algo en el pago. Viene listo para pelear; déle la razón y no hay pelea. Pregúntele por la última vez y le dice qué consideraría. El menú identificado enseña cada dólar, y nada se esconde en un pago.
+  en: His no is about his last finance office, where a product got hidden in his payment. Agree, and there is no fight. His story tells you what he might want. A labeled menu hides nothing.
+  es: Su no viene de la última oficina de financiamiento, donde le escondieron un producto en el pago. Déle la razón y no hay pelea. Su historia le dice qué podría querer. Un menú bien identificado no esconde nada.
 when:
-  en: Any time a customer turns down products before you've shown a thing.
-  es: Cada vez que el cliente rechaza los productos antes de ver nada.
+  en: A customer says no to products before seeing any.
+  es: Un cliente dice que no a los productos antes de ver ninguno.
 when_not:
-  en: Not a back door for the pitch. If he still says no, print the no-products payment and deliver.
-  es: No es una puerta trasera para venderle. Si sigue diciendo que no, imprima el pago sin productos y entregue.
+  en: Don't use this as a trick to sell. If he still says no, print the no-products payment and deliver.
+  es: No lo use como truco para venderle. Si sigue diciendo que no, imprima el pago sin productos y entregue el carro.
 say:
   - en: Understood, that's your decision. Nothing goes in your contract without your yes.
     es: Entendido, eso lo decide usted. No se agrega nada a su contrato sin que usted diga que sí.
@@ -32,14 +46,14 @@ mistakes:
       en: '"Most of my customers take the service contract."'
       es: '"La mayoría de mis clientes se llevan el contrato de servicio."'
     fix:
-      en: You decided for him after his no. Show it, price it, his call.
-      es: Decidió por él después de su no. Enséñelo con su precio; decide él.
+      en: You decided for him after his no. Show it with its price, and let him decide.
+      es: Decidió por él después de su no. Enséñelo con su precio, y que decida él.
   - mistake:
       en: Quoting only the payment with everything in it.
       es: Dar solo el pago con todo incluido.
     fix:
-      en: Every payment, including the one with nothing.
-      es: Todos los pagos, también el que no incluye nada.
+      en: Show every payment, including the one with no products.
+      es: Enseñe todos los pagos, también el que no tiene productos.
   - mistake:
       en: '"The bank likes to see GAP on a loan like this."'
       es: '"Al banco le gusta ver el GAP en un préstamo así."'
@@ -49,33 +63,33 @@ mistakes:
 concepts:
   - name: { en: "Pause, then accept the no", es: "Pausa, y acepte el no" }
     idea:
-      en: Two seconds, then agree. Nothing without his yes.
-      es: Dos segundos, y déle la razón. Nada sin su sí.
+      en: Wait two seconds, then agree. Nothing goes in without his yes.
+      es: Espere dos segundos y déle la razón. No entra nada sin su sí.
     items: [O46-PAUSE, O46-ACK]
   - name: { en: What happened last time?, es: ¿Qué le pasó la última vez? }
     idea:
-      en: Before any product. The story tells you what he'd consider.
-      es: Antes de cualquier producto. La historia le dice qué consideraría.
+      en: Ask before any product. His story tells you what he might want.
+      es: Pregunte antes de cualquier producto. Su historia le dice qué podría querer.
     items: [O46-QFIRST, O46-HIDDEN]
   - name: { en: Two-payment menu, es: Menú de dos pagos }
     idea:
-      en: Every payment labeled. Never stretch the term to hide a product.
-      es: Cada pago identificado. Nunca alargue el plazo para esconder un producto.
+      en: Label every payment. Never make the loan longer to hide a product.
+      es: Identifique cada pago. Nunca alargue el plazo para esconder un producto.
     items: [O46-MENU]
   - name: { en: Optional means optional, es: Opcional quiere decir opcional }
     idea:
-      en: No product touches approval, rate or delivery.
-      es: Ningún producto toca la aprobación, la tasa ni la entrega.
+      en: No product affects approval, rate or delivery.
+      es: Ningún producto afecta la aprobación, la tasa ni la entrega.
     items: [O46-NOREQ]
   - name: { en: The 60-day reassurance, es: La tranquilidad de los 60 días }
     idea:
-      en: For the service contract only. Don't hang it on GAP.
-      es: Solo para el contrato de servicio. No se lo cuelgue al GAP.
+      en: He can cancel the service contract within 60 days for a refund. Not GAP.
+      es: Puede cancelar el contrato de servicio dentro de 60 días con reembolso. No el GAP.
     items: [O46-SC]
   - name: { en: Lock the delivery time, es: Amarre la hora de entrega }
     idea:
-      en: Print what he chose; set a time he agrees to.
-      es: Imprima lo que escogió; fije una hora que él acepte.
+      en: Print what he chose. Set a time he agrees to.
+      es: Imprima lo que escogió. Fije una hora que él acepte.
     items: [O46-NEXT]
 sources:
   - T001 Pause and slow down; T051 Do not pre-judge products; T002 Clarify with a question; T121 Two-payment menu; T074 The 60-day reassurance; T014 Firm next step

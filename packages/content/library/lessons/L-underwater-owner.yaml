@@ -4,20 +4,27 @@ title:
   en: "\"I'm upside down on my loan\": make it math, not shame"
   es: "\"Estoy al revés con el préstamo\": que sean números, no vergüenza"
 hook:
-  en: She loves the car, then stops you before the numbers, braced to be judged.
-  es: Le encanta el carro, y lo para antes de los números, esperando que la juzguen.
+  en: She loves the car, then stops you before the numbers. She expects to be judged.
+  es: Le encanta el carro. Entonces le pide que pare antes de los números. Espera que la juzguen.
+tactic: { en: "Stay calm and don't judge. Ask what she owes, show the difference on its own line, and offer honest options, including waiting.", es: "Mantenga la calma y no la juzgue. Pregunte cuánto debe todavía, enséñele la diferencia en su propia línea y déle opciones honestas, incluso esperar." }
+steps:
+  - { en: "Pause, then say: \"Thank you for telling me up front. No judgment here.\"", es: "Haga una pausa y diga: \"Gracias por decírmelo de entrada. Aquí nadie la va a juzgar.\"" }
+  - { en: "Ask: \"Do you have a rough idea of what you still owe?\"", es: "Pregunte: \"¿Tiene una idea más o menos de cuánto debe todavía?\"" }
+  - { en: "Give the trade number. Say it holds only if the payoff letter matches.", es: "Dígale el valor del trade-in, y que se mantiene solo si la carta del payoff coincide." }
+  - { en: "Show the difference on its own line. Offer cash down, a cheaper car, or waiting.", es: "Enséñele la diferencia en su propia línea. Ofrezca opciones: dinero de down, un carro que cueste menos o esperar." }
+  - { en: "Set a day and time to meet with the payoff letter.", es: "Fije un día y una hora para reunirse con la carta del payoff." }
 what:
-  en: Treat the old loan as math. Ask the payoff calmly, show the gap on its own line, state the trade's condition, and lay out honest options, waiting included.
-  es: Trate el préstamo viejo como números. Pregunte el payoff con calma, enseñe la diferencia en su propia línea, diga la condición del trade-in y presente las opciones honestas, incluyendo esperar.
+  en: Treat the old loan as math. Stay calm and honest.
+  es: Trate el préstamo viejo como números, nada más. Hable con calma y con honestidad.
 why:
-  en: She's hiding the number because she's embarrassed, not to beat you. One judging word and she leaves. Stay calm and she tells you the real size. Bury the gap in a payment and she starts the next loan deeper, and later finds out who did it.
-  es: Esconde el número porque le da vergüenza, no para ganarle. Una palabra que suene a juicio y se va para no pasar pena. Si usted está tranquilo, le dice cuánto es de verdad. Si esconde la diferencia en un pago, empieza el próximo préstamo más hundida, y después se entera de quién fue.
+  en: She hides the number because she's embarrassed. One judging word and she leaves. If you stay calm, she tells you the real amount. If you hide the difference in a payment, she owes even more on the next loan.
+  es: Esconde el número porque le da vergüenza. Una sola palabra que suene a juicio, y se va. Si usted está tranquilo, le dice cuánto es de verdad. Si esconde la diferencia en un pago, en el préstamo nuevo debe todavía más.
 when:
-  en: Whenever a customer owes, or fears they owe, more than the car is worth.
-  es: Cada vez que un cliente debe, o teme deber, más de lo que vale el carro.
+  en: Any time a customer owes more than the car is worth, or fears they do.
+  es: Cada vez que un cliente debe más de lo que vale el carro, o tiene miedo de deberlo.
 when_not:
-  en: Don't promise it works before the payoff letter. Sometimes the honest answer is wait.
-  es: No prometa que funciona antes de la carta del payoff. A veces la respuesta honesta es esperar.
+  en: Don't promise it works before you see the payoff letter. Sometimes the honest answer is to wait.
+  es: No prometa que va a funcionar antes de ver la carta del payoff. A veces la respuesta honesta es esperar.
 say:
   - en: Thank you for telling me up front. No judgment here.
     es: Gracias por decírmelo de entrada. Aquí nadie la va a juzgar.
@@ -34,30 +41,30 @@ mistakes:
       en: '"How did you end up owing that much?"'
       es: '"¿Cómo llegó a deber tanto?"'
     fix:
-      en: Ask what she owes, never why.
+      en: Ask how much she owes, never why.
       es: Pregunte cuánto debe, nunca por qué.
   - mistake:
       en: '"Don''t worry, we''ll roll it into the new loan."'
       es: '"No se preocupe, eso se mete en el préstamo nuevo."'
     fix:
-      en: That's hiding it. Name the gap and show it.
-      es: Eso es esconderlo. Diga la diferencia y enséñela.
+      en: That hides it. Say the amount and show it.
+      es: Eso es esconder la diferencia. Diga cuánto es y enséñela.
   - mistake:
       en: Calling the trade number final before the payoff is confirmed.
-      es: Dar el trade-in como final antes de confirmar el payoff.
+      es: Dar el valor del trade-in como final antes de confirmar el payoff.
     fix:
-      en: Say the condition out loud.
-      es: Diga la condición en voz alta.
+      en: Say it depends on the payoff letter.
+      es: Diga que depende de la carta del payoff.
 concepts:
   - name: { en: 'Calm, no judgment', es: 'Calma, sin juzgar' }
     idea:
-      en: Pause, thank her for telling you, keep your face and voice steady.
-      es: Haga la pausa, déle las gracias por decírselo, cara y voz tranquilas.
+      en: Pause, thank her, and keep your face and voice calm.
+      es: Haga la pausa y déle las gracias por decírselo. Cara y voz tranquilas.
     items: [O02-PAUSE, O02-ACK]
   - name: { en: Ask the payoff, es: Pregunte el payoff }
     idea:
-      en: Before any solution. She tells you the real size when she feels safe.
-      es: Antes de cualquier solución. Le dice cuánto es de verdad cuando se siente segura.
+      en: Ask before any solution. She tells the real amount when she feels safe.
+      es: Pregunte antes de ofrecer cualquier solución. Ella le dice cuánto es de verdad cuando se siente segura.
     items: [O02-QFIRST, O02-HIDDEN]
   - name: { en: Write the condition in, es: Ponga la condición por escrito }
     idea:
@@ -66,18 +73,18 @@ concepts:
     items: [O02-CONDITION]
   - name: { en: The gap on its own line, es: La diferencia en su propia línea }
     idea:
-      en: What she owes over the value, never folded into a monthly.
-      es: Lo que debe por encima del valor, nunca metido en una mensualidad.
+      en: What she owes above the car's value, never inside a monthly payment.
+      es: Lo que debe por encima del valor del carro. Nunca lo meta en un pago mensual.
     items: [O02-OPTIONS]
   - name: { en: Waiting is an option, es: Esperar es una opción }
     idea:
-      en: Cash down, a less expensive car, or keep paying it down. She picks.
+      en: Cash down, a cheaper car, or paying the loan down. She chooses.
       es: Dinero de down, un carro que cueste menos, o seguir bajando la deuda. Ella escoge.
     items: [O02-OPTIONS]
   - name: { en: Bring the letter, es: Traiga la carta }
     idea:
       en: A day and time, payoff letter in hand.
-      es: Un día y una hora, con la carta del payoff en la mano.
+      es: Un día y una hora para reunirse, con la carta del payoff en la mano.
     items: [O02-NEXT]
 sources:
   - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T111 Write the condition in; T029 Trade-value walkthrough; T096 Trade on its own line; T014 Firm next step

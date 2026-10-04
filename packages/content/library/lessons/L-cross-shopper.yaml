@@ -4,20 +4,34 @@ title:
   en: "\"Another dealer is cheaper\": same car, out the door, side by side"
   es: "\"En otro dealer me lo dejan más barato\": mismo carro, con todo, lado a lado"
 hook:
-  en: She slides a printout across your desk. Same car, lower number. She's reading your face.
-  es: Le pone una cotización impresa en el escritorio. El mismo carro, un número más bajo. Le está leyendo la cara.
+  en: She puts another dealer's quote on your desk. Same car, lower number.
+  es: Le pone en el escritorio la cotización de otro dealer. El mismo carro, un número más bajo.
+tactic:
+  en: When she shows a lower quote from another dealer, don't argue. Ask what it includes, then compare both total prices, side by side.
+  es: Cuando le enseñe una cotización más baja de otro dealer, no discuta. Pregunte qué incluye y compare los dos precios totales, lado a lado.
+steps:
+  - en: "Pause, then agree: \"Fair question. Let's put them side by side.\""
+    es: "Haga una pausa y déle la razón: \"Es una pregunta justa. Vamos a ponerlas lado a lado.\""
+  - en: "Ask: \"Does their number include their dealer fees? What does the bottom line say?\""
+    es: "Pregunte: \"¿Ese número incluye los cargos del dealer de ellos? ¿Qué dice la línea de abajo?\""
+  - en: Give your total price, with your dealer fee already in it.
+    es: Déle su precio total, con su cargo de concesionario ya incluido.
+  - en: Don't guess about their fees, and don't promise to beat their price.
+    es: No adivine los cargos de ellos y no prometa mejorar su precio.
+  - en: Ask her to get their total in writing. Set a day and time to compare both.
+    es: Pídale que consiga el total de ellos por escrito. Fije un día y una hora para comparar los dos.
 what:
-  en: Don't argue her number or trash the other store. Put both deals on one basis, same vehicle and equipment, out the door, and ask what hers includes before you defend yours.
-  es: No le discuta el número ni hable mal del otro dealer. Ponga los dos negocios sobre la misma base, mismo carro, mismo equipo, con todo, y pregunte qué incluye su cotización antes de defender la suya.
+  en: Compare the same car at the total price, without arguing or attacking the other dealer.
+  es: Compare el mismo carro al precio total, sin discutir ni hablar mal del otro dealer.
 why:
-  en: She brought paper because she trusts paper. Say "that can't be right" and you've called her careless, so she goes cold. But a quote can leave things out, fees below the line, different equipment. Ask what's in it and let her read her own fine print. She'll trust what she finds more than anything you say.
-  es: Trajo papeles porque confía en los papeles. Si usted dice "eso no puede ser", la está llamando descuidada, y se enfría. Pero una cotización puede dejar cosas fuera, cargos en la letra chiquita, otro equipo. Pregunte qué incluye y deje que ella misma lea la letra chiquita. Va a confiar más en lo que ella encuentre que en cualquier cosa que usted le diga.
+  en: She trusts paper. If you say "that can't be right," you call her careless. But a quote can leave out fees or equipment. Let her read her own quote. She will trust what she finds.
+  es: Ella confía en los papeles. Si usted dice "eso no puede ser", la llama descuidada. Pero una cotización puede dejar fuera cargos o equipo. Deje que ella misma la lea. Va a confiar en lo que encuentre.
 when:
-  en: A customer brings a lower number from another dealer.
-  es: Un cliente trae un número más bajo de otro dealer.
+  en: A customer brings a lower price from another dealer.
+  es: Un cliente trae un precio más bajo de otro dealer.
 when_not:
-  en: Don't promise to match or beat a number without the desk. If theirs really is lower out the door, say so.
-  es: No prometa igualar ni mejorar un número sin el gerente. Si el de ellos de verdad sale más barato con todo, dígalo.
+  en: Don't promise to match or beat a price without your manager. If their total really is lower, say so.
+  es: No prometa igualar ni mejorar un precio sin su gerente. Si el total de ellos de verdad es más bajo, dígalo.
 say:
   - en: Fair question, and you should ask it. Let's put them side by side, out the door.
     es: Es una pregunta justa, y hace bien en hacerla. Vamos a ponerlas lado a lado, con todo.
@@ -32,45 +46,45 @@ mistakes:
       en: '"That can''t be right. Nobody sells it for that."'
       es: '"Eso no puede ser. Nadie lo vende en eso."'
     fix:
-      en: You called her wrong with no proof. Ask what's in it.
-      es: La contradijo sin pruebas. Pregunte qué incluye.
+      en: You told her she's wrong with no proof. Ask what's in it.
+      es: Le dijo que está equivocada sin pruebas. Pregunte qué incluye.
   - mistake:
       en: '"Whatever they gave you, we''ll beat it."'
       es: '"Lo que le hayan dado, se lo mejoramos."'
     fix:
-      en: Not without the desk, and not before you know it's the same deal.
-      es: No sin el gerente, y no antes de saber si es el mismo negocio.
+      en: Not without your manager. And not before you know it's the same deal.
+      es: No sin su gerente. Y no antes de saber si es el mismo negocio.
   - mistake:
-      en: '"Their fees are probably through the roof."'
+      en: '"Their fees are probably really high."'
       es: '"Seguro que los cargos de ellos son carísimos."'
     fix:
-      en: You haven't seen them. Let her read the fine print.
-      es: Usted no los ha visto. Deje que ella lea la letra chiquita.
+      en: You haven't seen their fees. Let her read the small print.
+      es: Usted no ha visto esos cargos. Deje que ella lea la letra chiquita.
 concepts:
   - name: { en: Pause and acknowledge, es: Pausa y reconocer }
     idea:
-      en: Her question is fair. Say so first.
+      en: Her question is fair. Tell her so first.
       es: Su pregunta es justa. Dígaselo primero.
     items: [O10-L3-PAUSE, O10-L3-ACK]
   - name: { en: "Like for like, out the door", es: "Lo mismo con lo mismo, con todo" }
     idea:
-      en: Same vehicle, same equipment, total price.
+      en: Same car, same equipment, total price.
       es: Mismo carro, mismo equipo, precio total.
     items: [O10-L3-OTD]
   - name: { en: Ask what's in it, es: Pregunte qué incluye }
     idea:
-      en: Fees, equipment, fine print. Her answer usually settles it.
+      en: Fees, equipment, small print. Her answer usually settles it.
       es: Cargos, equipo, letra chiquita. Casi siempre la respuesta de ella lo resuelve.
     items: [O10-L3-QUOTE, O10-L3-HIDDEN]
   - name: { en: "Your number, all in", es: "Su número, con todo" }
     idea:
-      en: Fee already in, and nothing about theirs you can't see.
-      es: El cargo ya incluido, y nada sobre el de ellos que usted no pueda ver.
+      en: Your price with the fee already in. Say nothing about their price that you can't see.
+      es: Su precio con el cargo ya incluido. No diga nada del precio de ellos que usted no pueda ver.
     items: [O10-L3-HONEST]
   - name: { en: "Both sheets, one table", es: "Las dos hojas, una mesa" }
     idea:
-      en: A day and a time to compare both out-the-door numbers in writing.
-      es: Un día y una hora para comparar los dos precios totales por escrito.
+      en: Set a day and time to compare both total prices in writing.
+      es: Fije un día y una hora para comparar los dos precios totales por escrito.
     items: [O10-L3-NEXT]
 sources:
   - T028 Counter a low anchor by refocusing; T086 Side-by-side for "I've got you beat"; T002 Clarify with a question; T003 Acknowledge; T001 Pause and slow down; T014 Firm next step

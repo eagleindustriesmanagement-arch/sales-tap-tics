@@ -4,20 +4,27 @@ title:
   en: "\"I don't want to regret it\": shrink the fear to one choice"
   es: "\"No quiero arrepentirme\": achique el miedo a una sola decisión"
 hook:
-  en: Third visit. Everybody loves the truck. He still can't pull the trigger.
-  es: Tercera visita. A todos les encanta la camioneta. Y él todavía no se decide.
+  en: It's his third visit. The whole family loves the truck. He still can't decide.
+  es: Es su tercera visita. A toda la familia le encanta la camioneta. Y él todavía no se decide.
+tactic: { en: "He is afraid of choosing wrong. Name that fear, find the one choice he's stuck on, and settle it with facts he can check.", es: "Tiene miedo de escoger mal. Nombre ese miedo, encuentre la única decisión que le falta y resuélvala con datos que él pueda comprobar." }
+steps:
+  - { en: "Pause, then agree: \"That's smart. You should feel sure.\"", es: "Haga una pausa y déle la razón: \"Eso es sensato. Usted tiene que sentirse seguro.\"" }
+  - { en: "Ask if he's worried about picking the wrong one.", es: "Pregúntele si le preocupa escoger mal." }
+  - { en: "Check the truck and numbers are fine. Then ask: \"Is it which version to get?\"", es: "Confirme que la camioneta y los números están bien. Después pregunte: \"¿La duda es cuál versión?\"" }
+  - { en: "Compare only the two trims. Sit in both and list what he'd really use.", es: "Compare solo las dos versiones. Siéntense en las dos y anoten lo que de verdad usaría." }
+  - { en: "Set a day and time for the family to see both trims.", es: "Fije un día y una hora para que la familia vea las dos." }
 what:
-  en: You know the pause and the question. Now go deeper. Name the fear of choosing wrong, shrink it to the one choice he's stuck on, and take out the risk with facts he can check.
-  es: La pausa y la pregunta ya usted las sabe. Ahora vaya más hondo. Nombre el miedo de escoger mal, achíquelo a la decisión donde está trancado, y quítele el riesgo con datos que él pueda comprobar.
+  en: You know the pause and the question. Now name his fear and narrow it to one choice.
+  es: Ya sabe hacer la pausa y la pregunta. Ahora nombre su miedo y redúzcalo a una sola decisión.
 why:
-  en: To a scared buyer, doing nothing feels safer than choosing wrong. A wrong pick is his fault; waiting isn't. So every push makes waiting look smarter, and "you won't regret it" sounds like a salesman. Name the fear and it's normal. Shrink it to one choice and you solve it together.
-  es: Para un cliente con miedo, no hacer nada se siente más seguro que escoger mal. Si escoge mal, la culpa es suya; si espera, no. Por eso cada empujón hace que quedarse quieto parezca lo inteligente, y "no se va a arrepentir" suena a vendedor. Si nombra el miedo, se vuelve normal. Si lo achica a una decisión, la resuelven juntos.
+  en: To a nervous buyer, doing nothing feels safer than choosing wrong. A wrong choice is his fault. Waiting is not. So every push makes waiting look smarter. Naming the fear makes it feel normal. One choice is easy to solve together.
+  es: Para un cliente nervioso, no hacer nada se siente más seguro que escoger mal. Si escoge mal, la culpa es suya. Si espera, no. Por eso cada empujón hace que esperar parezca lo más inteligente. Nombrar el miedo lo hace normal. Una sola decisión es fácil de resolver juntos.
 when:
-  en: He likes the car and the numbers, but keeps coming back without deciding.
-  es: Le gustan el carro y los números, pero vuelve y vuelve sin decidirse.
+  en: He likes it all, but keeps coming back without deciding.
+  es: Le gusta todo, pero vuelve y vuelve sin decidirse.
 when_not:
-  en: Don't invent the fear for him. If he names a real problem, work that.
-  es: No le invente el miedo. Si nombra un problema real, trabaje eso.
+  en: Don't make up a fear for him. If he names a real problem, work on that.
+  es: No le invente un miedo. Si él nombra un problema real, trabaje en ese problema.
 say:
   - en: That's smart. It's a lot of money, and you should feel sure.
     es: Eso es sensato. Es mucho dinero, y usted tiene que sentirse seguro.
@@ -32,20 +39,20 @@ mistakes:
       en: '"You won''t regret it, trust me."'
       es: '"No se va a arrepentir, confíe en mí."'
     fix:
-      en: A promise he can't check makes him more nervous. Show him facts.
-      es: Una promesa que no puede comprobar lo pone más nervioso. Enséñele datos.
+      en: He can't check a promise, so it makes him more nervous. Show facts.
+      es: Una promesa no se puede comprobar, y lo pone más nervioso. Enséñele datos.
   - mistake:
       en: '"We''ve also got the RST and the Z71."'
       es: '"También tenemos la RST y la Z71."'
     fix:
-      en: Every new trim is one more to regret. Close the search.
-      es: Cada versión nueva es una más para arrepentirse. Cierre la búsqueda.
+      en: More trims mean more ways to choose wrong. Keep it to two.
+      es: Más versiones son más formas de escoger mal. Quédese con dos.
   - mistake:
       en: '"Just take it today and stop worrying."'
       es: '"Llévesela hoy y deje de preocuparse."'
     fix:
-      en: Pressure makes waiting look safe. Slow down, set a day.
-      es: La presión hace que esperar parezca seguro. Baje el ritmo y fije un día.
+      en: Pressure makes waiting feel safer. Slow down and set a day.
+      es: La presión hace que esperar se sienta más seguro. Vaya más despacio y fije un día.
 concepts:
   - name:
       en: "Pause, then agree"
@@ -58,28 +65,28 @@ concepts:
       en: "Name the fear"
       es: "Nombre el miedo"
     idea:
-      en: Say "picking the wrong one" out loud. Now he can talk about it.
-      es: Diga "escoger mal" en voz alta. Le da permiso para hablar.
+      en: Say "picking the wrong one" out loud. Then he can talk about it.
+      es: Diga "escoger mal" en voz alta. Así él puede hablar de eso.
     items: [O60-NAMEFEAR]
   - name:
       en: "Shrink it to one choice"
       es: "Achíquelo a una decisión"
     idea:
-      en: Isolate. Truck and numbers settled, what's left is the real fork.
-      es: Aísle. Con la camioneta y los números resueltos, lo que queda es la duda real.
+      en: Truck and numbers are settled. What's left is the real choice.
+      es: La camioneta y los números ya están resueltos. Lo que queda es la duda real.
     items: [O60-HIDDEN]
   - name:
       en: "Facts, not promises"
       es: "Datos, no promesas"
     idea:
-      en: Remove real risk with what he can check, between the two trims in play.
-      es: Quite el riesgo real con lo que él puede comprobar, entre las dos versiones en juego.
+      en: Facts he can check, only between the two trims.
+      es: Datos que él pueda comprobar, solo entre las dos versiones.
     items: [O60-RISK, O60-LIMIT]
   - name:
       en: "Bring the family, set the time"
       es: "Traiga a la familia, fije la hora"
     idea:
-      en: Everyone who rides sees both, on a set day and time.
+      en: Everyone who will ride sees both, on a set day and time.
       es: Todos los que se van a montar ven las dos, con día y hora fijos.
     items: [O60-NEXT]
 sources:

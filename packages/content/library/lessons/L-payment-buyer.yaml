@@ -4,20 +4,27 @@ title:
   en: "\"The payment is too high\": get his number before you move yours"
   es: "\"El pago está muy alto\": saque su número antes de mover el suyo"
 hook:
-  en: He saw the monthly, lunch is ending, and your reflex is to start cutting. Don't.
-  es: Vio la mensualidad, el almuerzo se le acaba y su reflejo es empezar a cortar. No lo haga.
+  en: He saw the monthly payment, and his lunch break is almost over. Don't start cutting numbers.
+  es: Vio el pago mensual, y se le acaba la hora de almuerzo. No empiece a bajar números.
+tactic: { en: "Ask what payment he had in mind before you change any number. Then show only the real options, with what each one costs.", es: "Pregunte qué pago tenía en mente antes de cambiar cualquier número. Después enséñele solo las opciones reales, y lo que cuesta cada una." }
+steps:
+  - { en: "Pause, then ask: \"What payment were you expecting?\"", es: "Haga una pausa y pregunte: \"¿Qué pago tenía en mente?\"" }
+  - { en: "Ask: \"Other than the payment, is this the right car for you?\"", es: "Pregunte: \"Aparte del pago, ¿este es el carro para usted?\"" }
+  - { en: "Ask what monthly payment he needs to stay under.", es: "Pregunte por debajo de qué pago mensual necesita quedarse." }
+  - { en: "Show only real options from the sheet. Say a longer term costs more interest.", es: "Enséñele solo opciones reales de la hoja. Diga claro que un plazo más largo cuesta más intereses." }
+  - { en: "Keep it short, and set a time to come back and choose.", es: "Sea breve, y fije una hora para que vuelva a escoger." }
 what:
-  en: The payment objection is a budget he hasn't told you. Get the number, confirm the car is right, then show only the real roads to it, and what each one costs.
-  es: La objeción del pago es un presupuesto que no le ha dicho. Saque el número, confirme que el carro es el correcto y enséñele solo los caminos reales para llegar, y lo que cuesta cada uno.
+  en: He has a budget he hasn't told you. Get it before you show any options.
+  es: Tiene un presupuesto que no le ha dicho. Averígüelo antes de enseñarle opciones.
 why:
-  en: He won't go first because he thinks you'll build the deal right up to his number. Guess, and you either give away money or miss by fifty bucks and lose him. Ask, and he's working the deal with you.
-  es: No lo dice primero porque cree que usted va a armar el negocio justo hasta su número. Si adivina, o regala dinero o se queda corto por cincuenta dólares y lo pierde. Si pregunta, él trabaja el negocio con usted.
+  en: He won't say his number first. He thinks you'll build the deal right up to it. If you guess, you may give away money, or miss and lose him. If you ask, he works with you.
+  es: No dice su número primero. Cree que usted va a armar el negocio justo hasta ahí. Si adivina, puede regalar dinero, o quedarse corto y perderlo. Si pregunta, él trabaja con usted.
 when:
-  en: The moment the monthly is the complaint, before you touch a number.
-  es: En cuanto la queja es la mensualidad, antes de tocar un número.
+  en: As soon as he complains about the payment, before you touch any number.
+  es: En cuanto se queje del pago, antes de tocar cualquier número.
 when_not:
-  en: Never stretch the term quietly to hit his number. If nothing real gets there, tell him straight.
-  es: Nunca alargue el plazo calladito para llegar a su número. Si nada real llega, dígaselo claro.
+  en: Never make the loan longer without telling him. If no real option reaches his number, tell him honestly.
+  es: Nunca alargue el plazo sin decírselo. Si ninguna opción real llega a su número, dígaselo con honestidad.
 say:
   - en: Got it, I'll keep this quick. What payment were you expecting?
     es: Entendido, voy a ser rápido. ¿Qué pago tenía en mente?
@@ -32,35 +39,35 @@ mistakes:
       en: '"Everybody says that at first. You''ll forget it after a month."'
       es: '"Todo el mundo dice eso al principio. Al mes ni se acuerda."'
     fix:
-      en: You argued with his budget. Ask for his number.
-      es: Le discutió el presupuesto. Pregúntele su número.
+      en: That argues with his budget. Ask for his number instead.
+      es: Eso es discutirle el presupuesto. Mejor pregúntele su número.
   - mistake:
-      en: Taking the desk's lower payment on a longer term without saying the months.
-      es: Traer el pago más bajo del desk a un plazo más largo sin decir los meses.
+      en: A lower payment on a longer term, without saying how many months.
+      es: Un pago más bajo con un plazo más largo, sin decir cuántos meses.
     fix:
-      en: A lower payment over more months costs more. Say the months and the extra interest.
-      es: Pagar menos al mes por más meses cuesta más. Diga los meses y los intereses de más.
+      en: More months cost more in total. Say the months and the extra interest.
+      es: Más meses cuestan más en total. Diga los meses y los intereses de más.
   - mistake:
-      en: A long pitch to a guy on his lunch break.
+      en: A long sales talk to a man on his lunch break.
       es: Un discurso largo a un hombre en su hora de almuerzo.
     fix:
-      en: Short turns. Out of time? Set the time to come back.
-      es: Turnos cortos. ¿Se le acabó el tiempo? Fije la hora para volver.
+      en: Keep answers short. Out of time? Set a time to come back.
+      es: Respuestas cortas. ¿Se le acabó el tiempo? Fije una hora para volver.
 concepts:
   - name: { en: The two-second pause, es: La pausa de dos segundos }
     idea:
-      en: Let it land. A fast answer sounds like a defense.
-      es: Deje que caiga. Una respuesta rápida suena a defensa.
+      en: Wait two seconds. A fast answer sounds defensive.
+      es: Espere dos segundos. Una respuesta rápida suena a que se está defendiendo.
     items: [O03-PAUSE]
   - name: { en: His number first, es: Primero su número }
     idea:
-      en: Ask his payment, then what it protects. That's the real ceiling.
-      es: Pregunte su pago y luego qué protege. Ese es el tope real.
+      en: Ask his payment, then why it matters. That's his real limit.
+      es: Pregunte su pago y después por qué es importante. Ese es su límite real.
     items: [O03-QFIRST, O03-HIDDEN]
   - name: { en: '"Other than the payment…"', es: '"Aparte del pago…"' }
     idea:
-      en: Isolate. If the car is right, you're solving math, not selling.
-      es: Aísle. Si el carro es el correcto, está resolviendo números, no vendiendo.
+      en: If the car is right, you only need to solve the math.
+      es: Si el carro es el correcto, solo falta resolver los números.
     items: [O03-ISOLATE]
   - name: { en: 'Walk the wheel, honestly', es: 'Recorra las opciones, con la verdad' }
     idea:
@@ -69,13 +76,13 @@ concepts:
     items: [O03-OPTIONS]
   - name: { en: Lunch-break pace, es: Ritmo de hora de almuerzo }
     idea:
-      en: Short answers earn trust faster than a good pitch.
-      es: Las respuestas cortas ganan confianza más rápido que un buen discurso.
+      en: Short answers build trust faster than a long sales talk.
+      es: Las respuestas cortas dan confianza más rápido que un discurso largo.
     items: [O03-BRIEF]
   - name: { en: Lock a day and time, es: Amarre un día y una hora }
     idea:
-      en: Options printed and a time to come back and pick one.
-      es: Las opciones impresas y una hora para volver a escoger.
+      en: Print the options and set a time to come back and pick one.
+      es: Imprima las opciones y fije una hora para que vuelva a escoger una.
     items: [O03-NEXT]
 sources:
   - T001 Pause and slow down; T002 Clarify with a question; T005 Isolate; T110 Treat a hard demand as a clue; T083 Walk the wheel; T014 Firm next step

@@ -4,20 +4,27 @@ title:
   en: "\"I want to shop other dealers\": let him go, ask one question"
   es: "\"Quiero ver en otros dealers\": déjelo ir, haga una sola pregunta"
 hook:
-  en: He's up, keys in hand, heading for the door. Every instinct says chase. Don't.
-  es: Está parado, con las llaves en la mano, camino a la puerta. Todo el instinto le dice que lo persiga. No lo haga.
+  en: He stands up, keys in hand, and heads for the door. Don't chase him.
+  es: Se para, con las llaves en la mano, y va hacia la puerta. A usted le dan ganas de ir detrás de él. No lo haga.
+tactic: { en: "Let him go, and agree he should compare. Ask one question about what didn't feel right. Then show exactly how that number was figured.", es: "Déjelo ir y déle la razón en que compare. Hágale una sola pregunta sobre qué no le cuadró. Después enséñele exactamente cómo se calculó ese número." }
+steps:
+  - { en: "Pause, then agree: \"That's fair. You should compare.\"", es: "Haga una pausa y déle la razón: \"Me parece justo. Hace bien en comparar.\"" }
+  - { en: "Ask one question: which part of the numbers didn't feel right?", es: "Haga una sola pregunta: qué parte de los números no le cuadró." }
+  - { en: "If it's the trade, show the exact appraisal and how it was figured.", es: "Si es el trade-in, enséñele la tasación exacta y cómo se calculó." }
+  - { en: "Don't guess about the website. Suggest he ask them for a written offer.", es: "No invente nada sobre la página. Sugiérale que les pida una oferta por escrito." }
+  - { en: "Set a time today to go through the appraisal together.", es: "Fije una hora hoy para revisar la tasación juntos." }
 what:
-  en: Agree he should shop. Ask one question about what didn't sit right. When the real number comes out, show exactly how it was figured, and set a time to go through it.
-  es: Déle la razón en que compare. Haga una sola pregunta sobre qué no le cuadró. Cuando salga el número que le molesta, enséñele exactamente cómo se calculó, y fijen una hora para revisarlo.
+  en: Let him go calmly. One good question finds the real problem.
+  es: Déjelo ir con calma. Una buena pregunta saca el problema real.
 why:
-  en: A walk like this is often theater. He's proud, he hates feeling played, and standing up is how he tests the store. Chase him and you prove he was being worked. Stay calm and you're the only one not selling, and that's when he tells you the truth, usually one number nobody explained. Showing the work answers him. Defending the number doesn't.
-  es: Una salida así muchas veces es teatro. Es orgulloso, no soporta que lo cojan de bobo, y pararse es su manera de probar la tienda. Si lo persigue, le confirma que lo estaban trabajando. Si mantiene la calma, usted es el único que no está vendiendo, y ahí es cuando él dice la verdad, casi siempre un número que nadie le explicó. Enseñarle el cálculo le contesta. Defender el número, no.
+  en: When a customer walks out like this, he is often testing you. He's proud and hates feeling tricked. If you chase him, you prove he was being pushed. If you stay calm, he tells the truth. Usually it's one number nobody explained. Showing the math answers him. Defending the number doesn't.
+  es: Cuando un cliente se va así, muchas veces lo está probando a usted. Es orgulloso y no soporta sentir que lo engañan. Si lo persigue, le confirma que lo estaban presionando. Si mantiene la calma, él dice la verdad. Casi siempre es un número que nadie le explicó. Enseñarle el cálculo le contesta. Defender el número, no.
 when:
   en: A customer stands up or says he's leaving to shop around.
   es: El cliente se para o dice que se va a ver en otros lados.
 when_not:
-  en: Never block the door, plead, or claim nobody can beat you. Never bump the trade just to keep him.
-  es: Nunca le tape la puerta, le ruegue ni diga que nadie le gana. Nunca le suba el trade-in solo para retenerlo.
+  en: Never block the door or beg. Never say nobody can beat your deal. Never raise the trade just to keep him.
+  es: Nunca le tape la puerta ni le ruegue. Nunca diga que nadie le gana su oferta. Nunca le suba el trade-in solo para que se quede.
 say:
   - en: That's fair. You should compare; I'd do the same with this kind of money.
     es: Me parece justo. Hace bien en comparar; yo haría lo mismo con tanto dinero de por medio.
@@ -32,35 +39,35 @@ mistakes:
       en: '"Wait, don''t go! Nobody in Miami will beat this deal."'
       es: '"¡Espérese, no se vaya! Nadie en Miami le gana este negocio."'
     fix:
-      en: You chased him and claimed what you can't prove. Pause; let him be right.
-      es: Lo persiguió y dijo algo que no puede probar. Haga una pausa; déle la razón.
+      en: You chased him and claimed something you can't prove. Pause and agree with him.
+      es: Lo persiguió y dijo algo que no puede probar. Haga una pausa y déle la razón.
   - mistake:
       en: '"What do I have to do to earn your business?"'
       es: '"¿Qué tengo que hacer para ganarme su negocio?"'
     fix:
-      en: That's a pitch, not a question. Ask what didn't sit right.
-      es: Eso es un pitch, no una pregunta. Pregunte qué no le cuadró.
+      en: That's a sales line, not a real question. Ask what didn't feel right.
+      es: Eso es una frase de vendedor, no una pregunta de verdad. Pregunte qué no le cuadró.
   - mistake:
       en: '"That''s what your car is worth, period."'
       es: '"Eso es lo que vale su carro, y punto."'
     fix:
-      en: Show the basis, exactly as appraised.
-      es: Enséñele la base, tal como se tasó.
+      en: Show how you got the number, exactly as appraised.
+      es: Enséñele cómo llegó al número, tal como se tasó.
 concepts:
   - name: { en: Let him go, es: Déjelo ir }
     idea:
-      en: Pause, and agree he should compare. No chasing, no blocking.
-      es: Una pausa, y déle la razón en que compare. Sin perseguirlo, sin taparle el paso.
+      en: Pause and agree he should compare. Don't chase him or block his way.
+      es: Haga una pausa y déle la razón en que compare. No lo persiga ni le tape el paso.
     items: [O09-L3-PAUSE, O09-L3-CALM]
   - name: { en: One good question, es: Una sola buena pregunta }
     idea:
-      en: What didn't sit right? It's rarely about other dealers.
-      es: ¿Qué no le cuadró? Casi nunca tiene que ver con otros dealers.
+      en: Ask what didn't feel right. It's rarely about other dealers.
+      es: Pregunte qué no le cuadró. Casi nunca tiene que ver con otros dealers.
     items: [O09-L3-QUESTION, O09-L3-HIDDEN]
   - name: { en: Show the work, es: Enseñe el cálculo }
     idea:
-      en: The exact appraisal and its basis. Nothing invented about the website.
-      es: La tasación exacta y en qué se basa. Nada inventado sobre la página.
+      en: The exact appraisal and what it's based on. Don't make up anything about the website.
+      es: La tasación exacta y en qué se basa. No invente nada sobre la página.
     items: [O09-L3-BASIS]
   - name: { en: A time to look together, es: Una hora para revisarlo juntos }
     idea:

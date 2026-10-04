@@ -4,20 +4,27 @@ title:
   en: "\"You're low on my trade\": show the build, then find his number"
   es: "\"Me está dando muy poco por mi carro\": enséñele cómo se armó, y busque su número"
 hook:
-  en: Arms crossed, proud of that truck, and he hates your number. Don't defend it yet.
-  es: Brazos cruzados, orgulloso de su camioneta, y no le gusta su número. Todavía no lo defienda.
+  en: Arms crossed, proud of his truck, he hates your number. Don't defend it yet.
+  es: Tiene los brazos cruzados. Está orgulloso de su camioneta, y no le gusta su número. Todavía no lo defienda.
+tactic: { en: "Don't argue about the trade number. Show how it was figured, ask where his number came from, and keep yours unless there's a real reason.", es: "No discuta el número del trade-in. Enséñele cómo se calculó, pregúntele de dónde salió su número, y mantenga el suyo si no hay una razón real para cambiarlo." }
+steps:
+  - { en: "Pause, then say: \"I'd rather show you how we got there than argue about it.\"", es: "Haga una pausa y diga: \"Prefiero enseñarle cómo llegamos ahí que ponernos a discutir.\"" }
+  - { en: "Show the auction sales and the repair costs, line by line.", es: "Enséñele las ventas de subasta y lo que cuestan los arreglos, línea por línea." }
+  - { en: "Ask where his number came from, and what condition he picked.", es: "Pregúntele de dónde salió su número y qué condición marcó." }
+  - { en: "Keep the same number, with the trade on its own line.", es: "Mantenga el mismo número, con el trade-in en su propia línea." }
+  - { en: "Set a time to go through every sale together.", es: "Fije una hora para revisar cada venta juntos." }
 what:
-  en: Show how the appraisal was built, then ask where his number came from. Hold the appraisal and keep the trade on its own line.
-  es: Enséñele cómo se armó la tasación y luego pregunte de dónde salió su número. Mantenga la tasación y deje el trade-in en su propia línea.
+  en: Show your proof first. Then ask about his.
+  es: Enseñe su prueba primero. Después pregunte por la de él.
 why:
-  en: He's not haggling, he's defending his truck and his homework. Often he saw a number online after clicking a better condition than his truck is in. Argue, and he digs in. Show your proof, ask about his, and he finds the gap himself.
-  es: No está regateando, está defendiendo su camioneta y la tarea que hizo. Muchas veces vio un número en internet después de marcar una condición mejor que la que tiene su camioneta. Si discute, se atrinchera. Si enseña su prueba y pregunta por la de él, él solito encuentra la diferencia.
+  en: He's not bargaining. He's defending his truck and his research. Often he picked a better condition online than his truck is in. If you argue, he holds on harder. If you show your proof, he finds the difference himself.
+  es: No está regateando. Está defendiendo su camioneta y lo que investigó. Muchas veces marcó en internet una condición mejor que la que tiene su camioneta. Si usted discute, él se pone más firme. Si enseña su prueba, él mismo encuentra la diferencia.
 when:
-  en: Any pushback on the trade number.
-  es: Cada vez que le pelean el número del trade-in.
+  en: Any time he pushes back on the trade number.
+  es: Cada vez que el cliente no está de acuerdo con el número del trade-in.
 when_not:
-  en: Don't hold it against new proof, like service records. That goes to the used-car manager.
-  es: No lo sostenga contra una prueba nueva, como récords de servicio. Eso va al gerente de usados.
+  en: If he brings new proof, like service records, don't just say no. Take it to the used-car manager.
+  es: Si trae una prueba nueva, como récords de servicio, no le diga que no de una vez. Llévesela al gerente de usados.
 say:
   - en: I'd rather show you how we got there than argue about it.
     es: Prefiero enseñarle cómo llegamos ahí que ponernos a discutir.
@@ -32,45 +39,45 @@ mistakes:
       en: '"Honestly, that''s a strong number for a truck with those miles."'
       es: '"La verdad, ese es un buen número para una camioneta con tantas millas."'
     fix:
-      en: You argued and knocked his truck. Show the build instead.
-      es: Discutió y le menospreció la camioneta. Enséñele cómo se armó.
+      en: You argued and put down his truck. Show how it was built.
+      es: Discutió y le menospreció la camioneta. Mejor enséñele cómo se armó el número.
   - mistake:
-      en: Bumping it a few hundred to keep him happy.
-      es: Subirle unos cientos para tenerlo contento.
+      en: Raising it a few hundred to keep him happy.
+      es: Subirle unos cientos de dólares para tenerlo contento.
     fix:
-      en: Now the first number looks fake. Hold it unless the manager has a showable reason.
-      es: Ahora el primer número parece inventado. Manténgalo, salvo que el gerente tenga una razón que se pueda enseñar.
+      en: Now the first number looks fake. Keep it, unless the manager has a reason you can show.
+      es: Ahora el primer número parece inventado. Manténgalo, a menos que el gerente tenga una razón que se pueda enseñar.
   - mistake:
       en: '"With your trade, the payment comes out to…"'
       es: '"Con su trade-in, el pago le queda en…"'
     fix:
-      en: Buried trades look like tricks. Trade on its own line.
-      es: Un trade-in escondido parece truco. Póngalo en su propia línea.
+      en: A trade hidden in the payment looks like a trick. Put it on its own line.
+      es: Un trade-in escondido en el pago parece un truco. Póngalo en su propia línea.
 concepts:
   - name: { en: The two-second pause, es: La pausa de dos segundos }
     idea:
-      en: Let the heat pass before you say a word.
-      es: Deje que baje la calentura antes de decir una palabra.
+      en: Let him calm down before you speak.
+      es: Deje que se calme antes de decir una palabra.
     items: [O08-PAUSE]
   - name: { en: Respect the truck, es: Respete la camioneta }
     idea:
-      en: Agree he did his homework. Never run down what he's proud of.
-      es: Reconozca que hizo su tarea. Nunca menosprecie lo que a él le enorgullece.
+      en: Agree he did his research. Never put down his truck.
+      es: Reconozca que investigó. Nunca menosprecie lo que a él le enorgullece.
     items: [O08-ACK]
   - name: { en: "Where'd your number come from?", es: "¿De dónde salió su número?" }
     idea:
-      en: His number, its source, the condition he clicked. That's the gap.
-      es: Su número, de dónde salió, qué condición marcó. Ahí está la diferencia.
+      en: His number, its source, and the condition he picked. That's the difference.
+      es: Su número, de dónde salió y qué condición marcó. Eso explica la diferencia.
     items: [O08-QFIRST, O08-HIDDEN]
   - name: { en: Trade-value walkthrough, es: Explique el valor del trade-in }
     idea:
-      en: The auction sales and the reconditioning, on paper, line by line.
-      es: Las ventas de subasta y el reacondicionamiento, en papel, línea por línea.
+      en: Auction sales and repair costs, on paper, line by line.
+      es: Las ventas de subasta y lo que cuestan los arreglos, en papel, línea por línea.
     items: [O08-BASIS]
   - name: { en: Hold it on its own line, es: Manténgalo en su propia línea }
     idea:
-      en: Same number, never buried in the payment.
-      es: El mismo número, nunca escondido en el pago.
+      en: Same number. Never hidden in the payment.
+      es: El mismo número. Nunca lo esconda en el pago.
     items: [O08-HOLD]
   - name: { en: Lock a day and time, es: Amarre un día y una hora }
     idea:

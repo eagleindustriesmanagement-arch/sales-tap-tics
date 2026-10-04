@@ -4,20 +4,34 @@ title:
   en: "\"Is that really your best price?\": one real move, earned"
   es: "\"¿Ese es su último precio?\": una rebaja real, bien ganada"
 hook:
-  en: He isn't arguing your honest all-in number. He's noticed you haven't moved.
-  es: No le discute su precio total honesto. Lo que notó es que usted no se ha movido.
+  en: He isn't arguing with your price. He noticed you haven't moved.
+  es: No le discute el precio. Notó que usted no se ha movido.
+tactic:
+  en: When he asks if this is your best price, repeat the total and ask what feels fair. If you have room, give one small discount for his signature.
+  es: Cuando le pregunte si es su último precio, repita el total y pregunte qué le parece justo. Si tiene margen, déle una rebaja chica a cambio de su firma.
+steps:
+  - en: Pause, then repeat the total price and why it is honest.
+    es: Haga una pausa y repita el precio total y por qué es honesto.
+  - en: "Ask: \"What would make this feel like a fair deal to you?\""
+    es: "Pregunte: \"¿Qué haría que esto le pareciera un negocio justo?\""
+  - en: Ask who he is thinking of when he talks about paying full price.
+    es: Pregunte en quién está pensando cuando habla de pagar el precio completo.
+  - en: "If you have room, offer one small discount. Ask: \"If my manager signs it, will you?\""
+    es: "Si tiene margen, ofrezca una rebaja chica. Pregunte: \"Si mi gerente lo firma, ¿usted firma también?\""
+  - en: Put the discount on its own line on paper. Set a time to sign.
+    es: Ponga la rebaja en su propia línea en el papel. Fije una hora para firmar.
 what:
-  en: Restate the all-in price with a reason, and ask what would feel fair. If the desk gave you room, give one small, real step, traded for a signature, on paper.
-  es: Repita el precio total con una razón y pregunte qué le parecería justo. Si el gerente le dio margen, dé una sola rebaja chica y real, a cambio de una firma, y por escrito.
+  en: Help him feel the deal is fair, with one real discount he earned.
+  es: Ayúdelo a sentir que el negocio es justo, con una rebaja real que se ganó.
 why:
-  en: He isn't grinding; he's protecting his pride. If nothing moved, he feels played, even at a good price, and someone at home, a brother, a compadre, may ask what he got off. Ask what fair means and you'll hear who. One earned, visible step lets him tell that story. Dump it all at once and the price looks fake.
-  es: No está regateando por deporte; está cuidando su orgullo. Si nada se movió, siente que lo cogieron de bobo, aunque el precio sea bueno, y alguien en la casa, un hermano, un compadre, le puede preguntar cuánto le rebajaron. Pregunte qué es justo para él y va a saber quién es. Una rebaja ganada y visible le deja contar esa historia. Si lo suelta todo de una vez, el precio parece falso.
+  en: He is protecting his pride. If nothing moves, he feels tricked, even at a good price. Someone at home may ask what he got off. One small discount he earned gives him a story. Giving it all at once makes the price look fake.
+  es: Está cuidando su orgullo. Si nada se mueve, siente que lo engañaron, aunque el precio sea bueno. Alguien en la casa le puede preguntar cuánto le rebajaron. Una rebaja chica que se ganó le da algo que contar. Si lo da todo de una vez, el precio parece falso.
 when:
-  en: When he asks if your all-in price is really your best.
-  es: Cuando pregunta si su precio total es de verdad el último.
+  en: He asks if your total price is really your best.
+  es: Él pregunta si su precio total es de verdad el último.
 when_not:
-  en: No room from the desk? Don't invent a discount or stage a manager trip. Stand behind the honest number.
-  es: ¿El gerente no le dio margen? No invente un descuento ni monte una ida al gerente. Defienda el número honesto.
+  en: No room from your manager? Don't make up a discount or fake a manager trip. Stand behind the honest price.
+  es: ¿Su gerente no le dio margen? No invente un descuento ni finja una ida al gerente. Defienda el precio honesto.
 say:
   - en: Fair question. That's the all-in price, every dealer charge in it. I'd rather show you a real number than play games.
     es: Buena pregunta. Ese es el precio total, con todos los cargos del dealer. Prefiero enseñarle un número real que andar con juegos.
@@ -32,30 +46,30 @@ mistakes:
       en: '"Okay, I''ll knock it all off right now."'
       es: '"Bueno, se lo quito todo ahora mismo."'
     fix:
-      en: Now he wonders what else is in there. One small step, with a reason.
-      es: Ahora se pregunta qué más hay ahí. Un solo paso chico, con su razón.
+      en: Now he wonders what else you're hiding. Give one small step, with a reason.
+      es: Ahora se pregunta qué más está escondiendo. Déle una sola rebaja chica, con su razón.
   - mistake:
       en: '"Honestly, that''s already a great deal."'
       es: '"La verdad, ya eso es un negocio buenísimo."'
     fix:
-      en: It brushes off his question. Ask what fair means to him.
-      es: Le quita importancia a su pregunta. Pregúntele qué es justo para él.
+      en: That ignores his question. Ask what fair means to him.
+      es: Eso ignora su pregunta. Pregúntele qué es justo para él.
   - mistake:
-      en: A staged trip to the manager's office.
-      es: Montar una ida al gerente de show.
+      en: Faking a trip to the manager's office for show.
+      es: Fingir una ida a la oficina del gerente para aparentar.
     fix:
-      en: Tell a manager trip only as it happened.
-      es: Cuente la ida al gerente solo como de verdad pasó.
+      en: Only describe a manager trip that really happened.
+      es: Solo cuente una ida al gerente que de verdad pasó.
 concepts:
   - name: { en: "The real price, again", es: "El precio real, otra vez" }
     idea:
-      en: Pause, then the all-in number and why it's honest.
-      es: Una pausa, y después el precio total y por qué es honesto.
+      en: Pause. Repeat the total and why it's honest.
+      es: Haga una pausa. Repita el total y por qué es honesto.
     items: [O33-PAUSE, O33-ANCHOR]
   - name: { en: "What does fair mean?", es: "¿Qué es lo justo?" }
     idea:
-      en: Ask before you offer. You'll hear who he measures against.
-      es: Pregunte antes de ofrecer. Va a oír contra quién se está midiendo.
+      en: Ask before you offer. You'll hear who he compares himself to.
+      es: Pregunte antes de ofrecer. Va a oír con quién se compara.
     items: [O33-QFIRST, O33-HIDDEN]
   - name: { en: One earned step, es: Una rebaja ganada }
     idea:
@@ -64,13 +78,13 @@ concepts:
     items: [O33-EARNED]
   - name: { en: Trade it, es: Cámbiela }
     idea:
-      en: The step buys a commitment to sign.
-      es: La rebaja compra el compromiso de firmar.
+      en: Give the discount only for his promise to sign.
+      es: Dé la rebaja solo a cambio de que se comprometa a firmar.
     items: [O33-TRADE]
   - name: { en: "On paper, on the clock", es: "Por escrito y con hora" }
     idea:
-      en: Its own line on paper, and a time to sign.
-      es: Su propia línea en el papel, y una hora para firmar.
+      en: Its own line on paper, then a time to sign.
+      es: Su propia línea en el papel, y después una hora para firmar.
     items: [O33-NEXT]
 sources:
   - T042 Visible concession ladder; T106 Concession staircase; T002 Clarify with a question; T001 Pause and slow down; T014 Firm next step
