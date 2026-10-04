@@ -4,20 +4,34 @@ title:
   en: "\"I need to think about it\": find the one open question"
   es: "\"Lo tengo que pensar\": encuentre la única duda que queda"
 hook:
-  en: He read every review, ran the numbers twice, and still says he needs to think. Something specific is left. Find it.
-  es: Leyó todas las reseñas, sacó las cuentas dos veces, y todavía dice que lo tiene que pensar. Queda algo concreto. Encuéntrelo.
+  en: "He read every review and checked the numbers. He still needs to think. One question is left. Find it."
+  es: "Leyó todas las reseñas y sacó las cuentas. Todavía lo tiene que pensar. Le queda una duda. Encuéntrela."
+tactic:
+  en: "Agree, then ask what he still wants to be sure about. Let him test it himself instead of making a promise."
+  es: "Déle la razón y pregunte qué es lo que todavía quiere tener claro. Deje que él mismo lo pruebe, en vez de prometerle algo."
+steps:
+  - en: "Pause, then agree: \"That makes sense.\""
+    es: "Haga una pausa y déle la razón: \"Tiene sentido.\""
+  - en: "Ask: \"What's the part you still want to be sure about?\""
+    es: "Pregunte: \"¿Qué es lo que quiere tener seguro antes de decidir?\""
+  - en: "Ask if the house and the price work for him, apart from that."
+    es: "Pregunte si la casa y el precio le funcionan, aparte de eso."
+  - en: "Ask where he works and what time he must be there."
+    es: "Pregunte dónde trabaja y a qué hora tiene que llegar."
+  - en: "Don't guess the drive time. Set a day and time for him to drive it."
+    es: "No adivine cuánto se demora el viaje. Fije un día y una hora para que lo haga."
 what:
-  en: Respect the need to think, then ask what exactly he wants to be sure about. Settle that one doubt with a real test he does himself, not with your promise.
-  es: Respete que lo quiera pensar y pregunte qué es exactamente lo que quiere tener seguro. Resuelva esa duda con una prueba real que haga él mismo, no con una promesa suya.
+  en: "Find the one doubt. Settle it with a real test, not a promise."
+  es: "Encuentre la única duda. Resuélvala con una prueba real, no con una promesa."
 why:
-  en: In new homes, "I need to think" rarely means the house. It means a piece of everyday life he can't picture yet. Here it's the drive to Brickell at rush hour. He won't say it because it sounds small next to a house. Name nothing, guess nothing; ask, and let him test it.
-  es: En casas nuevas, "lo tengo que pensar" casi nunca es la casa. Es un pedazo de la vida diaria que todavía no se puede imaginar. Aquí es el viaje a Brickell en hora pico. No lo dice porque al lado de una casa suena a poca cosa. No adivine nada; pregunte, y deje que lo pruebe.
+  en: "\"I need to think\" is rarely about the house. It's about daily life he can't picture yet. Here it's the drive to Brickell at rush hour. It feels small, so he may not say it."
+  es: "\"Lo tengo que pensar\" casi nunca es por la casa. Es por la vida diaria que todavía no se imagina. Aquí es el viaje a Brickell en hora pico. Le parece poca cosa, así que a lo mejor no lo dice."
 when:
-  en: A buyer who likes the home and the numbers but stalls with no clear objection.
-  es: Un cliente al que le gustan la casa y los números, pero se frena sin una objeción clara.
+  en: "He likes the home and the numbers, but stops with no clear reason."
+  es: "Le gustan la casa y los números, pero se frena sin una razón clara."
 when_not:
-  en: Never answer the doubt with a number you can't stand behind, like a drive time. Set up the test.
-  es: Nunca conteste la duda con un número que usted no puede respaldar, como cuánto se demora el viaje. Si no lo sabe, dígalo y organice la prueba.
+  en: "Never guess a drive time. Set up the test instead."
+  es: "Nunca adivine cuánto se demora el viaje. Mejor organice la prueba."
 say:
   - en: That makes sense. When you think it over tonight, what's the part you still want to be sure about?
     es: Tiene sentido. Cuando lo piense esta noche, ¿qué es lo que quiere tener seguro antes de decidir?
@@ -29,43 +43,43 @@ say:
     es: No le voy a adivinar cuánto se demora. Mejor haga el viaje de verdad.
 mistakes:
   - mistake:
-      en: '"What''s there to think about?"'
-      es: '"¿Qué hay que pensar?"'
+      en: "\"What's there to think about?\""
+      es: "\"¿Qué hay que pensar?\""
     fix:
-      en: You called a careful buyer silly. Ask what he's weighing.
-      es: Le dijo a un cliente cuidadoso que está haciendo una tontería. Pregunte qué está pesando.
+      en: "That makes a careful buyer feel silly. Ask what he is thinking about."
+      es: "Eso hace sentir mal a un cliente cuidadoso. Pregunte qué está pensando."
   - mistake:
-      en: Showing him two more plans and the townhomes.
-      es: Enseñarle dos modelos más y los townhomes.
+      en: "Showing him two more plans and the townhomes."
+      es: "Enseñarle dos modelos más y los townhomes."
     fix:
-      en: More homes, more to think about. Settle the one doubt.
-      es: Más casas, más que pensar. Resuelva la única duda.
+      en: "More homes, more to think about. Settle the one doubt."
+      es: "Más casas, más que pensar. Resuelva la única duda."
   - mistake:
-      en: '"Oh, it''s an easy drive."'
-      es: '"Ay, ese viaje es facilito."'
+      en: "\"Oh, it's an easy drive.\""
+      es: "\"Ay, ese viaje es facilito.\""
     fix:
-      en: You don't know his morning. Let him drive it.
-      es: Usted no conoce su mañana. Deje que lo maneje.
+      en: "You don't know his drive. Let him do it."
+      es: "Usted no conoce su viaje. Deje que lo haga él."
 concepts:
   - name: { en: Pause and respect, es: Pausa y respeto }
     idea:
-      en: A beat of silence, then agree that a home deserves thought.
-      es: Un momento de silencio, y déle la razón, porque una casa merece pensarse.
+      en: "Wait two seconds. Agree that a home is worth thinking about."
+      es: "Espere dos segundos. Déle la razón: una casa hay que pensarla."
     items: [HOM-O05-PAUSE, HOM-O05-RESPECT]
   - name: { en: '"What part?"', es: '"¿Qué parte?"' }
     idea:
-      en: One question turns a vague stall into a doubt you can work on.
-      es: Una pregunta convierte un freno vago en una duda con la que se puede trabajar.
+      en: "One question turns \"I need to think\" into a real doubt."
+      es: "Una pregunta convierte el \"lo tengo que pensar\" en una duda real."
     items: [HOM-O05-QFIRST, HOM-O05-HIDDEN]
   - name: { en: '"Apart from that…"', es: '"Aparte de eso…"' }
     idea:
-      en: Check the house and the price are settled, so the doubt is all that's left.
-      es: Confirme que la casa y el precio están resueltos, para saber que la duda es lo único que queda.
+      en: "Check that the house and the price are fine, so the doubt is all that's left."
+      es: "Confirme que la casa y el precio están bien, para saber que solo queda la duda."
     items: [HOM-O05-ISOLATE]
   - name: { en: "Test, don't promise", es: "Pruebe, no prometa" }
     idea:
-      en: A real drive at rush hour beats any number you could say.
-      es: Un viaje de verdad en hora pico vale más que cualquier número que usted diga.
+      en: "A real drive at rush hour is better than any guess."
+      es: "Un viaje de verdad en hora pico es mejor que adivinar."
     items: [HOM-O05-PROOF, HOM-O05-NEXT]
 sources:
   - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T005 Isolate; T094 Remove real risk; T014 Specific next step

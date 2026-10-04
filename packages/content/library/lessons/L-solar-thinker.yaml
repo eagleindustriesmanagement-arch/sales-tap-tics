@@ -4,20 +4,34 @@ title:
   en: "\"I need to think about it\": ask what part"
   es: "\"Lo tengo que pensar\": pregunte qué parte"
 hook:
-  en: He ran your quote through his own spreadsheet, and he still says it. He's not stalling. Something is still open.
-  es: Pasó su cotización por su propia hoja de cálculo, y todavía lo dice. No le está dando largas. Algo sigue abierto.
+  en: "He checked your quote against his own numbers and still needs to think. One question is still open."
+  es: "Revisó su cotización con sus propios números y todavía lo tiene que pensar. Le queda una duda abierta."
+tactic:
+  en: "Agree, then ask what he still wants to be sure about. Settle it with a real answer, like the HOA's, not a promise."
+  es: "Déle la razón y pregunte qué es lo que todavía quiere tener claro. Resuélvalo con una respuesta real, como la de la HOA, no con una promesa."
+steps:
+  - en: "Pause, then agree: \"That makes sense. It's a big decision.\""
+    es: "Haga una pausa y déle la razón: \"Tiene sentido. Es una decisión grande.\""
+  - en: "Ask: \"What's the part you still want to be sure about?\""
+    es: "Pregunte: \"¿Qué es lo que todavía quiere tener seguro?\""
+  - en: "Ask if the price and the estimate work for him, apart from that."
+    es: "Pregunte si el precio y el estimado le funcionan, aparte de eso."
+  - en: "Ask if an HOA has to approve what goes on his roof."
+    es: "Pregunte si una HOA tiene que aprobar lo que va en su techo."
+  - en: "Don't predict the HOA's answer. Set a day and time to fill out their application together."
+    es: "No adivine lo que va a decir la HOA. Fije un día y una hora para llenar juntos la solicitud."
 what:
-  en: Respect the need to think, then ask what specifically he wants to think over. Usually it's one question. Settle that one with something real, not a promise.
-  es: Respete que lo quiera pensar, y después pregunte qué es exactamente lo que quiere pensar. Casi siempre es una sola duda. Resuélvala con algo real, no con una promesa.
+  en: "Find the one open question. Answer it with something real, not a promise."
+  es: "Encuentre la única duda. Contéstela con algo real, no con una promesa."
 why:
-  en: An analytical homeowner doesn't fear the price; he fears the thing he can't check yet. In planned communities that's often the HOA. He doesn't want to sign a contract and then get a letter. Rush him and you confirm the risk. Help him get the real answer and you remove it.
-  es: Al dueño analítico no le asusta el precio; le asusta lo que todavía no puede comprobar. En las comunidades planificadas muchas veces es la HOA. No quiere firmar un contrato y después recibir una carta. Si lo apura, le confirma el riesgo. Si lo ayuda a conseguir la respuesta real, se lo quita.
+  en: "A careful homeowner worries about what he can't check yet. In planned communities, that is often the HOA. He doesn't want to sign and then get a letter from them. Help him get the real answer, and the worry goes away."
+  es: "A un dueño cuidadoso le preocupa lo que todavía no puede comprobar. En las comunidades planificadas, muchas veces es la HOA. No quiere firmar y después recibir una carta de ellos. Ayúdelo a conseguir la respuesta real, y la preocupación se va."
 when:
-  en: When a homeowner who has done the math says he needs time.
-  es: Cuando un dueño que ya hizo las cuentas dice que necesita tiempo.
+  en: "When a homeowner who has done the math says he needs time."
+  es: "Cuando un dueño que ya hizo las cuentas dice que necesita tiempo."
 when_not:
-  en: Never predict what an HOA, a city or a lender will decide. If he truly needs time, set the day he'll have his answer.
-  es: Nunca adivine lo que va a decidir una HOA, la ciudad o el banco. Si de verdad necesita tiempo, fije el día en que va a tener la respuesta.
+  en: "Never predict what an HOA, a city or a lender will decide."
+  es: "Nunca adivine lo que va a decidir una HOA, la ciudad o el banco."
 say:
   - en: That makes sense. It's a big decision, and you clearly did your homework.
     es: Tiene sentido. Es una decisión grande, y se nota que usted hizo su tarea.
@@ -29,48 +43,48 @@ say:
     es: No le voy a decir lo que va a decidir su HOA. Llenemos juntos la solicitud de ellos.
 mistakes:
   - mistake:
-      en: '"What''s there to think about?"'
-      es: '"¿Pero qué hay que pensar?"'
+      en: "\"What's there to think about?\""
+      es: "\"¿Pero qué hay que pensar?\""
     fix:
-      en: You just called his homework silly. Ask what part instead.
-      es: Le acaba de decir que su tarea es una tontería. Pregunte qué parte.
+      en: "That makes his careful work sound silly. Ask what part instead."
+      es: "Eso hace ver su trabajo cuidadoso como una tontería. Mejor pregunte qué parte."
   - mistake:
-      en: Piling on the battery and the monitoring "while we're at it."
-      es: Echarle encima la batería y el monitoreo "ya que estamos".
+      en: "Adding the battery and the monitoring \"while we're at it.\""
+      es: "Agregarle la batería y el monitoreo \"ya que estamos\"."
     fix:
-      en: More options mean more to think about. Settle the one open question.
-      es: Más opciones es más que pensar. Resuelva la única duda abierta.
+      en: "More options, more to think about. Settle the one open question."
+      es: "Más opciones, más que pensar. Resuelva la única duda abierta."
   - mistake:
-      en: '"Don''t worry, the HOA always approves these."'
-      es: '"No se preocupe, la HOA siempre aprueba eso."'
+      en: "\"Don't worry, the HOA always approves these.\""
+      es: "\"No se preocupe, la HOA siempre aprueba eso.\""
     fix:
-      en: You don't know that. Get him their written answer.
-      es: Usted no lo sabe. Consígale la respuesta por escrito.
+      en: "You don't know that. Get him their written answer."
+      es: "Usted no lo sabe. Consígale la respuesta por escrito."
 concepts:
   - name: { en: The pause, es: La pausa }
     idea:
-      en: Two seconds of silence tells him you won't argue with his process.
-      es: Dos segundos de silencio le dicen que usted no va a discutirle su manera de decidir.
+      en: "Two seconds of silence shows you won't argue."
+      es: "Dos segundos de silencio le dicen que no va a discutir."
     items: [SOL-O05-PAUSE]
   - name: { en: Respect the thinking, es: Respete el pensarlo }
     idea:
-      en: Agree it deserves thought. Then he'll tell you what part.
-      es: "Déle la razón: merece pensarse. Así le dice qué parte."
+      en: "Agree it is worth thinking about."
+      es: "Déle la razón: hay que pensarlo bien."
     items: [SOL-O05-RESPECT]
   - name: { en: '"What part?"', es: '"¿Qué parte?"' }
     idea:
-      en: One question turns "think about it" into the real doubt.
-      es: Una pregunta convierte el "lo tengo que pensar" en la duda real.
+      en: "One question turns \"I need to think\" into the real doubt."
+      es: "Una pregunta convierte el \"lo tengo que pensar\" en la duda real."
     items: [SOL-O05-QFIRST, SOL-O05-HIDDEN]
   - name: { en: Price aside, es: Aparte del precio }
     idea:
-      en: Check the numbers work, so you know the doubt isn't money.
-      es: Confirme que los números funcionan, para saber que la duda no es dinero.
+      en: "Check that the numbers work, so you know the doubt isn't money."
+      es: "Confirme que los números funcionan, para saber que la duda no es dinero."
     items: [SOL-O05-ISOLATE]
   - name: { en: "The real answer, then a time", es: "La respuesta real, y después la hora" }
     idea:
-      en: Prepare the HOA application together and set the day and time to do it.
-      es: Preparen juntos la solicitud de la HOA y fijen el día y la hora para hacerlo.
+      en: "Fill out the HOA application together, on a set day and time."
+      es: "Llenen juntos la solicitud de la HOA, un día y a una hora fijos."
     items: [SOL-O05-PROOF, SOL-O05-NEXT]
 sources:
   - T001 Pause; T003 Acknowledge; T002 Clarify with a question; T005 Isolate; T094 Remove real risk; T014 Firm next step

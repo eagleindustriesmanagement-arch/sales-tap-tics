@@ -4,20 +4,34 @@ title:
   en: "\"What would you do?\": earn the answer, then own it"
   es: "\"¿Usted qué haría?\": gánese la respuesta y dígala claro"
 hook:
-  en: Second visit, both homes walked twice, and she turns to you. That's trust. Don't waste it on the bigger commission.
-  es: Segunda visita, las dos casas recorridas dos veces, y se voltea hacia usted. Eso es confianza. No la bote por la comisión más grande.
+  en: "She has seen both homes twice. Now she asks what you would do. Don't use her trust to sell the bigger home."
+  es: "Ya vio las dos casas dos veces. Ahora le pregunta qué haría usted. No use esa confianza para venderle la más grande."
+tactic:
+  en: "Promise a straight answer, but first ask who will live in the house. Then recommend one of her two homes and say why."
+  es: "Prométale una respuesta clara, pero primero pregunte quién va a vivir en la casa. Después recomiende una de sus dos casas y diga por qué."
+steps:
+  - en: "Pause, then promise: \"I'll tell you exactly what I'd do.\""
+    es: "Haga una pausa y prométale: \"Le voy a decir exactamente lo que yo haría.\""
+  - en: "Ask: \"Who's going to live in the house with you?\""
+    es: "Pregunte: \"¿Quién va a vivir con usted en la casa?\""
+  - en: "Keep asking about her daily life until you find what decides it."
+    es: "Siga preguntando por su vida diaria hasta encontrar lo que hace la diferencia."
+  - en: "Recommend one of her two homes, with a reason in her own words."
+    es: "Recomiende una de sus dos casas, con una razón sacada de lo que ella dijo."
+  - en: "Set a day and time to walk both homes with that person."
+    es: "Fije un día y una hora para recorrer las dos casas con esa persona."
 what:
-  en: Promise a straight answer, then earn it with questions about who will live in the house. Give one recommendation with a reason from her own words, stay with the two homes she's weighing, and set a visit to prove it.
-  es: Prométale una respuesta clara y gánesela con preguntas sobre quién va a vivir en la casa. Déle una sola recomendación con una razón sacada de lo que ella dijo, quédese con las dos casas que está comparando y fije una visita para comprobarlo.
+  en: "Earn the answer with questions. Then give one clear answer. Stay with her two homes."
+  es: "Gánese la respuesta con preguntas. Después dé una sola respuesta clara. Quédese con sus dos casas."
 why:
-  en: A house is a bet on the next ten years, and she's tired of carrying it alone. "What would you do?" means "stand next to me." Dodge it and she's alone again. Answer before you ask and it sounds like the house you'd rather sell. Here the tie-breaker is family moving in.
-  es: Una casa es una apuesta a los próximos diez años, y ella está cansada de cargarla sola. "¿Usted qué haría?" quiere decir "párese a mi lado". Si lo esquiva, la deja sola otra vez. Si contesta antes de preguntar, suena a la casa que a usted le conviene vender. Aquí lo que desempata es la familia que se viene a vivir.
+  en: "A house is a big decision, and she is tired of making it alone. If you avoid the question, she feels alone again. If you answer before you ask, it sounds like selling. Here, a family member moving in decides it."
+  es: "Una casa es una decisión grande, y ella está cansada de tomarla sola. Si esquiva la pregunta, se vuelve a sentir sola. Si contesta antes de preguntar, suena a venta. Aquí lo que decide es un familiar que se viene a vivir con ella."
 when:
-  en: A torn buyer asks your opinion between two homes.
-  es: Una clienta indecisa le pide su opinión entre dos casas.
+  en: "A buyer who can't choose between two homes asks for your opinion."
+  es: "Una clienta que no puede decidir entre dos casas le pide su opinión."
 when_not:
-  en: Never steer her to the pricier home. If her life points to the smaller one, say so.
-  es: Nunca la lleve a la casa más cara. Si su vida apunta a la más chica, dígaselo.
+  en: "Never push her to the more expensive home. If her needs point to the smaller one, say so."
+  es: "Nunca la empuje hacia la casa más cara. Si lo que ella necesita apunta a la más chica, dígaselo."
 say:
   - en: I'll tell you exactly what I'd do. I just want it to be about your life, not mine.
     es: Le voy a decir exactamente lo que yo haría. Solo quiero que sea sobre su vida, no la mía.
@@ -29,48 +43,48 @@ say:
     es: No lo crea solo porque yo lo digo. Tráigalo y recorremos las dos casas juntos.
 mistakes:
   - mistake:
-      en: '"Easy, the Ceiba. Everybody wants the bigger one."'
-      es: '"Fácil, la Ceiba. Todo el mundo quiere la más grande."'
+      en: "\"Easy, the Ceiba. Everybody wants the bigger one.\""
+      es: "\"Fácil, la Ceiba. Todo el mundo quiere la más grande.\""
     fix:
-      en: No question, no reason. Ask first, then answer.
-      es: Sin pregunta y sin razón. Pregunte primero, conteste después.
+      en: "No question, no reason. Ask first, then answer."
+      es: "Sin pregunta y sin razón. Pregunte primero y conteste después."
   - mistake:
-      en: '"Only you can decide that."'
-      es: '"Eso solo lo puede decidir usted."'
+      en: "\"Only you can decide that.\""
+      es: "\"Eso solo lo puede decidir usted.\""
     fix:
-      en: She asked for help and got a shrug. Take a stand.
-      es: Le pidió ayuda y usted se encogió de hombros. Dígale lo que haría.
+      en: "She asked for help. Tell her what you would do."
+      es: "Le pidió ayuda. Dígale lo que usted haría."
   - mistake:
-      en: '"Let me show you two more lots to compare."'
-      es: '"Le enseño dos lotes más para que compare."'
+      en: "\"Let me show you two more lots to compare.\""
+      es: "\"Le enseño dos lotes más para que compare.\""
     fix:
-      en: Two is hard. Four is worse. Stay with her two.
-      es: Entre dos ya es difícil. Entre cuatro, peor. Quédese con las dos.
+      en: "Two is already hard. Four is worse. Stay with her two."
+      es: "Dos ya es difícil. Cuatro es peor. Quédese con las dos de ella."
 concepts:
   - name: { en: "Pause, promise, ask", es: "Pausa, promesa, pregunta" }
     idea:
-      en: A beat of quiet, promise an answer, then ask who will live there.
-      es: Un momento de silencio, prometa una respuesta y pregunte quién va a vivir ahí.
+      en: "Wait two seconds, promise an answer, then ask who will live there."
+      es: "Espere dos segundos, prometa una respuesta y pregunte quién va a vivir ahí."
     items: [HOM-O58-PAUSE, HOM-O58-QFIRST]
   - name: { en: "Who lives there", es: "Quién vive ahí" }
     idea:
-      en: The tie-breaker is usually a person. A parent, a grandchild, a walker.
-      es: Lo que desempata casi siempre es una persona. Un papá, un nieto, un andador.
+      en: "What decides it is usually a person, like a parent with a walker."
+      es: "Lo que decide casi siempre es una persona, como un papá con andador."
     items: [HOM-O58-HIDDEN]
   - name: { en: "Own one answer", es: "Una sola respuesta" }
     idea:
-      en: '"If I were you," one home, and a reason in her own words.'
-      es: '"Si yo fuera usted", una casa, y una razón con las palabras de ella.'
+      en: "Say \"If I were you,\" name one home, and give a reason."
+      es: "Diga \"Si yo fuera usted\", nombre una casa y dé una razón."
     items: [HOM-O58-RECOMMEND]
   - name: { en: "Two, not four", es: "Dos, no cuatro" }
     idea:
-      en: Limit the exploration. More homes, more doubt.
-      es: Limite la búsqueda. Más casas, más dudas.
+      en: "Don't add homes. More homes, more doubt."
+      es: "No agregue casas. Más casas, más dudas."
     items: [HOM-O58-LIMIT]
   - name: { en: "Prove it on a day and time", es: "Compruébelo con día y hora" }
     idea:
-      en: Never promise it works for him. Walk it with him, on a set day and time.
-      es: Nunca prometa que le sirve a él. Recórranla con él, con día y hora fijos.
+      en: "Don't promise it works for him. Walk it with him on a set day."
+      es: "No prometa que le sirve a él. Recórranla con él un día fijo."
     items: [HOM-O58-NEXT]
 sources:
   - T001 Pause and slow down; T002 Clarify with a question; T092 Personal recommendation; T093 Limit the exploration; T014 Firm next step

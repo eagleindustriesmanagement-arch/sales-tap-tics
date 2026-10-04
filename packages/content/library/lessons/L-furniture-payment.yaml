@@ -4,20 +4,34 @@ title:
   en: "\"The payment is too high\": get his number, show only real options"
   es: "\"El pago está muy alto\": sáquele su número, enseñe solo opciones reales"
 hook:
-  en: His wife already said yes. He reads the numbers sheet and says the payment is too high.
-  es: La esposa ya le dio el sí al sectional. Él se sienta en su escritorio, lee la hoja de números y dice que el pago está muy alto.
+  en: "His wife already said yes to the sectional. He reads the numbers sheet and says the payment is too high."
+  es: "La esposa ya dijo que sí al sectional. Él lee la hoja de números y dice que el pago está muy alto."
+tactic:
+  en: "Ask what payment he needs. Show only real options from the sheet. Say the plan is optional, and say when a payment takes more months."
+  es: "Pregunte qué pago necesita. Enseñe solo opciones reales de la hoja. Diga que el plan es opcional, y diga cuándo un pago es a más meses."
+steps:
+  - en: "Pause, then ask: \"What number were you expecting?\""
+    es: "Haga una pausa y pregunte: \"¿Qué número tenía en mente?\""
+  - en: "Ask if this is the right sectional, apart from the payment."
+    es: "Pregunte si este es el sectional que quiere, aparte del pago."
+  - en: "Say the protection plan is optional. Show the payment both ways."
+    es: "Diga que el plan de protección es opcional. Enseñe el pago de las dos maneras."
+  - en: "Show only options from the sheet. Say the months for each."
+    es: "Enseñe solo opciones de la hoja. Diga los meses de cada una."
+  - en: "Say each payment is an estimate until credit is approved. Set a day and time."
+    es: "Diga que cada pago es un estimado hasta que aprueben el crédito. Fije un día y una hora."
 what:
-  en: Don't argue and don't start moving numbers. Ask what he needs. Show only the options on the sheet, call the plan optional, and say when a lower payment takes more months.
-  es: No discuta el pago y no empiece a mover números. Pregunte qué necesita. Enseñe solo las opciones de la hoja, diga que el plan es opcional, y cuándo un pago más bajo es a más meses.
+  en: "Get his number first. Then work toward it with real options only."
+  es: "Primero sáquele su número. Después trabaje hacia ese número, solo con opciones reales."
 why:
-  en: A sectional is one more monthly bill next to the car note and the kids' braces. He won't say his number first, afraid you'll build the deal right up to it. Ask, deal only in real numbers, and he relaxes.
-  es: Un sectional es una cuenta más al mes, al lado del carro, la luz y los brackets de los niños. Él tiene un número y no lo dice primero, por miedo a que usted le arme el negocio justo hasta ahí. Pídaselo, trabaje solo con números reales, y se relaja.
+  en: "He won't say his number first. He is afraid you will build the deal right up to it. Ask for it, use only real numbers, and he will relax."
+  es: "Él no va a decir su número primero. Tiene miedo de que usted le arme el negocio justo hasta ahí. Pídaselo, use solo números reales, y se va a relajar."
 when:
-  en: Any time a customer on store financing says the payment is too high.
-  es: Cada vez que un cliente con financiamiento de la tienda dice que el pago está muy alto.
+  en: "Any time a customer on store financing says the payment is too high."
+  es: "Cada vez que un cliente con financiamiento de la tienda dice que el pago está muy alto."
 when_not:
-  en: Never to stretch the term quietly. Every payment is an estimate until the credit is approved.
-  es: Nunca para alargar el plazo calladito. Cada pago es un estimado hasta que aprueben el crédito.
+  en: "Never make the term longer without saying so."
+  es: "Nunca alargue el plazo sin decirlo."
 say:
   - en: Help me understand. When you say the payment is too high, what number were you expecting?
     es: Ayúdeme a entender. Cuando dice que el pago está muy alto, ¿qué número tenía en mente?
@@ -29,61 +43,61 @@ say:
     es: Esa es a un plazo más largo, así que estaría pagando más tiempo, y es un estimado hasta que aprueben el crédito.
 mistakes:
   - mistake:
-      en: '"That''s a great payment. You''ll forget about it."'
-      es: '"Ese es un excelente pago. Después ni se acuerda."'
+      en: "\"That's a great payment. You'll forget about it.\""
+      es: "\"Ese es un excelente pago. Después ni se acuerda.\""
     fix:
-      en: He won't forget; it's his budget. Ask for his number.
-      es: No se va a olvidar; es su presupuesto. Pregúntele su número.
+      en: "It's his budget. Ask for his number."
+      es: "Es su presupuesto. Pregúntele su número."
   - mistake:
-      en: Leaving the plan inside the payment without saying it.
-      es: Dejar el plan metido en el pago sin decirlo.
+      en: "Leaving the plan inside the payment without saying so."
+      es: "Dejar el plan metido en el pago sin decirlo."
     fix:
-      en: Name it, call it optional, show the payment both ways.
-      es: Nómbrelo, diga que es opcional, enseñe el pago de las dos maneras.
+      en: "Name it, say it's optional, and show the payment both ways."
+      es: "Nómbrelo, diga que es opcional y enseñe el pago de las dos maneras."
   - mistake:
-      en: Reaching his number with a longer term, silently.
-      es: Llegar a su número alargando el plazo, calladito.
+      en: "Reaching his number with a longer term, without saying so."
+      es: "Llegar a su número alargando el plazo, sin decirlo."
     fix:
-      en: Say the months out loud.
-      es: Diga los meses en voz alta.
+      en: "Say the number of months out loud."
+      es: "Diga en voz alta cuántos meses son."
 concepts:
   - name:
       en: "Pause, then ask his number"
       es: "Pausa, y pídale su número"
     idea:
-      en: Two seconds, then one question about the payment he needs.
-      es: Dos segundos, y una pregunta por el pago que necesita.
+      en: "Wait two seconds. Then ask what payment he needs."
+      es: "Espere dos segundos. Después pregunte qué pago necesita."
     items: [FUR-O03-PAUSE, FUR-O03-QFIRST]
   - name:
       en: "The sectional, apart from the payment"
       es: "El sectional, aparte del pago"
     idea:
-      en: Confirm he wants this one, so the payment is the only gap.
-      es: Confirme que quiere este, para que el pago sea lo único que falta.
+      en: "Check that he wants this one."
+      es: "Confirme que quiere este."
     items: [FUR-O03-ISOLATE]
   - name:
       en: "The number behind the number"
       es: "El número detrás del número"
     idea:
-      en: His ceiling protects something real. Once it's out, work toward it honestly.
-      es: Su tope cuida algo real. Cuando sale, trabaje hacia él con honestidad.
+      en: "His limit has a real reason. Work toward it honestly."
+      es: "Su límite tiene una razón real. Trabaje hacia él con honestidad."
     items: [FUR-O03-HIDDEN]
   - name:
       en: "With and without the plan"
       es: "Con el plan y sin el plan"
     idea:
-      en: Optional means optional. Show the payment both ways, every time.
-      es: Opcional es opcional. Enseñe el pago de las dos maneras, siempre.
+      en: "The plan is optional. Show the payment both ways."
+      es: "El plan es opcional. Enseñe el pago de las dos maneras."
     items: [FUR-O03-PLAN]
   - name: { en: Only real options, es: Solo opciones reales }
     idea:
-      en: Every option comes from the sheet and says its term.
-      es: Cada opción sale de la hoja y dice su plazo.
+      en: "Every option comes from the sheet and says its months."
+      es: "Cada opción sale de la hoja y dice sus meses."
     items: [FUR-O03-OPTIONS]
   - name: { en: Lock a day and time, es: Amarre un día y una hora }
     idea:
-      en: Print the options and set when he comes back to pick one.
-      es: Imprima las opciones y fije cuándo vuelve a escoger una.
+      en: "Print the options. Set when he comes back to pick one."
+      es: "Imprima las opciones. Fije cuándo vuelve a escoger una."
     items: [FUR-O03-NEXT]
 sources:
   - T001 Pause and slow down; T002 Clarify with a question; T005 Isolate; T110 Treat a hard demand as a clue; T121 Two-payment menu; T083 Walk the wheel; T014 Specific next step
