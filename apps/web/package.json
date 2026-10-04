@@ -8,7 +8,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "email:preview": "tsx scripts/email-preview.ts"
   },
   "dependencies": {
     "@taptics/ai": "workspace:*",

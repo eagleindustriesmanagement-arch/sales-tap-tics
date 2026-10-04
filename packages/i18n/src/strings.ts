@@ -629,10 +629,6 @@ export const STRINGS = {
   "login.demoCode": { en: "Demo account: your code is {code}. It is filled in for you.", es: "Cuenta de demostración: su código es {code}. Ya está escrito." },
   "login.otherIdentifier": { en: "Use a different email or number", es: "Usar otro correo o número" },
   "login.emailSubject": { en: "Your Sales Taptics code", es: "Su código de Sales Taptics" },
-  "login.emailBody": {
-    en: "Your sign-in code is {code}. It works for 10 minutes. If you did not ask for it, ignore this email.",
-    es: "Su código para entrar es {code}. Sirve por 10 minutos. Si usted no lo pidió, ignore este correo.",
-  },
   "login.signOut": { en: "Sign out", es: "Cerrar sesión" },
   "login.newStore": { en: "New here?", es: "¿Es nuevo aquí?" },
   "login.demoHeading": { en: "Try the demo store", es: "Pruebe el dealer de demostración" },
@@ -707,10 +703,20 @@ export const STRINGS = {
   "signup.otherEmail": { en: "Use a different email", es: "Usar otro correo" },
 
   "invite.emailSubject": { en: "{store} added you to Sales Taptics", es: "{store} lo agregó a Sales Taptics" },
-  "invite.emailBody": {
-    en: "{name} added you to {store} on Sales Taptics, where you practice the hard conversations before the real ones. Sign in at {url} with this email address; we will send you a code.",
-    es: "{name} lo agregó a {store} en Sales Taptics, donde practica las conversaciones difíciles antes de las de verdad. Entre en {url} con este correo; le enviaremos un código.",
-  },
+
+  // Emails (decision 0035): the words of each message; the look is the shared layout in apps/web/lib/email.
+  "email.tagline": { en: "Practice the hard conversations before the real ones.", es: "Practique las conversaciones difíciles antes de las de verdad." },
+  "email.code.preheader": { en: "Your code is {code}. It works for 10 minutes.", es: "Su código es {code}. Sirve por 10 minutos." },
+  "email.code.heading": { en: "Your sign-in code", es: "Su código para entrar" },
+  "email.code.intro": { en: "Type this code on the sign-in screen. It works for 10 minutes.", es: "Escriba este código en la pantalla para entrar. Sirve por 10 minutos." },
+  "email.code.label": { en: "Sign-in code", es: "Código para entrar" },
+  "email.code.note": { en: "If you didn't ask for this code, you can ignore this email. No one can sign in without it.", es: "Si usted no pidió este código, puede ignorar este correo. Nadie puede entrar sin él." },
+  "email.invite.preheader": { en: "{name} added you to {store}. Sign in with this email address.", es: "{name} lo agregó a {store}. Entre con este correo." },
+  "email.invite.heading": { en: "You're on the team at {store}", es: "Ya es parte del equipo de {store}" },
+  "email.invite.intro": { en: "{name} added you to {store} on Sales Taptics, where you practice the hard conversations before the real ones.", es: "{name} lo agregó a {store} en Sales Taptics, donde practica las conversaciones difíciles antes de las de verdad." },
+  "email.invite.how": { en: "Sign in with this email address and we'll send you a code. No password to remember.", es: "Entre con este correo y le enviaremos un código. No tiene que recordar ninguna contraseña." },
+  "email.invite.action": { en: "Sign in to Sales Taptics", es: "Entrar a Sales Taptics" },
+  "email.invite.note": { en: "You're getting this email because {name} added this address to {store}.", es: "Le llegó este correo porque {name} agregó esta dirección a {store}." },
 
   "history.title": { en: "Your sessions", es: "Sus sesiones" },
   "history.empty": { en: "No sessions yet. Your first one takes about ten minutes.", es: "Todavía no hay sesiones. La primera toma unos diez minutos." },
