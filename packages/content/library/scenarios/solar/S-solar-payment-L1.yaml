@@ -15,7 +15,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, late 30s, owns a home in Homestead, good credit, and would finance. The written quote you showed him is for an 8.4 kW, 21-panel Lumacay Solar system with the home battery and the monitoring upgrade: an estimated $285 a month on a 25-year Kestrela Lending loan, subject to the lender's approval. The estimate sheet also shows the system without the battery and without the monitoring."
-  es: "{name}, de unos 38 años, es dueño de una casa en Homestead, tiene buen crédito y lo financiaría. La cotización por escrito que usted le enseñó es de un sistema Lumacay Solar de 8.4 kW y 21 paneles con la batería y el monitoreo: un estimado de $285 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación del banco. La hoja del estimado también muestra el sistema sin la batería y sin el monitoreo."
+  es: "{name}, de treinta y pico, es dueño de una casa en Homestead, tiene buen crédito y lo financiaría. La cotización por escrito que usted le enseñó es de un sistema Lumacay Solar de 8.4 kW y 21 paneles con la batería y el monitoreo: un estimado de $285 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación de Kestrela. La hoja del estimado también muestra el sistema sin la batería y sin el monitoreo."
 opening:
   en: The payment is too high. I can't do that every month.
   es: El pago está muy alto. No puedo con eso todos los meses.
@@ -159,7 +159,7 @@ demonstrations:
         - { speaker: rep, text: "Think of it this way: you're paying the utility anyway. You'll forget about it after the first bill." }
         - { speaker: customer, text: "I came into this to lower my bills, not to add a bill." }
         - { speaker: rep, text: "Okay. Here's my card. Call me if anything changes." }
-        - { speaker: customer, text: "Not today. I'm beat." }
+        - { speaker: customer, text: "Yeah. I'm beat. Thanks." }
       es:
         - { speaker: customer, text: "El pago está muy alto. No puedo con eso todos los meses." }
         - { speaker: rep, text: "La verdad, ese es un excelente pago por todo lo que lleva: los paneles, la batería y el monitoreo." }
@@ -167,7 +167,7 @@ demonstrations:
         - { speaker: rep, text: "Piénselo así: a la compañía de la luz le va a pagar de todas formas. Después de la primera factura ni se acuerda." }
         - { speaker: customer, text: "Yo me metí en esto para bajar la cuenta de la luz, no para sumar otra cuenta." }
         - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me llama si algo cambia." }
-        - { speaker: customer, text: "Hoy no. Estoy muerto del cansancio." }
+        - { speaker: customer, text: "Sí. Estoy muerto del cansancio. Gracias." }
   good:
     notice:
       en: Notice the question about his number before any new number, the plain statement that the battery is optional, and the payment shown with and without it, same term, subject to approval.

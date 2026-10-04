@@ -15,7 +15,7 @@ difficulty: 1
 start_state: greeting
 pre_brief:
   en: "{name}, late 30s, is walking through the Jacaranda townhome model at Cayo Verde Reserve in Homestead. She came alone and has not asked for anyone. A finished Jacaranda on Lot 108 is for sale at $489,990, with no other builder charges. You walk over and say hello."
-  es: "{name}, de unos 38 años, está recorriendo el modelo del townhome Jacaranda en Cayo Verde Reserve, en Homestead. Vino sola y no ha pedido a nadie. Hay una Jacaranda terminada a la venta en el Lote 108 por $489,990, sin ningún otro cargo del builder. Usted se acerca a saludarla."
+  es: "{name}, de treinta y pico, está recorriendo el modelo del townhome Jacaranda en Cayo Verde Reserve, en Homestead. Vino sola y no ha pedido a nadie. Hay una Jacaranda terminada a la venta en el Lote 108 por $489,990, sin ningún otro cargo del builder. Usted se acerca a saludarla."
 opening:
   en: I'm just looking.
   es: Solo estoy mirando.
@@ -64,7 +64,7 @@ scoring:
     - code: HOM-O06-NOPRESSURE
       behavior:
         en: "Took the pressure off and made it clear she was free to look on her own"
-        es: "Le quitó la presión y le dejó claro que estaba en libertad de mirar por su cuenta"
+        es: "Le quitó la presión y le dejó claro que podía mirar por su cuenta, sin compromiso"
       dimension: technique
       method: judge
       points: 20
@@ -182,13 +182,13 @@ demonstrations:
         - { speaker: customer, text: "Tuesday at 6 works." }
       es:
         - { speaker: customer, text: "Solo estoy mirando." }
-        - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y está en libertad de recorrerla por su cuenta. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
+        - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y puede recorrerla por su cuenta, sin compromiso. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
         - { speaker: customer, text: "Apenas empezando. Hoy no voy a comprar nada." }
         - { speaker: rep, text: "Me parece bien. Sin presión de mi parte. Para orientarla bien, ¿dónde vive ahora?" }
         - { speaker: customer, text: "Digamos que donde vivo ahora no va a ser mío por mucho tiempo." }
         - { speaker: rep, text: "Entiendo. ¿Y qué le gusta de donde vive, y qué le cambiaría?" }
         - { speaker: customer, text: "Ha estado bien. Solo estoy viendo qué hay." }
-        - { speaker: rep, text: "Suena como que a lo mejor está alquilada. ¿Hay alguna fecha en que tenga que salir de ahí?" }
+        - { speaker: rep, text: "Me da la impresión de que alquila. ¿Hay alguna fecha en que tenga que salir de ahí?" }
         - { speaker: customer, text: "Bueno, la verdad, el dueño está vendiendo la casa que alquilo, y tengo que salir antes del 31 de enero. Todavía no sé qué voy a hacer." }
         - { speaker: rep, text: "Gracias por decírmelo. Faltan casi cuatro meses, y eso alcanza para hacer esto con calma, paso a paso. Le propongo algo fácil: primero usted habla con un lender que usted escoja, para saber sus números reales, y yo le enseño las casas terminadas de aquí que le sirven." }
         - { speaker: customer, text: "Eso me ayuda. Pensé que me iba a caer encima con eso." }

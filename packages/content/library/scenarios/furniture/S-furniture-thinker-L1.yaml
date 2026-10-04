@@ -177,7 +177,7 @@ demonstrations:
         - { speaker: customer, text: "Okay, that works." }
       es:
         - { speaker: customer, text: "Lo tengo que pensar." }
-        - { speaker: rep, text: "[pausa] Tiene sentido. Es una compra grande para la familia, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?" }
+        - { speaker: rep, text: "[pausa] Tiene sentido. Es una compra grande para la familia, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener claro?" }
         - { speaker: customer, text: "No es la mesa. Es más bien cuestión de fechas." }
         - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el juego y el precio le convencen?" }
         - { speaker: customer, text: "El juego es el que quiero, y el precio está bien. Yo hice mi tarea." }

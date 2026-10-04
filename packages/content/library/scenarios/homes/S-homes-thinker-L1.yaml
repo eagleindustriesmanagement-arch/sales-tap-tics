@@ -15,7 +15,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, early 40s, rents in Kendall with his wife and three kids. They want four bedrooms and a yard, and they already have a preapproval from their own lender. He just walked the Ceiba on Lot 22 at Cayo Verde Reserve in Homestead, a finished home. You showed him the price: $559,990, with no other builder charges; closing costs are separate and his lender estimates them. He read every review of the builder before he came in."
-  es: "{name}, de unos 42 años, vive alquilado en Kendall con su esposa y sus tres hijos. Quieren cuatro cuartos y patio, y ya tienen una preaprobación de su propio lender. Acaba de recorrer la Ceiba del Lote 22 en Cayo Verde Reserve, en Homestead, una casa terminada. Usted le enseñó el precio: $559,990, sin ningún otro cargo del builder; los closing costs son aparte y se los estima su lender. Leyó todas las reseñas del builder antes de venir."
+  es: "{name}, de cuarenta y pocos, vive alquilado en Kendall con su esposa y sus tres hijos. Quieren cuatro cuartos y patio, y ya tienen una preaprobación de su propio lender. Acaba de recorrer la Ceiba del Lote 22 en Cayo Verde Reserve, en Homestead, una casa terminada. Usted le enseñó el precio: $559,990, sin ningún otro cargo del builder; los closing costs son aparte y se los estima su lender. Leyó todas las reseñas del builder antes de venir."
 opening:
   en: I need to think about it.
   es: Lo tengo que pensar.
@@ -174,16 +174,16 @@ demonstrations:
         - { speaker: customer, text: "The house is right. My wife loves it, and the numbers are in my spreadsheet." }
         - { speaker: rep, text: "Good. Then walk me through a normal weekday. Where do you work, and what time do you have to be there?" }
         - { speaker: customer, text: "Okay. I have to be in Brickell by 8 every day, and I've never done that drive from down here at rush hour. I don't know if I can do it five days a week." }
-        - { speaker: rep, text: "I'm glad you said it, because that's exactly what to find out before you buy, not after. I'm not going to guess a drive time for you. Do it for real: Thursday, leave your office at 5:30 like any workday, drive straight here, and I'll meet you at the house. If you can, do one early morning drive from here before then too." }
+        - { speaker: rep, text: "I'm glad you said it, because that's exactly what to find out before you buy, not after. I'm not going to guess a drive time for you. Do it for real: one morning this week, leave from here at 7 and see when you reach your desk. Then Thursday, leave your office at 5:30, drive straight here, and I'll meet you at the house." }
         - { speaker: customer, text: "Okay, that works. Thursday after work." }
       es:
         - { speaker: customer, text: "Lo tengo que pensar." }
-        - { speaker: rep, text: "[pausa] Tiene sentido. Es una casa, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que quiere tener seguro antes de decidir?" }
+        - { speaker: rep, text: "[pausa] Tiene sentido. Es una casa, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que quiere tener claro antes de decidir?" }
         - { speaker: customer, text: "No es la casa. Es más bien cómo sería la vida de todos los días aquí." }
         - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿la casa y el precio le convencen?" }
         - { speaker: customer, text: "La casa es la correcta. A mi esposa le encanta, y los números están en mi hoja de cálculo." }
         - { speaker: rep, text: "Perfecto. Entonces cuénteme cómo es un día normal de semana. ¿Dónde trabaja, y a qué hora tiene que estar allá?" }
         - { speaker: customer, text: "Bueno. Tengo que estar en Brickell a las 8 todos los días, y nunca he hecho ese viaje desde aquí abajo en hora pico. No sé si lo puedo aguantar cinco días a la semana." }
-        - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que averiguar antes de comprar, no después. No le voy a adivinar cuánto se demora. Hágalo de verdad: el jueves salga de la oficina a las 5:30 como cualquier día de trabajo, maneje directo hasta aquí, y yo lo espero en la casa. Si puede, haga también un viaje temprano en la mañana desde aquí antes de eso." }
+        - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que averiguar antes de comprar, no después. No le voy a adivinar cuánto se demora. Hágalo de verdad: una mañana de esta semana salga de aquí a las 7 y vea a qué hora llega a la oficina. Y el jueves salga de la oficina a las 5:30, maneje directo hasta aquí, y yo lo espero en la casa." }
         - { speaker: customer, text: "Está bien, me queda bien. El jueves después del trabajo." }
 spanish_reviewed: false

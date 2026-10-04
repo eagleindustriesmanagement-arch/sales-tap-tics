@@ -139,8 +139,8 @@ time_limit_seconds: 480
 demonstrations:
   flawed:
     notice:
-      en: "Notice: the rep argued with the objection, piled the battery on top of a price the customer already called high, and pushed for tonight. He never asked what the customer was comparing it to."
-      es: "Fíjese: el vendedor le discutió la objeción, le echó la batería encima de un precio que el cliente ya dijo que estaba alto y presionó para esta noche. Nunca preguntó con qué lo estaba comparando."
+      en: "Notice: the rep argued with the objection, piled the battery on top of a price the customer already called high, and pushed to sign today. He never asked what the customer was comparing it to."
+      es: "Fíjese: el vendedor le discutió la objeción, le echó la batería encima de un precio que el cliente ya dijo que estaba alto y presionó para firmar hoy. Nunca preguntó con qué lo estaba comparando."
     script:
       en:
         - { speaker: customer, text: "The price is too high." }
@@ -148,7 +148,7 @@ demonstrations:
         - { speaker: customer, text: "It's still a lot of money." }
         - { speaker: rep, text: "Honestly, now's the time to add the battery too. It's hurricane season." }
         - { speaker: customer, text: "I've been around. I know when a number is high." }
-        - { speaker: rep, text: "So what will it take to get you signed tonight?" }
+        - { speaker: rep, text: "So what will it take to get you signed today?" }
         - { speaker: customer, text: "I'm not saying no. I'm saying it's high." }
         - { speaker: rep, text: "Okay. Here's my card. Call me when you're ready." }
       es:
@@ -157,7 +157,7 @@ demonstrations:
         - { speaker: customer, text: "Igual es mucho dinero." }
         - { speaker: rep, text: "La verdad, es el momento de agregarle la batería también. Estamos en temporada de huracanes." }
         - { speaker: customer, text: "Yo tengo mis años. Sé cuando un número está alto." }
-        - { speaker: rep, text: "Entonces, ¿qué hace falta para que firme esta noche?" }
+        - { speaker: rep, text: "Entonces, ¿qué hace falta para que firme hoy?" }
         - { speaker: customer, text: "No le digo que no. Le digo que está alto." }
         - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
   good:
@@ -175,8 +175,8 @@ demonstrations:
         - { speaker: customer, text: "My neighbor two doors down said he got thirty percent back from the government on his panels. So the way he tells it, mine should cost a lot less than this." }
         - { speaker: rep, text: "Thank you for telling me. I can't promise you any tax credit on this system, and I won't build the price on one. That's a question for your tax professional, and I'd rather you ask before you sign than after. What I can stand behind is what's in writing: $24,600 all-in, permits and interconnection included, for 21 panels on your roof. Let me show you what's in that number, line by line, next to your own bills." }
         - { speaker: customer, text: "Okay. That's more honest than I expected." }
-        - { speaker: rep, text: "Could we go through it Saturday at 10, after you've talked to your tax preparer? I'll bring the written estimate with every line item." }
-        - { speaker: customer, text: "Saturday at 10 works. I'll call my tax guy first." }
+        - { speaker: rep, text: "Could we go through it next Saturday at 10, after you've talked to your tax preparer? I'll bring the written estimate with every line item." }
+        - { speaker: customer, text: "Next Saturday at 10 works. I'll call my tax guy first." }
       es:
         - { speaker: customer, text: "El precio está muy alto." }
         - { speaker: rep, text: "[pausa] Le agradezco que me lo diga claro. Es dinero de verdad, y usted tiene que estar seguro. Cuando dice que está muy alto, ¿comparado con qué?" }
@@ -187,6 +187,6 @@ demonstrations:
         - { speaker: customer, text: "Mi vecino, a dos casas, dice que el gobierno le devolvió el treinta por ciento de sus paneles. Así como él lo cuenta, lo mío debería costar mucho menos que esto." }
         - { speaker: rep, text: "Gracias por decírmelo. Yo no le puedo prometer ningún crédito de impuestos para este sistema, y no voy a armar el precio sobre eso. Esa pregunta es para su contador, y prefiero que la haga antes de firmar y no después. Lo que sí le respaldo es lo que está por escrito: $24,600 todo incluido, con los permisos y la conexión a la red, por 21 paneles en su techo. Déjeme enseñarle qué hay en ese número, línea por línea, al lado de sus propias facturas." }
         - { speaker: customer, text: "Está bien. Eso es más honesto de lo que esperaba." }
-        - { speaker: rep, text: "¿Lo revisamos el sábado a las 10, después de que hable con su contador? Le traigo el estimado por escrito con cada línea." }
-        - { speaker: customer, text: "El sábado a las 10 me sirve. Primero llamo a mi contador." }
+        - { speaker: rep, text: "¿Lo revisamos el sábado que viene a las 10, después de que hable con su contador? Le traigo el estimado por escrito con cada línea." }
+        - { speaker: customer, text: "El sábado que viene a las 10 me sirve. Primero llamo a mi contador." }
 spanish_reviewed: false

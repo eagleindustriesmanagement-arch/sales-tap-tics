@@ -45,7 +45,7 @@ unlock_conditions:
         - '\bwhat (would|will|do) you (need|want) to (know|see|check|confirm|be sure)\b'
         - '\bwhat(''s| is) (still )?(missing|unanswered|left to figure out)\b'
       es:
-        - '\bqué (es lo que |parte |cosa )?(quiere|necesita|le gustaría|tiene que) (pensar|pensarlo|revisar|consultar con la almohada|tener segur[oa])\b'
+        - '\bqué (es lo que |parte |cosa )?(todavía )?(quiere|necesita|le gustaría|tiene que) (pensar|pensarlo|revisar|consultar con la almohada|tener segur[oa]|tener clar[oa])\b'
         - '\bqué (es lo que )?(le )?(falta|queda) por (saber|ver|aclarar|resolver|pensar)\b'
         - '\bqué (necesitaría|le haría falta|tendría que) (saber|ver|comprobar|confirmar)\b'
         - '\bqué parte\b.{0,40}\b(pensar|duda|segur[oa])\b'

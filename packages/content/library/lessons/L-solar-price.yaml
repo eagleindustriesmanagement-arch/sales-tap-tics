@@ -7,8 +7,8 @@ hook:
   en: "He liked the panels and the layout, but says the price is too high. He is comparing it to something."
   es: "Le gustaron los paneles y el diseño, pero dice que el precio está muy alto. Lo está comparando con algo."
 tactic:
-  en: "Don't argue or discount. Ask what he is comparing it to. Never promise a tax credit. Show the all-in price line by line."
-  es: "No discuta ni rebaje. Pregunte con qué lo está comparando. Nunca prometa un crédito de impuestos. Enseñe el precio total línea por línea."
+  en: "Don't argue, and don't discount before you know what he's comparing it to. Ask. Never promise a tax credit. Show the all-in price line by line."
+  es: "No discuta, y no rebaje antes de saber con qué lo compara. Pregúntelo. Nunca prometa un crédito de impuestos. Enseñe el precio total línea por línea."
 steps:
   - en: "Pause, then ask: \"Too high compared to what?\""
     es: "Haga una pausa y pregunte: \"¿Comparado con qué?\""
@@ -30,8 +30,8 @@ when:
   en: "When a buyer who likes the system says the price is high."
   es: "Cuando un comprador al que le gusta el sistema dice que el precio está alto."
 when_not:
-  en: "Never price the system after a tax credit. Never promise savings on his electric bill."
-  es: "Nunca dé el precio descontando un crédito de impuestos. Nunca le prometa ahorros en la factura de la luz."
+  en: "Never price the system after a tax credit. Never promise a savings number you can't back up. Show estimates as estimates."
+  es: "Nunca dé el precio descontando un crédito de impuestos. Nunca prometa un ahorro que no pueda respaldar. Presente los estimados como estimados."
 say:
   - en: I appreciate you being straight with me. Too high compared to what?
     es: Le agradezco que me lo diga claro. ¿Comparado con qué?

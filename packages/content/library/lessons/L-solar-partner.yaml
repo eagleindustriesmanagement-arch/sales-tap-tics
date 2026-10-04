@@ -31,7 +31,7 @@ when:
   es: "Cada vez que el dueño de la casa nombra a alguien que no está en la mesa."
 when_not:
   en: "If she can decide alone, ask for the sale."
-  es: "Si ella puede decidir sola, pídale la venta."
+  es: "Si ella puede decidir sola, propóngale cerrar."
 say:
   - en: Of course. It's your home, and you should both be comfortable with it.
     es: Claro que sí. Es su casa, y los dos tienen que sentirse cómodos.
@@ -41,8 +41,8 @@ say:
     es: No voy a adivinar sobre su techo. Que la visita técnica lo revise con los dos presentes.
 mistakes:
   - mistake:
-      en: "\"What if you sign tonight and tell him in the morning?\""
-      es: "\"¿Y si firma esta noche y se lo cuenta a él en la mañana?\""
+      en: "\"What if you sign now and tell him tonight?\""
+      es: "\"¿Y si firma ahora y se lo cuenta a él esta noche?\""
     fix:
       en: "That makes him the enemy. Ask about him instead."
       es: "Eso lo convierte en el enemigo. Mejor pregunte por él."

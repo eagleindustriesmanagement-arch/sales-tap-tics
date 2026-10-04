@@ -15,7 +15,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, late 30s, lives in Kendall with her husband and two kids. She has sat in the Vellora Marbella sectional, ivory performance velvet, 5 pieces, three times today. You showed her the all-in price of $7,198 with white-glove delivery, plus sales tax. She is paying from savings."
-  es: "{name}, de unos 38 años, vive en Kendall con su esposo y sus dos niños. Hoy se ha sentado tres veces en el sectional Marbella de Vellora, en terciopelo performance color marfil, de 5 piezas. Usted le enseñó el precio total de $7,198 con la entrega white-glove, más el impuesto de venta. Paga con sus ahorros."
+  es: "{name}, de treinta y pico, vive en Kendall con su esposo y sus dos niños. Hoy se ha sentado tres veces en el sectional Marbella de Vellora, en terciopelo performance color marfil, de 5 piezas. Usted le enseñó el precio total de $7,198 con la entrega white-glove, más el impuesto de venta. Paga con sus ahorros."
 opening:
   en: I love it, but I need to talk to my husband first.
   es: Me encanta, pero tengo que hablarlo con mi esposo primero.
@@ -174,9 +174,9 @@ demonstrations:
         - { speaker: customer, text: "For me? I love it. I sat in it three times." }
         - { speaker: rep, text: "Then help me understand the color part. What happened with the sofa you have now?" }
         - { speaker: customer, text: "Okay. Our last light couch was ruined by the dog in less than a year, and he said never again a light sofa. I don't know how to sell him on this color." }
-        - { speaker: rep, text: "Thank you for telling me, that's exactly what he should ask. I'm not going to promise you a dog can't hurt it. Here's what I can do: I'll cut swatches of this performance velvet in the ivory and in the darker stone color, with the maker's care sheet, so you can test them at home with the dog. Then he decides with his own eyes." }
+        - { speaker: rep, text: "Thank you for telling me, that's exactly what he should ask. I'm not going to promise you a dog can't hurt it. Here's what I can do: I'll cut swatches of this ivory performance velvet, with the maker's care sheet, so you can test them at home with the dog. Then he decides with his own eyes." }
         - { speaker: customer, text: "That would actually help. He'd want to see it for himself." }
-        - { speaker: rep, text: "Could he come in with you tomorrow at 2? I'll have both swatches ready and the sectional set up so he can sit in it." }
+        - { speaker: rep, text: "Could he come in with you tomorrow at 2? I'll have the swatches ready and the sectional set up so he can sit in it." }
         - { speaker: customer, text: "Okay, that works for us." }
       es:
         - { speaker: customer, text: "Me encanta, pero tengo que hablarlo con mi esposo primero." }
@@ -186,7 +186,7 @@ demonstrations:
         - { speaker: customer, text: "¿Para mí? Me encanta. Ya me senté en él tres veces." }
         - { speaker: rep, text: "Entonces ayúdeme a entender lo del color. ¿Qué pasó con el sofá que tienen ahora?" }
         - { speaker: customer, text: "Bueno. El perro nos destrozó el último sofá claro en menos de un año, y él dijo que nunca más un sofá claro. No sé cómo convencerlo de este color." }
-        - { speaker: rep, text: "Gracias por decírmelo; eso es justo lo que él debe preguntar. No le voy a prometer que un perro no le hace nada. Lo que sí puedo hacer: le corto muestras de este terciopelo performance en el marfil y en el gris piedra, con la hoja de cuidado del fabricante, para que las prueben en la casa con el perro. Así él decide con sus propios ojos." }
+        - { speaker: rep, text: "Gracias por decírmelo; eso es justo lo que él debe preguntar. No le voy a prometer que un perro no le hace nada. Lo que sí puedo hacer: le corto muestras de este terciopelo performance marfil, con la hoja de cuidado del fabricante, para que las prueben en la casa con el perro. Así él decide con sus propios ojos." }
         - { speaker: customer, text: "Eso me ayudaría. Él va a querer verlo con sus propios ojos." }
         - { speaker: rep, text: "¿Él podría venir con usted mañana a las 2? Le tengo las muestras listas y el sectional armado para que él se siente." }
         - { speaker: customer, text: "Está bien, eso nos queda bien." }

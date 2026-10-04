@@ -13,7 +13,7 @@ steps:
   - en: "Pause, then agree: \"That makes sense. It's a big decision.\""
     es: "Haga una pausa y déle la razón: \"Tiene sentido. Es una decisión grande.\""
   - en: "Ask: \"What's the part you still want to be sure about?\""
-    es: "Pregunte: \"¿Qué es lo que todavía quiere tener seguro?\""
+    es: "Pregunte: \"¿Qué es lo que todavía quiere tener claro?\""
   - en: "Ask if the price and the estimate work for him, apart from that."
     es: "Pregunte si el precio y el estimado le convencen, aparte de eso."
   - en: "Ask if an HOA has to approve what goes on his roof."
@@ -36,7 +36,7 @@ say:
   - en: That makes sense. It's a big decision, and you clearly did your homework.
     es: Tiene sentido. Es una decisión grande, y se nota que usted hizo su tarea.
   - en: When you think it over tonight, what's the part you still want to be sure about?
-    es: Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?
+    es: Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener claro?
   - en: Does anyone else have to approve what goes on your roof, like an HOA?
     es: ¿Alguien más tiene que aprobar lo que va en su techo, como la HOA?
   - en: I'm not going to tell you what your HOA will decide. Let's fill out their application together.
@@ -79,7 +79,7 @@ concepts:
   - name: { en: Price aside, es: Aparte del precio }
     idea:
       en: "Check that the numbers work, so you know the doubt isn't money."
-      es: "Confirme que los números me cuadran, para saber que la duda no es dinero."
+      es: "Confirme que los números le cuadran, para saber que la duda no es dinero."
     items: [SOL-O05-ISOLATE]
   - name: { en: "The real answer, then a time", es: "La respuesta real, y después la hora" }
     idea:

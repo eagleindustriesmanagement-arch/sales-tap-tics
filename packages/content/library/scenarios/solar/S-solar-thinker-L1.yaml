@@ -15,7 +15,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, mid-30s, owns a home in a planned community in Pembroke Pines and compared quotes online before you came. You showed him the written quote for an 8.4 kW, 21-panel Lumacay Solar system: $24,600 all-in, permits and interconnection included, or an estimated $190 a month on a 25-year Kestrela Lending loan, subject to the lender's approval. The layout puts 12 of the 21 panels on the slope that faces the street."
-  es: "{name}, de unos 35 años, es dueño de una casa en una comunidad planificada en Pembroke Pines y comparó cotizaciones en internet antes de que usted llegara. Usted le enseñó la cotización por escrito de un sistema Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red, o un estimado de $190 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación del banco. El diseño pone 12 de los 21 paneles en el lado del techo que da a la calle."
+  es: "{name}, de unos 35 años, es dueño de una casa en una comunidad planificada en Pembroke Pines y comparó cotizaciones en internet antes de que usted llegara. Usted le enseñó la cotización por escrito de un sistema Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red, o un estimado de $190 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación de Kestrela. El diseño pone 12 de los 21 paneles en el lado del techo que da a la calle."
 opening:
   en: I need to think about it.
   es: Lo tengo que pensar.
@@ -141,8 +141,8 @@ time_limit_seconds: 480
 demonstrations:
   flawed:
     notice:
-      en: "Notice: the rep brushed off the need to think, piled the battery and the monitoring on top, and pushed for tonight. He never asked what the customer wanted to think over."
-      es: "Fíjese: el vendedor le quitó importancia a que lo quiera pensar, le echó encima la batería y el monitoreo y presionó para esta noche. Nunca preguntó qué era lo que el cliente quería pensar."
+      en: "Notice: the rep brushed off the need to think, piled the battery and the monitoring on top, and pushed to sign now. He never asked what the customer wanted to think over."
+      es: "Fíjese: el vendedor le quitó importancia a que lo quiera pensar, le echó encima la batería y el monitoreo y presionó para firmar ya. Nunca preguntó qué era lo que el cliente quería pensar."
     script:
       en:
         - { speaker: customer, text: "I need to think about it." }
@@ -159,7 +159,7 @@ demonstrations:
         - { speaker: customer, text: "Prefiero no decidir así de golpe." }
         - { speaker: rep, text: "Y ya que estamos, piense también en agregarle la batería y el monitoreo. Estamos en temporada de huracanes." }
         - { speaker: customer, text: "Eso es más para pensar, no menos." }
-        - { speaker: rep, text: "Entonces dejemos escrito lo de los paneles de una vez y ya." }
+        - { speaker: rep, text: "Entonces hagamos el contrato de los paneles de una vez y ya." }
         - { speaker: customer, text: "No. Yo le aviso." }
         - { speaker: rep, text: "Está bien. Aquí tiene mi tarjeta. Llámeme cuando esté listo." }
   good:
@@ -181,12 +181,12 @@ demonstrations:
         - { speaker: customer, text: "Tuesday at 7 works. I'll bring the form." }
       es:
         - { speaker: customer, text: "Lo tengo que pensar." }
-        - { speaker: rep, text: "[pausa] Tiene sentido. Es una decisión grande, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?" }
+        - { speaker: rep, text: "[pausa] Tiene sentido. Es una decisión grande, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener claro?" }
         - { speaker: customer, text: "No es el precio. Es más bien si de verdad lo podemos instalar como está dibujado." }
         - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el precio y el estimado le convencen?" }
         - { speaker: customer, text: "Los números están bien. Ya los comparé con mis propias facturas." }
         - { speaker: rep, text: "Perfecto. Entonces hablemos de la instalación. ¿Alguien más tiene que aprobar lo que va en su techo, como la HOA?" }
-        - { speaker: customer, text: "Bueno. Doce de los paneles dan a la calle, y no sé si la HOA lo va a aprobar. A mi vecino le mandaron una carta de violación por una cerca. No quiero firmar y después pelear con la asociación." }
+        - { speaker: customer, text: "Bueno. Doce de los paneles dan a la calle, y no sé si la HOA lo va a aprobar. A mi vecino le mandaron una carta de infracción por una cerca. No quiero firmar y después pelear con la asociación." }
         - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que resolver antes de firmar, no después. No le voy a decir lo que va a decidir su HOA. Lo que sí puedo hacer es prepararle los planos y las fichas técnicas de los paneles que pide la asociación, y llenamos la solicitud juntos. Usted decide cuando tenga la respuesta de ellos." }
         - { speaker: customer, text: "Eso lo resolvería. No quiero una carta después de que los paneles estén puestos." }
         - { speaker: rep, text: "¿Le queda bien el martes a las 7 para llenar la solicitud juntos? Traiga el formulario de la HOA y yo traigo los planos." }
