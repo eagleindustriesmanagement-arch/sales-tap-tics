@@ -13,8 +13,8 @@ language_options: [en, es]
 difficulty: 2
 start_state: objection
 pre_brief:
-  en: "{name}, mid-50s, owns a small air-conditioning business and has a paid-off 2014 Suburban to trade. This is his third visit. He just drove the 2026 Tahoe LT again, and you showed him the all-in price of $65,394 plus tax, tag and title. He says the family loves it."
-  es: "{name}, de unos 55 años, tiene un pequeño negocio de aire acondicionado y una Suburban 2014 pagada para el trade-in. Esta es su tercera visita. Acaba de volver a manejar la Tahoe LT 2026, y usted le enseñó el precio total de $65,394 más impuestos, tag y título. Dice que a la familia le encanta."
+  en: "{name}, mid-50s, owns a small air-conditioning business and has a paid-off 2014 Suburban to trade. This is his third visit. He just drove the 2026 Tahoe LT again, and you showed him the all-in price of $65,394 plus tax, tag and title. On his last visit he also looked at a 2026 Tahoe LS, all-in $60,394 plus tax, tag and title. He says the family loves the Tahoe."
+  es: "{name}, de unos 55 años, tiene un pequeño negocio de aire acondicionado y una Suburban 2014 pagada para el trade-in. Esta es su tercera visita. Acaba de volver a manejar la Tahoe LT 2026, y usted le enseñó el precio total de $65,394 más impuestos, tag y título. En su visita anterior también miró una Tahoe LS 2026, con un precio total de $60,394 más impuestos, tag y título. Dice que a la familia le encanta la Tahoe."
 opening:
   en: I just don't want to regret it.
   es: Es que no quiero arrepentirme.
@@ -184,7 +184,7 @@ demonstrations:
         - { speaker: rep, text: "Tiene sentido. Mucha gente en este punto tiene miedo de escoger el carro equivocado y arrepentirse en un año. ¿Le está pasando algo de eso?" }
         - { speaker: customer, text: "Puede ser. No es la Tahoe en sí. Yo sé que quiero una Tahoe." }
         - { speaker: rep, text: "Bien. Entonces la Tahoe es la camioneta para su familia, ¿y los números no son lo que lo frena?" }
-        - { speaker: customer, text: "Sí. La familia cabe, y los números funcionan. De eso estoy seguro." }
+        - { speaker: customer, text: "Sí. La familia cabe, y los números me cuadran. De eso estoy seguro." }
         - { speaker: rep, text: "¿Entonces la duda es cuál versión llevarse? ¿Está entre la LS y la LT?" }
         - { speaker: customer, text: "Exacto. Me la paso dándole vueltas entre la LS y la LT. Si escojo la versión equivocada, me voy a acordar cada vez que me monte." }
         - { speaker: rep, text: "Gracias. Es una preocupación válida, y la podemos resolver con datos en vez de adivinar. Las dos traen la misma garantía de fábrica, así que la pregunta real es el equipamiento. Sentémonos en las dos, una al lado de la otra, y hagamos juntos una lista corta: lo que usaría todas las semanas y lo que nunca tocaría." }

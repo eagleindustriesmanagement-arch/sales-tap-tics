@@ -10,7 +10,7 @@ tactic: { en: "Agree he didn't ask for it, and say it's optional. Give the price
 steps:
   - { en: "Pause, then agree: \"You're right, you didn't ask for it. It's optional.\"", es: "Haga una pausa y déle la razón: \"Tiene razón, usted no lo pidió. Es opcional.\"" }
   - { en: "Ask: \"Setting the package aside, is this the car you want?\"", es: "Pregunte: \"Dejando el paquete a un lado, ¿este es el carro que usted quiere?\"" }
-  - { en: "Give the out-the-door price without it, and the package price on its own line.", es: "Déle el precio total sin el paquete, y el precio del paquete en su propia línea." }
+  - { en: "Give the all-in price without it, and the package price on its own line.", es: "Déle el precio total sin el paquete, y el precio del paquete en su propia línea." }
   - { en: "Offer to sit down with your manager to find a solution.", es: "Ofrezca sentarse con su gerente para buscar una solución." }
   - { en: "Set a time today to come back with the answer in writing.", es: "Fije una hora hoy para volver con la respuesta por escrito." }
 what:
@@ -30,7 +30,7 @@ say:
     es: Tiene razón, usted no lo pidió. Ya está instalado, pero es opcional.
   - en: Setting the package aside, is this the car you want?
     es: Dejando el paquete a un lado, ¿este es el carro que usted quiere?
-  - en: Here's the out-the-door price without the package, and the package on its own line.
+  - en: Here's the all-in price without the package, and the package on its own line.
     es: Este es el precio total sin el paquete, y el paquete con su precio aparte.
   - en: Let me sit down with my manager to find a solution for the package.
     es: Déjeme sentarme con mi gerente para buscarle una solución al paquete.

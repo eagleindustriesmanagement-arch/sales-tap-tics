@@ -30,8 +30,8 @@ say:
     es: Entendido, voy a ser rápido. ¿Qué pago tenía en mente?
   - en: Other than the payment, is this the right car for you?
     es: Aparte del pago, ¿este es el carro para usted?
-  - en: Help me understand that number. What does it need to protect?
-    es: Ayúdeme a entender ese número. ¿Qué es lo que tiene que proteger?
+  - en: Help me understand. What's behind that number?
+    es: Ayúdeme a entender. ¿Qué hay detrás de ese número?
   - en: This one is lower because the term is longer, so you pay more interest overall.
     es: Este sale más bajo porque el plazo es más largo, así que al final paga más intereses.
 mistakes:
@@ -72,7 +72,7 @@ concepts:
   - name: { en: 'Walk the wheel, honestly', es: 'Recorra las opciones, con la verdad' }
     idea:
       en: More down or a longer term. Only what's on the sheet, each with its cost.
-      es: Más down o un plazo más largo. Solo lo que está en la hoja, cada uno con su costo.
+      es: Más inicial o un plazo más largo. Solo lo que está en la hoja, cada uno con su costo.
     items: [O03-OPTIONS]
   - name: { en: Lunch-break pace, es: Ritmo de hora de almuerzo }
     idea:

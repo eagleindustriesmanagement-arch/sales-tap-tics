@@ -13,8 +13,8 @@ language_options: [en, es]
 difficulty: 2
 start_state: objection
 pre_brief:
-  en: "{name}, early 20s, is buying his first car on his own: a 2026 Trax LT, $25,394 out the door plus tax, tag and title, with $2,500 down. The worksheet also shows nitrogen and wheel locks for $395, a dealer accessory that has not been installed yet. Estimated payment: $433 a month without it, $440 with it, 72 months."
-  es: "{name}, de unos 22 años, está comprando su primer carro por su cuenta: una Trax LT 2026, $25,394 precio total más impuestos, placa y título, con $2,500 de inicial. La hoja también trae nitrógeno y tuercas de seguridad por $395, un accesorio del concesionario que todavía no se ha instalado. Pago estimado: $433 al mes sin eso, $440 con eso, a 72 meses."
+  en: "{name}, early 20s, is buying his first car on his own: a 2026 Trax LT, an all-in price of $25,394 before tax, tag and title, with $2,500 down. The worksheet also shows nitrogen and wheel locks for $395, a dealer accessory that has not been installed yet. Estimated payment: $433 a month without it, $440 with it, 72 months."
+  es: "{name}, de unos 22 años, está comprando su primer carro por su cuenta: una Trax LT 2026, un precio total de $25,394, antes de impuestos, tag y título, con $2,500 de inicial. La hoja también trae nitrógeno y tuercas de seguridad por $395, un accesorio del concesionario que todavía no se ha instalado. Pago estimado: $433 al mes sin eso, $440 con eso, a 72 meses."
 opening:
   en: I did not ask for that add-on. What is this $395 for nitrogen and wheel locks?
   es: Yo no pedí eso. ¿Qué son estos $395 de nitrógeno y tuercas de seguridad?
@@ -179,7 +179,7 @@ demonstrations:
         - { speaker: customer, text: "I've heard stories about first-time buyers." }
         - { speaker: rep, text: "Has something like that happened to you, or to someone you know?" }
         - { speaker: customer, text: "Honestly? My friend bought her first car last year and found out months later she was paying for extras she never said yes to. I don't want that to be me." }
-        - { speaker: rep, text: "I'm sorry that happened to her, and you're right to watch for it. Here is how it works with me: nothing goes on your deal without your yes. The price is $25,394 out the door, plus tax, tag and title. With the nitrogen and wheel locks, your payment would be $440 a month; without them, $433. They're optional, so I'm taking them off." }
+        - { speaker: rep, text: "I'm sorry that happened to her, and you're right to watch for it. Here is how it works with me: nothing goes on your deal without your yes. The all-in price is $25,394, before tax, tag and title. With the nitrogen and wheel locks, your payment would be $440 a month; without them, $433. They're optional, so I'm taking them off." }
         - { speaker: customer, text: "Okay. That actually makes me feel better." }
         - { speaker: rep, text: "I'll print a new sheet without them so you can read every line before you sign. Can we sit down together today at 3:30 to go over it?" }
         - { speaker: customer, text: "Today at 3:30 works." }
@@ -188,9 +188,9 @@ demonstrations:
         - { speaker: rep, text: "[pausa] Buena pregunta, y gracias por preguntar antes de firmar nada. El nitrógeno y las tuercas de seguridad son opcionales, y se quitan si usted no los quiere. Antes de quitarlos, ¿le puedo preguntar qué le preocupa de verlos en la hoja?" }
         - { speaker: customer, text: "He oído cuentos de gente que compra su primer carro." }
         - { speaker: rep, text: "¿Le ha pasado algo así a usted, o a alguien que usted conoce?" }
-        - { speaker: customer, text: "¿La verdad? Mi amiga compró su primer carro el año pasado y se enteró meses después que estaba pagando extras que ella nunca aceptó. No quiero que me pase lo mismo." }
-        - { speaker: rep, text: "Siento mucho que le haya pasado eso a ella, y hace bien en cuidarse. Conmigo funciona así: no se agrega nada a su negocio sin que usted diga que sí. El precio total es $25,394, más impuestos, placa y título. Con el nitrógeno y las tuercas de seguridad, su pago sería $440 al mes; sin eso, $433. Son opcionales, así que se los quito." }
+        - { speaker: customer, text: "¿La verdad? Mi amiga compró su primer carro el año pasado y se enteró meses después de que estaba pagando extras que ella nunca aceptó. No quiero que me pase lo mismo." }
+        - { speaker: rep, text: "Siento mucho que le haya pasado eso a ella, y hace bien en cuidarse. Conmigo funciona así: no se agrega nada a su negocio sin que usted diga que sí. El precio total es $25,394, antes de impuestos, tag y título. Con el nitrógeno y las tuercas de seguridad, su pago sería $440 al mes; sin eso, $433. Son opcionales, así que se los quito." }
         - { speaker: customer, text: "Está bien. Eso me tranquiliza." }
         - { speaker: rep, text: "Le imprimo una hoja nueva sin eso para que lea cada línea antes de firmar. ¿Nos sentamos juntos hoy a las 3:30 para revisarla?" }
-        - { speaker: customer, text: "Hoy a las tres y media me funciona." }
+        - { speaker: customer, text: "Hoy a las tres y media me queda bien." }
 spanish_reviewed: false

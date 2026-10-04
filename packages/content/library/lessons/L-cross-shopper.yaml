@@ -13,7 +13,7 @@ steps:
   - en: "Pause, then agree: \"Fair question. Let's put them side by side.\""
     es: "Haga una pausa y déle la razón: \"Es una pregunta justa. Vamos a ponerlas lado a lado.\""
   - en: "Ask: \"Does their number include their dealer fees? What does the bottom line say?\""
-    es: "Pregunte: \"¿Ese número incluye los cargos del dealer de ellos? ¿Qué dice la línea de abajo?\""
+    es: "Pregunte: \"¿Ese número incluye los cargos de concesionario de ellos? ¿Qué dice la línea de abajo?\""
   - en: Give your total price, with your dealer fee already in it.
     es: Déle su precio total, con su cargo de concesionario ya incluido.
   - en: Don't guess about their fees, and don't promise to beat their price.
@@ -33,13 +33,13 @@ when_not:
   en: Don't promise to match or beat a price without your manager. If their total really is lower, say so.
   es: No prometa igualar ni mejorar un precio sin su gerente. Si el total de ellos de verdad es más bajo, dígalo.
 say:
-  - en: Fair question, and you should ask it. Let's put them side by side, out the door.
-    es: Es una pregunta justa, y hace bien en hacerla. Vamos a ponerlas lado a lado, con todo.
+  - en: Fair question, and you should ask it. Let's put them side by side, all in.
+    es: Es una pregunta justa, y hace bien en hacerla. Vamos a ponerlas lado a lado, al precio total.
   - en: Does their number include their dealer fees? What does the line at the bottom say?
-    es: ¿Ese número incluye los cargos del dealer de ellos? ¿Qué dice la línea de abajo?
+    es: ¿Ese número incluye los cargos de concesionario de ellos? ¿Qué dice la línea de abajo?
   - en: Ours already has our dealer fee in it. Only tax, tag and title are added.
-    es: El nuestro ya tiene nuestro cargo del dealer incluido. Solo se suman impuestos, placa y título.
-  - en: Ask them for their out-the-door in writing, and bring both sheets. We'll go line by line.
+    es: El nuestro ya tiene nuestro cargo de concesionario incluido. Solo se suman impuestos, tag y título.
+  - en: Ask them for their all-in price in writing, and bring both sheets. We'll go line by line.
     es: Pídales el precio total por escrito, y traiga las dos hojas. Las revisamos línea por línea.
 mistakes:
   - mistake:
@@ -66,7 +66,7 @@ concepts:
       en: Her question is fair. Tell her so first.
       es: Su pregunta es justa. Dígaselo primero.
     items: [O10-L3-PAUSE, O10-L3-ACK]
-  - name: { en: "Like for like, out the door", es: "Lo mismo con lo mismo, con todo" }
+  - name: { en: "Like for like, all in", es: "Lo mismo con lo mismo, precio total" }
     idea:
       en: Same car, same equipment, total price.
       es: Mismo carro, mismo equipo, precio total.

@@ -83,8 +83,8 @@ concepts:
     items: [O46-NOREQ]
   - name: { en: The 60-day reassurance, es: La tranquilidad de los 60 días }
     idea:
-      en: He can cancel the service contract within 60 days for a refund. Not GAP.
-      es: Puede cancelar el contrato de servicio dentro de 60 días con reembolso. No el GAP.
+      en: He can cancel within 60 days for a refund. The 60-day rule is for the service contract only; don't quote it for GAP.
+      es: Puede cancelarlo dentro de 60 días con reembolso. La regla de 60 días es solo del contrato de servicio; no la use para el GAP.
     items: [O46-SC]
   - name: { en: Lock the delivery time, es: Amarre la hora de entrega }
     idea:

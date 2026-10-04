@@ -14,7 +14,7 @@ difficulty: 2
 start_state: objection
 pre_brief:
   en: "Inbound call. {name}, early 50s, is asking about the 2026 Blazer LT in Radiant Red on the store's website. It is on the lot. The all-in price is $40,849: $39,950 plus the $899 dealer fee. Only tax, tag and title are added. She has no trade and her own bank financing. You have no consent to text her, and nothing in this deal lets you hold the car for her."
-  es: "Llamada entrante. {name}, de unos 50 años, pregunta por la Blazer LT 2026 en Radiant Red de la página web de la tienda. Está en el lote. El precio total es $40,849: $39,950 más el cargo de concesionario de $899. Solo se suman los impuestos, la placa y el título. No tiene trade-in y financia con su propio banco. No tiene permiso para mandarle textos, y nada en este negocio le permite apartarle el carro."
+  es: "Llamada entrante. {name}, de unos 50 años, pregunta por la Blazer LT 2026 en Radiant Red de la página web de la tienda. Está en el lote. El precio total es $40,849: $39,950 más el cargo de concesionario de $899. Solo se suman los impuestos, el tag y el título. No tiene trade-in y financia con su propio banco. Usted no tiene permiso de ella para mandarle textos, y nada en este negocio le permite apartarle el carro."
 opening:
   en: Just email me the out-the-door price on the Blazer LT.
   es: Nada más mándeme por email el precio final de la Blazer LT.
@@ -165,20 +165,20 @@ demonstrations:
     script:
       en:
         - { speaker: customer, text: "Just email me the out-the-door price on the Blazer LT." }
-        - { speaker: rep, text: "[pause] I will. I'll also give it to you right now, so you hear it from me first. The 2026 Blazer LT is $40,849 out the door, because that is the same price anyone pays walking in. It already includes our $899 dealer fee; only tax, tag and title are added." }
+        - { speaker: rep, text: "[pause] I will. I'll also give it to you right now, so you hear it from me first. The 2026 Blazer LT is an all-in price of $40,849 before tax, tag and title, and that's the same price anyone pays walking in. It already includes our $899 dealer fee." }
         - { speaker: customer, text: "Okay. And that's the same number I'll see when I walk in?" }
         - { speaker: rep, text: "Yes, the same number, and you'll have it in writing. Can I ask, has a dealer ever changed the price on you when you got there?" }
         - { speaker: customer, text: "Honestly? Last year a dealer quoted me one price on the phone, and it was a different number when I got there. That's why I want it in writing." }
-        - { speaker: rep, text: "I'm sorry that happened. You should have it in writing. I'll email you this exact number now, with the vehicle and the dealer fee listed, so you can bring it with you. Would today at 5:30 or tomorrow at 10 be better to come see it?" }
-        - { speaker: customer, text: "Tomorrow at 10. I'll bring the email." }
-        - { speaker: rep, text: "Tomorrow at 10, then. I'll have the Blazer LT up front, and the price will be the same $40,849 you have in your email." }
+        - { speaker: rep, text: "I'm sorry that happened. You should have it in writing. What's the best email for you? I'll send this exact number, with the vehicle and the dealer fee listed, so you can bring it with you. And would today at 5:30 or tomorrow at 10 be better to come see it?" }
+        - { speaker: customer, text: "Tomorrow at 10. Let me spell my email for you." }
+        - { speaker: rep, text: "Got it, thank you. It's on its way now. Tomorrow at 10, then. I'll have the Blazer LT up front, and the price will be the same $40,849 you have in your email." }
       es:
         - { speaker: customer, text: "Nada más mándeme por email el precio final de la Blazer LT." }
-        - { speaker: rep, text: "[pausa] Con gusto se lo mando. Y también se lo digo ahora mismo, para que lo oiga de mí primero. La Blazer LT 2026 está en $40,849 precio total, porque es el mismo precio que paga cualquiera que entre a la tienda. Ya incluye nuestro cargo de concesionario de $899; solo se suman los impuestos y los cargos de placa y título." }
+        - { speaker: rep, text: "[pausa] Con gusto se lo mando. Y también se lo digo ahora mismo, para que lo oiga de mí primero. La Blazer LT 2026 tiene un precio total de $40,849, antes de impuestos, tag y título, y es el mismo precio que paga cualquiera que entre a la tienda. Ya incluye nuestro cargo de concesionario de $899." }
         - { speaker: customer, text: "Bueno. ¿Y ese es el mismo número que voy a ver cuando llegue?" }
         - { speaker: rep, text: "Sí, el mismo número, y lo va a tener por escrito. ¿Le puedo preguntar algo? ¿Algún dealer le ha cambiado el precio cuando usted llegó?" }
         - { speaker: customer, text: "¿La verdad? El año pasado un dealer me dio un precio por teléfono, y cuando llegué era otro número. Por eso lo quiero por escrito." }
-        - { speaker: rep, text: "Siento mucho que le haya pasado eso. Usted debe tenerlo por escrito. Ahora mismo le mando por email este mismo número, con el vehículo y el cargo de concesionario detallados, para que lo traiga. ¿Le queda mejor hoy a las 5:30 o mañana a las 10 para venir a verla?" }
-        - { speaker: customer, text: "Mañana a las 10. Voy a llevar el email." }
-        - { speaker: rep, text: "Mañana a las 10, entonces. Le tengo la Blazer LT al frente, y el precio va a ser el mismo de $40,849 que tiene en su email." }
+        - { speaker: rep, text: "Siento mucho que le haya pasado eso. Usted debe tenerlo por escrito. ¿A qué email se lo mando? Le mando este mismo número, con el vehículo y el cargo de concesionario detallados, para que lo traiga. ¿Y le queda mejor hoy a las 5:30 o mañana a las 10 para venir a verla?" }
+        - { speaker: customer, text: "Mañana a las 10. Le deletreo mi email." }
+        - { speaker: rep, text: "Listo, gracias. Ya se lo mandé. Mañana a las 10, entonces. Le tengo la Blazer LT al frente, y el precio va a ser el mismo de $40,849 que tiene en su email." }
 spanish_reviewed: false

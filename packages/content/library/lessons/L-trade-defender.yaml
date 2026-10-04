@@ -8,7 +8,7 @@ hook:
   es: Tiene los brazos cruzados. Está orgulloso de su camioneta, y no le gusta su número. Todavía no lo defienda.
 tactic: { en: "Don't argue about the trade number. Show how it was figured, ask where his number came from, and keep yours unless there's a real reason.", es: "No discuta el número del trade-in. Enséñele cómo se calculó, pregúntele de dónde salió su número, y mantenga el suyo si no hay una razón real para cambiarlo." }
 steps:
-  - { en: "Pause, then say: \"I'd rather show you how we got there than argue about it.\"", es: "Haga una pausa y diga: \"Prefiero enseñarle cómo llegamos ahí que ponernos a discutir.\"" }
+  - { en: "Pause, then say: \"I'd rather show you how we got there than argue. What number were you expecting?\"", es: "Haga una pausa y diga: \"Prefiero enseñarle cómo llegamos ahí que ponernos a discutir. ¿Qué número esperaba usted?\"" }
   - { en: "Show the auction sales and the repair costs, line by line.", es: "Enséñele las ventas de subasta y lo que cuestan los arreglos, línea por línea." }
   - { en: "Ask where his number came from, and what condition he picked.", es: "Pregúntele de dónde salió su número y qué condición marcó." }
   - { en: "Keep the same number, with the trade on its own line.", es: "Mantenga el mismo número, con el trade-in en su propia línea." }

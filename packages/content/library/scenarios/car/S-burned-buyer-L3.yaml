@@ -13,8 +13,8 @@ language_options: [en, es]
 difficulty: 3
 start_state: objection
 pre_brief:
-  en: "{name}, late 40s, ICU nurse, needs a 2026 Blazer 2LT to replace a car with 140,000 miles. She will finance. The Blazer on the lot is $40,550 out the door, which includes your $899 dealer fee; only tax, tag and title are added. It has no add-ons installed. You have not shown her any numbers yet."
-  es: "{name}, de unos 48 años, enfermera de cuidados intensivos, necesita una Blazer 2LT 2026 para reemplazar un carro con 140,000 millas. Va a financiar. La Blazer del lote está en $40,550 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. No tiene ningún extra instalado. Usted todavía no le ha enseñado ningún número."
+  en: "{name}, late 40s, ICU nurse, needs a 2026 Blazer 2LT to replace a car with 140,000 miles. She will finance. The Blazer on the lot is an all-in price of $40,550 before tax, tag and title, and that includes your $899 dealer fee. It has no add-ons installed. You have not shown her any numbers yet."
+  es: "{name}, de unos 48 años, enfermera de cuidados intensivos, necesita una Blazer 2LT 2026 para reemplazar un carro con 140,000 millas. Va a financiar. La Blazer del lote tiene un precio total de $40,550, antes de impuestos, tag y título, con su cargo de concesionario de $899 incluido. No tiene ningún extra instalado. Usted todavía no le ha enseñado ningún número."
 opening:
   en: "Let me tell you something up front: I don't trust dealers."
   es: "Le voy a decir algo de entrada: yo no confío en los dealers."
@@ -157,7 +157,7 @@ demonstrations:
         - { speaker: customer, text: "Let's just say the paper I signed wasn't the deal we shook hands on." }
         - { speaker: rep, text: "What was on the paper that wasn't in the handshake?" }
         - { speaker: customer, text: "About $2,400 in add-ons I never asked for: paint protection, nitrogen in the tires, a service contract. It was ten at night, and I just signed." }
-        - { speaker: rep, text: "I'm sorry that happened to you. Here's how this one works. The Blazer is $40,550 out the door, because that already includes our $899 dealer fee; only tax, tag and title are added. There are no add-ons on this Blazer, and nothing gets added that you don't ask for. If you want a service contract, finance will show you the payment with it and without it, and no is a fine answer. Take this sheet home tonight. Come back Saturday at 10:00, and before you sign, we'll check the contract against this sheet, line by line. Does Saturday at 10:00 work?" }
+        - { speaker: rep, text: "I'm sorry that happened to you. Here's how this one works. The Blazer is an all-in price of $40,550 before tax, tag and title, and that already includes our $899 dealer fee. There are no add-ons on this Blazer, and nothing gets added that you don't ask for. If you want a service contract, finance will show you the payment with it and without it, and no is a fine answer. Take this sheet home tonight. Come back Saturday at 10:00, and before you sign, we'll check the contract against this sheet, line by line. Does Saturday at 10:00 work?" }
         - { speaker: customer, text: "Okay. I'll be there, and I'm bringing this sheet." }
       es:
         - { speaker: customer, text: "Le voy a decir algo de entrada: yo no confío en los dealers." }
@@ -167,6 +167,6 @@ demonstrations:
         - { speaker: customer, text: "Digamos que el papel que firmé no era el trato que hicimos de palabra." }
         - { speaker: rep, text: "¿Qué había en el papel que no estaba en el trato de palabra?" }
         - { speaker: customer, text: "Como $2,400 en extras que yo nunca pedí: protección de pintura, nitrógeno en las gomas, un contrato de servicio. Eran las diez de la noche y firmé y ya." }
-        - { speaker: rep, text: "Siento mucho que le haya pasado eso. Así es como funciona aquí. La Blazer está en $40,550 con todo, porque ya incluye nuestro cargo del dealer de $899; solo se suman impuestos, placa y título. Esta Blazer no tiene ningún extra, y no se le agrega nada que usted no pida. Si quiere un contrato de servicio, en financiamiento le enseñan el pago con él y sin él, y decir que no está bien. Llévese esta hoja a su casa esta noche. Vuelva el sábado a las 10:00, y antes de firmar, revisamos el contrato contra esta hoja, línea por línea. ¿Le funciona el sábado a las 10:00?" }
+        - { speaker: rep, text: "Siento mucho que le haya pasado eso. Así es como funciona aquí. La Blazer tiene un precio total de $40,550, antes de impuestos, tag y título, y eso ya incluye nuestro cargo de concesionario de $899. Esta Blazer no tiene ningún extra, y no se le agrega nada que usted no pida. Si quiere un contrato de servicio, en financiamiento le enseñan el pago con él y sin él, y decir que no está bien. Llévese esta hoja a su casa esta noche. Vuelva el sábado a las 10:00, y antes de firmar, revisamos el contrato contra esta hoja, línea por línea. ¿Le queda bien el sábado a las 10:00?" }
         - { speaker: customer, text: "Está bien. Allí estaré, y traigo esta hoja." }
 spanish_reviewed: false

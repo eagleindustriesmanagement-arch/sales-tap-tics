@@ -11,7 +11,7 @@ steps:
   - { en: "Pause, then say: \"Thank you for telling me up front. No judgment here.\"", es: "Haga una pausa y diga: \"Gracias por decírmelo de entrada. Aquí nadie la va a juzgar.\"" }
   - { en: "Ask: \"Do you have a rough idea of what you still owe?\"", es: "Pregunte: \"¿Tiene una idea más o menos de cuánto debe todavía?\"" }
   - { en: "Give the trade number. Say it holds only if the payoff letter matches.", es: "Dígale el valor del trade-in, y que se mantiene solo si la carta del payoff coincide." }
-  - { en: "Show the difference on its own line. Offer cash down, a cheaper car, or waiting.", es: "Enséñele la diferencia en su propia línea. Ofrezca opciones: dinero de down, un carro que cueste menos o esperar." }
+  - { en: "Show the difference on its own line. Offer cash down, a cheaper car, or waiting.", es: "Enséñele la diferencia en su propia línea. Ofrezca opciones: una inicial en efectivo, un carro que cueste menos o esperar." }
   - { en: "Set a day and time to meet with the payoff letter.", es: "Fije un día y una hora para reunirse con la carta del payoff." }
 what:
   en: Treat the old loan as math. Stay calm and honest.
@@ -79,7 +79,7 @@ concepts:
   - name: { en: Waiting is an option, es: Esperar es una opción }
     idea:
       en: Cash down, a cheaper car, or paying the loan down. She chooses.
-      es: Dinero de down, un carro que cueste menos, o seguir bajando la deuda. Ella escoge.
+      es: Una inicial en efectivo, un carro que cueste menos, o seguir bajando la deuda. Ella escoge.
     items: [O02-OPTIONS]
   - name: { en: Bring the letter, es: Traiga la carta }
     idea:

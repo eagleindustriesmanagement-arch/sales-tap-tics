@@ -153,7 +153,7 @@ demonstrations:
         - { speaker: customer, text: "I'm not buying today. And that rebate you mentioned, is it really ending, or is that what you tell everybody?" }
         - { speaker: rep, text: "[pause] Fair question, and you don't have to buy anything today. You shouldn't have to take my word for it, either. Let me show you the bulletin from Chevrolet." }
         - { speaker: customer, text: "Okay. Nobody has ever offered to show me the paperwork before." }
-        - { speaker: rep, text: "Here it is, OEM bulletin 26-118. The $1,000 bonus cash ends Monday, October 5th, and everyone qualifies. With it, the Trailblazer RS is $27,349 out the door, because the bonus cash comes off our $28,349 all-in price. That already includes our $899 dealer fee; only tax, tag and title are added." }
+        - { speaker: rep, text: "Here it is, OEM bulletin 26-118. The $1,000 bonus cash ends Monday, October 5th, and everyone qualifies. With it, the Trailblazer RS is an all-in price of $27,349 before tax, tag and title, because the bonus cash comes off our $28,349 all-in price. That already includes our $899 dealer fee. If the date checks out, what does 'not today' mean for you?" }
         - { speaker: customer, text: "Honestly? If it's real, I'd rather do it today and be done shopping. I just didn't want to get played again." }
         - { speaker: rep, text: "That makes sense, and there is no rush from me. The bulletin is yours to keep. I know you're on your lunch break, so would today at 5:30, after work, or tomorrow at 10 be better to sit down and do the paperwork?" }
         - { speaker: customer, text: "Today at 5:30. Have everything ready." }
@@ -162,7 +162,7 @@ demonstrations:
         - { speaker: customer, text: "Hoy no voy a comprar. Y ese bono que me mencionó, ¿de verdad se acaba, o eso se lo dicen a todo el mundo?" }
         - { speaker: rep, text: "[pausa] Buena pregunta, y usted no tiene que comprar nada hoy. Tampoco tiene por qué creerme a mí nada más. Déjeme enseñarle el boletín de Chevrolet." }
         - { speaker: customer, text: "Bueno. Nadie me había ofrecido enseñarme el papel antes." }
-        - { speaker: rep, text: "Aquí está, el boletín 26-118 de la fábrica. El bono de $1,000 vence el lunes 5 de octubre, y califica todo el mundo. Con el bono, la Trailblazer RS le queda en $27,349 precio total, porque el bono se le resta a nuestro precio total de $28,349. Eso ya incluye nuestro cargo de concesionario de $899; solo se suman los impuestos y los cargos de placa y título." }
+        - { speaker: rep, text: "Aquí está, el boletín 26-118 de la fábrica. El bono de $1,000 vence el lunes 5 de octubre, y califica todo el mundo. Con el bono, la Trailblazer RS le queda en un precio total de $27,349, antes de impuestos, tag y título, porque el bono se le resta a nuestro precio total de $28,349. Eso ya incluye nuestro cargo de concesionario de $899. Si la fecha es real, ¿qué quiere decir para usted ese \"hoy no\"?" }
         - { speaker: customer, text: "¿La verdad? Si es real, prefiero hacerlo hoy y terminar de buscar. Es que no quería que me volvieran a engañar." }
         - { speaker: rep, text: "Tiene sentido, y de mi parte no hay apuro. El boletín es suyo, se lo puede llevar. Sé que está en su hora de almuerzo, así que ¿le queda mejor hoy a las 5:30, después del trabajo, o mañana a las 10 para sentarnos a hacer los papeles?" }
         - { speaker: customer, text: "Hoy a las 5:30. Téngamelo todo listo." }

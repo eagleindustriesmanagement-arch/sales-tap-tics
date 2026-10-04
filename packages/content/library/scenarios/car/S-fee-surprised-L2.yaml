@@ -13,8 +13,8 @@ language_options: [en, es]
 difficulty: 2
 start_state: objection
 pre_brief:
-  en: "{name}, late 30s, drove in for a 2026 Equinox LT he saw on a car-shopping website listed at $32,795. He is financing through his own credit union. You just handed him the worksheet: $33,694 out the door, which includes the $899 dealer fee, plus tax, tag and title."
-  es: "{name}, de unos 38 años, vino por una Equinox LT 2026 que vio en una página de carros anunciada en $32,795. Va a financiar con su propia cooperativa de crédito. Usted le acaba de dar la hoja de números: $33,694 precio total, que incluye el cargo de concesionario de $899, más impuestos, placa y título."
+  en: "{name}, late 30s, drove in for a 2026 Equinox LT he saw on a car-shopping website listed at $32,795. He is financing through his own credit union. You just handed him the worksheet: an all-in price of $33,694 before tax, tag and title, which includes the $899 dealer fee."
+  es: "{name}, de unos 38 años, vino por una Equinox LT 2026 que vio en una página de carros anunciada en $32,795. Va a financiar con su propia cooperativa de crédito. Usted le acaba de dar la hoja de números: un precio total de $33,694, antes de impuestos, tag y título, que incluye el cargo de concesionario de $899."
 opening:
   en: Your online price did not include these fees. The listing said $32,795.
   es: El precio en internet no incluía estos cargos. El anuncio decía $32,795.
@@ -156,7 +156,7 @@ demonstrations:
         - { speaker: customer, text: "El precio en internet no incluía estos cargos. El anuncio decía $32,795." }
         - { speaker: rep, text: "Así es como funcionan los cargos de concesionario. Los precios en internet nunca los enseñan." }
         - { speaker: customer, text: "O sea que el precio que yo vi no era real." }
-        - { speaker: rep, text: "Es el mismo carro. El cargo de concesionario de $899 es normal, y después se suman impuestos, placa y título. ¿Seguimos adelante?" }
+        - { speaker: rep, text: "Es el mismo carro. El cargo de concesionario de $899 es normal, y después se suman impuestos, tag y título. ¿Seguimos adelante?" }
         - { speaker: customer, text: "Lo tengo que pensar." }
         - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta. Me avisa." }
         - { speaker: customer, text: "Está bien." }
@@ -169,20 +169,20 @@ demonstrations:
         - { speaker: customer, text: "Your online price did not include these fees. The listing said $32,795." }
         - { speaker: rep, text: "[pause] I'm sorry that number surprised you. You should see the full price first, every time. Before I explain anything, can I ask: is it the total itself that bothers you, or not knowing what each line on this sheet is for?" }
         - { speaker: customer, text: "I don't like surprises. That's all." }
-        - { speaker: rep, text: "Fair enough. Here is the total first: $33,694 out the door, plus only tax, tag and title. That already includes our $899 dealer fee, which is the difference from the listing you saw. Do you want me to go through every line with you?" }
+        - { speaker: rep, text: "Fair enough. Here is the total first: an all-in price of $33,694 before tax, tag and title. That already includes our $899 dealer fee, which is the difference from the listing you saw. Do you want me to go through every line with you?" }
         - { speaker: customer, text: "Honestly, the total is fine. I can afford it. I just need every line explained, and the total first, so I know nothing else shows up when I sign." }
         - { speaker: rep, text: "That's how we'll do it. The $899 dealer fee covers costs and profit to the dealer for things like inspecting, cleaning and adjusting the car and preparing the documents. The other lines are the sales tax, the tag and the title, which go to the state and the county, and I'll print each one with its exact amount. Nothing else goes on this sheet unless you ask for it." }
         - { speaker: customer, text: "Okay. That's what I wanted to hear." }
-        - { speaker: rep, text: "I'll print the full sheet now so you can take it home and check every line. Can you come back Monday at 6:30 so we go over it together?" }
-        - { speaker: customer, text: "Monday at 6:30 works." }
+        - { speaker: rep, text: "I'll print the full sheet now so you can check every line. Would today at 4:00, after you've read it, or Monday at 6:30 be better to go over it together?" }
+        - { speaker: customer, text: "Today at 4:00 works." }
       es:
         - { speaker: customer, text: "El precio en internet no incluía estos cargos. El anuncio decía $32,795." }
         - { speaker: rep, text: "[pausa] Disculpe que ese número lo haya sorprendido. Usted debe ver el precio completo primero, siempre. Antes de explicarle nada, déjeme preguntarle: ¿lo que le molesta es el total en sí, o no saber para qué es cada línea de esta hoja?" }
         - { speaker: customer, text: "No me gustan las sorpresas. Eso es todo." }
-        - { speaker: rep, text: "Me parece justo. Primero el total: $33,694 precio total, y solo se suman los impuestos, la placa y el título. Eso ya incluye nuestro cargo de concesionario de $899, que es la diferencia con el anuncio que usted vio. ¿Quiere que repasemos cada línea juntos?" }
-        - { speaker: customer, text: "La verdad, el total está bien. Lo puedo pagar. Lo que necesito es ver cada línea explicada, y el total primero, para saber que no aparezca nada más cuando firme." }
-        - { speaker: rep, text: "Así mismo lo vamos a hacer. El cargo de concesionario de $899 cubre costos y ganancia del concesionario por cosas como inspeccionar, limpiar y ajustar el carro y preparar los documentos. Las otras líneas son el impuesto de venta, la placa y el título, que van al estado y al condado, y le imprimo cada una con su cantidad exacta. A esta hoja no se le agrega nada más a menos que usted lo pida." }
+        - { speaker: rep, text: "Me parece justo. Primero el total: un precio total de $33,694, antes de impuestos, tag y título. Eso ya incluye nuestro cargo de concesionario de $899, que es la diferencia con el anuncio que usted vio. ¿Quiere que repasemos cada línea juntos?" }
+        - { speaker: customer, text: "La verdad, el total está bien. Lo puedo pagar. Lo que necesito es ver cada línea explicada, y el total primero, para saber que no va a aparecer nada más cuando firme." }
+        - { speaker: rep, text: "Así mismo lo vamos a hacer. El cargo de concesionario de $899 cubre costos y ganancia del concesionario por cosas como inspeccionar, limpiar y ajustar el carro y preparar los documentos. Las otras líneas son el impuesto de venta, el tag y el título, que van al estado y al condado, y le imprimo cada una con su cantidad exacta. A esta hoja no se le agrega nada más a menos que usted lo pida." }
         - { speaker: customer, text: "Está bien. Eso es lo que quería oír." }
-        - { speaker: rep, text: "Le imprimo la hoja completa ahora para que se la lleve y revise cada línea en su casa. ¿Puede volver el lunes a las 6:30 para repasarla juntos?" }
-        - { speaker: customer, text: "El lunes a las seis y media me funciona." }
+        - { speaker: rep, text: "Le imprimo la hoja completa ahora para que revise cada línea. ¿Le queda mejor hoy a las 4:00, después de leerla, o el lunes a las 6:30 para repasarla juntos?" }
+        - { speaker: customer, text: "Hoy a las 4:00 me queda bien." }
 spanish_reviewed: false

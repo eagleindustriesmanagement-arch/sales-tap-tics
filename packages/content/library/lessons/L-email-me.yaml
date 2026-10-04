@@ -13,7 +13,7 @@ steps:
   - en: "Pause, then say: \"I'll send it, and I'll give it to you right now.\""
     es: "Haga una pausa y diga: \"Con gusto se lo mando, y también se lo digo ahora mismo.\""
   - en: Say the total first, dealer fee included. Only tax, tag and title are added.
-    es: Diga primero el total, con el cargo de concesionario incluido. Solo se suman impuestos, placa y título.
+    es: Diga primero el total, con el cargo de concesionario incluido. Solo se suman impuestos, tag y título.
   - en: "Ask: \"Has a dealer ever changed the price on you when you got there?\""
     es: "Pregunte: \"¿Algún dealer le ha cambiado el precio cuando usted llegó?\""
   - en: Email the same number, with the car and fee listed. No texts.
@@ -35,8 +35,8 @@ when_not:
 say:
   - en: I'll send it, and I'll give it to you right now so you hear it from me first.
     es: Con gusto se lo mando, y también se lo digo ahora mismo para que lo oiga de mí primero.
-  - en: That's the out-the-door price. It already includes our dealer fee; only tax, tag and title are added.
-    es: Ese es el precio total. Ya incluye nuestro cargo de concesionario; solo se suman los impuestos, la placa y el título.
+  - en: That's the all-in price. It already includes our dealer fee; only tax, tag and title are added.
+    es: Ese es el precio total. Ya incluye nuestro cargo de concesionario; solo se suman los impuestos, el tag y el título.
   - en: Can I ask, has a dealer ever changed the price on you when you got there?
     es: ¿Le puedo preguntar algo? ¿Algún dealer le ha cambiado el precio cuando usted llegó?
   - en: So we're set. The Blazer will be up front, at the same price that's in your email.

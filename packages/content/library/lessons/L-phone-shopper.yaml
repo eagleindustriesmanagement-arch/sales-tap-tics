@@ -6,11 +6,11 @@ title:
 hook:
   en: He's driving between jobs, calling three dealers. If you don't give a price, he moves on.
   es: Va manejando entre un trabajo y otro, llamando a tres dealers. Si usted no le da el precio, lo tacha de la lista.
-tactic: { en: "Give him the full out-the-door price right away, dealer fee included. Then ask if his other quotes include the fee, and offer two times to come in.", es: "Déle el precio total enseguida, con el cargo del dealer incluido. Después pregúntele si los otros precios incluyen ese cargo, y ofrézcale dos horarios para venir." }
+tactic: { en: "Give him the full all-in price right away, dealer fee included. Then ask if his other quotes include the fee, and offer two times to come in.", es: "Déle el precio total enseguida, con el cargo de concesionario incluido. Después pregúntele si los otros precios incluyen ese cargo, y ofrézcale dos horarios para venir." }
 steps:
   - { en: "Pause, then say: \"Sure, I'll give you the full number right now.\"", es: "Haga una pausa y diga: \"Claro, le doy el número completo ahora mismo.\"" }
-  - { en: "Say the total first, dealer fee included. Only tax, tag and title are added.", es: "Diga primero el precio total, con el cargo del dealer incluido. Solo se suman impuestos, placa y título." }
-  - { en: "Ask: \"The numbers you're getting from other dealers, do they include the dealer fee?\"", es: "Pregunte: \"Los precios que le dan en otros dealers, ¿incluyen el cargo del dealer?\"" }
+  - { en: "Say the total first, dealer fee included. Only tax, tag and title are added.", es: "Diga primero el precio total, con el cargo de concesionario incluido. Solo se suman impuestos, tag y título." }
+  - { en: "Ask: \"The numbers you're getting from other dealers, do they include the dealer fee?\"", es: "Pregunte: \"Los precios que le dan en otros dealers, ¿incluyen el cargo de concesionario?\"" }
   - { en: "Offer to email the same price and have the truck ready to drive.", es: "Ofrezca mandarle el mismo precio por email y tenerle la camioneta lista para manejar." }
   - { en: "Offer two set times, and book the one he picks.", es: "Ofrezca dos horarios fijos y agende el que él escoja." }
 what:
@@ -28,10 +28,10 @@ when_not:
 say:
   - en: Sure, I'll give you the full number right now.
     es: Claro, le doy el número completo ahora mismo.
-  - en: That's out the door, our dealer fee already in it. Only tax, tag and title are added.
-    es: Ese es el precio total, con nuestro cargo del dealer ya incluido. Solo se suman impuestos, placa y título.
+  - en: That's the all-in price, our dealer fee already in it. Only tax, tag and title are added.
+    es: Ese es el precio total, con nuestro cargo de concesionario ya incluido. Solo se suman impuestos, tag y título.
   - en: The numbers you're getting from other dealers, do they include the dealer fee?
-    es: Los precios que le dan en otros dealers, ¿incluyen el cargo del dealer?
+    es: Los precios que le dan en otros dealers, ¿incluyen el cargo de concesionario?
   - en: I'll email you this exact price and have the truck up front, ready to drive. This afternoon or tomorrow morning?
     es: Le mando este mismo precio por email y le tengo la camioneta al frente, lista para manejar. ¿Esta tarde o mañana por la mañana?
 mistakes:

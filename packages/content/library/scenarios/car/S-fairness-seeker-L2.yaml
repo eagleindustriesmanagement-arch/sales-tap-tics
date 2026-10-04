@@ -14,7 +14,7 @@ difficulty: 2
 start_state: negotiation
 pre_brief:
   en: "{name}, late 40s, is buying a 2026 Traverse LT for his family and financing through his credit union. You presented the all-in price, $44,799: the vehicle at $43,900 plus the $899 dealer fee, with only tax, tag and title on top. Your manager has authorized up to $750 off the all-in price, and expects something in return for it."
-  es: "{name}, de unos 48 años, está comprando una Traverse LT 2026 para la familia y financia con su cooperativa de crédito. Usted le presentó el precio total, $44,799: el vehículo en $43,900 más el dealer fee de $899, y solo se suman impuestos, chapa y título. Su gerente autorizó hasta $750 menos del precio total, y espera algo a cambio."
+  es: "{name}, de unos 48 años, está comprando una Traverse LT 2026 para la familia y financia con su cooperativa de crédito. Usted le presentó el precio total, $44,799: el vehículo en $43,900 más el cargo de concesionario de $899, y solo se suman impuestos, tag y título. Su gerente autorizó hasta $750 menos del precio total, y espera algo a cambio."
 opening:
   en: Is that really your best price? You haven't moved at all.
   es: ¿Ese es su último precio? No me ha rebajado nada.
@@ -145,7 +145,7 @@ demonstrations:
         - { speaker: customer, text: "Sure." }
       es:
         - { speaker: customer, text: "¿Ese es su último precio? No me ha rebajado nada." }
-        - { speaker: rep, text: "Bueno, bueno. Le quito $750 ahora mismo. $44,049 con todo incluido." }
+        - { speaker: rep, text: "Bueno, bueno. Le quito $750 ahora mismo. $44,049 en total." }
         - { speaker: customer, text: "¿Un momento, y eso lo podía hacer desde el principio? ¿Qué más hay ahí?" }
         - { speaker: rep, text: "La verdad, ya eso es un negocio buenísimo. ¿Se lo preparo?" }
         - { speaker: customer, text: "Ya no sé. Lo tengo que pensar." }
@@ -171,13 +171,13 @@ demonstrations:
         - { speaker: rep, text: "See you at 2:30. It'll all be in writing." }
       es:
         - { speaker: customer, text: "¿Ese es su último precio? No me ha rebajado nada." }
-        - { speaker: rep, text: "[pausa] Buena pregunta. $44,799 es el precio total, con todos los cargos del dealer incluidos, y solo se suman impuestos, chapa y título, porque prefiero enseñarle un número real que andar con juegos. Ayúdeme a entender: ¿qué haría que esto le pareciera un negocio justo?" }
+        - { speaker: rep, text: "[pausa] Buena pregunta. $44,799 es el precio total, con todos los cargos de concesionario incluidos, y solo se suman impuestos, tag y título, porque prefiero enseñarle un número real que andar con juegos. Ayúdeme a entender: ¿qué haría que esto le pareciera un negocio justo?" }
         - { speaker: customer, text: "No es tanto por el dinero. Es que no quiero ser el que pagó el precio completo." }
         - { speaker: rep, text: "Tiene sentido. Aparte del precio, ¿la Traverse es el carro para su familia?" }
         - { speaker: customer, text: "Sí, el carro es el correcto. Ese no es el problema." }
         - { speaker: rep, text: "Cuando dice que no quiere ser el que pagó el precio completo, ¿en quién está pensando?" }
         - { speaker: customer, text: "Mi hermano. Él siempre consigue que le rebajen algo, y lo primero que me va a preguntar es cuánto me rebajaron. Si usted no se movió nada, ni yo mismo me lo justifico." }
-        - { speaker: rep, text: "Le agradezco que me lo diga. No le voy a inventar un descuento, pero sí tengo un poco de margen. Si consigo que mi gerente le quite $500, queda en $44,299 con todo incluido. ¿Está listo para firmar con ese número?" }
+        - { speaker: rep, text: "Le agradezco que me lo diga. No le voy a inventar un descuento, pero sí tengo un poco de margen. Si consigo que mi gerente le quite $500, queda en un precio total de $44,299. ¿Está listo para firmar con ese número?" }
         - { speaker: customer, text: "Si es real y está por escrito, cuente conmigo." }
         - { speaker: rep, text: "Es real. Le consigo la firma del gerente y se lo imprimo con los $500 en su propia línea, para que se lo enseñe a su hermano. ¿Nos sentamos hoy a las 2:30 a firmar?" }
         - { speaker: customer, text: "A las 2:30. Trato hecho. Aquí estaré." }

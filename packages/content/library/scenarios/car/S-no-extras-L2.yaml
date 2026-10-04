@@ -13,8 +13,8 @@ language_options: [en, es]
 difficulty: 2
 start_state: finance_handoff
 pre_brief:
-  en: "{name}, early 30s, agreed on a 2026 Blazer LT at $40,194 out the door plus tax, tag and title. The lender approved him with $1,000 down, 72 months. Your menu: no products, $723 a month; GAP only ($895), $738 a month; service contract ($2,495) and GAP, $781 a month. He sits down and speaks first."
-  es: "{name}, de unos 32 años, se puso de acuerdo en una Blazer LT 2026 por $40,194 precio total más impuestos, placa y título. El banco lo aprobó con $1,000 de inicial, a 72 meses. Su menú: sin productos, $723 al mes; solo GAP ($895), $738 al mes; contrato de servicio ($2,495) y GAP, $781 al mes. Se sienta y habla él primero."
+  en: "{name}, early 30s, agreed on a 2026 Blazer LT at an all-in price of $40,194 before tax, tag and title. The lender approved him with $1,000 down, 72 months. Your menu: no products, $723 a month; GAP only ($895), $738 a month; service contract ($2,495) and GAP, $781 a month. He sits down and speaks first."
+  es: "{name}, de unos 32 años, se puso de acuerdo en una Blazer LT 2026 por un precio total de $40,194, antes de impuestos, tag y título. El banco lo aprobó con $1,000 de inicial, a 72 meses. Su menú: sin productos, $723 al mes; solo GAP ($895), $738 al mes; contrato de servicio ($2,495) y GAP, $781 al mes. Se sienta y habla él primero."
 opening:
   en: I do not want any extras in finance. No warranty, nothing.
   es: No quiero ningún extra en financiamiento. Ni garantía, ni nada.
@@ -207,13 +207,13 @@ demonstrations:
       es:
         - { speaker: customer, text: "No quiero ningún extra en financiamiento. Ni garantía, ni nada." }
         - { speaker: rep, text: "[pausa] Entendido, y eso lo decide usted. No se agrega nada a su contrato sin que usted diga que sí. ¿Le puedo preguntar qué le pasó la última vez para que me diga eso?" }
-        - { speaker: customer, text: "Digamos que ya me quemaron una vez." }
-        - { speaker: rep, text: "Lo siento. ¿Algo terminó en su pago sin que nadie se lo explicara?" }
+        - { speaker: customer, text: "Digamos que ya me la hicieron una vez." }
+        - { speaker: rep, text: "Lo siento. ¿Le metieron algo en el pago sin explicárselo?" }
         - { speaker: customer, text: "Sí. En mi último carro me metieron una garantía de $2,800 en el pago y nadie me preguntó. Pero solo estoy dando $1,000 de inicial, así que he pensado en el GAP." }
         - { speaker: rep, text: "Entonces le enseño todo lado a lado, y usted escoge. Con el contrato de servicio y GAP, $781 al mes. Con GAP solamente, $738 al mes. Sin ningún producto, $723 al mes. Cada producto es opcional, y ninguno de los dos afecta su aprobación ni su tasa." }
         - { speaker: customer, text: "¿Y qué es cada uno?" }
         - { speaker: rep, text: "El contrato de servicio cuesta $2,495. Es opcional. Si lo toma, lo puede cancelar: dentro de los primeros 60 días le devuelven todo, menos los reclamos pagados y un cargo administrativo de hasta 5%, y después, la parte proporcional. El GAP cuesta $895. Cubre la diferencia entre lo que usted todavía debe y lo que paga el seguro si el carro es pérdida total o se lo roban, y con $1,000 de inicial esa diferencia puede ser real." }
         - { speaker: customer, text: "Entonces solo el GAP. Nada más." }
-        - { speaker: rep, text: "Solo el GAP: $738 al mes a 72 meses, el mismo plazo que sin él. Le imprimo el contrato con el GAP solamente, y repasamos cada línea antes de que firme. Su Blazer va a estar lista para la entrega hoy a las 4:30. ¿Le funciona?" }
-        - { speaker: customer, text: "Hoy a las cuatro y media me funciona." }
+        - { speaker: rep, text: "Solo el GAP: $738 al mes a 72 meses, el mismo plazo que sin él. Le imprimo el contrato con el GAP solamente, y repasamos cada línea antes de que firme. Su Blazer va a estar lista para la entrega hoy a las 4:30. ¿Le queda bien?" }
+        - { speaker: customer, text: "Hoy a las cuatro y media me queda bien." }
 spanish_reviewed: false

@@ -14,7 +14,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, mid-30s, has three kids and a paid-off 2017 Equinox the family has outgrown. He just drove the 2026 Traverse LT. You showed him the all-in price of $44,394 plus tax, tag and title, and a payment of $716 a month with $5,000 down. He read every review before he came in."
-  es: "{name}, de unos 35 años, tiene tres hijos y una Equinox 2017 pagada que a la familia ya le queda chiquita. Acaba de manejar la Traverse LT 2026. Usted le enseñó el precio total de $44,394 más impuestos, tag y título, y un pago de $716 al mes con $5,000 de down. Leyó todas las reseñas antes de venir."
+  es: "{name}, de unos 35 años, tiene tres hijos y una Equinox 2017 pagada que a la familia ya le queda chiquita. Acaba de manejar la Traverse LT 2026. Usted le enseñó el precio total de $44,394 más impuestos, tag y título, y un pago de $716 al mes con $5,000 de inicial. Leyó todas las reseñas antes de venir."
 opening:
   en: I need to think about it.
   es: Lo tengo que pensar.
@@ -149,7 +149,7 @@ demonstrations:
         - { speaker: rep, text: "Alright. Here's my card. Call me when you're ready." }
       es:
         - { speaker: customer, text: "Lo tengo que pensar." }
-        - { speaker: rep, text: "¿Pero qué hay que pensar? Usted la manejó, le gustó y el pago le funciona." }
+        - { speaker: rep, text: "¿Pero qué hay que pensar? Usted la manejó, le gustó y el pago le cuadra." }
         - { speaker: customer, text: "Prefiero no decidir así de golpe." }
         - { speaker: rep, text: "Bueno, si la Traverse no es, también le enseño la Tahoe y la Blazer. Tenemos mucho para escoger." }
         - { speaker: customer, text: "Eso es más para pensar, no menos." }
@@ -167,7 +167,7 @@ demonstrations:
         - { speaker: customer, text: "It's not the price. It's more about how we'd actually use it." }
         - { speaker: rep, text: "Okay. So setting that aside for a second, the price and the payment work for you?" }
         - { speaker: customer, text: "The numbers are fine. I did the math at home." }
-        - { speaker: rep, text: "Good. Then walk me through a normal Sunday. Who rides in the back, and are any of the kids still in car seats?" }
+        - { speaker: rep, text: "Good. Then walk me through a normal week. Who rides in the back, and are any of the kids still in car seats?" }
         - { speaker: customer, text: "Okay. On Sundays my parents sit in the second row, so both car seats would go in the third row. I'm not sure they fit back there." }
         - { speaker: rep, text: "I'm glad you said it, because that's exactly what to check before you buy, not after. I'm not going to guess. Bring both seats, and we'll install them in the third row together, and you'll see how the kids get in and out." }
         - { speaker: customer, text: "That would settle it. I don't want to find out after I buy it." }
@@ -175,11 +175,11 @@ demonstrations:
         - { speaker: customer, text: "Tomorrow at 11 works. I'll bring both seats." }
       es:
         - { speaker: customer, text: "Lo tengo que pensar." }
-        - { speaker: rep, text: "[pausa] Tiene sentido. Es una compra grande, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?" }
+        - { speaker: rep, text: "[pausa] Tiene sentido. Es una compra grande, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener claro?" }
         - { speaker: customer, text: "No es el precio. Es más bien cómo la vamos a usar de verdad." }
-        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el precio y el pago le funcionan?" }
+        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el precio y el pago le cuadran?" }
         - { speaker: customer, text: "Los números están bien. Ya hice las cuentas en la casa." }
-        - { speaker: rep, text: "Perfecto. Entonces cuénteme cómo es un domingo normal. ¿Quién va atrás, y alguno de los niños todavía va en silla de carro?" }
+        - { speaker: rep, text: "Perfecto. Entonces cuénteme cómo es una semana normal. ¿Quién va atrás, y alguno de los niños todavía va en silla de carro?" }
         - { speaker: customer, text: "Bueno. Los domingos mis padres van en la segunda fila, así que las dos sillas de los niños irían en la tercera fila. No estoy seguro de que quepan." }
         - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que comprobar antes de comprar, no después. No voy a adivinar. Traiga las dos sillas, las instalamos juntos en la tercera fila, y usted ve cómo suben y bajan los niños." }
         - { speaker: customer, text: "Eso lo resolvería. No quiero enterarme después de comprarla." }

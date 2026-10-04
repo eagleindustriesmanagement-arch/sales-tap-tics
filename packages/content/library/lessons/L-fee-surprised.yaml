@@ -37,14 +37,14 @@ say:
     es: Disculpe que ese número lo haya sorprendido. Usted debe ver el precio completo primero, siempre.
   - en: Is it the total itself that bothers you, or not knowing what each line is for?
     es: ¿Lo que le molesta es el total en sí, o no saber para qué es cada línea?
-  - en: Here's the out-the-door total first. Then I'll go through every line with you.
+  - en: Here's the all-in total first. Then I'll go through every line with you.
     es: Primero el precio total. Después repasamos juntos cada línea.
   - en: The dealer fee is ours, not the state's. Tax, tag and title are the only government charges.
-    es: El cargo de concesionario es nuestro, no del estado. Los únicos cargos del gobierno son los impuestos, la placa y el título.
+    es: El cargo de concesionario es nuestro, no del estado. Los únicos cargos del gobierno son los impuestos, el tag y el título.
 mistakes:
   - mistake:
-      en: '"That''s just how online prices work."'
-      es: '"Así funcionan los precios en internet."'
+      en: '"That''s just how dealer fees work."'
+      es: '"Así es como funcionan los cargos de concesionario."'
     fix:
       en: Now he is sure he was tricked. Say sorry, and blame nobody.
       es: Ahora está seguro de que lo engañaron. Discúlpese sin culpar a nadie.

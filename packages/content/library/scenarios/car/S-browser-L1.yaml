@@ -14,7 +14,7 @@ difficulty: 1
 start_state: greeting
 pre_brief:
   en: "{name}, early 30s, is walking the lot after work, looking at the 2026 Trailblazer RS. She came alone and has not asked for anyone. You walk over and say hello."
-  es: "{name}, de unos 32 años, está caminando el lote después del trabajo, mirando la Trailblazer RS 2026. Vino sola y no ha pedido a nadie. Usted se acerca a saludarla."
+  es: "{name}, de unos 32 años, está recorriendo el lote después del trabajo, mirando la Trailblazer RS 2026. Vino sola y no ha pedido a nadie. Usted se acerca a saludarla."
 opening:
   en: I'm just looking.
   es: Solo estoy mirando.
@@ -170,7 +170,7 @@ demonstrations:
         - { speaker: customer, text: "It's been fine. I'm just seeing what's out there." }
         - { speaker: rep, text: "That sounds like it might be a lease. When do you have to turn it in?" }
         - { speaker: customer, text: "Okay, honestly? It's a lease, and it ends in five weeks. I haven't figured out what's next." }
-        - { speaker: rep, text: "Thanks for telling me. Five weeks is enough time to do this calmly. Here's an easy plan: you drive the two that fit you best, and I find out what your lease turn-in involves, so there are no surprises." }
+        - { speaker: rep, text: "Thanks for telling me. Five weeks is enough time to do this calmly. Here's an easy plan: you drive the Trailblazer RS, and I find out what your lease turn-in involves, so there are no surprises." }
         - { speaker: customer, text: "That actually helps. I thought you'd jump on me for that." }
         - { speaker: rep, text: "Could you come back Thursday at 6? I'll have the Trailblazer RS ready to drive. Bring your lease paperwork and we'll go through it together." }
         - { speaker: customer, text: "Thursday at 6 works. I'll bring the paperwork." }
@@ -179,12 +179,12 @@ demonstrations:
         - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y está en libertad de mirar por su cuenta. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
         - { speaker: customer, text: "Apenas empezando. Hoy no voy a comprar nada." }
         - { speaker: rep, text: "Me parece bien. Sin presión de mi parte. Para orientarla bien, ¿qué carro tiene ahora?" }
-        - { speaker: customer, text: "Digamos que el carro que tengo ahora no es mío para quedármelo." }
+        - { speaker: customer, text: "Digamos que el carro que tengo ahora no me lo voy a quedar." }
         - { speaker: rep, text: "Entiendo. ¿Y qué le gusta de ese carro, y qué le cambiaría?" }
         - { speaker: customer, text: "Ha estado bien. Solo estoy viendo qué hay." }
-        - { speaker: rep, text: "Suena como que puede ser un lease. ¿Cuándo tiene que entregarlo?" }
+        - { speaker: rep, text: "Me suena a que es un lease. ¿Cuándo tiene que entregarlo?" }
         - { speaker: customer, text: "Bueno, la verdad, es un lease y se me vence en cinco semanas. Todavía no sé qué voy a hacer." }
-        - { speaker: rep, text: "Gracias por decírmelo. Cinco semanas alcanzan para hacer esto con calma. Le propongo algo fácil: usted maneja las dos que mejor le queden, y yo averiguo qué hace falta para entregar su lease, para que no haya sorpresas." }
+        - { speaker: rep, text: "Gracias por decírmelo. Cinco semanas alcanzan para hacer esto con calma. Le propongo algo fácil: usted maneja la Trailblazer RS, y yo averiguo qué hace falta para entregar su lease, para que no haya sorpresas." }
         - { speaker: customer, text: "Eso me ayuda. Pensé que me iba a caer encima con eso." }
         - { speaker: rep, text: "¿Puede volver el jueves a las 6? Le tengo la Trailblazer RS lista para manejar. Traiga los papeles del lease y los revisamos juntos." }
         - { speaker: customer, text: "El jueves a las 6 me queda bien. Traigo los papeles." }

@@ -178,7 +178,7 @@ demonstrations:
         - { speaker: customer, text: "Me está dando muy poco por mi camioneta. Demasiado poco." }
         - { speaker: rep, text: "[pausa] Lo entiendo. Prefiero enseñarle cómo llegamos a ese número que ponernos a discutir. Ayúdeme a entender: ¿qué número esperaba usted?" }
         - { speaker: customer, text: "Yo lo busqué antes de venir. Su número no se acerca ni de lejos." }
-        - { speaker: rep, text: "Bien hecho en averiguar primero. Déjeme enseñarle el nuestro. Su trade-in sale en $22,800. Aquí tiene las tres ventas de subasta más parecidas, misma camioneta, versión y millaje, y aquí están los $1,350 de gomas y el parabrisas rajado. Nada escondido." }
+        - { speaker: rep, text: "Hizo bien en averiguar primero. Déjeme enseñarle el nuestro. Su trade-in sale en $22,800. Aquí tiene las tres ventas de subasta más parecidas, misma camioneta, versión y millaje, y aquí están los $1,350 de gomas y el parabrisas rajado. Nada escondido." }
         - { speaker: customer, text: "Yo sé lo que vi." }
         - { speaker: rep, text: "Le creo. ¿De dónde salió el número que usted vio, y qué condición le pidió que marcara?" }
         - { speaker: customer, text: "Una de esas páginas de internet decía $26,500. Yo marqué excelente condición... y bueno, con las gomas y el parabrisas así, excelente no está." }

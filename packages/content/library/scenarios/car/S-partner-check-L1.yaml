@@ -170,9 +170,9 @@ demonstrations:
         - { speaker: customer, text: "Yeah, I love the car." }
         - { speaker: rep, text: "And the payment. Is it where you told her it would be?" }
         - { speaker: customer, text: "Honestly, it is about sixty bucks higher than what I said." }
-        - { speaker: rep, text: "I appreciate you telling me. Let me show you two ways to close that gap, and then you will have real options to bring her. Would she be free for a quick video call so she can see the car, or is it better if you both come in tomorrow?" }
+        - { speaker: rep, text: "Thank you for telling me. Let me print this $580 sheet so you can show her tonight. Would she rather see the car on a quick video call, or come in with you tomorrow so my manager and I can go over options with both of you?" }
         - { speaker: customer, text: "She is off at five tomorrow." }
-        - { speaker: rep, text: "Tomorrow at 5:30, then. I will have the car pulled up and both payment options printed for you to take home tonight." }
+        - { speaker: rep, text: "Tomorrow at 5:30, then. I will have the car pulled up, and my manager and I will be ready for you both." }
       es:
         - { speaker: customer, text: "Me gusta, pero tengo que hablarlo con mi esposa antes de hacer nada." }
         - { speaker: rep, text: "[pausa] Claro que sí. Es una decisión importante y los dos deben sentirse cómodos. Cuando lo hablen esta noche, ¿qué cree que ella le va a preguntar primero?" }
@@ -181,7 +181,7 @@ demonstrations:
         - { speaker: customer, text: "Sí, el carro me encanta." }
         - { speaker: rep, text: "¿Y el pago está donde usted le dijo a ella que iba a estar?" }
         - { speaker: customer, text: "La verdad, está como sesenta dólares por encima." }
-        - { speaker: rep, text: "Le agradezco que me lo diga. Déjeme enseñarle dos maneras de cerrar esa diferencia, y así le lleva opciones reales. ¿Ella podría atender una videollamada ahora para ver el carro, o prefieren venir los dos mañana?" }
+        - { speaker: rep, text: "Gracias por decírmelo. Le imprimo esta hoja de $580 para que se la enseñe esta noche. ¿Ella prefiere ver el carro por una videollamada rapidita, o venir con usted mañana para que mi gerente y yo veamos las opciones con los dos?" }
         - { speaker: customer, text: "Ella sale a las cinco mañana." }
-        - { speaker: rep, text: "Mañana a las cinco y media, entonces. Le tengo el carro listo y las dos opciones de pago impresas para que se las lleve esta noche." }
+        - { speaker: rep, text: "Mañana a las cinco y media, entonces. Le tengo el carro listo, y mi gerente y yo los esperamos a los dos." }
 spanish_reviewed: false

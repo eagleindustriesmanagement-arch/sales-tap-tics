@@ -13,8 +13,8 @@ language_options: [en, es]
 difficulty: 2
 start_state: objection
 pre_brief:
-  en: "{name}, about 50, came in for a 2026 Trailblazer RS he picked online: $29,394 out the door plus tax, tag and title. He is paying with a check from his credit union. The car already has the dealer's $1,295 appearance package installed (window tint, door edge guards, all-weather mats), and it shows on the worksheet. Your store has no set remedy for pre-installed packages yet."
-  es: "{name}, de unos 50 años, vino por una Trailblazer RS 2026 que escogió por internet: $29,394 precio total más impuestos, placa y título. Paga con un cheque de su cooperativa de crédito. El carro ya tiene instalado el paquete de apariencia del concesionario de $1,295 (tinte de ventanas, protectores de puertas, alfombras de goma), y aparece en la hoja. Su tienda todavía no tiene una solución definida para los paquetes preinstalados."
+  en: "{name}, about 50, came in for a 2026 Trailblazer RS he picked online: an all-in price of $29,394 before tax, tag and title, without the package. He is paying with a check from his credit union. The car already has the dealer's $1,295 appearance package installed (window tint, door edge guards, all-weather mats), and it shows on the worksheet as a separate $1,295 line on top of the $29,394. Your store has no set remedy for pre-installed packages yet."
+  es: "{name}, de unos 50 años, vino por una Trailblazer RS 2026 que escogió por internet: un precio total de $29,394, antes de impuestos, tag y título, sin el paquete. Paga con un cheque de su cooperativa de crédito. El carro ya tiene instalado el paquete de apariencia del concesionario de $1,295 (tinte de ventanas, protectores de puertas, alfombras de goma), y aparece en la hoja como una línea aparte de $1,295, encima de los $29,394. Su tienda todavía no tiene una solución definida para los paquetes preinstalados."
 opening:
   en: I did not ask for that package, and you say it is already on the car.
   es: Yo no pedí ese paquete y me dice que ya viene en el carro.
@@ -175,7 +175,7 @@ demonstrations:
         - { speaker: customer, text: "I did not ask for that package, and you say it is already on the car." }
         - { speaker: rep, text: "[pause] You're right, you didn't ask for it, and I'm sorry it came as a surprise. The package is already on the car, but it is optional. Setting the package aside for a second, is this the Trailblazer you want?" }
         - { speaker: customer, text: "I like the car. The package is the problem." }
-        - { speaker: rep, text: "Then here's what I'll do. The price without the package is $29,394 out the door, plus tax, tag and title. The package is $1,295, and you shouldn't pay for something you didn't choose. Let me sit down with my manager to find a solution for the package." }
+        - { speaker: rep, text: "Then here's what I'll do. Without the package, the all-in price is $29,394, before tax, tag and title. The package is $1,295 on its own line, and it's your choice whether you want it. Let me sit down with my manager to find a solution for the package." }
         - { speaker: customer, text: "Look, if that package comes off, or you make it right, I'll buy it today." }
         - { speaker: rep, text: "That's fair, and thank you for telling me straight. Give me fifteen minutes with my manager. I'll come back today at 2:15 with the answer in writing, and the sheet with and without the package, side by side." }
         - { speaker: customer, text: "Okay. I'll wait right here." }
@@ -183,7 +183,7 @@ demonstrations:
         - { speaker: customer, text: "Yo no pedí ese paquete y me dice que ya viene en el carro." }
         - { speaker: rep, text: "[pausa] Tiene razón, usted no lo pidió, y disculpe que le haya llegado de sorpresa. El paquete ya está instalado, pero es opcional. Dejando el paquete a un lado un momento, ¿esta es la Trailblazer que usted quiere?" }
         - { speaker: customer, text: "El carro me gusta. El problema es el paquete." }
-        - { speaker: rep, text: "Entonces le propongo esto. El precio sin el paquete es $29,394 precio total, más impuestos, placa y título. El paquete cuesta $1,295, y usted no debería pagar por algo que no escogió. Déjeme sentarme con mi gerente para buscarle una solución al paquete." }
+        - { speaker: rep, text: "Entonces le propongo esto. Sin el paquete, el precio total es $29,394, antes de impuestos, tag y título. El paquete cuesta $1,295 aparte, y usted decide si lo quiere o no. Déjeme sentarme con mi gerente para buscarle una solución al paquete." }
         - { speaker: customer, text: "Mire, si ese paquete se quita, o me lo resuelven, me lo llevo hoy." }
         - { speaker: rep, text: "Me parece justo, y gracias por decírmelo claro. Deme quince minutos con mi gerente. Vuelvo hoy a las 2:15 con la respuesta por escrito, y la hoja con el paquete y sin el paquete, lado a lado." }
         - { speaker: customer, text: "Está bien. Lo espero aquí." }

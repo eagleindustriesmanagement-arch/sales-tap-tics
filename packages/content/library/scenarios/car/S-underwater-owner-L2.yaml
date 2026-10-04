@@ -14,7 +14,7 @@ difficulty: 2
 start_state: objection
 pre_brief:
   en: "{name}, early 30s, came in for a small SUV and loves the 2026 Trailblazer LT she just drove. Her trade is a 2022 Malibu LT with 71,000 miles; the appraisal is $14,400, from the three closest auction sales. She has not told you her payoff. Before you could show any numbers, she stopped you."
-  es: "{name}, de unos 30 y pico, vino buscando una SUV pequeña y le encantó la Trailblazer LT 2026 que acaba de manejar. Su trade-in es un Malibu LT 2022 con 71,000 millas; la tasación es $14,400, según las tres ventas de subasta más parecidas. No le ha dicho cuánto es su payoff. Antes de que usted pudiera enseñarle números, lo paró."
+  es: "{name}, de treinta y pico, vino buscando una SUV pequeña y le encantó la Trailblazer LT 2026 que acaba de manejar. Su trade-in es un Malibu LT 2022 con 71,000 millas; la tasación es $14,400, según las tres ventas de subasta más parecidas. No le ha dicho cuánto es su payoff. Antes de que usted pudiera enseñarle números, lo paró."
 opening:
   en: Before you go any further... I'm pretty sure I'm upside down on my loan. So this probably doesn't work.
   es: Antes de que siga... yo creo que estoy al revés con el préstamo. Así que esto seguro no funciona.
@@ -169,7 +169,7 @@ demonstrations:
     script:
       en:
         - { speaker: customer, text: "Before you go any further... I'm pretty sure I'm upside down on my loan. So this probably doesn't work." }
-        - { speaker: rep, text: "[pause] Thank you for telling me up front. That happens to a lot of people right now; nationally, about three in ten trade-ins are in the same spot. No judgment here. Do you have a rough idea of what you still owe on the Malibu?" }
+        - { speaker: rep, text: "[pause] Thank you for telling me up front. That happens to a lot of people right now. No judgment here. Do you have a rough idea of what you still owe on the Malibu?" }
         - { speaker: customer, text: "I'd have to check the app. It's... more than I'd like." }
         - { speaker: rep, text: "That's okay. Setting the loan aside for a second, is the Trailblazer the right car for you?" }
         - { speaker: customer, text: "Yeah. I really like it. That's what makes this hard." }
@@ -180,13 +180,13 @@ demonstrations:
         - { speaker: rep, text: "Perfect. I'll have the three options ready. See you tomorrow at 6:30." }
       es:
         - { speaker: customer, text: "Antes de que siga... yo creo que estoy al revés con el préstamo. Así que esto seguro no funciona." }
-        - { speaker: rep, text: "[pausa] Gracias por decírmelo de entrada. Eso le está pasando a mucha gente; a nivel nacional, como tres de cada diez trade-ins están igual. Aquí nadie la va a juzgar. ¿Tiene una idea más o menos de cuánto debe todavía del Malibu?" }
+        - { speaker: rep, text: "[pausa] Gracias por decírmelo de entrada. Eso le está pasando a mucha gente ahora mismo. Aquí nadie la va a juzgar. ¿Tiene una idea más o menos de cuánto debe todavía del Malibu?" }
         - { speaker: customer, text: "Tendría que mirar en la app. Es... más de lo que quisiera." }
         - { speaker: rep, text: "No se preocupe. Dejando el préstamo a un lado un momento, ¿la Trailblazer es el carro para usted?" }
         - { speaker: customer, text: "Sí. Me gusta mucho. Por eso es que esto me cuesta." }
         - { speaker: rep, text: "Entonces vamos a verlo juntos. La tasación de su Malibu es $14,400, según las tres ventas de subasta más parecidas, y ese número se mantiene si la carta del payoff de su banco coincide. ¿Puede buscar el payoff en la app?" }
         - { speaker: customer, text: "Dice veintiún mil cuatrocientos. O sea, que debo como siete mil más de lo que vale. La verdad, me da vergüenza haberlo dejado llegar a esto." }
-        - { speaker: rep, text: "Gracias por confiarme eso; no tiene por qué darle vergüenza. Entonces la diferencia es como $7,000, y no se la voy a esconder dentro de un pago. Sus opciones honestas: cubrir una parte con dinero de down, mirar la Trax, que cuesta menos, o quedarse con el Malibu un tiempo y bajar la deuda antes de cambiarlo. Esperar también es una opción real. Traiga la carta del payoff y le tengo las tres impresas lado a lado. ¿Nos sentamos mañana a las 6:30?" }
+        - { speaker: rep, text: "Gracias por confiarme eso; no tiene por qué darle vergüenza. Entonces la diferencia es como $7,000, y no se la voy a esconder dentro de un pago. Sus opciones honestas: cubrir una parte con una inicial en efectivo, mirar la Trax, que cuesta menos, o quedarse con el Malibu un tiempo y bajar la deuda antes de cambiarlo. Esperar también es una opción real. Traiga la carta del payoff y le tengo las tres impresas lado a lado. ¿Nos sentamos mañana a las 6:30?" }
         - { speaker: customer, text: "Está bien. Mañana a las 6:30. Llamo al banco por la mañana para lo de la carta." }
         - { speaker: rep, text: "Perfecto. Le tengo las tres opciones listas. Nos vemos mañana a las 6:30." }
 spanish_reviewed: false

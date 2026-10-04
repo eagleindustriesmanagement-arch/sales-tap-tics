@@ -13,8 +13,8 @@ language_options: [en, es]
 difficulty: 3
 start_state: objection
 pre_brief:
-  en: "{name}, late 50s, retired firefighter, came in for a 2026 Traverse LT and loved the drive. You showed him the numbers sheet: $44,750 out the door with the $899 dealer fee included, and $17,500 for his paid-off 2021 Equinox LT, appraised by your used-car manager an hour ago. He looked at the sheet for a minute, then stood up."
-  es: "{name}, de unos 58 años, bombero retirado, vino por una Traverse LT 2026 y le encantó la prueba de manejo. Usted le enseñó la hoja de números: $44,750 con todo, con el cargo del dealer de $899 incluido, y $17,500 por su Equinox LT 2021 ya pagada, tasada por su gerente de usados hace una hora. Miró la hoja un minuto y se paró."
+  en: "{name}, late 50s, retired firefighter, came in for a 2026 Traverse LT and loved the drive. You showed him the numbers sheet: an all-in price of $44,750 before tax, tag and title, with the $899 dealer fee included, and $17,500 for his paid-off 2021 Equinox LT, appraised by your used-car manager an hour ago. He looked at the sheet for a minute, then stood up."
+  es: "{name}, de unos 58 años, bombero retirado, vino por una Traverse LT 2026 y le encantó la prueba de manejo. Usted le enseñó la hoja de números: un precio total de $44,750, antes de impuestos, tag y título, con el cargo de concesionario de $899 incluido, y $17,500 por su Equinox LT 2021 ya pagada, tasada por su gerente de usados hace una hora. Miró la hoja un minuto y se paró."
 opening:
   en: You know what? Forget it. I'm going to shop other dealers.
   es: ¿Sabe qué? Olvídese. Me voy a ver en otros dealers.
@@ -178,6 +178,6 @@ demonstrations:
         - { speaker: customer, text: "No es la Traverse. La Traverse me gusta. Hay un número en esa hoja que no me cuadró." }
         - { speaker: rep, text: "¿Fue el trade-in? La tasación de su Equinox, ¿eso fue lo que no le cuadró?" }
         - { speaker: customer, text: "Está bien. Es el trade-in. En la página decía hasta $19,800 por mi Equinox, ustedes me dieron $17,500, y nadie me explicó de dónde salió eso." }
-        - { speaker: rep, text: "Gracias por decírmelo. Usted merece ver cómo llegamos a ese número. La tasación es $17,500. Sale del promedio de subasta para una Equinox LT 2021 con 48,000 millas. Después le quitamos $900 por las dos gomas delanteras y el parabrisas rajado. Yo no puedo hablar por la página, pero usted les puede pedir una oferta por escrito después de que la inspeccionen, y comparar. Nuestro gerente de usados hizo la tasación, y le puede explicar el reporte de subasta a las 3:30 de hoy. ¿Le funcionan las 3:30?" }
-        - { speaker: customer, text: "Está bien. Por eso me quedo." }
+        - { speaker: rep, text: "Gracias por decírmelo. Usted merece ver cómo llegamos a ese número. La tasación es $17,500. Sale del promedio de subasta para una Equinox LT 2021 con 48,000 millas. Después le quitamos $900 por las dos gomas delanteras y el parabrisas rajado. Yo no puedo hablar por la página, pero usted les puede pedir una oferta por escrito después de que la inspeccionen, y comparar. Nuestro gerente de usados hizo la tasación, y le puede explicar el reporte de subasta a las 3:30 de hoy. ¿Le quedan bien las 3:30?" }
+        - { speaker: customer, text: "Está bien. Me quedo para eso." }
 spanish_reviewed: false

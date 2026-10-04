@@ -13,8 +13,8 @@ language_options: [en, es]
 difficulty: 3
 start_state: negotiation
 pre_brief:
-  en: "{name}, late 30s, runs a roofing crew and needs a full-size truck. He just drove the 2026 Silverado 1500 LT Z71 Crew Cab. The numbers sheet shows $48,810 out the door, with the $899 dealer fee already in; only tax, tag and title are added. He finances through his own credit union and has no trade. Your manager has given you room on this truck: you can go as low as $47,610 out the door."
-  es: "{name}, de unos 38 años, tiene una cuadrilla de techos y necesita una camioneta grande. Acaba de manejar la Silverado 1500 LT Z71 doble cabina 2026. La hoja de números dice $48,810 con todo, con el cargo del dealer de $899 ya incluido; solo se suman impuestos, placa y título. Financia con su propia cooperativa de crédito y no tiene trade-in. Su gerente le dio margen en esta camioneta: puede bajar hasta $47,610 con todo."
+  en: "{name}, late 30s, runs a roofing crew and needs a full-size truck. He just drove the 2026 Silverado 1500 LT Z71 Crew Cab. The numbers sheet shows an all-in price of $48,810 before tax, tag and title, with the $899 dealer fee already in. He finances through his own credit union and has no trade. Your manager has given you room on this truck: you can go as low as $47,610 all-in."
+  es: "{name}, de unos 38 años, tiene una cuadrilla de techos y necesita una camioneta grande. Acaba de manejar la Silverado 1500 LT Z71 doble cabina 2026. La hoja de números dice un precio total de $48,810, antes de impuestos, tag y título, con el cargo de concesionario de $899 ya incluido. Financia con su propia cooperativa de crédito y no tiene trade-in. Su gerente le dio margen en esta camioneta: puede bajar hasta un precio total de $47,610."
 opening:
   en: I've done my homework. Three thousand off, or I walk out that door.
   es: Yo hice mi tarea. Tres mil de descuento, o me voy por esa puerta.
@@ -140,7 +140,7 @@ demonstrations:
     script:
       en:
         - { speaker: customer, text: "I've done my homework. Three thousand off, or I walk out that door." }
-        - { speaker: rep, text: "Three thousand? Come on, nobody gets that. Okay, okay. I'll knock $1,200 off right now. That puts you at $47,610 out the door." }
+        - { speaker: rep, text: "Three thousand? Come on, nobody gets that. Okay, okay. I'll knock $1,200 off right now. That puts you at $47,610 all-in." }
         - { speaker: customer, text: "Twelve hundred in ten seconds? Then there's more in there. Three thousand." }
         - { speaker: rep, text: "Let me see what else I can do for you." }
         - { speaker: customer, text: "Don't bother. If twelve hundred came that easy, the next dealer will do three thousand." }
@@ -148,7 +148,7 @@ demonstrations:
         - { speaker: customer, text: "Yeah. We'll see." }
       es:
         - { speaker: customer, text: "Yo hice mi tarea. Tres mil de descuento, o me voy por esa puerta." }
-        - { speaker: rep, text: "¿Tres mil? Ay, por favor, eso no se lo dan a nadie. Bueno, bueno. Le quito $1,200 ahora mismo. Eso lo deja en $47,610 con todo." }
+        - { speaker: rep, text: "¿Tres mil? Ay, por favor, eso no se lo dan a nadie. Bueno, bueno. Le quito $1,200 ahora mismo. Eso lo deja en $47,610 en total." }
         - { speaker: customer, text: "¿Mil doscientos en diez segundos? Entonces ahí hay más. Tres mil." }
         - { speaker: rep, text: "Déjeme ver qué más puedo hacer por usted." }
         - { speaker: customer, text: "No se moleste. Si los mil doscientos salieron tan fácil, el próximo dealer me da los tres mil." }
@@ -161,22 +161,22 @@ demonstrations:
     script:
       en:
         - { speaker: customer, text: "I've done my homework. Three thousand off, or I walk out that door." }
-        - { speaker: rep, text: "[pause] I hear you, and I'd rather earn your business than watch you walk. This truck is $48,810 out the door, everything but tax, tag and title, because it's the LT Z71 crew cab you just drove, with every dealer charge already in it. Help me understand the three thousand. Where does that number come from?" }
+        - { speaker: rep, text: "[pause] I hear you, and I'd rather earn your business than watch you walk. This truck is an all-in price of $48,810 before tax, tag and title, because it's the LT Z71 crew cab you just drove, with every dealer charge already in it. Help me understand the three thousand. Where does that number come from?" }
         - { speaker: customer, text: "That's not my number. I said three thousand off." }
-        - { speaker: rep, text: "I can't get to three thousand, but I'll move if you will. If I take $600 off, that's $48,210 out the door. Do we have a deal?" }
+        - { speaker: rep, text: "I can't get to three thousand, but I'll move if you will. If I take $600 off, that's $48,210 all-in. Do we have a deal?" }
         - { speaker: customer, text: "Now you're talking like you want to sell a truck. Keep going." }
-        - { speaker: rep, text: "I'll take one more step, and it's smaller, because we're close to what this truck is worth: another $400, $47,810 out the door. If I get you there, will you sign?" }
+        - { speaker: rep, text: "I'll take one more step, and it's smaller, but only if we're signing today. If I get you another $400 off, $47,810 all-in, do we have a deal?" }
         - { speaker: customer, text: "Look, honestly? I never needed three grand. At twelve hundred off, I sign. I just wasn't going to pay sticker." }
-        - { speaker: rep, text: "I appreciate the straight answer. Then here's my last step, and it's the smallest: another $200, which makes it the full $1,200 off, $47,610 out the door. In exchange, you sign the buyer's order now, and I'll have the truck detailed and ready for delivery at 5:30 today. Does 5:30 work?" }
+        - { speaker: rep, text: "I appreciate the straight answer. Then here's my last step, and it's the smallest: another $200, which makes it the full $1,200 off, $47,610 all-in. In exchange, you sign the buyer's order now, and I'll have the truck detailed and ready for delivery at 5:30 today. Does 5:30 work?" }
         - { speaker: customer, text: "Fine. Write it up. I'll be here." }
       es:
         - { speaker: customer, text: "Yo hice mi tarea. Tres mil de descuento, o me voy por esa puerta." }
-        - { speaker: rep, text: "[pausa] Lo entiendo, y prefiero ganarme su negocio que verlo irse. Esta camioneta está en $48,810 con todo, menos impuestos, placa y título, porque es la LT Z71 doble cabina que usted acaba de manejar, con todos los cargos del dealer ya incluidos. Ayúdeme a entender los tres mil. ¿De dónde sale ese número?" }
+        - { speaker: rep, text: "[pausa] Lo entiendo, y prefiero ganarme su negocio que verlo irse. Esta camioneta tiene un precio total de $48,810, antes de impuestos, tag y título, porque es la LT Z71 doble cabina que usted acaba de manejar, con todos los cargos de concesionario ya incluidos. Ayúdeme a entender los tres mil. ¿De dónde sale ese número?" }
         - { speaker: customer, text: "Ese no es mi número. Le dije tres mil de descuento." }
-        - { speaker: rep, text: "No puedo llegar a los tres mil, pero yo me muevo si usted se mueve. Si le quito $600, queda en $48,210 con todo. ¿Cerramos?" }
+        - { speaker: rep, text: "No puedo llegar a los tres mil, pero yo me muevo si usted se mueve. Si le quito $600, queda en $48,210 en total. ¿Cerramos?" }
         - { speaker: customer, text: "Ahora sí está hablando como alguien que quiere vender una camioneta. Siga." }
-        - { speaker: rep, text: "Doy un paso más, y es más pequeño, porque ya estamos cerca de lo que vale esta camioneta: $400 más, $47,810 con todo. Si se la dejo ahí, ¿la firma?" }
+        - { speaker: rep, text: "Doy un paso más, y es más pequeño, pero solo si firmamos hoy. Si le quito $400 más, $47,810 en total, ¿cerramos?" }
         - { speaker: customer, text: "Mire, la verdad, nunca necesité los tres mil. Con mil doscientos de descuento, firmo. Es que no iba a pagar el precio de lista." }
-        - { speaker: rep, text: "Le agradezco que me hable claro. Entonces este es mi último paso, y es el más pequeño: $200 más, para llegar a los $1,200 completos de descuento, $47,610 con todo. A cambio, usted firma la orden de compra ahora, y le tengo la camioneta lavada y lista para entregársela a las 5:30 de hoy. ¿Le funcionan las 5:30?" }
+        - { speaker: rep, text: "Le agradezco que me hable claro. Entonces este es mi último paso, y es el más pequeño: $200 más, para llegar a los $1,200 completos de descuento, $47,610 en total. A cambio, usted firma la orden de compra ahora, y le tengo la camioneta lavada y lista para entregársela a las 5:30 de hoy. ¿Le quedan bien las 5:30?" }
         - { speaker: customer, text: "Está bien. Prepare los papeles. Aquí estaré." }
 spanish_reviewed: false

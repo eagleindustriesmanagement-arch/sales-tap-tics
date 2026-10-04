@@ -14,7 +14,7 @@ difficulty: 2
 start_state: objection
 pre_brief:
   en: "{name}, early 30s, came in on his lunch break for a compact SUV and just drove the 2026 Equinox LT. Good credit, no trade, $2,000 down. The numbers sheet shows $612 a month on 72 months, and two other real options."
-  es: "{name}, de unos 30 y pico, vino en su hora de almuerzo buscando una SUV compacta y acaba de manejar la Equinox LT 2026. Buen crédito, sin trade-in, $2,000 de down. La hoja de números muestra $612 al mes a 72 meses, y otras dos opciones reales."
+  es: "{name}, de treinta y pico, vino en su hora de almuerzo buscando una SUV compacta y acaba de manejar la Equinox LT 2026. Buen crédito, sin trade-in, $2,000 de inicial. La hoja de números muestra $612 al mes a 72 meses, y otras dos opciones reales."
 opening:
   en: The payment is too high. And I'm on my lunch break, so I don't have long.
   es: El pago está muy alto. Y estoy en mi hora de almuerzo, así que no tengo mucho tiempo.
@@ -180,7 +180,7 @@ demonstrations:
         - { speaker: customer, text: "Sí, el carro está bien. Es la mensualidad." }
         - { speaker: rep, text: "Entonces dígame el número, y le enseño solo opciones reales. ¿Cuál es el pago máximo que puede hacer al mes?" }
         - { speaker: customer, text: "Quinientos cincuenta. No me puedo pasar de $550 al mes, y punto." }
-        - { speaker: rep, text: "Gracias, eso me ayuda. Hay dos maneras reales de llegar ahí: $549 al mes a 72 meses con $5,500 de down, o $541 al mes con los mismos $2,000 de down, pero a un plazo más largo, 84 meses, y al final paga más intereses. Las dos están sujetas a la aprobación del banco. Se las imprimo lado a lado. ¿Puede volver hoy a las 5:30, después del trabajo, y escoger una?" }
+        - { speaker: rep, text: "Gracias, eso me ayuda. Hay dos maneras reales de llegar ahí: $549 al mes a 72 meses con $5,500 de inicial, o $541 al mes con los mismos $2,000 de inicial, pero a un plazo más largo, 84 meses, y al final paga más intereses. Las dos están sujetas a la aprobación del banco. Se las imprimo lado a lado. ¿Puede volver hoy a las 5:30, después del trabajo, y escoger una?" }
         - { speaker: customer, text: "A las 5:30 me sirve. Téngamelas listas para entrar y salir rápido." }
         - { speaker: rep, text: "Van a estar impresas y esperándolo en mi escritorio. Nos vemos a las 5:30." }
 spanish_reviewed: false

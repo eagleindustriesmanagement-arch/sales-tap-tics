@@ -14,7 +14,7 @@ difficulty: 2
 start_state: objection
 pre_brief:
   en: "Inbound call. {name}, mid-30s contractor, is asking about the 2026 Silverado 1500 LT in Summit White you have on the lot. The all-in price is $48,749: $47,850 plus the $899 dealer fee. Only tax, tag and title are added. He has no trade and is financing through his credit union. You have no consent to text him."
-  es: "Llamada entrante. {name}, contratista de unos 35 años, pregunta por la Silverado 1500 LT 2026 en Summit White que tienen en el lote. El precio total es $48,749: $47,850 más el cargo de concesionario de $899. Solo se suman los impuestos, la placa y el título. No tiene trade-in y financia con su cooperativa de crédito. No tiene permiso para mandarle textos."
+  es: "Llamada entrante. {name}, contratista de unos 35 años, pregunta por la Silverado 1500 LT 2026 en Summit White que tienen en el lote. El precio total es $48,749: $47,850 más el cargo de concesionario de $899. Solo se suman los impuestos, el tag y el título. No tiene trade-in y financia con su cooperativa de crédito. Usted no tiene permiso de él para mandarle textos."
 opening:
   en: I'm calling around on a Silverado 1500 LT. Just give me your best price.
   es: Estoy llamando a varios dealers por una Silverado 1500 LT. Nada más deme su mejor precio.
@@ -160,20 +160,20 @@ demonstrations:
     script:
       en:
         - { speaker: customer, text: "I'm calling around on a Silverado 1500 LT. Just give me your best price." }
-        - { speaker: rep, text: "[pause] Sure, I'll give you the full number right now. The 2026 Silverado 1500 LT in Summit White is $48,749 out the door, because that is the same price anyone pays walking in. It already includes our $899 dealer fee; only tax, tag and title are added." }
+        - { speaker: rep, text: "[pause] Sure, I'll give you the full number right now. The 2026 Silverado 1500 LT in Summit White is an all-in price of $48,749 before tax, tag and title, and that's the same price anyone pays walking in. It already includes our $899 dealer fee." }
         - { speaker: customer, text: "Huh. Okay. So the fee is already in that number." }
         - { speaker: rep, text: "It is. The numbers you're getting from other dealers, do they include the dealer fee?" }
         - { speaker: customer, text: "Honestly, I've got two other quotes and neither one shows the dealer fee. I just want one number I can trust." }
-        - { speaker: rep, text: "That makes sense, and that's why I gave you the full number. I'll email you this exact price in writing so you can compare it line by line. The truck is here on the lot, and I can have it ready for a drive in fifteen minutes. Is today at 5:30 or tomorrow at 10 better?" }
-        - { speaker: customer, text: "Tomorrow at 10 works. Send me that email." }
-        - { speaker: rep, text: "Tomorrow at 10, then. I'll email you the $48,749 out the door now, and the Silverado LT will be up front when you get here." }
+        - { speaker: rep, text: "That makes sense, and that's why I gave you the full number. I'll email you this exact price in writing so you can compare it line by line. The truck is here on the lot, and I can have it ready for a drive in fifteen minutes. Is today at 5:30 or tomorrow at 10 better? And what's the best email to send it to?" }
+        - { speaker: customer, text: "Tomorrow at 10 works. Let me spell my email for you." }
+        - { speaker: rep, text: "Got it, thank you. Tomorrow at 10, then. I'll email you the $48,749 all-in price now, and the Silverado LT will be up front when you get here." }
       es:
         - { speaker: customer, text: "Estoy llamando a varios dealers por una Silverado 1500 LT. Nada más deme su mejor precio." }
-        - { speaker: rep, text: "[pausa] Claro, le doy el número completo ahora mismo. La Silverado 1500 LT 2026 en Summit White está en $48,749 precio total, porque es el mismo precio que paga cualquiera que entre a la tienda. Ya incluye nuestro cargo de concesionario de $899; solo se suman los impuestos y los cargos de placa y título." }
+        - { speaker: rep, text: "[pausa] Claro, le doy el número completo ahora mismo. La Silverado 1500 LT 2026 en Summit White tiene un precio total de $48,749, antes de impuestos, tag y título, y es el mismo precio que paga cualquiera que entre a la tienda. Ya incluye nuestro cargo de concesionario de $899." }
         - { speaker: customer, text: "Ah, bueno. ¿O sea que el cargo ya está metido en ese número?" }
         - { speaker: rep, text: "Así es. Los precios que le están dando en otros dealers, ¿incluyen el cargo de concesionario?" }
-        - { speaker: customer, text: "La verdad, tengo otras dos cotizaciones y ninguna dice cuánto es el cargo del dealer. Nada más quiero un número en el que pueda confiar." }
-        - { speaker: rep, text: "Tiene sentido, y por eso le di el número completo. Le mando este mismo precio por email, por escrito, para que lo compare punto por punto. La camioneta está aquí en el lote, y se la tengo lista para manejarla en quince minutos. ¿Le queda mejor hoy a las 5:30 o mañana a las 10?" }
-        - { speaker: customer, text: "Mañana a las 10 me sirve. Mándeme ese email." }
-        - { speaker: rep, text: "Mañana a las 10, entonces. Ahora mismo le mando por email el precio total de $48,749, y la Silverado LT va a estar al frente cuando llegue." }
+        - { speaker: customer, text: "La verdad, tengo otras dos cotizaciones y ninguna dice cuánto es el dealer fee. Nada más quiero un número en el que pueda confiar." }
+        - { speaker: rep, text: "Tiene sentido, y por eso le di el número completo. Le mando este mismo precio por email, por escrito, para que lo compare punto por punto. La camioneta está aquí en el lote, y se la tengo lista para manejarla en quince minutos. ¿Le queda mejor hoy a las 5:30 o mañana a las 10? ¿Y a qué email se lo mando?" }
+        - { speaker: customer, text: "Mañana a las 10 me sirve. Le deletreo mi email." }
+        - { speaker: rep, text: "Listo, gracias. Mañana a las 10, entonces. Ahora mismo le mando por email el precio total de $48,749, y la Silverado LT va a estar al frente cuando llegue." }
 spanish_reviewed: false

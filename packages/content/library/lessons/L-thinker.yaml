@@ -9,7 +9,7 @@ hook:
 tactic: { en: "Respect that he wants to think. Ask what exactly he wants to be sure about, then settle that doubt with a real test, not a promise.", es: "Respete que lo quiera pensar. Pregúntele qué es exactamente lo que quiere tener claro, y resuelva esa duda con una prueba real, no con una promesa." }
 steps:
   - { en: "Pause, then agree: \"That makes sense. It's a big purchase.\"", es: "Haga una pausa y déle la razón: \"Tiene sentido. Es una compra grande.\"" }
-  - { en: "Ask: \"What's the part you still want to be sure about?\"", es: "Pregunte: \"¿Qué es lo que todavía quiere tener seguro?\"" }
+  - { en: "Ask: \"What's the part you still want to be sure about?\"", es: "Pregunte: \"¿Qué es lo que todavía quiere tener claro?\"" }
   - { en: "Check that the price and the payment are not the problem.", es: "Confirme que el precio y el pago no son el problema." }
   - { en: "Ask how he will really use the car in a normal week.", es: "Pregunte cómo va a usar el carro de verdad en una semana normal." }
   - { en: "Offer a real test for his doubt, and set a day and time.", es: "Ofrezca una prueba real para su duda, y fije un día y una hora." }
@@ -29,9 +29,9 @@ say:
   - en: That makes sense. It's a big purchase, and you clearly did your homework.
     es: Tiene sentido. Es una compra grande, y se nota que usted hizo su tarea.
   - en: When you think it over, what's the part you still want to be sure about?
-    es: Cuando lo piense, ¿qué es lo que todavía quiere tener seguro?
+    es: Cuando lo piense, ¿qué es lo que todavía quiere tener claro?
   - en: Setting that aside, do the price and the payment work for you?
-    es: Dejando eso a un lado, ¿el precio y el pago le funcionan?
+    es: Dejando eso a un lado, ¿el precio y el pago le cuadran?
   - en: I won't guess on that. Bring it in, and we'll try it in the car together.
     es: Eso no se lo voy a adivinar. Tráigalo y lo probamos juntos en el carro.
 mistakes:

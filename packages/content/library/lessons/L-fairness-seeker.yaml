@@ -34,7 +34,7 @@ when_not:
   es: ¿Su gerente no le dio margen? No invente un descuento ni finja una ida al gerente. Defienda el precio honesto.
 say:
   - en: Fair question. That's the all-in price, every dealer charge in it. I'd rather show you a real number than play games.
-    es: Buena pregunta. Ese es el precio total, con todos los cargos del dealer. Prefiero enseñarle un número real que andar con juegos.
+    es: Buena pregunta. Ese es el precio total, con todos los cargos de concesionario. Prefiero enseñarle un número real que andar con juegos.
   - en: Help me understand. What would make this feel like a fair deal to you?
     es: Ayúdeme a entender. ¿Qué haría que esto le pareciera un negocio justo?
   - en: When you say you don't want to pay full price, who are you thinking of?

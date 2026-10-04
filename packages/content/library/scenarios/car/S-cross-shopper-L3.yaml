@@ -13,8 +13,8 @@ language_options: [en, es]
 difficulty: 3
 start_state: objection
 pre_brief:
-  en: "{name}, early 30s, biomedical engineer, wants a 2026 Equinox RS for her commute. No trade; she is financing through her credit union. Your numbers sheet shows $32,849 out the door, which includes your $899 dealer fee; only tax, tag and title are added. Your manager has no room on this unit. She brought a printed quote from another dealer."
-  es: "{name}, de unos 32 años, ingeniera biomédica, quiere una Equinox RS 2026 para ir al trabajo. No tiene trade-in; financia con su cooperativa de crédito. Su hoja de números dice $32,849 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Su gerente no tiene margen en esta unidad. Ella trajo una cotización impresa de otro dealer."
+  en: "{name}, early 30s, biomedical engineer, wants a 2026 Equinox RS for her commute. No trade; she is financing through her credit union. Your numbers sheet shows an all-in price of $32,849 before tax, tag and title, and that includes your $899 dealer fee. Your manager has no room on this unit. She brought a printed quote from another dealer."
+  es: "{name}, de unos 32 años, ingeniera biomédica, quiere una Equinox RS 2026 para ir al trabajo. No tiene trade-in; financia con su cooperativa de crédito. Su hoja de números dice un precio total de $32,849, antes de impuestos, tag y título, con su cargo de concesionario de $899 incluido. Su gerente no tiene margen en esta unidad. Ella trajo una cotización impresa de otro dealer."
 opening:
   en: Another dealer quoted me $31,995 on the same Equinox. Why would I pay more here?
   es: En otro dealer me cotizaron la misma Equinox en $31,995. ¿Por qué voy a pagar más aquí?
@@ -66,7 +66,7 @@ scoring:
       technique: T003
     - code: O10-L3-OTD
       behavior:
-        en: "Moved the comparison to out-the-door, same vehicle and equipment"
+        en: "Moved the comparison to the all-in price, same vehicle and equipment"
         es: "Llevó la comparación al precio total, mismo vehículo y mismo equipo"
       dimension: technique
       method: judge
@@ -102,7 +102,7 @@ scoring:
       params: { event: hidden_revealed }
     - code: O10-L3-NEXT
       behavior:
-        en: "Set a specific day and time to compare both out-the-door numbers in writing"
+        en: "Set a specific day and time to compare both all-in numbers in writing"
         es: "Fijó un día y una hora específicos para comparar los dos precios totales por escrito"
       dimension: outcome
       method: engine_and_judge
@@ -161,27 +161,27 @@ demonstrations:
         - { speaker: customer, text: "Sí. Adiós." }
   good:
     notice:
-      en: "Notice that he never argues with her number. He puts both on the same out-the-door basis and asks what hers includes."
+      en: "Notice that he never argues with her number. He puts both on the same all-in basis and asks what hers includes."
       es: "Fíjese en que nunca le discute el número. Pone los dos sobre la misma base, precio total, y pregunta qué incluye el de ella."
     script:
       en:
         - { speaker: customer, text: "Another dealer quoted me $31,995 on the same Equinox. Why would I pay more here?" }
-        - { speaker: rep, text: "[pause] That's a fair question, and you should ask it. Let's compare them side by side, same Equinox, out the door. Ours is $32,849 out the door because it already includes our $899 dealer fee; only tax, tag and title are added." }
+        - { speaker: rep, text: "[pause] That's a fair question, and you should ask it. Let's compare them side by side, same Equinox, all-in. Ours is an all-in price of $32,849 before tax, tag and title, and that already includes our $899 dealer fee." }
         - { speaker: customer, text: "I can read. Theirs is lower." }
         - { speaker: rep, text: "It might be. They quoted you $31,995. Does that include their dealer fees, or is it just the vehicle? What does the quote say at the bottom?" }
         - { speaker: customer, text: "There's a line at the bottom in small print. I figured it was standard." }
         - { speaker: rep, text: "What does that line say? If it's their fees, we'd want them in their number before we compare." }
         - { speaker: customer, text: "It says plus dealer fees. I never asked how much. So the $31,995 isn't really the whole price." }
-        - { speaker: rep, text: "Thanks for checking. Then here's the fair way to settle it. Ask them for their out-the-door number in writing, same Equinox RS, everything but tax, tag and title. Ours is $32,849 out the door, on that same basis. Bring both sheets tomorrow at 6:00, we'll go line by line, and you decide. Does tomorrow at 6:00 work?" }
+        - { speaker: rep, text: "Thanks for checking. Then here's the fair way to settle it. Ask them for their all-in number in writing, same Equinox RS, everything but tax, tag and title. Ours is $32,849, on that same basis. Bring both sheets tomorrow at 6:00, we'll go line by line, and you decide. Does tomorrow at 6:00 work?" }
         - { speaker: customer, text: "That works. I'll bring both sheets." }
       es:
         - { speaker: customer, text: "En otro dealer me cotizaron la misma Equinox en $31,995. ¿Por qué voy a pagar más aquí?" }
-        - { speaker: rep, text: "[pausa] Es una pregunta justa, y hace bien en hacerla. Vamos a compararlas lado a lado, la misma Equinox, con todo. La nuestra está en $32,849 con todo, porque ya incluye nuestro cargo del dealer de $899; solo se suman impuestos, placa y título." }
+        - { speaker: rep, text: "[pausa] Es una pregunta justa, y hace bien en hacerla. Vamos a compararlas lado a lado, la misma Equinox, al precio total. La nuestra tiene un precio total de $32,849, antes de impuestos, tag y título, y eso ya incluye nuestro cargo de concesionario de $899." }
         - { speaker: customer, text: "Yo sé leer. El de ellos es más bajo." }
-        - { speaker: rep, text: "Puede ser. Le cotizaron $31,995. ¿Eso incluye los cargos del dealer de ellos, o es solo el carro? ¿Qué dice la cotización abajo?" }
+        - { speaker: rep, text: "Puede ser. Le cotizaron $31,995. ¿Eso incluye los cargos de concesionario de ellos, o es solo el carro? ¿Qué dice la cotización abajo?" }
         - { speaker: customer, text: "Hay una línea abajo en letra chiquita. Pensé que era lo normal." }
         - { speaker: rep, text: "¿Qué dice esa línea? Si son cargos de ellos, hay que sumárselos a su número antes de comparar." }
-        - { speaker: customer, text: "Dice más cargos del dealer. Nunca pregunté cuánto. Así que los $31,995 no son el precio completo." }
-        - { speaker: rep, text: "Gracias por revisarlo. Entonces, la manera justa de resolverlo: pídales el precio total por escrito, la misma Equinox RS, todo menos impuestos, placa y título. La nuestra está en $32,849 con todo, sobre esa misma base. Traiga las dos hojas mañana a las 6:00, las revisamos línea por línea, y usted decide. ¿Le funciona mañana a las 6:00?" }
-        - { speaker: customer, text: "Me funciona. Traigo las dos hojas." }
+        - { speaker: customer, text: "Dice más cargos de concesionario. Nunca pregunté cuánto. Así que los $31,995 no son el precio completo." }
+        - { speaker: rep, text: "Gracias por revisarlo. Entonces, la manera justa de resolverlo: pídales el precio total por escrito, la misma Equinox RS, todo menos impuestos, tag y título. La nuestra está en $32,849, sobre esa misma base. Traiga las dos hojas mañana a las 6:00, las revisamos línea por línea, y usted decide. ¿Le queda bien mañana a las 6:00?" }
+        - { speaker: customer, text: "Me queda bien. Traigo las dos hojas." }
 spanish_reviewed: false
