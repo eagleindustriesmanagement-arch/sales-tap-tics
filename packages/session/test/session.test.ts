@@ -101,6 +101,19 @@ describe("offline practice session (spec 12.2, M2 thin slice)", () => {
     expect(r.violations.find((v) => v.rule === "PRICE-01")!.trueFact.en).toContain("$33,644");
   });
 
+  it("a judge that fails still leaves a debrief: the rules' verdict, partial, never a pass; finishing twice counts nothing twice", async () => {
+    const down = { model: "judge", promptVersion: "judge@2", evaluate: async () => { throw new Error("overloaded"); } };
+    const s = session({ ai: { client: {} as never, judge: down } });
+    s.start();
+    const first = await s.finish();
+    expect(first.offline).toBe(true);
+    expect(first.score.partial).toBe(true);
+    expect(first.score.passed).toBe(false);
+    expect(first.debrief.change).toBeTruthy();
+    const again = await s.finish();
+    expect(again.violations.length).toBe(first.violations.length);
+  });
+
   it("the pre-brief never shows the hidden truth", () => {
     const s = session();
     const brief = JSON.stringify(s.preBrief());

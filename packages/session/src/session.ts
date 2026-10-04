@@ -141,6 +141,8 @@ export class PracticeSession {
       : new OfflineCustomer(scenario, persona, this.language);
   }
 
+  private finalized = false;
+
   get offline(): boolean {
     return !this.options.ai;
   }
@@ -238,20 +240,33 @@ export class PracticeSession {
     for (const v of classified) {
       if (!this.violations.some((d) => d.rule === v.rule && d.turnIndex === v.turnIndex)) this.violations.push(v);
     }
-    this.violations.push(...finalizeSession(this.ctx, this.compliance));
+    // Once: finishing again after a failed try must not count the end-of-session checks twice.
+    if (!this.finalized) this.violations.push(...finalizeSession(this.ctx, this.compliance));
+    this.finalized = true;
     const outcome = this.engine.outcome();
-    const judge = this.options.ai?.judge ?? new FixtureJudge();
-    const score = await scoreSession({
-      library: this.options.library,
-      scenario: this.scenario,
-      transcript: this.transcript,
-      violations: this.violations,
-      engine: { endReason: outcome.endReason, exit: outcome.exit, hiddenRevealed: outcome.hiddenRevealed, nextStepSecured: outcome.nextStepSecured, winMet: outcome.winMet },
-      judge,
-      textMode: this.options.textMode,
-      level: this.scenario.difficulty as 1 | 2 | 3,
-    });
+    const run = (judge: Judge) =>
+      scoreSession({
+        library: this.options.library,
+        scenario: this.scenario,
+        transcript: this.transcript,
+        violations: this.violations,
+        engine: { endReason: outcome.endReason, exit: outcome.exit, hiddenRevealed: outcome.hiddenRevealed, nextStepSecured: outcome.nextStepSecured, winMet: outcome.winMet },
+        judge,
+        textMode: this.options.textMode,
+        level: this.scenario.difficulty as 1 | 2 | 3,
+      });
+    let offline = this.offline;
+    let score: ScoreResult;
+    try {
+      score = await run(this.options.ai?.judge ?? new FixtureJudge());
+    } catch (error) {
+      if (!this.options.ai?.judge) throw error;
+      // The judge is down or timed out: the rep still gets the rules' and the engine's verdict, shown as partial
+      // (never a pass, spec 13.4), instead of losing the session to an error.
+      score = await run(new FixtureJudge());
+      offline = true;
+    }
     const debrief = buildDebrief({ library: this.options.library, scenario: this.scenario, score, transcript: this.transcript, endReason: outcome.endReason });
-    return { sessionId: this.options.sessionId, scenarioCode: this.scenario.code, language: this.language, transcript: this.transcript, violations: this.violations, engine: outcome, score, debrief, offline: this.offline };
+    return { sessionId: this.options.sessionId, scenarioCode: this.scenario.code, language: this.language, transcript: this.transcript, violations: this.violations, engine: outcome, score, debrief, offline };
   }
 }
