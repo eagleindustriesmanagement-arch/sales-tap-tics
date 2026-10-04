@@ -6,7 +6,7 @@ age_range: 40-49
 temperament: [analytical, friendly]
 temperament_note:
   en: Reasonable and friendly, not a haggler. Says what she thinks, compares carefully, and hates the feeling of being taken. Relaxes when the rep is straight with her.
-  es: Razonable y amable, no es de regatear. Dice lo que piensa, compara con cuidado y odia sentir que la cogieron de boba. Se relaja cuando el vendedor le habla claro.
+  es: Razonable y amable, no es de regatear. Dice lo que piensa, compara con cuidado y odia sentir que la tomaron por boba. Se relaja cuando el vendedor le habla claro.
 buyer_orientation: task
 situation:
   en: Mid-40s, married, a house in Pinecrest. Redoing the main bedroom for the first time in twenty years. Loves the Norcasa Avila king bedroom set in solid oak. The budget is there; she is paying with savings, no financing. Has the all-in price in hand.
@@ -150,7 +150,7 @@ offline_lines:
   after_hint: { en: "I love the set. That's not the question.", es: "El juego me encanta. Esa no es la pregunta." }
   reveal: { en: "Okay. I saw a set online that looks almost the same for about two thousand less. I don't want to overpay.", es: "Bueno. Vi un juego en internet que se ve casi igual por como dos mil dólares menos. No quiero pagar de más." }
   after_reveal:
-    - { en: "That's fair. I just don't want to feel like I got taken.", es: "Me parece justo. Es que no quiero sentir que me cogieron de boba." }
+    - { en: "That's fair. I just don't want to feel like I got taken.", es: "Me parece justo. Es que no quiero sentir que me tomaron por boba." }
     - { en: "Okay. If it's apples to apples, I can decide.", es: "Está bien. Si es comparando lo mismo con lo mismo, yo puedo decidir." }
   agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. Thanks, though.", es: "Hoy no. Pero gracias." }
