@@ -143,6 +143,7 @@ scoring:
         en: "Pre-judged a product for him (\"you'll want it\", \"most people take it\") after he said no"
         es: "Decidió por él sobre un producto (\"usted lo va a querer\", \"casi todos lo llevan\") después de que dijo que no"
       method: judge
+      kind: coaching
     - code: misdescribed_add_on
       description:
         en: "Called a product required, impossible to remove, or free"

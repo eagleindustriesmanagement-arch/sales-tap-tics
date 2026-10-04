@@ -118,6 +118,7 @@ scoring:
         en: "Promised he would not regret it instead of removing real risk"
         es: "Le prometió que no se iba a arrepentir en vez de quitarle el riesgo real"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

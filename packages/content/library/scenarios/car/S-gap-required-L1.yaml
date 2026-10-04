@@ -127,6 +127,7 @@ scoring:
         en: "Pre-judged GAP for him (\"you'll want it\", \"most people take it\")"
         es: "Decidió por él sobre el GAP (\"usted lo va a querer\", \"casi todos lo llevan\")"
       method: judge
+      kind: coaching
     - code: misdescribed_add_on
       description:
         en: "Called a product required, impossible to remove, or free"

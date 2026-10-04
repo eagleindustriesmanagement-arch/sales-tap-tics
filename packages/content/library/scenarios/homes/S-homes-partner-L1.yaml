@@ -124,6 +124,7 @@ scoring:
         en: "Belittled consulting her husband"
         es: "Le restó importancia a consultar con su esposo"
       method: judge
+      kind: coaching
     - code: guessed_lender_numbers
       description:
         en: "Promised a loan amount, an approval, a rate or a monthly payment the lender has not given"

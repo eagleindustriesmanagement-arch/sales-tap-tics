@@ -110,6 +110,7 @@ scoring:
         en: "Called the AI's number wrong, or matched it, without seeing what she asked it"
         es: "Dijo que el número de la inteligencia artificial estaba mal, o lo igualó, sin ver lo que ella le preguntó"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

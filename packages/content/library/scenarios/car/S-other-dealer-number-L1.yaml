@@ -115,9 +115,15 @@ scoring:
   auto_fail:
     - code: guessed_their_numbers
       description:
-        en: "Called the other quote fake, ran down the other dealer, or guessed a trade value before an appraisal"
-        es: "Dijo que la otra cotización era falsa, habló mal del otro dealer o adivinó un valor del trade-in antes de tasarlo"
+        en: "Called the other quote fake without proof, or gave a trade value before an appraisal"
+        es: "Dijo sin pruebas que la otra cotización era falsa, o dio un valor del trade-in antes de tasarlo"
       method: judge
+    - code: ran_down_other_dealer
+      description:
+        en: "Ran down the other dealer"
+        es: "Habló mal del otro dealer"
+      method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

@@ -115,6 +115,7 @@ scoring:
         en: "Used her lease timing to push for a purchase today"
         es: "Usó la fecha del lease para presionarla a comprar hoy"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

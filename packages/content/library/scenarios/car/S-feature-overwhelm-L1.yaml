@@ -117,6 +117,7 @@ scoring:
         en: "Blamed her, or sent her to the manual or a video instead of helping"
         es: "La culpó a ella, o la mandó al manual o a un video en vez de ayudarla"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

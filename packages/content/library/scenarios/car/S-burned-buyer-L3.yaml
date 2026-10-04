@@ -106,6 +106,7 @@ scoring:
         en: "Brushed off her bad experience (\"trust me\", \"we're not like other dealers\")"
         es: "Le restó importancia a su mala experiencia (\"confíe en mí\", \"no somos como los otros dealers\")"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

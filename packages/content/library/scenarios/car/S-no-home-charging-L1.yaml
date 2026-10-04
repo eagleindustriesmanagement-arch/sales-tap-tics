@@ -121,6 +121,7 @@ scoring:
         en: "Kept pushing the EV after he said he has nowhere to charge it"
         es: "Siguió empujando el eléctrico después de que él dijo que no tiene dónde cargarlo"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

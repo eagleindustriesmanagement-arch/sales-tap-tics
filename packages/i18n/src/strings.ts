@@ -463,6 +463,7 @@ export const STRINGS = {
 
   "debrief.title": { en: "Debrief", es: "Resumen de la sesión" },
   "debrief.critical": { en: "Compliance issue", es: "Problema de cumplimiento" },
+  "debrief.coachingNote": { en: "A note for next time (no points lost)", es: "Una nota para la próxima vez (no perdió puntos)" },
   "debrief.trueFact": { en: "The true fact", es: "El dato real" },
   "debrief.compliantLine": { en: "Say this instead", es: "Diga esto en su lugar" },
   "debrief.score": { en: "Score", es: "Puntaje" },

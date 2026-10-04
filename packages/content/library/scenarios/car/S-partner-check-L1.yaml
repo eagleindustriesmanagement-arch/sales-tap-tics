@@ -119,6 +119,7 @@ scoring:
         en: "Belittled consulting a partner"
         es: "Le restó importancia a consultar con la pareja"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

@@ -118,6 +118,7 @@ scoring:
         en: "Blamed or shamed the customer for missing the appointment"
         es: "Culpó o hizo sentir mal al cliente por no llegar a la cita"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

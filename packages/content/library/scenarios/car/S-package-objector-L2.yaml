@@ -122,6 +122,7 @@ scoring:
         en: "Kept selling the package's value after he said he did not want it"
         es: "Siguió vendiendo el valor del paquete después de que él dijo que no lo quería"
       method: judge
+      kind: coaching
     - code: misdescribed_add_on
       description:
         en: "Called the package required, impossible to remove, or free"

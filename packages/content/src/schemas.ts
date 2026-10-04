@@ -406,6 +406,12 @@ export const autoFailSchema = z
     description: bilingual,
     method: z.enum(["judge", "rule_family"]),
     rule_families: z.array(z.string()).default([]),
+    /**
+     * "honesty" (the default) zeroes the attempt: a lie, a made-up number, a fake offer, or discrimination.
+     * "coaching" is a move that loses the customer but deceives no one (pushing, running down a competitor,
+     * belittling): it is named in the debrief and costs no points (decision 0034).
+     */
+    kind: z.enum(["honesty", "coaching"]).default("honesty"),
   })
   .strict();
 export type AutoFail = z.infer<typeof autoFailSchema>;

@@ -112,9 +112,15 @@ scoring:
   auto_fail:
     - code: price_only_if_she_comes_in
       description:
-        en: "Refused to give or send the price, or said the written price only counts if she comes in"
-        es: "Se negó a dar o mandar el precio, o dijo que el precio por escrito solo vale si ella viene"
+        en: "Said the written price only counts if she comes in"
+        es: "Dijo que el precio por escrito solo vale si ella viene"
       method: judge
+    - code: held_back_the_price
+      description:
+        en: "Would not give or send the price"
+        es: "No quiso dar ni mandar el precio"
+      method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

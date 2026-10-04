@@ -108,6 +108,7 @@ scoring:
         en: "Promised how the car feels on the highway instead of letting her drive it"
         es: "Aseguró cómo se siente el carro en la autopista en vez de dejar que ella lo maneje"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

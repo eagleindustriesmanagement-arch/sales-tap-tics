@@ -51,6 +51,8 @@ export interface DebriefPayload {
     score?: { threshold: number };
     critical: { rule: string; quote: string; trueFact: Bilingual; compliantLine: Bilingual | null; explanation: Bilingual }[];
     autoFails: { code: string; description: Bilingual; quote: string | null }[];
+    /** Moves that lost ground but deceived no one: no points lost (decision 0034). Absent on older debriefs. */
+    coaching?: { code: string; description: Bilingual; quote: string | null }[];
     worked: { code: string; behavior: Bilingual; quote: string | null; explanation: Bilingual; concept?: Bilingual | null }[];
     change: { code: string; behavior: Bilingual; why: Bilingual; stretch: boolean; concept?: { name: Bilingual; idea: Bilingual } | null };
     turningPoint: { repLine: string; modelAlternative: Bilingual } | null;
@@ -130,6 +132,14 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
           </p>
         )}
       </section>
+
+      {(d.coaching ?? []).map((a) => (
+        <section key={a.code} className="reveal-rise space-y-1 rounded-[1.25rem] bg-warn-soft p-4 ring-1 ring-warn/30 ring-inset" style={cascade(step++)} data-testid="coaching-note">
+          <p className="text-[13px] font-semibold text-muted">{ui("debrief.coachingNote")}</p>
+          <p className="font-semibold text-ink">{a.description[lang]}</p>
+          {a.quote && <p className="text-[15px] text-body">{quoted(a.quote)}</p>}
+        </section>
+      ))}
 
       {d.turningPoint && (
         <Card className="reveal-rise space-y-3" style={cascade(step++)}>

@@ -109,9 +109,15 @@ scoring:
   auto_fail:
     - code: chased_or_blocked
       description:
-        en: "Chased him, blocked the door, or ran down other dealers"
-        es: "Lo persiguió, le tapó la puerta o habló mal de otros dealers"
+        en: "Blocked the door, or held his keys or license so he could not leave"
+        es: "Le tapó la puerta o le retuvo las llaves o la licencia para que no se fuera"
       method: judge
+    - code: chased_or_ran_down
+      description:
+        en: "Chased him out the door, or ran down other dealers"
+        es: "Lo persiguió hasta la puerta o habló mal de otros dealers"
+      method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

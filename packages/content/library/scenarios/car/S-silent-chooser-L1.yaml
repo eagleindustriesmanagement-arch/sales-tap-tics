@@ -110,6 +110,7 @@ scoring:
         en: "Belittled her indecision or pressured her to choose on the spot"
         es: "Se burló de su indecisión o la presionó para escoger en el momento"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

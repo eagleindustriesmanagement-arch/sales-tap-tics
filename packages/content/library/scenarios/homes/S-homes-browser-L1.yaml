@@ -121,6 +121,7 @@ scoring:
         en: "Used her move-out date to push for a contract or deposit today"
         es: "Usó su fecha de salida para presionarla a firmar o dejar un depósito hoy"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

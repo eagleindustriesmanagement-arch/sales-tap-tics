@@ -115,6 +115,7 @@ scoring:
         en: "Refused to give a price on the phone or said prices are only given in person"
         es: "Se negó a dar un precio por teléfono o dijo que los precios solo se dan en persona"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

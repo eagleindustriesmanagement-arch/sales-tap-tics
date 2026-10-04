@@ -122,6 +122,7 @@ scoring:
         en: "Called the other set junk without having seen it"
         es: "Dijo que el otro juego es malo sin haberlo visto"
       method: judge
+      kind: coaching
     - code: unauthorized_discount
       description:
         en: "Offered a discount the store has not authorized"

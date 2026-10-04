@@ -118,6 +118,7 @@ scoring:
         en: "Used his move-in date to push for a purchase today"
         es: "Usó la fecha de la mudanza para presionarlo a comprar hoy"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

@@ -126,6 +126,7 @@ scoring:
         en: "Pre-judged the warranty for him (\"you'll want it\", \"most people take it\")"
         es: "Decidió por él sobre la garantía (\"usted la va a querer\", \"casi todos la llevan\")"
       method: judge
+      kind: coaching
     - code: misdescribed_add_on
       description:
         en: "Called a product required, impossible to remove, or free"

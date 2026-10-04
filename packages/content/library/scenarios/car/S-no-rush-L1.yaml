@@ -109,6 +109,7 @@ scoring:
         en: "Used his car trouble to pressure him or raise the price"
         es: "Usó el problema de su carro para presionarlo o subirle el precio"
       method: judge
+      kind: coaching
     - code: made_up_urgency
       description:
         en: "Made up a deadline, scarcity or another buyer"

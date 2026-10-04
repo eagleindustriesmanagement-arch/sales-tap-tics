@@ -118,6 +118,7 @@ scoring:
         en: "Belittled consulting a partner"
         es: "Le restó importancia a consultar con la pareja"
       method: judge
+      kind: coaching
     - code: promised_pet_proof
       description:
         en: "Promised the fabric is pet-proof or stain-proof"

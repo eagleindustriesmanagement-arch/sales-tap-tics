@@ -82,6 +82,8 @@ export interface ScoreResult {
   dimensions: Record<Exclude<Dimension, "honesty">, number | null>;
   items: ItemResult[];
   autoFails: { code: string; description: BilingualText; evidence: Evidence | null }[];
+  /** Scenario moves that cost the customer but deceive no one: named in the debrief, no points lost. */
+  coaching: { code: string; description: BilingualText; evidence: Evidence | null }[];
   criticalViolations: Violation[];
   reviewFlags: Violation[];
   judgeModel: string | null;

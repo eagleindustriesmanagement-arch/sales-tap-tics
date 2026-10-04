@@ -132,23 +132,26 @@ export interface JudgeComplianceContext {
   rules: import("@taptics/content").Rule[];
 }
 
+/** Version 2 tells the judge that honest persuasion is never marked down (decision 0034). */
+const JUDGE_PROMPT = 2;
+
 export class ClaudeJudge implements Judge {
   readonly model: string;
   readonly promptVersion: string;
 
   constructor(private readonly client: AiClient, private readonly tenantId: string, private readonly compliance: JudgeComplianceContext, private readonly sessionId: string | null = null) {
     this.model = client.models.judge.model;
-    this.promptVersion = loadPrompt("judge").ref;
+    this.promptVersion = loadPrompt("judge", JUDGE_PROMPT).ref;
   }
 
   async evaluate(input: JudgeInput): Promise<JudgeResult> {
-    const prompt = loadPrompt("judge");
+    const prompt = loadPrompt("judge", JUDGE_PROMPT);
     const system = render(prompt, {
       scenario: `${input.scenario.code}: ${input.scenario.title.en}. ${input.scenario.setting.en}`,
       facts: json(input.scenario.facts),
       hidden_truth: input.hiddenTruth,
       items: input.items.map((i) => `- ${i.code}: ${i.behavior.en}`).join("\n") || "(none)",
-      auto_fail: input.autoFail.map((a) => `- ${a.code}: ${a.description.en}`).join("\n") || "(none)",
+      auto_fail: input.autoFail.map((a) => `- ${a.code}${a.kind === "coaching" ? " (coaching)" : ""}: ${a.description.en}`).join("\n") || "(none)",
       transcript: input.transcript.map((t) => `${t.index}\t${t.speaker}\t${t.text}`).join("\n"),
     });
     const { parsed, message } = await this.client.parse<z.infer<typeof JudgeOutput>>(

@@ -35,8 +35,8 @@ const JUDGE_ALL: Partial<JudgeResult> = {
 };
 const ENGINE_WIN: EngineFacts = { endReason: "next_step", exit: null, hiddenRevealed: true, nextStepSecured: true, winMet: true };
 
-async function score(opts: { turns?: ScoredTurn[]; judge?: Partial<JudgeResult>; engine?: EngineFacts; textMode?: boolean; violations?: ReturnType<typeof checkUtterance> } = {}) {
-  return scoreSession({ library, scenario, transcript: opts.turns ?? transcript(), violations: opts.violations ?? [], engine: opts.engine ?? ENGINE_WIN, judge: new FixtureJudge(opts.judge ?? JUDGE_ALL), textMode: opts.textMode ?? false });
+async function score(opts: { scenario?: typeof scenario; turns?: ScoredTurn[]; judge?: Partial<JudgeResult>; engine?: EngineFacts; textMode?: boolean; violations?: ReturnType<typeof checkUtterance> } = {}) {
+  return scoreSession({ library, scenario: opts.scenario ?? scenario, transcript: opts.turns ?? transcript(), violations: opts.violations ?? [], engine: opts.engine ?? ENGINE_WIN, judge: new FixtureJudge(opts.judge ?? JUDGE_ALL), textMode: opts.textMode ?? false });
 }
 
 describe("O01 scoring table (spec 10.5)", () => {
@@ -79,8 +79,19 @@ describe("O01 scoring table (spec 10.5)", () => {
     expect(s.autoFails.map((a) => a.code)).toContain("made_up_deadline");
   });
 
-  it("a judge auto-fail (belittled the partner) also fails the attempt", async () => {
+  it("a coaching move (belittled the partner) is named but costs no points: only dishonesty zeroes (decision 0034)", async () => {
     const s = await score({ judge: { ...JUDGE_ALL, autoFail: { belittled_partner: { hit: true, evidence: { turnIndex: 1, quote: "Can't you decide yourself?" }, explanation: { en: "", es: "" } } } } });
+    expect(s.honestyPassed).toBe(true);
+    expect(s.total).toBe(100);
+    expect(s.autoFails).toEqual([]);
+    expect(s.coaching.map((a) => a.code)).toEqual(["belittled_partner"]);
+    const d = buildDebrief({ library, scenario, score: s, transcript: transcript(), endReason: "next_step" });
+    expect(d.coaching[0]!.quote).toBe("Can't you decide yourself?");
+  });
+
+  it("a judge honesty auto-fail still zeroes the attempt", async () => {
+    const lying = { ...scenario, scoring: { ...scenario.scoring!, auto_fail: [...scenario.scoring!.auto_fail, { code: "invented_discount", description: { en: "Invented a discount", es: "Inventó un descuento" }, method: "judge" as const, rule_families: [], kind: "honesty" as const }] } };
+    const s = await score({ scenario: lying, judge: { ...JUDGE_ALL, autoFail: { invented_discount: { hit: true, evidence: { turnIndex: 1, quote: "Special discount just for you" }, explanation: { en: "", es: "" } } } } });
     expect(s.honestyPassed).toBe(false);
     expect(s.total).toBe(0);
   });

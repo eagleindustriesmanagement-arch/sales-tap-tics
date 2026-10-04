@@ -113,8 +113,14 @@ scoring:
   auto_fail:
     - code: disparaged_other_dealer
       description:
-        en: "Ran down the other dealer or called their quote fake without proof"
-        es: "Habló mal del otro dealer o dijo que su cotización era falsa sin pruebas"
+        en: "Ran down the other dealer"
+        es: "Habló mal del otro dealer"
+      method: judge
+      kind: coaching
+    - code: called_quote_fake
+      description:
+        en: "Called their quote fake, or said what it hides, without proof"
+        es: "Dijo sin pruebas que su cotización era falsa o qué esconde"
       method: judge
     - code: made_up_deadline
       description:

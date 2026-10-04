@@ -114,9 +114,15 @@ scoring:
   auto_fail:
     - code: blamed_or_invented
       description:
-        en: "Blamed the website or other dealers, or made up a reason for the fee"
-        es: "Le echó la culpa a la página o a otros dealers, o inventó una razón para el cargo"
+        en: "Made up a reason for the fee"
+        es: "Inventó una razón para el cargo"
       method: judge
+    - code: blamed_others
+      description:
+        en: "Blamed the website or other dealers for the fee"
+        es: "Le echó la culpa del cargo a la página o a otros dealers"
+      method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

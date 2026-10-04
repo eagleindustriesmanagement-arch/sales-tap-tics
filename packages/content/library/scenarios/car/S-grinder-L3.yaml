@@ -116,6 +116,7 @@ scoring:
         en: "Insulted or mocked the customer's demand"
         es: "Insultó o se burló de lo que pedía el cliente"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

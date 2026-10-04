@@ -123,6 +123,7 @@ scoring:
         en: "Belittled consulting her husband"
         es: "Le restó importancia a consultar con el esposo"
       method: judge
+      kind: coaching
     - code: promised_roof_is_fine
       description:
         en: "Said the roof is fine, or the panels are no problem on it, without an inspection"

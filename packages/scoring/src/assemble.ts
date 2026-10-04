@@ -97,12 +97,15 @@ export async function scoreSession(input: ScoreInput): Promise<ScoreResult> {
   const reviewFlags = input.violations.filter((v) => v.uncertain);
   const familyOf = (code: string) => library.rules.get(code)?.family;
   const autoFails: ScoreResult["autoFails"] = [];
+  const coaching: ScoreResult["coaching"] = [];
   for (const a of autoFail) {
+    // Only dishonesty zeroes the attempt; a coaching move is named and costs nothing (decision 0034).
+    const into = a.kind === "coaching" ? coaching : autoFails;
     if (a.method === "rule_family") {
       const hit = critical.find((v) => a.rule_families.includes(familyOf(v.rule) ?? ""));
-      if (hit) autoFails.push({ code: a.code, description: a.description, evidence: { turnIndex: hit.turnIndex ?? 0, quote: hit.span.text } });
+      if (hit) into.push({ code: a.code, description: a.description, evidence: { turnIndex: hit.turnIndex ?? 0, quote: hit.span.text } });
     } else if (judged?.autoFail[a.code]?.hit) {
-      autoFails.push({ code: a.code, description: a.description, evidence: judged.autoFail[a.code]!.evidence });
+      into.push({ code: a.code, description: a.description, evidence: judged.autoFail[a.code]!.evidence });
     }
   }
   const honestyPassed = !failsHonesty(input.violations) && autoFails.length === 0;
@@ -139,6 +142,7 @@ export async function scoreSession(input: ScoreInput): Promise<ScoreResult> {
     dimensions: Object.fromEntries(Object.entries(dimensions).map(([k, v]) => [k, v === null ? null : round1(v)])) as ScoreResult["dimensions"],
     items: results,
     autoFails,
+    coaching,
     criticalViolations: critical,
     reviewFlags,
     judgeModel: judged?.model ?? null,

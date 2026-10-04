@@ -114,8 +114,14 @@ scoring:
   auto_fail:
     - code: disparaged_other_store
       description:
-        en: "Ran down the other store or guessed at what their numbers hide"
-        es: "Habló mal del otro dealer o adivinó qué esconden sus números"
+        en: "Ran down the other store"
+        es: "Habló mal del otro dealer"
+      method: judge
+      kind: coaching
+    - code: guessed_hidden_numbers
+      description:
+        en: "Said what the other store's numbers hide, without proof"
+        es: "Dijo sin pruebas qué esconden los números del otro dealer"
       method: judge
     - code: made_up_deadline
       description:

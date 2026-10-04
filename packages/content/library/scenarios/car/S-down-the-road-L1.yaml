@@ -115,6 +115,7 @@ scoring:
         en: "Ran down the other dealer"
         es: "Habló mal del otro dealer"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

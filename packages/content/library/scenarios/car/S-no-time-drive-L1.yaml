@@ -115,6 +115,7 @@ scoring:
         en: "Told him how the car feels getting onto the highway instead of letting him check"
         es: "Le aseguró cómo se siente el carro al entrar a la autopista en vez de dejar que lo comprobara"
       method: judge
+      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

@@ -9,6 +9,8 @@ export interface Debrief {
   /** Shown first, above the score (spec 12.3). */
   critical: { rule: string; quote: string; trueFact: BilingualText; compliantLine: BilingualText | null; explanation: BilingualText }[];
   autoFails: { code: string; description: BilingualText; quote: string | null }[];
+  /** Moves that cost the customer but deceive no one: shown as a note, no points lost (decision 0034). */
+  coaching: { code: string; description: BilingualText; quote: string | null }[];
   score: { total: number; passed: boolean; threshold: number };
   endReason: string | null;
   worked: { code: string; behavior: BilingualText; quote: string | null; explanation: BilingualText; concept?: BilingualText | null }[];
@@ -96,6 +98,7 @@ export function buildDebrief(input: { library: Library; scenario: Scenario; scor
   return {
     critical: score.criticalViolations.map((v) => ({ rule: v.rule, quote: v.span.text, trueFact: v.trueFact, compliantLine: v.compliantLine, explanation: v.explanation })),
     autoFails: score.autoFails.map((a) => ({ code: a.code, description: a.description, quote: a.evidence?.quote ?? null })),
+    coaching: score.coaching.map((a) => ({ code: a.code, description: a.description, quote: a.evidence?.quote ?? null })),
     score: { total: score.total, passed: score.passed, threshold: score.threshold },
     endReason: input.endReason,
     worked,
