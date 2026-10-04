@@ -4,20 +4,34 @@ title:
   en: "\"The price is too high\": ask compared to what"
   es: "\"El precio está muy alto\": pregunte comparado con qué"
 hook:
-  en: He liked the panels and the layout, and still says it's too high. There's a number in his head you haven't seen.
-  es: Le gustaron los paneles, le gustó el diseño, y aun así dice que está muy alto. En algún lado hay un número en su cabeza que usted no ha visto.
+  en: "He liked the panels and the layout, but says the price is too high. He is comparing it to something."
+  es: "Le gustaron los paneles y el diseño, pero dice que el precio está muy alto. Lo está comparando con algo."
+tactic:
+  en: "Don't argue or discount. Ask what he is comparing it to. Never promise a tax credit. Show the all-in price line by line."
+  es: "No discuta ni rebaje. Pregunte con qué lo está comparando. Nunca prometa un crédito de impuestos. Enseñe el precio total línea por línea."
+steps:
+  - en: "Pause, then ask: \"Too high compared to what?\""
+    es: "Haga una pausa y pregunte: \"¿Comparado con qué?\""
+  - en: "Ask if this is the right system for his house, apart from the price."
+    es: "Pregunte si este es el sistema correcto para su casa, aparte del precio."
+  - en: "Ask what he has heard, and let him tell you."
+    es: "Pregunte qué le han dicho y deje que le cuente."
+  - en: "If it's a tax credit, don't promise one. Send him to his tax professional."
+    es: "Si es un crédito de impuestos, no lo prometa. Mándelo a su contador."
+  - en: "Show the all-in price line by line. Set a day and time."
+    es: "Enseñe el precio total línea por línea. Fije un día y una hora."
 what:
-  en: Don't argue and don't discount. Ask what he's comparing to. Then hold the all-in price and show what's in it, line by line, next to his own bills.
-  es: No discuta y no rebaje. Pregunte con qué lo está comparando. Después sostenga el precio total y enséñele qué hay adentro, línea por línea, al lado de sus propias facturas.
+  en: "Keep the all-in price. Show what is in it, next to his own bills."
+  es: "Mantenga el precio total. Enseñe qué incluye, al lado de sus propias facturas."
 why:
-  en: "In solar, \"too high\" is almost always a comparison: a neighbor's story, a number online, a tax credit someone mentioned at a barbecue. You can't promise him any credit, and the rep who does is the one who gets the angry call later. Say so, send the tax question to his tax professional, and he trusts the rest of your numbers."
-  es: "En solar, \"muy alto\" casi siempre es una comparación: el cuento de un vecino, un número de internet, una cotización vieja. Muchas veces es un crédito de impuestos que alguien mencionó en una barbacoa. Usted no le puede prometer ningún crédito, y el vendedor que lo promete es el que después recibe la llamada brava. Dígalo, mande la pregunta de impuestos a su contador, y él le cree el resto de los números."
+  en: "Here the comparison is a neighbor's story about a tax credit. You can't promise him any credit. A rep who does gets the angry call later. Send that question to his tax professional, and he will trust your other numbers."
+  es: "Aquí la comparación es el cuento de un vecino sobre un crédito de impuestos. Usted no le puede prometer ningún crédito. El vendedor que lo promete después recibe la llamada de un cliente bravo. Mande esa pregunta a su contador, y él va a confiar en sus otros números."
 when:
-  en: When a reasonable buyer who likes the system says the price is high.
-  es: Cuando un comprador razonable al que le gusta el sistema dice que el precio está alto.
+  en: "When a buyer who likes the system says the price is high."
+  es: "Cuando un comprador al que le gusta el sistema dice que el precio está alto."
 when_not:
-  en: Never price the system net of a tax credit, and never promise savings on his electric bill.
-  es: Nunca dé el precio descontando un crédito de impuestos, y nunca le prometa ahorros en la factura de la luz.
+  en: "Never price the system after a tax credit. Never promise savings on his electric bill."
+  es: "Nunca dé el precio descontando un crédito de impuestos. Nunca le prometa ahorros en la factura de la luz."
 say:
   - en: I appreciate you being straight with me. Too high compared to what?
     es: Le agradezco que me lo diga claro. ¿Comparado con qué?
@@ -29,48 +43,48 @@ say:
     es: Déjeme enseñarle qué hay en el precio total, línea por línea, al lado de sus propias facturas.
 mistakes:
   - mistake:
-      en: '"That''s a great price. You won''t find better anywhere."'
-      es: '"Ese es un excelente precio. No va a encontrar nada mejor."'
+      en: "\"That's a great price. You won't find better anywhere.\""
+      es: "\"Ese es un excelente precio. No va a encontrar nada mejor.\""
     fix:
-      en: You argued before you asked. Ask what he's comparing to.
-      es: Discutió antes de preguntar. Pregunte con qué lo compara.
+      en: "You argued before you asked. Ask what he is comparing it to."
+      es: "Discutió antes de preguntar. Pregunte con qué lo compara."
   - mistake:
-      en: '"Don''t forget, you get a chunk back on your taxes."'
-      es: '"No se olvide que le devuelven un pedazo en los taxes."'
+      en: "\"Don't forget, you get some money back on your taxes.\""
+      es: "\"No se olvide que le devuelven algo en los taxes.\""
     fix:
-      en: You can't promise that. Send him to his tax professional.
-      es: Eso no lo puede prometer. Mándelo a su contador.
+      en: "You can't promise that. Send him to his tax professional."
+      es: "Eso no lo puede prometer. Mándelo a su contador."
   - mistake:
-      en: Knocking something off before you know the comparison.
-      es: Rebajar algo antes de saber con qué lo compara.
+      en: "Lowering the price before you know the comparison."
+      es: "Rebajar algo antes de saber con qué lo compara."
     fix:
-      en: A guess discount tells him the first price wasn't real.
-      es: Un descuento a ciegas le dice que el primer precio no era de verdad.
+      en: "A discount on a guess says the first price wasn't real."
+      es: "Un descuento sin saber nada dice que el primer precio no era real."
 concepts:
   - name: { en: The pause, es: La pausa }
     idea:
-      en: Silence first. A fast defense sounds rehearsed.
-      es: Primero silencio. Una defensa rápida suena ensayada.
+      en: "Stay quiet first. A fast defense sounds rehearsed."
+      es: "Primero, silencio. Una defensa rápida suena ensayada."
     items: [SOL-O04-PAUSE]
   - name: { en: "Acknowledge, don't argue", es: "Reconozca, no discuta" }
     idea:
-      en: It's real money. Say so, without arguing or discounting.
-      es: Es dinero de verdad. Dígalo, sin discutir ni bajar el precio.
+      en: "It's real money. Say so, without arguing."
+      es: "Es dinero de verdad. Dígalo, sin discutir."
     items: [SOL-O04-ACK]
   - name: { en: '"Compared to what?"', es: '"¿Comparado con qué?"' }
     idea:
-      en: The comparison is the real objection. Get it on the table.
-      es: La comparación es la objeción real. Póngala sobre la mesa.
+      en: "Get him to tell you what he is comparing to."
+      es: "Haga que él le diga con qué lo compara."
     items: [SOL-O04-QFIRST, SOL-O04-HIDDEN]
   - name: { en: Right system, es: El sistema correcto }
     idea:
-      en: Confirm the system fits apart from the price.
-      es: Confirme que el sistema le sirve, aparte del precio.
+      en: "Confirm the system fits, apart from the price."
+      es: "Confirme que el sistema le sirve, aparte del precio."
     items: [SOL-O04-ISOLATE]
   - name: { en: "Hold the price, show the value", es: "Sostenga el precio, enseñe el valor" }
     idea:
-      en: No credit promises. The all-in price, line by line, and a day to go through it.
-      es: Sin promesas de créditos. El precio total, línea por línea, y un día para revisarlo.
+      en: "No credit promises. Go over the all-in price, line by line."
+      es: "Sin promesas de créditos. Repase el precio total, línea por línea."
     items: [SOL-O04-VALUE, SOL-O04-NEXT]
 sources:
   - T001 Pause; T028 Counter a low anchor by refocusing; T017 Sell value before discounting; T086 Side-by-side; T005 Isolate; T014 Firm next step

@@ -4,20 +4,34 @@ title:
   en: "\"The price is too high\": ask \"compared to what?\""
   es: "\"El precio está muy alto\": pregunte \"¿comparado con qué?\""
 hook:
-  en: She loves the bedroom set, she has the budget, and she still says it's too high. She's not haggling. She's holding a number you haven't seen.
-  es: Le encanta el juego de cuarto, tiene el presupuesto, y aun así dice que está muy alto. No está regateando. Tiene un número que usted no ha visto.
+  en: "She loves the bedroom set, but says the price is too high. She is comparing it to a price you haven't seen."
+  es: "Le encanta el juego de cuarto, pero dice que el precio está muy alto. Lo está comparando con un precio que usted no ha visto."
+tactic:
+  en: "Don't defend the price or cut it. Ask what she is comparing it to. Then compare both all-in, with the same features."
+  es: "No defienda el precio ni lo rebaje. Pregunte con qué lo está comparando. Después compare los dos con precio total y las mismas características."
+steps:
+  - en: "Pause, thank her, then ask: \"Too high compared to what?\""
+    es: "Haga una pausa, déle las gracias y pregunte: \"¿Muy alto comparado con qué?\""
+  - en: "Ask if this is the set she wants, apart from the price."
+    es: "Pregunte si este es el juego que quiere, aparte del precio."
+  - en: "Ask what she saw. Don't call it worse."
+    es: "Pregunte qué vio. No diga que es peor."
+  - en: "Compare materials, drawers, and whether delivery and setup are included."
+    es: "Compare materiales, gavetas, y si la entrega y la instalación están incluidas."
+  - en: "Mention the real store promotion, without pressure. Set a day and time."
+    es: "Mencione la promoción real de la tienda, sin presionar. Fije un día y una hora."
 what:
-  en: Don't defend the price and don't cut it. Ask what she's comparing it to. Then line both up side by side, all-in, same features.
-  es: No defienda el precio y no lo rebaje. Pregunte con qué lo está comparando. Después ponga los dos lado a lado, precio total, mismas características.
+  en: "Find her comparison first. Then compare both sets fairly, item by item."
+  es: "Primero averigüe con qué lo compara. Después compare los dos juegos con justicia, punto por punto."
 why:
-  en: Every furniture buyer has a phone full of pictures. Online, veneer and solid oak look the same, and the delivery charge shows up at checkout. She's afraid of feeling foolish later. Ask, and you see the comparison. Argue, and she goes home to it.
-  es: Todo cliente de muebles tiene el teléfono lleno de fotos. En internet, el enchapado y el roble macizo se ven iguales, y el cargo de entrega aparece en el checkout. Ella tiene miedo de sentirse boba después. Si pregunta, ve la comparación. Si discute, ella se va a la casa con ella.
+  en: "Online, veneer and solid oak look the same, and delivery often costs extra. She is afraid of paying too much. If you ask, you see her comparison. If you argue, she leaves and buys the other one."
+  es: "En internet, el enchapado y el roble macizo se ven iguales, y la entrega muchas veces cuesta aparte. Ella tiene miedo de pagar de más. Si pregunta, ve con qué lo compara. Si discute, ella se va y compra el otro."
 when:
-  en: Any time a customer who wants the piece says the price is too high.
-  es: Cada vez que un cliente que quiere la pieza dice que el precio está muy alto.
+  en: "Any time a customer who wants the piece says the price is too high."
+  es: "Cada vez que un cliente que quiere la pieza dice que el precio está muy alto."
 when_not:
-  en: Not to knock a set you haven't seen. If theirs is the better buy for her, say so.
-  es: No para hablar mal de un juego que usted no ha visto. Si el otro le conviene más, dígaselo.
+  en: "Never criticize a set you haven't seen. If the other one is the better buy for her, say so."
+  es: "Nunca hable mal de un juego que usted no ha visto. Si el otro le conviene más, dígaselo."
 say:
   - en: I appreciate you saying it straight. Too high compared to what?
     es: Le agradezco que me lo diga claro. ¿Muy alto comparado con qué?
@@ -29,54 +43,54 @@ say:
     es: Aquí está el nuestro con precio total, con la entrega white-glove, más el impuesto de venta. Ahora veamos el otro igual.
 mistakes:
   - mistake:
-      en: '"You get what you pay for."'
-      es: '"Lo barato sale caro."'
+      en: "\"You get what you pay for.\""
+      es: "\"Lo barato sale caro.\""
     fix:
-      en: That's a lecture, not a question. Ask what she saw.
-      es: Eso es un sermón, no una pregunta. Pregúntele qué vio.
+      en: "That is a lecture. Ask what she saw."
+      es: "Eso es un sermón. Pregúntele qué vio."
   - mistake:
-      en: '"What if I knock something off?"'
-      es: '"¿Y si le rebajo algo?"'
+      en: "\"What if I knock something off?\""
+      es: "\"¿Y si le rebajo algo?\""
     fix:
-      en: A discount on a guess tells her the price was fake.
-      es: Un descuento a ciegas le dice que el precio era de mentira.
+      en: "A discount on a guess says the price wasn't real."
+      es: "Un descuento sin saber nada dice que el precio no era real."
   - mistake:
-      en: Calling the online set junk.
-      es: Decir que el juego de internet es basura.
+      en: "Calling the online set junk."
+      es: "Decir que el juego de internet es basura."
     fix:
-      en: You haven't seen it. Compare materials, drawers and delivery, item by item.
-      es: Usted no lo ha visto. Compare materiales, gavetas y entrega, punto por punto.
+      en: "You haven't seen it. Compare item by item."
+      es: "Usted no lo ha visto. Compare punto por punto."
 concepts:
   - name:
       en: "Pause, then thank her"
       es: "Pausa, y agradézcale"
     idea:
-      en: Two seconds, then thank her for saying it. No defense.
-      es: Dos segundos, y agradézcale que lo dijera. Sin defenderse.
+      en: "Wait two seconds. Thank her. Don't defend the price."
+      es: "Espere dos segundos. Déle las gracias. No defienda el precio."
     items: [FUR-O04-PAUSE, FUR-O04-ACK]
   - name: { en: '"Compared to what?"', es: '"¿Comparado con qué?"' }
     idea:
-      en: The most useful question in furniture. It brings out the number she's holding.
-      es: La pregunta más útil en muebles. Saca el número que ella tiene en la cabeza.
+      en: "It brings out the price she has in mind."
+      es: "Saca el precio que ella tiene en la cabeza."
     items: [FUR-O04-QFIRST, FUR-O04-HIDDEN]
   - name:
       en: "The set, apart from the price"
       es: "El juego, aparte del precio"
     idea:
-      en: Confirm she wants this set, so price is the only gap.
-      es: Confirme que quiere este juego, para que el precio sea lo único que falta.
+      en: "Check that she wants this set."
+      es: "Confirme que quiere este juego."
     items: [FUR-O04-ISOLATE]
   - name:
       en: "Side by side, all-in"
       es: "Lado a lado, precio total"
     idea:
-      en: Same features, delivery included. Never trash what you haven't seen.
-      es: Mismas características, con la entrega. Nunca hable mal de lo que no ha visto.
+      en: "Same features, delivery included. Never criticize what you haven't seen."
+      es: "Mismas características, con la entrega incluida. Nunca hable mal de lo que no ha visto."
     items: [FUR-O04-SIDE]
   - name: { en: Lock a day and time, es: Amarre un día y una hora }
     idea:
-      en: She comes back with the link at a set time, and you compare together.
-      es: Ella vuelve con el link a una hora fija, y comparan juntos.
+      en: "She comes back with the link at a set time."
+      es: "Que vuelva con el link a una hora fija."
     items: [FUR-O04-NEXT]
 sources:
   - T001 Pause and slow down; T003 Acknowledge; T017 Sell value before discounting; T005 Isolate; T086 Side-by-side; T028 Counter a low anchor by refocusing; T014 Specific next step

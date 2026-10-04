@@ -4,20 +4,34 @@ title:
   en: "\"I need to talk to my husband\": find out what he'll ask"
   es: "\"Tengo que hablarlo con mi esposo\": averigüe qué va a preguntar él"
 hook:
-  en: Great consult, she nodded through the whole layout, then she says it. Most reps leave a brochure. Not you.
-  es: La consulta salió buenísima, ella asintió con todo el diseño, y entonces lo dice. Casi todos dejan el folleto. Usted no.
+  en: "The visit went well. Then she says she needs to talk to her husband. Don't just leave a brochure."
+  es: "La visita salió bien. Entonces dice que tiene que hablarlo con su esposo. No se limite a dejarle un folleto."
+tactic:
+  en: "Agree, then ask what her husband will ask first. Invite him to a site survey that answers it."
+  es: "Déle la razón y pregunte qué va a preguntar su esposo primero. Invítelo a una visita técnica que conteste esa pregunta."
+steps:
+  - en: "Pause, then agree: \"Of course. You should both be comfortable.\""
+    es: "Haga una pausa y déle la razón: \"Claro que sí. Los dos tienen que sentirse cómodos.\""
+  - en: "Ask: \"What do you think his first question will be?\""
+    es: "Pregunte: \"¿Qué cree que él le va a preguntar primero?\""
+  - en: "Ask if the system and the numbers make sense to her, apart from that."
+    es: "Pregunte si el sistema y los números le parecen bien, aparte de eso."
+  - en: "If the worry is the roof, don't guess. Offer a site survey with a written result."
+    es: "Si la preocupación es el techo, no adivine. Ofrezca una visita técnica con el resultado por escrito."
+  - en: "Set a day and time when her husband can be there."
+    es: "Fije un día y una hora en que su esposo pueda estar."
 what:
-  en: Treat the spouse who isn't at the table as a buyer who hasn't seen the roof yet. Don't fight it. Find out what the talk tonight will be about, and give them both a reason to sit down with you.
-  es: Trate al esposo que no está en la mesa como un comprador que todavía no ha visto el techo. No lo pelee. Averigüe de qué se va a tratar la conversación de esta noche y deles a los dos una razón para sentarse con usted.
+  en: "Treat the husband as a buyer who hasn't seen the roof yet. Find out what they will talk about tonight."
+  es: "Trate al esposo como un comprador que todavía no ha visto el techo. Averigüe de qué van a hablar esta noche."
 why:
-  en: Solar goes on the house, and the house belongs to both of them. Often she's carrying his objection, usually about the house itself, not the panels. Push, and you prove his doubts right. Ask what he'll ask, and you're on her side.
-  es: El solar va en la casa, y la casa es de los dos. Muchas veces ella trae la objeción de él, casi siempre sobre la casa, no sobre los paneles. Si presiona, le da la razón a él. Si pregunta qué va a preguntar él, usted está del lado de ella.
+  en: "The house belongs to both of them. Often she is repeating his worry, and it's usually about the house, not the panels. If you push, you prove him right. If you ask, you are on her side."
+  es: "La casa es de los dos. Muchas veces ella trae la preocupación de él, y casi siempre es sobre la casa, no sobre los paneles. Si presiona, le da la razón a él. Si pregunta, usted está del lado de ella."
 when:
-  en: Whenever a homeowner names someone who isn't at the table.
-  es: Cada vez que el dueño de la casa nombra a alguien que no está en la mesa.
+  en: "Whenever a homeowner names someone who isn't at the table."
+  es: "Cada vez que el dueño de la casa nombra a alguien que no está en la mesa."
 when_not:
-  en: Not a trick to get a signature tonight. If he decides, leave it all in writing and set the visit with him there.
-  es: No es un truco para que firme esta noche. Si decide él, deje todo por escrito y fije la visita con él presente.
+  en: "Don't push for a signature tonight. Set a visit with him there."
+  es: "No presione para que firme esta noche. Fije una visita con él presente."
 say:
   - en: Of course. It's your home, and you should both be comfortable with it.
     es: Claro que sí. Es su casa, y los dos tienen que sentirse cómodos.
@@ -27,48 +41,48 @@ say:
     es: No voy a adivinar sobre su techo. Que la visita técnica lo revise con los dos presentes.
 mistakes:
   - mistake:
-      en: '"What if you sign tonight and tell him in the morning?"'
-      es: '"¿Y si firma esta noche y se lo cuenta a él en la mañana?"'
+      en: "\"What if you sign tonight and tell him in the morning?\""
+      es: "\"¿Y si firma esta noche y se lo cuenta a él en la mañana?\""
     fix:
-      en: You just made him the enemy. Ask about him instead.
-      es: Lo acaba de convertir en el enemigo. Pregunte por él.
+      en: "That makes him the enemy. Ask about him instead."
+      es: "Eso lo convierte en el enemigo. Mejor pregunte por él."
   - mistake:
-      en: '"The roof looks fine to me."'
-      es: '"El techo se ve bien."'
+      en: "\"The roof looks fine to me.\""
+      es: "\"El techo se ve bien.\""
     fix:
-      en: You haven't inspected it. Offer the site survey and a written result.
-      es: Usted no lo ha inspeccionado. Ofrezca la visita técnica y el resultado por escrito.
+      en: "You haven't inspected it. Offer the site survey."
+      es: "Usted no lo ha inspeccionado. Ofrezca la visita técnica."
   - mistake:
-      en: Leaving a brochure with "let me know."
-      es: Dejar el folleto con un "me avisa".
+      en: "Leaving a brochure with \"let me know.\""
+      es: "Dejar el folleto con un \"me avisa\"."
     fix:
-      en: That's a lost deal. Leave with a day, a time, and him at the table.
-      es: Eso es un cliente perdido. Termine con un día, una hora y él en la mesa.
+      en: "You will likely lose the sale. Set a day and time with him."
+      es: "Lo más seguro es que pierda la venta. Fije un día y una hora con él."
 concepts:
   - name: { en: The two-second pause, es: La pausa de dos segundos }
     idea:
-      en: Let it land. Silence says you heard her and won't argue.
-      es: Deje que caiga. El silencio dice que usted la escuchó y no va a discutir.
+      en: "Wait two seconds. Silence shows you won't argue."
+      es: "Espere dos segundos. El silencio dice que no va a discutir."
     items: [SOL-O01-PAUSE]
   - name: { en: Respect the partner, es: Respete a la pareja }
     idea:
-      en: He's a buyer, not an obstacle. Agree, and invite him to the next visit.
-      es: Él es comprador, no un obstáculo. Déle la razón e invítelo a la próxima visita.
+      en: "He is a buyer too. Invite him to the next visit."
+      es: "Él también es comprador. Invítelo a la próxima visita."
     items: [SOL-O01-ACK, SOL-O01-PARTNER]
   - name: { en: His first question, es: La primera pregunta de él }
     idea:
-      en: Asking what he'll ask brings out the real worry, often the roof.
-      es: Preguntar qué va a preguntar él saca la preocupación real, muchas veces el techo.
+      en: "Asking what he will ask brings out the real worry, often the roof."
+      es: "Preguntar qué va a preguntar él saca la preocupación real, muchas veces el techo."
     items: [SOL-O01-QFIRST, SOL-O01-HIDDEN]
   - name: { en: '"Setting that aside…"', es: '"Dejando eso a un lado…"' }
     idea:
-      en: Isolate. Is the talk at home the only thing between her and the system?
-      es: Aísle. ¿La conversación en la casa es lo único entre ella y el sistema?
+      en: "Check that the system is right for her, apart from the talk at home."
+      es: "Confirme que el sistema le parece bien, aparte de la conversación en la casa."
     items: [SOL-O01-ISOLATE]
   - name: { en: Lock a day and time, es: Amarre un día y una hora }
     idea:
-      en: A site survey they both agree to, with a day and a time.
-      es: Una visita técnica que los dos aceptan, con día y hora.
+      en: "A site survey on a day and time that work for both."
+      es: "Una visita técnica un día y a una hora que les sirvan a los dos."
     items: [SOL-O01-NEXT]
 sources:
   - T001 Pause and slow down; T002 Clarify with a question; T005 Isolate; T013 Include the decision maker; T014 Specific next step

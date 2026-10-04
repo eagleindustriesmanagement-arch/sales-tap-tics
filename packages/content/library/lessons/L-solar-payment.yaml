@@ -4,20 +4,34 @@ title:
   en: "\"The payment is too high\": ask his number, then what's in it"
   es: "\"El pago está muy alto\": pregunte su número, y después qué hay adentro"
 hook:
-  en: He wanted solar to lower his bills, and your quote just added a bill. Before you touch a number, find out what he thinks he's paying for.
-  es: Él quería solar para bajar la cuenta de la luz, y su cotización le acaba de sumar otra cuenta. Antes de tocar un número, averigüe qué cree él que está pagando.
+  en: "He wanted solar to lower his bills. Before you change any number, find out what he thinks he is paying for."
+  es: "Él quería solar para bajar la cuenta de la luz. Antes de cambiar un número, averigüe qué cree que está pagando."
+tactic:
+  en: "Ask what payment he expected. Then say what is in it and what is optional. Show real estimates with and without the optional parts."
+  es: "Pregunte qué pago esperaba. Después diga qué incluye y qué es opcional. Enseñe estimados reales con las partes opcionales y sin ellas."
+steps:
+  - en: "Pause, then ask: \"What payment were you expecting?\""
+    es: "Haga una pausa y pregunte: \"¿Qué pago tenía en mente?\""
+  - en: "Ask if the system itself is right for his house."
+    es: "Pregunte si el sistema en sí es el correcto para su casa."
+  - en: "Name what is in the payment: the home battery and the monitoring upgrade."
+    es: "Diga qué incluye el pago: la batería y el monitoreo."
+  - en: "Say plainly that both are optional."
+    es: "Diga claramente que los dos son opcionales."
+  - en: "Show real estimates with and without them, same term, subject to approval. Set a day and time."
+    es: "Enseñe estimados reales con ellos y sin ellos, al mismo plazo, sujetos a aprobación. Fije un día y una hora."
 what:
-  en: Ask what payment he had in mind. Then walk through what's in it, say plainly which parts are optional, and show the real estimates with and without them.
-  es: Pregunte qué pago tenía en mente. Después repase qué hay adentro, diga claramente qué partes son opcionales y enseñe los estimados reales con ellas y sin ellas.
+  en: "Find out what is in the payment. Name each optional part. Show real estimates both ways."
+  es: "Averigüe qué hay en el pago. Nombre cada parte opcional. Enseñe estimados reales de las dos maneras."
 why:
-  en: Solar buyers hear a lot at the door before you sit down. Some were told a battery is required. A customer who thinks an add-on is mandatory won't ask to drop it; he'll just say the payment is high and leave. Your question is what gives him permission to tell you.
-  es: El cliente de solar oye mucho en la puerta antes de que usted se siente. A algunos les dijeron que la batería es obligatoria. El que piensa que algo es obligatorio no pide que se lo quiten; dice que el pago está alto y se va. Su pregunta es lo que le da permiso para decírselo.
+  en: "Other salespeople told some solar buyers that a battery is required. A buyer who believes that won't ask to remove it. He'll just say the payment is too high and leave."
+  es: "Otros vendedores les dijeron a algunos clientes de solar que la batería es obligatoria. El que lo cree no va a pedir que se la quiten. Solo va a decir que el pago está muy alto, y se va a ir."
 when:
-  en: When a financed quote includes an optional add-on and the payment is the objection.
-  es: Cuando una cotización financiada incluye un adicional opcional y la objeción es el pago.
+  en: "A financed quote includes an optional add-on, and he says the payment is too high."
+  es: "Una cotización financiada incluye un adicional opcional, y él dice que el pago está muy alto."
 when_not:
-  en: Never stretch the term to hit his number without saying so, and never quote a payment that only works if a tax credit gets paid in.
-  es: Nunca alargue el plazo para llegar a su número sin decirlo, y nunca dé un pago que solo funciona si le entra un crédito de impuestos.
+  en: "Never make the loan longer to reach his number without saying so. Never quote a payment that depends on a tax credit."
+  es: "Nunca alargue el plazo para llegar a su número sin decirlo. Nunca dé un pago que depende de un crédito de impuestos."
 say:
   - en: Help me understand. When you say too high, what payment were you expecting?
     es: Ayúdeme a entender. Cuando dice que está muy alto, ¿qué pago tenía en mente?
@@ -29,48 +43,48 @@ say:
     es: Le pongo los dos estimados por escrito, con la batería y sin ella, al mismo plazo, sujetos a la aprobación.
 mistakes:
   - mistake:
-      en: '"That''s a great payment for everything you''re getting."'
-      es: '"Ese es un excelente pago por todo lo que lleva."'
+      en: "\"That's a great payment for everything you're getting.\""
+      es: "\"Ese es un excelente pago por todo lo que lleva.\""
     fix:
-      en: You argued with his budget. Ask for his number.
-      es: Le discutió su presupuesto. Pregúntele su número.
+      en: "You argued with his budget. Ask for his number."
+      es: "Le discutió su presupuesto. Pregúntele su número."
   - mistake:
-      en: Stretching the term until the payment fits.
-      es: Alargar el plazo hasta que el pago quepa.
+      en: "Making the loan longer until the payment fits."
+      es: "Alargar el plazo hasta que el pago quepa."
     fix:
-      en: First find out what's in the payment he doesn't want.
-      es: Primero averigüe qué hay en el pago que él no quiere.
+      en: "First find out what is in the payment that he doesn't want."
+      es: "Primero averigüe qué hay en el pago que él no quiere."
   - mistake:
-      en: Quoting a payment with the battery and never naming it.
-      es: Dar un pago con la batería y nunca nombrarla.
+      en: "Quoting a payment with the battery and never naming it."
+      es: "Dar un pago con la batería y nunca nombrarla."
     fix:
-      en: Name every add-on in the payment and say it's optional.
-      es: Nombre cada adicional del pago y diga que es opcional.
+      en: "Name every add-on in the payment and say it's optional."
+      es: "Nombre cada adicional del pago y diga que es opcional."
 concepts:
   - name: { en: The pause, es: La pausa }
     idea:
-      en: Let it land before you reach for the calculator.
-      es: Deje que caiga antes de buscar la calculadora.
+      en: "Wait two seconds before you start on the numbers."
+      es: "Espere dos segundos antes de empezar con los números."
     items: [SOL-O03-PAUSE]
   - name: { en: His number first, es: Primero su número }
     idea:
-      en: His number tells you where to look.
-      es: Su número le dice dónde buscar.
+      en: "His number tells you what to look for."
+      es: "Su número le dice qué buscar."
     items: [SOL-O03-QFIRST]
   - name: { en: Right system, es: El sistema correcto }
     idea:
-      en: Confirm the panels are right apart from the payment.
-      es: Confirme que los paneles son los correctos, aparte del pago.
+      en: "Confirm the panels are right for him, apart from the payment."
+      es: "Confirme que los paneles son los correctos, aparte del pago."
     items: [SOL-O03-ISOLATE]
   - name: { en: What's in the payment, es: Qué hay en el pago }
     idea:
-      en: Ask what he wants in it. Then say plainly what's optional.
-      es: Pregunte qué quiere ahí. Después diga claramente qué es opcional.
+      en: "Ask what he wants in it. Then say plainly what is optional."
+      es: "Pregunte qué quiere ahí. Después diga claramente qué es opcional."
     items: [SOL-O03-HIDDEN, SOL-O03-OPTIONAL]
   - name: { en: "Two real estimates, then a time", es: "Dos estimados reales, y después la hora" }
     idea:
-      en: With and without, same term, and a day to go over them.
-      es: Con y sin, al mismo plazo, y un día para revisarlos.
+      en: "Show both on the same term. Then set a day to go over them."
+      es: "Enseñe los dos al mismo plazo. Después fije un día para revisarlos."
     items: [SOL-O03-OPTIONS, SOL-O03-NEXT]
 sources:
   - T001 Pause; T002 Clarify with a question; T005 Isolate; T110 Treat a hard demand as a clue; T121 Two-payment menu; T014 Firm next step

@@ -4,20 +4,34 @@ title:
   en: "\"I need to talk to my husband\": find out what he'll ask"
   es: "\"Tengo que hablarlo con mi esposo\": averigüe qué va a preguntar él"
 hook:
-  en: Third time on the sectional, she's in love, then she says it. Half the floor hands her a card. Not you.
-  es: Tercera vez en el sectional, está enamorada, y entonces lo dice. Medio showroom le da la tarjeta. Usted no.
+  en: "She loves the sectional. Then she says she needs to talk to her husband. Don't just hand her a card."
+  es: "Le encanta el sectional. Entonces dice que tiene que hablarlo con su esposo. No se limite a darle su tarjeta."
+tactic:
+  en: "Agree, then ask what her husband will ask first. Answer it with something real, like fabric swatches, not a promise."
+  es: "Déle la razón y pregunte qué va a preguntar su esposo primero. Contéstelo con algo real, como muestras de tela, no con una promesa."
+steps:
+  - en: "Pause, then agree: \"Of course. You should both love it.\""
+    es: "Haga una pausa y déle la razón: \"Claro que sí. Los dos tienen que estar contentos.\""
+  - en: "Ask: \"What do you think his first question will be?\""
+    es: "Pregunte: \"¿Qué cree que él le va a preguntar primero?\""
+  - en: "Ask if the sectional is right for her, apart from his opinion."
+    es: "Pregunte si el sectional es el correcto para ella, aparte de lo que opine él."
+  - en: "If the worry is the color or the dog, offer swatches to test at home."
+    es: "Si le preocupa el color o el perro, ofrezca muestras de tela para probar en la casa."
+  - en: "Set a day and time for both of them to come in."
+    es: "Fije un día y una hora para que vengan los dos."
 what:
-  en: Treat the husband as a buyer who isn't here yet. Find out what the talk at home will be about, settle it with something real, and get them both back.
-  es: Trate al esposo como un comprador que todavía no llegó. Averigüe de qué se va a tratar la conversación en la casa, resuélvalo con algo real, y tráigalos a los dos de vuelta.
+  en: "Treat the husband as a buyer who isn't here yet. Settle his worry with something real."
+  es: "Trate al esposo como un comprador que todavía no ha llegado. Resuelva su preocupación con algo real."
 why:
-  en: A sofa lives in the house ten years. She isn't stalling; she can already hear the argument about the color, the dog, the kids. Push, and you prove it's coming. Ask what he'll say, and you're on her side.
-  es: Un sofá vive en la casa diez años, y todo el mundo opina. No está dando largas; ya está oyendo la discusión del color, del perro, de los niños. Si presiona, le confirma que la discusión viene. Si pregunta qué va a decir él, usted está de su lado.
+  en: "She can already picture the argument about the color or the dog. If you push, you make it worse. If you ask what he will say, you are on her side."
+  es: "Ella ya se imagina la discusión por el color o el perro. Si presiona, la empeora. Si pregunta qué va a decir él, usted está de su lado."
 when:
-  en: Whenever she names someone who isn't there, before price or delivery.
-  es: Cada vez que la clienta nombra a alguien que no está, antes de volver a hablar de precio o entrega.
+  en: "When she names someone who isn't there."
+  es: "Cuando la clienta nombra a alguien que no está."
 when_not:
-  en: Not as a trick to keep her seated. If he decides, set the visit.
-  es: No como truco para tenerla sentada. Si decide él, ayúdela a llevarse todo y fijen la visita.
+  en: "Don't use it as a trick to keep her in the store."
+  es: "No lo use como truco para que no se vaya."
 say:
   - en: Of course. It's a big piece for your home, and you should both love it.
     es: Claro que sí. Es una pieza grande para su casa, y los dos tienen que estar contentos.
@@ -29,54 +43,54 @@ say:
     es: No le voy a prometer que una tela no se mancha. Llévese las muestras y pruébelas.
 mistakes:
   - mistake:
-      en: '"Men don''t care about sofas. Surprise him."'
-      es: '"A los hombres no les importan los muebles. Dele la sorpresa."'
+      en: "\"Men don't care about sofas. Surprise him.\""
+      es: "\"A los hombres no les importan los muebles. Déle la sorpresa.\""
     fix:
-      en: You just made him the enemy. Ask about him instead.
-      es: Lo acaba de convertir en el enemigo. Pregunte por él.
+      en: "That makes him the enemy. Ask about him instead."
+      es: "Eso lo convierte en el enemigo. Mejor pregunte por él."
   - mistake:
-      en: '"Performance fabric is pet-proof."'
-      es: '"La tela performance es a prueba de mascotas."'
+      en: "\"Performance fabric is pet-proof.\""
+      es: "\"La tela performance es a prueba de mascotas.\""
     fix:
-      en: A promise you can't keep. Hand over swatches and the care sheet.
-      es: Una promesa que no puede cumplir. Dele muestras y la hoja de cuidado.
+      en: "You can't promise that. Give her swatches and the care sheet."
+      es: "Eso no lo puede prometer. Déle muestras y la hoja de cuidado."
   - mistake:
-      en: A card and "let me know."
-      es: La tarjeta y un "me avisa".
+      en: "A card and \"let me know.\""
+      es: "La tarjeta y un \"me avisa\"."
     fix:
-      en: That's a walk. Leave with a day, a time, and both of them coming.
-      es: Esa clienta se fue. Termine con un día, una hora, y los dos viniendo.
+      en: "She may not come back. Set a day and time for both."
+      es: "A lo mejor no vuelve. Fije un día y una hora para los dos."
 concepts:
   - name:
       en: "Pause, then respect him"
       es: "Pausa, y respeto"
     idea:
-      en: Two seconds of silence, then agree it's a decision for both of them.
-      es: "Dos segundos de silencio, y después déle la razón: es una decisión de los dos."
+      en: "Wait two seconds. Agree it's a decision for both."
+      es: "Espere dos segundos. Déle la razón: es una decisión de los dos."
     items: [FUR-O01-PAUSE, FUR-O01-ACK]
   - name: { en: His first question, es: La primera pregunta de él }
     idea:
-      en: Asking what he'll ask brings out the real worry, usually the color or who lives on it.
-      es: Preguntar qué va a preguntar él saca la preocupación real, casi siempre el color o quién lo usa.
+      en: "It brings out the real worry, often the color."
+      es: "Saca la preocupación real, muchas veces el color."
     items: [FUR-O01-QFIRST, FUR-O01-HIDDEN]
   - name: { en: '"Other than that…"', es: '"Aparte de eso…"' }
     idea:
-      en: Isolate. Is the talk at home the only thing in the way?
-      es: Aísle. ¿La conversación en la casa es lo único que falta?
+      en: "Check that the sectional is right for her, apart from the talk at home."
+      es: "Confirme que el sectional es el correcto, aparte de la conversación en la casa."
     items: [FUR-O01-ISOLATE]
   - name:
       en: "Swatches, not promises"
       es: "Muestras, no promesas"
     idea:
-      en: Settle a fabric worry with fabric they can test, never with "it won't stain".
-      es: Una duda de tela se resuelve con tela que puedan probar, nunca con un "no se mancha".
+      en: "Answer a fabric worry with fabric they can test."
+      es: "Conteste una duda de tela con tela que puedan probar."
     items: [FUR-O01-PROOF]
   - name:
       en: "Both of them, a day and a time"
       es: "Los dos, un día y una hora"
     idea:
-      en: Invite him in, or a video call now, at a time both agree to.
-      es: Invítelo a venir, o una videollamada ahora, a una hora que los dos aceptan.
+      en: "Invite him in, or set a video call, at a time that works for both."
+      es: "Invítelo a venir, o hagan una videollamada, a una hora que les sirva a los dos."
     items: [FUR-O01-NEXT]
 sources:
   - T001 Pause and slow down; T003 Acknowledge; T002 Clarify with a question; T005 Isolate; T094 Remove real risk; T013 Include the decision maker; T014 Specific next step

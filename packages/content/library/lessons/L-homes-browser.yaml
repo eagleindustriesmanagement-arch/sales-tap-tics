@@ -4,20 +4,34 @@ title:
   en: "\"I'm just looking\": take the pressure off, then ask about home"
   es: "\"Solo estoy mirando\": quítele la presión y pregunte por su casa"
 hook:
-  en: Saturday walk-in, purse on her shoulder, one foot out the model's door. She's not just looking. She just doesn't trust you yet.
-  es: Llega un sábado sin cita, la cartera al hombro, un pie fuera de la puerta del modelo. No está solo mirando. Es que todavía no confía en usted.
+  en: "A woman walks into the model home alone and says she's just looking. She doesn't trust you yet."
+  es: "Una mujer entra sola a la casa modelo y dice que solo está mirando. Todavía no confía en usted."
+tactic:
+  en: "Take the pressure off. Then ask where she lives now. If she has to move by a date, help her make a calm plan."
+  es: "Quítele la presión. Después pregúntele dónde vive ahora. Si tiene que mudarse para una fecha, ayúdela a hacer un plan con calma."
+steps:
+  - en: "Pause, then say: \"Take your time. You're free to look on your own.\""
+    es: "Haga una pausa y diga: \"Tómese su tiempo. Puede mirar por su cuenta.\""
+  - en: "Ask if she is just starting to look."
+    es: "Pregunte si apenas está empezando a mirar."
+  - en: "Ask: \"Where are you living now?\""
+    es: "Pregunte: \"¿Dónde vive ahora?\""
+  - en: "If she has a move date, suggest a lender she picks first, then homes that fit."
+    es: "Si tiene fecha para mudarse, sugiera primero un lender que ella escoja y después las casas que le sirven."
+  - en: "Set a day and time for her next visit."
+    es: "Fije un día y una hora para su próxima visita."
 what:
-  en: Agree she can look on her own, ask where she is in her search, then ask where she lives now. If a date comes out, turn it into a calm plan, never a push.
-  es: Déle la razón en que puede mirar sola, pregunte en qué punto de la búsqueda está y después dónde vive ahora. Si sale una fecha, conviértala en un plan tranquilo, nunca en presión.
+  en: "Make her feel free to look. Ask about her search and where she lives now. Never use her move date to push her."
+  es: "Haga que se sienta libre de mirar. Pregunte por su búsqueda y por dónde vive ahora. Nunca use su fecha de mudanza para presionarla."
 why:
-  en: Model homes are full of people who came "just to see." Most of them have a reason they're looking now, and it's usually where they live today. She expects the sales office to pounce. When you don't, she relaxes, and a first-time buyer with a move-out date needs a guide more than a closer.
-  es: Los modelos están llenos de gente que vino "a ver nada más". Casi todos tienen una razón para estar mirando ahora, y casi siempre es donde viven hoy. Ella espera que la oficina de ventas se le tire encima. Cuando usted no lo hace, se relaja, y una compradora primeriza con fecha para salir necesita una guía, no un cerrador.
+  en: "Most people who say \"just looking\" have a reason to look now. Usually it's where they live today. She expects you to push. When you don't, she relaxes and tells you more."
+  es: "Casi todos los que dicen \"solo estoy mirando\" tienen una razón para mirar ahora. Casi siempre es donde viven hoy. Ella espera que usted la presione. Cuando no lo hace, se relaja y le cuenta más."
 when:
-  en: Any walk-in who answers your hello with "just looking."
-  es: Cualquier cliente sin cita que le contesta el saludo con "solo estoy mirando".
+  en: "Any walk-in who answers your hello with \"just looking.\""
+  es: "Cualquier cliente sin cita que le contesta el saludo con \"solo estoy mirando\"."
 when_not:
-  en: Don't use her date against her. "You'd better sign before January" turns a plan into pressure, and it isn't true.
-  es: No use su fecha en contra de ella. "Mejor firme antes de enero" convierte un plan en presión, y no es verdad.
+  en: "Don't use her date against her. Saying \"You'd better sign before January\" is pressure, and it isn't true."
+  es: "No use su fecha en contra de ella. Decir \"Mejor firme antes de enero\" es presión, y no es verdad."
 say:
   - en: That's perfect. Take your time, and you're free to walk through on your own.
     es: Perfecto. Tómese su tiempo, y está en libertad de recorrerla por su cuenta.
@@ -29,43 +43,43 @@ say:
     es: Eso alcanza para hacerlo con calma. Primero un lender que usted escoja, después las casas que le sirven.
 mistakes:
   - mistake:
-      en: '"Everybody''s just looking!"'
-      es: '"¡Todo el mundo está solo mirando!"'
+      en: "\"Everybody's just looking!\""
+      es: "\"¡Todo el mundo está solo mirando!\""
     fix:
-      en: You told her she's lying. Agree, then ask one easy question.
-      es: Le dijo que está mintiendo. Déle la razón y haga una pregunta fácil.
+      en: "That tells her she's lying. Agree, then ask one easy question."
+      es: "Eso le dice que está mintiendo. Déle la razón y haga una pregunta fácil."
   - mistake:
-      en: Asking for her Social Security number or a credit application in the first five minutes.
-      es: Pedirle el seguro social o una solicitud de crédito en los primeros cinco minutos.
+      en: "Asking for her Social Security number or a credit application in the first five minutes."
+      es: "Pedirle el seguro social o una solicitud de crédito en los primeros cinco minutos."
     fix:
-      en: That's for her lender, when she's ready. Earn the next visit first.
-      es: Eso es para su lender, cuando ella esté lista. Primero gánese la próxima visita.
+      en: "That is for her lender, later. First, get her to come back."
+      es: "Eso es para su lender, más adelante. Primero, logre que vuelva."
   - mistake:
-      en: Pitching the kitchen island before you know anything about her.
-      es: Venderle la isla de la cocina antes de saber nada de ella.
+      en: "Talking about the kitchen before you know anything about her."
+      es: "Hablarle de la cocina antes de saber nada de ella."
     fix:
-      en: Ask about her life first. Then show what fits it.
-      es: Pregunte primero por su vida. Después enséñele lo que le sirve.
+      en: "Ask about her life first."
+      es: "Pregunte primero por su vida."
 concepts:
   - name: { en: "Pause, then free", es: "Pausa, y libertad" }
     idea:
-      en: Let "just looking" land, then tell her she's free to look on her own.
-      es: Deje que caiga el "solo estoy mirando" y dígale que está en libertad de mirar sola.
+      en: "Wait two seconds. Then tell her she is free to look."
+      es: "Espere dos segundos. Después dígale que puede mirar con libertad."
     items: [HOM-O06-PAUSE, HOM-O06-NOPRESSURE]
   - name: { en: Where are you in your search?, es: ¿En qué punto de la búsqueda está? }
     idea:
-      en: An easy question about her search, not a pitch about the house.
-      es: Una pregunta fácil sobre su búsqueda, no un discurso sobre la casa.
+      en: "Ask an easy question about her search, not about the house."
+      es: "Haga una pregunta fácil sobre su búsqueda, no sobre la casa."
     items: [HOM-O06-START]
   - name: { en: Ask about home, es: Pregunte por su casa }
     idea:
-      en: Where she lives now usually explains why she's looking now.
-      es: Dónde vive ahora casi siempre explica por qué está mirando ahora.
+      en: "Where she lives now usually explains why she is looking now."
+      es: "Dónde vive ahora casi siempre explica por qué está mirando ahora."
     items: [HOM-O06-QFIRST, HOM-O06-HIDDEN]
   - name: { en: "A plan, not a push", es: "Un plan, no presión" }
     idea:
-      en: Turn her date into steps and a visit with a day and a time.
-      es: Convierta su fecha en pasos y en una visita con día y hora.
+      en: "Turn her date into simple steps and a visit."
+      es: "Convierta su fecha en pasos sencillos y en una visita."
     items: [HOM-O06-PLAN, HOM-O06-NEXT]
 sources:
   - T001 Pause and slow down; T031 "You are free to say no"; T084 "Starting to look" greeting; T002 Clarify with a question; T014 Specific next step
