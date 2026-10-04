@@ -4,20 +4,34 @@ title:
   en: "\"What would you do?\": earn the answer, then own it"
   es: "\"¿Usted qué haría?\": gánese la respuesta y dígala claro"
 hook:
-  en: She's driven both, she's worn out, and she turns to you. That's a gift. Don't waste it.
-  es: Ya manejó las dos, está cansada de darle vueltas, y se voltea hacia usted. Eso es un regalo. No lo bote.
+  en: She drove both cars and can't decide. Now she asks you.
+  es: Manejó los dos carros y no se decide. Ahora le pregunta a usted.
+tactic:
+  en: When she asks what you would do, promise a straight answer. Ask about her daily life first, then recommend one of her two cars with a reason.
+  es: Cuando le pregunte qué haría usted, prométale una respuesta clara. Primero pregunte por su día a día y después recomiéndele uno de los dos carros, con una razón.
+steps:
+  - en: "Pause, then promise: \"I'll tell you exactly what I'd do.\""
+    es: "Haga una pausa y prométale: \"Le voy a decir exactamente lo que yo haría.\""
+  - en: "Ask: \"Who usually rides with you, and what has to fit in the back?\""
+    es: "Pregunte: \"¿Quién la acompaña normalmente, y qué tiene que caber atrás?\""
+  - en: Recommend one of her two cars, with a reason from her own words.
+    es: Recomiéndele uno de los dos carros, con una razón sacada de lo que ella le dijo.
+  - en: Don't add more cars to compare. Stay with her two.
+    es: No le agregue más carros para comparar. Quédese con los dos de ella.
+  - en: Don't promise that something fits. Set a day and time to test it together.
+    es: No prometa que algo cabe. Fije un día y una hora para probarlo juntos.
 what:
-  en: Promise a straight answer, then earn it with questions about her real week. Give one recommendation with a reason from her own words, stay with the two she's weighing, and offer a way to prove it.
-  es: Prométale una respuesta clara y gánesela con preguntas sobre su semana de verdad. Déle una sola recomendación con una razón sacada de lo que ella dijo, quédese con las dos que está comparando y ofrezca cómo comprobarlo.
+  en: Help her decide with one honest answer, built on what she needs.
+  es: Ayúdela a decidir con una respuesta honesta, basada en lo que ella necesita.
 why:
-  en: The choice has worn her out. "What would you do?" means "take a stand with me so it's not all on me." Dodge it and she's alone with it. Answer before you ask and it sounds like the car you want to sell. Built from her words, your answer is her own reason, said out loud.
-  es: La decisión ya la tiene agotada. "¿Usted qué haría?" quiere decir "póngase de mi lado para que no sea todo mío". Si lo esquiva, la deja sola. Si contesta antes de preguntar, suena al carro que usted quiere vender. Si sale de sus palabras, su respuesta es la razón de ella, dicha en voz alta.
+  en: She is tired of choosing and wants help. If you dodge, she is alone with it. If you answer before you ask, you sound like you're pushing a car. A reason in her own words is one she trusts.
+  es: Está cansada de escoger y quiere ayuda. Si usted esquiva la pregunta, la deja sola. Si contesta antes de preguntar, parece que le está vendiendo un carro. Una razón con sus propias palabras le da confianza.
 when:
-  en: A torn buyer asks for your opinion between two cars.
-  es: Un cliente indeciso le pide su opinión entre dos carros.
+  en: A customer can't choose between two cars and asks for your opinion.
+  es: Un cliente no se decide entre dos carros y le pide su opinión.
 when_not:
-  en: Never steer her to the car you'd rather sell. If her life points to the cheaper one, say so.
-  es: Nunca la lleve al carro que a usted le conviene. Si su vida apunta a la más barata, dígaselo.
+  en: Never push the car you would rather sell. If her needs point to the cheaper one, say so.
+  es: Nunca la empuje hacia el carro que a usted le conviene vender. Si lo que ella necesita apunta al más barato, dígaselo.
 say:
   - en: I'll tell you exactly what I'd do. I just want it to be about your life, not mine.
     es: Le voy a decir exactamente lo que yo haría. Solo quiero que sea sobre su vida, no la mía.
@@ -32,55 +46,55 @@ mistakes:
       en: '"Easy, the Equinox. Everybody loves it."'
       es: '"Fácil, la Equinox. A todo el mundo le encanta."'
     fix:
-      en: No question, no reason. Ask first, then answer.
-      es: Sin pregunta y sin razón. Pregunte primero, conteste después.
+      en: You gave no reason and asked nothing. Ask first, then answer.
+      es: No dio ninguna razón y no preguntó nada. Pregunte primero y conteste después.
   - mistake:
       en: '"Only you can decide that."'
       es: '"Eso solo lo puede decidir usted."'
     fix:
-      en: She asked for help and got a shrug. Take a stand.
-      es: Le pidió ayuda y usted se encogió de hombros. Dígale lo que haría.
+      en: She asked for help and got none. Tell her what you would do.
+      es: Ella le pidió ayuda y no la recibió. Dígale lo que usted haría.
   - mistake:
       en: '"Let me show you two more to compare."'
       es: '"Le enseño dos más para que compare."'
     fix:
-      en: Two is hard. Four is worse. Stay with her two.
-      es: Entre dos ya es difícil. Entre cuatro, peor. Quédese con las dos.
+      en: Choosing between two is already hard. Four is worse. Stay with her two.
+      es: Escoger entre dos ya es difícil. Entre cuatro es peor. Quédese con los dos carros de ella.
 concepts:
   - name:
       en: "Pause, promise, ask"
       es: "Pausa, promesa, pregunta"
     idea:
-      en: A beat of quiet, promise an answer, then ask about her day.
-      es: Un momento de silencio, prometa una respuesta y pregunte por su día.
+      en: Pause for a moment. Promise an answer. Then ask about her day.
+      es: Haga una pausa. Prometa una respuesta. Después pregunte por su día.
     items: [O58-PAUSE, O58-QFIRST]
   - name:
       en: "Who rides, what fits"
       es: "Quién va, qué cabe"
     idea:
-      en: The tie-breaker is usually a person or a thing that has to fit.
-      es: Lo que desempata casi siempre es una persona o algo que tiene que caber.
+      en: It is usually a person who rides along, or something that must fit.
+      es: Casi siempre es una persona que va con ella, o algo que tiene que caber.
     items: [O58-HIDDEN]
   - name:
       en: "Own one answer"
       es: "Una sola respuesta"
     idea:
-      en: '"If I were you," one car, and a reason in her own words.'
-      es: '"Si yo fuera usted", un carro, y una razón con las palabras de ella.'
+      en: 'Say "If I were you," name one car, and give the reason in her own words.'
+      es: 'Diga "Si yo fuera usted", nombre un carro y explique por qué con las palabras de ella.'
     items: [O58-RECOMMEND]
   - name:
       en: "Two, not four"
       es: "Dos, no cuatro"
     idea:
-      en: Limit the exploration. More options, more doubt.
-      es: Limite la búsqueda. Más opciones, más dudas.
+      en: Don't add more choices. More choices bring more doubt.
+      es: No agregue más opciones. Más opciones traen más dudas.
     items: [O58-LIMIT]
   - name:
       en: "Prove it on a day and time"
       es: "Compruébelo con día y hora"
     idea:
-      en: Never promise it fits. Test it, on a set day and time.
-      es: Nunca prometa que cabe. Pruébelo, con día y hora fijos.
+      en: Never promise it fits. Test it on a set day and time.
+      es: Nunca prometa que cabe. Pruébelo en un día y una hora fijos.
     items: [O58-NEXT]
 sources:
   - T001 Pause and slow down; T002 Clarify with a question; T092 Personal recommendation; T093 Limit the exploration; T014 Firm next step

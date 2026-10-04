@@ -4,20 +4,34 @@ title:
   en: "\"I'm just looking\": lower the guard, then ask about her car"
   es: "\"Solo estoy mirando\": bájele la guardia y pregunte por su carro"
 hook:
-  en: Tuesday after work, alone by the small SUVs, arms crossed. She fires first.
-  es: Martes después del trabajo, sola al lado de las SUV pequeñas, con los brazos cruzados. Ella dispara primero.
+  en: After work, alone on the lot, arms crossed. She speaks first.
+  es: Después del trabajo, sola en el lote, con los brazos cruzados. Ella habla primero.
+tactic:
+  en: When she says she is just looking, agree and take the pressure off. Then ask about the car she drives now. Her real timing is there.
+  es: Cuando le diga que solo está mirando, déle la razón y quítele la presión. Después pregúntele por el carro que maneja ahora. Ahí está su fecha real.
+steps:
+  - en: "Pause, then agree: \"Take your time, you're free to walk around on your own.\""
+    es: "Haga una pausa y déle la razón: \"Tómese su tiempo, está en libertad de mirar por su cuenta.\""
+  - en: "Ask: \"Are you just starting to look, or have you narrowed it down?\""
+    es: "Pregunte: \"¿Apenas está empezando a mirar, o ya tiene algo pensado?\""
+  - en: Ask what she drives now, and when that has to change.
+    es: Pregunte qué maneja ahora y cuándo tiene que cambiarlo.
+  - en: If a date comes up, like a lease ending, make a calm plan.
+    es: Si sale una fecha, como el fin de un lease, haga un plan con calma.
+  - en: Set a day and time for her next visit.
+    es: Fije un día y una hora para su próxima visita.
 what:
-  en: Agree, and take the pressure off out loud. Ask where she is in her search, then what she drives now. If a date comes up, make it a calm plan, never a push.
-  es: Déle la razón y quítele la presión en voz alta. Pregunte en qué punto de la búsqueda está y después qué maneja ahora. Si sale una fecha, conviértala en un plan tranquilo, nunca en presión.
+  en: Make her feel free to look. Then find out when she really needs a car.
+  es: Haga que se sienta libre de mirar. Después averigüe cuándo necesita carro de verdad.
 why:
-  en: She came alone on a weekday evening to look without a salesman on her. "Just looking" is a shield, not a lie. Push and she has to hold it up. Tell her she's free to walk and she puts it down. Then the real story comes from the car she's in now. That's where the clock usually is.
-  es: Vino sola un día de semana por la tarde para mirar sin un vendedor encima. "Solo estoy mirando" es un escudo, no una mentira. Si la presiona, lo tiene que sostener. Si le dice que está en libertad, lo baja. Y la historia de verdad sale del carro que tiene ahora. Ahí casi siempre está el reloj.
+  en: '"Just looking" protects her. It is not a lie. If you push, she holds on to it. If she feels free to go, she relaxes and talks. Her current car usually holds her deadline.'
+  es: '"Solo estoy mirando" la protege. No es una mentira. Si la presiona, se agarra más a eso. Si se siente libre de irse, se relaja y habla. Su carro actual casi siempre tiene la fecha límite.'
 when:
-  en: The lot greeting, or any up who says it to keep you at arm's length.
-  es: El saludo en el lote, o cualquier cliente que lo diga para mantenerlo a distancia.
+  en: You greet someone on the lot, or a customer says it to keep you away.
+  es: Cuando saluda a alguien en el lote, o un cliente lo dice para mantenerlo lejos.
 when_not:
-  en: Don't say it if you don't mean it. Free to look means you step back.
-  es: No lo diga de dientes para afuera. Si está en libertad de mirar, usted se aparta y la deja mirar.
+  en: Don't say it if you don't mean it. If she is free to look, step back and let her look.
+  es: No lo diga si no lo cree. Si está en libertad de mirar, apártese y déjela mirar.
 say:
   - en: That's perfect. Take your time, you're free to walk around on your own.
     es: Perfecto. Tómese su tiempo, está en libertad de mirar por su cuenta.
@@ -32,55 +46,55 @@ mistakes:
       en: '"Everybody''s just looking!"'
       es: '"¡Todo el mundo está solo mirando!"'
     fix:
-      en: You just called her a liar. Agree, and give her room.
-      es: La acaba de llamar mentirosa. Déle la razón y espacio.
+      en: That tells her you don't believe her. Agree, and give her space.
+      es: Eso le dice que usted no le cree. Déle la razón y déjele espacio.
   - mistake:
-      en: Pitching the screen in the first minute.
-      es: Venderle la pantalla en el primer minuto.
+      en: Talking about the touchscreen in the first minute.
+      es: Hablarle de la pantalla en el primer minuto.
     fix:
-      en: Features come after you know her. Ask about her car first.
-      es: El equipamiento viene después de conocerla. Pregunte primero por su carro.
+      en: Ask about her car before you talk about features.
+      es: Pregunte por su carro antes de hablar del equipamiento.
   - mistake:
-      en: Hearing the lease date and pushing for today.
-      es: Oír la fecha del lease y presionar para hoy.
+      en: Hearing her lease date and pushing her to buy today.
+      es: Oír la fecha del lease y presionarla para que compre hoy.
     fix:
-      en: That's pressure with a date on it. She walks. Make it a plan.
-      es: Eso es presión con fecha, y se va. Conviértalo en un plan.
+      en: That is pressure, and she will leave. Make a calm plan instead.
+      es: Eso es presión, y se va a ir. Mejor haga un plan con calma.
 concepts:
   - name:
       en: '"You''re free to look"'
       es: '"Está en libertad de mirar"'
     idea:
-      en: Pause, then say out loud she can leave. Now she doesn't have to.
-      es: Haga una pausa y dígale en voz alta que se puede ir. Así no tiene que hacerlo.
+      en: Tell her out loud she can leave. Then she won't need to.
+      es: Dígale en voz alta que se puede ir. Así no va a tener que irse.
     items: [O06-PAUSE, O06-NOPRESSURE]
   - name:
       en: '"Just starting to look?"'
       es: '"¿Apenas empezando?"'
     idea:
-      en: Ask where she is in the search, not which car she wants.
-      es: Pregunte en qué punto está, no qué carro quiere.
+      en: Ask where she is in her search, not which car she wants.
+      es: Pregunte en qué punto de la búsqueda está, no qué carro quiere.
     items: [O06-START]
   - name:
       en: "Ask about today's car"
       es: "Pregunte por el carro de hoy"
     idea:
-      en: A lease, a repair, a payoff. The timing lives in the car she drives now.
-      es: Un lease, una reparación, lo que debe. La fecha vive en el carro que maneja hoy.
+      en: A lease, a repair, a loan. Her timing comes from the car she drives now.
+      es: Un lease, una reparación, un préstamo. Su fecha sale del carro que maneja ahora.
     items: [O06-QFIRST, O06-HIDDEN]
   - name:
       en: "A plan, not a push"
       es: "Un plan, no presión"
     idea:
-      en: A real date is a reason to plan calmly, never to sign today.
-      es: Una fecha real es razón para planificar con calma, nunca para firmar hoy.
+      en: A real date is a reason to plan calmly. It is never a reason to sign today.
+      es: Una fecha real es una razón para planear con calma. Nunca es una razón para firmar hoy.
     items: [O06-PLAN]
   - name:
       en: "Lock a day and time"
       es: "Amarre un día y una hora"
     idea:
-      en: Close the next visit, not the car.
-      es: Cierre la próxima visita, no el carro.
+      en: Book her next visit, not a sale today.
+      es: Fije su próxima visita, no una venta para hoy.
     items: [O06-NEXT]
 sources:
   - T001 Pause and slow down; T003 Acknowledge; T084 "Starting to look" greeting; T031 "You are free to say no"; T002 Clarify with a question; T014 Firm next step

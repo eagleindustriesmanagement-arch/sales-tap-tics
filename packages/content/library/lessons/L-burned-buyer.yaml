@@ -4,20 +4,34 @@ title:
   en: "\"I don't trust dealers\": don't ask for trust, put it on paper"
   es: "\"No confío en los dealers\": no pida confianza, póngala en papel"
 hook:
-  en: Arms crossed before you sit down. Somebody burned her, and you're paying for it.
-  es: Brazos cruzados antes de que usted se siente. Alguien la quemó, y usted está pagando por eso.
+  en: Arms crossed before you sit down. Another dealer treated her badly.
+  es: Brazos cruzados antes de que usted se siente. Otro dealer la trató mal.
+tactic:
+  en: When she says she doesn't trust dealers, don't ask for trust. Say her fears first, ask what happened, and put the whole deal on one sheet.
+  es: Cuando diga que no confía en los dealers, no le pida confianza. Diga primero lo que ella teme, pregunte qué pasó y ponga todo el negocio en una hoja.
+steps:
+  - en: "Pause. Then say: \"You're probably expecting games with the numbers.\""
+    es: "Haga una pausa y diga: \"Seguramente piensa que le voy a jugar con los números.\""
+  - en: "Ask: \"What happened the last time you bought a car?\" Then listen."
+    es: "Pregunte: \"¿Qué le pasó la última vez que compró carro?\" Y escuche."
+  - en: "Give her one sheet: total price with the fee in, nothing she didn't ask for."
+    es: "Déle una hoja: precio total con el cargo incluido, nada que ella no haya pedido."
+  - en: Say any extra product is optional, and no is a fine answer.
+    es: Dígale que cualquier producto extra es opcional y que puede decir que no.
+  - en: Set a day and time to check the contract against the sheet, line by line.
+    es: Fije un día y una hora para revisar el contrato contra la hoja, línea por línea.
 what:
-  en: Say her doubts before she does. Ask what happened, and listen. Answer with one written sheet, all in, and a day and time to sign against it.
-  es: Diga las dudas de ella antes que ella. Pregunte qué pasó y escuche. Conteste con una sola hoja por escrito, con todo incluido, y un día y una hora para firmar contra esa hoja.
+  en: Earn her trust with paper she can check, not with promises.
+  es: Gánese su confianza con un papel que ella pueda revisar, no con promesas.
 why:
-  en: She's not fighting you. She's fighting the last dealer, and every "trust me" sounds like him. Say what she expects, games with the numbers and four hours in a chair, and the sting goes out of it. Her story tells you what your sheet has to prove. At this level words don't move her. Paper she can check does.
-  es: Ella no está peleando con usted. Está peleando con el último dealer, y cada "confíe en mí" le suena a él. Diga lo que ella espera, que le jueguen con los números y la tengan cuatro horas sentada, y se le quita el filo. Su historia le dice qué tiene que probar su hoja. A este nivel, las palabras no la mueven. Un papel que ella puede revisar, sí.
+  en: She is angry at the last dealer, not at you. Every "trust me" sounds like him. Say her fears out loud and she calms down. Her story tells you what your sheet must prove.
+  es: Está molesta con el último dealer, no con usted. Cada "confíe en mí" le suena a él. Diga en voz alta lo que ella teme y se calma. Su historia le dice qué tiene que probar su hoja.
 when:
-  en: A buyer who opens with distrust, before any numbers.
-  es: Un cliente que llega desconfiado, antes de los números.
+  en: A customer says she doesn't trust you, before any numbers.
+  es: Un cliente dice que no confía en usted, antes de los números.
 when_not:
-  en: Never promise what you don't control. The box may offer products. You can promise she sees them as optional.
-  es: Nunca prometa lo que no controla. En F&I le pueden ofrecer productos. Lo que sí puede prometer es que los vea como opcionales.
+  en: Never promise what you don't control. The finance office may offer products. You can promise she'll see them as optional.
+  es: Nunca prometa lo que no controla. En financiamiento le pueden ofrecer productos. Puede prometer que los va a ver como opcionales.
 say:
   - en: That's fair. You're probably expecting me to play games with the numbers and keep you here four hours.
     es: Me parece justo. Seguramente usted piensa que le voy a jugar con los números y tenerla aquí cuatro horas.
@@ -32,55 +46,55 @@ mistakes:
       en: '"Trust me, we''re not like other dealers."'
       es: '"Confíe en mí, no somos como los otros dealers."'
     fix:
-      en: That's what the last one said. Show paper.
-      es: Eso mismo le dijo el último. Enseñe el papel.
+      en: The last dealer said that too. Show her paper instead.
+      es: Eso mismo le dijo el último dealer. Mejor enséñele el papel.
   - mistake:
       en: Defending the store before you know what happened.
       es: Defender la tienda antes de saber qué pasó.
     fix:
-      en: Ask first. You can't fix a story you haven't heard.
-      es: Pregunte primero. No puede arreglar una historia que no ha oído.
+      en: Ask first. You can't fix what you haven't heard.
+      es: Pregunte primero. No puede arreglar lo que no ha oído.
   - mistake:
       en: '"Let''s just get the paperwork started."'
       es: '"Vamos a empezar los papeles ya."'
     fix:
-      en: Tired and signing late is how she got burned. Give her the sheet and a rested day.
-      es: Cansada y firmando tarde, así fue como la quemaron. Déle la hoja y un día con calma.
+      en: Signing late and tired is how it went wrong last time. Give her the sheet and a calm day.
+      es: Así le salió mal la última vez, cansada y tarde. Déle la hoja y un día tranquilo para firmar.
 concepts:
   - name:
       en: "Pause, don't defend"
       es: "Pausa, no se defienda"
     idea:
-      en: The fast comeback is the speech she expects.
-      es: La respuesta rápida es el discurso que ella espera.
+      en: A fast answer sounds like a sales speech.
+      es: Una respuesta rápida suena a discurso de vendedor.
     items: [O18-L3-PAUSE]
   - name:
       en: "Say her doubts first"
       es: "Diga las dudas de ella primero"
     idea:
-      en: Name what she expects before she does. Never "trust me."
-      es: Diga lo que ella espera antes que ella. Nunca "confíe en mí".
+      en: Say what she expects before she does. Never say "trust me."
+      es: Diga lo que ella espera antes que ella. Nunca diga "confíe en mí".
     items: [O18-L3-DOUBTS]
   - name:
       en: "Ask what happened"
       es: "Pregunte qué pasó"
     idea:
-      en: Her last signing is the real objection. Get the details.
-      es: Su última firma es la objeción real. Saque los detalles.
+      en: Her last signing is the real problem. Get the details.
+      es: Su última firma es el problema real. Pida los detalles.
     items: [O18-L3-ASK, O18-L3-HIDDEN]
   - name:
       en: "One sheet, all in"
       es: "Una hoja, todo incluido"
     idea:
-      en: Out-the-door first, fee inside, nothing she didn't ask for, optional as optional.
-      es: Primero el out-the-door, con el cargo del dealer adentro, nada que no pidió, lo opcional como opcional.
+      en: Total first, fee inside. Nothing she didn't ask for. Extras marked optional.
+      es: El total primero, con el cargo adentro. Nada que no pidió. Lo extra, marcado como opcional.
     items: [O18-L3-SHEET]
   - name:
       en: "Sign against the sheet"
       es: "Firme contra la hoja"
     idea:
-      en: A day and time to check the contract line by line. That's the proof.
-      es: Un día y una hora para revisar el contrato línea por línea. Esa es la prueba.
+      en: Set a day and time to check the contract line by line. That is the proof.
+      es: Fije un día y una hora para revisar el contrato línea por línea. Esa es la prueba.
     items: [O18-L3-NEXT]
 sources:
   - T001 Pause and slow down; T100 Say their doubts first; T002 Clarify with a question; T085 Declared transparency; T009 Transparent numbers; T121 Two-payment menu; T014 Firm next step
