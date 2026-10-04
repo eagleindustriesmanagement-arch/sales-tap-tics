@@ -15,7 +15,15 @@ const ENGLISH_ONLY = Object.values(STRINGS as Record<string, { en: string; es: s
   .filter((en) => !/[{}]/.test(en) && en.split(/\s+/).length >= 3)
   .filter((en) => Object.values(STRINGS as Record<string, { en: string; es: string }>).every((s) => s.en !== en || s.es.trim() !== en.trim()));
 
+/** One sign-in per account for the whole sweep: the login screen allows only a few codes per account (anti-abuse). */
+const signedIn = new Map<string, Awaited<ReturnType<BrowserContext["cookies"]>>>();
+
 async function signIn(page: Page, email: string) {
+  const saved = signedIn.get(email);
+  if (saved) {
+    await page.context().addCookies(saved.filter((c) => c.name !== "lang"));
+    return;
+  }
   await page.goto("/login");
   await page.getByLabel(/Email or mobile number|Correo o número de celular/).fill(email);
   await page.getByRole("button", { name: /Send me a code|Envíeme un código/ }).click();
@@ -26,6 +34,7 @@ async function signIn(page: Page, email: string) {
   await expect(page).not.toHaveURL(/\/login$/);
   if (/\/consent$/.test(page.url())) await page.getByRole("button", { name: /I understand and agree|Entiendo y acepto/ }).click();
   await expect(page).not.toHaveURL(/\/consent$/);
+  signedIn.set(email, await page.context().cookies());
 }
 
 async function setLanguage(context: BrowserContext, lang: "en" | "es") {
