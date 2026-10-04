@@ -84,9 +84,12 @@ test.describe("the public home page", () => {
         await page.goto(path);
         await expect(page.locator("[data-mkt]")).toHaveAttribute("lang", lang);
         const text = (await page.locator("body").innerText()).toLowerCase();
-        for (const phrase of ["high-ticket", "something big", "miami spanish", "alto valor", "algo grande", "español de miami", "venta grande"]) {
+        for (const phrase of ["something big", "miami spanish", "algo grande", "español de miami", "venta grande"]) {
           expect(text, `${path} (${lang}) says "${phrase}"`).not.toContain(phrase);
         }
+        // High-ticket is the focus, never the limit (Ernesto, October 4): it is named only beside "anyone who sells".
+        if (text.includes("high-ticket")) expect(text, `${path} (en) names high-ticket without "anyone who sells"`).toContain("for anyone who sells");
+        if (text.includes("alto valor")) expect(text, `${path} (es) names alto valor without "cualquiera que venda"`).toContain("para cualquiera que venda");
       }
     }
   });
