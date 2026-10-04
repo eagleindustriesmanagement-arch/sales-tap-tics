@@ -16,8 +16,8 @@ steps:
     es: "Pregunte: \"¿Qué le pasó la última vez que compró carro?\" Y escuche."
   - en: "Give her one sheet: total price with the fee in, nothing she didn't ask for."
     es: "Déle una hoja: precio total con el cargo incluido, nada que ella no haya pedido."
-  - en: Say any extra product is optional, and no is a fine answer.
-    es: Dígale que cualquier producto extra es opcional y que puede decir que no.
+  - en: Say any extra product is optional.
+    es: Dígale que cualquier producto extra es opcional.
   - en: Set a day and time to check the contract against the sheet, line by line.
     es: Fije un día y una hora para revisar el contrato contra la hoja, línea por línea.
 what:

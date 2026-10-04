@@ -99,8 +99,8 @@ scoring:
       params: { event: hidden_revealed }
     - code: HOM-O06-PLAN
       behavior:
-        en: "Turned her move-out date into a calm plan (lender first, then the homes that fit), without using it as pressure"
-        es: "Convirtió su fecha de salida en un plan tranquilo (primero el lender, después las casas que le sirven), sin usarla para presionar"
+        en: "Turned her move-out date into a plan (lender first, then the homes that fit)"
+        es: "Convirtió su fecha de salida en un plan (primero el lender, después las casas que le sirven)"
       dimension: technique
       method: judge
       points: 10
@@ -118,8 +118,8 @@ scoring:
   auto_fail:
     - code: move_date_as_pressure
       description:
-        en: "Used her move-out date to push for a contract or deposit today"
-        es: "Usó su fecha de salida para presionarla a firmar o dejar un depósito hoy"
+        en: "Made her move-out date sound tighter than it is to get a contract or deposit today"
+        es: "Hizo ver su fecha de salida más apretada de lo que es para que firme o deje un depósito hoy"
       method: judge
       kind: coaching
     - code: made_up_deadline

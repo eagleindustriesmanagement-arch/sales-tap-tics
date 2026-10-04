@@ -119,8 +119,8 @@ scoring:
   auto_fail:
     - code: sold_the_package
       description:
-        en: "Kept selling the package's value after he said he did not want it"
-        es: "Siguió vendiendo el valor del paquete después de que él dijo que no lo quería"
+        en: "Kept the package in his price after he said no, or sold it as if he had no choice"
+        es: "Dejó el paquete en su precio después de que dijo que no, o se lo vendió como si no tuviera opción"
       method: judge
       kind: coaching
     - code: misdescribed_add_on

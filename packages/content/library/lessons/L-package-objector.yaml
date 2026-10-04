@@ -45,8 +45,8 @@ mistakes:
       en: '"In this Miami sun, you''ll want that tint."'
       es: '"Con este sol de Miami, usted va a querer ese tinte."'
     fix:
-      en: He said no. Stop selling and solve the problem.
-      es: Dijo que no. Deje de vender y resuelva el problema.
+      en: Say "optional" first. Otherwise it sounds required.
+      es: Primero diga "opcional". Si no, suena a obligación.
   - mistake:
       en: '"Don''t worry, we''ll throw it in."'
       es: '"No se preocupe, se lo dejamos de regalo."'

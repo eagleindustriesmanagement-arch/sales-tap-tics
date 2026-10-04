@@ -96,8 +96,8 @@ scoring:
       params: { event: hidden_revealed }
     - code: FUR-O06-PLAN
       behavior:
-        en: "Turned the move into a calm plan (floor plan, measurements), without using it as pressure"
-        es: "Convirtió la mudanza en un plan tranquilo (plano, medidas), sin usarla para presionar"
+        en: "Turned the move into a plan (floor plan, measurements, a next visit)"
+        es: "Convirtió la mudanza en un plan (plano, medidas, una próxima visita)"
       dimension: technique
       method: judge
       points: 10
@@ -115,8 +115,8 @@ scoring:
   auto_fail:
     - code: move_as_pressure
       description:
-        en: "Used his move-in date to push for a purchase today"
-        es: "Usó la fecha de la mudanza para presionarlo a comprar hoy"
+        en: "Made the move date sound tighter than it is (made-up delivery times, a today-only price)"
+        es: "Hizo ver la fecha de la mudanza más apretada de lo que es (tiempos de entrega inventados, un precio solo por hoy)"
       method: judge
       kind: coaching
     - code: made_up_deadline

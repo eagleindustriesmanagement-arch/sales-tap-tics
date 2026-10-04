@@ -66,7 +66,7 @@ concepts:
       en: "Two seconds of silence shows you won't argue."
       es: "Dos segundos de silencio le dicen que no va a discutir."
     items: [SOL-O05-PAUSE]
-  - name: { en: Respect the thinking, es: Respete el pensarlo }
+  - name: { en: Agree first, es: Déle la razón }
     idea:
       en: "Agree it is worth thinking about."
       es: "Déle la razón: hay que pensarlo bien."

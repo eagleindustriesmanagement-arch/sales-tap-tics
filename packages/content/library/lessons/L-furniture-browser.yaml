@@ -84,8 +84,8 @@ concepts:
       en: "A plan, not a push"
       es: "Un plan, no presión"
     idea:
-      en: "A move date is a reason to plan, never to rush him."
-      es: "Una mudanza es una razón para planificar, nunca para apurarlo."
+      en: "A move date gives you a plan: floor plan, measurements, a visit."
+      es: "Una mudanza le da un plan: plano, medidas, visita."
     items: [FUR-O06-PLAN]
   - name: { en: Lock a day and time, es: Amarre un día y una hora }
     idea:

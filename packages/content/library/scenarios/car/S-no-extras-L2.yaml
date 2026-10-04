@@ -140,8 +140,8 @@ scoring:
   auto_fail:
     - code: prejudged_product
       description:
-        en: "Pre-judged a product for him (\"you'll want it\", \"most people take it\") after he said no"
-        es: "Decidió por él sobre un producto (\"usted lo va a querer\", \"casi todos lo llevan\") después de que dijo que no"
+        en: "Pushed a product after his no with a claim that isn't true (\"the bank likes to see it\", a made-up \"most people take it\")"
+        es: "Le empujó un producto después de su no con algo que no es verdad (\"al banco le gusta verlo\", un \"casi todos lo llevan\" inventado)"
       method: judge
       kind: coaching
     - code: misdescribed_add_on

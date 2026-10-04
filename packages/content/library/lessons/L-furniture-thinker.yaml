@@ -18,7 +18,7 @@ steps:
     es: "Pregunte si el juego y el precio le convencen, aparte de eso."
   - en: "Ask if he is buying it for a special day."
     es: "Pregunte si lo está comprando para una fecha especial."
-  - en: "Don't guess a delivery date. Get it in writing, and set a time to review it."
+  - en: "Don't guess a delivery date. Get it in writing. Set a time to review it."
     es: "No adivine una fecha de entrega. Consígala por escrito y fije una hora para revisarla."
 what:
   en: "Find the one open question. Answer it with something in writing."
@@ -30,8 +30,8 @@ when:
   en: "A customer who likes the piece says he needs to think."
   es: "Un cliente al que le gusta la pieza dice que lo tiene que pensar."
 when_not:
-  en: "Don't use it to corner him. If he needs a night, set a time first."
-  es: "No lo use para acorralarlo. Si necesita una noche, fije una hora primero."
+  en: "No question left? Ask for the sale. If he needs a night, set a time first."
+  es: "¿Sin dudas? Pídale la venta. Si necesita una noche, fije una hora primero."
 say:
   - en: That makes sense. It's a big purchase for the family.
     es: Tiene sentido. Es una compra grande para la familia.
@@ -62,8 +62,8 @@ mistakes:
       es: "Más opciones, más que pensar. Resuelva su única duda."
 concepts:
   - name:
-      en: "Pause, then respect it"
-      es: "Pausa, y respeto"
+      en: "Pause, then agree"
+      es: "Pausa y acuerdo"
     idea:
       en: "Wait two seconds. Agree it's worth thinking about."
       es: "Espere dos segundos. Déle la razón: hay que pensarlo bien."

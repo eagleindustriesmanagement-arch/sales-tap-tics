@@ -168,8 +168,8 @@ demonstrations:
         - { speaker: customer, text: "Está bien. Gracias." }
   good:
     notice:
-      en: Notice the question "compared to what?" before any defense, the honest side-by-side of a set he has not seen, and the real promotion stated without pressure.
-      es: Fíjese en la pregunta "¿comparado con qué?" antes de cualquier defensa, en la comparación honesta con un juego que él no ha visto, y en la promoción real dicha sin presionar.
+      en: Notice the question "compared to what?" before any defense, the honest side-by-side of a set he has not seen, and the real promotion stated with its end date.
+      es: Fíjese en la pregunta "¿comparado con qué?" antes de cualquier defensa, en la comparación honesta con un juego que él no ha visto, y en la promoción real dicha con la fecha en que se acaba.
     script:
       en:
         - { speaker: customer, text: "I love it, but the price is too high." }
@@ -179,7 +179,7 @@ demonstrations:
         - { speaker: customer, text: "I love the set. That's not the question." }
         - { speaker: rep, text: "Then tell me what you saw. I'd rather know than guess." }
         - { speaker: customer, text: "Okay. I saw a set online that looks almost the same for about two thousand less. I don't want to overpay." }
-        - { speaker: rep, text: "Thank you, that's a smart thing to check. I haven't seen that set, so I won't tell you it's worse. Let's line them up side by side: what each one is made of, solid oak or veneer, the drawers, and whether delivery and setup are in the price. Ours is $9,298 with white-glove delivery during the fall bedroom event, plus sales tax. The event is real, it ends October 31, and the flyer is at my desk, but take the time you need to compare. If theirs is the better buy for you, I'll say so." }
+        - { speaker: rep, text: "Thank you, that's a smart thing to check. I haven't seen that set, so I won't tell you it's worse. Let's line them up side by side: what each one is made of, solid oak or veneer, the drawers, and whether delivery and setup are in the price. Ours is $9,298 with white-glove delivery during the fall bedroom event, plus sales tax. The event is real, it ends October 31, and the flyer is at my desk, but take the time you need to compare." }
         - { speaker: customer, text: "That's fair. I just don't want to feel like I got taken." }
         - { speaker: rep, text: "Could you come back tomorrow at 2 with the link? We'll go through both, line by line." }
         - { speaker: customer, text: "Okay, that works." }
@@ -191,7 +191,7 @@ demonstrations:
         - { speaker: customer, text: "El juego me encanta. Esa no es la pregunta." }
         - { speaker: rep, text: "Entonces cuénteme qué vio. Prefiero saberlo que adivinar." }
         - { speaker: customer, text: "Bueno. Vi un juego en internet que se ve casi igual por como dos mil dólares menos. No quiero pagar de más." }
-        - { speaker: rep, text: "Gracias, eso es algo inteligente de revisar. Yo no he visto ese juego, así que no le voy a decir que es peor. Pongámoslos lado a lado: de qué está hecho cada uno, roble macizo o enchapado, las gavetas, y si la entrega y el armado están incluidos en el precio. El nuestro está en $9,298 con la entrega white-glove durante el evento de otoño, más el impuesto de venta. El evento es real, se termina el 31 de octubre y el volante está en mi escritorio, pero tómese el tiempo que necesite para comparar. Si el otro le conviene más, se lo digo." }
+        - { speaker: rep, text: "Gracias, eso es algo inteligente de revisar. Yo no he visto ese juego, así que no le voy a decir que es peor. Pongámoslos lado a lado: de qué está hecho cada uno, roble macizo o enchapado, las gavetas, y si la entrega y el armado están incluidos en el precio. El nuestro está en $9,298 con la entrega white-glove durante el evento de otoño, más el impuesto de venta. El evento es real, se termina el 31 de octubre y el volante está en mi escritorio, pero tómese el tiempo que necesite para comparar." }
         - { speaker: customer, text: "Me parece justo. Es que no quiero sentir que me tomaron por boba." }
         - { speaker: rep, text: "¿Puede volver mañana a las 2 con el link? Revisamos los dos, punto por punto." }
         - { speaker: customer, text: "Está bien, me queda bien." }

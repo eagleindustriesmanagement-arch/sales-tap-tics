@@ -14,8 +14,8 @@ steps:
     es: "Haga una pausa y diga: \"Buena pregunta, y usted no tiene que comprar nada hoy.\""
   - en: Hand him the bulletin from Chevrolet with the end date on it.
     es: Póngale en la mano el boletín de Chevrolet con la fecha en que se acaba.
-  - en: Don't add any pressure. Let him keep the bulletin.
-    es: No le agregue presión. Deje que se quede con el boletín.
+  - en: Let the bulletin do the pushing. He keeps it.
+    es: Deje que el boletín haga la presión. Se lo queda él.
   - en: Ask what "not today" really means for him.
     es: Pregunte qué quiere decir de verdad ese "hoy no".
   - en: Offer two real times and let him choose one.

@@ -21,8 +21,8 @@ steps:
   - en: Don't promise that something fits. Set a day and time to test it together.
     es: No prometa que algo cabe. Fije un día y una hora para probarlo juntos.
 what:
-  en: Help her decide with one honest answer, built on what she needs.
-  es: Ayúdela a decidir con una respuesta honesta, basada en lo que ella necesita.
+  en: Help her decide with one clear answer, built on what she needs.
+  es: Ayúdela a decidir con una respuesta clara, basada en lo que ella necesita.
 why:
   en: She is tired of choosing and wants help. If you dodge, she is alone with it. If you answer before you ask, you sound like you're pushing a car. A reason in her own words is one she trusts.
   es: Está cansada de escoger y quiere ayuda. Si usted esquiva la pregunta, la deja sola. Si contesta antes de preguntar, parece que le está vendiendo un carro. Una razón con sus propias palabras le da confianza.
@@ -30,8 +30,8 @@ when:
   en: A customer can't choose between two cars and asks for your opinion.
   es: Un cliente no se decide entre dos carros y le pide su opinión.
 when_not:
-  en: Never push the car you would rather sell. If her needs point to the cheaper one, say so.
-  es: Nunca la empuje hacia el carro que a usted le conviene vender. Si lo que ella necesita apunta al más barato, dígaselo.
+  en: Don't give your pick before you ask. Without her reasons, it sounds like a push.
+  es: No dé su recomendación antes de preguntar. Sin las razones de ella, suena a que la está empujando.
 say:
   - en: I'll tell you exactly what I'd do. I just want it to be about your life, not mine.
     es: Le voy a decir exactamente lo que yo haría. Solo quiero que sea sobre su vida, no la mía.

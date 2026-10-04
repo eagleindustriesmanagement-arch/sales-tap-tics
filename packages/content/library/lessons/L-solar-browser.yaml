@@ -30,8 +30,8 @@ when:
   en: "At the door, when she says she's only gathering information."
   es: "En la puerta, cuando dice que solo está buscando información."
 when_not:
-  en: "Never turn her plans into pressure. Never promise what a buyer would pay for her house."
-  es: "Nunca convierta sus planes en presión. Nunca le prometa lo que un comprador pagaría por su casa."
+  en: "Never promise what a buyer would pay for her house, or that panels help it sell."
+  es: "Nunca le prometa lo que un comprador pagaría por su casa, ni que así se vende mejor."
 say:
   - en: That's perfect. Information is what this visit is for, and you're free to say no to all of it.
     es: Perfecto. Para eso es esta visita, para información, y usted está en libertad de decirle que no a todo.

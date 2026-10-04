@@ -30,8 +30,8 @@ when:
   en: "When she names someone who isn't there."
   es: "Cuando la clienta nombra a alguien que no está."
 when_not:
-  en: "Don't use it as a trick to keep her in the store."
-  es: "No lo use como truco para que no se vaya."
+  en: "If she can decide alone, ask for the sale."
+  es: "Si ella puede decidir sola, pídale la venta."
 say:
   - en: Of course. It's a big piece for your home, and you should both love it.
     es: Claro que sí. Es una pieza grande para su casa, y los dos tienen que estar contentos.

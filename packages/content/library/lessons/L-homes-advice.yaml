@@ -30,8 +30,8 @@ when:
   en: "A buyer who can't choose between two homes asks for your opinion."
   es: "Una clienta que no puede decidir entre dos casas le pide su opinión."
 when_not:
-  en: "Never push her to the more expensive home. If her needs point to the smaller one, say so."
-  es: "Nunca la empuje hacia la casa más cara. Si lo que ella necesita apunta a la más chica, dígaselo."
+  en: "Don't give your pick before you ask. Without her reasons, it sounds like a push."
+  es: "No dé su recomendación antes de preguntar. Sin las razones de ella, suena a que la está empujando."
 say:
   - en: I'll tell you exactly what I'd do. I just want it to be about your life, not mine.
     es: Le voy a decir exactamente lo que yo haría. Solo quiero que sea sobre su vida, no la mía.

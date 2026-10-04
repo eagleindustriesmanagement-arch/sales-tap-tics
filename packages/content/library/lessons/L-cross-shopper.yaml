@@ -30,8 +30,8 @@ when:
   en: A customer brings a lower price from another dealer.
   es: Un cliente trae un precio más bajo de otro dealer.
 when_not:
-  en: Don't promise to match or beat a price without your manager. If their total really is lower, say so.
-  es: No prometa igualar ni mejorar un precio sin su gerente. Si el total de ellos de verdad es más bajo, dígalo.
+  en: Don't promise to match or beat a price. If theirs really is lower, take it to your manager.
+  es: No prometa igualar ni mejorar un precio. Si el de ellos de verdad es más bajo, llévelo a su gerente.
 say:
   - en: Fair question, and you should ask it. Let's put them side by side, all in.
     es: Es una pregunta justa, y hace bien en hacerla. Vamos a ponerlas lado a lado, al precio total.

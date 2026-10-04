@@ -62,8 +62,8 @@ scoring:
       params: { min_pause_ms: 2000, after: objection }
     - code: O09-L3-CALM
       behavior:
-        en: "Stayed calm and respected his right to shop; no chasing, pleading or blocking"
-        es: "Mantuvo la calma y respetó su derecho a comparar; sin perseguirlo, rogarle ni taparle el paso"
+        en: "Stayed calm and agreed he should compare; no chasing, pleading or blocking"
+        es: "Mantuvo la calma y le dio la razón en comparar; sin perseguirlo, rogarle ni taparle el paso"
       dimension: composure
       method: judge
       points: 20
@@ -114,8 +114,8 @@ scoring:
       method: judge
     - code: chased_or_ran_down
       description:
-        en: "Chased him out the door, or ran down other dealers"
-        es: "Lo persiguió hasta la puerta o habló mal de otros dealers"
+        en: "Tried to stop him with claims he can't back up (\"nobody in Miami will beat this deal\"), or ran down other dealers without proof"
+        es: "Trató de pararlo con cosas que no puede probar (\"nadie en Miami le gana este negocio\"), o habló mal de otros dealers sin pruebas"
       method: judge
       kind: coaching
     - code: made_up_deadline
