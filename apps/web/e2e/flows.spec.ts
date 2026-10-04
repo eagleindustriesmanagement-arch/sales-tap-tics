@@ -900,12 +900,14 @@ test("on an iPhone: the voice plays even where a blank utterance wedges speech, 
 test("a phone still on an older release reloads once, then offers the update instead of reloading again", async ({ page }) => {
   // A reload can still be served the older page (a rollback, a deploy rolling out): it must never loop.
   await signInReady(page, "rep2@demo.test");
-  let loads = 0;
-  page.on("load", () => { loads += 1; });
+  // Count requests for the page, not finished loads: on a fast machine the one reload starts before the first load
+  // ends, which aborts it (CI saw net::ERR_ABORTED on the goto).
+  let visits = 0;
+  page.on("request", (r) => { if (r.isNavigationRequest() && new URL(r.url()).pathname === "/today") visits += 1; });
   await page.route("**/api/version", (route) => route.fulfill({ json: { build: "a-newer-release" } }));
-  await page.goto("/today");
+  await page.goto("/today", { waitUntil: "commit" }).catch(() => undefined);
   await expect(page.getByTestId("update-ready")).toBeVisible({ timeout: 15_000 });
   await page.waitForTimeout(1500);
-  expect(loads).toBe(2); // the page, then exactly one reload
+  expect(visits).toBe(2); // the page, then exactly one reload
   await page.unroute("**/api/version");
 });
