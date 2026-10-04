@@ -1,8 +1,9 @@
-import { notFound } from "next/navigation";
+import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
 import { getSessionDetail, isManager, listScoreOverrides } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { OverrideForm } from "@/components/override-form";
-import { Card } from "@/components/ui";
+import { Card, buttonClass } from "@/components/ui";
 import { DebriefView } from "@/components/debrief-view";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
@@ -15,7 +16,18 @@ export default async function SessionPage({ params }: { params: Promise<{ id: st
   const user = await requireUser();
   const lang = await language();
   const { detail, overrides } = await asUser(principalOf(user), async (db) => ({ detail: await getSessionDetail(db, user, id), overrides: await listScoreOverrides(db, id) }));
-  if (!detail || !detail.score || !detail.debrief) notFound();
+  if (!detail) notFound();
+  // A session left before it was scored (the app closed mid-conversation) has no debrief: the rep goes back to that
+  // customer to try again, a manager sees that it was not finished. Never a "not found" for a row History listed.
+  if (!detail.score || !detail.debrief) {
+    if (detail.session.user_id === user.id) redirect(`/practice/${detail.session.scenario_code}`);
+    return (
+      <Card className="space-y-3" data-testid="session-unfinished">
+        <p className="text-ink">{t("history.unfinished", lang)}</p>
+        <Link href="/manager/team" className={buttonClass}>{t("history.backToTeam", lang)}</Link>
+      </Card>
+    );
+  }
   const canFlag = isManager(user) && detail.session.user_id !== user.id;
   const dims = detail.score.dimensions as { partial?: boolean; coverage?: number };
   const payload = debriefPayload({

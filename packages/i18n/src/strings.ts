@@ -722,6 +722,8 @@ export const STRINGS = {
   "history.empty": { en: "No sessions yet. Your first one takes about ten minutes.", es: "Todavía no hay sesiones. La primera toma unos diez minutos." },
   "history.private": { en: "Private until {time}", es: "Privada hasta {time}" },
   "history.inProgress": { en: "Not finished", es: "Sin terminar" },
+  "history.unfinished": { en: "This session was not finished, so it has no score or debrief.", es: "Esta sesión no se terminó, así que no tiene puntaje ni resumen." },
+  "history.backToTeam": { en: "Back to the team", es: "Volver al equipo" },
 
   "team.title": { en: "Team", es: "Equipo" },
   "team.repLine": { en: "{n, plural, one {# session} other {# sessions}} this week · {cert} certified", es: "{n, plural, one {# sesión} other {# sesiones}} esta semana · {cert} certificados" },

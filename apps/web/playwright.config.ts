@@ -22,7 +22,7 @@ export default defineConfig({
   // The accessibility audit runs after the flows, which expect first sign-ins (consent) to happen in them.
   projects: [
     { name: "flows", testMatch: /flows\.spec\.ts/ },
-    { name: "a11y", testMatch: /a11y\.spec\.ts/, dependencies: ["flows"] },
+    { name: "a11y", testMatch: /(a11y|sweep)\.spec\.ts/, dependencies: ["flows"] },
     // Sign-up and the public home page run last: they add tenants, which the flows' cross-store counts must not see.
     { name: "accounts", testMatch: /(signup|marketing|pricing)\.spec\.ts/, dependencies: ["a11y"] },
   ],
