@@ -21,8 +21,8 @@ steps:
   - en: Print what he chose and set a delivery time he agrees to.
     es: Imprima lo que él escogió y fije una hora de entrega que él acepte.
 what:
-  en: Respect his no, and let him see every choice clearly.
-  es: Respete su no y deje que vea cada opción con claridad.
+  en: Accept his no. Then let him see every choice, labeled.
+  es: Acepte su no. Después deje que vea cada opción, identificada.
 why:
   en: His no is about his last finance office, where a product got hidden in his payment. Agree, and there is no fight. His story tells you what he might want. A labeled menu hides nothing.
   es: Su no viene de la última oficina de financiamiento, donde le escondieron un producto en el pago. Déle la razón y no hay pelea. Su historia le dice qué podría querer. Un menú bien identificado no esconde nada.
@@ -30,8 +30,8 @@ when:
   en: A customer says no to products before seeing any.
   es: Un cliente dice que no a los productos antes de ver ninguno.
 when_not:
-  en: Don't use this as a trick to sell. If he still says no, print the no-products payment and deliver.
-  es: No lo use como truco para venderle. Si sigue diciendo que no, imprima el pago sin productos y entregue el carro.
+  en: Never put in a product he didn't pick. If he wants none, print the no-products payment.
+  es: Nunca meta un producto que él no escogió. Si no quiere ninguno, imprima el pago sin productos.
 say:
   - en: Understood, that's your decision. Nothing goes in your contract without your yes.
     es: Entendido, eso lo decide usted. No se agrega nada a su contrato sin que usted diga que sí.
@@ -43,11 +43,11 @@ say:
     es: El contrato de servicio es opcional. Si lo cancela dentro de 60 días le devuelven todo, menos los reclamos pagados y un cargo administrativo de hasta 5%.
 mistakes:
   - mistake:
-      en: '"Most of my customers take the service contract."'
-      es: '"La mayoría de mis clientes se llevan el contrato de servicio."'
+      en: Arguing with his no before you know why.
+      es: Discutirle el no antes de saber por qué.
     fix:
-      en: You decided for him after his no. Show it with its price, and let him decide.
-      es: Decidió por él después de su no. Enséñelo con su precio, y que decida él.
+      en: Ask what happened first. Then show every payment, labeled.
+      es: Pregunte primero qué pasó. Después enséñele cada pago, identificado.
   - mistake:
       en: Quoting only the payment with everything in it.
       es: Dar solo el pago con todo incluido.

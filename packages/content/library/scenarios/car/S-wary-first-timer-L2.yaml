@@ -83,8 +83,8 @@ scoring:
       technique: T002
     - code: O20-OPTIONAL
       behavior:
-        en: "Said plainly the item is optional and took it off"
-        es: "Dijo claramente que el producto es opcional y lo quitó"
+        en: "Said plainly the item is optional, and took it off unless he wanted it"
+        es: "Dijo claramente que el producto es opcional, y lo quitó a menos que él lo quisiera"
       dimension: technique
       method: judge
       points: 15

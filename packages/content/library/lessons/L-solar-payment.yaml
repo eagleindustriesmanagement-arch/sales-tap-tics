@@ -30,8 +30,8 @@ when:
   en: "A financed quote includes an optional add-on, and he says the payment is too high."
   es: "Una cotización financiada incluye un adicional opcional, y él dice que el pago está muy alto."
 when_not:
-  en: "Never make the loan longer to reach his number without saying so. Never quote a payment that depends on a tax credit."
-  es: "Nunca alargue el plazo para llegar a su número sin decirlo. Nunca dé un pago que depende de un crédito de impuestos."
+  en: "Never quote a payment that isn't on the sheet, or one that depends on a tax credit."
+  es: "Nunca dé un pago que no esté en la hoja, ni uno que dependa de un crédito de impuestos."
 say:
   - en: Help me understand. When you say too high, what payment were you expecting?
     es: Ayúdeme a entender. Cuando dice que está muy alto, ¿qué pago tenía en mente?
@@ -49,11 +49,11 @@ mistakes:
       en: "You argued with his budget. Ask for his number."
       es: "Le discutió su presupuesto. Pregúntele su número."
   - mistake:
-      en: "Making the loan longer until the payment fits."
-      es: "Alargar el plazo hasta que el pago quepa."
+      en: "Stretching the loan before you know what's in the payment."
+      es: "Alargar el plazo antes de saber qué hay en el pago."
     fix:
-      en: "First find out what is in the payment that he doesn't want."
-      es: "Primero averigüe qué hay en el pago que él no quiere."
+      en: "First find what's in it he doesn't want. That may be enough."
+      es: "Primero averigüe qué hay ahí que no quiere. Puede que baste."
   - mistake:
       en: "Quoting a payment with the battery and never naming it."
       es: "Dar un pago con la batería y nunca nombrarla."

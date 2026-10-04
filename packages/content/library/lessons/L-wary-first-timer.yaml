@@ -11,7 +11,7 @@ steps:
   - { en: "Pause, then say: \"Good question, and thank you for asking before you sign anything.\"", es: "Haga una pausa y diga: \"Buena pregunta, y gracias por preguntar antes de firmar nada.\"" }
   - { en: "Say right away: \"That's optional, and it comes off if you don't want it.\"", es: "Diga enseguida: \"Eso es opcional, y se quita si usted no lo quiere.\"" }
   - { en: "Ask what worries him, and if it happened to someone he knows.", es: "Pregúntele qué le preocupa, y si le pasó a alguien que él conoce." }
-  - { en: "Show his payment with it and without it, each one labeled. Then take it off.", es: "Enséñele su pago con eso y sin eso, cada uno identificado. Después quíteselo." }
+  - { en: "Show his payment with it and without it, each one labeled. Without his yes, take it off.", es: "Enséñele su pago con eso y sin eso, cada uno identificado. Sin su sí, quíteselo." }
   - { en: "Print a clean sheet, and set a time to read it together.", es: "Imprima una hoja nueva y fije una hora para leerla juntos." }
 what:
   en: His question is about one line. His worry is bigger. Answer both.
@@ -23,8 +23,8 @@ when:
   en: Any time a customer asks about an add-on, most of all a first-time buyer.
   es: Cada vez que el cliente pregunta por un accesorio, sobre todo si es su primer carro.
 when_not:
-  en: Ask one question, not ten. If he just wants it gone, take it off. It's optional.
-  es: Haga una pregunta, no diez. Si solo quiere que lo quite, quíteselo. Es opcional.
+  en: Ask one question, not ten. If he just wants it gone, take it off.
+  es: Haga una pregunta, no diez. Si solo quiere que lo quite, quíteselo.
 say:
   - en: Good question, and thank you for asking before you sign anything.
     es: Buena pregunta, y gracias por preguntar antes de firmar nada.

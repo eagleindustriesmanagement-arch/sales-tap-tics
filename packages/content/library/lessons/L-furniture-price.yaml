@@ -18,8 +18,8 @@ steps:
     es: "Pregunte qué vio. No diga que es peor."
   - en: "Compare materials, drawers, and whether delivery and setup are included."
     es: "Compare materiales, gavetas, y si la entrega y la instalación están incluidas."
-  - en: "Mention the real store promotion, without pressure. Set a day and time."
-    es: "Mencione la promoción real de la tienda, sin presionar. Fije un día y una hora."
+  - en: "Mention the real store promotion and when it ends. Set a day and time."
+    es: "Mencione la promoción real y cuándo se acaba. Fije un día y una hora."
 what:
   en: "Find her comparison first. Then compare both sets fairly, item by item."
   es: "Primero averigüe con qué lo compara. Después compare los dos juegos con justicia, punto por punto."
@@ -30,8 +30,8 @@ when:
   en: "Any time a customer who wants the piece says the price is too high."
   es: "Cada vez que un cliente que quiere la pieza dice que el precio está muy alto."
 when_not:
-  en: "Never criticize a set you haven't seen. If the other one is the better buy for her, say so."
-  es: "Nunca hable mal de un juego que usted no ha visto. Si el otro le conviene más, dígaselo."
+  en: "Never criticize a set you haven't seen. Win on what you can show."
+  es: "Nunca hable mal de un juego que usted no ha visto. Gane con lo que puede enseñar."
 say:
   - en: I appreciate you saying it straight. Too high compared to what?
     es: Le agradezco que me lo diga claro. ¿Muy alto comparado con qué?

@@ -102,8 +102,8 @@ scoring:
       technique: T111
     - code: O02-OPTIONS
       behavior:
-        en: "Laid out honest options, including waiting, without hiding the negative equity in a payment"
-        es: "Presentó opciones honestas, incluyendo esperar, sin esconder lo que debe dentro de un pago"
+        en: "Laid out real ways to cover the difference (cash down, a cheaper car, financing it), with the negative equity on its own line, not hidden in a payment"
+        es: "Presentó maneras reales de cubrir la diferencia (inicial en efectivo, un carro más barato, financiarla), con lo que debe en su propia línea, sin esconderlo en un pago"
       dimension: technique
       method: judge
       points: 20
@@ -164,8 +164,8 @@ demonstrations:
         - { speaker: customer, text: "Está bien. Gracias." }
   good:
     notice:
-      en: Notice the calm, no-judgment question about the payoff, the trade number stated with its condition, and the honest options, waiting included.
-      es: Fíjese en la pregunta tranquila, sin juzgar, sobre el payoff, en el valor del trade-in dicho con su condición, y en las opciones honestas, incluyendo esperar.
+      en: Notice the calm, no-judgment question about the payoff, the trade number stated with its condition, and the ways to cover the difference, each on paper.
+      es: Fíjese en la pregunta tranquila, sin juzgar, sobre el payoff, en el valor del trade-in dicho con su condición, y en las maneras de cubrir la diferencia, cada una por escrito.
     script:
       en:
         - { speaker: customer, text: "Before you go any further... I'm pretty sure I'm upside down on my loan. So this probably doesn't work." }
@@ -175,7 +175,7 @@ demonstrations:
         - { speaker: customer, text: "Yeah. I really like it. That's what makes this hard." }
         - { speaker: rep, text: "Then let's look at it together. The appraisal on your Malibu is $14,400, from the three closest auction sales, and that number holds if your lender's payoff letter matches. Can you pull up the payoff in the app?" }
         - { speaker: customer, text: "It says twenty-one thousand four hundred. So I owe about seven thousand more than it's worth. Honestly, I'm embarrassed I let it get this bad." }
-        - { speaker: rep, text: "Thank you for trusting me with that; there's nothing to be embarrassed about. So the difference is about $7,000, and I won't hide it inside a payment. Your honest options: cover part of it with cash down, look at the Trax, which costs less, or keep the Malibu a while and pay it down before you trade. Waiting is a real option too. Bring the payoff letter, and I'll have all three printed side by side. Can we sit down tomorrow at 6:30?" }
+        - { speaker: rep, text: "Thank you for trusting me with that; there's nothing to be embarrassed about. So the difference is about $7,000, and I won't hide it inside a payment. Your options: cover part of it with cash down, look at the Trax, which costs less, or finance it in the new loan, shown on its own line. Bring the payoff letter, and I'll have all three printed side by side. Can we sit down tomorrow at 6:30?" }
         - { speaker: customer, text: "Okay. Tomorrow at 6:30. I'll call the bank for the letter in the morning." }
         - { speaker: rep, text: "Perfect. I'll have the three options ready. See you tomorrow at 6:30." }
       es:
@@ -186,7 +186,7 @@ demonstrations:
         - { speaker: customer, text: "Sí. Me gusta mucho. Por eso es que esto me cuesta." }
         - { speaker: rep, text: "Entonces vamos a verlo juntos. La tasación de su Malibu es $14,400, según las tres ventas de subasta más parecidas, y ese número se mantiene si la carta del payoff de su banco coincide. ¿Puede buscar el payoff en la app?" }
         - { speaker: customer, text: "Dice veintiún mil cuatrocientos. O sea, que debo como siete mil más de lo que vale. La verdad, me da vergüenza haberlo dejado llegar a esto." }
-        - { speaker: rep, text: "Gracias por confiarme eso; no tiene por qué darle vergüenza. Entonces la diferencia es como $7,000, y no se la voy a esconder dentro de un pago. Sus opciones honestas: cubrir una parte con una inicial en efectivo, mirar la Trax, que cuesta menos, o quedarse con el Malibu un tiempo y bajar la deuda antes de cambiarlo. Esperar también es una opción real. Traiga la carta del payoff y le tengo las tres impresas lado a lado. ¿Nos sentamos mañana a las 6:30?" }
+        - { speaker: rep, text: "Gracias por confiarme eso; no tiene por qué darle vergüenza. Entonces la diferencia es como $7,000, y no se la voy a esconder dentro de un pago. Sus opciones: cubrir una parte con una inicial en efectivo, mirar la Trax, que cuesta menos, o financiarla en el préstamo nuevo, en su propia línea. Traiga la carta del payoff y le tengo las tres impresas lado a lado. ¿Nos sentamos mañana a las 6:30?" }
         - { speaker: customer, text: "Está bien. Mañana a las 6:30. Llamo al banco por la mañana para lo de la carta." }
         - { speaker: rep, text: "Perfecto. Le tengo las tres opciones listas. Nos vemos mañana a las 6:30." }
 spanish_reviewed: false

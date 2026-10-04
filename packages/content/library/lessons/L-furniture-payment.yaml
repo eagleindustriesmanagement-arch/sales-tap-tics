@@ -7,8 +7,8 @@ hook:
   en: "His wife already said yes to the sectional. He reads the numbers sheet and says the payment is too high."
   es: "La esposa ya dijo que sí al sectional. Él lee la hoja de números y dice que el pago está muy alto."
 tactic:
-  en: "Ask what payment he needs. Show only real options from the sheet. Say the plan is optional, and say when a payment takes more months."
-  es: "Pregunte qué pago necesita. Enseñe solo opciones reales de la hoja. Diga que el plan es opcional, y diga cuándo un pago es a más meses."
+  en: "Ask what payment he needs. Build to it with real options from the sheet, like a longer term. Say the plan is optional."
+  es: "Pregunte qué pago necesita. Llegue a ese número con opciones reales de la hoja, como un plazo más largo. Diga que el plan es opcional."
 steps:
   - en: "Pause, then ask: \"What number were you expecting?\""
     es: "Haga una pausa y pregunte: \"¿Qué número tenía en mente?\""
@@ -16,8 +16,8 @@ steps:
     es: "Pregunte si este es el sectional que quiere, aparte del pago."
   - en: "Say the protection plan is optional. Show the payment both ways."
     es: "Diga que el plan de protección es opcional. Enseñe el pago de las dos maneras."
-  - en: "Show only options from the sheet. Say the months for each."
-    es: "Enseñe solo opciones de la hoja. Diga los meses de cada una."
+  - en: "Build to his number from the sheet: more down, or more months."
+    es: "Llegue a su número con la hoja: más inicial, o más meses."
   - en: "Say each payment is an estimate until credit is approved. Set a day and time."
     es: "Diga que cada pago es un estimado hasta que aprueben el crédito. Fije un día y una hora."
 what:
@@ -30,8 +30,8 @@ when:
   en: "Any time a customer on store financing says the payment is too high."
   es: "Cada vez que un cliente con financiamiento de la tienda dice que el pago está muy alto."
 when_not:
-  en: "Never make the term longer without saying so."
-  es: "Nunca alargue el plazo sin decirlo."
+  en: "Don't quote a payment that isn't on the sheet."
+  es: "No dé un pago que no esté en la hoja."
 say:
   - en: Help me understand. When you say the payment is too high, what number were you expecting?
     es: Ayúdeme a entender. Cuando dice que el pago está muy alto, ¿qué número tenía en mente?
@@ -39,8 +39,8 @@ say:
     es: Aparte del pago, ¿este es el sectional para su family room?
   - en: The protection plan is optional. I'll show you the payment with it and without it.
     es: El plan de protección es opcional. Le enseño el pago con el plan y sin el plan.
-  - en: That one is a longer term, so you'd pay longer. It's an estimate until the credit is approved.
-    es: Esa es a un plazo más largo, así que estaría pagando más tiempo, y es un estimado hasta que aprueben el crédito.
+  - en: A longer term gets you under your number. It's an estimate until the credit is approved.
+    es: Con un plazo más largo, le queda por debajo de su número. Es un estimado hasta que aprueben el crédito.
 mistakes:
   - mistake:
       en: "\"That's a great payment. You'll forget about it.\""
@@ -55,11 +55,11 @@ mistakes:
       en: "Name it, say it's optional, and show the payment both ways."
       es: "Nómbrelo, diga que es opcional y enseñe el pago de las dos maneras."
   - mistake:
-      en: "Reaching his number with a longer term, without saying so."
-      es: "Llegar a su número alargando el plazo, sin decirlo."
+      en: "Cutting the price before you know his number."
+      es: "Bajar el precio antes de saber su número."
     fix:
-      en: "Say the number of months out loud."
-      es: "Diga en voz alta cuántos meses son."
+      en: "You may give away money he didn't need."
+      es: "Puede regalar dinero que no hacía falta."
 concepts:
   - name:
       en: "Pause, then ask his number"
@@ -79,8 +79,8 @@ concepts:
       en: "The number behind the number"
       es: "El número detrás del número"
     idea:
-      en: "His limit has a real reason. Work toward it honestly."
-      es: "Su límite tiene una razón real. Trabaje hacia él con honestidad."
+      en: "His limit has a real reason. Build to it with the sheet."
+      es: "Su límite tiene una razón real. Llegue a él con la hoja."
     items: [FUR-O03-HIDDEN]
   - name:
       en: "With and without the plan"
@@ -91,8 +91,8 @@ concepts:
     items: [FUR-O03-PLAN]
   - name: { en: Only real options, es: Solo opciones reales }
     idea:
-      en: "Every option comes from the sheet and says its months."
-      es: "Cada opción sale de la hoja y dice sus meses."
+      en: "More down or more months, from the sheet."
+      es: "Más inicial o más meses, de la hoja."
     items: [FUR-O03-OPTIONS]
   - name: { en: Lock a day and time, es: Amarre un día y una hora }
     idea:

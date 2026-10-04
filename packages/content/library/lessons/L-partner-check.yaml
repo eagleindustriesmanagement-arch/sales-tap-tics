@@ -6,7 +6,7 @@ title:
 hook:
   en: The test drive went great. Then he says it. Many reps just hand him a card. Don't.
   es: La prueba de manejo salió muy bien. Entonces lo dice. Muchos vendedores le dan la tarjeta y ya. Usted no.
-tactic: { en: "When he says he needs to talk to his wife, don't push. Find out what she will ask, and set a time to come back together.", es: "Cuando le diga que tiene que hablarlo con su esposa, no presione. Averigüe qué va a preguntar ella y fije una hora para que vuelvan juntos." }
+tactic: { en: "When he says he needs to talk to his wife, agree. Find out what she will ask, and set a time to come back together.", es: "Cuando le diga que tiene que hablarlo con su esposa, déle la razón. Averigüe qué va a preguntar ella y fije una hora para que vuelvan juntos." }
 steps:
   - { en: "Pause, then agree: \"Of course. It's a big decision.\"", es: "Haga una pausa y déle la razón: \"Claro que sí. Es una decisión grande.\"" }
   - { en: "Ask: \"What do you think her first question will be?\"", es: "Pregunte: \"¿Cuál cree que va a ser la primera pregunta de ella?\"" }
@@ -23,8 +23,8 @@ when:
   en: Any time a customer names someone who isn't there, before you talk numbers again.
   es: Cada vez que el cliente nombra a alguien que no está, antes de volver a hablar de números.
 when_not:
-  en: Not a trick to keep him here. If she really decides, help him take everything home and set the visit.
-  es: No es un truco para que no se vaya. Si de verdad decide ella, ayúdelo a llevarse todo y fijen la visita.
+  en: If it's a polite way out, find the real worry and ask again. If she decides, set the visit.
+  es: Si es una excusa, busque la preocupación real y vuelva a pedir. Si decide ella, fijen la visita.
 say:
   - en: Of course. It's a big decision and you should both be comfortable.
     es: Claro que sí. Es una decisión grande y los dos tienen que sentirse cómodos.

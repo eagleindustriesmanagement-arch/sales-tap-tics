@@ -30,8 +30,8 @@ when:
   en: "Whenever a homeowner names someone who isn't at the table."
   es: "Cada vez que el dueño de la casa nombra a alguien que no está en la mesa."
 when_not:
-  en: "Don't push for a signature tonight. Set a visit with him there."
-  es: "No presione para que firme esta noche. Fije una visita con él presente."
+  en: "If she can decide alone, ask for the sale."
+  es: "Si ella puede decidir sola, pídale la venta."
 say:
   - en: Of course. It's your home, and you should both be comfortable with it.
     es: Claro que sí. Es su casa, y los dos tienen que sentirse cómodos.

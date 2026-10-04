@@ -106,8 +106,8 @@ scoring:
       technique: T121
     - code: FUR-O03-OPTIONS
       behavior:
-        en: "Showed only real options from the sheet, and said plainly that the lower payment takes more months"
-        es: "Mostró solo opciones reales de la hoja y dijo claramente que el pago más bajo es a más meses"
+        en: "Built to his number with real options from the sheet (more down, a longer term), each with its payment and months"
+        es: "Llegó a su número con opciones reales de la hoja (más inicial, un plazo más largo), cada una con su pago y sus meses"
       dimension: technique
       method: judge
       points: 20
@@ -126,8 +126,8 @@ scoring:
   auto_fail:
     - code: hid_longer_term
       description:
-        en: "Stretched the term to reach his number without saying it was longer"
-        es: "Alargó el plazo para llegar a su número sin decir que era más largo"
+        en: "Lied about the term: said or implied the lower payment was on the same or a shorter term"
+        es: "Mintió sobre el plazo: dijo o dio a entender que el pago más bajo era al mismo plazo o a uno más corto"
       method: judge
     - code: plan_presented_as_required
       description:
@@ -174,8 +174,8 @@ demonstrations:
         - { speaker: customer, text: "Sí. Gracias." }
   good:
     notice:
-      en: Notice the question about his number before any new number, the plan called optional with the payment shown both ways, and the rep saying out loud that the lower payment takes more months.
-      es: Fíjese en la pregunta por su número antes de cualquier número nuevo, en el plan dicho como opcional con el pago de las dos maneras, y en cómo dice en voz alta que el pago más bajo es a más meses.
+      en: Notice the question about his number before any new number, the plan called optional with the payment shown both ways, and real options built to his number, each with its payment and months.
+      es: Fíjese en la pregunta por su número antes de cualquier número nuevo, en el plan dicho como opcional con el pago de las dos maneras, y en cómo llega a su número con opciones reales, cada una con su pago y sus meses.
     script:
       en:
         - { speaker: customer, text: "I like it, but the payment is too high." }
@@ -185,7 +185,7 @@ demonstrations:
         - { speaker: customer, text: "Yeah, the sectional's perfect. It's the monthly." }
         - { speaker: rep, text: "Then tell me the number, and I'll only show you options that are real. What payment do you need to stay under?" }
         - { speaker: customer, text: "Two forty. I can't go over $240 a month. My daughter's braces just started." }
-        - { speaker: rep, text: "Thank you, that helps. First, the $278 includes the leather protection plan, and the plan is optional. Without it, it's $262 a month on the same 36 months. To get you there, two real ways: $230 a month on 36 months with $1,000 down, or $206 a month with nothing down, but on a longer term, 48 months, so you'd be paying a year longer. These are estimates, subject to credit approval. I'll print them side by side, with and without the plan." }
+        - { speaker: rep, text: "Thank you, that helps. First, the $278 includes the leather protection plan, and the plan is optional. Without it, it's $262 a month on the same 36 months. To get you there, two real ways: $230 a month on 36 months with $1,000 down, or $206 a month with nothing down, on 48 months. These are estimates, subject to credit approval. I'll print them side by side, with and without the plan." }
         - { speaker: customer, text: "Okay. Show me those side by side." }
         - { speaker: rep, text: "Can you come back tomorrow at 2? I'll have them printed, and you pick the one that fits." }
         - { speaker: customer, text: "That works. Have them printed for me." }
@@ -197,7 +197,7 @@ demonstrations:
         - { speaker: customer, text: "Sí, el sectional está perfecto. Es la mensualidad." }
         - { speaker: rep, text: "Entonces dígame el número, y le enseño solo opciones reales. ¿Cuál es el pago máximo que puede hacer al mes?" }
         - { speaker: customer, text: "Doscientos cuarenta. No me puedo pasar de $240 al mes. Acabamos de empezar a pagar los brackets de mi hija." }
-        - { speaker: rep, text: "Gracias, eso me ayuda. Primero, los $278 incluyen el plan de protección para el cuero, y el plan es opcional. Sin el plan, son $262 al mes a los mismos 36 meses. Para llegar ahí hay dos maneras reales: $230 al mes a 36 meses con $1,000 de down, o $206 al mes sin down, pero a un plazo más largo, 48 meses, o sea, un año más pagando. Son estimados, sujetos a la aprobación del crédito. Se los imprimo lado a lado, con el plan y sin el plan." }
+        - { speaker: rep, text: "Gracias, eso me ayuda. Primero, los $278 incluyen el plan de protección para el cuero, y el plan es opcional. Sin el plan, son $262 al mes a los mismos 36 meses. Para llegar ahí hay dos maneras reales: $230 al mes a 36 meses con $1,000 de down, o $206 al mes sin down, a 48 meses. Son estimados, sujetos a la aprobación del crédito. Se los imprimo lado a lado, con el plan y sin el plan." }
         - { speaker: customer, text: "Está bien. Enséñemelas lado a lado." }
         - { speaker: rep, text: "¿Puede volver mañana a las 2? Se las tengo impresas, y usted escoge la que le sirva." }
         - { speaker: customer, text: "Eso me sirve. Téngamelas impresas." }

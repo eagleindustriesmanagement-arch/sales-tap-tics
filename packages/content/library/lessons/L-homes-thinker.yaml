@@ -61,7 +61,7 @@ mistakes:
       en: "You don't know his drive. Let him do it."
       es: "Usted no conoce su viaje. Deje que lo haga él."
 concepts:
-  - name: { en: Pause and respect, es: Pausa y respeto }
+  - name: { en: "Pause, then agree", es: Pausa y acuerdo }
     idea:
       en: "Wait two seconds. Agree that a home is worth thinking about."
       es: "Espere dos segundos. Déle la razón: una casa hay que pensarla."

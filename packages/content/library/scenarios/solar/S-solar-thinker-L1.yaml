@@ -64,8 +64,8 @@ scoring:
       params: { min_pause_ms: 2000, after: objection }
     - code: SOL-O05-RESPECT
       behavior:
-        en: "Respected his need to think it over without pushing back"
-        es: "Respetó que lo quiera pensar, sin llevarle la contraria"
+        en: "Agreed that thinking it over makes sense, instead of arguing with it"
+        es: "Le dio la razón en pensarlo, en vez de discutírselo"
       dimension: technique
       method: judge
       points: 15

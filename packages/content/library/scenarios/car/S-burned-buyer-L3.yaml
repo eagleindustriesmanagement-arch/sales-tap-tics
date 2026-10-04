@@ -103,8 +103,8 @@ scoring:
   auto_fail:
     - code: brushed_off_past
       description:
-        en: "Brushed off her bad experience (\"trust me\", \"we're not like other dealers\")"
-        es: "Le restó importancia a su mala experiencia (\"confíe en mí\", \"no somos como los otros dealers\")"
+        en: "Brushed off her bad experience with a promise the store can't back up (\"trust me, that won't happen here\")"
+        es: "Le restó importancia a su mala experiencia con una promesa que la tienda no puede cumplir (\"confíe en mí, eso aquí no pasa\")"
       method: judge
       kind: coaching
     - code: made_up_deadline

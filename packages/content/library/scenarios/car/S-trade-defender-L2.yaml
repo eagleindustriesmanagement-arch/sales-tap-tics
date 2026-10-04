@@ -117,8 +117,8 @@ scoring:
   auto_fail:
     - code: changed_appraisal
       description:
-        en: "Changed the trade number without the manager's authority or a new, showable reason"
-        es: "Cambió el valor del trade-in sin autorización del gerente ni una razón nueva que se pueda enseñar"
+        en: "Changed the trade number without the manager's authority"
+        es: "Cambió el valor del trade-in sin autorización del gerente"
       method: judge
       kind: coaching
     - code: made_up_deadline

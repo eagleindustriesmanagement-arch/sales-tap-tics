@@ -85,8 +85,8 @@ scoring:
       params: { rules: [PRICE-05], topic: price }
     - code: O19-ITEMIZE
       behavior:
-        en: "Explained every line, including what the dealer fee covers, without inventing anything"
-        es: "Explicó cada línea, incluyendo qué cubre el cargo de concesionario, sin inventar nada"
+        en: "Explained every line with its amount, in the store's own words for the fee, without inventing anything"
+        es: "Explicó cada línea con su cantidad, con las palabras de la tienda para el cargo de concesionario, sin inventar nada"
       dimension: technique
       method: judge
       points: 15
@@ -119,8 +119,8 @@ scoring:
       method: judge
     - code: blamed_others
       description:
-        en: "Blamed the website or other dealers for the fee"
-        es: "Le echó la culpa del cargo a la página o a otros dealers"
+        en: "Blamed the fee on the website or other dealers with something untrue"
+        es: "Le echó la culpa del cargo a la página o a otros dealers con algo que no es verdad"
       method: judge
       kind: coaching
     - code: made_up_deadline

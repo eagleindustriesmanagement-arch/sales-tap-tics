@@ -57,8 +57,8 @@ scoring:
       params: { min_pause_ms: 2000, after: objection }
     - code: O07-RESPECT
       behavior:
-        en: "Respected his timeline: told him he does not have to buy today, without pushing"
-        es: "Respetó sus tiempos: le dijo que no tiene que comprar hoy, sin presionar"
+        en: "Took the pressure off: told him he does not have to buy today"
+        es: "Le quitó la presión: le dijo que no tiene que comprar hoy"
       dimension: technique
       method: judge
       points: 15

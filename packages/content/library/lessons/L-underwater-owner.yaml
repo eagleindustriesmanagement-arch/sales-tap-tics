@@ -6,25 +6,25 @@ title:
 hook:
   en: She loves the car, then stops you before the numbers. She expects to be judged.
   es: Le encanta el carro. Entonces le pide que pare antes de los números. Espera que la juzguen.
-tactic: { en: "Stay calm and don't judge. Ask what she owes, show the difference on its own line, and offer honest options, including waiting.", es: "Mantenga la calma y no la juzgue. Pregunte cuánto debe todavía, enséñele la diferencia en su propia línea y déle opciones honestas, incluso esperar." }
+tactic: { en: "Stay calm and don't judge. Ask what she owes, show the difference on its own line, and offer real ways to cover it.", es: "Mantenga la calma y no la juzgue. Pregunte cuánto debe todavía, enséñele la diferencia en su propia línea y déle opciones reales para cubrirla." }
 steps:
   - { en: "Pause, then say: \"Thank you for telling me up front. No judgment here.\"", es: "Haga una pausa y diga: \"Gracias por decírmelo de entrada. Aquí nadie la va a juzgar.\"" }
   - { en: "Ask: \"Do you have a rough idea of what you still owe?\"", es: "Pregunte: \"¿Tiene una idea más o menos de cuánto debe todavía?\"" }
   - { en: "Give the trade number. Say it holds only if the payoff letter matches.", es: "Dígale el valor del trade-in, y que se mantiene solo si la carta del payoff coincide." }
-  - { en: "Show the difference on its own line. Offer cash down, a cheaper car, or waiting.", es: "Enséñele la diferencia en su propia línea. Ofrezca opciones: una inicial en efectivo, un carro que cueste menos o esperar." }
+  - { en: "Show the difference on its own line. Offer cash down, a cheaper car, or financing it.", es: "Enséñele la diferencia en su propia línea. Ofrezca una inicial en efectivo, un carro que cueste menos o financiarla en el préstamo nuevo." }
   - { en: "Set a day and time to meet with the payoff letter.", es: "Fije un día y una hora para reunirse con la carta del payoff." }
 what:
-  en: Treat the old loan as math. Stay calm and honest.
-  es: Trate el préstamo viejo como números, nada más. Hable con calma y con honestidad.
+  en: Treat the old loan as math, and stay calm.
+  es: Trate el préstamo viejo como números, nada más. Hable con calma.
 why:
-  en: She hides the number because she's embarrassed. One judging word and she leaves. If you stay calm, she tells you the real amount. If you hide the difference in a payment, she owes even more on the next loan.
-  es: Esconde el número porque le da vergüenza. Una sola palabra que suene a juicio, y se va. Si usted está tranquilo, le dice cuánto es de verdad. Si esconde la diferencia en un pago, en el préstamo nuevo debe todavía más.
+  en: She hides the number because she's embarrassed. One judging word and she leaves. If you stay calm, she tells you the real amount. If you hide the difference in a payment, she finds it later, and you lose her.
+  es: Esconde el número porque le da vergüenza. Una sola palabra que suene a juicio, y se va. Si usted está tranquilo, le dice cuánto es de verdad. Si esconde la diferencia en un pago, ella la encuentra después, y usted la pierde.
 when:
   en: Any time a customer owes more than the car is worth, or fears they do.
   es: Cada vez que un cliente debe más de lo que vale el carro, o tiene miedo de deberlo.
 when_not:
-  en: Don't promise it works before you see the payoff letter. Sometimes the honest answer is to wait.
-  es: No prometa que va a funcionar antes de ver la carta del payoff. A veces la respuesta honesta es esperar.
+  en: Don't promise it works before you see the payoff letter.
+  es: No prometa que va a funcionar antes de ver la carta del payoff.
 say:
   - en: Thank you for telling me up front. No judgment here.
     es: Gracias por decírmelo de entrada. Aquí nadie la va a juzgar.
@@ -34,8 +34,8 @@ say:
     es: Ese valor del trade-in se mantiene si la carta del payoff de su banco coincide.
   - en: I won't hide the difference inside a payment. You'll see it on its own line.
     es: No le voy a esconder la diferencia dentro de un pago. La va a ver en su propia línea.
-  - en: Waiting and paying it down is a real option too.
-    es: Esperar y bajar la deuda también es una opción real.
+  - en: Cash down, a cheaper car, or the new loan.
+    es: Una inicial, un carro más barato o el préstamo nuevo.
 mistakes:
   - mistake:
       en: '"How did you end up owing that much?"'
@@ -73,13 +73,13 @@ concepts:
     items: [O02-CONDITION]
   - name: { en: The gap on its own line, es: La diferencia en su propia línea }
     idea:
-      en: What she owes above the car's value, never inside a monthly payment.
-      es: Lo que debe por encima del valor del carro. Nunca lo meta en un pago mensual.
+      en: What she owes above the car's value, on its own line, never hidden in a payment.
+      es: Lo que debe por encima del valor del carro, en su propia línea, nunca escondido en un pago.
     items: [O02-OPTIONS]
-  - name: { en: Waiting is an option, es: Esperar es una opción }
+  - name: { en: Ways to cover it, es: Maneras de cubrirla }
     idea:
-      en: Cash down, a cheaper car, or paying the loan down. She chooses.
-      es: Una inicial en efectivo, un carro que cueste menos, o seguir bajando la deuda. Ella escoge.
+      en: Cash down, a cheaper car, or financing it in the new loan. She chooses.
+      es: Una inicial en efectivo, un carro que cueste menos, o financiarla en el préstamo nuevo. Ella escoge.
     items: [O02-OPTIONS]
   - name: { en: Bring the letter, es: Traiga la carta }
     idea:

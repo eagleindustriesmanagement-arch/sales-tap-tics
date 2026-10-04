@@ -10,8 +10,8 @@ tactic:
   en: When he asks if this is your best price, repeat the total and ask what feels fair. If you have room, give one small discount for his signature.
   es: Cuando le pregunte si es su último precio, repita el total y pregunte qué le parece justo. Si tiene margen, déle una rebaja chica a cambio de su firma.
 steps:
-  - en: Pause, then repeat the total price and why it is honest.
-    es: Haga una pausa y repita el precio total y por qué es honesto.
+  - en: Pause, then repeat the total price and what's in it.
+    es: Haga una pausa y repita el precio total y lo que incluye.
   - en: "Ask: \"What would make this feel like a fair deal to you?\""
     es: "Pregunte: \"¿Qué haría que esto le pareciera un negocio justo?\""
   - en: Ask who he is thinking of when he talks about paying full price.
@@ -30,8 +30,8 @@ when:
   en: He asks if your total price is really your best.
   es: Él pregunta si su precio total es de verdad el último.
 when_not:
-  en: No room from your manager? Don't make up a discount or fake a manager trip. Stand behind the honest price.
-  es: ¿Su gerente no le dio margen? No invente un descuento ni finja una ida al gerente. Defienda el precio honesto.
+  en: No room from your manager? Don't make up a discount or fake a manager trip. Hold the price.
+  es: ¿Su gerente no le dio margen? No invente un descuento ni finja una ida al gerente. Sostenga el precio.
 say:
   - en: Fair question. That's the all-in price, every dealer charge in it. I'd rather show you a real number than play games.
     es: Buena pregunta. Ese es el precio total, con todos los cargos de concesionario. Prefiero enseñarle un número real que andar con juegos.
@@ -63,8 +63,8 @@ mistakes:
 concepts:
   - name: { en: "The real price, again", es: "El precio real, otra vez" }
     idea:
-      en: Pause. Repeat the total and why it's honest.
-      es: Haga una pausa. Repita el total y por qué es honesto.
+      en: Pause. Repeat the total and what's in it.
+      es: Haga una pausa. Repita el total y lo que incluye.
     items: [O33-PAUSE, O33-ANCHOR]
   - name: { en: "What does fair mean?", es: "¿Qué es lo justo?" }
     idea:

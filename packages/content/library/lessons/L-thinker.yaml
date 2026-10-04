@@ -6,7 +6,7 @@ title:
 hook:
   en: The drive is done and the numbers are on the desk. Then he says he needs to think.
   es: Ya manejó y los números están en el escritorio. Entonces dice que lo tiene que pensar.
-tactic: { en: "Respect that he wants to think. Ask what exactly he wants to be sure about, then settle that doubt with a real test, not a promise.", es: "Respete que lo quiera pensar. Pregúntele qué es exactamente lo que quiere tener claro, y resuelva esa duda con una prueba real, no con una promesa." }
+tactic: { en: "Agree it's worth thinking over. Ask what exactly he wants to be sure about, then settle that doubt with a real test, not a promise.", es: "Acepte que lo quiera pensar. Pregúntele qué es exactamente lo que quiere tener claro, y resuelva esa duda con una prueba real, no con una promesa." }
 steps:
   - { en: "Pause, then agree: \"That makes sense. It's a big purchase.\"", es: "Haga una pausa y déle la razón: \"Tiene sentido. Es una compra grande.\"" }
   - { en: "Ask: \"What's the part you still want to be sure about?\"", es: "Pregunte: \"¿Qué es lo que todavía quiere tener claro?\"" }
@@ -23,8 +23,8 @@ when:
   en: Any "I'll think about it" after the drive and the numbers.
   es: Cada "lo tengo que pensar" después de la prueba de manejo y los números.
 when_not:
-  en: Don't use it to push him to sign today. If he really needs the night, set the time first. Then ask.
-  es: No lo use para presionarlo a firmar hoy. Si de verdad necesita la noche, fije la hora primero. Después pregunte.
+  en: No real question left? Ask for the sale. If he really needs the night, set the time first.
+  es: ¿No le queda ninguna duda real? Pídale la venta. Si de verdad necesita la noche, fije la hora primero.
 say:
   - en: That makes sense. It's a big purchase, and you clearly did your homework.
     es: Tiene sentido. Es una compra grande, y se nota que usted hizo su tarea.
@@ -55,8 +55,8 @@ mistakes:
       es: Usted no lo sabe. Si se equivoca, lo pierde para siempre. Pruébelo.
 concepts:
   - name:
-      en: "Pause and respect it"
-      es: "Pausa y respeto"
+      en: "Pause, then agree"
+      es: "Pausa y acuerdo"
     idea:
       en: Two seconds of quiet, then agree it deserves thought.
       es: Dos segundos de silencio, y déle la razón. Es bueno pensarlo.
