@@ -1,6 +1,6 @@
 # Spanish batches 1 and 2: for review
 
-Status: **on the working branch, not on main.** Per the localization guide, nothing merges until approved. Every
+Status: **approved by the owner on October 4, 2026 and merged to main (91f41c1).** Every
 row keeps `spanish_reviewed: false` meaning until a Miami reviewer reads it aloud (guide section 7).
 
 ## Batch 1: code (docs/i18n/spanish-audit.md section A)
