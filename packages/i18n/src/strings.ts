@@ -733,6 +733,7 @@ export const STRINGS = {
   "team.rep": { en: "Rep", es: "Vendedor" },
   "team.sessions": { en: "Sessions this week", es: "Sesiones esta semana" },
   "team.avg": { en: "Average score", es: "Puntaje promedio" },
+  "team.coachCell": { en: "{count, plural, one {# session} other {# sessions}} · avg {avg}", es: "{count, plural, one {# sesión} other {# sesiones}} · promedio {avg}" },
   "team.card": { en: "This week's card", es: "Meta de la semana" },
   "team.flags": { en: "Critical flags", es: "Alertas críticas" },
   "team.coaching": { en: "Coaching quality", es: "Calidad del coaching" },

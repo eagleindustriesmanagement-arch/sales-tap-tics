@@ -30,9 +30,11 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
     assignments: await listAssignments(db, { limit: 30 }),
     team: await teamOverview(db),
     quality: (await coachingQuality(db)).filter((q) => gm || q.manager_id === user.id),
-    sessions: (await listSessions(db, { limit: 20 })).filter((s) => s.userId !== user.id),
+    sessions: await listSessions(db, { limit: 20 }),
   }));
   const name = new Map(team.map((r) => [r.id, r.first_name]));
+  // The team's sessions only: another manager's own practice is not a rep's session (it showed as "?" with no name).
+  const teamSessions = sessions.filter((s) => name.has(s.userId));
   // Spec 14.4: middle performers first, low performers flagged for extra practice.
   const focused = coachingFocus(team.map((r) => ({ ...r, avgScore: r.avg_score as number | null })));
   const pct = (x: number | null) => (x === null ? "—" : `${Math.round(x * 100)}%`);
@@ -90,8 +92,9 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
               {assignments.map((a) => {
                 const overdue = !a.completedAt && a.dueAt && new Date(a.dueAt) < new Date();
                 return (
-                  <li key={a.id} className="flex min-h-14 items-center justify-between gap-3 px-4 py-2.5">
-                    <span className="min-w-0 text-[15px] text-ink">{a.firstName} · {lib.scenarios.get(a.scenarioCode)?.title[lang] ?? a.scenarioCode}</span>
+                  <li key={a.id} className="flex min-h-14 flex-wrap items-center justify-between gap-x-3 gap-y-1.5 px-4 py-2.5">
+                    {/* The status wraps under the name on a phone instead of squeezing it to one word a line. */}
+                    <span className="min-w-0 flex-1 basis-48 text-[15px] text-ink">{a.firstName} · {lib.scenarios.get(a.scenarioCode)?.title[lang] ?? a.scenarioCode}</span>
                     {/* Done means passed (decision 0030); a failed attempt shows as not passed yet. */}
                     <Chip tone={a.completedAt ? "good" : overdue ? "bad" : a.attempts > 0 ? "warn" : "neutral"} className="shrink-0">
                       {a.completedAt
@@ -110,11 +113,11 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
         </section>
       )}
 
-      {sessions.length > 0 && (
+      {teamSessions.length > 0 && (
         <section className="space-y-2.5">
           <SectionTitle>{t("team.recent", lang)}</SectionTitle>
           <RowGroup>
-            {sessions.map((s) => (
+            {teamSessions.map((s) => (
               <ListRow key={s.id} href={`/history/${s.id}`} leading={<Avatar name={name.get(s.userId) ?? "?"} size={36} />} title={name.get(s.userId) ?? "—"} subtitle={lib.scenarios.get(s.scenarioCode)?.title[lang]} trailing={<ScoreBadge total={s.total} partial={s.partial} />} />
             ))}
           </RowGroup>
@@ -135,11 +138,11 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
                 [t("team.hours", lang), q.avg_hours === null ? "—" : q.avg_hours.toFixed(1), undefined],
                 [t("team.specific", lang), pct(q.specific_share), undefined],
                 [t("team.modeled", lang), pct(q.modeled_share), undefined],
-                [t("coach.column", lang), coachCell(coachPractice.find((c) => c.manager_id === q.manager_id)), `coach-${q.first_name}`],
+                [t("coach.column", lang), coachCell(coachPractice.find((c) => c.manager_id === q.manager_id), lang), `coach-${q.first_name}`],
               ] as const).map(([label, value, testId]) => (
                 <div key={label}>
                   <dt className="text-[13px] text-muted">{label}</dt>
-                  <dd className="font-display text-[26px] leading-tight text-ink tabular-nums" data-testid={testId}>{value}</dd>
+                  <dd className={`font-display leading-tight text-ink tabular-nums ${value.length > 6 ? "text-[18px]" : "text-[26px]"}`} data-testid={testId}>{value}</dd>
                 </div>
               ))}
             </dl>
@@ -155,6 +158,7 @@ function fmtDay(d: Date, lang: "en" | "es") {
   return new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "America/New_York" }).format(new Date(d));
 }
 
-function coachCell(c: { sessions: number; avg_score: number } | undefined) {
-  return c ? `${c.sessions} · ${Math.round(c.avg_score)}` : "—";
+/** "2 sessions · avg 75", not a bare "2 · 75" nobody can read. */
+function coachCell(c: { sessions: number; avg_score: number } | undefined, lang: "en" | "es") {
+  return c ? t("team.coachCell", lang, { count: c.sessions, avg: Math.round(c.avg_score) }) : "—";
 }

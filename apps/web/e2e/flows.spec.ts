@@ -325,7 +325,7 @@ test("a manager practices a floor check and is scored on the four parts", async 
   await page.getByRole("button", { name: "Score my floor check" }).click();
   await expect(page.getByTestId("coach-result")).toContainText("100 of 100");
   await page.goto("/manager/team");
-  await expect(page.getByTestId("coach-Carlos")).toHaveText("2 · 75");
+  await expect(page.getByTestId("coach-Carlos")).toHaveText("2 sessions · avg 75");
 });
 
 test("the Spanish reviewer approves and edits lines; an edit that breaks a rule is refused; numbers need compliance", async ({ page, browser }) => {
