@@ -873,13 +873,13 @@ export interface StoreWeek { week: string; sessions: number; repsPracticing: num
 
 /** Return on training for the general manager: certification, practice, floor checks and compliance, by week. */
 export async function storeDashboard(db: Queryable, release1: string[], weeks = 8) {
-  const reps = await db.query(
-    `select count(distinct u.id)::int n from users u join memberships m on m.user_id = u.id and m.role in ('rep', 'bdc_agent') where u.status = 'active'`,
-  );
+  // Every count is of the same people: active reps. A manager who practices is not a rep who practiced ("3/2").
+  const isRep = `select m.user_id from memberships m join users u on u.id = m.user_id and u.status = 'active' where m.role in ('rep', 'bdc_agent')`;
+  const reps = await db.query(`select count(distinct user_id)::int n from (${isRep}) r`);
   const certified = await db.query(
     `select count(*)::int n from (
        select s.user_id from sessions s join scores sc on sc.session_id = s.id join users u on u.id = s.user_id and u.status = 'active'
-       where s.mode = 'certification' and sc.total >= 70 and sc.honesty_passed and not coalesce((sc.dimensions->>'partial')::boolean, false)
+       where s.user_id in (${isRep}) and s.mode = 'certification' and sc.total >= 70 and sc.honesty_passed and not coalesce((sc.dimensions->>'partial')::boolean, false)
          and s.started_at > now() - interval '90 days' and s.scenario_code = any($1)
        group by s.user_id having count(distinct s.scenario_code) = cardinality($1)) x`,
     [release1],
@@ -888,7 +888,7 @@ export async function storeDashboard(db: Queryable, release1: string[], weeks = 
     `with w as (select generate_series(date_trunc('week', now()) - make_interval(weeks => $1 - 1), date_trunc('week', now()), interval '1 week')::date week)
      select to_char(w.week, 'YYYY-MM-DD') week,
        (select count(*) from sessions s where date_trunc('week', s.started_at)::date = w.week)::int sessions,
-       (select count(distinct s.user_id) from sessions s where date_trunc('week', s.started_at)::date = w.week)::int reps_practicing,
+       (select count(distinct s.user_id) from sessions s where s.user_id in (${isRep}) and date_trunc('week', s.started_at)::date = w.week)::int reps_practicing,
        (select count(*) from behavior_card_issues c where c.due_week = w.week)::int cards_issued,
        (select count(*) from behavior_card_issues c where c.due_week = w.week and c.status = 'checked')::int cards_checked,
        (select count(*) from violations v join sessions s on s.id = v.session_id where v.severity = 'critical' and not v.uncertain and date_trunc('week', s.started_at)::date = w.week)::int critical_flags

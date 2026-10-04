@@ -17,6 +17,9 @@ const TZ = "America/New_York";
  * on screen; the daily goal, streak and certification count sit above it; what comes after, this week's behavior
  * and recent sessions follow.
  */
+/** "domingo, 4 de octubre" → "Domingo, 4 de octubre": only the first letter (CSS capitalize made it "4 De Octubre"). */
+const capitalizeFirst = (s: string) => s.charAt(0).toLocaleUpperCase() + s.slice(1);
+
 export default async function Today() {
   const user = await requireUser();
   if (isManager(user)) redirect("/manager/floor");
@@ -60,7 +63,7 @@ export default async function Today() {
   return (
     <div className="space-y-6">
       <header className="space-y-2 px-1">
-        <p className="text-[15px] font-medium text-muted capitalize">{dateFmt.format(now)}</p>
+        <p className="text-[15px] font-medium text-muted">{capitalizeFirst(dateFmt.format(now))}</p>
         <h1 className={titleClass}>{t("today.title", lang)}{user.firstName ? `, ${user.firstName}` : ""}</h1>
         {streak > 0 ? (
           <Chip tone="spark" icon={<IconFlame size={16} className="text-spark" />} data-testid="streak">{t("today.streak", lang, { n: streak })}</Chip>

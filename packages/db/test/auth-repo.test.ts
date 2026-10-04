@@ -304,6 +304,9 @@ describe.skipIf(SKIP)("store dashboard (spec 18.3)", () => {
     expect(thisWeek.sessions).toBeGreaterThanOrEqual(2);
     expect(thisWeek.criticalFlags).toBeGreaterThanOrEqual(1);
     expect(thisWeek.cardsChecked).toBeLessThanOrEqual(thisWeek.cardsIssued);
+    // Only reps are counted: a manager's own practice never shows as "3/2 reps practiced".
+    expect(thisWeek.repsPracticing).toBeLessThanOrEqual(d.reps);
+    expect(d.certified).toBeLessThanOrEqual(d.reps);
   });
 });
 
