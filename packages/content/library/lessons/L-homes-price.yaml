@@ -7,8 +7,8 @@ hook:
   en: "He likes the house, but says the price is too high. He is comparing it to something."
   es: "Le gusta la casa, pero dice que el precio está muy alto. Lo está comparando con algo."
 tactic:
-  en: "Don't defend the price or lower it. Ask what he is comparing it to. Then compare both homes the same way."
-  es: "No defienda el precio ni lo baje. Pregunte con qué lo está comparando. Después compare las dos casas de la misma manera."
+  en: "Don't argue, and don't discount before you know what he's comparing it to. Ask. Then compare both homes the same way."
+  es: "No discuta, y no rebaje antes de saber con qué lo compara. Pregúntelo. Después compare las dos casas de la misma manera."
 steps:
   - en: "Pause, then ask: \"Compared to what?\""
     es: "Haga una pausa y pregunte: \"¿Comparado con qué?\""
@@ -59,12 +59,12 @@ mistakes:
       es: "\"Las casas viejas siempre traen problemas.\""
     fix:
       en: "You don't know that house. Give him questions to ask, not your opinion."
-      es: "Usted no conoce esa casa. Déle preguntas para hacer, no su opinión."
+      es: "Usted no conoce esa casa. Dígale qué preguntar, no su opinión."
 concepts:
   - name: { en: "Pause, don't argue", es: "Pausa, sin discutir" }
     idea:
-      en: "Wait two seconds. Don't defend the price or discount it."
-      es: "Espere dos segundos. No defienda el precio ni lo rebaje."
+      en: "Wait two seconds. Don't argue, and don't discount yet."
+      es: "Espere dos segundos. No discuta, y no rebaje todavía."
     items: [HOM-O04-PAUSE, HOM-O04-NOARGUE]
   - name: { en: '"Compared to what?"', es: '"¿Comparado con qué?"' }
     idea:

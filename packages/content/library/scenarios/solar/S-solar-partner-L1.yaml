@@ -14,8 +14,8 @@ language_options: [en, es]
 difficulty: 1
 start_state: objection
 pre_brief:
-  en: "{name}, mid-40s, owns her home in Kendall with her husband and two kids. Her husband works days and isn't here. You've gone through her last 12 electric bills, the roof layout, and a written quote for an 8.4 kW, 21-panel Lumacay Solar system: $24,600 all-in, permits and interconnection included, or an estimated $190 a month on a 25-year Kestrela Lending loan, subject to the lender's approval."
-  es: "{name}, de unos 45 años, es dueña de su casa en Kendall con su esposo y sus dos hijos. El esposo trabaja de día y no está. Usted revisó con ella sus últimas 12 facturas de la luz, el diseño del techo y una cotización por escrito de un sistema Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red, o un estimado de $190 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación del banco."
+  en: "{name}, mid-40s, owns her home in Kendall with her husband and two kids. Her husband is at work and isn't here. You've gone through her last 12 electric bills, the roof layout, and a written quote for an 8.4 kW, 21-panel Lumacay Solar system: $24,600 all-in, permits and interconnection included, or an estimated $190 a month on a 25-year Kestrela Lending loan, subject to the lender's approval."
+  es: "{name}, de unos 45 años, es dueña de su casa en Kendall con su esposo y sus dos hijos. El esposo está trabajando y no está. Usted revisó con ella sus últimas 12 facturas de la luz, el diseño del techo y una cotización por escrito de un sistema Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red, o un estimado de $190 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación de Kestrela."
 opening:
   en: I like it, but I need to talk to my husband before I sign anything.
   es: Me gusta, pero tengo que hablarlo con mi esposo antes de firmar nada.
@@ -147,14 +147,14 @@ time_limit_seconds: 480
 demonstrations:
   flawed:
     notice:
-      en: "Notice: the rep answered for the husband instead of asking about him, pushed for a signature tonight, and left with no next step."
-      es: "Fíjese: el vendedor contestó por el esposo en vez de preguntar por él, presionó para firmar esta noche y se fue sin un próximo paso."
+      en: "Notice: the rep answered for the husband instead of asking about him, pushed for a signature today, and left with no next step."
+      es: "Fíjese: el vendedor contestó por el esposo en vez de preguntar por él, presionó para firmar hoy y se fue sin un próximo paso."
     script:
       en:
         - { speaker: customer, text: "I like it, but I need to talk to my husband before I sign anything." }
         - { speaker: rep, text: "Sure, but you're the one who sat through the whole presentation. You've seen the numbers, and you know it makes sense." }
         - { speaker: customer, text: "I like it. I just don't want to sign anything without him." }
-        - { speaker: rep, text: "What if you sign tonight and tell him in the morning? The paperwork takes two minutes." }
+        - { speaker: rep, text: "What if you sign now and tell him tonight? The paperwork takes two minutes." }
         - { speaker: customer, text: "I hear you. I still need to talk to him." }
         - { speaker: rep, text: "Okay. Here's my card and the brochure. Let me know what he says." }
         - { speaker: customer, text: "Sure. Thanks." }
@@ -162,7 +162,7 @@ demonstrations:
         - { speaker: customer, text: "Me gusta, pero tengo que hablarlo con mi esposo antes de firmar nada." }
         - { speaker: rep, text: "Claro, pero usted fue la que se sentó toda la presentación. Ya vio los números, y ya sabe que tiene sentido." }
         - { speaker: customer, text: "Me gusta. Es que no quiero firmar nada sin él." }
-        - { speaker: rep, text: "¿Y si firma esta noche y se lo cuenta a él en la mañana? Los papeles toman dos minutos." }
+        - { speaker: rep, text: "¿Y si firma ahora y se lo cuenta a él esta noche? Los papeles toman dos minutos." }
         - { speaker: customer, text: "Lo entiendo. Igual tengo que hablarlo con él." }
         - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta y el folleto. Me avisa lo que él diga." }
         - { speaker: customer, text: "Está bien. Gracias." }
@@ -187,7 +187,7 @@ demonstrations:
         - { speaker: customer, text: "Me gusta, pero tengo que hablarlo con mi esposo antes de firmar nada." }
         - { speaker: rep, text: "[pausa] Claro que sí. Es su casa y es una decisión grande, y los dos tienen que sentirse cómodos. Cuando lo hablen esta noche, ¿qué cree que él le va a preguntar primero?" }
         - { speaker: customer, text: "Seguro que por la casa. Él tiene su propia lista de cosas que le hacen falta." }
-        - { speaker: rep, text: "Tiene sentido. Dejando esa conversación a un lado un momento, ¿el sistema y los números tienen sentido para usted?" }
+        - { speaker: rep, text: "Tiene sentido. Dejando esa conversación a un lado un momento, ¿el sistema y los números le parecen bien?" }
         - { speaker: customer, text: "Los paneles se ven bien. Y las facturas de la luz son las que son." }
         - { speaker: rep, text: "Entonces ayúdeme con la lista de él. ¿El techo es una de las cosas que le preocupan?" }
         - { speaker: customer, text: "La verdad, el techo. Tiene como diecisiete años y él siempre dice que hay que cambiarlo. No sé qué pasa con los paneles si lo cambiamos después." }

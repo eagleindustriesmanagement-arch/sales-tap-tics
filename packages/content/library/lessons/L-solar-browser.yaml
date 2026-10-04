@@ -15,7 +15,7 @@ steps:
   - en: "Ask if she is just starting or has compared companies."
     es: "Pregunte si apenas está empezando o si ya comparó compañías."
   - en: "Ask what made her book now, and how long she'll stay in the house."
-    es: "Pregunte qué la hizo pedir la visita y cuánto tiempo piensa quedarse en la casa."
+    es: "Pregunte qué la hizo pedir la visita ahora y cuánto tiempo piensa quedarse en la casa."
   - en: "If she may sell, offer written loan terms and the cash price. Promise nothing about resale."
     es: "Si piensa vender, ofrezca los términos del préstamo por escrito y el precio de contado. No prometa nada sobre la venta."
   - en: "Set a day and time to go over the terms."
@@ -34,7 +34,7 @@ when_not:
   es: "Nunca le prometa lo que un comprador pagaría por su casa, ni que así se vende mejor."
 say:
   - en: That's perfect. Information is what this visit is for, and you're free to say no to all of it.
-    es: Perfecto. Para eso es esta visita, para información, y usted está en libertad de decirle que no a todo.
+    es: Perfecto. Para eso es esta visita, para información, y usted le puede decir que no a todo.
   - en: So I show you what matters to you, what made you book the visit now?
     es: Para enseñarle lo que a usted le importa, ¿qué la puso a buscar esto ahora?
   - en: How long do you see yourself staying in this house?
@@ -66,7 +66,7 @@ concepts:
       en: "Wait two seconds before you answer."
       es: "Espere dos segundos antes de contestar."
     items: [SOL-O06-PAUSE]
-  - name: { en: '"You''re free to say no"', es: '"Está en libertad de decir que no"' }
+  - name: { en: '"You''re free to say no"', es: '"Usted puede decir que no"' }
     idea:
       en: "Saying it out loud helps her relax."
       es: "Decirlo en voz alta la ayuda a relajarse."

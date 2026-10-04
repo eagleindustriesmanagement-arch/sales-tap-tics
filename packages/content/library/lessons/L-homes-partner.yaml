@@ -31,7 +31,7 @@ when:
   es: "Cuando el cliente nombra a alguien que no está."
 when_not:
   en: "Never answer for the lender. If it's her call, ask for the sale."
-  es: "Nunca conteste por el lender. Si la decisión es de ella, pídale la venta."
+  es: "Nunca conteste por el lender. Si la decisión es de ella, propóngale cerrar."
 say:
   - en: Of course. This is your family's home, and you should both feel good about it.
     es: Claro que sí. Es la casa de su familia, y los dos tienen que sentirse bien con ella.

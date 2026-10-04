@@ -34,7 +34,7 @@ when_not:
   es: "No invente urgencia. \"Mejor firme antes de enero\" aquí no es verdad. Planee desde su fecha real."
 say:
   - en: That's perfect. Take your time, and you're free to walk through on your own.
-    es: Perfecto. Tómese su tiempo, y está en libertad de recorrerla por su cuenta.
+    es: Perfecto. Tómese su tiempo, y puede recorrerla por su cuenta, sin compromiso.
   - en: Are you just starting to look, or have you narrowed it down a bit?
     es: ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?
   - en: So I can point you to the right homes, where are you living now?

@@ -61,7 +61,7 @@ scoring:
     - code: FUR-O06-NOPRESSURE
       behavior:
         en: "Took the pressure off and made it clear he was free to look on his own"
-        es: "Le quitó la presión y le dejó claro que estaba en libertad de mirar por su cuenta"
+        es: "Le quitó la presión y le dejó claro que podía mirar por su cuenta, sin compromiso"
       dimension: technique
       method: judge
       points: 20
@@ -138,14 +138,14 @@ demonstrations:
   flawed:
     notice:
       en: "Notice: he brushed off \"just looking,\" pitched a fabric the customer never asked about, crowded him, and pushed for today. He never learned a thing about him."
-      es: "Fíjese: le restó importancia a que solo estaba mirando, le habló de una tela que el cliente no preguntó, lo acosó y presionó para hoy. Nunca supo nada de él."
+      es: "Fíjese: le restó importancia a que solo estaba mirando, le habló de una tela que el cliente no preguntó, no lo dejó tranquilo y presionó para hoy. Nunca supo nada de él."
     script:
       en:
         - { speaker: customer, text: "I'm just looking." }
         - { speaker: rep, text: "Everybody's just looking! This Costa sectional is gorgeous, and the performance linen is amazing." }
         - { speaker: customer, text: "I told you, I'm just looking." }
         - { speaker: rep, text: "Want to sit in it? Come on, try it out." }
-        - { speaker: customer, text: "Just starting. I'm not buying anything today." }
+        - { speaker: customer, text: "I'm fine standing, thanks. I'm not buying anything today." }
         - { speaker: rep, text: "What can I do to get you into this sectional today?" }
         - { speaker: customer, text: "Nothing. I'm going to keep walking. Thanks." }
         - { speaker: rep, text: "Okay. Here's my card if you change your mind." }
@@ -154,7 +154,7 @@ demonstrations:
         - { speaker: rep, text: "¡Todo el mundo está solo mirando! Este sectional Costa es precioso, y el lino performance es buenísimo." }
         - { speaker: customer, text: "Ya le dije, solo estoy mirando." }
         - { speaker: rep, text: "¿Quiere sentarse? Dale, anímese, pruébelo." }
-        - { speaker: customer, text: "Apenas empezando. Hoy no voy a comprar nada." }
+        - { speaker: customer, text: "Estoy bien así, gracias. Hoy no voy a comprar nada." }
         - { speaker: rep, text: "¿Qué tengo que hacer para que se lleve este sectional hoy?" }
         - { speaker: customer, text: "Nada. Voy a seguir mirando por mi cuenta. Gracias." }
         - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta por si cambia de idea." }
@@ -179,7 +179,7 @@ demonstrations:
         - { speaker: customer, text: "Okay. That works for me." }
       es:
         - { speaker: customer, text: "Solo estoy mirando." }
-        - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y está en libertad de mirar por su cuenta. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
+        - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y puede mirar por su cuenta, sin compromiso. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
         - { speaker: customer, text: "Apenas empezando. Hoy no voy a comprar nada." }
         - { speaker: rep, text: "Me parece bien. Sin presión de mi parte. Para orientarlo bien, ¿para qué cuarto está buscando?" }
         - { speaker: customer, text: "Digamos que ahora mismo no tengo mucho que poner en una sala." }

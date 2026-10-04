@@ -15,7 +15,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, early 40s, wants the Ravenna Capri power-reclining sectional in cognac top-grain leather for the family room. All-in price $7,598 with white-glove delivery, plus sales tax. The numbers sheet from the store's finance partner shows $278 a month on 36 months with the optional leather protection plan ($449), $262 without it, and two other real options. Every payment is an estimate, subject to credit approval."
-  es: "{name}, de unos 42 años, quiere el sectional Capri de Ravenna, reclinable eléctrico, en cuero top-grain color coñac, para el family room. Precio total $7,598 con la entrega white-glove, más el impuesto de venta. La hoja de números de la financiera de la tienda muestra $278 al mes a 36 meses con el plan opcional de protección para el cuero ($449), $262 sin él, y otras dos opciones reales. Todos los pagos son estimados, sujetos a la aprobación del crédito."
+  es: "{name}, de cuarenta y pocos, quiere el sectional Capri de Ravenna, reclinable eléctrico, en cuero top-grain color coñac, para el family room. Precio total $7,598 con la entrega white-glove, más el impuesto de venta. La hoja de números de la financiera de la tienda muestra $278 al mes a 36 meses con el plan opcional de protección para el cuero ($449), $262 sin él, y otras dos opciones reales. Todos los pagos son estimados, sujetos a la aprobación del crédito."
 opening:
   en: I like it, but the payment is too high.
   es: Me gusta, pero el pago está muy alto.
@@ -197,8 +197,8 @@ demonstrations:
         - { speaker: customer, text: "Sí, el sectional está perfecto. Es la mensualidad." }
         - { speaker: rep, text: "Entonces dígame el número, y le enseño solo opciones reales. ¿Cuál es el pago máximo que puede hacer al mes?" }
         - { speaker: customer, text: "Doscientos cuarenta. No me puedo pasar de $240 al mes. Acabamos de empezar a pagar los brackets de mi hija." }
-        - { speaker: rep, text: "Gracias, eso me ayuda. Primero, los $278 incluyen el plan de protección para el cuero, y el plan es opcional. Sin el plan, son $262 al mes a los mismos 36 meses. Para llegar ahí hay dos maneras reales: $230 al mes a 36 meses con $1,000 de down, o $206 al mes sin down, a 48 meses. Son estimados, sujetos a la aprobación del crédito. Se los imprimo lado a lado, con el plan y sin el plan." }
-        - { speaker: customer, text: "Está bien. Enséñemelas lado a lado." }
-        - { speaker: rep, text: "¿Puede volver mañana a las 2? Se las tengo impresas, y usted escoge la que le sirva." }
-        - { speaker: customer, text: "Eso me sirve. Téngamelas impresas." }
+        - { speaker: rep, text: "Gracias, eso me ayuda. Primero, los $278 incluyen el plan de protección para el cuero, y el plan es opcional. Sin el plan, son $262 al mes a los mismos 36 meses. Para llegar ahí hay dos maneras reales: $230 al mes a 36 meses con $1,000 de inicial, o $206 al mes sin inicial, a 48 meses. Son estimados, sujetos a la aprobación del crédito. Se los imprimo lado a lado, con el plan y sin el plan." }
+        - { speaker: customer, text: "Está bien. Enséñemelos lado a lado." }
+        - { speaker: rep, text: "¿Puede volver mañana a las 2? Se los tengo impresos, y usted escoge el que le sirva." }
+        - { speaker: customer, text: "Eso me sirve. Téngamelos impresos." }
 spanish_reviewed: false

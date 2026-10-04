@@ -13,7 +13,7 @@ steps:
   - en: "Pause, then agree: \"That makes sense.\""
     es: "Haga una pausa y déle la razón: \"Tiene sentido.\""
   - en: "Ask: \"What's the part you still want to be sure about?\""
-    es: "Pregunte: \"¿Qué es lo que quiere tener seguro antes de decidir?\""
+    es: "Pregunte: \"¿Qué es lo que quiere tener claro antes de decidir?\""
   - en: "Ask if the house and the price work for him, apart from that."
     es: "Pregunte si la casa y el precio le convencen, aparte de eso."
   - en: "Ask where he works and what time he must be there."
@@ -34,7 +34,7 @@ when_not:
   es: "Nunca adivine cuánto se demora el viaje. Mejor organice la prueba."
 say:
   - en: That makes sense. When you think it over tonight, what's the part you still want to be sure about?
-    es: Tiene sentido. Cuando lo piense esta noche, ¿qué es lo que quiere tener seguro antes de decidir?
+    es: Tiene sentido. Cuando lo piense esta noche, ¿qué es lo que quiere tener claro antes de decidir?
   - en: Setting that aside for a second, do the house and the price work for you?
     es: Dejando eso a un lado un momento, ¿la casa y el precio le convencen?
   - en: Walk me through a normal weekday. Where do you work, and what time do you have to be there?

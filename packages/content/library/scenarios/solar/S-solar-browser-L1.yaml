@@ -15,7 +15,7 @@ difficulty: 1
 start_state: greeting
 pre_brief:
   en: "{name}, early 50s, booked a solar consultation online for her home in Miramar. You just introduced yourself at the door. You have Lumacay Solar's standard 8.4 kW, 21-panel system to show her: $24,600 all-in, permits and interconnection included, or an estimated $190 a month on a 25-year Kestrela Lending loan, subject to the lender's approval."
-  es: "{name}, de unos 52 años, pidió por internet una consulta de solar para su casa en Miramar. Usted se acaba de presentar en la puerta. Tiene para enseñarle el sistema estándar de Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red, o un estimado de $190 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación del banco."
+  es: "{name}, de cincuenta y pocos, pidió por internet una consulta de solar para su casa en Miramar. Usted se acaba de presentar en la puerta. Tiene para enseñarle el sistema estándar de Lumacay Solar de 8.4 kW y 21 paneles: $24,600 todo incluido, con los permisos y la conexión a la red, o un estimado de $190 al mes con un préstamo de 25 años de Kestrela Lending, sujeto a la aprobación de Kestrela."
 opening:
   en: I'm just looking. I'm just getting information.
   es: Solo estoy mirando. Nada más estoy buscando información.
@@ -65,7 +65,7 @@ scoring:
     - code: SOL-O06-NOPRESSURE
       behavior:
         en: "Took the pressure off and made it clear she was free to say no"
-        es: "Le quitó la presión y le dejó claro que estaba en libertad de decir que no"
+        es: "Le quitó la presión y le dejó claro que podía decir que no"
       dimension: technique
       method: judge
       points: 20
@@ -147,7 +147,7 @@ demonstrations:
       en:
         - { speaker: customer, text: "I'm just looking. I'm just getting information." }
         - { speaker: rep, text: "Everybody's just looking! But once you see these numbers, you won't be. Let me show you the battery and the monitoring app too." }
-        - { speaker: customer, text: "Just starting. I'm not signing anything today." }
+        - { speaker: customer, text: "I said I'm just getting information." }
         - { speaker: rep, text: "What can I do to get you to sign today?" }
         - { speaker: customer, text: "I just want the information. I'll decide on my own." }
         - { speaker: rep, text: "Okay. Here's my card and the brochure. Call me if you change your mind." }
@@ -155,7 +155,7 @@ demonstrations:
       es:
         - { speaker: customer, text: "Solo estoy mirando. Nada más estoy buscando información." }
         - { speaker: rep, text: "¡Todo el mundo está solo mirando! Pero cuando vea estos números, se le quita. Déjeme enseñarle también la batería y la aplicación del monitoreo." }
-        - { speaker: customer, text: "Apenas empezando. Hoy no voy a firmar nada." }
+        - { speaker: customer, text: "Le dije que solo estoy buscando información." }
         - { speaker: rep, text: "¿Qué tengo que hacer para que firme hoy?" }
         - { speaker: customer, text: "Solo quiero la información. Yo decido por mi cuenta." }
         - { speaker: rep, text: "Bueno. Aquí tiene mi tarjeta y el folleto. Me llama si cambia de idea." }
@@ -181,13 +181,13 @@ demonstrations:
         - { speaker: customer, text: "Monday at 6:30 works for me." }
       es:
         - { speaker: customer, text: "Solo estoy mirando. Nada más estoy buscando información." }
-        - { speaker: rep, text: "[pausa] Perfecto. Para eso es esta visita, para información, y usted está en libertad de decirle que no a todo. ¿Apenas está empezando a mirar lo de solar, o ya ha comparado algunas compañías?" }
+        - { speaker: rep, text: "[pausa] Perfecto. Para eso es esta visita, para información, y usted le puede decir que no a todo. ¿Apenas está empezando a mirar lo de solar, o ya ha comparado algunas compañías?" }
         - { speaker: customer, text: "Apenas empezando. Hoy no voy a firmar nada." }
         - { speaker: rep, text: "Me parece bien. Sin presión de mi parte. Para enseñarle lo que a usted le importa, ¿qué la puso a buscar esto ahora?" }
         - { speaker: customer, text: "Digamos que no estoy segura de cuánto tiempo esta casa encaja en mis planes." }
         - { speaker: rep, text: "Entiendo. ¿Y cómo han estado las facturas de la luz este verano?" }
         - { speaker: customer, text: "Altas, como las de todo el mundo. Solo estoy viendo qué hay." }
-        - { speaker: rep, text: "Suena como que puede venir un cambio. ¿Cuánto tiempo se ve viviendo en esta casa?" }
+        - { speaker: rep, text: "Me da la impresión de que viene un cambio. ¿Cuánto tiempo se ve viviendo en esta casa?" }
         - { speaker: customer, text: "Bueno, la verdad, mi hija termina la high school en tres años, y a lo mejor vendo y me mudo. Me da miedo que un préstamo de 25 años por los paneles me complique vender la casa." }
         - { speaker: rep, text: "Gracias por decírmelo. Eso cambia lo que le voy a enseñar, y tres años alcanzan para decidir con calma. No le voy a prometer lo que un comprador pagaría por una casa con paneles. Lo que sí puedo hacer es conseguirle por escrito los términos del préstamo de Kestrela, incluido qué pasa con el préstamo si vende, y ponerle al lado el precio de contado, para que usted lo lea, sola o con su realtor." }
         - { speaker: customer, text: "Eso me ayuda. Pensé que me iba a caer encima con eso." }

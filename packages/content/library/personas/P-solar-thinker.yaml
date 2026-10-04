@@ -17,7 +17,7 @@ stated_line:
   es: Lo tengo que pensar.
 hidden_truth:
   en: He is not sure the HOA will approve panels on the street-facing side. A neighbor got a violation letter over a fence, and he does not want to sign a contract and then fight the association.
-  es: No está seguro de que la HOA apruebe paneles en el lado que da a la calle. A un vecino le mandaron una carta de violación por una cerca, y él no quiere firmar un contrato y después pelear con la asociación.
+  es: No está seguro de que la HOA apruebe paneles en el lado que da a la calle. A un vecino le mandaron una carta de infracción por una cerca, y él no quiere firmar un contrato y después pelear con la asociación.
 # Phrases that would give the hidden truth away before an unlock.
 hidden_truth_markers:
   en:
@@ -31,8 +31,9 @@ hidden_truth_markers:
     - '\bHOA\b'
     - '\basociación\b'
     - '\b(junta|comité)\b'
-    - '\bcarta de violación\b'
+    - '\bcarta de (violación|infracción)\b'
     - '\bviolación\b'
+    - '\binfracción\b'
 unlock_conditions:
   - code: asks_what_to_think_over
     description:
@@ -47,7 +48,7 @@ unlock_conditions:
         - '\bwhat(''s| is) (still )?(missing|unanswered|left to figure out)\b'
         - '\bwhen you think (it|this|things) over\b.{0,60}\bwhat\b'
       es:
-        - '\bqué (es lo que |parte |cosa )?(quiere|necesita|le gustaría|tiene que) (pensar|pensarlo|revisar|consultar con la almohada|tener segur[oa])\b'
+        - '\bqué (es lo que |parte |cosa )?(todavía )?(quiere|necesita|le gustaría|tiene que) (pensar|pensarlo|revisar|consultar con la almohada|tener segur[oa]|tener clar[oa])\b'
         - '\bqué (es lo que )?(le )?(falta|queda) por (saber|ver|aclarar|resolver|pensar)\b'
         - '\bqué (necesitaría|le haría falta|tendría que) (saber|ver|comprobar|confirmar)\b'
         - '\bqué parte\b.{0,40}\b(pensar|duda|segur[oa])\b'
@@ -113,7 +114,7 @@ walk_out_triggers:
     min_hits: 3
     cues:
       en: ['\blet''?s (just )?(do it|write it up|get it done)\b', '\bsign (it |the contract |the paperwork )?(today|now|tonight)\b', '\bwhat (will|would) it take\b', '\bwhy not (today|now)\b', '\bget you signed\b']
-      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya|esta noche)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\b(hoy|firme)\b', '\bpor qué no (hoy|ahora)\b', '\bdejemos (escrito|firmado)\b']
+      es: ['\bhagámoslo (hoy|ahora|ya)\b', '\bfirme (hoy|ahora|ya|esta noche)\b', '\bqué (tengo|hace falta) (que hacer )?para que\b.{0,20}\b(hoy|firme)\b', '\bpor qué no (hoy|ahora)\b', '\bdejemos (escrito|firmado)\b', '\bhagamos el contrato\b']
 win_condition:
   description:
     en: The HOA worry comes out, plus a firm day and time to fill out the association's application together.
@@ -139,7 +140,7 @@ offline_lines:
     - { en: "I like to sleep on things like this.", es: "Con estas cosas me gusta consultarlo con la almohada." }
   hint: { en: "It's not the price. It's more about whether we can actually put it up the way it's drawn.", es: "No es el precio. Es más bien si de verdad lo podemos instalar como está dibujado." }
   after_hint: { en: "The numbers are fine. I ran them against my own bills.", es: "Los números están bien. Ya los comparé con mis propias facturas." }
-  reveal: { en: "Okay. Twelve of the panels face the street, and I'm not sure the HOA will approve that. My neighbor got a violation letter over a fence. I don't want to sign and then fight the association.", es: "Bueno. Doce de los paneles dan a la calle, y no sé si la HOA lo va a aprobar. A mi vecino le mandaron una carta de violación por una cerca. No quiero firmar y después pelear con la asociación." }
+  reveal: { en: "Okay. Twelve of the panels face the street, and I'm not sure the HOA will approve that. My neighbor got a violation letter over a fence. I don't want to sign and then fight the association.", es: "Bueno. Doce de los paneles dan a la calle, y no sé si la HOA lo va a aprobar. A mi vecino le mandaron una carta de infracción por una cerca. No quiero firmar y después pelear con la asociación." }
   after_reveal:
     - { en: "That would settle it. I don't want a letter after the panels are up.", es: "Eso lo resolvería. No quiero una carta después de que los paneles estén puestos." }
     - { en: "Okay. That's what I needed to know.", es: "Está bien. Eso es lo que necesitaba saber." }

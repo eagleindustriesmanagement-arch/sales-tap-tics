@@ -143,9 +143,9 @@ offline_lines:
   after_hint: { en: "Yeah, the sectional's perfect. It's the monthly.", es: "Sí, el sectional está perfecto. Es la mensualidad." }
   reveal: { en: "Two forty. I can't go over $240 a month. My daughter's braces just started.", es: "Doscientos cuarenta. No me puedo pasar de $240 al mes. Acabamos de empezar a pagar los brackets de mi hija." }
   after_reveal:
-    - { en: "Okay. Show me those side by side.", es: "Está bien. Enséñemelas lado a lado." }
+    - { en: "Okay. Show me those side by side.", es: "Está bien. Enséñemelos lado a lado." }
     - { en: "As long as it's real and on paper, I can decide fast.", es: "Mientras sea real y esté por escrito, yo decido rápido." }
-  agree_next_step: { en: "That works. Have them printed for me.", es: "Eso me sirve. Téngamelas impresas." }
+  agree_next_step: { en: "That works. Have them printed for me.", es: "Eso me sirve. Téngamelos impresos." }
   not_now: { en: "Not today. I need to get home.", es: "Hoy no. Me tengo que ir para la casa." }
   walk_away: { en: "I'm going to head out.", es: "Me voy a ir yendo." }
   goodbye: { en: "Thanks. Take care.", es: "Gracias. Que le vaya bien." }
