@@ -585,8 +585,8 @@ test("a spoken session: hands-free turns, barge-in, and the pause and pace are s
     const pending: (() => void)[] = [];
     const synth = {
       speaking: false,
-      speak(u: { text: string; onend?: () => void }) {
-        if (!u.text.trim()) return;
+      speak(u: { text: string; volume?: number; onend?: () => void }) {
+        if (!u.text.trim() || u.volume === 0) return; // the silent unlock
         (w.__said as string[]).push(u.text);
         (u as { onstart?: () => void }).onstart?.();
         const done = () => u.onend?.();
