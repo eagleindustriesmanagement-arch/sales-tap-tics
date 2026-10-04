@@ -271,6 +271,8 @@ export class DeviceTextToSpeech implements TextToSpeech {
     setTimeout(() => {
       if (first.started()) return;
       voiceDiagnostics.event(first.record, "no-start");
+      // Something is playing (a slow online voice that never reported its start): leave it, never say it twice.
+      try { if (window.speechSynthesis.speaking) return; } catch { /* no engine */ }
       try { window.speechSynthesis.cancel(); } catch { /* no engine */ }
       say(false);
     }, 1500);

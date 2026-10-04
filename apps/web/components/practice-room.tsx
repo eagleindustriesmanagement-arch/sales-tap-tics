@@ -117,16 +117,23 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     const ok = DeviceSpeechToText.supported() && tts;
     setIos(apple);
     setTtsOk(tts);
-    if (tts) {
-      const synth = window.speechSynthesis as SpeechSynthesis & Partial<EventTarget>;
-      const check = () => setHasVoices(apple || synth.getVoices().length > 0);
-      check();
-      synth.addEventListener?.("voiceschanged", check);
-    }
     setVoiceOk(ok || apple);
     let saved: string | null = null;
     try { saved = localStorage.getItem(ANSWER_KEY); } catch { /* storage off */ }
     setAnswerBy((ok || apple) && saved !== "type" ? "talk" : "type");
+    if (!tts) return;
+    const synth = window.speechSynthesis as SpeechSynthesis & Partial<EventTarget>;
+    const check = () => setHasVoices(apple || synth.getVoices().length > 0);
+    check();
+    synth.addEventListener?.("voiceschanged", check);
+    return () => synth.removeEventListener?.("voiceschanged", check);
+  }, []);
+  // The customer stops talking when the conversation does: at the debrief, and when the rep leaves the screen.
+  useEffect(() => {
+    if (phase === "debrief") speaker.current?.cancel();
+  }, [phase]);
+  useEffect(() => {
+    return () => speaker.current?.cancel();
   }, []);
   const choose = (a: AnswerBy) => {
     setAnswerBy(a);

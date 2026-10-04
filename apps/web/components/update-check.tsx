@@ -14,18 +14,28 @@ export function UpdateCheck({ language }: { language: Language }) {
   useEffect(() => {
     if (CLIENT_BUILD === "dev") return;
     let stopped = false;
-    const check = async () => {
+    /**
+     * `quiet`: the app is in front of the rep (the 5-minute check). A reload then would pull a lesson out from under
+     * them, so it only offers one. On opening or coming back to the app, it reloads, but once per release: if the
+     * reload still serves the older page (a rollback, a deploy still rolling out), it offers instead of looping.
+     */
+    const check = async (quiet: boolean) => {
       if (document.visibilityState !== "visible") return;
       const res = await fetch("/api/version", { cache: "no-store" }).catch(() => null);
       const body = (await res?.json().catch(() => null)) as { build?: string } | null;
       if (stopped || !body?.build || body.build === "dev" || body.build === CLIENT_BUILD) return;
-      if (document.documentElement.dataset.liveSession === "1") setReady(true);
-      else location.reload();
+      const key = "taptics.reloadedFor";
+      let tried: string | null = null;
+      try { tried = sessionStorage.getItem(key); } catch { /* storage off */ }
+      if (quiet || tried === body.build || document.documentElement.dataset.liveSession === "1") return setReady(true);
+      // No storage to remember the try (some private windows): offer, never risk a reload loop.
+      try { sessionStorage.setItem(key, body.build); } catch { return setReady(true); }
+      location.reload();
     };
-    void check();
-    const onVisible = () => { void check(); };
+    void check(false);
+    const onVisible = () => { void check(false); };
     document.addEventListener("visibilitychange", onVisible);
-    const timer = setInterval(() => { void check(); }, 5 * 60_000);
+    const timer = setInterval(() => { void check(true); }, 5 * 60_000);
     return () => {
       stopped = true;
       document.removeEventListener("visibilitychange", onVisible);

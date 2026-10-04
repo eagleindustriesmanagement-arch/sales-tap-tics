@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import pg from "pg";
@@ -864,11 +865,16 @@ test("on an iPhone: the voice plays even where a blank utterance wedges speech, 
   await expect(page.getByTestId("sound-details")).toContainText("iPhone/iPad");
   await expect(page.getByTestId("sound-details")).toContainText(/queued 0ms → start \d+ms → end \d+ms/);
   await expect(page.getByTestId("sound-details")).toContainText("Use the keyboard's microphone key");
+  const axe = async (where: string) => (await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze()).violations.map((v) => `${where}: ${v.id} ${v.nodes.map((n) => n.target.join(" ")).slice(0, 2).join(", ")}`);
+  const a11y = await axe("sound check");
 
   // The customer's opening line is spoken, with no microphone and no recognizer.
   await page.getByRole("button", { name: "Start" }).click();
   await expect(page.getByTestId("tap-to-talk")).toBeVisible();
   await expect(page.getByTestId("talk-steps")).toContainText("Tap the microphone key on the keyboard");
+  await page.waitForTimeout(900); // let the bubbles finish drawing in before colours are measured
+  a11y.push(...(await axe("tap to talk")));
+  expect(a11y).toEqual([]);
   await expect.poll(async () => (await said()).length).toBeGreaterThan(1);
   await page.getByTestId("tap-to-talk").click();
   await expect(page.getByLabel("Type what you would say")).toBeFocused();
@@ -889,4 +895,17 @@ test("on an iPhone: the voice plays even where a blank utterance wedges speech, 
   expect(await page.evaluate(() => (window as unknown as { __recCreated: number }).__recCreated)).toBe(0);
   expect(await page.evaluate(() => (window as unknown as { __mic: number }).__mic)).toBe(0);
   await ctx.close();
+});
+
+test("a phone still on an older release reloads once, then offers the update instead of reloading again", async ({ page }) => {
+  // A reload can still be served the older page (a rollback, a deploy rolling out): it must never loop.
+  await signInReady(page, "rep2@demo.test");
+  let loads = 0;
+  page.on("load", () => { loads += 1; });
+  await page.route("**/api/version", (route) => route.fulfill({ json: { build: "a-newer-release" } }));
+  await page.goto("/today");
+  await expect(page.getByTestId("update-ready")).toBeVisible({ timeout: 15_000 });
+  await page.waitForTimeout(1500);
+  expect(loads).toBe(2); // the page, then exactly one reload
+  await page.unroute("**/api/version");
 });
