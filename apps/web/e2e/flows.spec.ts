@@ -65,6 +65,11 @@ test("a rep signs in, accepts the notice, practices, and the session is saved", 
   // Learn, see it, do it (decision 0031): the lesson comes first, then the demonstration, then the role-play.
   const lesson = page.getByTestId("lesson");
   await expect(lesson.getByRole("heading", { level: 1 })).toContainText("find out what she'll ask");
+  // The tactic in plain words and the steps come first; the background waits behind "More about this tactic".
+  await expect(lesson.getByTestId("lesson-tactic")).toContainText("don't push");
+  await expect(lesson.getByTestId("lesson-steps").getByRole("listitem")).toHaveCount(5);
+  await expect(lesson.getByRole("heading", { name: "Why it works" })).toBeHidden();
+  await lesson.getByText("More about this tactic").click();
   await expect(lesson.getByRole("heading", { name: "Why it works" })).toBeVisible();
   await expect(lesson.getByText("When you talk tonight, what do you think her first question will be?")).toBeVisible();
   await expect(lesson.getByText("Her first question", { exact: true })).toBeVisible();
