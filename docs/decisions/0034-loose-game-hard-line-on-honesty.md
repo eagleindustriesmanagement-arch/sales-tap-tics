@@ -22,3 +22,10 @@
 - **Not changed.** The 26 deterministic rules and the compliance corpus are unchanged; the suite shows no regression.
   Customers still react like people: a third push after two refusals, or a "trust me", raises the chance they walk.
   That is the game's realism, not a penalty on the score.
+- **Lessons teach strategy, not policy (October 4).** The owner: "The app needs to be compliant but leave more
+  things up to the dealership and just teach strategies, otherwise the dealership might not buy because we're being
+  too restrictive." The payment lesson no longer makes the rep warn that a longer term costs more interest: it
+  teaches getting the customer's number and building to it with real options from the sheet, longer terms included.
+  Every lesson and scenario was audited the same way: rubric items score the strategy a lesson teaches, and
+  automatic fails cover only dishonesty (a lie about the term, made-up urgency, a hidden product or charge, a
+  promise the rep can't keep). Moralizing ("never push", "respect his no", "if theirs is better, say so") is gone.
