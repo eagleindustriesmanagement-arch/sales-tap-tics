@@ -41,13 +41,14 @@ export interface CustomerTurnResult {
 const dollars = (cents: number) => formatDollars(cents, "en");
 
 /** The facts the customer knows (spec 10.4 item 3): their vehicle of interest, their trade, what they were told. */
-export function customerFacts(facts: ScenarioFacts, language: Language): string {
+export function customerFacts(facts: ScenarioFacts, language: Language, industry: Scenario["industry"] = "cars"): string {
   const lines: string[] = [];
   const v = facts.vehicle;
-  lines.push(language === "es" ? `- El carro que le interesa: ${v.year} ${v.make} ${v.model} ${v.trim}${v.color ? `, ${v.color}` : ""}.` : `- The vehicle you are looking at: ${v.year} ${v.make} ${v.model} ${v.trim}${v.color ? `, ${v.color}` : ""}.`);
+  const car = industry === "cars";
+  lines.push(language === "es" ? `- ${car ? "El carro que le interesa" : "Lo que le interesa"}: ${v.year} ${v.make} ${v.model} ${v.trim}${v.color ? `, ${v.color}` : ""}.` : `- ${car ? "The vehicle you are looking at" : "What you are looking at"}: ${v.year} ${v.make} ${v.model} ${v.trim}${v.color ? `, ${v.color}` : ""}.`);
   if (facts.trade) {
     const payoff = facts.trade.payoff_cents === null ? "" : facts.trade.payoff_cents === 0 ? (language === "es" ? " (pagado)" : " (paid off)") : ` (${language === "es" ? "debe" : "you owe"} ${dollars(facts.trade.payoff_cents)})`;
-    lines.push(language === "es" ? `- Su carro actual para el trade-in: ${facts.trade.vehicle}${payoff}.` : `- Your current car to trade: ${facts.trade.vehicle}${payoff}.`);
+    lines.push(language === "es" ? `- ${car ? "Su carro actual para el trade-in" : "Lo que entregaría como parte del pago"}: ${facts.trade.vehicle}${payoff}.` : `- ${car ? "Your current car to trade" : "What you would trade in"}: ${facts.trade.vehicle}${payoff}.`);
   }
   for (const [key, value] of Object.entries(facts.customer_knows)) {
     const label = key.replace(/_cents$/, "").replace(/_/g, " ");
@@ -56,6 +57,22 @@ export function customerFacts(facts: ScenarioFacts, language: Language): string 
   }
   return lines.join("\n");
 }
+
+/** Who the customer is, by the scenario's industry (decision 0033): a solar homeowner is never told they are buying a car. */
+const ROLE: Record<Scenario["industry"], string> = {
+  cars: "a car buyer at a dealership",
+  homes: "a home buyer talking with a new-home sales agent",
+  solar: "a homeowner hearing a solar offer",
+  furniture: "a shopper in a furniture store",
+};
+
+/** Everyday sales words a Miami Spanish speaker uses, when the persona lists none. */
+const EVERYDAY_TERMS: Record<Scenario["industry"], string> = {
+  cars: '"el down", "el trade-in"',
+  homes: '"el closing", "el HOA"',
+  solar: '"el down", "los paneles"',
+  furniture: '"el delivery", "el sofá"',
+};
 
 function personaBlock(cfg: CustomerConfig): string {
   const { persona, variation, language } = cfg;
@@ -73,7 +90,7 @@ function languageRules(cfg: CustomerConfig): { rules: string; register: string; 
   const mixes = persona.language.mixes_when_rep_mixes;
   const rules =
     language === "es"
-      ? `Speak natural Miami Spanish (Caribbean, Venezuelan or Colombian, not Castilian). Everyday dealer terms like ${persona.language.everyday_terms.map((t) => `"${t}"`).join(", ") || '"el down", "el trade-in"'} are normal in your Spanish.${mixes ? " If the salesperson mixes English and Spanish, you may mix the same way; never mix first." : " Stay in Spanish even if the salesperson switches."}`
+      ? `Speak natural Miami Spanish (Caribbean, Venezuelan or Colombian, not Castilian). Everyday sales terms like ${persona.language.everyday_terms.map((t) => `"${t}"`).join(", ") || EVERYDAY_TERMS[cfg.scenario.industry]} are normal in your Spanish.${mixes ? " If the salesperson mixes English and Spanish, you may mix the same way; never mix first." : " Stay in Spanish even if the salesperson switches."}`
       : `Speak natural American English.${persona.language.preferred === "es" ? " Spanish is your more comfortable language: if the salesperson switches to Spanish, you switch too and stay there." : ""}${mixes ? " If the salesperson mixes English and Spanish, you may mix the same way; never mix first." : ""}`;
   const register = language === "es" ? (persona.register === "usted" ? "Use usted with the salesperson until they clearly move to tú and you are comfortable; then you may use tú." : "You use tú.") : "Plain, everyday English.";
   const block =
@@ -128,12 +145,14 @@ export class AiCustomer {
   private revealed = false;
 
   constructor(private readonly client: AiClient, private readonly cfg: CustomerConfig) {
-    const prompt = loadPrompt("customer");
+    const prompt = loadPrompt("customer", 2);
     const lang = languageRules(cfg);
     this.promptRef = prompt.ref;
     this.system = render(prompt, {
+      role: ROLE[cfg.scenario.industry],
+      setting: cfg.scenario.setting[cfg.language],
       persona: personaBlock(cfg),
-      facts: customerFacts(cfg.variation.facts, cfg.language),
+      facts: customerFacts(cfg.variation.facts, cfg.language, cfg.scenario.industry),
       hidden_truth: cfg.persona.hidden_truth[cfg.language],
       difficulty: String(cfg.persona.difficulty),
       language_rules: lang.rules,

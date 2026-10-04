@@ -30,7 +30,7 @@ export class ClaudeComplianceClassifier implements ComplianceClassifier {
   constructor(private readonly client: AiClient, private readonly tenantId: string, private readonly sessionId: string | null = null) {}
 
   async classify({ utterance, rules, ctx }: ClassifierInput): Promise<Violation[]> {
-    const prompt = loadPrompt("classifier");
+    const prompt = loadPrompt("classifier", 2);
     const system = render(prompt, {
       speaker: utterance.speaker,
       channel: ctx.channel,
@@ -81,7 +81,7 @@ export class ClaudeUnlockDetector implements UnlockDetector {
   async detect(input: { text: string; language: Language; persona: Persona; lexicon: Lexicon; previousCustomerText?: string }): Promise<RepTurnSignals> {
     const cues = detectFromCues(input);
     if (!this.client.isEnabled("unlock")) return cues;
-    const prompt = loadPrompt("unlock");
+    const prompt = loadPrompt("unlock", 2);
     const list = (items: Persona["unlock_conditions"]) => items.map((c) => `- ${c.code}: ${c.description.en}`).join("\n");
     try {
       const { parsed } = await this.client.parse<z.infer<typeof UnlockOutput>>(

@@ -110,6 +110,17 @@ describe("AI customer (spec 10.4)", () => {
     expect(c.system).not.toMatch(/\{\{\w+\}\}/);
   });
 
+  it("casts the customer in the scenario's own industry and scene, never a car buyer at a solar pitch", () => {
+    expect(customer([]).c.system).toContain("a car buyer at a dealership");
+    const solar = library.scenarios.get("S-solar-partner-L1")!;
+    const solarPersona = library.personas.get(solar.persona)!;
+    const engine = new ScenarioEngine({ scenario: solar, persona: solarPersona, language: "en", seed: "ai-test" });
+    const c = new AiCustomer(new AiClient(fakeApi({}).api), { scenario: solar, persona: solarPersona, variation: engine.variation, language: "en", glossary: library.glossary, lexicon: library.lexicon!, tenantId: "t1", sessionId: "s1" });
+    expect(c.system).toContain("a homeowner hearing a solar offer");
+    expect(c.system).toContain(solar.setting.en);
+    expect(c.system).not.toMatch(/car buyer|dealership|vehicle/);
+  });
+
   it("writes the Spanish session's prompt with Miami terms", () => {
     const { c } = customer([], "es");
     expect(c.system).toContain("Miami Spanish");
