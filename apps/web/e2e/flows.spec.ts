@@ -583,6 +583,7 @@ test("a spoken session: hands-free turns, barge-in, and the pause and pace are s
       speak(u: { text: string; onend?: () => void }) {
         if (!u.text.trim()) return;
         (w.__said as string[]).push(u.text);
+        (u as { onstart?: () => void }).onstart?.();
         const done = () => u.onend?.();
         pending.push(done);
         setTimeout(() => { const i = pending.indexOf(done); if (i >= 0) { pending.splice(i, 1); done(); } }, w.__ttsMs as number);
@@ -796,3 +797,53 @@ test("the app header's language picker: globe, current language, both languages"
   await expect(page.getByTestId("app-lang")).toContainText("English");
 });
 
+
+test("on an iPhone, a blocked voice can be heard with a tap, the microphone stays free, and the rep can tap to talk", async ({ browser }) => {
+  // Production (October 4): on Ernesto's iPhone neither the customer's voice nor the microphone worked. An open
+  // microphone meter switches iOS to play-and-record (the voice goes silent or to the earpiece), and iOS can block
+  // speech until a tap. This phone never starts speaking on its own, the way a blocked iPhone behaves.
+  const ctx = await browser.newContext({
+    userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+    viewport: { width: 390, height: 844 },
+  });
+  const page = await ctx.newPage();
+  await page.addInitScript(() => {
+    const w = window as unknown as Record<string, unknown>;
+    w.__said = [] as string[];
+    w.__mic = 0;
+    const synth = { speaking: false, speak(u: { text: string }) { if (u.text.trim()) (w.__said as string[]).push(u.text); }, cancel() {}, resume() {}, getVoices: () => [] };
+    Object.defineProperty(window, "speechSynthesis", { value: synth, configurable: true });
+    class FakeRecognition {
+      lang = ""; continuous = false; interimResults = false; maxAlternatives = 1;
+      onresult = null; onspeechstart = null; onspeechend = null; onerror = null; onend = null;
+      start() { w.__recStarts = ((w.__recStarts as number) ?? 0) + 1; }
+      stop() {} abort() {}
+    }
+    w.SpeechRecognition = FakeRecognition;
+    w.webkitSpeechRecognition = FakeRecognition;
+    Object.defineProperty(navigator, "mediaDevices", { value: { getUserMedia: () => { w.__mic = (w.__mic as number) + 1; return Promise.reject(new Error("no")); } }, configurable: true });
+  });
+  const said = () => page.evaluate(() => (window as unknown as { __said: string[] }).__said);
+  await signInReady(page, "manager2@demo.test");
+  await page.goto("/practice/S-browser-L1");
+  await pastLesson(page);
+  await expect(page.getByRole("radio", { name: "Talk" })).toBeChecked();
+  await page.getByTestId("test-sound").click();
+  await expect.poll(said).toContain("Hi. This is how your customer will sound.");
+  await expect(page.getByTestId("sound-hint")).toBeVisible();
+
+  await page.getByRole("button", { name: "Start" }).click();
+  await expect(page.getByTestId("voice-status")).toHaveText(/is talking/);
+  await expect(page.getByTestId("tap-to-hear")).toBeVisible({ timeout: 6000 });
+  const before = (await said()).length;
+  await page.getByTestId("tap-to-hear").click();
+  await expect.poll(async () => (await said()).length).toBeGreaterThan(before);
+  // The conversation does not wait forever on a sentence that never reported its end.
+  await expect(page.getByTestId("voice-status")).toHaveText("Your turn. Listening…", { timeout: 15_000 });
+  await expect(page.getByTestId("tap-to-talk")).toBeVisible();
+  const starts = await page.evaluate(() => (window as unknown as { __recStarts: number }).__recStarts);
+  await page.getByTestId("tap-to-talk").click();
+  await expect.poll(() => page.evaluate(() => (window as unknown as { __recStarts: number }).__recStarts)).toBeGreaterThan(starts);
+  expect(await page.evaluate(() => (window as unknown as { __mic: number }).__mic)).toBe(0);
+  await ctx.close();
+});

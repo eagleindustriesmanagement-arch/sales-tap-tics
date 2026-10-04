@@ -111,11 +111,43 @@ export class DeviceTextToSpeech implements TextToSpeech {
   private queue: Promise<void> = Promise.resolve();
   private current = 0;
   private generation = 0;
+  /**
+   * Utterances being spoken. Browsers drop the end event of an utterance nothing references any more (Safari and
+   * Chrome both do), and the conversation would wait forever on a sentence that already finished.
+   */
+  private readonly live = new Set<SpeechSynthesisUtterance>();
   /** When the last sentence finished playing: the start of the rep's pause. */
   lastEndedAt: number | null = null;
+  /** Called when a sentence never starts: the device is blocking speech until the rep taps (iPhone). */
+  onBlocked: ((sentence: string) => void) | null = null;
 
   static supported(): boolean {
     return typeof window !== "undefined" && "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+  }
+
+  /**
+   * Must run inside a tap: iPhone speaks only after the page has spoken during a user gesture. A silent utterance does
+   * it without a sound; resume() clears the paused state Safari sometimes leaves behind.
+   */
+  static unlock(): void {
+    if (!DeviceTextToSpeech.supported()) return;
+    try {
+      window.speechSynthesis.resume?.();
+      const u = new SpeechSynthesisUtterance(" ");
+      u.volume = 0;
+      window.speechSynthesis.speak(u);
+    } catch { /* nothing to unlock */ }
+  }
+
+  /** The device's voices load after the page does; wait for them briefly so the first line gets the right voice. */
+  static voicesReady(timeoutMs = 1500): Promise<void> {
+    if (!DeviceTextToSpeech.supported() || window.speechSynthesis.getVoices().length > 0) return Promise.resolve();
+    return new Promise((resolve) => {
+      const synth = window.speechSynthesis as SpeechSynthesis & Partial<EventTarget>;
+      const done = () => { synth.removeEventListener?.("voiceschanged", done); resolve(); };
+      synth.addEventListener?.("voiceschanged", done);
+      setTimeout(done, timeoutMs);
+    });
   }
 
   get speaking(): boolean {
@@ -133,7 +165,7 @@ export class DeviceTextToSpeech implements TextToSpeech {
     const generation = this.generation;
     this.current += 1;
     const run = () =>
-      new Promise<void>((resolve) => {
+      DeviceTextToSpeech.voicesReady().then(() => new Promise<void>((resolve) => {
         if (generation !== this.generation) return resolve();
         const u = new SpeechSynthesisUtterance(sentence);
         u.lang = LOCALE[options.language];
@@ -142,11 +174,32 @@ export class DeviceTextToSpeech implements TextToSpeech {
         // A small, stable difference per customer, so two personas on one voice still sound like two people.
         u.pitch = 0.95 + (hash(options.voiceKey) % 11) / 100;
         u.rate = 1;
-        const done = () => resolve();
+        let started = false;
+        let finished = false;
+        // Generous upper bound on how long the sentence can take: if no end event arrives, move on anyway.
+        const words = sentence.split(/\s+/).length;
+        const limit = setTimeout(() => done(), 4000 + words * 600);
+        // Nothing heard after a few seconds: speech is blocked until the rep taps.
+        const blocked = setTimeout(() => { if (!started && !finished) this.onBlocked?.(sentence); }, 3000);
+        const done = () => {
+          if (finished) return;
+          finished = true;
+          clearTimeout(limit);
+          clearTimeout(blocked);
+          this.live.delete(u);
+          resolve();
+        };
+        u.onstart = () => { started = true; };
         u.onend = done;
         u.onerror = done;
-        window.speechSynthesis.speak(u);
-      });
+        this.live.add(u);
+        try {
+          window.speechSynthesis.resume?.();
+          window.speechSynthesis.speak(u);
+        } catch {
+          done();
+        }
+      }));
     const p = this.queue.then(run).finally(() => {
       this.current = Math.max(0, this.current - 1);
       if (generation === this.generation) this.lastEndedAt = performance.now();
@@ -155,10 +208,23 @@ export class DeviceTextToSpeech implements TextToSpeech {
     return p;
   }
 
+  /** Says one sentence now, from a tap (iPhone allows speech after a gesture), outside the queue's timing. */
+  replay(sentence: string, options: SpeakOptions): void {
+    DeviceTextToSpeech.unlock();
+    const u = new SpeechSynthesisUtterance(sentence);
+    u.lang = LOCALE[options.language];
+    const voice = this.voiceFor(options);
+    if (voice) u.voice = voice;
+    this.live.add(u);
+    u.onend = u.onerror = () => this.live.delete(u);
+    window.speechSynthesis.speak(u);
+  }
+
   cancel(): void {
     this.generation += 1;
     this.current = 0;
     window.speechSynthesis.cancel();
+    this.live.clear();
     this.queue = Promise.resolve();
     this.lastEndedAt = performance.now();
   }

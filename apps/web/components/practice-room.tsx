@@ -56,6 +56,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   const [voiceOk, setVoiceOk] = useState(false);
   const [answerBy, setAnswerBy] = useState<AnswerBy>("type");
   const [opening, setOpening] = useState("");
+  const [soundTested, setSoundTested] = useState(false);
   // An open conversation on this scenario, from before the screen was reloaded or redrawn: offered back, not lost.
   const resumeKey = `taptics.session.${scenario.code}.${mode}`;
   const [resumable, setResumable] = useState<{ id: string; language: Language; brief: string; name: string; lines: Line[] } | null>(null);
@@ -132,7 +133,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     setError(null);
     const voice = answerBy === "talk";
     // iOS lets a page speak only after a tap: this one, so the customer's first line is not blocked.
-    if (voice) try { window.speechSynthesis.speak(new SpeechSynthesisUtterance(" ")); } catch { /* no voices */ }
+    if (voice) DeviceTextToSpeech.unlock();
     try {
       const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice, mode, voice, demoWatched: watchedDemo }) });
       if (res.status === 409) {
@@ -448,6 +449,18 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
                 ))}
               </div>
               <p className="px-1 text-[14px] text-muted">{answerBy === "talk" ? ui("voice.talkHint") : voiceOk ? ui("practice.textModeNotice") : ui("voice.unsupported")}</p>
+              {/* Hear the customer's voice before starting: proves the sound works and, on iPhone, unlocks speech from a tap. */}
+              {answerBy === "talk" && (
+                <button type="button" data-testid="test-sound" className="liquid-glass liquid-glass-flat inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[15px] font-semibold text-ink"
+                  onClick={() => {
+                    const testLang: Language = choice === "follow" ? lang : choice;
+                    new DeviceTextToSpeech().replay(t("voice.testLine", testLang), { language: testLang, voiceKey: scenario.code });
+                    setSoundTested(true);
+                  }}>
+                  <IconPlay size={16} />{ui("voice.testSound")}
+                </button>
+              )}
+              {answerBy === "talk" && soundTested && <p className="px-1 text-[14px] text-muted" data-testid="sound-hint">{ui("voice.soundHint")}</p>}
             </fieldset>
             <p className="px-1 text-[14px] text-muted">{ui(live ? "practice.liveNotice" : "practice.offlineNotice")}</p>
           </>

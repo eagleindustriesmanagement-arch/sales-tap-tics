@@ -14,7 +14,9 @@ export class MicMeter {
   floor = 0.01;
 
   static worthTrying(): boolean {
-    return typeof navigator !== "undefined" && !!navigator.mediaDevices?.getUserMedia && !/Android/i.test(navigator.userAgent);
+    // Android gives the microphone to the recognizer alone. On iPhone an open microphone switches the audio to
+    // play-and-record, which silences the customer's voice or sends it to the quiet earpiece: no meter there either.
+    return typeof navigator !== "undefined" && !!navigator.mediaDevices?.getUserMedia && !/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   }
 
   async start(onLevel: (level: number, noisy: boolean) => void): Promise<boolean> {

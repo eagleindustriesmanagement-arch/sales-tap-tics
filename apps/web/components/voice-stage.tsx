@@ -36,6 +36,8 @@ export function VoiceStage({ name, language: lang, voiceKey, opening, lines, end
   const [noisy, setNoisy] = useState(false);
   const [showWords, setShowWords] = useState(false);
   const [elapsed, setElapsed] = useState(0);
+  // The phone blocked the customer's voice: the sentence waits for a tap to be heard.
+  const [blocked, setBlocked] = useState<string | null>(null);
   const bars = useRef<HTMLDivElement>(null);
 
   const phaseRef = useRef<Phase>("customer");
@@ -121,6 +123,7 @@ export function VoiceStage({ name, language: lang, voiceKey, opening, lines, end
   useEffect(() => {
     stt.current = new DeviceSpeechToText();
     tts.current = new DeviceTextToSpeech();
+    tts.current.onBlocked = (sentence) => setBlocked(sentence);
     stt.current.onSpeechStart = (at) => { if (phaseRef.current === "listening" && onset.current === null) onset.current = at; };
     stt.current.onSpeechEnd = (at) => { if (phaseRef.current === "listening") offset.current = at; };
     if (!halfDuplex()) stt.current.start(lang, onEvent, onError);
@@ -177,6 +180,19 @@ export function VoiceStage({ name, language: lang, voiceKey, opening, lines, end
           {Array.from({ length: 21 }, (_, i) => <span key={i} style={{ ["--i" as string]: i }} />)}
         </div>
         <p className="min-h-6 text-[17px] font-semibold text-ink" role="status" aria-live="polite" data-testid="voice-status">{status}</p>
+        {blocked && (
+          <button type="button" data-testid="tap-to-hear" className={`${buttonClass} w-full`}
+            onClick={() => { tts.current?.replay(blocked, { language: lang, voiceKey }); setBlocked(null); }}>
+            {ui("voice.tapToHear", { name })}
+          </button>
+        )}
+        {/* iPhone may not start listening on its own after the customer speaks; a tap always can. */}
+        {phase === "listening" && halfDuplex() && (
+          <button type="button" data-testid="tap-to-talk" className="liquid-glass liquid-glass-flat min-h-12 w-full rounded-full text-[15px] font-semibold text-ink"
+            onClick={() => stt.current?.start(lang, onEvent, onError)}>
+            {ui("voice.tapToTalk")}
+          </button>
+        )}
         {noisy && phase === "listening" && <p className="flex items-center gap-2 text-[14px] font-medium text-warn"><IconAlert size={16} />{ui("practice.tooNoisy")}</p>}
         {error && (
           <div role="alert" className="liquid-glass liquid-glass-panel w-full space-y-3 rounded-[1.25rem] p-4 text-left">

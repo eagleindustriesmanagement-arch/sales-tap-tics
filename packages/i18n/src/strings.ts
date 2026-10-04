@@ -22,6 +22,11 @@ export const STRINGS = {
 
   "nav.today": { en: "Today", es: "Hoy" },
   "nav.main": { en: "Main", es: "Principal" },
+  "voice.tapToHear": { en: "Tap to hear {name}", es: "Toque para oír a {name}" },
+  "voice.tapToTalk": { en: "Not hearing you? Tap to talk", es: "¿No lo escucha? Toque para hablar" },
+  "voice.testSound": { en: "Test the sound", es: "Probar el sonido" },
+  "voice.testLine": { en: "Hi. This is how your customer will sound.", es: "Hola. Así va a sonar su cliente." },
+  "voice.soundHint": { en: "Didn't hear it? Turn the volume up. On iPhone, also check that silent mode is off.", es: "¿No lo oyó? Suba el volumen. En iPhone, revise también que no esté en silencio." },
   "a11y.skip": { en: "Skip to content", es: "Ir al contenido" },
   "language.label": { en: "Display language", es: "Idioma de la pantalla" },
   "auth.hero": { en: "The hard ups,", es: "Los clientes difíciles," },
