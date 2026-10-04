@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { LanguageToggle } from "@/components/language-toggle";
+import { t as translate } from "@taptics/i18n";
 import { IconBook, IconChart, IconClipboard, IconGlobe, IconHome, IconPath, IconShield, IconStore, IconUsers } from "@/components/icons";
 
 export type TabIcon = "today" | "practice" | "progress" | "library" | "floor" | "team" | "dashboard" | "store" | "compliance" | "review";
@@ -51,7 +52,7 @@ export function AppChrome({ tabs, appName, lang, settingsLabel, initial, childre
               <img src="/mark-128.png" alt="" width={32} height={32} className="bezel rounded-[9px]" />
               <span className="font-display text-[22px] leading-none font-normal tracking-[-0.005em]">{appName}</span>
             </Link>
-            <nav aria-label="Main" className="ml-4 hidden items-center gap-1 lg:flex">
+            <nav aria-label={translate("nav.main", lang === "es" ? "es" : "en")} className="ml-4 hidden items-center gap-1 lg:flex">
               {tabs.map((t) => (
                 <Link key={t.href} href={t.href} aria-current={active(path, t.href) ? "page" : undefined}
                   className={`rounded-full px-3.5 py-2 text-[15px] font-semibold transition-colors ${active(path, t.href) ? "bg-brand-soft text-brand ring-1 ring-brand/25 ring-inset" : "text-ink hover:text-brand"}`}>
@@ -72,7 +73,7 @@ export function AppChrome({ tabs, appName, lang, settingsLabel, initial, childre
         {children}
       </main>
       {!full && tabs.length > 0 && (
-        <nav aria-label="Main" className="bottom-safe fixed inset-x-3 z-30 mx-auto max-w-md lg:hidden">
+        <nav aria-label={translate("nav.main", lang === "es" ? "es" : "en")} className="bottom-safe fixed inset-x-3 z-30 mx-auto max-w-md lg:hidden">
           <div className="liquid-glass grid h-[var(--tabbar-h)] items-stretch rounded-[1.75rem] p-1.5" style={{ gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))` }}>
             {/* One pill for the active tab, gliding to the tab that is chosen (none on a screen outside the tabs). */}
             <span

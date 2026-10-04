@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef } from "react";
+import { t } from "@taptics/i18n";
 import { IconGlobe } from "@/components/icons";
 
 type Lang = "en" | "es";
 const NAMES: Record<Lang, string> = { en: "English", es: "Español" };
 const SHORT: Record<Lang, string> = { en: "EN", es: "ES" };
-const LABEL: Record<Lang, string> = { en: "Display language", es: "Idioma de la pantalla" };
 
 /**
  * The language picker, one treatment everywhere (the BookFlows header toggle, with the globe kept by request): a
@@ -22,7 +22,7 @@ export function LanguageToggle({ lang, className = "", testId }: { lang: Lang; c
         data-testid={testId}
         className="liquid-glass relative inline-flex h-11 w-[5.25rem] items-center gap-1.5 overflow-hidden rounded-full pr-2 pl-3 text-ink has-[select:focus-visible]:outline-2 has-[select:focus-visible]:outline-offset-2 has-[select:focus-visible]:outline-brand sm:w-[8rem] sm:pl-3.5"
       >
-        <span className="sr-only">{LABEL[lang]}</span>
+        <span className="sr-only">{t("language.label", lang)}</span>
         <IconGlobe size={16} className="pointer-events-none shrink-0" />
         <span aria-hidden="true" className="pointer-events-none flex-1 truncate text-[14px] font-semibold">
           <span className="sm:hidden">{SHORT[lang]}</span>

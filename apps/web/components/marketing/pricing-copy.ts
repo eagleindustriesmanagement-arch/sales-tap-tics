@@ -125,7 +125,7 @@ export const pricingCopy = {
         q: { en: "Is it only for car sales?", es: "¿Es solo para venta de carros?" },
         a: {
           en: "No. The techniques work for any sale. Car sales has the deepest set of role-play customers, one for every objection; homes, solar and furniture each have a starter set of their own, with more on the way. Anyone else practices the techniques with the car customers.",
-          es: "No. Las técnicas sirven para cualquier venta. La venta de carros tiene el grupo más completo de clientes de role-play, uno para cada objeción; casas, solar y muebles tienen cada uno un primer grupo propio, y vienen más. Cualquier otra venta practica las técnicas con los clientes de carros.",
+          es: "No. Las técnicas sirven para cualquier venta. La venta de carros tiene el grupo más completo de clientes simulados, uno para cada objeción; casas, solar y muebles tienen cada uno un primer grupo propio, y vienen más. Cualquier otra venta practica las técnicas con los clientes de carros.",
         },
       },
       {

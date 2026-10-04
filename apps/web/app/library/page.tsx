@@ -33,7 +33,7 @@ export default async function Library({ searchParams }: { searchParams: Promise<
         <label className="sr-only" htmlFor="q">{t("library.search", lang)}</label>
         <input id="q" name="q" defaultValue={q} placeholder={t("library.search", lang)} className={`${fieldClass} min-w-0 flex-1`} type="search" />
         {tab === "techniques" && (
-          <select name="grade" defaultValue={grade} aria-label="Evidence grade" className="liquid-glass-field min-h-12 rounded-[0.875rem] px-3 text-ink">
+          <select name="grade" defaultValue={grade} aria-label={t("library.gradeLabel", lang)} className="liquid-glass-field min-h-12 rounded-[0.875rem] px-3 text-ink">
             <option value="">{t("library.allGrades", lang)}</option>
             {["A", "B", "C", "D"].map((g) => <option key={g} value={g}>{g}</option>)}
           </select>

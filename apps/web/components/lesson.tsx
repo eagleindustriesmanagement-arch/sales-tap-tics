@@ -25,7 +25,7 @@ export function LessonSteps({ current, lang }: { current: (typeof STEPS)[number]
       {STEPS.map((s, i) => (
         <li key={s} className="flex min-w-0 flex-1 flex-col gap-1.5" aria-current={i === at ? "step" : undefined}>
           <span className={`h-1 rounded-full ${i < at ? "bg-brand/60" : i === at ? "fill-gold" : "bg-ground"}`} />
-          <span className={`truncate text-[11px] font-semibold tracking-wide uppercase ${i === at ? "text-brand" : "text-muted"}`}>{t(`lesson.step.${s}`, lang)}</span>
+          <span className={`text-center text-[11px] leading-tight font-semibold tracking-wide uppercase ${i === at ? "text-brand" : "text-muted"}`}>{t(`lesson.step.${s}`, lang)}</span>
         </li>
       ))}
     </ol>

@@ -18,7 +18,7 @@ export function AuthShell({ lang, eyebrow, title, intro, children, footer }: { l
             <span className="text-[19px] font-semibold tracking-tight text-ink">{t("app.name", lang)}</span>
           </div>
           <p className="font-display max-w-md text-[56px] leading-[1.02] text-ink">
-            {lang === "es" ? <>Los clientes difíciles, <em className="text-brand">aquí primero.</em></> : <>The hard ups, <em className="text-brand">here first.</em></>}
+            {t("auth.hero", lang)} <em className="text-brand">{t("auth.heroAccent", lang)}</em>
           </p>
           <p className="max-w-sm text-[15px] text-muted">{t("app.tagline", lang)}</p>
         </div>

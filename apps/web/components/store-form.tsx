@@ -136,7 +136,7 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove }: { in
             {v.peakHours.length < 14 && <button type="button" className={ghostButtonClass} onClick={() => set("peakHours", [...v.peakHours, { day: 6, from: "11:00", to: "17:00" }])}>{ui("store.peakAdd")}</button>}
           </fieldset>
           <label className="block text-[14px] font-medium text-muted">{ui("store.register")}
-            <select className={input} value={v.spanishRegister} onChange={(e) => set("spanishRegister", e.target.value as "usted" | "tu")}><option value="usted">usted</option><option value="tu">tú</option></select>
+            <select className={input} value={v.spanishRegister} onChange={(e) => set("spanishRegister", e.target.value as "usted" | "tu")}><option value="usted">{ui("store.register.usted")}</option><option value="tu">{ui("store.register.tu")}</option></select>
           </label>
         </fieldset>
       </Card>

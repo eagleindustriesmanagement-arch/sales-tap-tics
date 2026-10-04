@@ -145,7 +145,7 @@ export function ListRow({ href, leading, title, subtitle, trailing, testId }: { 
     <Link href={href} data-testid={testId} className="row-hover flex min-h-16 items-center gap-3 px-4 py-2.5">
       {leading}
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-[16px] font-semibold text-ink">{title}</span>
+        <span className="line-clamp-2 block text-[16px] leading-snug font-semibold text-ink">{title}</span>
         {subtitle && <span className="block text-[14px] text-muted">{subtitle}</span>}
       </span>
       {trailing}

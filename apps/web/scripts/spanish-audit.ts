@@ -5,8 +5,8 @@
  */
 import { platformLibrary } from "@taptics/content";
 import { STRINGS } from "@taptics/i18n";
-import { copy } from "../components/marketing/copy.ts";
-import { pricingCopy } from "../components/marketing/pricing-copy.ts";
+import { copy } from "../components/marketing/copy";
+import { pricingCopy } from "../components/marketing/pricing-copy";
 
 type Row = { where: string; en: string; es: string };
 const rows: Row[] = [];

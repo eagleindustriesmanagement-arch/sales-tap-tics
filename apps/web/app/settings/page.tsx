@@ -42,7 +42,7 @@ export default async function Settings({ searchParams }: { searchParams: Promise
         <form action="/api/settings" method="post" className="space-y-3">
           <div className="flex items-start gap-3">
             <span className={icon}><IconClock size={20} /></span>
-            <div>
+            <div className="min-w-0">
               <label className="block text-[16px] font-bold text-ink" htmlFor="reminder">{t("settings.reminder", lang)}</label>
               <p className="text-[14px] text-muted">{t("settings.reminderHelp", lang)}</p>
             </div>

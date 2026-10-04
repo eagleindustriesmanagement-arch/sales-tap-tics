@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { detectLanguage, missingTranslations, splitClauses, t } from "../src/index.js";
+import { detectLanguage, format, missingTranslations, placeholderNames, splitClauses, t } from "../src/index.js";
 
 describe("strings", () => {
   it("has every key in both languages with matching placeholders", () => {
@@ -12,7 +12,7 @@ describe("strings", () => {
   });
 
   it("fills placeholders", () => {
-    expect(t("today.due", "es", { date: "lunes" })).toBe("Para el lunes");
+    expect(t("today.due", "es", { date: "lunes" })).toBe("Vence el lunes");
   });
 });
 
@@ -36,5 +36,24 @@ describe("detectLanguage", () => {
 
   it("splits clauses", () => {
     expect(splitClauses("This number holds. If not, we redo it.")).toEqual(["This number holds.", "If not, we redo it."]);
+  });
+});
+
+describe("plurals (docs/spanish-style-guide.md section 6)", () => {
+  it("chooses the form by each language's own rules, with # as the number", () => {
+    expect(t("practice.turnsLeft", "es", { n: 1 })).toBe("Queda 1 turno");
+    expect(t("practice.turnsLeft", "es", { n: 3 })).toBe("Quedan 3 turnos");
+    expect(t("practice.turnsLeft", "es", { n: 0 })).toBe("Quedan 0 turnos");
+    expect(t("practice.turnsLeft", "en", { n: 1 })).toBe("1 turn left");
+    expect(t("today.streak", "es", { n: 1 })).toBe("1 día practicando");
+    expect(t("plan.due", "es", { days: 1 })).toBe("Toca repasar: hace 1 día que no lo practica.");
+    expect(t("validity.cell", "es", { r: "0.4", n: 1 })).toBe("0.4 (1 vendedor)");
+    expect(t("floor.recorded", "en", { seconds: 12 })).toBe("Recorded in 12 seconds.");
+  });
+  it("an exact =N choice wins, and other placeholders still fill", () => {
+    expect(format("{n, plural, =0 {Nada} one {# cosa} other {# cosas}} para {name}", "es", { n: 0, name: "Ana" })).toBe("Nada para Ana");
+  });
+  it("counts the plural's variable as a placeholder both languages must share", () => {
+    expect(placeholderNames("{r} ({n, plural, one {# rep} other {# reps}})")).toEqual(["n", "r"]);
   });
 });

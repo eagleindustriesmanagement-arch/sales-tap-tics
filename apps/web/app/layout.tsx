@@ -54,7 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang={lang} className={`${inter.variable} ${serif.variable}`}>
       <body className="min-h-dvh font-sans antialiased">
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-surface focus:px-4 focus:py-2 focus:text-ink">
-          {lang === "es" ? "Ir al contenido" : "Skip to content"}
+          {t("a11y.skip", lang)}
         </a>
         <Suspense fallback={null}><NavProgress /></Suspense>
         <AppChrome

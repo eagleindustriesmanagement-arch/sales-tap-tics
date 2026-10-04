@@ -142,7 +142,7 @@ export const copy = {
     h2b: { en: "Four steps, nothing to set up.", es: "Cuatro pasos, nada que configurar." },
     sub: {
       en: "No role-play partner, no classroom, no waiting for a slow Tuesday. Open it between customers.",
-      es: "Sin compañero de role-play, sin salón de clases, sin esperar un martes flojo. Ábralo entre cliente y cliente.",
+      es: "Sin compañero para simular, sin salón de clases, sin esperar un martes flojo. Ábralo entre cliente y cliente.",
     },
     steps: [
       {
@@ -219,12 +219,12 @@ export const copy = {
     h2: { en: "Techniques for every close.", es: "Técnicas para cada cierre." },
     sub: {
       en: "Pausing before you answer, finding the real objection, putting the whole price on the table, asking for a firm next step: that works wherever a customer makes a big decision. The role-play customers come one industry at a time. We built them on the car floor first. Homes, solar and furniture are next.",
-      es: "Hacer una pausa antes de contestar, encontrar la objeción de verdad, poner el precio completo sobre la mesa, pedir un próximo paso firme: eso funciona dondequiera que un cliente toma una decisión grande. Los clientes de role-play llegan una industria a la vez. Los construimos primero en el piso de carros. Casas, solar y muebles vienen después.",
+      es: "Hacer una pausa antes de contestar, encontrar la objeción de verdad, poner el precio completo sobre la mesa, pedir un próximo paso firme: eso funciona dondequiera que un cliente toma una decisión grande. Los clientes simulados llegan una industria a la vez. Los construimos primero en el piso de carros. Casas, solar y muebles vienen después.",
     },
     /** Used once every industry on the page has role-play customers. */
     subAll: {
       en: "Pausing before you answer, finding the real objection, putting the whole price on the table, asking for a firm next step: that works wherever a customer makes a big decision. Each industry has role-play customers of its own, with the objections that floor really hears.",
-      es: "Hacer una pausa antes de contestar, encontrar la objeción de verdad, poner el precio completo sobre la mesa, pedir un próximo paso firme: eso funciona dondequiera que un cliente toma una decisión grande. Cada industria tiene sus propios clientes de role-play, con las objeciones que de verdad se oyen en ese piso.",
+      es: "Hacer una pausa antes de contestar, encontrar la objeción de verdad, poner el precio completo sobre la mesa, pedir un próximo paso firme: eso funciona dondequiera que un cliente toma una decisión grande. Cada industria tiene sus propios clientes simulados, con las objeciones que de verdad se oyen en ese piso.",
     },
     live: { en: "Customers live", es: "Clientes listos" },
     next: { en: "Customers next", es: "Clientes en camino" },
@@ -232,26 +232,26 @@ export const copy = {
       {
         key: "cars",
         name: { en: "Cars", es: "Carros" },
-        body: { en: "{n} role-play customers, one for every objection on the floor.", es: "{n} clientes de role-play, uno para cada objeción del piso." },
-        liveBody: { en: "{n} role-play customers, one for every objection on the floor.", es: "{n} clientes de role-play, uno para cada objeción del piso." },
+        body: { en: "{n} role-play customers, one for every objection on the floor.", es: "{n} clientes simulados, uno para cada objeción del piso." },
+        liveBody: { en: "{n} role-play customers, one for every objection on the floor.", es: "{n} clientes simulados, uno para cada objeción del piso." },
       },
       {
         key: "homes",
         name: { en: "Homes", es: "Casas" },
         body: { en: "The techniques work today. Home-buyer customers are next.", es: "Las técnicas funcionan hoy. Los clientes que compran casa vienen después." },
-        liveBody: { en: "{n} role-play home buyers, from the first-timer to the family moving up.", es: "{n} compradores de casa en role-play, desde el que compra por primera vez hasta la familia que sube de casa." },
+        liveBody: { en: "{n} role-play home buyers, from the first-timer to the family moving up.", es: "{n} compradores de casa simulados, desde el que compra por primera vez hasta la familia que sube de casa." },
       },
       {
         key: "solar",
         name: { en: "Solar", es: "Solar" },
         body: { en: "The techniques work today. Homeowner customers for solar are next.", es: "Las técnicas funcionan hoy. Los dueños de casa interesados en solar vienen después." },
-        liveBody: { en: "{n} role-play homeowners weighing solar, at the kitchen table.", es: "{n} dueños de casa en role-play que están pensando en solar, en la mesa de la cocina." },
+        liveBody: { en: "{n} role-play homeowners weighing solar, at the kitchen table.", es: "{n} dueños de casa simulados que están pensando en solar, en la mesa de la cocina." },
       },
       {
         key: "furniture",
         name: { en: "Furniture", es: "Muebles" },
         body: { en: "The techniques work today. Showroom customers for furniture are next.", es: "Las técnicas funcionan hoy. Los clientes de una mueblería vienen después." },
-        liveBody: { en: "{n} role-play showroom customers, from the sofa to the whole room.", es: "{n} clientes de mueblería en role-play, desde el sofá hasta el cuarto completo." },
+        liveBody: { en: "{n} role-play showroom customers, from the sofa to the whole room.", es: "{n} clientes de mueblería simulados, desde el sofá hasta el cuarto completo." },
       },
     ],
     more: {

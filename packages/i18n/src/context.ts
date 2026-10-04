@@ -1,0 +1,51 @@
+import type { StringKey } from "./strings.js";
+
+/**
+ * What a string is and where it shows, for whoever writes or reviews the Spanish (docs/spanish-style-guide.md
+ * section 6 rule 4): a word alone ("Close", "Open", "Score") cannot say whether it is a button, a status or a sales
+ * term. Started with the ambiguous keys; every key added or rewritten in a Spanish batch gets its note here.
+ */
+export const CONTEXT: Partial<Record<StringKey, string>> = {
+  "practice.close": "Icon button (X) that closes the practice screen and goes back to the list. Not the sales close (cierre).",
+  "practice.end": "Button in the conversation header: the rep stops the role-play and goes to the debrief.",
+  "practice.startAgain": "Button after a screen problem: starts the same customer over from the beginning.",
+  "practice.next": "Label above the next lesson on the practice path (what comes next).",
+  "practice.title": "Page title of the practice list. A noun or a verb both work; keep it short (tab label too).",
+  "nav.practice": "Bottom tab label, about 10 characters fit on a phone.",
+  "nav.floor": "Manager's bottom tab: the screen used on the sales floor to watch reps and record floor checks.",
+  "nav.library": "Bottom tab: the library of techniques and objections. Biblioteca, never librería.",
+  "nav.store": "Admin's bottom tab: the dealership's setup (fees, policies). The store is the dealership, not a shop.",
+  "nav.team": "Manager's bottom tab: the manager's reps.",
+  "nav.main": "Screen-reader name of the main navigation; never shown.",
+  "scenario.start": "Primary button that starts the role-play with the AI customer.",
+  "scenario.watchDemo": "Button that shows the two example conversations (what not to do, then the model).",
+  "scenario.skipDemo": "Button that skips the example conversations and goes to the role-play.",
+  "lesson.skip": "Secondary button on the lesson: skip the reading and the examples, go straight to the role-play.",
+  "lesson.review": "Link back to the lesson text from the debrief.",
+  "debrief.score": "The session's number out of 100, in the debrief. Puntaje.",
+  "debrief.passMark": "The minimum score that passes, shown under the score: 'Pass mark 70'.",
+  "debrief.backToday": "Button at the end of the debrief that returns to the Today screen ('Today' is the screen's name).",
+  "validity.measure": "Column header: the practice score being compared with real sales results.",
+  "validity.close": "Column header: share of customers who bought (the sales close rate). Not a 'close' button.",
+  "baseline.rate": "Column header on the store-numbers table: the close rate, sales divided by ups.",
+  "baseline.ups": "Column header: customers each rep greeted on the floor (an 'up' is a walk-in customer).",
+  "baseline.calibration": "Section title: how often practice customers walk out, set from the store's real numbers.",
+  "progress.card.open": "Status of this week's behavior card: still to be checked on the floor.",
+  "assign.statusOpen": "Status of an assignment: not done yet.",
+  "assign.statusDone": "Status of an assignment: passed.",
+  "assign.submit": "Button that sends the assignment to the chosen reps.",
+  "assign.due": "Label for the optional due date of an assignment.",
+  "assign.due.short": "Shown on an assignment: the date it is due ('Due Fri, Oct 9').",
+  "assign.dueOn": "Shown under the due-date choices: the date it will be due.",
+  "today.due": "Shown on Today next to an assignment: when it is due.",
+  "today.practiceNow": "Primary button on Today that opens the next practice.",
+  "floor.save": "Button that saves a floor check the manager just did with a rep.",
+  "floor.new.start": "Button that opens a new floor check for the chosen rep and behavior.",
+  "cert.start": "Button that starts a certification attempt (a test, not practice).",
+  "override.add": "Manager's button to flag a score as wrong, with a reason.",
+  "dash.title": "Page title: the admin's store dashboard. Panel.",
+  "store.title": "Page title: the dealership's setup (fees, lenders, policies).",
+  "signup.verify": "Button after entering the code when signing up a team: creates the team's account.",
+  "signup.verifyMe": "Button after entering the code when signing up alone.",
+  "error.retry": "Button on the crash screen: tries to draw the screen again.",
+};
