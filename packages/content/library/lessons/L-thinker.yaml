@@ -24,7 +24,7 @@ when:
   es: Cada "lo tengo que pensar" después de la prueba de manejo y los números.
 when_not:
   en: No real question left? Ask for the sale. If he really needs the night, set the time first.
-  es: ¿No le queda ninguna duda real? Pídale la venta. Si de verdad necesita la noche, fije la hora primero.
+  es: ¿No le queda ninguna duda real? Propóngale cerrar. Si de verdad necesita la noche, fije la hora primero.
 say:
   - en: That makes sense. It's a big purchase, and you clearly did your homework.
     es: Tiene sentido. Es una compra grande, y se nota que usted hizo su tarea.

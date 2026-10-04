@@ -11,7 +11,7 @@ tactic:
   es: Cuando le diga que solo está mirando, déle la razón y quítele la presión. Después pregúntele por el carro que maneja ahora. Ahí está su fecha real.
 steps:
   - en: "Pause, then agree: \"Take your time, you're free to walk around on your own.\""
-    es: "Haga una pausa y déle la razón: \"Tómese su tiempo, está en libertad de mirar por su cuenta.\""
+    es: "Haga una pausa y déle la razón: \"Tómese su tiempo, puede mirar por su cuenta, sin compromiso.\""
   - en: "Ask: \"Are you just starting to look, or have you narrowed it down?\""
     es: "Pregunte: \"¿Apenas está empezando a mirar, o ya tiene algo pensado?\""
   - en: Ask what she drives now, and when that has to change.
@@ -31,10 +31,10 @@ when:
   es: Cuando saluda a alguien en el lote, o un cliente lo dice para mantenerlo lejos.
 when_not:
   en: Don't say it if you don't mean it. If she is free to look, step back and let her look.
-  es: No lo diga si no lo cree. Si está en libertad de mirar, apártese y déjela mirar.
+  es: No lo diga si no lo cree. Si de verdad puede mirar con calma, apártese y déjela mirar.
 say:
   - en: That's perfect. Take your time, you're free to walk around on your own.
-    es: Perfecto. Tómese su tiempo, está en libertad de mirar por su cuenta.
+    es: Perfecto. Tómese su tiempo, puede mirar por su cuenta, sin compromiso.
   - en: Are you just starting to look, or have you narrowed it down a bit?
     es: ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?
   - en: So I can point you to the right ones, what are you driving now?
@@ -63,7 +63,7 @@ mistakes:
 concepts:
   - name:
       en: '"You''re free to look"'
-      es: '"Está en libertad de mirar"'
+      es: '"Mire con calma"'
     idea:
       en: Tell her out loud she can leave. Then she won't need to.
       es: Dígale en voz alta que se puede ir. Así no va a tener que irse.

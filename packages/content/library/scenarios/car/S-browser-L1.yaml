@@ -58,7 +58,7 @@ scoring:
     - code: O06-NOPRESSURE
       behavior:
         en: "Took the pressure off and made it clear she was free to look on her own"
-        es: "Le quitó la presión y le dejó claro que estaba en libertad de mirar por su cuenta"
+        es: "Le quitó la presión y le dejó claro que podía mirar por su cuenta, sin compromiso"
       dimension: technique
       method: judge
       points: 20
@@ -176,7 +176,7 @@ demonstrations:
         - { speaker: customer, text: "Thursday at 6 works. I'll bring the paperwork." }
       es:
         - { speaker: customer, text: "Solo estoy mirando." }
-        - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y está en libertad de mirar por su cuenta. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
+        - { speaker: rep, text: "[pausa] Perfecto. Tómese su tiempo, y puede mirar por su cuenta, sin compromiso. ¿Apenas está empezando a mirar, o ya tiene algo más o menos pensado?" }
         - { speaker: customer, text: "Apenas empezando. Hoy no voy a comprar nada." }
         - { speaker: rep, text: "Me parece bien. Sin presión de mi parte. Para orientarla bien, ¿qué carro tiene ahora?" }
         - { speaker: customer, text: "Digamos que el carro que tengo ahora no me lo voy a quedar." }
