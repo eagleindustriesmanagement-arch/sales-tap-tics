@@ -6,12 +6,12 @@ title:
 hook:
   en: He saw the monthly payment, and his lunch break is almost over. Don't start cutting numbers.
   es: Vio el pago mensual, y se le acaba la hora de almuerzo. No empiece a bajar números.
-tactic: { en: "Ask what payment he had in mind before you change any number. Then show only the real options, with what each one costs.", es: "Pregunte qué pago tenía en mente antes de cambiar cualquier número. Después enséñele solo las opciones reales, y lo que cuesta cada una." }
+tactic: { en: "Get his payment number before you move yours. Then build to it with real options from the sheet: more down, or a longer term to bring the payment down.", es: "Saque su número de pago antes de mover el suyo. Después llegue a ese número con opciones reales de la hoja: más inicial, o un plazo más largo para bajar el pago." }
 steps:
   - { en: "Pause, then ask: \"What payment were you expecting?\"", es: "Haga una pausa y pregunte: \"¿Qué pago tenía en mente?\"" }
   - { en: "Ask: \"Other than the payment, is this the right car for you?\"", es: "Pregunte: \"Aparte del pago, ¿este es el carro para usted?\"" }
   - { en: "Ask what monthly payment he needs to stay under.", es: "Pregunte por debajo de qué pago mensual necesita quedarse." }
-  - { en: "Show only real options from the sheet. Say a longer term costs more interest.", es: "Enséñele solo opciones reales de la hoja. Diga claro que un plazo más largo cuesta más intereses." }
+  - { en: "Build to his number with real options from the sheet: more down, or more months.", es: "Llegue a su número con opciones reales de la hoja: más inicial, o más meses." }
   - { en: "Keep it short, and set a time to come back and choose.", es: "Sea breve, y fije una hora para que vuelva a escoger." }
 what:
   en: He has a budget he hasn't told you. Get it before you show any options.
@@ -23,8 +23,8 @@ when:
   en: As soon as he complains about the payment, before you touch any number.
   es: En cuanto se queje del pago, antes de tocar cualquier número.
 when_not:
-  en: Never make the loan longer without telling him. If no real option reaches his number, tell him honestly.
-  es: Nunca alargue el plazo sin decírselo. Si ninguna opción real llega a su número, dígaselo con honestidad.
+  en: Don't quote a payment that isn't on the sheet. If nothing reaches his number, look at more down or a different car.
+  es: No dé un pago que no esté en la hoja. Si nada llega a su número, busque más inicial o otro carro.
 say:
   - en: Got it, I'll keep this quick. What payment were you expecting?
     es: Entendido, voy a ser rápido. ¿Qué pago tenía en mente?
@@ -32,8 +32,8 @@ say:
     es: Aparte del pago, ¿este es el carro para usted?
   - en: Help me understand. What's behind that number?
     es: Ayúdeme a entender. ¿Qué hay detrás de ese número?
-  - en: This one is lower because the term is longer, so you pay more interest overall.
-    es: Este sale más bajo porque el plazo es más largo, así que al final paga más intereses.
+  - en: If we stretch the term, I can get you under your number. Want to see it?
+    es: Si alargamos el plazo, le puedo dejar el pago por debajo de su número. ¿Quiere verlo?
 mistakes:
   - mistake:
       en: '"Everybody says that at first. You''ll forget it after a month."'
@@ -42,11 +42,11 @@ mistakes:
       en: That argues with his budget. Ask for his number instead.
       es: Eso es discutirle el presupuesto. Mejor pregúntele su número.
   - mistake:
-      en: A lower payment on a longer term, without saying how many months.
-      es: Un pago más bajo con un plazo más largo, sin decir cuántos meses.
+      en: Cutting the price before you know his number.
+      es: Bajar el precio antes de saber su número.
     fix:
-      en: More months cost more in total. Say the months and the extra interest.
-      es: Más meses cuestan más en total. Diga los meses y los intereses de más.
+      en: You may give away money he didn't need. Ask first, then build to his number.
+      es: Puede regalar dinero que no hacía falta. Pregunte primero y después llegue a su número.
   - mistake:
       en: A long sales talk to a man on his lunch break.
       es: Un discurso largo a un hombre en su hora de almuerzo.
@@ -69,10 +69,10 @@ concepts:
       en: If the car is right, you only need to solve the math.
       es: Si el carro es el correcto, solo falta resolver los números.
     items: [O03-ISOLATE]
-  - name: { en: 'Walk the wheel, honestly', es: 'Recorra las opciones, con la verdad' }
+  - name: { en: 'Walk the wheel', es: 'Recorra las opciones' }
     idea:
-      en: More down or a longer term. Only what's on the sheet, each with its cost.
-      es: Más inicial o un plazo más largo. Solo lo que está en la hoja, cada uno con su costo.
+      en: More down or a longer term. Whatever on the sheet gets him to his number.
+      es: Más inicial o un plazo más largo. Lo que en la hoja lo lleve a su número.
     items: [O03-OPTIONS]
   - name: { en: Lunch-break pace, es: Ritmo de hora de almuerzo }
     idea:

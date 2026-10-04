@@ -88,8 +88,8 @@ scoring:
       params: { event: hidden_revealed }
     - code: O03-OPTIONS
       behavior:
-        en: "Showed only real options from the sheet, and said plainly that the lower payment takes more months"
-        es: "Mostró solo opciones reales de la hoja y dijo claramente que el pago más bajo es a más meses"
+        en: "Built to his number with real options from the sheet (more down, a longer term), each with its payment and months"
+        es: "Llegó a su número con opciones reales de la hoja (más inicial, un plazo más largo), cada una con su pago y sus meses"
       dimension: technique
       method: judge
       points: 20
@@ -116,8 +116,8 @@ scoring:
   auto_fail:
     - code: hid_longer_term
       description:
-        en: "Stretched the term to reach his number without saying it was longer"
-        es: "Alargó el plazo para llegar a su número sin decir que era más largo"
+        en: "Lied about the term: said or implied the lower payment was on the same or a shorter term"
+        es: "Mintió sobre el plazo: dijo o dio a entender que el pago más bajo era al mismo plazo o a uno más corto"
       method: judge
     - code: made_up_deadline
       description:
@@ -169,7 +169,7 @@ demonstrations:
         - { speaker: customer, text: "Yeah, the car's fine. It's the monthly." }
         - { speaker: rep, text: "Then tell me the number, and I'll only show you options that are real. What payment do you need to stay under?" }
         - { speaker: customer, text: "Five fifty. I can't go over $550 a month, period." }
-        - { speaker: rep, text: "Thank you, that helps. Two real ways to get there: $549 a month on 72 months with $5,500 down, or $541 a month with the same $2,000 down, but on a longer term, 84 months, so you pay more interest overall. Both are subject to the bank's approval. I'll print them side by side. Can you come back today at 5:30, after work, and pick one?" }
+        - { speaker: rep, text: "Thank you, that helps. Two real ways to get there: $549 a month on 72 months with $5,500 down, or $541 a month with the same $2,000 down, on 84 months. Both are subject to the bank's approval. I'll print them side by side. Can you come back today at 5:30, after work, and pick one?" }
         - { speaker: customer, text: "5:30 works. Have both ready so I'm in and out." }
         - { speaker: rep, text: "They'll be printed and waiting at my desk. See you at 5:30." }
       es:
@@ -180,7 +180,7 @@ demonstrations:
         - { speaker: customer, text: "Sí, el carro está bien. Es la mensualidad." }
         - { speaker: rep, text: "Entonces dígame el número, y le enseño solo opciones reales. ¿Cuál es el pago máximo que puede hacer al mes?" }
         - { speaker: customer, text: "Quinientos cincuenta. No me puedo pasar de $550 al mes, y punto." }
-        - { speaker: rep, text: "Gracias, eso me ayuda. Hay dos maneras reales de llegar ahí: $549 al mes a 72 meses con $5,500 de inicial, o $541 al mes con los mismos $2,000 de inicial, pero a un plazo más largo, 84 meses, y al final paga más intereses. Las dos están sujetas a la aprobación del banco. Se las imprimo lado a lado. ¿Puede volver hoy a las 5:30, después del trabajo, y escoger una?" }
+        - { speaker: rep, text: "Gracias, eso me ayuda. Hay dos maneras reales de llegar ahí: $549 al mes a 72 meses con $5,500 de inicial, o $541 al mes con los mismos $2,000 de inicial, a 84 meses. Las dos están sujetas a la aprobación del banco. Se las imprimo lado a lado. ¿Puede volver hoy a las 5:30, después del trabajo, y escoger una?" }
         - { speaker: customer, text: "A las 5:30 me sirve. Téngamelas listas para entrar y salir rápido." }
         - { speaker: rep, text: "Van a estar impresas y esperándolo en mi escritorio. Nos vemos a las 5:30." }
 spanish_reviewed: false
