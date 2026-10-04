@@ -66,7 +66,7 @@ test("a rep signs in, accepts the notice, practices, and the session is saved", 
   const lesson = page.getByTestId("lesson");
   await expect(lesson.getByRole("heading", { level: 1 })).toContainText("find out what she'll ask");
   // The tactic in plain words and the steps come first; the background waits behind "More about this tactic".
-  await expect(lesson.getByTestId("lesson-tactic")).toContainText("don't push");
+  await expect(lesson.getByTestId("lesson-tactic")).toContainText("Find out what she will ask");
   await expect(lesson.getByTestId("lesson-steps").getByRole("listitem")).toHaveCount(5);
   await expect(lesson.getByRole("heading", { name: "Why it works" })).toBeHidden();
   await lesson.getByText("More about this tactic").click();
