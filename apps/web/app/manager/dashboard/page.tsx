@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { coachingQuality, storeDashboard } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { IconAlert, IconChart, IconChevronRight, IconClipboard, IconShield, IconStore, IconTrophy, IconUpload, IconUsers } from "@/components/icons";

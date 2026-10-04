@@ -27,14 +27,6 @@ const AFTER_PRIORITY: MoneyRole[] = ["gap", "per_day", "payment", "rebate", "fee
 /** On equal distance, the more specific role wins over the generic price cue. */
 const BEFORE_PRIORITY: MoneyRole[] = ["budget", "gap", "per_day", "payment", "fee", "rebate", "trade", "payoff", "down", "add_on", "price"];
 
-function cueRegex(cues: string[], anchor: "start" | "end"): RegExp | null {
-  if (cues.length === 0) return null;
-  const alternation = `(?:${cues.join("|")})`;
-  return anchor === "start"
-    ? compile(`^[\\s,]*(?:[\\p{L}'-]+\\s+){0,2}?${alternation}(?![\\p{L}\\p{N}_])`)
-    : compile(`(?<![\\p{L}\\p{N}_])${alternation}[\\s,]*$`);
-}
-
 /** Money-role cues and attributions are literal phrases; escape them before building a pattern. */
 export function phrases(list: { en: string[]; es: string[] }): string[] {
   return [...list.en, ...list.es].map((c) => c.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));

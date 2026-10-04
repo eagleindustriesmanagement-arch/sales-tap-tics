@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { t, type Language } from "@taptics/i18n";
+import type { Language } from "@taptics/i18n";
 import { LanguageToggle } from "@/components/language-toggle";
 import { copy, say } from "./copy";
 import { Brand } from "./parts";
