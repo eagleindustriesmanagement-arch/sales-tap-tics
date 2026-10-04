@@ -12,6 +12,9 @@ const config: NextConfig = {
   outputFileTracingRoot: root,
   outputFileTracingIncludes: { "/**": ["../../packages/content/library/**/*", "../../packages/ai/prompts/**/*"] },
   poweredByHeader: false,
+  // The build this bundle came from (October 4): a phone still running yesterday's code sees the server's newer build
+  // and reloads (components/update-check.tsx).
+  env: { NEXT_PUBLIC_BUILD_ID: process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.TAPTICS_BUILD_ID ?? `local-${Date.now()}` },
   // The workspace packages use NodeNext-style "./x.js" specifiers for TypeScript files.
   webpack(cfg) {
     cfg.resolve ??= {};

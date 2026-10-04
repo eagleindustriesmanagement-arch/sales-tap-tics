@@ -5,6 +5,7 @@ import { isManager } from "@taptics/db";
 import { Suspense } from "react";
 import { AppChrome, type Tab } from "@/components/app-chrome";
 import { NavProgress } from "@/components/nav-progress";
+import { UpdateCheck } from "@/components/update-check";
 import { currentUser } from "@/lib/auth";
 import { language } from "@/lib/server";
 import "./globals.css";
@@ -57,6 +58,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {t("a11y.skip", lang)}
         </a>
         <Suspense fallback={null}><NavProgress /></Suspense>
+        <UpdateCheck language={lang} />
         <AppChrome
           tabs={tabs}
           appName={t("app.name", lang)}

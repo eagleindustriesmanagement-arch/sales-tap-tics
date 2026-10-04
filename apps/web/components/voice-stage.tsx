@@ -186,13 +186,6 @@ export function VoiceStage({ name, language: lang, voiceKey, opening, lines, end
             {ui("voice.tapToHear", { name })}
           </button>
         )}
-        {/* iPhone may not start listening on its own after the customer speaks; a tap always can. */}
-        {phase === "listening" && halfDuplex() && (
-          <button type="button" data-testid="tap-to-talk" className="liquid-glass liquid-glass-flat min-h-12 w-full rounded-full text-[15px] font-semibold text-ink"
-            onClick={() => stt.current?.start(lang, onEvent, onError)}>
-            {ui("voice.tapToTalk")}
-          </button>
-        )}
         {noisy && phase === "listening" && <p className="flex items-center gap-2 text-[14px] font-medium text-warn"><IconAlert size={16} />{ui("practice.tooNoisy")}</p>}
         {error && (
           <div role="alert" className="liquid-glass liquid-glass-panel w-full space-y-3 rounded-[1.25rem] p-4 text-left">

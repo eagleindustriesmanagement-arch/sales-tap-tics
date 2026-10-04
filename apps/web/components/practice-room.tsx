@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
 import type { VoiceTiming } from "@taptics/voice";
 import { Debrief, type DebriefPayload } from "@/components/debrief";
-import { IconAlert, IconEye, IconMessage, IconMic, IconPlay, IconSend, IconTrophy, IconX } from "@/components/icons";
+import { IconAlert, IconEye, IconMessage, IconMic, IconPlay, IconSend, IconSpeaker, IconTrophy, IconX } from "@/components/icons";
 import { Lesson, LessonSteps, type LessonView } from "@/components/lesson";
 import { Recover } from "@/components/recover";
 import { Avatar, Card, Chip, Grade, Inset, SEGMENT_INPUT, buttonClass, ghostButtonClass } from "@/components/ui";
 import { VoiceStage } from "@/components/voice-stage";
 import { DeviceSpeechToText, DeviceTextToSpeech } from "@/lib/voice/device";
+import { platform } from "@/lib/voice/diagnostics";
+import { SoundCheck } from "@/components/sound-check";
 
 type Line = { speaker: "rep" | "customer"; text: string };
 
@@ -43,6 +45,11 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   // Spec 19.4: whether the rep watched the demonstration before starting.
   const [watchedDemo, setWatchedDemo] = useState(false);
   useEffect(() => { if (phase === "demo") setWatchedDemo(true); }, [phase]);
+  // A new release never reloads the screen in the middle of a conversation (components/update-check.tsx).
+  useEffect(() => {
+    document.documentElement.dataset.liveSession = phase === "live" ? "1" : "0";
+    return () => { document.documentElement.dataset.liveSession = "0"; };
+  }, [phase]);
   const [choice, setChoice] = useState<Language | "follow">(uiLanguage);
   const [lang, setLang] = useState<Language>(uiLanguage);
   const [session, setSession] = useState<{ id: string; brief: string; name: string } | null>(null);
@@ -57,7 +64,11 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   const [voiceOk, setVoiceOk] = useState(false);
   const [answerBy, setAnswerBy] = useState<AnswerBy>("type");
   const [opening, setOpening] = useState("");
-  const [soundTested, setSoundTested] = useState(false);
+  // iPhone (October 4): no in-app listening there; "Talk" means the keyboard's own dictation key, and the customer's
+  // voice plays in every mode the phone can speak in.
+  const [ios, setIos] = useState(false);
+  const [ttsOk, setTtsOk] = useState(false);
+  const speaker = useRef<DeviceTextToSpeech | null>(null);
   // An open conversation on this scenario, from before the screen was reloaded or redrawn: offered back, not lost.
   const resumeKey = `taptics.session.${scenario.code}.${mode}`;
   const [resumable, setResumable] = useState<{ id: string; language: Language; brief: string; name: string; lines: Line[] } | null>(null);
@@ -98,11 +109,15 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     </Card>
   );
   useEffect(() => {
-    const ok = DeviceSpeechToText.supported() && DeviceTextToSpeech.supported();
-    setVoiceOk(ok);
+    const tts = DeviceTextToSpeech.supported();
+    const apple = platform().ios;
+    const ok = DeviceSpeechToText.supported() && tts;
+    setIos(apple);
+    setTtsOk(tts);
+    setVoiceOk(ok || apple);
     let saved: string | null = null;
     try { saved = localStorage.getItem(ANSWER_KEY); } catch { /* storage off */ }
-    setAnswerBy(ok && saved !== "type" ? "talk" : "type");
+    setAnswerBy((ok || apple) && saved !== "type" ? "talk" : "type");
   }, []);
   const choose = (a: AnswerBy) => {
     setAnswerBy(a);
@@ -115,6 +130,14 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   const turnBudget = Math.max(1, Math.floor(scenario.maxTurns / 2));
   const turnsLeft = Math.max(0, turnBudget - repTurns);
   const waiting = busy && lines.at(-1)?.speaker === "rep";
+  /** iPhone talk: the rep speaks into the keyboard's dictation key; the conversation is typed turns. */
+  const dictation = ios && answerBy === "talk";
+  /** The customer's lines are read aloud by this screen (elsewhere the hands-free stage does it). */
+  const speakAloud = ttsOk && ios;
+  const say = (text: string) => {
+    speaker.current ??= new DeviceTextToSpeech();
+    void speaker.current.speak(text, { language: lang, voiceKey: scenario.code });
+  };
 
   // A block body, never an arrow that returns the call: newer browsers return a promise from scrollIntoView, and
   // React would call that promise as the effect's cleanup on the next change ("i is not a function" on the first Send).
@@ -132,9 +155,9 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   async function start() {
     setBusy(true);
     setError(null);
-    const voice = answerBy === "talk";
+    const voice = answerBy === "talk" && !ios;
     // iOS lets a page speak only after a tap: this one, so the customer's first line is not blocked.
-    if (voice) DeviceTextToSpeech.unlock();
+    if (voice || speakAloud) DeviceTextToSpeech.unlock();
     try {
       const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice, mode, voice, demoWatched: watchedDemo }) });
       if (res.status === 409) {
@@ -150,6 +173,10 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       setLines([{ speaker: "customer", text: data.opening }]);
       setOpening(data.opening);
       setPhase("live");
+      if (speakAloud) {
+        speaker.current ??= new DeviceTextToSpeech();
+        void speaker.current.speak(data.opening, { language: data.language, voiceKey: scenario.code });
+      }
     } catch {
       setError(t("practice.error", lang));
     } finally {
@@ -161,7 +188,8 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     const text = draft.trim();
     if (!text || !session || busy) return;
     setDraft("");
-    await sendTurn(text, {});
+    speaker.current?.cancel();
+    await sendTurn(text, {}, speakAloud ? say : undefined);
   }
 
   /** One rep turn, typed or spoken; each customer sentence is handed to `onSentence` as it clears the guard. */
@@ -269,7 +297,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       <div translate="no" className="flex min-h-dvh flex-col">
         <header className="glass-chrome pt-safe sticky top-0 z-30">
           <div className="mx-auto flex h-16 max-w-2xl items-center gap-3 px-4">
-            {answerBy === "type" && <Avatar name={session.name} size={40} />}
+            {(answerBy === "type" || ios) && <Avatar name={session.name} size={40} />}
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-[22px] leading-tight text-ink">{session.name}</p>
               <p className="truncate text-[13px] text-muted">{scenario.title[lang]}</p>
@@ -285,7 +313,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
           </div>
         </header>
 
-        {answerBy === "talk" ? (
+        {answerBy === "talk" && !ios ? (
           <VoiceStage
             name={session.name}
             language={lang}
@@ -316,6 +344,14 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
                     <span className="sr-only">{ui(rep ? "practice.you" : "practice.customer")}: </span>
                     <span>{l.text}</span>
                   </p>
+                  {/* A tap always plays: the sure way to hear the customer on a phone that blocks speech. */}
+                  {!rep && ttsOk && (
+                    <button type="button" data-testid="hear-line" aria-label={ui("voice.hearLine", { name: session.name })}
+                      className="liquid-glass liquid-glass-flat grid h-9 w-9 shrink-0 place-items-center rounded-full text-brand"
+                      onClick={() => { speaker.current ??= new DeviceTextToSpeech(); speaker.current.cancel(); speaker.current.replay(l.text, { language: lang, voiceKey: scenario.code }); }}>
+                      <IconSpeaker size={17} />
+                    </button>
+                  )}
                 </li>
               );
             })}
@@ -344,6 +380,25 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
                 <button className={`${buttonClass} w-full`} onClick={finish}>{ui("practice.seeDebrief")}</button>
               </div>
             ) : (
+              <>
+              {dictation && (
+                <div className="mb-3 space-y-2.5" data-testid="tap-to-talk-panel">
+                  <button type="button" data-testid="tap-to-talk" onClick={() => field.current?.focus()}
+                    className="flex min-h-14 w-full items-center justify-center gap-2.5 rounded-full bg-good px-5 text-[17px] font-bold text-page shadow-lg">
+                    <IconMic size={22} />{ui("voice.tapToTalkBig")}
+                  </button>
+                  {repTurns === 0 ? (
+                    <ol className="liquid-glass-inset space-y-1.5 rounded-[1rem] px-4 py-3 text-[15px] text-ink" data-testid="talk-steps">
+                      {(["voice.talkStep1", "voice.talkStep2", "voice.talkStep3", "voice.talkStep4"] as const).map((k, i) => (
+                        <li key={k} className="flex gap-2.5"><span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-good-soft text-[13px] font-bold text-good">{i + 1}</span><span>{ui(k)}</span></li>
+                      ))}
+                      <li className="pt-1 text-[13px] text-muted">{ui("voice.talkNoMic")}</li>
+                    </ol>
+                  ) : (
+                    <p className="text-center text-[13px] text-muted" data-testid="talk-reminder">{ui("voice.talkReminder")}</p>
+                  )}
+                </div>
+              )}
               <form data-testid="composer" data-busy={busy ? "true" : "false"} className="flex items-end gap-2" onSubmit={(e) => { e.preventDefault(); void send(); }}>
                 <label htmlFor="say" className="sr-only">{ui("practice.typeHere")}</label>
                 <textarea
@@ -362,6 +417,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
                   <IconSend size={22} />
                 </button>
               </form>
+              </>
             )}
           </div>
         </div>
@@ -454,23 +510,14 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
                   <label key={option} className={`relative flex min-h-12 items-center justify-center gap-2 rounded-[0.85rem] px-2 text-[15px] font-semibold transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brand ${option === "talk" && !voiceOk ? "cursor-not-allowed opacity-50" : "cursor-pointer"} ${answerBy === option ? "liquid-glass liquid-glass-flat text-ink" : "text-muted"}`}>
                     <input type="radio" name="answer" value={option} className={SEGMENT_INPUT} checked={answerBy === option} disabled={option === "talk" && !voiceOk} onChange={() => choose(option)} />
                     {option === "talk" ? <IconMic size={18} /> : <IconMessage size={18} />}
-                    {ui(option === "talk" ? "voice.talk" : "voice.type")}
+                    {ui(option === "talk" ? (ios ? "voice.tapToTalkOption" : "voice.talk") : "voice.type")}
                   </label>
                 ))}
               </div>
-              <p className="px-1 text-[14px] text-muted">{answerBy === "talk" ? ui("voice.talkHint") : voiceOk ? ui("practice.textModeNotice") : ui("voice.unsupported")}</p>
-              {/* Hear the customer's voice before starting: proves the sound works and, on iPhone, unlocks speech from a tap. */}
-              {answerBy === "talk" && (
-                <button type="button" data-testid="test-sound" className="liquid-glass liquid-glass-flat inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[15px] font-semibold text-ink"
-                  onClick={() => {
-                    const testLang: Language = choice === "follow" ? lang : choice;
-                    new DeviceTextToSpeech().replay(t("voice.testLine", testLang), { language: testLang, voiceKey: scenario.code });
-                    setSoundTested(true);
-                  }}>
-                  <IconPlay size={16} />{ui("voice.testSound")}
-                </button>
-              )}
-              {answerBy === "talk" && soundTested && <p className="px-1 text-[14px] text-muted" data-testid="sound-hint">{ui("voice.soundHint")}</p>}
+              <p className="px-1 text-[14px] text-muted" data-testid="answer-hint">{answerBy === "talk" ? ui(ios ? "voice.iphoneTalkHint" : "voice.talkHint") : voiceOk ? ui("practice.textModeNotice") : ui("voice.unsupported")}</p>
+              {/* Hear the customer's voice before starting: proves the sound works, unlocks speech from a tap on iPhone,
+                  and shows what the phone's speech engine did when it does not. */}
+              {ttsOk && (answerBy === "talk" || ios) && <SoundCheck ui={uiLanguage} testLanguage={choice === "follow" ? lang : choice} voiceKey={scenario.code} />}
             </fieldset>
             <p className="px-1 text-[14px] text-muted">{ui(live ? "practice.liveNotice" : "practice.offlineNotice")}</p>
           </>

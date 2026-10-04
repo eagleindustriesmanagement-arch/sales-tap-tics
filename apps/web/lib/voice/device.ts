@@ -1,6 +1,7 @@
 "use client";
 
 import type { RecognitionEvent, SpeakOptions, SpeechError, SpeechToText, TextToSpeech } from "@taptics/voice";
+import { platform, voiceDiagnostics, type SpeakRecord } from "./diagnostics";
 
 /**
  * The device tier (decision 0013): the phone's or browser's own recognizer and voices. No per-minute cost and no
@@ -39,8 +40,14 @@ export class DeviceSpeechToText implements SpeechToText {
   onSpeechStart: ((at: number) => void) | null = null;
   onSpeechEnd: ((at: number) => void) | null = null;
 
+  /**
+   * Not on iPhone or iPad (October 4). Safari there has webkitSpeechRecognition, but it runs on Siri dictation: it
+   * needs Dictation turned on, fails from the Home Screen, and stops after short pauses. Starting it still shows the
+   * microphone prompt, so a rep was asked for the mic and then nothing worked. iPhone reps talk through the
+   * keyboard's own dictation key instead (the practice room shows how), which needs no permission from this page.
+   */
   static supported(): boolean {
-    return RecognitionCtor() !== null;
+    return RecognitionCtor() !== null && !platform().ios;
   }
 
   start(language: "en" | "es", onEvent: (e: RecognitionEvent) => void, onError: (reason: SpeechError) => void): void {
@@ -133,10 +140,26 @@ export class DeviceTextToSpeech implements TextToSpeech {
     if (!DeviceTextToSpeech.supported()) return;
     try {
       window.speechSynthesis.resume?.();
-      const u = new SpeechSynthesisUtterance(" ");
+      // A real character, never whitespace: on iPhone an utterance of only a space can never start or end, and every
+      // sentence queued behind it stays silent (the October 4 bug: "Test the sound" made no sound at all).
+      const u = new SpeechSynthesisUtterance(".");
       u.volume = 0;
+      u.rate = 2;
       window.speechSynthesis.speak(u);
+      voiceDiagnostics.unlocked();
     } catch { /* nothing to unlock */ }
+  }
+
+  /** The engine says something is queued but nothing is playing: an earlier utterance is stuck. Clear it. */
+  static unstick(): boolean {
+    try {
+      const s = window.speechSynthesis;
+      if (s.pending && !s.speaking) {
+        s.cancel();
+        return true;
+      }
+    } catch { /* no engine */ }
+    return false;
   }
 
   /** The device's voices load after the page does; wait for them briefly so the first line gets the right voice. */
@@ -155,6 +178,9 @@ export class DeviceTextToSpeech implements TextToSpeech {
   }
 
   private voiceFor(options: SpeakOptions): SpeechSynthesisVoice | undefined {
+    // iPhone lists voices it cannot play until they are downloaded (Siri, Enhanced, Premium), and choosing one is
+    // silence. There the language alone picks the phone's own installed voice.
+    if (platform().ios) return undefined;
     const ranked = rankVoices(window.speechSynthesis.getVoices(), options.language);
     // The best region and quality tier, then one voice per customer within it, so a persona keeps its voice.
     const top = ranked.filter((v) => v.lang === ranked[0]?.lang && QUALITY.test(v.name) === QUALITY.test(ranked[0]?.name ?? ""));
@@ -189,14 +215,18 @@ export class DeviceTextToSpeech implements TextToSpeech {
           this.live.delete(u);
           resolve();
         };
-        u.onstart = () => { started = true; };
-        u.onend = done;
-        u.onerror = done;
+        const record = voiceDiagnostics.begin(sentence, voice, u.lang);
+        u.onstart = () => { started = true; voiceDiagnostics.event(record, "start"); };
+        u.onend = () => { voiceDiagnostics.event(record, "end"); done(); };
+        u.onerror = (e) => { voiceDiagnostics.event(record, "error", (e as SpeechSynthesisErrorEvent).error); done(); };
         this.live.add(u);
         try {
           window.speechSynthesis.resume?.();
           window.speechSynthesis.speak(u);
-        } catch {
+          voiceDiagnostics.afterSpeak(record);
+          setTimeout(() => { if (!started && !finished) voiceDiagnostics.event(record, "no-start"); }, 2500);
+        } catch (e) {
+          voiceDiagnostics.event(record, "error", String(e));
           done();
         }
       }));
@@ -208,16 +238,42 @@ export class DeviceTextToSpeech implements TextToSpeech {
     return p;
   }
 
-  /** Says one sentence now, from a tap (iPhone allows speech after a gesture), outside the queue's timing. */
+  /**
+   * Says one sentence now, from a tap (iPhone allows speech after a gesture), outside the queue's timing. A stuck
+   * engine is cleared first; if the sentence still has not started a moment later, it is cleared and said once more
+   * with the phone's default voice.
+   */
   replay(sentence: string, options: SpeakOptions): void {
-    DeviceTextToSpeech.unlock();
-    const u = new SpeechSynthesisUtterance(sentence);
-    u.lang = LOCALE[options.language];
-    const voice = this.voiceFor(options);
-    if (voice) u.voice = voice;
-    this.live.add(u);
-    u.onend = u.onerror = () => this.live.delete(u);
-    window.speechSynthesis.speak(u);
+    if (!DeviceTextToSpeech.supported()) return;
+    const stuck = DeviceTextToSpeech.unstick();
+    const say = (withVoice: boolean) => {
+      const u = new SpeechSynthesisUtterance(sentence);
+      u.lang = LOCALE[options.language];
+      const voice = withVoice ? this.voiceFor(options) : undefined;
+      if (voice) u.voice = voice;
+      const record = voiceDiagnostics.begin(sentence, voice, u.lang);
+      if (stuck && withVoice) voiceDiagnostics.event(record, "cancelled-stuck");
+      let started = false;
+      u.onstart = () => { started = true; voiceDiagnostics.event(record, "start"); };
+      u.onend = () => { voiceDiagnostics.event(record, "end"); this.live.delete(u); };
+      u.onerror = (e) => { voiceDiagnostics.event(record, "error", (e as SpeechSynthesisErrorEvent).error); this.live.delete(u); };
+      this.live.add(u);
+      try {
+        window.speechSynthesis.resume?.();
+        window.speechSynthesis.speak(u);
+        voiceDiagnostics.afterSpeak(record);
+      } catch (e) {
+        voiceDiagnostics.event(record, "error", String(e));
+      }
+      return { record, started: () => started };
+    };
+    const first = say(true);
+    setTimeout(() => {
+      if (first.started()) return;
+      voiceDiagnostics.event(first.record, "no-start");
+      try { window.speechSynthesis.cancel(); } catch { /* no engine */ }
+      say(false);
+    }, 1500);
   }
 
   cancel(): void {

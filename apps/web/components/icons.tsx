@@ -43,3 +43,4 @@ export const IconCalendar = (p: IconProps) => <Icon {...p}><rect x="3.5" y="5" w
 export const IconUpload = (p: IconProps) => <Icon {...p}><path d="M12 15V4M7 8.5 12 4l5 4.5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4" /></Icon>;
 export const IconMessage = (p: IconProps) => <Icon {...p}><path d="M4 5h16v11H9l-5 4V5Z" /></Icon>;
 export const IconSearch = (p: IconProps) => <Icon {...p}><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></Icon>;
+export const IconSpeaker = (p: IconProps) => <Icon {...p}><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" /><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" /></Icon>;

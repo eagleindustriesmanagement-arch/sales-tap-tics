@@ -809,52 +809,84 @@ test("the app header's language picker: globe, current language, both languages"
 });
 
 
-test("on an iPhone, a blocked voice can be heard with a tap, the microphone stays free, and the rep can tap to talk", async ({ browser }) => {
-  // Production (October 4): on Ernesto's iPhone neither the customer's voice nor the microphone worked. An open
-  // microphone meter switches iOS to play-and-record (the voice goes silent or to the earpiece), and iOS can block
-  // speech until a tap. This phone never starts speaking on its own, the way a blocked iPhone behaves.
+test("on an iPhone: the voice plays even where a blank utterance wedges speech, tap to talk uses the keyboard, and the microphone is never opened", async ({ browser }) => {
+  // Production (October 4): on Ernesto's iPhone "Test the sound" made no sound, and the microphone prompt appeared but
+  // nothing listened. This speech engine behaves like iOS: an utterance of only whitespace never starts and blocks
+  // everything queued behind it until cancel(). The app's old unlock spoke " " first, so every line stayed silent.
   const ctx = await browser.newContext({
     userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
     viewport: { width: 390, height: 844 },
+    hasTouch: true,
   });
   const page = await ctx.newPage();
   await page.addInitScript(() => {
     const w = window as unknown as Record<string, unknown>;
     w.__said = [] as string[];
     w.__mic = 0;
-    const synth = { speaking: false, speak(u: { text: string }) { if (u.text.trim()) (w.__said as string[]).push(u.text); }, cancel() {}, resume() {}, getVoices: () => [] };
+    w.__recCreated = 0;
+    type U = { text: string; onstart?: (e: unknown) => void; onend?: (e: unknown) => void };
+    const synth = {
+      speaking: false,
+      pending: false,
+      wedged: false,
+      speak(u: U) {
+        if (!u.text.trim()) { synth.wedged = true; synth.pending = true; return; }
+        if (synth.wedged) { synth.pending = true; return; }
+        (w.__said as string[]).push(u.text);
+        setTimeout(() => { u.onstart?.({}); setTimeout(() => u.onend?.({}), 30); }, 10);
+      },
+      cancel() { synth.wedged = false; synth.pending = false; },
+      resume() {},
+      getVoices: () => [],
+    };
     Object.defineProperty(window, "speechSynthesis", { value: synth, configurable: true });
     class FakeRecognition {
+      constructor() { w.__recCreated = (w.__recCreated as number) + 1; }
       lang = ""; continuous = false; interimResults = false; maxAlternatives = 1;
       onresult = null; onspeechstart = null; onspeechend = null; onerror = null; onend = null;
-      start() { w.__recStarts = ((w.__recStarts as number) ?? 0) + 1; }
-      stop() {} abort() {}
+      start() {} stop() {} abort() {}
     }
     w.SpeechRecognition = FakeRecognition;
     w.webkitSpeechRecognition = FakeRecognition;
     Object.defineProperty(navigator, "mediaDevices", { value: { getUserMedia: () => { w.__mic = (w.__mic as number) + 1; return Promise.reject(new Error("no")); } }, configurable: true });
   });
-  const said = () => page.evaluate(() => (window as unknown as { __said: string[] }).__said);
+  const said = () => page.evaluate(() => (window as unknown as { __said: string[] }).__said.filter((x) => x !== "."));
   await signInReady(page, "manager2@demo.test");
   await page.goto("/practice/S-browser-L1");
   await pastLesson(page);
-  await expect(page.getByRole("radio", { name: "Talk" })).toBeChecked();
+  // Talking on iPhone means the keyboard's dictation key, and the start screen says so.
+  await expect(page.getByRole("radio", { name: "Tap to talk" })).toBeChecked();
+  await expect(page.getByTestId("answer-hint")).toContainText("keyboard's microphone key");
+
+  // The sound check speaks, and its details show what the engine did.
   await page.getByTestId("test-sound").click();
   await expect.poll(said).toContain("Hi. This is how your customer will sound.");
-  await expect(page.getByTestId("sound-hint")).toBeVisible();
+  await expect(page.getByTestId("sound-details")).toContainText("iPhone/iPad");
+  await expect(page.getByTestId("sound-details")).toContainText(/queued 0ms → start \d+ms → end \d+ms/);
+  await expect(page.getByTestId("sound-details")).toContainText("Use the keyboard's microphone key");
 
+  // The customer's opening line is spoken, with no microphone and no recognizer.
   await page.getByRole("button", { name: "Start" }).click();
-  await expect(page.getByTestId("voice-status")).toHaveText(/is talking/);
-  await expect(page.getByTestId("tap-to-hear")).toBeVisible({ timeout: 6000 });
-  const before = (await said()).length;
-  await page.getByTestId("tap-to-hear").click();
-  await expect.poll(async () => (await said()).length).toBeGreaterThan(before);
-  // The conversation does not wait forever on a sentence that never reported its end.
-  await expect(page.getByTestId("voice-status")).toHaveText("Your turn. Listening…", { timeout: 15_000 });
   await expect(page.getByTestId("tap-to-talk")).toBeVisible();
-  const starts = await page.evaluate(() => (window as unknown as { __recStarts: number }).__recStarts);
+  await expect(page.getByTestId("talk-steps")).toContainText("Tap the microphone key on the keyboard");
+  await expect.poll(async () => (await said()).length).toBeGreaterThan(1);
   await page.getByTestId("tap-to-talk").click();
-  await expect.poll(() => page.evaluate(() => (window as unknown as { __recStarts: number }).__recStarts)).toBeGreaterThan(starts);
+  await expect(page.getByLabel("Type what you would say")).toBeFocused();
+
+  // A dictated (typed) answer gets a spoken reply; the steps shrink to a reminder after the first answer.
+  const before = (await said()).length;
+  await page.getByLabel("Type what you would say").fill("Take your time. What brought you in today?");
+  await page.getByRole("button", { name: "Send" }).click();
+  await expect(page.getByTestId("line-customer")).toHaveCount(2);
+  await expect.poll(async () => (await said()).length).toBeGreaterThan(before);
+  await expect(page.getByTestId("talk-reminder")).toBeVisible();
+
+  // A tap on a customer line always plays it.
+  const again = (await said()).length;
+  await page.getByTestId("hear-line").first().click();
+  await expect.poll(async () => (await said()).length).toBeGreaterThan(again);
+
+  expect(await page.evaluate(() => (window as unknown as { __recCreated: number }).__recCreated)).toBe(0);
   expect(await page.evaluate(() => (window as unknown as { __mic: number }).__mic)).toBe(0);
   await ctx.close();
 });
