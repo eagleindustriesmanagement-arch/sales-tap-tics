@@ -114,7 +114,7 @@ offline_lines:
     - { en: "Can you just tell me the price?", es: "¿Me puede decir el precio y ya?" }
   hint: { en: "Huh. Okay. So the fee is already in that number.", es: "Ah, bueno. ¿O sea que el cargo ya está metido en ese número?" }
   after_hint: { en: "Alright. Go on.", es: "Está bien. Siga." }
-  reveal: { en: "Honestly, I've got two other quotes and neither one shows the dealer fee. I just want one number I can trust.", es: "La verdad, tengo otras dos cotizaciones y ninguna dice cuánto es el cargo del dealer. Nada más quiero un número en el que pueda confiar." }
+  reveal: { en: "Honestly, I've got two other quotes and neither one shows the dealer fee. I just want one number I can trust.", es: "La verdad, tengo otras dos cotizaciones y ninguna dice cuánto es el cargo de concesionario. Nada más quiero un número en el que pueda confiar." }
   after_reveal:
     - { en: "Okay. Can you put that number in an email?", es: "Bueno. ¿Me puede mandar ese número por email?" }
     - { en: "That helps. What would I need to bring?", es: "Eso me ayuda. ¿Qué tendría que llevar?" }

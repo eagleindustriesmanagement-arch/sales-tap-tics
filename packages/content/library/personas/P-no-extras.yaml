@@ -119,7 +119,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. Show me GAP by itself.", es: "Está bien. Enséñeme el GAP solo." }
     - { en: "That's fair. That's all I wanted.", es: "Eso es justo. Es lo único que quería." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, eso me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, eso me queda bien." }
   not_now: { en: "Let's leave it for today. I'll come back to sign.", es: "Dejémoslo por hoy. Vuelvo otro día a firmar." }
   walk_away: { en: "Forget it. I'll get my own financing.", es: "Olvídese. Yo busco mi propio financiamiento." }
   goodbye: { en: "Thanks.", es: "Gracias." }

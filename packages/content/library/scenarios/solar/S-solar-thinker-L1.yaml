@@ -183,7 +183,7 @@ demonstrations:
         - { speaker: customer, text: "Lo tengo que pensar." }
         - { speaker: rep, text: "[pausa] Tiene sentido. Es una decisión grande, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?" }
         - { speaker: customer, text: "No es el precio. Es más bien si de verdad lo podemos instalar como está dibujado." }
-        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el precio y el estimado le funcionan?" }
+        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el precio y el estimado le convencen?" }
         - { speaker: customer, text: "Los números están bien. Ya los comparé con mis propias facturas." }
         - { speaker: rep, text: "Perfecto. Entonces hablemos de la instalación. ¿Alguien más tiene que aprobar lo que va en su techo, como la HOA?" }
         - { speaker: customer, text: "Bueno. Doce de los paneles dan a la calle, y no sé si la HOA lo va a aprobar. A mi vecino le mandaron una carta de violación por una cerca. No quiero firmar y después pelear con la asociación." }

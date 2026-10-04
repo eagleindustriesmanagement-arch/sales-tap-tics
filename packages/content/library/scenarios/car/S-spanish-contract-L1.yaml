@@ -171,7 +171,7 @@ demonstrations:
         - { speaker: customer, text: "Antes de seguir... ¿me puede dar el contrato en español?" }
         - { speaker: rep, text: "[pausa] Claro que sí, es una pregunta muy justa. En inglés o en español, es el mismo precio, las mismas condiciones y los mismos papeles. Antes de ir a averiguar exactamente qué documentos tenemos en español, ¿le puedo preguntar qué es lo que le preocupa del contrato?" }
         - { speaker: customer, text: "Es que quiero saber exactamente lo que estoy firmando. Línea por línea." }
-        - { speaker: rep, text: "Me parece justo. Dejando los papeles a un lado un momento, ¿la Equinox y los números que vimos le funcionan?" }
+        - { speaker: rep, text: "Me parece justo. Dejando los papeles a un lado un momento, ¿la Equinox y los números que vimos le convencen?" }
         - { speaker: customer, text: "El carro me encanta. Son los papeles los que me ponen nerviosa." }
         - { speaker: rep, text: "La entiendo. ¿Le ha pasado algo antes con un contrato, a usted o a alguien cercano?" }
         - { speaker: customer, text: "Bueno, se lo digo. El año pasado mi hermano firmó un contrato en inglés en otro dealer, y con el primer pago se enteró de que le habían metido una garantía que nadie le explicó. Yo no quiero que me pase lo mismo." }

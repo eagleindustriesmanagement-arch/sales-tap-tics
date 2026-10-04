@@ -189,5 +189,5 @@ demonstrations:
         - { speaker: rep, text: "Gracias por decírmelo; eso es justo lo que él debe preguntar. No le voy a prometer que un perro no le hace nada. Lo que sí puedo hacer: le corto muestras de este terciopelo performance en el marfil y en el gris piedra, con la hoja de cuidado del fabricante, para que las prueben en la casa con el perro. Así él decide con sus propios ojos." }
         - { speaker: customer, text: "Eso me ayudaría. Él va a querer verlo con sus propios ojos." }
         - { speaker: rep, text: "¿Él podría venir con usted mañana a las 2? Le tengo las muestras listas y el sectional armado para que él se siente." }
-        - { speaker: customer, text: "Está bien, eso nos funciona." }
+        - { speaker: customer, text: "Está bien, eso nos queda bien." }
 spanish_reviewed: false

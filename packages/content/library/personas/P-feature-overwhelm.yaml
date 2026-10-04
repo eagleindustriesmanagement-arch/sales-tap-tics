@@ -147,7 +147,7 @@ offline_lines:
   after_reveal:
     - { en: "That would be a huge relief. Fifteen minutes I have.", es: "Eso sería un alivio enorme. Quince minutos sí tengo." }
     - { en: "One thing at a time. That's what I needed.", es: "Una cosa a la vez. Eso es lo que me hacía falta." }
-  agree_next_step: { en: "Okay, that works. I'll be here.", es: "Está bien, me funciona. Aquí estaré." }
+  agree_next_step: { en: "Okay, that works. I'll be here.", es: "Está bien, me queda bien. Aquí estaré." }
   not_now: { en: "Never mind. I'll figure it out.", es: "No se preocupe. Yo lo resuelvo." }
   walk_away: { en: "Forget it. I'll ask my son.", es: "Olvídelo. Le pregunto a mi hijo." }
   goodbye: { en: "Thank you. Have a good night.", es: "Gracias. Que pase buenas noches." }

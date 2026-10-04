@@ -161,7 +161,7 @@ offline_lines:
   after_reveal:
     - { en: "That's the first straight answer I've gotten all week.", es: "Es la primera respuesta clara que me dan en toda la semana." }
     - { en: "Okay. If the numbers make sense, I'll drive it.", es: "Está bien. Si los números tienen sentido, la manejo." }
-  agree_next_step: { en: "Okay, that works. Call me first.", es: "Está bien, me funciona. Llámeme antes." }
+  agree_next_step: { en: "Okay, that works. Call me first.", es: "Está bien, me queda bien. Llámeme antes." }
   not_now: { en: "Not today. I'll keep calling around.", es: "Hoy no. Voy a seguir llamando." }
   walk_away: { en: "I'm wasting my time. Bye.", es: "Estoy perdiendo el tiempo. Hasta luego." }
   goodbye: { en: "Thanks.", es: "Gracias." }

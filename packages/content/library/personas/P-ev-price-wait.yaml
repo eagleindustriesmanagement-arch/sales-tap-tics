@@ -135,7 +135,7 @@ offline_lines:
   after_reveal:
     - { en: "I didn't know it could work like that. I'd want to see it on paper.", es: "No sabía que podía ser así. Me gustaría verlo en papel." }
     - { en: "Okay. That makes me feel better about not guessing.", es: "Está bien. Así me siento mejor, sin tener que adivinar." }
-  agree_next_step: { en: "Okay, that works. I'll bring my husband.", es: "Está bien, me funciona. Traigo a mi esposo." }
+  agree_next_step: { en: "Okay, that works. I'll bring my husband.", es: "Está bien, me queda bien. Traigo a mi esposo." }
   not_now: { en: "Not today. I'm going to wait.", es: "Hoy no. Voy a esperar." }
   walk_away: { en: "I think I'm going to go home and think.", es: "Creo que me voy a la casa a pensarlo." }
   goodbye: { en: "Thank you for your time.", es: "Gracias por su tiempo." }

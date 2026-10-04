@@ -180,10 +180,10 @@ demonstrations:
         - { speaker: customer, text: "Lo tengo que pensar." }
         - { speaker: rep, text: "[pausa] Tiene sentido. Es una casa, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que quiere tener seguro antes de decidir?" }
         - { speaker: customer, text: "No es la casa. Es más bien cómo sería la vida de todos los días aquí." }
-        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿la casa y el precio le funcionan?" }
+        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿la casa y el precio le convencen?" }
         - { speaker: customer, text: "La casa es la correcta. A mi esposa le encanta, y los números están en mi hoja de cálculo." }
         - { speaker: rep, text: "Perfecto. Entonces cuénteme cómo es un día normal de semana. ¿Dónde trabaja, y a qué hora tiene que estar allá?" }
         - { speaker: customer, text: "Bueno. Tengo que estar en Brickell a las 8 todos los días, y nunca he hecho ese viaje desde aquí abajo en hora pico. No sé si lo puedo aguantar cinco días a la semana." }
         - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que averiguar antes de comprar, no después. No le voy a adivinar cuánto se demora. Hágalo de verdad: el jueves salga de la oficina a las 5:30 como cualquier día de trabajo, maneje directo hasta aquí, y yo lo espero en la casa. Si puede, haga también un viaje temprano en la mañana desde aquí antes de eso." }
-        - { speaker: customer, text: "Está bien, me funciona. El jueves después del trabajo." }
+        - { speaker: customer, text: "Está bien, me queda bien. El jueves después del trabajo." }
 spanish_reviewed: false

@@ -143,7 +143,7 @@ offline_lines:
   after_reveal:
     - { en: "That would settle it. I'd rather know before I sign than after.", es: "Eso lo resolvería. Prefiero saberlo antes de firmar y no después." }
     - { en: "Okay. Nobody has told me to just go try it.", es: "Está bien. Nadie me había dicho que simplemente lo probara." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I'll be in touch.", es: "Hoy no. Yo le aviso." }
   walk_away: { en: "I think I'm going to head out.", es: "Creo que me voy a ir yendo." }
   goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }

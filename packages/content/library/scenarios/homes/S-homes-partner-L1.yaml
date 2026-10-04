@@ -192,5 +192,5 @@ demonstrations:
         - { speaker: rep, text: "¿Y el precio? Cuando hablaron con su lender, ¿esto es lo que tenían planeado?" }
         - { speaker: customer, text: "La verdad, la carta de preaprobación dice $550,000. Esta cuesta $574,990, y él cree que solo estamos mirando por debajo de la carta." }
         - { speaker: rep, text: "Le agradezco que me lo diga. Yo no le puedo decir lo que va a hacer un lender; eso solo se lo dice su loan officer. Lo que sí puedo hacer: ustedes dos recorren esta casa, yo les enseño un townhome terminado aquí que entra dentro de su carta, y se llevan los dos precios a su loan officer. ¿Pueden venir los dos el sábado a las 11?" }
-        - { speaker: customer, text: "Está bien, eso nos funciona." }
+        - { speaker: customer, text: "Está bien, eso nos queda bien." }
 spanish_reviewed: false

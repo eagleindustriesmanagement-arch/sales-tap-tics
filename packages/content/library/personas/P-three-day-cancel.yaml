@@ -145,7 +145,7 @@ offline_lines:
   after_reveal:
     - { en: "That makes sense. I'd rather know first.", es: "Tiene sentido. Prefiero saberlo primero." }
     - { en: "Okay. I'll call my agent.", es: "Está bien. Voy a llamar a mi agente." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Let me hold off today. I'll call you.", es: "Mejor lo dejo por hoy. Yo lo llamo." }
   walk_away: { en: "You know what, I'm not signing anything today.", es: "¿Sabe qué? Hoy no voy a firmar nada." }
   goodbye: { en: "Thanks.", es: "Gracias." }

@@ -14,7 +14,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, mid-40s, electrician, agreed on a 2026 Colorado LT at $38,694 out the door, which includes your $899 dealer fee; only tax, tag and title are added. With $4,000 down at 72 months, the estimated payment on your sheet is $645 a month with no products in it. If he asks to see a service contract ($2,495), the same estimate with it is $687 a month. He has not applied for financing yet."
-  es: "{name}, de unos 45 años, electricista, se puso de acuerdo en una Colorado LT 2026 por $38,694 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Con $4,000 de down a 72 meses, el pago estimado de su hoja es $645 al mes, sin ningún producto. Si él pide ver un contrato de servicio ($2,495), el mismo estimado con él es $687 al mes. Todavía no ha aplicado al financiamiento."
+  es: "{name}, de unos 45 años, electricista, se puso de acuerdo en una Colorado LT 2026 por $38,694 con todo, con su cargo de concesionario de $899 incluido; solo se suman impuestos, placa y título. Con $4,000 de down a 72 meses, el pago estimado de su hoja es $645 al mes, sin ningún producto. Si él pide ver un contrato de servicio ($2,495), el mismo estimado con él es $687 al mes. Todavía no ha aplicado al financiamiento."
 opening:
   en: Are you going to slip in a warranty without telling me?
   es: ¿Me van a meter una garantía sin decirme?
@@ -194,5 +194,5 @@ demonstrations:
         - { speaker: rep, text: "Gracias por decírmelo. Entonces aquí está, a la vista, y usted decide. Sin ningún producto, $645 al mes. Con el contrato de servicio, $687 al mes, los mismos 72 meses. El contrato de servicio cuesta $2,495. Es opcional, y en Florida lo puede cancelar: dentro de 60 días le devuelven todo, menos los reclamos pagados y un cargo administrativo de hasta 5%, y después de eso, la parte proporcional." }
         - { speaker: customer, text: "Así es como se debe hacer. Dos números, y yo escojo." }
         - { speaker: rep, text: "Nuestra gerente de financiamiento lo puede atender hoy a las 2:30 y enseñarle por escrito exactamente lo que cubre, antes de que usted decida nada. ¿Le funciona a las 2:30?" }
-        - { speaker: customer, text: "Hoy a las 2:30 me funciona." }
+        - { speaker: customer, text: "Hoy a las 2:30 me queda bien." }
 spanish_reviewed: false

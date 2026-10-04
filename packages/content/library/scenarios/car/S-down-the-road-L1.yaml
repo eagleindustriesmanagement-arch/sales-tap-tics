@@ -14,7 +14,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, mid-50s, owns a small landscaping business and wants a 2026 Silverado 1500 LT for work. No trade; he is financing through his own bank. Your numbers sheet shows $53,394 out the door, which includes your $899 dealer fee; only tax, tag and title are added. Your manager has no room on this unit."
-  es: "{name}, de unos 55 años, tiene un negocito de jardinería y quiere una Silverado 1500 LT 2026 para el trabajo. No tiene trade-in; financia con su propio banco. Su hoja de números dice $53,394 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Su gerente no tiene margen en esta unidad."
+  es: "{name}, de unos 55 años, tiene un negocito de jardinería y quiere una Silverado 1500 LT 2026 para el trabajo. No tiene trade-in; financia con su propio banco. Su hoja de números dice $53,394 con todo, con su cargo de concesionario de $899 incluido; solo se suman impuestos, placa y título. Su gerente no tiene margen en esta unidad."
 opening:
   en: I've got you beat down the road.
   es: Aquí cerca me lo dejan más barato.
@@ -172,10 +172,10 @@ demonstrations:
         - { speaker: customer, text: "Aquí cerca me lo dejan más barato." }
         - { speaker: rep, text: "[pausa] Puede ser, y usted merece un trato justo. Vamos a ponerlas lado a lado, la misma camioneta, con todo. ¿Qué le cotizaron, y lo tiene por escrito?" }
         - { speaker: customer, text: "Allí me lo dejan más barato. Siempre lo hacen." }
-        - { speaker: rep, text: "La nuestra está en $53,394 con todo, porque ya incluye nuestro cargo del dealer de $899; solo se suman impuestos, placa y título. ¿Cuál es el precio total de ellos en la misma camioneta?" }
+        - { speaker: rep, text: "La nuestra está en $53,394 con todo, porque ya incluye nuestro cargo de concesionario de $899; solo se suman impuestos, placa y título. ¿Cuál es el precio total de ellos en la misma camioneta?" }
         - { speaker: customer, text: "¿La verdad? No tengo ninguna cotización. Mi cuñado dice que allí siempre lo dejan más barato. Quería ver si el suyo se movía." }
         - { speaker: rep, text: "Le agradezco que me hable claro. Entonces le contesto igual de claro: nuestro número es $53,394 con todo, y no se mueve por un número que ninguno de los dos ha visto. Si le dan una cotización por escrito con el precio total de la misma camioneta, tráigala, y la revisamos línea por línea." }
         - { speaker: customer, text: "Me parece bien. Un número que se mantiene es lo que yo quería ver." }
         - { speaker: rep, text: "Traiga a su cuñado también. ¿Le funciona el martes a las 6:00? Le tengo esta misma camioneta lista y los números impresos." }
-        - { speaker: customer, text: "El martes a las 6 me funciona. Lo traigo." }
+        - { speaker: customer, text: "El martes a las 6 me queda bien. Lo traigo." }
 spanish_reviewed: false

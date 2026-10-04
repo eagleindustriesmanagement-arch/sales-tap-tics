@@ -44,7 +44,7 @@ unlock_conditions:
         - '\bwhere (does|would) the payment (need to|have to) (be|land|sit)\b'
         - '\bwhat(''s| is) the (most|highest|max(imum)?)\b.{0,25}\b(pay|payment)\b'
       es:
-        - '\bqué (pago|número|cuota|mensualidad)\b.{0,30}\b(tenía en mente|tiene en mente|esperaba|le funciona|necesita|busca)\b'
+        - '\bqué (pago|número|cuota|mensualidad)\b.{0,30}\b(tenía en mente|tiene en mente|esperaba|le funciona|le queda bien|necesita|busca)\b'
         - '\b(cuál|qué) (es|sería) (el|su) pago máximo\b'
         - '\bhasta (qué pago|cuánto) puede (llegar|pagar)\b'
         - '\bcuánto (es lo máximo que|puede|esperaba|pensaba) pagar\b'
@@ -135,7 +135,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. Show me that on paper.", es: "Está bien. Enséñemelo en papel." }
     - { en: "As long as it's in writing, I can work with that.", es: "Mientras esté por escrito, con eso puedo trabajar." }
-  agree_next_step: { en: "That works. Have both ready.", es: "Eso me funciona. Téngame los dos listos." }
+  agree_next_step: { en: "That works. Have both ready.", es: "Eso me queda bien. Téngame los dos listos." }
   not_now: { en: "Not today. I'm beat.", es: "Hoy no. Estoy muerto del cansancio." }
   walk_away: { en: "I think I'm done for today.", es: "Creo que por hoy ya terminé." }
   goodbye: { en: "Thanks. Have a good night.", es: "Gracias. Que pase buenas noches." }

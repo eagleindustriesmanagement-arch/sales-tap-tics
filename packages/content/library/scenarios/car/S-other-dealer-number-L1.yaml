@@ -14,7 +14,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, mid-40s, HVAC technician, wants a 2026 Colorado LT for work. Your price is $38,394 out the door, which includes your $899 dealer fee; only tax, tag and title are added. Your manager has no room on this unit. He owns a 2019 Colorado and has not said whether he wants to trade it. He is on his lunch break and got a written offer from another Chevrolet dealer this week."
-  es: "{name}, de unos 45 años, técnico de aire acondicionado, quiere una Colorado LT 2026 para el trabajo. Su precio es $38,394 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Su gerente no tiene margen en esta unidad. Él tiene una Colorado 2019 y no ha dicho si la quiere dar en trade-in. Está en su hora de almuerzo y esta semana le dieron una oferta por escrito en otro dealer de Chevrolet."
+  es: "{name}, de unos 45 años, técnico de aire acondicionado, quiere una Colorado LT 2026 para el trabajo. Su precio es $38,394 con todo, con su cargo de concesionario de $899 incluido; solo se suman impuestos, placa y título. Su gerente no tiene margen en esta unidad. Él tiene una Colorado 2019 y no ha dicho si la quiere dar en trade-in. Está en su hora de almuerzo y esta semana le dieron una oferta por escrito en otro dealer de Chevrolet."
 opening:
   en: Another dealer already gave me a number. $24,900 on this same Colorado.
   es: Ya otro dealer me dio un número. $24,900 por esta misma Colorado.
@@ -188,7 +188,7 @@ demonstrations:
         - { speaker: customer, text: "Es la camioneta que quiero. Lo que no quiero es pagar de más." }
         - { speaker: rep, text: "Entonces vamos a asegurarnos de comparar lo mismo. En ese número, ¿hay un trade-in?" }
         - { speaker: customer, text: "Bueno. Me quitaron $13,000 por mi Colorado 2019. Aquí no lo mencioné porque pensé que me la iban a tasar bajo." }
-        - { speaker: rep, text: "Le agradezco que me lo diga. Entonces el número de ellos es con el trade-in ya restado, y el nuestro es sin ningún trade-in: $38,394 con todo, con nuestro cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. No voy a adivinar lo que vale su camioneta, ni lo que dice el resto de la hoja de ellos. Vamos a tasar su Colorado aquí y a poner los dos negocios en una hoja de la misma manera: primero el precio total, después el trade-in." }
+        - { speaker: rep, text: "Le agradezco que me lo diga. Entonces el número de ellos es con el trade-in ya restado, y el nuestro es sin ningún trade-in: $38,394 con todo, con nuestro cargo de concesionario de $899 incluido; solo se suman impuestos, placa y título. No voy a adivinar lo que vale su camioneta, ni lo que dice el resto de la hoja de ellos. Vamos a tasar su Colorado aquí y a poner los dos negocios en una hoja de la misma manera: primero el precio total, después el trade-in." }
         - { speaker: customer, text: "Me parece justo. Lo que quiero es comparar lo mismo con lo mismo." }
         - { speaker: rep, text: "¿Puede traer la Colorado mañana a las 10:00 con la hoja de ellos? La tasamos delante de usted, y se va con los dos negocios lado a lado." }
         - { speaker: customer, text: "Está bien. Mañana a las 10:00. Le traigo la camioneta y la hoja de ellos." }

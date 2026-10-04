@@ -129,7 +129,7 @@ offline_lines:
   after_reveal:
     - { en: "That I'd like to see. With my numbers, not a brochure.", es: "Eso sí me gustaría verlo. Con mis números, no con un folleto." }
     - { en: "Okay. That's a fair way to compare.", es: "Bueno. Esa es una manera justa de comparar." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I'll run the numbers myself.", es: "Hoy no. Yo misma voy a sacar las cuentas." }
   walk_away: { en: "I'll stick with the gas one, or my old one. Thanks.", es: "Me quedo con la de gasolina, o con la mía vieja. Gracias." }
   goodbye: { en: "Thank you.", es: "Gracias." }

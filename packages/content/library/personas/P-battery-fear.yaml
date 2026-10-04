@@ -117,7 +117,7 @@ offline_lines:
   after_reveal:
     - { en: "That's what I needed. Something on paper.", es: "Eso es lo que necesitaba. Algo en papel." }
     - { en: "Okay. That's fair. I can work with that.", es: "Bueno. Eso es justo. Con eso puedo trabajar." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I need to sleep on it.", es: "Hoy no. Lo tengo que consultar con la almohada." }
   walk_away: { en: "I think I'll wait and keep my Camry running.", es: "Creo que voy a esperar y seguir con mi Camry." }
   goodbye: { en: "Thank you.", es: "Gracias." }

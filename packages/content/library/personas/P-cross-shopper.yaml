@@ -17,7 +17,7 @@ stated_line:
   es: En otro dealer me cotizaron la misma Equinox en $31,995. ¿Por qué voy a pagar más aquí?
 hidden_truth:
   en: The other quote leaves out fees. The fine print says "plus dealer fees," and she never asked how much they are, so she does not actually know their out-the-door number.
-  es: La otra cotización deja fuera los cargos. La letra chiquita dice "más cargos del dealer", y ella nunca preguntó cuánto son, así que en realidad no sabe cuál es el precio total de ellos.
+  es: La otra cotización deja fuera los cargos. La letra chiquita dice "más cargos de concesionario", y ella nunca preguntó cuánto son, así que en realidad no sabe cuál es el precio total de ellos.
 # Phrases that would give the hidden truth away before an unlock.
 hidden_truth_markers:
   en:
@@ -112,11 +112,11 @@ offline_lines:
     - { en: "I'm not here for a speech. I'm here for a number.", es: "No vine por un discurso. Vine por un número." }
   hint: { en: "There's a line at the bottom in small print. I figured it was standard.", es: "Hay una línea abajo en letra chiquita. Pensé que era lo normal." }
   after_hint: { en: "I compare everything. That's my job.", es: "Yo comparo todo. Ese es mi trabajo." }
-  reveal: { en: "It says plus dealer fees. I never asked how much. So the $31,995 isn't really the whole price.", es: "Dice más cargos del dealer. Nunca pregunté cuánto. Así que los $31,995 no son el precio completo." }
+  reveal: { en: "It says plus dealer fees. I never asked how much. So the $31,995 isn't really the whole price.", es: "Dice más cargos de concesionario. Nunca pregunté cuánto. Así que los $31,995 no son el precio completo." }
   after_reveal:
     - { en: "Okay. That's a fair way to do it.", es: "Está bien. Así sí es justo." }
     - { en: "Fine. I'll ask them for it in writing.", es: "Bueno. Se lo voy a pedir a ellos por escrito." }
-  agree_next_step: { en: "That works. I'll bring both sheets.", es: "Me funciona. Traigo las dos hojas." }
+  agree_next_step: { en: "That works. I'll bring both sheets.", es: "Me queda bien. Traigo las dos hojas." }
   not_now: { en: "Not today. I'll think about it.", es: "Hoy no. Lo voy a pensar." }
   walk_away: { en: "I think I'm done here.", es: "Creo que hasta aquí llegué." }
   goodbye: { en: "Thanks. Bye.", es: "Gracias. Adiós." }

@@ -192,5 +192,5 @@ demonstrations:
         - { speaker: rep, text: "Es una comparación justa, y no le voy a hablar mal de esa casa. Pongámoslas lado a lado de la misma manera: el precio, más lo que cada una va a necesitar en los próximos años, como el techo, el aire acondicionado y el calentador de agua, más lo que cuesta el seguro de cada una. Pregúntele al agente de esa casa cuántos años tienen el techo y el aire, y pídale a su agente de seguros que le cotice las dos direcciones." }
         - { speaker: customer, text: "Me parece justo. Nadie me lo había planteado así." }
         - { speaker: rep, text: "Y para que tenga todos los números reales: el descuento de quick move-in del builder le quita $10,000 a esta casa, y se vence el 31 de octubre. Está en el boletín de ventas, y le doy una copia. ¿Puede volver el jueves a las 6 con las cotizaciones del seguro? Ponemos las dos casas en una sola página." }
-        - { speaker: customer, text: "Está bien, me funciona. Traigo las cotizaciones." }
+        - { speaker: customer, text: "Está bien, me queda bien. Traigo las cotizaciones." }
 spanish_reviewed: false

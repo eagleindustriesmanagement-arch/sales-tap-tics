@@ -180,5 +180,5 @@ demonstrations:
         - { speaker: rep, text: "Gracias, eso cambia mi respuesta. Si yo fuera usted, me inclinaría por la Gumbo Limbo, porque todo está en un solo piso, y que su papá se pueda mover seguro es lo único en lo que no puede ceder. Pero no quiero que lo crea solo porque yo lo digo." }
         - { speaker: customer, text: "Eso es lo que necesitaba. Que alguien me lo dijera claro." }
         - { speaker: rep, text: "Tráigalo el sábado a las 10. Recorremos las dos casas con su andador, desde la entrada hasta el cuarto y la ducha, y usted lo ve con sus propios ojos antes de decidir." }
-        - { speaker: customer, text: "Está bien, me funciona. Lo traigo." }
+        - { speaker: customer, text: "Está bien, me queda bien. Lo traigo." }
 spanish_reviewed: false

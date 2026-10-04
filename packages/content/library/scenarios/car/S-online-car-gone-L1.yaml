@@ -193,5 +193,5 @@ demonstrations:
         - { speaker: rep, text: "Esto es lo más parecido que sí tenemos: una Trailblazer LT en Sterling Gray, stock 7466, aquí en el lote. Tiene el mismo precio total que la que usted vio en internet, porque es la misma versión: $27,394 más impuestos, tag y título. Nada más caro y sin cambiazos." }
         - { speaker: customer, text: "El mismo carro, el mismo precio. Eso sí lo puedo mirar." }
         - { speaker: rep, text: "¿Tiene tiempo para manejarla ahora? Si no, se la puedo tener lista el lunes a las 5:30, con los papeles de la que se vendió impresos para que se los lleve." }
-        - { speaker: customer, text: "El lunes a las 5:30 me funciona. Hoy tengo que recoger a mi hija a las doce." }
+        - { speaker: customer, text: "El lunes a las 5:30 me queda bien. Hoy tengo que recoger a mi hija a las doce." }
 spanish_reviewed: false

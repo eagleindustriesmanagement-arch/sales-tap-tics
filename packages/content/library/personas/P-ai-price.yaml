@@ -132,7 +132,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. That actually helps.", es: "Bueno. Eso sí me ayuda." }
     - { en: "So it wasn't the same car at all.", es: "O sea que no era el mismo carro." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I'll keep looking.", es: "Hoy no. Voy a seguir buscando." }
   walk_away: { en: "I'll take my research somewhere else.", es: "Me llevo mi investigación a otro lado." }
   goodbye: { en: "Thanks. Bye.", es: "Gracias. Chao." }

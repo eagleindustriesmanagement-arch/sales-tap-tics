@@ -15,7 +15,7 @@ steps:
   - en: "Ask: \"What's the part you still want to be sure about?\""
     es: "Pregunte: \"¿Qué es lo que todavía quiere tener seguro?\""
   - en: "Ask if the price and the estimate work for him, apart from that."
-    es: "Pregunte si el precio y el estimado le funcionan, aparte de eso."
+    es: "Pregunte si el precio y el estimado le convencen, aparte de eso."
   - en: "Ask if an HOA has to approve what goes on his roof."
     es: "Pregunte si una HOA tiene que aprobar lo que va en su techo."
   - en: "Don't predict the HOA's answer. Set a day and time to fill out their application together."
@@ -79,7 +79,7 @@ concepts:
   - name: { en: Price aside, es: Aparte del precio }
     idea:
       en: "Check that the numbers work, so you know the doubt isn't money."
-      es: "Confirme que los números funcionan, para saber que la duda no es dinero."
+      es: "Confirme que los números me cuadran, para saber que la duda no es dinero."
     items: [SOL-O05-ISOLATE]
   - name: { en: "The real answer, then a time", es: "La respuesta real, y después la hora" }
     idea:

@@ -195,5 +195,5 @@ demonstrations:
         - { speaker: rep, text: "Entonces le enseño los dos, lado a lado, y usted escoge. Sin ningún producto, $523 al mes. Con GAP solamente, $537 al mes. Los dos a 72 meses, con la misma tasa. El GAP cuesta $795. Cubre la diferencia entre lo que usted todavía debe y lo que paga el seguro si el carro es pérdida total o se lo roban. La decisión es suya." }
         - { speaker: customer, text: "Entonces sin él. Así me quedo por debajo de mi número." }
         - { speaker: rep, text: "Sin GAP, entonces: $523 al mes a 72 meses. Le imprimo el contrato sin él, y repasamos cada línea antes de que firme. Su Trailblazer puede estar lista para la entrega hoy a las 5:00. ¿Le funciona?" }
-        - { speaker: customer, text: "Hoy a las 5 me funciona." }
+        - { speaker: customer, text: "Hoy a las 5 me queda bien." }
 spanish_reviewed: false

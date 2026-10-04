@@ -14,7 +14,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, mid-50s, wants a 2026 Trax LT for his commute. No trade; he is paying with a check from his credit union. Your buyer's order shows $24,494 out the door, which includes your $899 dealer fee; only tax, tag and title are added. The store's first oil change is on the buyer's order as its own line at $0. The prepaid maintenance plan ($595) is a separate, optional product and is not on his order."
-  es: "{name}, de unos 55 años, quiere una Trax LT 2026 para ir al trabajo. No tiene trade-in; va a pagar con un cheque de su cooperativa de crédito. Su orden de compra dice $24,494 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. El primer cambio de aceite de la tienda está en la orden de compra en su propia línea, en $0. El plan de mantenimiento prepagado ($595) es un producto aparte, opcional, y no está en su orden."
+  es: "{name}, de unos 55 años, quiere una Trax LT 2026 para ir al trabajo. No tiene trade-in; va a pagar con un cheque de su cooperativa de crédito. Su orden de compra dice $24,494 con todo, con su cargo de concesionario de $899 incluido; solo se suman impuestos, placa y título. El primer cambio de aceite de la tienda está en la orden de compra en su propia línea, en $0. El plan de mantenimiento prepagado ($595) es un producto aparte, opcional, y no está en su orden."
 opening:
   en: Is that free oil change really free?
   es: ¿Ese cambio de aceite gratis de verdad es gratis?
@@ -176,8 +176,8 @@ demonstrations:
         - { speaker: customer, text: "Digamos que lo \"gratis\" ya me ha costado dinero." }
         - { speaker: rep, text: "Siento oír eso. ¿Qué le pasó?" }
         - { speaker: customer, text: "El año pasado, en otro dealer, mi cambio de aceite \"gratis\" vino con una cuenta de $129 por materiales del taller y un filtro que me dijeron que era obligatorio. Así que ahora, cuando oigo gratis, busco la trampa." }
-        - { speaker: rep, text: "Con razón pregunta. Aquí está su orden de compra. El primer cambio de aceite está escrito en su propia línea, en $0, así que lo tiene en papel. Su precio es $24,494 con todo, con nuestro cargo del dealer de $899 ya incluido; solo se suman impuestos, placa y título. El plan de mantenimiento prepagado es un producto aparte, de $595. Es opcional, y no está en su orden." }
+        - { speaker: rep, text: "Con razón pregunta. Aquí está su orden de compra. El primer cambio de aceite está escrito en su propia línea, en $0, así que lo tiene en papel. Su precio es $24,494 con todo, con nuestro cargo de concesionario de $899 ya incluido; solo se suman impuestos, placa y título. El plan de mantenimiento prepagado es un producto aparte, de $595. Es opcional, y no está en su orden." }
         - { speaker: customer, text: "Está bien. Eso es lo que quería ver. Por escrito." }
         - { speaker: rep, text: "Llévese esta copia y lea cada línea con calma. ¿Puede volver el lunes a las 6:00 a firmar, después del trabajo?" }
-        - { speaker: customer, text: "El lunes a las 6 me funciona." }
+        - { speaker: customer, text: "El lunes a las 6 me queda bien." }
 spanish_reviewed: false

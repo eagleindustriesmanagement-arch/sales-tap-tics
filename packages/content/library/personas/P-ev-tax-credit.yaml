@@ -129,13 +129,13 @@ offline_lines:
     - { en: "I read it in the paper. The credit is gone.", es: "Lo leí en el periódico. El crédito se acabó." }
     - { en: "Every salesman I've talked to dances around it.", es: "Todos los vendedores con los que he hablado le dan vueltas al tema." }
     - { en: "That $7,500 was the whole reason I waited for an EV.", es: "Esos $7,500 eran la razón por la que esperé para un eléctrico." }
-  hint: { en: "It was what made the numbers work. Now they don't.", es: "Era lo que hacía que los números funcionaran. Ahora no funcionan." }
+  hint: { en: "It was what made the numbers work. Now they don't.", es: "Era lo que hacía que los números cuadraran. Ahora no cuadran." }
   after_hint: { en: "I still want an EV. I charge at home and I'm done with gas stations.", es: "Todavía quiero un eléctrico. Cargo en la casa y ya me cansé de las gasolineras." }
   reveal: { en: "$42,000, before tax. With the credit, the Blazer got close. Without it, it doesn't, and I didn't want to get stretched or steered.", es: "$42,000, antes de impuestos. Con el crédito, la Blazer quedaba cerca. Sin él, no, y no quería que me estiraran ni que me llevaran por donde no quiero." }
   after_reveal:
     - { en: "Okay. At least you didn't pretend. I'd like to drive the Equinox EV.", es: "Está bien. Por lo menos usted no me vino con cuentos. Me gustaría manejar la Equinox EV." }
     - { en: "Good. I want it in writing.", es: "Bien. Lo quiero por escrito." }
-  agree_next_step: { en: "That works. I'll bring my wife.", es: "Me funciona. Traigo a mi esposa." }
+  agree_next_step: { en: "That works. I'll bring my wife.", es: "Me queda bien. Traigo a mi esposa." }
   not_now: { en: "Not today. I'll keep reading.", es: "Hoy no. Voy a seguir leyendo." }
   walk_away: { en: "I'm done here.", es: "Hasta aquí llegué." }
   goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }

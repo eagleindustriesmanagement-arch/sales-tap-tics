@@ -151,7 +151,7 @@ offline_lines:
   after_reveal:
     - { en: "Then without it. That keeps me under my number.", es: "Entonces sin él. Así me quedo por debajo de mi número." }
     - { en: "That's all I wanted. Two numbers and my choice.", es: "Eso es lo único que quería. Dos números y yo escojo." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, eso me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, eso me queda bien." }
   not_now: { en: "Let's leave it for today. I'll think about it.", es: "Dejémoslo por hoy. Lo voy a pensar." }
   walk_away: { en: "Same story as the last place. I'm out.", es: "El mismo cuento del otro lugar. Me voy." }
   goodbye: { en: "Thanks.", es: "Gracias." }

@@ -141,7 +141,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. That I understand.", es: "Bueno. Así sí entiendo." }
     - { en: "Why didn't anybody say it like that before?", es: "¿Por qué nadie me lo dijo así antes?" }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I'll look at it at home.", es: "Hoy no. Lo miro en la casa." }
   walk_away: { en: "No. I'm leaving.", es: "No. Yo me voy." }
   goodbye: { en: "Thank you. Bye.", es: "Gracias. Chao." }

@@ -179,12 +179,12 @@ demonstrations:
         - { speaker: customer, text: "Lo tengo que pensar." }
         - { speaker: rep, text: "[pausa] Tiene sentido. Es una compra grande para la familia, y se nota que usted hizo su tarea. Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?" }
         - { speaker: customer, text: "No es la mesa. Es más bien cuestión de fechas." }
-        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el juego y el precio le funcionan?" }
+        - { speaker: rep, text: "Bien. Entonces, dejando eso a un lado un momento, ¿el juego y el precio le convencen?" }
         - { speaker: customer, text: "El juego es el que quiero, y el precio está bien. Yo hice mi tarea." }
         - { speaker: rep, text: "Perfecto. Entonces cuénteme de la primera gran cena en esa mesa. ¿Hay alguna ocasión para la que la está comprando?" }
         - { speaker: customer, text: "Bueno. Yo hago la Nochebuena para catorce personas, y necesito este juego de comedor en mi casa antes del 24 de diciembre. Mi hermana pagó en otra tienda y la mesa le llegó en enero. Yo no quiero eso." }
         - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que comprobar antes de comprar, no después. No voy a adivinar una fecha. El juego está en nuestro almacén, y el equipo de entrega es el que maneja el calendario. Les pido que le confirmen la fecha de entrega por escrito, y usted decide cuando la tenga en papel." }
         - { speaker: customer, text: "Eso lo resolvería. No quiero enterarme en diciembre." }
         - { speaker: rep, text: "¿Puede volver el martes a las 6? Le tengo la fecha confirmada por escrito, y la mesa abierta a todo lo largo para que la vea." }
-        - { speaker: customer, text: "Está bien, me funciona." }
+        - { speaker: customer, text: "Está bien, me queda bien." }
 spanish_reviewed: false

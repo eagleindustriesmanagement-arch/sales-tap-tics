@@ -152,7 +152,7 @@ offline_lines:
   after_reveal:
     - { en: "That's fair. I just don't want to feel like I got taken.", es: "Me parece justo. Es que no quiero sentir que me cogieron de boba." }
     - { en: "Okay. If it's apples to apples, I can decide.", es: "Está bien. Si es comparando lo mismo con lo mismo, yo puedo decidir." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. Thanks, though.", es: "Hoy no. Pero gracias." }
   walk_away: { en: "I think I'm going to go.", es: "Creo que me voy a ir." }
   goodbye: { en: "Thanks. Have a good one.", es: "Gracias. Que le vaya bien." }

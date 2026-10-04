@@ -196,5 +196,5 @@ demonstrations:
         - { speaker: rep, text: "Gracias, eso es importante. La batería es opcional, y el monitoreo también. Lado a lado, con el estimado de Kestrela: $285 al mes con la batería y el monitoreo, o $190 al mes por el mismo sistema sin ninguno de los dos. El mismo plazo de 25 años, y los dos sujetos a la aprobación de ellos." }
         - { speaker: customer, text: "Está bien. Enséñemelo en papel." }
         - { speaker: rep, text: "Le pongo los dos por escrito lado a lado, con la batería y sin ella, para que vea exactamente lo que cuesta cada uno. ¿Puede sentarse el lunes a las 6:30 para revisar el estimado por escrito?" }
-        - { speaker: customer, text: "El lunes a las 6:30 me funciona. Téngame los dos listos." }
+        - { speaker: customer, text: "El lunes a las 6:30 me queda bien. Téngame los dos listos." }
 spanish_reviewed: false

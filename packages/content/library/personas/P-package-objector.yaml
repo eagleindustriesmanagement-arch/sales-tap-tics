@@ -112,7 +112,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. Go talk to your manager.", es: "Está bien. Vaya y hable con su gerente." }
     - { en: "That's fair. That's all I'm asking.", es: "Eso es justo. Es todo lo que pido." }
-  agree_next_step: { en: "Fine. That works.", es: "Está bien. Eso me funciona." }
+  agree_next_step: { en: "Fine. That works.", es: "Está bien. Eso me queda bien." }
   not_now: { en: "Not today. I'm too annoyed.", es: "Hoy no. Estoy muy molesto." }
   walk_away: { en: "Forget it. I'm leaving.", es: "Olvídelo. Me voy." }
   goodbye: { en: "Thanks.", es: "Gracias." }

@@ -146,7 +146,7 @@ offline_lines:
   after_reveal:
     - { en: "That's fair. Nobody had put it to me that way.", es: "Me parece justo. Nadie me lo había planteado así." }
     - { en: "Okay. If the numbers on paper make sense, I can move.", es: "Está bien. Si los números en papel tienen sentido, yo me muevo." }
-  agree_next_step: { en: "Okay, that works. I'll bring the quotes.", es: "Está bien, me funciona. Traigo las cotizaciones." }
+  agree_next_step: { en: "Okay, that works. I'll bring the quotes.", es: "Está bien, me queda bien. Traigo las cotizaciones." }
   not_now: { en: "Not today. Thanks, though.", es: "Hoy no. Pero gracias." }
   walk_away: { en: "I think we're going to go.", es: "Creo que nos vamos a ir." }
   goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }

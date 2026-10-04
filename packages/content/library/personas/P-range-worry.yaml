@@ -137,7 +137,7 @@ offline_lines:
   after_reveal:
     - { en: "That would help. I just don't want to find out on the highway with the kids.", es: "Eso me ayudaría. No quiero enterarme en la autopista con los niños." }
     - { en: "Okay. That's what I needed, somebody to take it seriously.", es: "Está bien. Eso es lo que necesitaba, que alguien lo tomara en serio." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I'll think about it.", es: "Hoy no. Lo voy a pensar." }
   walk_away: { en: "I think I'll keep my old Equinox a while longer.", es: "Creo que me quedo con mi Equinox vieja un tiempo más." }
   goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }

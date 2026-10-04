@@ -143,7 +143,7 @@ offline_lines:
   after_reveal:
     - { en: "That would settle it. I don't want a letter after the panels are up.", es: "Eso lo resolvería. No quiero una carta después de que los paneles estén puestos." }
     - { en: "Okay. That's what I needed to know.", es: "Está bien. Eso es lo que necesitaba saber." }
-  agree_next_step: { en: "Okay, that works. I'll bring the form.", es: "Está bien, me funciona. Traigo el formulario." }
+  agree_next_step: { en: "Okay, that works. I'll bring the form.", es: "Está bien, me queda bien. Traigo el formulario." }
   not_now: { en: "Not today. I'll be in touch.", es: "Hoy no. Yo le aviso." }
   walk_away: { en: "I think we're done for today.", es: "Creo que por hoy terminamos." }
   goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }

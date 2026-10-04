@@ -149,7 +149,7 @@ offline_lines:
   after_reveal:
     - { en: "That's how it should be done. Two numbers, my choice.", es: "Así es como se debe hacer. Dos números, y yo escojo." }
     - { en: "Okay. I want to see what it covers before I decide.", es: "Está bien. Quiero ver qué cubre antes de decidir." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Let me sleep on it. I'll come back.", es: "Déjeme consultarlo con la almohada. Yo vuelvo." }
   walk_away: { en: "Yeah, I knew it. I'm out.", es: "Ya sabía yo. Me voy." }
   goodbye: { en: "Take it easy.", es: "Cuídese." }

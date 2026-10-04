@@ -149,7 +149,7 @@ offline_lines:
   after_reveal:
     - { en: "That would settle it. I don't want to find out in December.", es: "Eso lo resolvería. No quiero enterarme en diciembre." }
     - { en: "Okay. A date on paper is what I needed.", es: "Está bien. Una fecha por escrito es lo que yo necesitaba." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I'll be in touch.", es: "Hoy no. Yo le aviso." }
   walk_away: { en: "I think I'm going to head out.", es: "Creo que me voy a ir yendo." }
   goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }

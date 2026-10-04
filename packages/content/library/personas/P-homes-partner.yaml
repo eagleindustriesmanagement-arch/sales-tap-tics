@@ -130,7 +130,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. I didn't know how to bring that up.", es: "Está bien. Yo no sabía cómo sacar ese tema." }
     - { en: "That's fair. He'd want to hear it from the loan officer, not from me.", es: "Me parece justo. Él querría oírlo del loan officer, no de mí." }
-  agree_next_step: { en: "Okay, that works for us.", es: "Está bien, eso nos funciona." }
+  agree_next_step: { en: "Okay, that works for us.", es: "Está bien, eso nos queda bien." }
   not_now: { en: "Not today. Thanks, though.", es: "Hoy no. Pero gracias." }
   walk_away: { en: "I think I'm going to head out.", es: "Creo que me voy a ir yendo." }
   goodbye: { en: "Thanks. Take care.", es: "Gracias. Que le vaya bien." }

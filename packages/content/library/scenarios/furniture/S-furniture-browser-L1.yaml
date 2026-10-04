@@ -190,5 +190,5 @@ demonstrations:
         - { speaker: rep, text: "Felicidades, eso es un paso grande. Cinco semanas alcanzan para hacer esto con calma, sin apuro. Le propongo algo fácil: traiga el plano del condo, armamos la sala en papel, y usted se sienta en las dos o tres piezas que de verdad caben. Nada de decidir hasta que todo quepa." }
         - { speaker: customer, text: "Eso me ayuda. Pensé que me iba a caer encima con eso." }
         - { speaker: rep, text: "¿Puede volver el jueves a las 6? Traiga el plano, y le tengo las medidas del sectional Costa listas para ver si cabe." }
-        - { speaker: customer, text: "Está bien. Eso me funciona." }
+        - { speaker: customer, text: "Está bien. Eso me queda bien." }
 spanish_reviewed: false

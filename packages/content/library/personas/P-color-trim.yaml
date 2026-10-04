@@ -145,7 +145,7 @@ offline_lines:
   after_reveal:
     - { en: "That's fair. I didn't want to feel like I went behind his back.", es: "Eso es justo. No quería sentir que lo hice a sus espaldas." }
     - { en: "Okay. Same car, both numbers on paper. I can do that.", es: "Está bien. El mismo carro, los dos números en papel. Eso sí lo puedo hacer." }
-  agree_next_step: { en: "Okay, that works. I'll ask him tonight.", es: "Está bien, me funciona. Esta noche le pregunto." }
+  agree_next_step: { en: "Okay, that works. I'll ask him tonight.", es: "Está bien, me queda bien. Esta noche le pregunto." }
   not_now: { en: "Not today. I'll let you know.", es: "Hoy no. Yo le aviso." }
   walk_away: { en: "I think I'll keep looking. Thanks.", es: "Creo que voy a seguir buscando. Gracias." }
   goodbye: { en: "Thanks for your help.", es: "Gracias por su ayuda." }

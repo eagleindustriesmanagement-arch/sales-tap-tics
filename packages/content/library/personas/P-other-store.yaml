@@ -145,7 +145,7 @@ offline_lines:
   after_reveal:
     - { en: "That's fair. I'd rather compare the real price.", es: "Me parece justo. Prefiero comparar el precio de verdad." }
     - { en: "Okay. I'll ask her for it in writing.", es: "Bueno. Se lo voy a pedir a ella por escrito." }
-  agree_next_step: { en: "Okay, that works. I'll bring what she sends me.", es: "Está bien, me funciona. Le traigo lo que ella me mande." }
+  agree_next_step: { en: "Okay, that works. I'll bring what she sends me.", es: "Está bien, me queda bien. Le traigo lo que ella me mande." }
   not_now: { en: "Not today. I'll stick with her for now.", es: "Hoy no. Por ahora sigo con ella." }
   walk_away: { en: "I think I'm going to go.", es: "Creo que me voy a ir." }
   goodbye: { en: "Thanks. Bye.", es: "Gracias. Hasta luego." }

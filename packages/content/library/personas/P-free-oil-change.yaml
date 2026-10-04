@@ -129,7 +129,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. That's what I wanted to see. In writing.", es: "Está bien. Eso es lo que quería ver. Por escrito." }
     - { en: "Fair enough. Paper doesn't lie.", es: "Me parece bien. El papel no miente." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Let me think about it. I'll come back.", es: "Déjeme pensarlo. Yo vuelvo." }
   walk_away: { en: "Forget it. Same game as everywhere.", es: "Olvídese. El mismo juego de siempre." }
   goodbye: { en: "Take care.", es: "Que le vaya bien." }

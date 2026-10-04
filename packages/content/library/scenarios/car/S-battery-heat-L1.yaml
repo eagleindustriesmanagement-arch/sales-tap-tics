@@ -14,7 +14,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, early 30s, ICU nurse, lives in Doral and can charge in her garage at home. She just drove the 2026 Equinox EV LT: $36,294 out the door, which includes your $899 dealer fee; only tax, tag and title are added. Chevrolet's warranty booklet for this car, with its battery coverage, is in your system to print. You have no battery figures of your own to quote: if she wants numbers, show her the paperwork."
-  es: "{name}, de unos 32 años, enfermera de cuidados intensivos, vive en Doral y puede cargar en el garaje de su casa. Acaba de manejar la Equinox EV LT 2026: $36,294 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. El folleto de garantía de Chevrolet para este carro, con la cobertura de la batería, está en su sistema para imprimirlo. Usted no tiene cifras propias de la batería para dar: si ella quiere números, enséñele los papeles."
+  es: "{name}, de unos 32 años, enfermera de cuidados intensivos, vive en Doral y puede cargar en el garaje de su casa. Acaba de manejar la Equinox EV LT 2026: $36,294 con todo, con su cargo de concesionario de $899 incluido; solo se suman impuestos, placa y título. El folleto de garantía de Chevrolet para este carro, con la cobertura de la batería, está en su sistema para imprimirlo. Usted no tiene cifras propias de la batería para dar: si ella quiere números, enséñele los papeles."
 opening:
   en: Will the battery die in this heat?
   es: ¿La batería se daña con este calor?
@@ -184,5 +184,5 @@ demonstrations:
         - { speaker: rep, text: "Gracias, eso es justo lo que hay que preguntar. Le voy a hablar claro: aquí el calor afecta un poco la batería, un poco más que en lugares más frescos, y lo mejor es cargar en la casa. No le voy a prometer más que eso. Lo que sí puedo hacer es imprimirle la garantía de la batería de Chevrolet para este carro, para que usted misma lea los años, las millas y lo que cubre, y revisamos juntos lo que dice el manual del dueño sobre parquear con calor." }
         - { speaker: customer, text: "Eso es más honesto de lo que esperaba. Me gustaría leerlo yo misma." }
         - { speaker: rep, text: "¿Puede venir el sábado a las 10:00? Le tengo impresas las páginas de la garantía y la parte del manual, y el carro cargado para que maneje su ruta de verdad hasta el hospital." }
-        - { speaker: customer, text: "El sábado a las 10:00 me funciona. Traigo mis preguntas." }
+        - { speaker: customer, text: "El sábado a las 10:00 me queda bien. Traigo mis preguntas." }
 spanish_reviewed: false

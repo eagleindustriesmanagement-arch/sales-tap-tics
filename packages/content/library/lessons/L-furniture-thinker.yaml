@@ -15,7 +15,7 @@ steps:
   - en: "Ask: \"What's the part you still want to be sure about?\""
     es: "Pregunte: \"¿Qué es lo que todavía quiere tener seguro?\""
   - en: "Ask if the set and the price work for him, apart from that."
-    es: "Pregunte si el juego y el precio le funcionan, aparte de eso."
+    es: "Pregunte si el juego y el precio le convencen, aparte de eso."
   - en: "Ask if he is buying it for a special day."
     es: "Pregunte si lo está comprando para una fecha especial."
   - en: "Don't guess a delivery date. Get it in writing, and set a time to review it."
@@ -38,7 +38,7 @@ say:
   - en: When you think it over tonight, what's the part you still want to be sure about?
     es: Cuando lo piense esta noche, ¿qué es lo que todavía quiere tener seguro?
   - en: Setting that aside, do the set and the price work for you?
-    es: Dejando eso a un lado, ¿el juego y el precio le funcionan?
+    es: Dejando eso a un lado, ¿el juego y el precio le convencen?
   - en: I'm not going to guess a delivery date. I'll get it confirmed in writing before you decide.
     es: No voy a adivinar una fecha de entrega. Se la consigo confirmada por escrito antes de que usted decida.
 mistakes:
@@ -76,7 +76,7 @@ concepts:
   - name: { en: Rule out the money, es: Descarte el dinero }
     idea:
       en: "Check that the set and the price work, so you solve the right problem."
-      es: "Confirme que el juego y el precio le funcionan, para resolver el problema correcto."
+      es: "Confirme que el juego y el precio le convencen, para resolver el problema correcto."
     items: [FUR-O05-ISOLATE]
   - name: { en: A date on paper, es: Una fecha en papel }
     idea:

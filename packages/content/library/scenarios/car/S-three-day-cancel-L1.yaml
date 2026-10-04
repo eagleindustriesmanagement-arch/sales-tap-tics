@@ -174,12 +174,12 @@ demonstrations:
         - { speaker: customer, text: "Antes de firmar, tengo tres días para cancelar, ¿verdad?" }
         - { speaker: rep, text: "[pausa] Qué bueno que lo pregunta antes de firmar, porque la respuesta honesta es que no. En Florida no hay un período de arrepentimiento de tres días para un carro comprado en el concesionario. Una vez que firma, el contrato obliga a ambas partes, salvo que el contrato diga otra cosa. Así que vamos con calma. ¿Para qué querría usted esos tres días?" }
         - { speaker: customer, text: "No es el carro. Hay una cuenta que todavía no he resuelto." }
-        - { speaker: rep, text: "Bien. Dejando esa cuenta a un lado un momento, ¿el carro y el pago de $539 le funcionan?" }
+        - { speaker: rep, text: "Bien. Dejando esa cuenta a un lado un momento, ¿el carro y el pago de $539 le convencen?" }
         - { speaker: customer, text: "El pago en sí está bien." }
         - { speaker: rep, text: "Perfecto. ¿Y cuál es esa cuenta? ¿Es el seguro del carro nuevo?" }
         - { speaker: customer, text: "Bueno. Todavía no he sacado la cotización del seguro para este carro. Si me sale alto, no puedo con las dos cosas, así que contaba con esos tres días." }
         - { speaker: rep, text: "Gracias por decírmelo. Eso es justo lo que hay que resolver antes de firmar, no después. Hoy no se firma nada. Le doy el VIN y los datos del carro para que su agente le cotice esta misma Equinox." }
         - { speaker: customer, text: "Tiene sentido. Prefiero saberlo primero." }
         - { speaker: rep, text: "¿Puede volver el lunes a las 11:00 con la cotización? Si el seguro le cabe en el presupuesto, firmamos ese día, y le explico cada línea. Si no, nos sentamos y miramos los números otra vez juntos." }
-        - { speaker: customer, text: "Está bien, el lunes a las 11 me funciona." }
+        - { speaker: customer, text: "Está bien, el lunes a las 11 me queda bien." }
 spanish_reviewed: false

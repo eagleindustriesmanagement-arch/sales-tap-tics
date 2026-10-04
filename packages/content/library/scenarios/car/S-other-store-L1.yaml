@@ -14,7 +14,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, late 20s, dental hygienist, is shopping for her first new car to replace a 2014 Corolla with 190,000 miles. She is looking at the 2026 Trax LT on the lot: $25,694 out the door, which includes your $899 dealer fee; only tax, tag and title are added. She sent an online inquiry to another Chevrolet store earlier this week."
-  es: "{name}, de unos 28 años, higienista dental, busca su primer carro nuevo para reemplazar un Corolla 2014 con 190,000 millas. Está mirando la Trax LT 2026 del lote: $25,694 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. A principios de semana mandó una solicitud por internet a otro dealer de Chevrolet."
+  es: "{name}, de unos 28 años, higienista dental, busca su primer carro nuevo para reemplazar un Corolla 2014 con 190,000 millas. Está mirando la Trax LT 2026 del lote: $25,694 con todo, con su cargo de concesionario de $899 incluido; solo se suman impuestos, placa y título. A principios de semana mandó una solicitud por internet a otro dealer de Chevrolet."
 opening:
   en: I'm already talking to another store.
   es: Ya estoy hablando con otro dealer.
@@ -187,8 +187,8 @@ demonstrations:
         - { speaker: customer, text: "La Trax me gusta. Lo que quiero es que el número esté bien." }
         - { speaker: rep, text: "Entonces vamos a asegurarnos de que compare lo mismo. El número que ella le mandó, ¿es un precio o un pago al mes?" }
         - { speaker: customer, text: "La verdad, son $389 al mes y ya. Me lo mandó por texto. No sé el precio que hay detrás, ni cuántos meses, ni cuánto de down." }
-        - { speaker: rep, text: "Gracias por decírmelo. No voy a adivinar los números de ella. Un pago depende del precio, los meses, el down y la tasa, así que dos dealers pueden enseñar pagos muy distintos por el mismo carro. Aquí tiene el nuestro: $25,694 con todo, con nuestro cargo del dealer de $899 ya incluido; solo se suman impuestos, placa y título. Pídale a ella por escrito el precio total, el plazo y el down, y yo le imprimo el nuestro con el mismo plazo y el mismo down." }
+        - { speaker: rep, text: "Gracias por decírmelo. No voy a adivinar los números de ella. Un pago depende del precio, los meses, el down y la tasa, así que dos dealers pueden enseñar pagos muy distintos por el mismo carro. Aquí tiene el nuestro: $25,694 con todo, con nuestro cargo de concesionario de $899 ya incluido; solo se suman impuestos, placa y título. Pídale a ella por escrito el precio total, el plazo y el down, y yo le imprimo el nuestro con el mismo plazo y el mismo down." }
         - { speaker: customer, text: "Me parece justo. Prefiero comparar el precio de verdad." }
         - { speaker: rep, text: "¿Puede volver mañana a las 2:00 con lo que ella le mande? Le tengo nuestra hoja impresa y esta Trax parqueada al frente." }
-        - { speaker: customer, text: "Está bien, mañana a las 2:00 me funciona. Le traigo lo que ella me mande." }
+        - { speaker: customer, text: "Está bien, mañana a las 2:00 me queda bien. Le traigo lo que ella me mande." }
 spanish_reviewed: false

@@ -194,5 +194,5 @@ demonstrations:
         - { speaker: rep, text: "Gracias, eso es algo inteligente de revisar. Yo no he visto ese juego, así que no le voy a decir que es peor. Pongámoslos lado a lado: de qué está hecho cada uno, roble macizo o enchapado, las gavetas, y si la entrega y el armado están incluidos en el precio. El nuestro está en $9,298 con la entrega white-glove durante el evento de otoño, más el impuesto de venta. El evento es real, se termina el 31 de octubre y el volante está en mi escritorio, pero tómese el tiempo que necesite para comparar. Si el otro le conviene más, se lo digo." }
         - { speaker: customer, text: "Me parece justo. Es que no quiero sentir que me cogieron de boba." }
         - { speaker: rep, text: "¿Puede volver mañana a las 2 con el link? Revisamos los dos, punto por punto." }
-        - { speaker: customer, text: "Está bien, me funciona." }
+        - { speaker: customer, text: "Está bien, me queda bien." }
 spanish_reviewed: false

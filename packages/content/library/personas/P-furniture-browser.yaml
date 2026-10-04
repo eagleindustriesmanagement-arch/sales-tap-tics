@@ -160,7 +160,7 @@ offline_lines:
   after_reveal:
     - { en: "That actually helps. I thought you'd jump on me for that.", es: "Eso me ayuda. Pensé que me iba a caer encima con eso." }
     - { en: "Okay. I'd rather do this slowly than at the last minute.", es: "Está bien. Prefiero hacer esto con calma y no a última hora." }
-  agree_next_step: { en: "Okay. That works for me.", es: "Está bien. Eso me funciona." }
+  agree_next_step: { en: "Okay. That works for me.", es: "Está bien. Eso me queda bien." }
   not_now: { en: "Not today. Thanks.", es: "Hoy no. Gracias." }
   walk_away: { en: "I'm going to keep walking. Thanks.", es: "Voy a seguir mirando por mi cuenta. Gracias." }
   goodbye: { en: "Thanks. Have a good night.", es: "Gracias. Que pase buenas noches." }

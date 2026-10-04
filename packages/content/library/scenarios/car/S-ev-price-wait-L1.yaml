@@ -14,7 +14,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, mid-50s, middle-school teacher, drives about 30 miles a day and can charge at home. She just drove the 2026 Equinox EV LT and loved it. The all-in price is $36,294 plus tax, tag and title, which includes your $899 dealer fee. Your numbers sheet, subject to the bank's approval, has a purchase at $615 a month for 72 months with $3,000 down, and a 36-month lease at $399 a month with $3,000 down."
-  es: "{name}, de unos 55 años, maestra de secundaria, maneja unas 30 millas al día y puede cargar en la casa. Acaba de manejar la Equinox EV LT 2026 y le encantó. El precio total es $36,294 más impuestos, placa y título, con su cargo del dealer de $899 incluido. Su hoja de números, sujeta a la aprobación del banco, tiene una compra a $615 al mes por 72 meses con $3,000 de down, y un lease de 36 meses a $399 al mes con $3,000 de down."
+  es: "{name}, de unos 55 años, maestra de secundaria, maneja unas 30 millas al día y puede cargar en la casa. Acaba de manejar la Equinox EV LT 2026 y le encantó. El precio total es $36,294 más impuestos, placa y título, con su cargo de concesionario de $899 incluido. Su hoja de números, sujeta a la aprobación del banco, tiene una compra a $615 al mes por 72 meses con $3,000 de down, y un lease de 36 meses a $399 al mes con $3,000 de down."
 opening:
   en: I'll wait. EV prices keep dropping.
   es: Mejor espero. Los eléctricos siguen bajando.
@@ -191,5 +191,5 @@ demonstrations:
         - { speaker: rep, text: "Gracias, eso cambia lo que le enseñaría. Si el plan son tres años, puede que un lease le convenga más que comprar. En un lease, el valor al final queda por escrito en el contrato desde hoy, así que si los precios bajan, usted lo puede devolver al final en vez de tener que venderlo. Los cargos al final del lease, como pasarse de las millas o el desgaste de más, también están en el contrato, y le imprimo esos términos. El lease es de $399 al mes por 36 meses con $3,000 de down, sujeto a la aprobación del banco. Se lo pongo al lado de la compra, $615 al mes a 72 meses con los mismos $3,000 de down, para que vea las dos cosas en una hoja." }
         - { speaker: customer, text: "No sabía que podía ser así. Me gustaría verlo en papel." }
         - { speaker: rep, text: "¿Puede venir el martes a las 4:00, después de clases? Le tengo el lease y la compra impresos lado a lado, con todos los términos en la hoja, y su esposo también es bienvenido." }
-        - { speaker: customer, text: "El martes a las 4:00 me funciona. Traigo a mi esposo." }
+        - { speaker: customer, text: "El martes a las 4:00 me queda bien. Traigo a mi esposo." }
 spanish_reviewed: false

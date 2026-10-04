@@ -152,7 +152,7 @@ offline_lines:
   after_reveal:
     - { en: "That's all I wanted. Someone who explains it to me clearly.", es: "Eso es todo lo que yo quería. Que alguien me lo explique claro." }
     - { en: "Okay. Now I understand where the number came from.", es: "Bueno. Ahora entiendo de dónde salió el número." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I'm going to think about it.", es: "Hoy no. Lo voy a pensar." }
   walk_away: { en: "I'm going. This is what I was afraid of.", es: "Me voy. Esto es lo que yo me temía." }
   goodbye: { en: "Thank you. Have a good day.", es: "Gracias. Que tenga buen día." }

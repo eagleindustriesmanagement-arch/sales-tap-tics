@@ -134,7 +134,7 @@ offline_lines:
   after_reveal:
     - { en: "Fair enough. A number that holds is what I wanted to see.", es: "Me parece bien. Un número que se mantiene es lo que yo quería ver." }
     - { en: "Okay. My brother-in-law will want to see this.", es: "Está bien. Mi cuñado va a querer ver esto." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I'll swing back by.", es: "Hoy no. Yo me doy una vuelta otro día." }
   walk_away: { en: "Yeah, I'm heading down the road.", es: "Bueno, me voy para allá." }
   goodbye: { en: "Take care.", es: "Cuídese." }

@@ -118,7 +118,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. That actually makes me feel better.", es: "Está bien. Eso me tranquiliza." }
     - { en: "So without them, that's the number?", es: "¿O sea que sin eso, ese es el número?" }
-  agree_next_step: { en: "Okay, that works.", es: "Dale, eso me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Dale, eso me queda bien." }
   not_now: { en: "I think I need to sleep on it.", es: "Creo que lo tengo que consultar con la almohada." }
   walk_away: { en: "I'm going to look somewhere else.", es: "Voy a mirar en otro lado." }
   goodbye: { en: "Thanks. Bye.", es: "Gracias. Hasta luego." }

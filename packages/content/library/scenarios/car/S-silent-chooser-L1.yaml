@@ -167,7 +167,7 @@ demonstrations:
       es:
         - { speaker: customer, text: "Mmm. Bueno." }
         - { speaker: rep, text: "[deje que el silencio respire] Tómese su tiempo. Cuando esté lista, ¿qué le está pasando por la mente?" }
-        - { speaker: customer, text: "No es el dinero. Las dos me funcionan." }
+        - { speaker: customer, text: "No es el dinero. Las dos me sirven." }
         - { speaker: rep, text: "Bien. Entonces, si el precio fuera el mismo en las dos, ¿con cuál se iría para su casa?" }
         - { speaker: customer, text: "¿La verdad? No puedo escoger. Tengo miedo de equivocarme y quedarme con eso por años. Mi mamá dijo que en la Equinox se montaba más fácil, pero en lo demás no confío en mí. Ojalá alguien me dijera cuál." }
         - { speaker: rep, text: "Gracias por decírmelo. Entonces le digo lo que yo haría en su lugar: yo me llevaría la Equinox LT. Usted va a estar ayudando a su mamá a subir y bajar dos veces por semana por años, y ella ya le dijo que ahí se monta más fácil. Eso es lo que usted va a sentir todas las semanas. Pero no se quede solo con mi palabra." }

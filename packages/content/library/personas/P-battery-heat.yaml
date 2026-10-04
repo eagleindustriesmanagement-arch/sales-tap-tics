@@ -141,7 +141,7 @@ offline_lines:
   after_reveal:
     - { en: "That's more honest than I expected. I'd like to read it myself.", es: "Eso es más honesto de lo que esperaba. Me gustaría leerlo yo misma." }
     - { en: "Okay. I'd rather see it in writing than hear 'don't worry'.", es: "Está bien. Prefiero verlo por escrito a que me digan 'no se preocupe'." }
-  agree_next_step: { en: "Okay, that works. I'll bring my questions.", es: "Está bien, me funciona. Traigo mis preguntas." }
+  agree_next_step: { en: "Okay, that works. I'll bring my questions.", es: "Está bien, me queda bien. Traigo mis preguntas." }
   not_now: { en: "Not today. I need to read more.", es: "Hoy no. Necesito leer más." }
   walk_away: { en: "I think I'll keep my old car for now.", es: "Creo que por ahora me quedo con mi carro viejo." }
   goodbye: { en: "Thanks for your time.", es: "Gracias por su tiempo." }

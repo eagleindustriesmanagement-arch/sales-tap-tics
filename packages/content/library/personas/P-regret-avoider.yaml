@@ -139,10 +139,10 @@ variation:
 offline_lines:
   deflect:
     - { en: "All of it. It's the most I've ever spent on anything.", es: "Todo. Es lo más caro que he comprado en mi vida." }
-    - { en: "I just want to be sure. I've been burned before.", es: "Es que quiero estar seguro. Ya me han quemado antes." }
+    - { en: "I just want to be sure. I've been burned before.", es: "Es que quiero estar seguro. Ya me la han hecho antes." }
     - { en: "Maybe I should wait a little.", es: "A lo mejor debería esperar un poco." }
   hint: { en: "Maybe. It's not the Tahoe itself. I know I want a Tahoe.", es: "Puede ser. No es la Tahoe en sí. Yo sé que quiero una Tahoe." }
-  after_hint: { en: "Right. The family fits, and the numbers work. That part I'm sure of.", es: "Sí. La familia cabe, y los números funcionan. De eso estoy seguro." }
+  after_hint: { en: "Right. The family fits, and the numbers work. That part I'm sure of.", es: "Sí. La familia cabe, y los números me cuadran. De eso estoy seguro." }
   reveal: { en: "Exactly. I keep going back and forth between the LS and the LT. If I pick the wrong trim, I'll think about it every time I get in.", es: "Exacto. Me la paso dándole vueltas entre la LS y la LT. Si escojo la versión equivocada, me voy a acordar cada vez que me monte." }
   after_reveal:
     - { en: "Okay. That I can do. A list makes sense.", es: "Bueno. Eso sí lo puedo hacer. Una lista tiene sentido." }

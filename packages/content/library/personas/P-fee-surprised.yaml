@@ -118,7 +118,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. That's what I wanted to hear.", es: "Está bien. Eso es lo que quería oír." }
     - { en: "That makes sense. Keep going.", es: "Eso tiene sentido. Siga." }
-  agree_next_step: { en: "Okay, that works for me.", es: "Está bien, eso me funciona." }
+  agree_next_step: { en: "Okay, that works for me.", es: "Está bien, eso me queda bien." }
   not_now: { en: "Not today. I need to cool off.", es: "Hoy no. Necesito calmarme un poco." }
   walk_away: { en: "I'm done. I'll find it somewhere else.", es: "Ya está. Lo busco en otro lado." }
   goodbye: { en: "Thanks. Take care.", es: "Gracias. Que le vaya bien." }

@@ -147,7 +147,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. Now I understand it better.", es: "Bueno. Ahora sí lo entiendo mejor." }
     - { en: "Thank you for talking to me.", es: "Gracias por hablar conmigo." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. We'll talk at home.", es: "Hoy no. Lo hablamos en la casa." }
   walk_away: { en: "Let's go, son.", es: "Vámonos, mijo." }
   goodbye: { en: "Thank you. Good afternoon.", es: "Gracias. Buenas tardes." }

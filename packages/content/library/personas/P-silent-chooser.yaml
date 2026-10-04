@@ -128,7 +128,7 @@ offline_lines:
     - { en: "Let me just look at them a second.", es: "Déjeme mirarlas un momentico." }
     - { en: "They're both nice.", es: "Las dos están bonitas." }
     - { en: "Hmm. I don't know.", es: "Mmm. No sé." }
-  hint: { en: "It's not the money. Both of them work for me.", es: "No es el dinero. Las dos me funcionan." }
+  hint: { en: "It's not the money. Both of them work for me.", es: "No es el dinero. Las dos me sirven." }
   after_hint: { en: "I just keep going back and forth.", es: "Es que voy y vengo, voy y vengo." }
   reveal: { en: "Honestly? I can't pick. I'm afraid I'll choose wrong and be stuck with it for years. My mom said the Equinox was easier to get into, but I don't trust myself on the rest. I wish somebody would just tell me which one.", es: "¿La verdad? No puedo escoger. Tengo miedo de equivocarme y quedarme con eso por años. Mi mamá dijo que en la Equinox se montaba más fácil, pero en lo demás no confío en mí. Ojalá alguien me dijera cuál." }
   after_reveal:

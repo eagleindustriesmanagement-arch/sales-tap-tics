@@ -170,7 +170,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. That's all I'm asking. Treat me like anybody else.", es: "Bueno. Eso es todo lo que pido. Que me traten como a cualquiera." }
     - { en: "Alright. Now we're talking.", es: "Está bien. Así sí nos entendemos." }
-  agree_next_step: { en: "Okay, that works.", es: "Está bien, me funciona." }
+  agree_next_step: { en: "Okay, that works.", es: "Está bien, me queda bien." }
   not_now: { en: "Not today. I'll come back some other time.", es: "Hoy no. Yo vengo otro día." }
   walk_away: { en: "Yeah, I've heard this one before. I'm out.", es: "Ya esta película yo la vi. Me voy." }
   goodbye: { en: "Take care.", es: "Que le vaya bien." }

@@ -14,7 +14,7 @@ difficulty: 1
 start_state: objection
 pre_brief:
   en: "{name}, early 60s, retired firefighter, has wanted a Blazer EV since last year and charges at home. The 2026 Blazer EV LT on the floor is $48,394 out the door, which includes your $899 dealer fee; only tax, tag and title are added. A 2026 Equinox EV LT is in stock at $36,294 out the door on the same basis. He is right about the credit: the federal clean vehicle credit for new EVs ended for vehicles acquired after September 30, 2025. Chevrolet has no current incentive on either vehicle in your system this week."
-  es: "{name}, de unos 62 años, bombero retirado, quiere una Blazer EV desde el año pasado y carga en la casa. La Blazer EV LT 2026 del showroom está en $48,394 con todo, con su cargo del dealer de $899 incluido; solo se suman impuestos, placa y título. Hay en inventario una Equinox EV LT 2026 en $36,294 con todo, sobre la misma base. Él tiene razón sobre el crédito: el crédito federal para eléctricos nuevos se terminó para los vehículos adquiridos después del 30 de septiembre de 2025. Esta semana, en su sistema, Chevrolet no tiene ningún incentivo vigente en ninguno de los dos."
+  es: "{name}, de unos 62 años, bombero retirado, quiere una Blazer EV desde el año pasado y carga en la casa. La Blazer EV LT 2026 del showroom está en $48,394 con todo, con su cargo de concesionario de $899 incluido; solo se suman impuestos, placa y título. Hay en inventario una Equinox EV LT 2026 en $36,294 con todo, sobre la misma base. Él tiene razón sobre el crédito: el crédito federal para eléctricos nuevos se terminó para los vehículos adquiridos después del 30 de septiembre de 2025. Esta semana, en su sistema, Chevrolet no tiene ningún incentivo vigente en ninguno de los dos."
 opening:
   en: There's no tax credit anymore. I read it. So don't tell me there is.
   es: Ya no hay crédito federal. Yo lo leí. Así que no me diga que sí.
@@ -185,8 +185,8 @@ demonstrations:
         - { speaker: customer, text: "Todavía quiero un eléctrico. Cargo en la casa y ya me cansé de las gasolineras." }
         - { speaker: rep, text: "Entonces dígame el número. ¿Hasta cuánto puede llegar?" }
         - { speaker: customer, text: "$42,000, antes de impuestos. Con el crédito, la Blazer quedaba cerca. Sin él, no, y no quería que me estiraran ni que me llevaran por donde no quiero." }
-        - { speaker: rep, text: "Gracias. Entonces no lo voy a estirar. Esto es lo real hoy. La Blazer EV LT está en $48,394 con todo, más impuestos, placa y título, así que se pasa de su número. La Equinox EV LT está en $36,294 con todo, sobre la misma base, con nuestro cargo del dealer de $899 ya incluido, así que le queda por debajo. Esta semana Chevrolet no tiene ningún incentivo en ninguna de las dos, y le imprimo la hoja de incentivos de las dos para que lo vea por escrito, en vez de creerme a mí." }
+        - { speaker: rep, text: "Gracias. Entonces no lo voy a estirar. Esto es lo real hoy. La Blazer EV LT está en $48,394 con todo, más impuestos, placa y título, así que se pasa de su número. La Equinox EV LT está en $36,294 con todo, sobre la misma base, con nuestro cargo de concesionario de $899 ya incluido, así que le queda por debajo. Esta semana Chevrolet no tiene ningún incentivo en ninguna de las dos, y le imprimo la hoja de incentivos de las dos para que lo vea por escrito, en vez de creerme a mí." }
         - { speaker: customer, text: "Está bien. Por lo menos usted no me vino con cuentos. Me gustaría manejar la Equinox EV." }
         - { speaker: rep, text: "¿Puede volver el lunes a las 10:00 con su esposa? Le tengo la Equinox EV cargada y lista, con las dos hojas de precios y la de incentivos impresas en mi escritorio." }
-        - { speaker: customer, text: "El lunes a las 10:00 me funciona. Traigo a mi esposa." }
+        - { speaker: customer, text: "El lunes a las 10:00 me queda bien. Traigo a mi esposa." }
 spanish_reviewed: false

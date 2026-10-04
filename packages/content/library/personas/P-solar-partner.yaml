@@ -135,7 +135,7 @@ offline_lines:
   after_reveal:
     - { en: "Okay. I'd rather know now than after.", es: "Está bien. Prefiero saberlo ahora y no después." }
     - { en: "That's what he'll want to see. In writing.", es: "Eso es lo que él va a querer ver. Por escrito." }
-  agree_next_step: { en: "Okay, that works for us. He'll be here.", es: "Está bien, eso nos funciona. Él va a estar." }
+  agree_next_step: { en: "Okay, that works for us. He'll be here.", es: "Está bien, eso nos queda bien. Él va a estar." }
   not_now: { en: "Not today. Thanks, though.", es: "Hoy no. Pero gracias." }
   walk_away: { en: "I think we're done for today.", es: "Creo que por hoy terminamos." }
   goodbye: { en: "Thanks for coming by. Take care.", es: "Gracias por venir. Que le vaya bien." }
