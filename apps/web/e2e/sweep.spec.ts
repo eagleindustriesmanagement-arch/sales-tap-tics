@@ -26,7 +26,7 @@ async function signIn(page: Page, email: string) {
   }
   await page.goto("/login");
   await page.getByLabel(/Email or mobile number|Correo o número de celular/).fill(email);
-  await page.getByRole("button", { name: /Send me a code|Envíeme un código/ }).click();
+  await page.getByRole("button", { name: /Send me a code|Recibir un código/ }).click();
   await expect(page.getByLabel(/Six-digit code|Código de seis dígitos/)).toBeVisible();
   const sent = readFileSync(OUTBOX, "utf8").trim().split("\n").map((l) => JSON.parse(l) as { identifier: string; code?: string });
   await page.getByLabel(/Six-digit code|Código de seis dígitos/).fill(sent.filter((m) => m.identifier === email && m.code).at(-1)!.code!);
@@ -154,7 +154,7 @@ test(`on ${name}, nothing on the practice screens hides under the bottom bar (Sp
   await page.goto("/practice/S-payment-buyer-L2");
   const problems: string[] = [];
   problems.push(...(await nothingUnderTheBar(page, "lesson")));
-  await page.getByRole("button", { name: "Véalo hecho" }).click();
+  await page.getByRole("button", { name: "Ver ejemplo" }).click();
   problems.push(...(await nothingUnderTheBar(page, "demo")));
   await page.getByRole("button", { name: "Cerrar" }).first().click();
   problems.push(...(await nothingUnderTheBar(page, "setup")));

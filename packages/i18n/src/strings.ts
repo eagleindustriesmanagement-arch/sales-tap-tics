@@ -22,7 +22,7 @@ export const STRINGS = {
 
   "nav.today": { en: "Today", es: "Hoy" },
   "nav.main": { en: "Main", es: "Principal" },
-  "voice.tapToHear": { en: "Tap to hear {name}", es: "Toque para oír a {name}" },
+  "voice.tapToHear": { en: "Tap to hear {name}", es: "Oír a {name}" },
   // iPhone (October 4): the rep talks through the keyboard's own dictation key; this page never opens the microphone.
   "update.ready": { en: "A new version of the app is ready.", es: "Hay una versión nueva de la app." },
   "update.reload": { en: "Reload", es: "Recargar" },
@@ -121,7 +121,7 @@ export const STRINGS = {
   "lesson.say": { en: "Say it like this", es: "Dígalo así" },
   "lesson.mistakes": { en: "Mistakes that kill it", es: "Errores que la matan" },
   "lesson.concepts": { en: "What you'll be scored on", es: "Lo que se va a calificar" },
-  "lesson.seeIt": { en: "See it done", es: "Véalo hecho" },
+  "lesson.seeIt": { en: "See it done", es: "Ver ejemplo" },
   "lesson.skip": { en: "Skip to practice", es: "Ir directo a practicar" },
   "lesson.review": { en: "Review the lesson", es: "Repasar la lección" },
   "lesson.fromLesson": { en: "From the lesson: {name}", es: "De la lección: {name}" },
@@ -159,7 +159,7 @@ export const STRINGS = {
   "settings.push.off": { en: "Reminders on this phone are off.", es: "Los recordatorios en este teléfono están apagados." },
   "settings.push.on": { en: "This phone gets one reminder a day, never during the store's busiest hours.", es: "Este teléfono recibe un recordatorio al día, nunca en las horas de más movimiento de la tienda." },
   "settings.push.turnOn": { en: "Turn on", es: "Activar" },
-  "settings.push.turnOff": { en: "Turn off", es: "Apagar" },
+  "settings.push.turnOff": { en: "Turn off", es: "Desactivar" },
   "settings.push.blocked": { en: "Notifications are blocked for this site. Allow them in your phone's settings to get reminders.", es: "Las notificaciones están bloqueadas para este sitio. Permítalas en la configuración del teléfono para recibir recordatorios." },
   "settings.push.unsupported": { en: "This browser cannot get reminders. On an iPhone, add Sales Taptics to your Home Screen first.", es: "Este navegador no puede recibir recordatorios. En un iPhone, primero agregue Sales Taptics a la pantalla de inicio." },
   "push.title": { en: "Time to practice", es: "Hora de practicar" },
@@ -453,7 +453,7 @@ export const STRINGS = {
   "scenario.language.en": { en: "English", es: "Inglés" },
   "scenario.language.es": { en: "Spanish", es: "Español" },
   "scenario.language.follow": { en: "Follow the customer", es: "Seguir al cliente" },
-  "scenario.watchDemo": { en: "Watch demo", es: "Ver demostración" },
+  "scenario.watchDemo": { en: "Watch demo", es: "Ver ejemplo" },
   "scenario.start": { en: "Start", es: "Empezar" },
   "scenario.starting": { en: "Starting…", es: "Empezando…" },
   "scenario.skipDemo": { en: "Skip demo", es: "Saltar demostración" },
@@ -608,7 +608,7 @@ export const STRINGS = {
   "practice.error": { en: "Something went wrong. Try again.", es: "Algo salió mal. Intente de nuevo." },
   "practice.finishFailed": { en: "We couldn't finish scoring this session. Check your connection and try again.", es: "No pudimos terminar de calificar esta sesión. Revise su conexión e intente de nuevo." },
   "practice.resumeTitle": { en: "Your conversation with {name} is still open.", es: "Su conversación con {name} sigue abierta." },
-  "practice.resume": { en: "Pick it back up", es: "Retomarla" },
+  "practice.resume": { en: "Pick it back up", es: "Retomar la conversación" },
   "practice.recovered": {
     en: "This screen hit a problem. Your conversation is saved: you can see the debrief or start again.",
     es: "Esta pantalla tuvo un problema. Su conversación está guardada: puede ver el resumen o empezar de nuevo.",
@@ -644,9 +644,9 @@ export const STRINGS = {
   "floor.exactLine": { en: "The exact line", es: "La frase exacta" },
   "floor.checkAgain": { en: "When we check again", es: "Cuándo revisamos de nuevo" },
 
-  "login.title": { en: "Sign in", es: "Iniciar sesión" },
+  "login.title": { en: "Sign in", es: "Entrar" },
   "login.identifier": { en: "Email or mobile number", es: "Correo o número de celular" },
-  "login.sendCode": { en: "Send me a code", es: "Envíeme un código" },
+  "login.sendCode": { en: "Send me a code", es: "Recibir un código" },
   "login.codeSent": {
     en: "If that account exists, we sent a six-digit code. It works for 10 minutes.",
     es: "Si esa cuenta existe, le enviamos un código de seis dígitos. Sirve por 10 minutos.",
@@ -676,7 +676,7 @@ export const STRINGS = {
   },
   "login.demoPick": { en: "Sign in as", es: "Entrar como" },
   "login.orEmail": { en: "Or sign in with your email", es: "O entre con su correo" },
-  "login.startPilot": { en: "Get started", es: "Empiece ya" },
+  "login.startPilot": { en: "Get started", es: "Empezar" },
   "login.orDemo": { en: "Just looking? Try the demo store, no email needed.", es: "¿Solo mirando? Pruebe el dealer de demostración, sin correo." },
 
   "signup.title": { en: "Get started", es: "Empiece ya" },
@@ -730,7 +730,7 @@ export const STRINGS = {
   "signup.storeName": { en: "Team or company name", es: "Nombre del equipo o la empresa" },
   "signup.firstName": { en: "Your first name", es: "Su nombre" },
   "signup.email": { en: "Work email", es: "Correo del trabajo" },
-  "signup.send": { en: "Email me a code", es: "Envíeme un código" },
+  "signup.send": { en: "Email me a code", es: "Recibir un código" },
   "signup.codeSent": {
     en: "We emailed a six-digit code to {email}. It works for 10 minutes.",
     es: "Le enviamos un código de seis dígitos a {email}. Sirve por 10 minutos.",
