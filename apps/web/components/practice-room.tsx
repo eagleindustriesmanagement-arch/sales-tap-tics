@@ -1,5 +1,6 @@
 "use client";
 
+import { BottomBar } from "@/components/bottom-bar";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
@@ -68,6 +69,8 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   // voice plays in every mode the phone can speak in.
   const [ios, setIos] = useState(false);
   const [ttsOk, setTtsOk] = useState(false);
+  // A speaker button only where the device has a voice to play it with (a browser with no voices makes it dead).
+  const [hasVoices, setHasVoices] = useState(false);
   const speaker = useRef<DeviceTextToSpeech | null>(null);
   // An open conversation on this scenario, from before the screen was reloaded or redrawn: offered back, not lost.
   const resumeKey = `taptics.session.${scenario.code}.${mode}`;
@@ -114,6 +117,12 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     const ok = DeviceSpeechToText.supported() && tts;
     setIos(apple);
     setTtsOk(tts);
+    if (tts) {
+      const synth = window.speechSynthesis as SpeechSynthesis & Partial<EventTarget>;
+      const check = () => setHasVoices(apple || synth.getVoices().length > 0);
+      check();
+      synth.addEventListener?.("voiceschanged", check);
+    }
     setVoiceOk(ok || apple);
     let saved: string | null = null;
     try { saved = localStorage.getItem(ANSWER_KEY); } catch { /* storage off */ }
@@ -326,7 +335,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
             onTypeInstead={() => setAnswerBy("type")}
           />
         ) : (<>
-        <div className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-40">
+        <div className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-4">
           <div className="mx-auto mb-5 max-w-md space-y-2 text-center">
             <p className="text-[15px] text-body">{session.brief}</p>
             <p className="text-[13px] text-muted"><span>{ui("practice.textModeNotice")}</span>{!live && <span> {ui("practice.offlineNotice")}</span>}</p>
@@ -345,7 +354,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
                     <span>{l.text}</span>
                   </p>
                   {/* A tap always plays: the sure way to hear the customer on a phone that blocks speech. */}
-                  {!rep && ttsOk && (
+                  {!rep && ttsOk && hasVoices && (
                     <button type="button" data-testid="hear-line" aria-label={ui("voice.hearLine", { name: session.name })}
                       className="liquid-glass liquid-glass-flat grid h-9 w-9 shrink-0 place-items-center rounded-full text-brand"
                       onClick={() => { speaker.current ??= new DeviceTextToSpeech(); speaker.current.cancel(); speaker.current.replay(l.text, { language: lang, voiceKey: scenario.code }); }}>
@@ -367,10 +376,10 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
           </ol>
           {error && <p role="alert" className="mt-4 flex items-center justify-center gap-2 font-semibold text-bad"><IconAlert size={18} />{error}</p>}
           {/* Scrolling to the end keeps the last line clear of the fixed composer or end panel below it. */}
-          <div ref={bottom} className="scroll-mb-48" />
+          <div ref={bottom} className="scroll-mb-[calc(var(--bottom-bar-h,12rem)+1rem)]" />
         </div>
 
-        <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
+        <BottomBar>
           <div className="mx-auto max-w-2xl px-4">
             {ended ? (
               <div className="space-y-3 pb-1">
@@ -420,7 +429,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
               </>
             )}
           </div>
-        </div>
+        </BottomBar>
         </>)}
       </div>
       </Recover>
@@ -438,17 +447,17 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
             <Chip tone="brand">{t("practice.level", lang, { n: scenario.level })}</Chip>
           </div>
         </div>
-        <div className="mx-auto w-full max-w-2xl flex-1 space-y-6 px-4 pt-1 pb-48">
+        <div className="mx-auto w-full max-w-2xl flex-1 space-y-6 px-4 pt-1 pb-4">
           {resumeCard}
           <LessonSteps current="learn" lang={lang} />
           <Lesson lesson={scenario.lesson} lang={lang} />
         </div>
-        <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
+        <BottomBar>
           <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4">
             <button type="button" className={`${buttonClass} w-full`} onClick={() => { setPhase("demo"); window.scrollTo(0, 0); }}><IconEye size={18} />{ui("lesson.seeIt")}</button>
             <button type="button" className={`${ghostButtonClass} w-full`} onClick={() => { setPhase("intro"); window.scrollTo(0, 0); }}>{ui("lesson.skip")}</button>
           </div>
-        </div>
+        </BottomBar>
       </div>
     );
   }
@@ -470,7 +479,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-2xl flex-1 space-y-5 px-4 pt-2 pb-48">
+      <div className="mx-auto w-full max-w-2xl flex-1 space-y-5 px-4 pt-2 pb-4">
         {phase === "intro" && resumeCard}
         {scenario.lesson && mode === "practice" && <LessonSteps current={phase === "demo" ? "see" : "do"} lang={lang} />}
         <div className="space-y-2">
@@ -542,7 +551,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       </div>
 
       {/* Primary actions live in the bottom 40% (guidelines §7). */}
-      <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
+      <BottomBar>
         <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4">
           <button className={`${buttonClass} w-full`} onClick={start} disabled={busy} aria-busy={busy}>
             {busy
@@ -554,7 +563,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
             <button type="button" className="min-h-11 w-full text-[15px] font-semibold text-brand" onClick={() => { setPhase("lesson"); window.scrollTo(0, 0); }}>{ui("lesson.review")}</button>
           )}
         </div>
-      </div>
+      </BottomBar>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { BottomBar } from "@/components/bottom-bar";
 import { useEffect, useRef, useState } from "react";
 import { t, type Language } from "@taptics/i18n";
 import { END_OF_TURN, isBargeIn, isEcho, speakable, TurnTracker, turnTiming, type SpeechError, type VoiceTiming } from "@taptics/voice";
@@ -159,7 +160,7 @@ export function VoiceStage({ name, language: lang, voiceKey, opening, lines, end
   const mmss = `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, "0")}`;
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 pt-6 pb-48">
+    <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-4 pt-6 pb-4">
       <div className="flex flex-col items-center gap-5 text-center">
         <button
           type="button"
@@ -207,7 +208,7 @@ export function VoiceStage({ name, language: lang, voiceKey, opening, lines, end
         </ol>
       )}
 
-      <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
+      <BottomBar>
         <div className="mx-auto max-w-2xl px-4">
           {ended && phase === "done" ? (
             <div className="space-y-3 pb-1">
@@ -227,7 +228,7 @@ export function VoiceStage({ name, language: lang, voiceKey, opening, lines, end
             </div>
           )}
         </div>
-      </div>
+      </BottomBar>
     </div>
   );
 }

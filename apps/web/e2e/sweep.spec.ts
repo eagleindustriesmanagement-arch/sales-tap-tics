@@ -115,3 +115,53 @@ for (const lang of ["en", "es"] as const) {
     expect(problems).toEqual([]);
   });
 }
+
+/**
+ * Every control a screen shows can be tapped where the browser puts it. Each one is scrolled to the bottom edge the
+ * way focus, find-in-page and test tools scroll ("end"), then hit-tested: a fixed bar over it would take the tap
+ * (the October 4 report: the Start bar covered half a button and won the tap on a radio above it).
+ */
+async function nothingUnderTheBar(page: Page, label: string): Promise<string[]> {
+  return page.evaluate(async (where) => {
+    const fixedAncestor = (n: Element | null) => {
+      for (let x = n; x; x = x.parentElement) if (getComputedStyle(x).position === "fixed") return x;
+      return null;
+    };
+    const problems: string[] = [];
+    const controls = [...document.querySelectorAll<HTMLElement>("button, a[href], input, textarea, select, summary")].filter((el) => !fixedAncestor(el));
+    for (const el of controls) {
+      const target = el.matches("input") && el.closest("label") ? el.closest("label")! : el;
+      const box = target.getBoundingClientRect();
+      if (box.width === 0 || box.height === 0) continue;
+      target.scrollIntoView({ block: "end" });
+      await new Promise((r) => requestAnimationFrame(() => r(null)));
+      const r = target.getBoundingClientRect();
+      const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      if (hit && !target.contains(hit) && !hit.contains(target) && fixedAncestor(hit)) {
+        problems.push(`${where}: "${(target.getAttribute("aria-label") ?? target.textContent ?? "").trim().slice(0, 40)}" is under a fixed bar`);
+      }
+    }
+    return problems;
+  }, label);
+}
+
+for (const [name, size] of [["a small phone", { width: 375, height: 667 }], ["a laptop", { width: 1280, height: 720 }]] as const)
+test(`on ${name}, nothing on the practice screens hides under the bottom bar (Spanish)`, async ({ page, context }) => {
+  await page.setViewportSize(size);
+  await setLanguage(context, "es");
+  await signIn(page, "rep2@demo.test");
+  await page.goto("/practice/S-payment-buyer-L2");
+  const problems: string[] = [];
+  problems.push(...(await nothingUnderTheBar(page, "lesson")));
+  await page.getByRole("button", { name: "Véalo hecho" }).click();
+  problems.push(...(await nothingUnderTheBar(page, "demo")));
+  await page.getByRole("button", { name: "Cerrar" }).first().click();
+  problems.push(...(await nothingUnderTheBar(page, "setup")));
+  // The answer mode is tappable where it sits (the report: the bar won the tap on "Escribir").
+  await page.getByRole("radio", { name: "Escribir" }).check();
+  await expect(page.getByRole("radio", { name: "Escribir" })).toBeChecked();
+  await page.getByRole("button", { name: "Empezar" }).click();
+  await expect(page.getByTestId("line-customer")).toHaveCount(1);
+  problems.push(...(await nothingUnderTheBar(page, "conversation")));
+  expect(problems).toEqual([]);
+});

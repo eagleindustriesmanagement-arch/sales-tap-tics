@@ -133,7 +133,7 @@
 
 /* ---------------------------------------------------------------- ground */
 
-html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; scroll-padding-bottom: calc(var(--bottom-bar-h, 0px) + 1rem); }
 
 /* LIQUID-GLASS §1: give the glass something to be glass about. Two faint washes
    at opposite corners of the viewport, fixed to the screen: champagne gold at

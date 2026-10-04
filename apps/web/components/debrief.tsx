@@ -1,5 +1,6 @@
 "use client";
 
+import { BottomBar } from "@/components/bottom-bar";
 import Link from "next/link";
 import { useEffect, useState, type CSSProperties } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
@@ -260,9 +261,9 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
         </div>
       </header>
       <div className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-44">{body}</div>
-      <div className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
+      <BottomBar>
         <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4">{actions}</div>
-      </div>
+      </BottomBar>
     </div>
   );
 }
