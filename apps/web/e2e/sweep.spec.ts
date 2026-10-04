@@ -149,7 +149,8 @@ for (const [name, size] of [["a small phone", { width: 375, height: 667 }], ["a 
 test(`on ${name}, nothing on the practice screens hides under the bottom bar (Spanish)`, async ({ page, context }) => {
   await page.setViewportSize(size);
   await setLanguage(context, "es");
-  await signIn(page, "rep2@demo.test");
+  // The account the sweep already signed in: no new code (the login allows only a few per account).
+  await signIn(page, "rep@demo.test");
   await page.goto("/practice/S-payment-buyer-L2");
   const problems: string[] = [];
   problems.push(...(await nothingUnderTheBar(page, "lesson")));
