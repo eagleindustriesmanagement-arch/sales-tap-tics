@@ -35,8 +35,8 @@ export const copy = {
     h1a: { en: "Master the close", es: "Domine el cierre" },
     h1b: { en: "before it counts.", es: "antes de que cuente." },
     sub: {
-      en: "Sales training for people who sell: cars, homes, solar, furniture. Learn a proven technique in about a minute, practice it out loud against an AI customer, and get scored on every line.",
-      es: "Entrenamiento de ventas para la gente que vende: carros, casas, paneles solares, muebles. Aprenda una técnica probada en más o menos un minuto, practíquela en voz alta con un cliente de inteligencia artificial y reciba un puntaje en cada frase.",
+      en: "Sales training for anyone who sells. Built around high-ticket sales like cars, homes, solar and furniture, and it works for whatever you sell. Learn a proven technique in about a minute, practice it out loud against an AI customer, and get scored on every line.",
+      es: "Entrenamiento de ventas para cualquiera que venda. Pensado para ventas de alto valor como carros, casas, paneles solares y muebles, y sirve para lo que usted venda. Aprenda una técnica probada en más o menos un minuto, practíquela en voz alta con un cliente de inteligencia artificial y reciba un puntaje en cada frase.",
     },
     ways: {
       en: "Sign up your whole team, or just yourself. No credit card.",
@@ -218,13 +218,13 @@ export const copy = {
     eyebrow: { en: "Every close", es: "Cada cierre" },
     h2: { en: "Techniques for every close.", es: "Técnicas para cada cierre." },
     sub: {
-      en: "Pausing before you answer, finding the real objection, putting the whole price on the table, asking for a firm next step: that works wherever a customer makes a big decision. The role-play customers come one industry at a time. We built them on the car floor first. Homes, solar and furniture are next.",
-      es: "Hacer una pausa antes de contestar, encontrar la objeción de verdad, poner el precio completo sobre la mesa, pedir un próximo paso firme: eso funciona dondequiera que un cliente toma una decisión grande. Los clientes simulados llegan una industria a la vez. Los construimos primero en el piso de carros. Casas, solar y muebles vienen después.",
+      en: "Pausing before you answer, finding the real objection, putting the whole price on the table, asking for a firm next step: that works in any sale. The role-play customers come one industry at a time. We built them on the car floor first. Homes, solar and furniture are next.",
+      es: "Hacer una pausa antes de contestar, encontrar la objeción de verdad, poner el precio completo sobre la mesa, pedir un próximo paso firme: eso funciona en cualquier venta. Los clientes simulados llegan una industria a la vez. Los construimos primero en el piso de carros. Casas, solar y muebles vienen después.",
     },
     /** Used once every industry on the page has role-play customers. */
     subAll: {
-      en: "Pausing before you answer, finding the real objection, putting the whole price on the table, asking for a firm next step: that works wherever a customer makes a big decision. Each industry has role-play customers of its own, with the objections that floor really hears.",
-      es: "Hacer una pausa antes de contestar, encontrar la objeción de verdad, poner el precio completo sobre la mesa, pedir un próximo paso firme: eso funciona dondequiera que un cliente toma una decisión grande. Cada industria tiene sus propios clientes simulados, con las objeciones que de verdad se oyen en ese piso.",
+      en: "Pausing before you answer, finding the real objection, putting the whole price on the table, asking for a firm next step: that works in any sale. Each industry has role-play customers of its own, with the objections that floor really hears.",
+      es: "Hacer una pausa antes de contestar, encontrar la objeción de verdad, poner el precio completo sobre la mesa, pedir un próximo paso firme: eso funciona en cualquier venta. Cada industria tiene sus propios clientes simulados, con las objeciones que de verdad se oyen en ese piso.",
     },
     live: { en: "Customers live", es: "Clientes listos" },
     next: { en: "Customers next", es: "Clientes en camino" },

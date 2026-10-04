@@ -71,7 +71,7 @@ test.describe("the public home page", () => {
   test("speaks to everyone who sells, in English and Spanish, with the globe language picker", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveTitle("Sales Taptics: sales training for every close");
-    await expect(page.getByText("Sales training for people who sell: cars, homes, solar, furniture.")).toBeVisible();
+    await expect(page.getByText(/^Sales training for anyone who sells\. Built around high-ticket sales like cars, homes, solar and furniture, and it works for whatever you sell\./)).toBeVisible();
     await expect(page.getByRole("heading", { name: "Techniques for every close." })).toBeVisible();
     await expect(page.getByTestId("hero-facts")).toContainText("English + Spanish");
     // The picker names the current language beside the globe and offers both.

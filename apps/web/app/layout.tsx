@@ -15,7 +15,7 @@ const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["nor
 
 export const metadata: Metadata = {
   title: "Sales Taptics",
-  description: "Sales training for people who sell: learn a technique, practice it against an AI customer, get scored. English and Spanish.",
+  description: "Sales training for anyone who sells: learn a technique, practice it against an AI customer, get scored. English and Spanish.",
   manifest: "/manifest.webmanifest",
   // The mark alone at tab sizes (the wordmark is unreadable below 64px); the full logo for home screens.
   icons: {
