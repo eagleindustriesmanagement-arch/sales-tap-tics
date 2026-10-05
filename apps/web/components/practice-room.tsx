@@ -28,6 +28,26 @@ export interface RoomScenario {
   /** Read before anything else in practice (decision 0031). */
   lesson: LessonView | null;
   demos: Record<"flawed" | "good", { notice: Bilingual; script: Record<Language, Line[]> }>;
+  /** The numbers the rep may quote, for a customer who comes with a sheet (scenario `numbers_sheet`). */
+  sheet?: { allInCents: number; options: { cents: number; termMonths: number; downCents: number }[] } | null;
+}
+
+const money = (cents: number, lang: Language) => new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US", { style: "currency", currency: "USD", maximumFractionDigits: cents % 100 === 0 ? 0 : 2 }).format(cents / 100);
+
+/** The deal sheet (October 5: the brief and the lesson pointed to a sheet the room never showed). */
+function NumbersSheet({ sheet, lang, open = false }: { sheet: NonNullable<RoomScenario["sheet"]>; lang: Language; open?: boolean }) {
+  return (
+    <details open={open} className="liquid-glass-inset rounded-[1rem] px-3.5 py-2.5" data-testid="numbers-sheet">
+      <summary className="cursor-pointer text-[15px] font-semibold text-ink">{t("practice.sheetTitle", lang)}</summary>
+      <ul className="mt-2 space-y-1 text-[15px] text-ink tabular-nums">
+        <li>{t("practice.sheetPrice", lang, { price: money(sheet.allInCents, lang) })}</li>
+        {sheet.options.map((o) => (
+          <li key={`${o.cents}-${o.termMonths}-${o.downCents}`}>{t("practice.sheetOption", lang, { payment: money(o.cents, lang), months: o.termMonths, down: money(o.downCents, lang) })}</li>
+        ))}
+      </ul>
+      <p className="mt-2 text-[13px] text-muted">{t("practice.sheetNote", lang)}</p>
+    </details>
+  );
 }
 
 type Phase = "lesson" | "intro" | "demo" | "live" | "debrief";
@@ -389,6 +409,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", wa
           <div className="mx-auto mb-5 max-w-md space-y-2 text-center">
             <p className="text-[15px] text-body">{session.brief}</p>
             <p className="text-[13px] text-muted"><span>{ui("practice.textModeNotice")}</span>{!live && <span> {ui("practice.offlineNotice")}</span>}</p>
+            {scenario.sheet && <div className="text-left"><NumbersSheet sheet={scenario.sheet} lang={lang} /></div>}
           </div>
           <ol className="space-y-2.5" aria-live="polite">
             {lines.map((l, i) => {
@@ -540,6 +561,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", wa
           <p className="text-[17px] text-body">{scenario.setting[lang]}</p>
         </div>
 
+        {phase === "intro" && scenario.sheet && <NumbersSheet sheet={scenario.sheet} lang={lang} open />}
         {phase === "intro" && warmUp && (
           <Card className="space-y-3" data-testid="warmup-brief">
             <h2 className="text-[17px] font-bold text-ink">{ui("warmup.drill")}</h2>

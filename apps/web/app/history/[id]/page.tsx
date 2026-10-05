@@ -54,7 +54,8 @@ export default async function SessionPage({ params }: { params: Promise<{ id: st
     offline: false,
     noJudge: detail.score.judge_model === null || detail.score.judge_model === "fixture",
     endReason: detail.session.end_reason,
-    nextStepSecured: false,
+    // A booked next step or a sale is what the session ended on; the chip shows here as in the live debrief.
+    nextStepSecured: detail.session.end_reason === "next_step" || detail.session.end_reason === "sale",
     score: { total: detail.score.total, passed: detail.score.passed, partial: dims.partial, coverage: dims.coverage, honestyPassed: detail.score.honesty_passed, items: detail.score.items },
     debrief: detail.debrief,
     transcript: detail.turns,

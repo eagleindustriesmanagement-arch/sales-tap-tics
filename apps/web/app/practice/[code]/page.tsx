@@ -40,6 +40,9 @@ export default async function Practice({ params, searchParams }: { params: Promi
       flawed: { notice: s.demonstrations.flawed.notice, script: s.demonstrations.flawed.script },
       good: { notice: s.demonstrations.good.notice, script: s.demonstrations.good.script },
     },
+    sheet: s.numbers_sheet
+      ? { allInCents: s.facts.all_in_price_cents, options: s.facts.payment_options.map((o) => ({ cents: o.cents, termMonths: o.term_months, downCents: o.down_cents })) }
+      : null,
   };
   return <PracticeRoom scenario={scenario} uiLanguage={lang} live={aiConfigured()} mode={mode} warmUp={warmUp} />;
 }
