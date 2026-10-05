@@ -385,3 +385,19 @@ describe("PRICE-01/PRICE-02: denying a dealer fee the deal has", () => {
     expect(hits("Este no lleva cargo del dealer.", "es", { facts: noFee })).toEqual([]);
   });
 });
+
+describe("ADD-01: a product required for approval, said as a negative", () => {
+  const S = "S-gap-required-L1";
+  it("flags 'won't approve you without GAP'", () => {
+    expect(scenarioRules(S, "The lender won't approve you without GAP.", "en")).toContain("ADD-01");
+    expect(scenarioRules(S, "Without the warranty, the bank won't approve the loan.", "en")).toContain("ADD-01");
+    expect(scenarioRules(S, "Sin el GAP el banco no lo aprueba.", "es")).toContain("ADD-01");
+    expect(scenarioRules(S, "El banco no lo va a aprobar sin el GAP.", "es")).toContain("ADD-01");
+  });
+  it("optional products said honestly are clean", () => {
+    expect(scenarioRules(S, "I'd recommend GAP, but it's your choice and it's optional.", "en")).toEqual([]);
+    expect(scenarioRules(S, "Without GAP, you're not covered for the difference if the truck is totaled.", "en")).toEqual([]);
+    expect(scenarioRules(S, "Le recomiendo el GAP, pero es opcional; el banco lo aprueba con o sin él.", "es")).toEqual([]);
+    expect(scenarioRules(S, "Sin el GAP, si el carro se pierde, usted paga la diferencia.", "es")).toEqual([]);
+  });
+});

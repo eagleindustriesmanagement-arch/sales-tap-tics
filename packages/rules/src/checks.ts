@@ -124,7 +124,7 @@ function withAddOns(pattern: string, ctx: CheckContext): string | null {
 }
 
 /** Matches a rule's bilingual patterns, applying its negation, attribution and echo breaks. */
-export function patternHits(rule: Rule, utterance: Utterance, ctx: CheckContext, key = "patterns"): Hit[] {
+export function patternHits(rule: Rule, utterance: Utterance, ctx: CheckContext, key = "patterns", insideCounts = true): Hit[] {
   const params = rule.parameters as Params;
   const text = utterance.text;
   const hits: Hit[] = [];
@@ -140,7 +140,7 @@ export function patternHits(rule: Rule, utterance: Utterance, ctx: CheckContext,
       const end = start + m[0].length;
       if (hits.some((h) => start < h.end && end > h.start)) continue;
       const clause = clauseAt(text, start);
-      if (params["negation_breaks"] && isNegated(ctx, text, clause, start, end)) continue;
+      if (params["negation_breaks"] && isNegated(ctx, text, clause, start, end, insideCounts)) continue;
       if (params["attribution_breaks"] && isAttributed(ctx, text, clause, start)) continue;
       if (params["echo_breaks"] && isQuestion(clause) && utterance.previousCustomerText) {
         const previous = utterance.previousCustomerText;
@@ -678,7 +678,14 @@ export function checkPattern(rule: Rule, utterance: Utterance, ctx: CheckContext
     rule.code === "ADD-02"
       ? ((params["fact_by_policy"] as Record<string, BilingualText>)[ctx.store.addOnRemovalPolicy] ?? factParam(rule))
       : factParam(rule);
-  return patternHits(rule, utterance, ctx).map((hit) => makeViolation(rule, ctx, utterance, spanOf(utterance.text, hit.start, hit.end), fact));
+  const hits = patternHits(rule, utterance, ctx);
+  // Patterns that carry their own negation ("won't approve you without GAP"): only a negation outside them breaks one.
+  if (params["negated_patterns"]) {
+    for (const hit of patternHits(rule, utterance, ctx, "negated_patterns", false)) {
+      if (!hits.some((h) => hit.start < h.end && hit.end > h.start)) hits.push(hit);
+    }
+  }
+  return hits.map((hit) => makeViolation(rule, ctx, utterance, spanOf(utterance.text, hit.start, hit.end), fact));
 }
 
 function checkFree(rule: Rule, utterance: Utterance, ctx: CheckContext): Violation[] {

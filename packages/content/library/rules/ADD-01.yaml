@@ -34,6 +34,16 @@ parameters:
       - '\b(necesita|hace falta|tiene que|tienen que|obligatori[oa]|requisito|se requiere|requiere|exige)\b.{0,40}\b({add_ons})\b.{0,50}\b(aprob|aprue|tasa|préstamo|financ|entreg|banco)'
       - '\b({add_ons})\b.{0,40}\b(es|son|era|eran)\b.{0,10}\b(obligatori[oa]s?|requisito|necesari[oa]s?)\b'
       - '\btodo el mundo (la|lo) (compra|coge|lleva|toma)\b'
+  # Required, said as a negative: "The lender won't approve you without GAP", "Sin el GAP el banco no lo aprueba".
+  # The patterns carry their own negation, so only a negation, disclaimer or denial outside them breaks a match.
+  negated_patterns:
+    en:
+      - '\b(bank|lender|they|finance company|credit union|finance)\b.{0,20}\b(won''?t|will not|wouldn''?t|can''?t|cannot|doesn''?t|does not|isn''?t going to|aren''?t going to|not going to)\b.{0,10}\b(approve|finance|fund|sign off|do the loan|give you the loan|do the deal|take the deal)\b.{0,40}\b(without|unless|w/o)\b.{0,20}\b(warranty|service contract|gap|protection|package|maintenance plan|add-?ons?)\b'
+      - '\bwithout (the |a |an )?(warranty|service contract|gap|protection|package|add-?ons?)\b.{0,40}\b(won''?t|will not|wouldn''?t|can''?t|cannot|not|no)(\s+[\p{L}'']+){0,2}\s+(approv|financ|fund|qualif|get the loan|get a loan|deliver)'
+      - '\b(no|can''?t get|won''?t get) (approval|loan|financing)\b.{0,20}\b(without|unless)\b.{0,20}\b(warranty|service contract|gap|protection|package)\b'
+    es:
+      - '\bsin (el |la |los |las |un |una )?(gap|garantía|contrato de servicio|protección|paquete)\b.{0,40}\bno(\s+\p{L}+){0,2}\s+(aprueba|aprueban|aprobará|aprobarán|va a aprobar|van a aprobar|financia|financian|sale aprobad[oa]|califica|le dan el préstamo|le da el préstamo)\b'
+      - '\b(banco|financiera|prestamista)\b.{0,20}\bno\b.{0,15}\b(aprueba|aprueban|va a aprobar|van a aprobar|financia|da el préstamo)\b.{0,30}\bsin\b.{0,15}\b(gap|garantía|contrato de servicio|protección|paquete)\b'
   fact:
     en: "Every protection product is optional. It is not required for approval, the rate or delivery."
     es: "Todos los productos de protección son opcionales. No son requisito para la aprobación, la tasa ni la entrega."
