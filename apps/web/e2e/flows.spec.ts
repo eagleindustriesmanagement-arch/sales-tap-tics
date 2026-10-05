@@ -980,14 +980,18 @@ test("a 3-minute warm-up drills one behavior: the rep sees how it went, the mana
   await manager.close();
 });
 
-test("one turn at a time: a second turn sent while the customer is answering is refused, and the conversation stays whole", async ({ page }) => {
+test("two turns sent together never garble the conversation: one waits its turn or is refused", async ({ page }) => {
   await signInReady(page, "rep2@demo.test");
   const started = await page.request.post("/api/sessions", { data: { scenario: "S-partner-check-L1", language: "en", mode: "practice" } });
   expect(started.ok()).toBe(true);
   const { id } = (await started.json()) as { id: string };
   const send = (text: string) => page.request.post(`/api/sessions/${id}/turn`, { data: { text } });
   const [a, b] = await Promise.all([send("Of course. What do you think her first question will be?"), send("And what about the payment?")]);
-  expect([a.status(), b.status()].sort()).toEqual([200, 409]);
+  const statuses = [a.status(), b.status()].sort();
+  // The offline customer answers at once, so the first turn may finish before the second arrives (both answered,
+  // in order); a live reply takes seconds, and then the second is refused (409). Never anything else.
+  expect([[200, 200], [200, 409]]).toContainEqual(statuses);
   const lines = ((await (await page.request.get(`/api/sessions/${id}`)).json()) as { lines: { speaker: string }[] }).lines;
-  expect(lines.map((l) => l.speaker)).toEqual(["customer", "rep", "customer"]);
+  const answered = statuses.filter((x) => x === 200).length;
+  expect(lines.map((l) => l.speaker)).toEqual(["customer", ...Array.from({ length: answered }, () => ["rep", "customer"]).flat()]);
 });
