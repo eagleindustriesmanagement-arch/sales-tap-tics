@@ -33,6 +33,8 @@ interface Live {
   persistedTurns: number;
   usage: MemoryUsageSink;
   result: SessionResult | null;
+  /** The turn being answered, if any: one turn at a time per session, and finishing waits for it. */
+  turn?: Promise<void>;
 }
 
 /**
@@ -183,6 +185,9 @@ export async function persistNewTurns(s: Live) {
  * the lowest-scoring item across the week, weighted toward stronger evidence).
  */
 export async function finishSession(s: Live, user: UserContext): Promise<SessionResult> {
+  if (s.result) return s.result;
+  // A reply still streaming finishes first, so the score sees the whole conversation.
+  await s.turn?.catch(() => undefined);
   if (s.result) return s.result;
   const result = await s.session.finish();
   await persistNewTurns(s);

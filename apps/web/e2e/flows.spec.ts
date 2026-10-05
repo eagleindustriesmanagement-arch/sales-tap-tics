@@ -979,3 +979,15 @@ test("a 3-minute warm-up drills one behavior: the rep sees how it went, the mana
   await expect(manager.getByTestId("warmup-summary")).not.toContainText(/You did it|Not yet|could not be scored/);
   await manager.close();
 });
+
+test("one turn at a time: a second turn sent while the customer is answering is refused, and the conversation stays whole", async ({ page }) => {
+  await signInReady(page, "rep2@demo.test");
+  const started = await page.request.post("/api/sessions", { data: { scenario: "S-partner-check-L1", language: "en", mode: "practice" } });
+  expect(started.ok()).toBe(true);
+  const { id } = (await started.json()) as { id: string };
+  const send = (text: string) => page.request.post(`/api/sessions/${id}/turn`, { data: { text } });
+  const [a, b] = await Promise.all([send("Of course. What do you think her first question will be?"), send("And what about the payment?")]);
+  expect([a.status(), b.status()].sort()).toEqual([200, 409]);
+  const lines = ((await (await page.request.get(`/api/sessions/${id}`)).json()) as { lines: { speaker: string }[] }).lines;
+  expect(lines.map((l) => l.speaker)).toEqual(["customer", "rep", "customer"]);
+});

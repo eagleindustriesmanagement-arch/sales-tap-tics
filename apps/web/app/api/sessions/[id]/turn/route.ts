@@ -30,6 +30,11 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   const parsedTiming = Timing.safeParse(body.timing ?? {});
   const timing = parsedTiming.success ? { ...parsedTiming.data, lowConfidence: parsedTiming.data.lowConfidence?.filter((r) => r.end <= text.length && r.start < r.end) } : {};
   if (!text) return NextResponse.json({ error: "empty turn" }, { status: 400 });
+  // One turn at a time (October 5 review): a double submit or a retried request while the customer is still
+  // answering would interleave two replies into one conversation and pay for both.
+  if (s.turn) return NextResponse.json({ error: "a turn is already being answered" }, { status: 409 });
+  let release!: () => void;
+  s.turn = new Promise<void>((r) => (release = r));
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
@@ -53,6 +58,8 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
         log("error", "turn_failed", { session: id, error: errorField(error), totalMs: Date.now() - received });
         send({ error: "turn failed" });
       } finally {
+        s.turn = undefined;
+        release();
         controller.close();
       }
     },
