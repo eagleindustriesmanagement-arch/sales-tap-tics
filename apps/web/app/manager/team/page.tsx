@@ -70,7 +70,9 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
               <span className="min-w-0 flex-1" id={`rep-${r.id}`}>
                 <span className="block text-[16px] font-semibold text-ink">{r.first_name}</span>
                 <span className="block text-[14px] text-muted">
-                  {t("team.sessions", lang)}: {r.sessions_this_week} · {t("cert.team", lang)} <span data-testid={`cert-${r.first_name}`}>{certified.get(r.id) ?? 0}/{release1.length}</span>
+                  {t("team.sessions", lang)}: {r.sessions_this_week}
+                  {/* Certification is the car path (decision 0033): a solar, homes or furniture team has none to count. */}
+                  {(user.industry === "cars" || user.industry === "other") && <> · {t("cert.team", lang)} <span data-testid={`cert-${r.first_name}`}>{certified.get(r.id) ?? 0}/{release1.length}</span></>}
                   {r.avg_score !== null && <> · {t("team.avg", lang)} {Math.round(r.avg_score)}</>}
                 </span>
                 {r.card && <span className="block text-[13px] text-muted">{lib.behaviorCards.get(r.card)?.title[lang] ?? r.card} ({t(`progress.card.${r.card_status as "open"}`, lang)})</span>}

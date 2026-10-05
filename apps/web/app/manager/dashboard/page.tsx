@@ -24,7 +24,7 @@ export default async function Dashboard() {
     <div className="space-y-6">
       <PageHeader title={t("dash.title", lang)} />
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Stat label={t("dash.certified", lang)} value={`${d.certified}/${d.reps}`} testId="dash-certified" icon={<IconTrophy size={15} className="text-brand" />} />
+        {(user.industry === "cars" || user.industry === "other") && <Stat label={t("dash.certified", lang)} value={`${d.certified}/${d.reps}`} testId="dash-certified" icon={<IconTrophy size={15} className="text-brand" />} />}
         <Stat label={t("dash.practicing", lang)} value={`${thisWeek.repsPracticing}/${d.reps}`} testId="dash-practicing" icon={<IconUsers size={15} className="text-brand" />} />
         <Stat label={t("dash.checks", lang)} value={pct(checked, issued)} testId="dash-checks" icon={<IconClipboard size={15} className="text-brand" />} />
         <Stat label={t("dash.flags", lang)} value={thisWeek.criticalFlags} tone={thisWeek.criticalFlags ? "bad" : undefined} testId="dash-flags" icon={<IconAlert size={15} className={thisWeek.criticalFlags ? "text-bad" : "text-muted"} />} />
