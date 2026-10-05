@@ -24,7 +24,7 @@ hidden_truth_markers:
     - '\bpre-?approv\w*'
     - '\b(the|our|my) letter\b'
     - '\bfive[- ]fifty\b'
-    - '\$\s?550\b'
+    - '(?<![\d.,])\$?\s?550\b'
     - '\b(over|above|more than) (the|our|what we) (letter|budget|number|agreed|planned)\b'
     - '\b(under|below) (the|our) (letter|number|budget)\b'
   es:
@@ -32,7 +32,7 @@ hidden_truth_markers:
     - '\bpre-?approval\b'
     - '\b(la|nuestra|mi) carta\b'
     - '\bquinientos cincuenta\b'
-    - '\$\s?550\b'
+    - '(?<![\d.,])\$?\s?550\b'
     - '\b(por encima|más) de (la carta|lo que (acordamos|planeamos|habíamos dicho))\b'
     - '\bpor debajo de (la carta|lo que)\b'
 unlock_conditions:

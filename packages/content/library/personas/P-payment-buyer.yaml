@@ -21,15 +21,15 @@ hidden_truth:
 # Phrases that would give the ceiling away before an unlock.
 hidden_truth_markers:
   en:
-    - '\bfive[- ]fifty\b'
-    - '\$\s?550\b'
-    - '\b(can''?t|cannot|won''?t)\b.{0,15}\b(go|be|pay) (over|above|past|more than)\b'
-    - '\b(ceiling|max(imum)?|hard stop|cap)\b'
+    - '\bfive[- ](hundred (and )?)?fifty\b'
+    - '(?<![\d.,])\$?\s?550\b'
+    - '\b(can''?t|cannot|won''?t)\b.{0,15}\b(go|be|pay|do|spend) (over|above|past|more than)\b'
+    - '\b(ceiling|max(imum)?|hard stop|cap)\b(?!\s+out\b)'
     - '\bnot a (dollar|penny) (over|more)\b'
   es:
     - '\bquinientos cincuenta\b'
-    - '\$\s?550\b'
-    - '\bno (me )?puedo (pasar|subir|ir más)\b'
+    - '(?<![\d.,])\$?\s?550\b'
+    - '\bno (me )?puedo (pasar|subir|ir más|pagar más|gastar más)\b'
     - '\b(tope|máximo|límite)\b'
     - '\bni un (dólar|centavo) más\b'
 unlock_conditions:

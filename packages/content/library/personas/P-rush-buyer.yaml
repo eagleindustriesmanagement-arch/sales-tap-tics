@@ -21,14 +21,14 @@ hidden_truth:
 # Phrases that would give the agreed budget away before an unlock.
 hidden_truth_markers:
   en:
-    - '\$\s?575\b'
+    - '(?<![\d.,])\$?\s?575\b'
     - '\bfive (hundred )?seventy[- ]five\b'
     - '\b(my wife|she and I|we)\b.{0,30}\b(agreed|decided|set)\b'
     - '\b(max|maximum|tops|ceiling|limit)\b'
     - '\bover (budget|what we)\b'
     - '\btell her (later|after)\b'
   es:
-    - '\$\s?575\b'
+    - '(?<![\d.,])\$?\s?575\b'
     - '\bquinientos setenta y cinco\b'
     - '\b(mi esposa|ella y yo|nosotros)\b.{0,30}\b(acordamos|quedamos|decidimos)\b'
     - '\b(máximo|tope|límite)\b'

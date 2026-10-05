@@ -21,15 +21,15 @@ hidden_truth:
 # Phrases that would give the ceiling away before an unlock.
 hidden_truth_markers:
   en:
-    - '\btwo[- ]forty\b'
-    - '\$\s?240\b'
-    - '\b(can''?t|cannot|won''?t)\b.{0,15}\b(go|be|pay) (over|above|past|more than)\b'
-    - '\b(ceiling|max(imum)?|hard stop|cap)\b'
+    - '\btwo[- ](hundred (and )?)?forty\b'
+    - '(?<![\d.,])\$?\s?240\b'
+    - '\b(can''?t|cannot|won''?t)\b.{0,15}\b(go|be|pay|do|spend) (over|above|past|more than)\b'
+    - '\b(ceiling|max(imum)?|hard stop|cap)\b(?!\s+out\b)'
     - '\b(braces|orthodont\w*)\b'
   es:
     - '\bdoscientos cuarenta\b'
-    - '\$\s?240\b'
-    - '\bno (me )?puedo (pasar|subir|ir más)\b'
+    - '(?<![\d.,])\$?\s?240\b'
+    - '\bno (me )?puedo (pasar|subir|ir más|pagar más|gastar más)\b'
     - '\b(tope|máximo|límite)\b'
     - '\b(brackets|frenillos|ortodonc\w*)\b'
 unlock_conditions:
