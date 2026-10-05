@@ -26,7 +26,7 @@ async function signIn(page: Page, email: string) {
   }
   await page.goto("/login");
   await page.getByLabel(/Email or mobile number|Correo o número de celular/).fill(email);
-  await page.getByRole("button", { name: /Send me a code|Enviar código/ }).click();
+  await page.getByRole("button", { name: /Send me a code|Envíeme un código/ }).click();
   await expect(page.getByLabel(/Six-digit code|Código de seis dígitos/)).toBeVisible();
   const sent = readFileSync(OUTBOX, "utf8").trim().split("\n").map((l) => JSON.parse(l) as { identifier: string; code?: string });
   await page.getByLabel(/Six-digit code|Código de seis dígitos/).fill(sent.filter((m) => m.identifier === email && m.code).at(-1)!.code!);

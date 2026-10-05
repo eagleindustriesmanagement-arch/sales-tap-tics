@@ -706,7 +706,7 @@ export const STRINGS = {
 
   "login.title": { en: "Sign in", es: "Iniciar sesión" },
   "login.identifier": { en: "Email or mobile number", es: "Correo o número de celular" },
-  "login.sendCode": { en: "Send me a code", es: "Enviar código" },
+  "login.sendCode": { en: "Send me a code", es: "Envíeme un código" },
   "login.codeSent": {
     en: "If that account exists, we sent a six-digit code. It works for 10 minutes.",
     es: "Si esa cuenta existe, le enviamos un código de seis dígitos. Sirve por 10 minutos.",
@@ -790,7 +790,7 @@ export const STRINGS = {
   "signup.storeName": { en: "Team or company name", es: "Nombre del equipo o la empresa" },
   "signup.firstName": { en: "Your first name", es: "Su nombre" },
   "signup.email": { en: "Work email", es: "Correo del trabajo" },
-  "signup.send": { en: "Email me a code", es: "Enviar código" },
+  "signup.send": { en: "Email me a code", es: "Envíeme un código" },
   "signup.codeSent": {
     en: "We emailed a six-digit code to {email}. It works for 10 minutes.",
     es: "Le enviamos un código de seis dígitos a {email}. Sirve por 10 minutos.",
