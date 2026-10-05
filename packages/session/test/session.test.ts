@@ -115,10 +115,10 @@ describe("offline practice session (spec 12.2, M2 thin slice)", () => {
   });
 
   it("without the live judge a score is never a pass, even where the rules alone measure most points (October 5 review)", async () => {
-    // Some scenarios carry most of their points in rule-measured items (the review found S-no-extras-L2 scoring 100
-    // and passing offline); the judge's honesty checks still did not run, so no score may pass.
-    for (const sc of library.scenarios.values()) {
-      const code = sc.code;
+    // These scenarios carry most of their points in rule-measured items (the review found S-no-extras-L2 scoring
+    // 100 and passing without the judge; packages/scoring pins that case); no score without the judge may pass.
+    for (const code of ["S-no-extras-L2", "S-gap-required-L1", "S-warranty-watcher-L1"]) {
+      const sc = library.scenarios.get(code)!;
       const s = new PracticeSession({ library, scenarioCode: code, language: "en", seed: `nojudge-${code}`, exitDraw: 0.99, tenantId: "t1", sessionId: "s1", textMode: false });
       s.start();
       for (const line of sc.demonstrations.good.script.en.filter((l) => l.speaker === "rep")) {
