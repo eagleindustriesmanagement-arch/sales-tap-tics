@@ -644,7 +644,7 @@ export const STRINGS = {
   "floor.exactLine": { en: "The exact line", es: "La frase exacta" },
   "floor.checkAgain": { en: "When we check again", es: "Cuándo revisamos de nuevo" },
 
-  "login.title": { en: "Sign in", es: "Entrar" },
+  "login.title": { en: "Sign in", es: "Iniciar sesión" },
   "login.identifier": { en: "Email or mobile number", es: "Correo o número de celular" },
   "login.sendCode": { en: "Send me a code", es: "Recibir un código" },
   "login.codeSent": {

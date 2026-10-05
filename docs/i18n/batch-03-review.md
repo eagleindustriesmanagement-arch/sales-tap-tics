@@ -2,7 +2,7 @@
 
 Style guide rule (docs/spanish-style-guide.md, section 3.3): buttons are a short infinitive ("Guardar", "Empezar
 práctica"); the glossary names the demonstration button "Ver ejemplo". Every button and link label in the app was
-checked; these nine change. All other labels already follow the rule.
+checked; these eight change. All other labels already follow the rule.
 
 | Key | English | Old Spanish | New Spanish | Reason |
 | --- | --- | --- | --- | --- |
@@ -11,12 +11,14 @@ checked; these nine change. All other labels already follow the rule.
 | login.sendCode | Send me a code | Envíeme un código | Recibir un código | Button: infinitive |
 | signup.send | Email me a code | Envíeme un código | Recibir un código | Button: infinitive |
 | login.startPilot | Get started | Empiece ya | Empezar | Button: infinitive |
-| login.title | Sign in | Iniciar sesión | Entrar | "Iniciar" is on the guide's stiff-word list; the same screen's button already says "Entrar" |
 | settings.push.turnOff | Turn off | Apagar | Desactivar | Pairs with "Activar" beside it |
 | practice.resume | Pick it back up | Retomarla | Retomar la conversación | A bare "-la" on a button has nothing to point to |
 | voice.tapToHear | Tap to hear {name} | Toque para oír a {name} | Oír a {name} | Button: infinitive |
 
 Kept on purpose:
+
+- **"Iniciar sesión"** (the sign-in title). The approved glossary (section 4.1) names Sign in "Iniciar sesión"; an
+  earlier draft of this batch changed it to "Entrar", against the glossary, and was corrected before review.
 
 - **"Toque aquí para hablar" and "Toque para hablar"** (iPhone tap to talk). The owner asked for the button itself
   to say plainly that you tap it to talk (October 4); an infinitive ("Hablar") would lose that.
