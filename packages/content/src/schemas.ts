@@ -642,6 +642,10 @@ export const lexiconSchema = z
     negations: bilingualList,
     /** The speaker refusing to make a claim ("I'm not going to tell you"): a claim after it is not made. */
     disclaimers: bilingualList.default({ en: [], es: [] }),
+    /** A denial said right after the claim ("three days to cancel is a myth", "eso no existe"): the claim is denied. */
+    denials_after: bilingualList.default({ en: [], es: [] }),
+    /** A denial that the thing exists, a few words before the claim ("No existe un periodo de tres días…"). */
+    existence_denials: bilingualList.default({ en: [], es: [] }),
     question_markers: bilingualList,
     weekdays: bilingualList,
     months: bilingualList,

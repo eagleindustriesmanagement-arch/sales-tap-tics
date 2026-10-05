@@ -50,6 +50,17 @@ negations:
 disclaimers:
   en: ["\\b(I'?m|I am) not (going to|gonna) (tell|say|call|promise|pretend)", "\\bI (won'?t|will not|refuse to) (tell|say|call|promise|pretend)", "\\bI'?m not (telling|saying) (you )?(that|it'?s)", "\\bI (can'?t|cannot|can not) (promise|guarantee)"]
   es: ["\\bno (se lo |se la |le |les )?(voy|vamos) a (decir|pintar|prometer|vender)", "\\bno (le )?(digo|estoy diciendo) que", "\\bno (le |se lo |se la )?(puedo|podemos) (prometer|garantizar|asegurar)"]
+# A claim denied right after it is said, in the same sentence: "That three-day cancel thing is a myth for cars",
+# "Eso de los tres días para cancelar no existe para carros". Regular expressions; they must start within six words of
+# the claim. Not "not a myth" / "no es un mito": those affirm the claim.
+denials_after:
+  en: ["\\b(is|'s|are|'re) (just |really |all |only )?(a |an )?(myth|myths|urban legend|misconception)\\b", "\\b(doesn'?t|does not|don'?t|do not) (really )?(apply|exist|work that way)\\b", "\\b(isn'?t|is not|aren'?t|are not) (a thing|real|true|the law|how (it|that) works)\\b", "\\bthat'?s not (true|how (it|that) works|the law|a thing)\\b"]
+  es: ["(?<!no )\\bes (un|puro) mito\\b", "(?<!no )\\bson (mitos|puros mitos)\\b", "\\bno (existe|existen|aplica|aplican)\\b", "\\beso no es así\\b", "\\bno es (así|verdad|cierto|la ley)\\b"]
+# A denial that something exists, up to five words before the claim it denies: "No existe un periodo de tres días
+# para cancelar", "There's no such thing as a three-day cancel". Regular expressions; same phrase only.
+existence_denials:
+  en: ["\\bthere (is|are|'s) no\\b", "\\bthere (isn'?t|aren'?t|is not|are not) (any|a|an)\\b", "\\bno such thing as\\b"]
+  es: ["\\bno (existe|existen|hay)\\b"]
 # Questions and conditionals: the speaker is asking or hypothesizing, not stating a fact.
 question_markers:
   en: ["\\?", "\\bif\\b", "\\bwhether\\b"]

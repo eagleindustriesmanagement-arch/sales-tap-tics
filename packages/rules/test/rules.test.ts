@@ -269,3 +269,28 @@ describe("a sheet payment with a term or down payment from no option is made up 
     expect(rate("Your payment would be $549 a month.", "en")).toBe(0);
   });
 });
+
+/** Probe lines from the October 5 compliance review, checked against the scenarios they were said in. */
+const probeLib = platformLibrary();
+function scenarioRules(code: string, text: string, language: "en" | "es"): string[] {
+  const sc = probeLib.scenarios.get(code)!;
+  const c = { ...ctx({ language }), facts: sc.facts, channel: sc.channel };
+  return [...new Set(checkUtterance({ text, language, speaker: "rep", turnIndex: 1 }, c).map((v) => v.rule))].sort();
+}
+
+describe("CANCEL-01: honest myth-busting is not a claim (a denial after the claim, or 'no existe' before it)", () => {
+  const S = "S-three-day-cancel-L1";
+  it("a denied three-day right is clean", () => {
+    expect(scenarioRules(S, "That three-day cancel thing is a myth for cars.", "en")).toEqual([]);
+    expect(scenarioRules(S, "Three days to cancel doesn't apply to cars in Florida.", "en")).toEqual([]);
+    expect(scenarioRules(S, "No existe un periodo de tres días para cancelar la compra de un carro, así que asegúrese de que es el carro correcto.", "es")).toEqual([]);
+    expect(scenarioRules(S, "Eso de los tres días para cancelar no existe para carros.", "es")).toEqual([]);
+    expect(scenarioRules(S, "Lo de los tres días para devolverlo es un mito.", "es")).toEqual([]);
+  });
+  it("the claim itself, or a claim that it is not a myth, is still critical", () => {
+    expect(scenarioRules(S, "Yes, you have three days to cancel.", "en")).toContain("CANCEL-01");
+    expect(scenarioRules(S, "You have three days to cancel, that's not a myth.", "en")).toContain("CANCEL-01");
+    expect(scenarioRules(S, "Sí, tiene tres días para devolverlo.", "es")).toContain("CANCEL-01");
+    expect(scenarioRules(S, "Tiene tres días para cancelar, no es un mito.", "es")).toContain("CANCEL-01");
+  });
+});

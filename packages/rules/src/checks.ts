@@ -61,7 +61,24 @@ export function isNegated(ctx: CheckContext, text: string, clause: Clause, start
   const before = text.slice(clause.start, start);
   const phrase = before.split(/[,;:]/).pop() ?? "";
   const words = phrase.trim().split(/\s+/).slice(-4).join(" ");
-  return negation.test(words);
+  if (negation.test(words)) return true;
+  // A denial that the thing exists, a little further back: "No existe un periodo de tres días para cancelar".
+  const existence = cueRegex(ctx.lexicon.existence_denials, false);
+  if (existence && existence.test(phrase.trim().split(/\s+/).slice(-9).join(" "))) {
+    const m = [...phrase.matchAll(compile(existence.source, "giu"))].pop();
+    if (m && phrase.slice((m.index ?? 0) + m[0].length).trim().split(/\s+/).filter(Boolean).length <= 5) return true;
+  }
+  // A claim denied right after it is said: "That three-day cancel thing is a myth", "Eso de los tres días no existe".
+  return deniedAfter(ctx, text, clause, end);
+}
+
+function deniedAfter(ctx: CheckContext, text: string, clause: Clause, end: number): boolean {
+  const denial = cueRegex(ctx.lexicon.denials_after, false);
+  if (!denial) return false;
+  const after = text.slice(end, Math.max(end, clause.end));
+  const m = denial.exec(after);
+  if (!m) return false;
+  return after.slice(0, m.index).trim().split(/\s+/).filter(Boolean).length <= 6;
 }
 
 export function isAttributed(ctx: CheckContext, text: string, clause: Clause, start: number): boolean {
