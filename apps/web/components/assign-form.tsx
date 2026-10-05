@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { t, type Language } from "@taptics/i18n";
 import { Card, SEGMENT_INPUT, buttonClass } from "@/components/ui";
+import type { AssignGroup } from "@/lib/assign-options";
 
 const input = "mt-1.5 min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
 
@@ -21,15 +22,15 @@ const QUICK = [
 ] as const;
 type Quick = (typeof QUICK)[number]["key"];
 
-export function AssignForm({ language: lang, reps, scenarios, preselected }: {
+export function AssignForm({ language: lang, reps, groups, preselected }: {
   language: Language;
   reps: { id: string; firstName: string | null }[];
-  scenarios: { code: string; level: number; title: string }[];
+  groups: AssignGroup[];
   preselected: string[];
 }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
   const [chosen, setChosen] = useState<string[]>(preselected);
-  const [scenario, setScenario] = useState(scenarios[0]?.code ?? "");
+  const [scenario, setScenario] = useState(groups[0]?.options[0]?.code ?? "");
   const [due, setDue] = useState("");
   // Quick choices set the date in one tap; "Pick a date" opens the calendar for anything else.
   const [quick, setQuick] = useState<Quick>("none");
@@ -58,7 +59,12 @@ export function AssignForm({ language: lang, reps, scenarios, preselected }: {
       <Card className="space-y-3">
         <label className="block text-[14px] font-medium text-muted">{ui("assign.scenario")}
           <select className={input} value={scenario} onChange={(e) => setScenario(e.target.value)}>
-            {scenarios.map((s) => <option key={s.code} value={s.code}>{ui("practice.level", { n: s.level })} · {s.title}</option>)}
+            {/* The team's own industry first; the others after it, each named, so a look-alike title is not picked by mistake. */}
+            {groups.map((g) => (
+              <optgroup key={g.industry} label={g.label} data-testid={`assign-group-${g.industry}`}>
+                {g.options.map((o) => <option key={o.code} value={o.code}>{o.label}</option>)}
+              </optgroup>
+            ))}
           </select>
         </label>
         <fieldset>

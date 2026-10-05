@@ -255,12 +255,18 @@ export class ScenarioEngine {
     }
 
     if (this.exit) {
-      // A leaving customer who agrees to a next step leaves with it; the exit still counts as the ending.
-      if (this.exitTurnsLeft <= 0 || CUSTOMER_CUES.leaving.test(raw) || this.nextStepSecured) this.end(this.exit);
+      // A leaving customer who agrees to a next step leaves with it, and the next step is the ending: the list and
+      // the debrief must not say "Walked away" beside "Booked a next step". The exit draw stays on `exit`.
+      if (this.exitTurnsLeft <= 0 || CUSTOMER_CUES.leaving.test(raw) || this.nextStepSecured) this.end(this.agreedEnding() ?? this.exit);
     } else if (this.winMet()) {
       this.end(this.sale ? "sale" : "next_step");
     }
-    if (!this.ended && this.turnsRemaining() <= 0) this.end("timeout");
+    if (!this.ended && this.turnsRemaining() <= 0) this.end(this.agreedEnding() ?? "timeout");
+  }
+
+  /** What the customer already agreed to, if anything: it wins over an exit draw, a time limit or the rep's "end". */
+  private agreedEnding(): "sale" | "next_step" | null {
+    return this.sale ? "sale" : this.nextStepSecured ? "next_step" : null;
   }
 
   /** The persona's win condition (spec 10.1, 10.3 item 4). */
@@ -277,9 +283,14 @@ export class ScenarioEngine {
     return all && any;
   }
 
-  /** The rep tapped "end", or the soft time limit passed. */
-  stop(reason: "abandoned" | "timeout"): void {
-    if (!this.ended) this.end(this.exit ?? reason);
+  /**
+   * The rep tapped "end", or the soft time limit passed. A customer who already agreed to buy or to a next step
+   * keeps that ending, so the list does not call a booked appointment "Ended early"; otherwise a customer already
+   * leaving leaves. `keepAgreed: false` is for a session stopped on a critical honesty failure: that one ended early,
+   * whatever came before.
+   */
+  stop(reason: "abandoned" | "timeout", keepAgreed = true): void {
+    if (!this.ended) this.end((keepAgreed ? this.agreedEnding() : null) ?? this.exit ?? reason);
   }
 
   private end(reason: EndReason) {

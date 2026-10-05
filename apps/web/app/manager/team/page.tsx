@@ -4,6 +4,7 @@ import { t } from "@taptics/i18n";
 import { coachingFocus } from "@taptics/session";
 import { IconChevronRight, IconClipboard, IconTarget, IconUsers } from "@/components/icons";
 import { InvitePanel } from "@/components/invite-panel";
+import { PrivateWindowNote } from "@/components/private-window-note";
 import { Avatar, Card, Chip, Empty, ListRow, PageHeader, RowGroup, ScoreBadge, WarmUpTag, SectionTitle, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
@@ -85,6 +86,7 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
             </Link>
           ))}
         </RowGroup>
+        {focused.length > 0 && <PrivateWindowNote hours={user.privateWindowHours} lang={lang} />}
       </section>
 
       {assignments.length > 0 && (

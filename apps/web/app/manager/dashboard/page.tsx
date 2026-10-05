@@ -1,6 +1,7 @@
 import { coachingQuality, storeDashboard } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { IconAlert, IconChart, IconChevronRight, IconClipboard, IconShield, IconStore, IconTrophy, IconUpload, IconUsers } from "@/components/icons";
+import { PrivateWindowNote } from "@/components/private-window-note";
 import { Avatar, Card, ListRow, PageHeader, RowGroup, SectionTitle, Stat } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
@@ -29,6 +30,8 @@ export default async function Dashboard() {
         <Stat label={t("dash.checks", lang)} value={pct(checked, issued)} testId="dash-checks" icon={<IconClipboard size={15} className="text-brand" />} />
         <Stat label={t("dash.flags", lang)} value={thisWeek.criticalFlags} tone={thisWeek.criticalFlags ? "bad" : undefined} testId="dash-flags" icon={<IconAlert size={15} className={thisWeek.criticalFlags ? "text-bad" : "text-muted"} />} />
       </div>
+      {/* Usage counts private sessions; these numbers wait for the rep's private window (spec 3.3). */}
+      <PrivateWindowNote hours={user.privateWindowHours} lang={lang} />
 
       <section className="space-y-2.5">
         <SectionTitle>{t("dash.byWeek", lang)}</SectionTitle>

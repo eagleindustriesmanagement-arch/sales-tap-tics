@@ -205,7 +205,7 @@ export class PracticeSession {
     }
     if (this.stopOnCritical() && failsHonesty(now)) {
       this.stoppedOnCritical = now.find((v) => v.severity === "critical" && !v.uncertain) ?? null;
-      this.engine.stop("abandoned");
+      this.engine.stop("abandoned", false);
       return this.outcome(null);
     }
 

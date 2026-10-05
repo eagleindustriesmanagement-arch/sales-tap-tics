@@ -99,6 +99,8 @@ describe("exit policy (spec 1.3, 21.3 item 1)", () => {
     expect(o.events.some((x) => x.event === "not_now_triggered")).toBe(true);
   });
 
+  // The next step is the ending, not the exit draw: History and the debrief said "Walked away" / "Not now" next to
+  // "Booked a next step". The draw itself stays on `exit` for the exit-rate calibration.
   it("a leaving customer who agrees to a next step ends the conversation with it", () => {
     const e = engine({ exitDraw: 0.2 }); // not-now band
     e.onRepTurn(detectFromCues({ text: "Is the payment where you told her it would be?", language: "en", persona, lexicon }));
@@ -107,7 +109,15 @@ describe("exit policy (spec 1.3, 21.3 item 1)", () => {
     expect(d.exit).toBe("not_now");
     e.onCustomerTurn("Okay, that works for us. [agreed_next_step]");
     expect(e.ended).toBe(true);
-    expect(e.outcome()).toMatchObject({ endReason: "not_now", nextStepSecured: true });
+    expect(e.outcome()).toMatchObject({ endReason: "next_step", exit: "not_now", nextStepSecured: true });
+  });
+
+  it("a next step agreed while the customer is leaving wins over the exit when the rep taps End", () => {
+    const e = engine({ exitDraw: 0.2 }); // not-now band
+    e.onRepTurn(detectFromCues({ text: "Does tomorrow at 5:30 work?", language: "en", persona, lexicon }));
+    e.onCustomerTurn("Okay, that works for us. [agreed_next_step]");
+    if (!e.ended) e.stop("abandoned");
+    expect(e.endReason).toBe("next_step");
   });
 
   it("customer-prep sessions never exit on their own", () => {
@@ -298,5 +308,53 @@ describe("a payment laid out with its terms is not a bare anchor (October 5 blit
     expect(reason("It's $549 a month for 72 months with $5,500 down.")).toBe(true);
     expect(reason("Son $549 al mes, 72 meses, con $5,500 de inicial.", "es")).toBe(true);
     expect(reason("It's $33,349 out the door.")).toBe(false);
+  });
+});
+
+describe("ending by hand keeps what the customer already agreed to", () => {
+  /** One rep line and the customer's reply. */
+  function turn(e: ScenarioEngine, rep: string, customer: string) {
+    e.onRepTurn(detectFromCues({ text: rep, language: "en", persona, lexicon }));
+    e.onCustomerTurn(customer);
+  }
+
+  it("a next step booked before the rep taps End is stored as next_step, not abandoned", () => {
+    const e = engine({ exitDraw: 0.99 });
+    turn(e, "Does tomorrow at 5:30 work for you both?", "Okay, that works. [agreed_next_step]");
+    expect(e.nextStepSecured).toBe(true);
+    expect(e.ended).toBe(false);
+    e.stop("abandoned");
+    expect(e.endReason).toBe("next_step");
+    expect(e.outcome().endReason).toBe("next_step");
+  });
+
+  it("a sale agreed before the rep taps End is stored as sale", () => {
+    const e = engine({ exitDraw: 0.99 });
+    turn(e, "Does tomorrow at 5:30 work for you both?", "Okay, that works. [agreed_next_step]");
+    turn(e, "Great, let's write it up.", "Let's do it. [agreed_sale]");
+    expect(e.ended).toBe(false);
+    e.stop("abandoned");
+    expect(e.endReason).toBe("sale");
+  });
+
+  it("the soft time limit also keeps a booked next step", () => {
+    const e = engine({ exitDraw: 0.99 });
+    turn(e, "Does tomorrow at 5:30 work for you both?", "Okay, that works. [agreed_next_step]");
+    e.stop("timeout");
+    expect(e.endReason).toBe("next_step");
+  });
+
+  it("with nothing agreed, ending by hand is still abandoned", () => {
+    const e = engine({ exitDraw: 0.99 });
+    turn(e, "Of course, it is a big decision.", "Probably the payment.");
+    e.stop("abandoned");
+    expect(e.endReason).toBe("abandoned");
+  });
+
+  it("a stop on a critical honesty failure is abandoned even after a booked next step", () => {
+    const e = engine({ exitDraw: 0.99 });
+    turn(e, "Does tomorrow at 5:30 work for you both?", "Okay, that works. [agreed_next_step]");
+    e.stop("abandoned", false);
+    expect(e.endReason).toBe("abandoned");
   });
 });

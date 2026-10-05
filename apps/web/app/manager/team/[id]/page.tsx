@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { listSessions, practiceHistory, progressFor } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { ProgressView } from "@/components/progress-view";
+import { PrivateWindowNote } from "@/components/private-window-note";
 import { ListRow, PageHeader, RowGroup, ScoreBadge, WarmUpTag, SectionTitle, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
@@ -23,6 +24,7 @@ export default async function RepDetail({ params }: { params: Promise<{ id: stri
   return (
     <div className="space-y-4">
       <PageHeader title={data.name} action={<Link href={`/manager/assign?rep=${id}`} className={buttonClass}>{t("assign.title", lang)}</Link>} />
+      <PrivateWindowNote hours={user.privateWindowHours} lang={lang} />
       {/* A manager sees a warm-up only as done (spec 12.5): its result never reaches their mastery view. */}
       <ProgressView progress={data.progress} history={data.past.history.filter((o) => o.mode !== "warm_up")} lang={lang} />
       {data.sessions.length > 0 && (

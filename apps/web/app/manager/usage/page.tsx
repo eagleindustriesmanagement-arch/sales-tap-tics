@@ -41,6 +41,8 @@ export default async function Usage() {
         <Stat label={t("usage.pause", lang)} value={u.pause_ms_median === null ? "—" : t("usage.seconds", lang, { n: num(u.pause_ms_median / 1000, 1) })} />
         <Stat label={t("usage.costPerSession", lang)} value={usd(u.model_cost_per_session)} />
       </section>
+      {/* The team screens wait for each rep's private window; this page counts those sessions too (spec 3.3). */}
+      {user.privateWindowHours > 0 && <p className="px-1 text-[14px] text-muted" data-testid="usage-private-note">{t("usage.privateNote", lang)}</p>}
       <Card className="space-y-1">
         <p className="text-[14px] font-semibold text-muted">{t("usage.confidence", lang)}</p>
         <p className="text-ink tabular-nums">{conf}</p>

@@ -208,7 +208,7 @@ export default async function Today() {
                 key={s.id}
                 href={`/history/${s.id}`}
                 title={lib.scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode}
-                subtitle={s.endReason ? t(`endReason.${s.endReason}` as "endReason.sale", lang) : t("history.inProgress", lang)}
+                subtitle={!s.endReason ? t("history.inProgress", lang) : s.mode === "warm_up" ? t("history.warmUp", lang) : t(`endReason.${s.endReason}` as "endReason.sale", lang)}
                 trailing={s.mode === "warm_up" && s.total !== null ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />}
               />
             ))}

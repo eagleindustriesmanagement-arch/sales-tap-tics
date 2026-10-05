@@ -54,7 +54,7 @@ export function FloorCheck({ card, issueId, repName, status, language: lang }: {
       </details>
       {error && <p role="alert" className="font-semibold text-bad">{ui("practice.error")}</p>}
       {status !== "open" ? (
-        <Chip tone="good" icon={<IconCheck size={15} />}>{ui("card.checked")}</Chip>
+        <Chip tone="good" icon={<IconCheck size={15} />}>{ui("progress.card.checked")}</Chip>
       ) : saved !== null ? (
         <p role="status" className="font-semibold text-good">{ui("floor.recorded", { seconds: saved })}</p>
       ) : (
