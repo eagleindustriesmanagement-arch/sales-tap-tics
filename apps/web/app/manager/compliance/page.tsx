@@ -41,7 +41,7 @@ export default async function Compliance() {
             <Link href={`/history/${v.session_id}`} className="block">
               <Card className="space-y-1">
                 <p className="text-sm text-muted">{v.first_name} · {fmt.format(new Date(v.created_at))}</p>
-                <p className={`font-semibold ${v.severity === "critical" ? "text-bad" : "text-ink"}`}>{v.rule_code} · {v.severity}</p>
+                <p className={`font-semibold ${v.severity === "critical" ? "text-bad" : "text-ink"}`}>{v.rule_code} · {(["critical", "major", "minor"] as const).includes(v.severity as "critical") ? t(`severity.${v.severity as "critical"}`, lang) : v.severity}</p>
                 {v.span && <p className="text-ink">“{v.span}”</p>}
                 <p className="text-sm">{(v.true_fact as { en: string; es: string })[lang]}</p>
                 {v.uncertain && <Pill>{t("compliance.review", lang)}</Pill>}

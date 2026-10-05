@@ -78,7 +78,9 @@ export function InvitePanel({ language: lang, links, canInviteManagers }: { lang
             {/* Each row says when its link was made and which one was just made: two links for the same role otherwise
                 read the same, and on a phone the second row's button looked like a stray one (October 5 report). */}
             {links.map((l) => {
-              const role = ui(l.role === "manager" ? "role.manager" : "role.rep");
+              // Mid-sentence in Spanish ("Enlace de vendedor"), first word in English ("Rep link").
+              const roleName = ui(l.role === "manager" ? "role.manager" : "role.rep");
+              const role = lang === "es" ? roleName.toLowerCase() : roleName;
               const when = l.made;
               return (
                 <li key={l.id} className="flex items-center justify-between gap-3" data-testid="invite-row">

@@ -32,7 +32,7 @@ export default async function Costs() {
             <tbody className="divide-y divide-line-soft text-ink">
               {rows.map((r) => (
                 <tr key={`${r.day}${r.purpose}${r.model}`}>
-                  <td className="py-2 pr-3">{r.day}</td><td className="pr-3">{r.purpose}</td><td className="pr-3 font-mono text-xs">{r.model}</td>
+                  <td className="py-2 pr-3">{r.day}</td><td className="pr-3">{(["customer", "judge", "classifier", "unlock"] as const).includes(r.purpose as "judge") ? t(`costs.purpose.${r.purpose as "judge"}`, lang) : r.purpose}</td><td className="pr-3 font-mono text-xs">{r.model}</td>
                   <td className="pr-3">{r.calls}{r.failures ? ` (${r.failures} ✗)` : ""}</td><td className="pr-3">{usd(r.costUsd)}</td><td>{r.p50Ms ?? "—"} / {r.p95Ms ?? "—"} ms</td>
                 </tr>
               ))}

@@ -6,13 +6,15 @@ import { backLinkClass, buttonClass, Card, Grade, Pill, titleClass } from "@/com
 import { requireUser } from "@/lib/auth";
 import { language, library } from "@/lib/server";
 
-function Both({ label, value, quote = false }: { label: string; value: { en: string; es: string }; quote?: boolean }) {
+/** The screen's language first; the other below it, smaller, for the rep who sells in both (October 5 review). */
+function Both({ label, value, lang, quote = false }: { label: string; value: { en: string; es: string }; lang: "en" | "es"; quote?: boolean }) {
   const q = (s: string) => (quote ? `“${s}”` : s);
+  const other = lang === "en" ? "es" : "en";
   return (
     <div>
       <p className="text-[13px] font-semibold text-brand">{label}</p>
-      <p className="mt-1 text-ink" lang="en">{q(value.en)}</p>
-      <p className="mt-1 text-ink" lang="es">{q(value.es)}</p>
+      <p className="mt-1 text-ink" lang={lang}>{q(value[lang])}</p>
+      <p className="mt-1 text-[14px] text-muted" lang={other}>{q(value[other])}</p>
     </div>
   );
 }
@@ -35,11 +37,11 @@ export default async function Detail({ params }: { params: Promise<{ code: strin
           </div>
         </div>
         <Card className="space-y-4">
-          <Both label={t("library.when", lang)} value={tech.when} />
-          <Both label={t("library.modelLine", lang)} value={tech.model_line} quote={tech.model_line_kind === "spoken"} />
-          {tech.use_only_when && <Both label={t("library.onlyWhen", lang)} value={tech.use_only_when} />}
-          {tech.flawed_line && <Both label={t("library.flawedLine", lang)} value={tech.flawed_line} quote />}
-          {tech.why && <Both label={t("library.why", lang)} value={tech.why} />}
+          <Both lang={lang} label={t("library.when", lang)} value={tech.when} />
+          <Both lang={lang} label={t("library.modelLine", lang)} value={tech.model_line} quote={tech.model_line_kind === "spoken"} />
+          {tech.use_only_when && <Both lang={lang} label={t("library.onlyWhen", lang)} value={tech.use_only_when} />}
+          {tech.flawed_line && <Both lang={lang} label={t("library.flawedLine", lang)} value={tech.flawed_line} quote />}
+          {tech.why && <Both lang={lang} label={t("library.why", lang)} value={tech.why} />}
           {!tech.spanish_reviewed && <Pill>{t("library.spanishPending", lang)}</Pill>}
         </Card>
         <Card className="space-y-2">
@@ -69,7 +71,7 @@ export default async function Detail({ params }: { params: Promise<{ code: strin
       <Link href="/library?tab=objections" className={backLinkClass}><IconChevronLeft size={20} />{t("library.objections", lang)}</Link>
       <h1 className={titleClass}>{obj.code} · {obj.says[lang] || obj.says[lang === "en" ? "es" : "en"]}</h1>
       <Card className="space-y-4">
-        <Both label={t("library.behind", lang)} value={obj.behind} />
+        <Both lang={lang} label={t("library.behind", lang)} value={obj.behind} />
         {obj.behind_source && <p className="text-sm text-muted">{t("library.source", lang)}: {obj.behind_source}</p>}
         <div>
           <p className="text-[13px] font-semibold text-brand">{t("library.coreMoves", lang)}</p>

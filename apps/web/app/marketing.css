@@ -246,6 +246,8 @@
   transition-delay: calc(var(--i, 0) * 110ms);
 }
 .mkt-will.mkt-in[data-reveal] { opacity: 1; transform: none; }
+/* Printed, every section shows, revealed by scrolling or not. */
+@media print { .mkt-will[data-reveal] { opacity: 1; transform: none; transition: none; } }
 
 /* ------------------------------------------------------------ the objection rail */
 

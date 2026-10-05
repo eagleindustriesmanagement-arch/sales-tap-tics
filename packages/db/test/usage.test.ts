@@ -67,6 +67,15 @@ describe.skipIf(SKIP)("product analytics (spec 19.4)", () => {
     expect(json).not.toContain(REP);
   });
 
+  it("counts as practicing only the reps it counts in the total: a manager's practice is not a rep's (October 5: 3/2)", async () => {
+    await session(MANAGER, { demoWatched: null, ended: "next_step" });
+    await session(GM, { demoWatched: null, ended: "next_step" });
+    const u = (await as(GM, (q) => storeUsage(q, DEMO.store, new Date(Date.now() - 3_600_000))))!;
+    expect(u.active_reps_7d).toBeLessThanOrEqual(u.reps);
+    expect(u.active_reps_today).toBeLessThanOrEqual(u.reps);
+    for (const w of u.weeks) expect(w.active_reps).toBeLessThanOrEqual(u.reps);
+  });
+
   it("anyone but the store's general manager gets nothing", async () => {
     for (const who of [REP, MANAGER]) expect(await as(who, (q) => storeUsage(q, DEMO.store, new Date(0)))).toBeNull();
   });
