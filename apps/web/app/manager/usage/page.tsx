@@ -52,7 +52,7 @@ export default async function Usage() {
             <table className="w-full text-left text-sm" data-testid="usage-weeks">
               <thead className="border-b border-line text-[13px] text-muted [&_th]:font-medium"><tr><th className="py-2 pr-3">{t("usage.week", lang)}</th><th className="pr-3">{t("usage.started", lang)}</th><th className="pr-3">{t("usage.done", lang)}</th><th>{t("usage.reps", lang)}</th></tr></thead>
               <tbody className="divide-y divide-line-soft text-ink tabular-nums">
-                {u.weeks.map((w) => <tr key={w.week}><td className="py-2 pr-3">{w.week}</td><td className="pr-3">{w.started}</td><td className="pr-3">{w.completed}</td><td>{w.active_reps}</td></tr>)}
+                {u.weeks.map((w) => <tr key={w.week}><td className="py-2 pr-3 whitespace-nowrap">{dayLabel(w.week, lang)}</td><td className="pr-3">{w.started}</td><td className="pr-3">{w.completed}</td><td>{w.active_reps}</td></tr>)}
               </tbody>
             </table>
           </Card>
@@ -74,3 +74,7 @@ export default async function Usage() {
     </div>
   );
 }
+
+/** A calendar day ("2026-10-05") as the rest of the app writes it: "Oct 5" / "5 oct". */
+const dayLabel = (d: string | Date, lang: "en" | "es") =>
+  new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(typeof d === "string" ? `${d.slice(0, 10)}T12:00:00Z` : d));
