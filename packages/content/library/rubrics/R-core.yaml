@@ -20,7 +20,7 @@ items:
   - code: U-PACE
     behavior:
       en: "Kept speaking rate within 8% of baseline after an objection"
-      es: "Mantuvo el ritmo al hablar dentro del 8% de lo normal después de una objeción"
+      es: "Mantuvo su ritmo normal (±8%) después de una objeción"
     dimension: composure
     method: timing
     points: 1
@@ -87,7 +87,7 @@ items:
   - code: U-ADAPT
     behavior:
       en: "Changed approach after the customer signaled their style"
-      es: "Cambió de enfoque cuando el cliente mostró su estilo"
+      es: "Se adaptó al estilo del cliente"
     dimension: discovery
     method: judge
     points: 1
@@ -96,7 +96,7 @@ items:
   - code: U-KNOW
     behavior:
       en: "Gave accurate, specific product answers"
-      es: "Dio respuestas del producto correctas y específicas"
+      es: "Dio respuestas correctas y específicas sobre el producto"
     dimension: technique
     method: judge
     points: 1
