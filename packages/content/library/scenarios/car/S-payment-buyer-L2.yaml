@@ -176,11 +176,11 @@ demonstrations:
         - { speaker: customer, text: "El pago está muy alto. Y estoy en mi hora de almuerzo, así que no tengo mucho tiempo." }
         - { speaker: rep, text: "[pausa] Entendido. Voy a ser rápido. Ayúdeme a entender: cuando dice que el pago está muy alto, ¿qué número tenía en mente?" }
         - { speaker: customer, text: "Tengo un número en la cabeza. Es que no quería decirlo yo primero." }
-        - { speaker: rep, text: "Me parece justo. Aparte del pago, ¿la Equinox es el carro para usted?" }
+        - { speaker: rep, text: "Lo entiendo, no hay problema. Aparte del pago, ¿la Equinox es el carro para usted?" }
         - { speaker: customer, text: "Sí, el carro está bien. Es la mensualidad." }
         - { speaker: rep, text: "Entonces dígame el número, y le enseño solo opciones reales. ¿Cuál es el pago máximo que puede hacer al mes?" }
         - { speaker: customer, text: "Quinientos cincuenta. No me puedo pasar de $550 al mes, y punto." }
-        - { speaker: rep, text: "Gracias, eso me ayuda. Hay dos maneras reales de llegar ahí: $549 al mes a 72 meses con $5,500 de inicial, o $541 al mes con los mismos $2,000 de inicial, a 84 meses. Las dos están sujetas a la aprobación del banco. Se las imprimo lado a lado. ¿Puede volver hoy a las 5:30, después del trabajo, y escoger una?" }
+        - { speaker: rep, text: "Gracias, eso me ayuda. Hay dos maneras reales de llegar ahí: $549 al mes a 72 meses con $5,500 de inicial, o $541 al mes con los mismos $2,000 de inicial, a 84 meses. Las dos están sujetas a la aprobación del banco. Se las pongo las dos en una hoja. ¿Puede volver hoy a las 5:30, después del trabajo, y escoger una?" }
         - { speaker: customer, text: "A las 5:30 me sirve. Téngamelas listas para entrar y salir rápido." }
         - { speaker: rep, text: "Van a estar impresas y esperándolo en mi escritorio. Nos vemos a las 5:30." }
 spanish_reviewed: false

@@ -193,6 +193,6 @@ demonstrations:
         - { speaker: customer, text: "La verdad, el techo. Tiene como diecisiete años y él siempre dice que hay que cambiarlo. No sé qué pasa con los paneles si lo cambiamos después." }
         - { speaker: rep, text: "Qué bueno que me lo dice, porque eso es justo lo que hay que resolver antes de firmar. No voy a adivinar sobre su techo. Nuestra visita técnica lo revisa, y los dos reciben el resultado por escrito con el estimado. Si el techo necesita trabajo primero, lo van a saber antes de decidir." }
         - { speaker: customer, text: "Está bien. Prefiero saberlo ahora y no después." }
-        - { speaker: rep, text: "¿Hacemos la visita técnica el jueves a las 6, con él aquí? Reviso el techo con los dos presentes y les traigo el estimado por escrito y sus facturas lado a lado." }
+        - { speaker: rep, text: "¿Hacemos la visita técnica el jueves a las 6, con él aquí? Reviso el techo con los dos presentes y les traigo el estimado por escrito y sus facturas, uno al lado del otro." }
         - { speaker: customer, text: "El jueves a las 6 nos sirve. Él va a estar." }
 spanish_reviewed: false

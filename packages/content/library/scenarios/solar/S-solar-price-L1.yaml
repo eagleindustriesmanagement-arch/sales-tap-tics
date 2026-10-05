@@ -181,7 +181,7 @@ demonstrations:
         - { speaker: customer, text: "El precio está muy alto." }
         - { speaker: rep, text: "[pausa] Le agradezco que me lo diga claro. Es dinero de verdad, y usted tiene que estar seguro. Cuando dice que está muy alto, ¿comparado con qué?" }
         - { speaker: customer, text: "No es que no me guste. Es que he oído otra historia de gente en mi cuadra." }
-        - { speaker: rep, text: "Me parece justo. Dejando el precio a un lado un momento, ¿este es el sistema correcto para su casa?" }
+        - { speaker: rep, text: "Tiene toda la razón. Dejando el precio a un lado un momento, ¿este es el sistema correcto para su casa?" }
         - { speaker: customer, text: "El sistema se ve bien para la casa. Es el número." }
         - { speaker: rep, text: "Entonces cuénteme esa historia, porque prefiero aclararla ahora y no que le dé vueltas después." }
         - { speaker: customer, text: "Mi vecino, a dos casas, dice que el gobierno le devolvió el treinta por ciento de sus paneles. Así como él lo cuenta, lo mío debería costar mucho menos que esto." }

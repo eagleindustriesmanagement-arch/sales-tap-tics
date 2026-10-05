@@ -2,11 +2,11 @@ code: L-payment-buyer
 scenario: S-payment-buyer-L2
 title:
   en: "\"The payment is too high\": get his number before you move yours"
-  es: "\"El pago está muy alto\": saque su número antes de mover el suyo"
+  es: "\"El pago está muy alto\": sáquele el número al cliente antes de mover el suyo"
 hook:
   en: He saw the monthly payment, and his lunch break is almost over. Don't start cutting numbers.
   es: Vio el pago mensual, y se le acaba la hora de almuerzo. No empiece a bajar números.
-tactic: { en: "Get his payment number before you move yours. Then build to it with real options from the sheet: more down, or a longer term to bring the payment down.", es: "Saque su número de pago antes de mover el suyo. Después llegue a ese número con opciones reales de la hoja: más inicial, o un plazo más largo para bajar el pago." }
+tactic: { en: "Get his payment number before you move yours. Then build to it with real options from the sheet: more down, or a longer term to bring the payment down.", es: "Averigüe qué pago busca el cliente antes de tocar sus números. Después llegue a ese número con opciones reales de la hoja: más inicial, o un plazo más largo para bajar el pago." }
 steps:
   - { en: "Pause, then ask: \"What payment were you expecting?\"", es: "Haga una pausa y pregunte: \"¿Qué pago tenía en mente?\"" }
   - { en: "Ask: \"Other than the payment, is this the right car for you?\"", es: "Pregunte: \"Aparte del pago, ¿este es el carro para usted?\"" }

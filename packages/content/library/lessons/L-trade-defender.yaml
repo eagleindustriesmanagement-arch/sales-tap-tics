@@ -2,10 +2,10 @@ code: L-trade-defender
 scenario: S-trade-defender-L2
 title:
   en: "\"You're low on my trade\": show the build, then find his number"
-  es: "\"Me está dando muy poco por mi carro\": enséñele cómo se armó, y busque su número"
+  es: "\"Me está dando muy poco por mi carro\": enséñele cómo se armó y averigüe de dónde sacó él su número"
 hook:
   en: Arms crossed, proud of his truck, he hates your number. Don't defend it yet.
-  es: Tiene los brazos cruzados. Está orgulloso de su camioneta, y no le gusta su número. Todavía no lo defienda.
+  es: Tiene los brazos cruzados. Está orgulloso de su camioneta, y no le gusta el número que usted le dio. Todavía no lo defienda.
 tactic: { en: "Don't argue about the trade number. Show how it was figured, ask where his number came from, and keep yours unless there's a real reason.", es: "No discuta el número del trade-in. Enséñele cómo se calculó, pregúntele de dónde salió su número, y mantenga el suyo si no hay una razón real para cambiarlo." }
 steps:
   - { en: "Pause, then say: \"I'd rather show you how we got there than argue. What number were you expecting?\"", es: "Haga una pausa y diga: \"Prefiero enseñarle cómo llegamos ahí que ponernos a discutir. ¿Qué número esperaba usted?\"" }

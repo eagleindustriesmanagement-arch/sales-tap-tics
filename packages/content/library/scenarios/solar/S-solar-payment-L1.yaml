@@ -187,14 +187,14 @@ demonstrations:
         - { speaker: customer, text: "Monday at 6:30 works. Have both ready." }
       es:
         - { speaker: customer, text: "El pago está muy alto. No puedo con eso todos los meses." }
-        - { speaker: rep, text: "[pausa] Entendido, y prefiero arreglar eso ahora y no que usted se quede atrapado con un pago. Ayúdeme a entender: cuando dice que está muy alto, ¿qué pago tenía en mente?" }
+        - { speaker: rep, text: "[pausa] Entendido, y prefiero arreglarlo ahora para que no se quede con un pago que no puede. Ayúdeme a entender: cuando dice que está muy alto, ¿qué pago tenía en mente?" }
         - { speaker: customer, text: "Tengo un número en la cabeza. Y la verdad, no estoy seguro de todo lo que hay en ese pago." }
-        - { speaker: rep, text: "Me parece justo. Aparte del pago, ¿el sistema en sí es el correcto para su casa?" }
+        - { speaker: rep, text: "Tiene toda la razón. Aparte del pago, ¿el sistema en sí es el correcto para su casa?" }
         - { speaker: customer, text: "Los paneles están bien. Es la mensualidad." }
         - { speaker: rep, text: "Entonces miremos qué hay en esos $285. Incluyen la batería y el monitoreo, y los dos son opcionales. ¿Usted quería la batería?" }
         - { speaker: customer, text: "Bueno. Yo pensé que la batería era obligatoria para los paneles y para el préstamo. Eso me lo dijo el de otra compañía. Yo nunca la pedí. Yo había calculado como doscientos al mes." }
-        - { speaker: rep, text: "Gracias, eso es importante. La batería es opcional, y el monitoreo también. Lado a lado, con el estimado de Kestrela: $285 al mes con la batería y el monitoreo, o $190 al mes por el mismo sistema sin ninguno de los dos. El mismo plazo de 25 años, y los dos sujetos a la aprobación de ellos." }
+        - { speaker: rep, text: "Gracias, eso es importante. La batería es opcional, y el monitoreo también. Uno al lado del otro, con el estimado de Kestrela: $285 al mes con la batería y el monitoreo, o $190 al mes por el mismo sistema sin ninguno de los dos. El mismo plazo de 25 años, y los dos sujetos a la aprobación de ellos." }
         - { speaker: customer, text: "Está bien. Enséñemelo en papel." }
-        - { speaker: rep, text: "Le pongo los dos por escrito lado a lado, con la batería y sin ella, para que vea exactamente lo que cuesta cada uno. ¿Puede sentarse el lunes a las 6:30 para revisar el estimado por escrito?" }
+        - { speaker: rep, text: "Le pongo los dos por escrito, uno al lado del otro, con la batería y sin ella, para que vea exactamente lo que cuesta cada uno. ¿Puede sentarse el lunes a las 6:30 para revisar el estimado por escrito?" }
         - { speaker: customer, text: "El lunes a las 6:30 me queda bien. Téngame los dos listos." }
 spanish_reviewed: false
