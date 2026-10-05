@@ -334,3 +334,19 @@ describe("TRADE-01: a trade number said with the customer's vehicle ('for your t
     expect(scenarioRules(S, "Le damos $22,800 por su troca.", "es")).toEqual([]);
   });
 });
+
+describe("TRADE-01: the payoff the rep states must match the facts payoff", () => {
+  const S = "S-trade-defender-L2"; // payoff $9,200
+  it("flags a wrong payoff", () => {
+    expect(scenarioRules(S, "Your payoff is $8,000, so you've got $14,800 in equity.", "en")).toContain("TRADE-01");
+    expect(scenarioRules(S, "You only owe $8,000 on it.", "en")).toContain("TRADE-01");
+    expect(scenarioRules(S, "Usted solo debe $8,000.", "es")).toContain("TRADE-01");
+    expect(scenarioRules(S, "Su payoff es $8,000.", "es")).toContain("TRADE-01");
+  });
+  it("the real payoff, or a question about it, is clean", () => {
+    expect(scenarioRules(S, "Your payoff is $9,200, so you've got $13,600 in equity.", "en")).toEqual([]);
+    expect(scenarioRules(S, "Do you still owe $8,000 on it?", "en")).toEqual([]);
+    expect(scenarioRules(S, "Usted debe $9,200 todavía.", "es")).toEqual([]);
+    expect(scenarioRules(S, "¿Todavía debe $8,000?", "es")).toEqual([]);
+  });
+});

@@ -420,6 +420,25 @@ export function checkTrade(rule: Rule, utterance: Utterance, ctx: CheckContext, 
         m.uncertain),
     );
   }
+  // The payoff: "Your payoff is $8,000", "You only owe $8,000 on it", "Usted solo debe $8,000" when the lender's
+  // payoff is $9,200. Only when the facts give the payoff; a denied number is a correction, not a claim.
+  const payoff = facts.trade?.payoff_cents ?? null;
+  if (payoff !== null) {
+    for (const m of claims(mentions, "payoff")) {
+      if (Math.abs(m.value - payoff) <= tolerance) continue;
+      if (/(?<![\p{L}])(?:no|not|isn'?t|never|nunca)(?:\s+\p{L}+)?\s*\$?\s*$/iu.test(utterance.text.slice(Math.max(0, m.start - 16), m.start))) continue;
+      const clause = clauseAt(utterance.text, m.start);
+      if (isAskingOrConditional(ctx, utterance.text, clause, m.start) || isAttributed(ctx, utterance.text, clause, m.start)) continue;
+      const appraisal = facts.trade?.appraisal_cents ?? null;
+      const equity = appraisal !== null ? appraisal - payoff : null;
+      out.push(
+        makeViolation(rule, ctx, utterance, spanOf(utterance.text, m.start, m.end), {
+          en: `The payoff on the trade is ${formatDollars(payoff, "en")}${equity !== null ? `, so the equity is ${formatDollars(equity, "en")}` : ""}.`,
+          es: `Lo que se debe del trade-in es ${formatDollars(payoff, "es")}${equity !== null ? `, así que el equity es ${formatDollars(equity, "es")}` : ""}.`,
+        }, m.uncertain),
+      );
+    }
+  }
   return out;
 }
 

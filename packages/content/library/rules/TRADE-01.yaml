@@ -5,8 +5,8 @@ description:
   en: The trade value and its basis match the appraisal.
   es: El valor del trade-in y su base coinciden con la tasación.
 explanation:
-  en: "That trade number does not match the appraisal. {fact}"
-  es: "Ese valor del trade-in no coincide con la tasación. {fact}"
+  en: "That trade number does not match the appraisal or the payoff. {fact}"
+  es: "Ese valor del trade-in no coincide con la tasación o con lo que se debe. {fact}"
 check_kind: trade_compare
 classifier: true
 applies_to: [rep, demonstrator, debrief]
@@ -14,5 +14,6 @@ channels: [floor, phone, text]
 compliant_technique: T027
 parameters:
   tolerance_cents: 100
+  # The payoff said by the rep ("you only owe $8,000") is checked against the facts payoff with the same tolerance.
 legal_basis: Agreed rule (spec 4.2)
 attorney_reviewed: false
