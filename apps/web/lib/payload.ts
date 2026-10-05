@@ -6,6 +6,8 @@ interface Source {
   scenarioCode?: string;
   language: "en" | "es";
   offline: boolean;
+  /** Scored without the AI judge while the customer was live (an outage), or a stored score the judge never saw. */
+  noJudge?: boolean;
   endReason: string | null;
   nextStepSecured: boolean;
   score: { total: number; passed: boolean; partial?: boolean; coverage?: number; threshold?: number; honestyPassed: boolean; items: { code: string; points: number; max: number; status: string; explanation: { en: string; es: string }; evidence?: { turnIndex: number; quote: string } | null }[] };
@@ -18,6 +20,7 @@ export function debriefPayload(r: Source): DebriefPayload {
   return {
     language: r.language,
     offline: r.offline,
+    noJudge: r.noJudge ?? false,
     endReason: r.endReason,
     nextStepSecured: r.nextStepSecured,
     score: {

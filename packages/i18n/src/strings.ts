@@ -597,6 +597,10 @@ export const STRINGS = {
     es: "Cliente sin conexión: frases aprobadas guiadas por el motor del escenario, sin modelo de IA. Los comportamientos que necesitan el juez de IA no se califican.",
   },
   "practice.liveNotice": { en: "Live AI customer.", es: "Cliente de IA en vivo." },
+  "debrief.noJudge": {
+    en: "Scored without the AI judge: the behaviors that need it are not scored, and this score cannot count as a pass.",
+    es: "Calificado sin el juez de IA: los comportamientos que lo necesitan no se califican, y este puntaje no puede contar como aprobado.",
+  },
   "practice.you": { en: "You", es: "Usted" },
   "practice.customer": { en: "Customer", es: "Cliente" },
   "practice.ended": { en: "The conversation has ended.", es: "La conversación terminó." },

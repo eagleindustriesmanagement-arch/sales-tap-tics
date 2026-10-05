@@ -7,6 +7,7 @@ import { InvitePanel } from "@/components/invite-panel";
 import { Avatar, Card, Chip, Empty, ListRow, PageHeader, RowGroup, ScoreBadge, SectionTitle, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
+import { madeWhen } from "@/lib/made-when";
 import { language, library, scheduleInputs } from "@/lib/server";
 
 const FOCUS_TONE = { coach: "brand", extra_practice: "warn", stretch: "good", needs_scores: "neutral" } as const;
@@ -24,7 +25,7 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
   const lib = library();
   const release1 = scheduleInputs().scenarios.filter((s) => s.release1).map((s) => s.code);
   const { team, quality, sessions, assignments, certified, coachPractice, invites } = await asUser(principalOf(user), async (db) => ({
-    invites: user.storeId ? await listInviteLinks(db, user.storeId) : [],
+    invites: (user.storeId ? await listInviteLinks(db, user.storeId) : []).map((l) => ({ id: l.id, role: l.role, uses: l.uses, made: madeWhen(l.createdAt, lang) })),
     certified: await teamCertification(db, release1),
     coachPractice: await coachPracticeSummary(db),
     assignments: await listAssignments(db, { limit: 30 }),

@@ -210,3 +210,28 @@ describe("weekly behavior card (spec 12.4)", () => {
     expect(chooseWeeklyCard(library, [await score()])).toBeNull();
   });
 });
+
+describe("no live judge, no pass (October 5 review)", () => {
+  it("a scenario the rules alone can score high still never passes while the judge's honesty checks did not run", async () => {
+    for (const code of ["S-no-extras-L2", "S-gap-required-L1", "S-warranty-watcher-L1"]) {
+      const sc = library.scenarios.get(code)!;
+      const turns: ScoredTurn[] = [
+        { index: 0, speaker: "customer", text: "I don't want any extras.", language: "en", isObjection: true },
+        { index: 1, speaker: "rep", text: "Understood. The bank requires the warranty for approval, trust me.", language: "en", pauseBeforeMs: 2500, startedMs: 0, endedMs: 3000 },
+      ];
+      const input = { library, scenario: sc, transcript: turns, violations: [], engine: ENGINE_WIN, judge: new FixtureJudge(), textMode: false };
+      const without = await scoreSession(input);
+      const flagged = await scoreSession({ ...input, judgeUnavailable: true });
+      // Before the fix this exact session passed on the rules alone; the lie went to a judge that was not there.
+      expect(without.passed || without.partial, code).toBe(true);
+      expect(flagged.partial, code).toBe(true);
+      expect(flagged.passed, code).toBe(false);
+    }
+    const sc = library.scenarios.get("S-no-extras-L2")!;
+    const turns: ScoredTurn[] = [
+      { index: 0, speaker: "customer", text: "I don't want any extras.", language: "en", isObjection: true },
+      { index: 1, speaker: "rep", text: "Understood. The bank requires the warranty for approval, trust me.", language: "en", pauseBeforeMs: 2500, startedMs: 0, endedMs: 3000 },
+    ];
+    expect((await scoreSession({ library, scenario: sc, transcript: turns, violations: [], engine: ENGINE_WIN, judge: new FixtureJudge(), textMode: false })).passed).toBe(true);
+  });
+});

@@ -15,6 +15,7 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
       scenarioCode: s.session.scenario.code,
       language: r.language,
       offline: r.offline,
+      noJudge: r.judgeDown,
       endReason: r.engine.endReason,
       nextStepSecured: r.engine.nextStepSecured,
       score: r.score,

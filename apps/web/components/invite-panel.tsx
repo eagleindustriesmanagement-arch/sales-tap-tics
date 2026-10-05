@@ -6,7 +6,8 @@ import { t, type Language } from "@taptics/i18n";
 import { IconUsers } from "@/components/icons";
 import { Card, buttonClass, ghostButtonClass } from "@/components/ui";
 
-interface Link { id: string; role: "rep" | "manager"; uses: number; createdAt: Date | string }
+/** `made`: when the link was made, worded on the server (lib/made-when.ts) so the page hydrates with the same text. */
+interface Link { id: string; role: "rep" | "manager"; uses: number; made: string }
 
 /**
  * Invite links (decision 0032): a manager makes a link, sends it any way they like, and whoever signs up through it
@@ -29,6 +30,8 @@ export function InvitePanel({ language: lang, links, canInviteManagers }: { lang
     router.refresh();
   }
   async function revoke(id: string) {
+    // Turning off the link just made also takes its address off the screen: it no longer lets anyone in.
+    if (fresh?.id === id) setFresh(null);
     await fetch(`/api/invites/${id}`, { method: "DELETE" }).catch(() => null);
     router.refresh();
   }
@@ -76,7 +79,7 @@ export function InvitePanel({ language: lang, links, canInviteManagers }: { lang
                 read the same, and on a phone the second row's button looked like a stray one (October 5 report). */}
             {links.map((l) => {
               const role = ui(l.role === "manager" ? "role.manager" : "role.rep");
-              const when = madeWhen(l.createdAt, lang);
+              const when = l.made;
               return (
                 <li key={l.id} className="flex items-center justify-between gap-3" data-testid="invite-row">
                   <span className="min-w-0">
@@ -95,17 +98,4 @@ export function InvitePanel({ language: lang, links, canInviteManagers }: { lang
       )}
     </Card>
   );
-}
-
-/** "today, 10:42 AM" or "Oct 3": enough to tell two links apart, in the dealership's time zone. */
-function madeWhen(at: Date | string, lang: Language): string {
-  const d = new Date(at);
-  const tz = "America/New_York";
-  const locale = lang === "es" ? "es-US" : "en-US";
-  const day = (x: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(x);
-  if (day(d) === day(new Date())) {
-    const time = new Intl.DateTimeFormat(locale, { timeZone: tz, hour: "numeric", minute: "2-digit" }).format(d);
-    return t("invites.today", lang, { time });
-  }
-  return new Intl.DateTimeFormat(locale, { timeZone: tz, month: "short", day: "numeric" }).format(d);
 }

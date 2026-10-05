@@ -118,6 +118,8 @@ export class DeviceTextToSpeech implements TextToSpeech {
   private queue: Promise<void> = Promise.resolve();
   private current = 0;
   private generation = 0;
+  /** Bumped by each replay and each cancel: a replay's one retry runs only while it is still the latest. */
+  private replays = 0;
   /**
    * Utterances being spoken. Browsers drop the end event of an utterance nothing references any more (Safari and
    * Chrome both do), and the conversation would wait forever on a sentence that already finished.
@@ -268,8 +270,11 @@ export class DeviceTextToSpeech implements TextToSpeech {
       return { record, started: () => started };
     };
     const first = say(true);
+    // A cancel (leaving, ending, another tap) after this tap retires its retry: it must never play this line later,
+    // or cut off the line the rep tapped next.
+    const mine = ++this.replays;
     setTimeout(() => {
-      if (first.started()) return;
+      if (this.replays !== mine || first.started()) return;
       voiceDiagnostics.event(first.record, "no-start");
       // Something is playing (a slow online voice that never reported its start): leave it, never say it twice.
       try { if (window.speechSynthesis.speaking) return; } catch { /* no engine */ }
@@ -280,6 +285,7 @@ export class DeviceTextToSpeech implements TextToSpeech {
 
   cancel(): void {
     this.generation += 1;
+    this.replays += 1;
     this.current = 0;
     window.speechSynthesis.cancel();
     this.live.clear();

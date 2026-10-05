@@ -45,6 +45,7 @@ function useCountUp(target: number) {
 export interface DebriefPayload {
   language: Language;
   offline: boolean;
+  noJudge?: boolean;
   endReason: string | null;
   nextStepSecured: boolean;
   score: { total: number; passed: boolean; partial: boolean; coverage: number; threshold: number; honestyPassed: boolean; items: { code: string; points: number; max: number; status: string; explanation: Bilingual; behavior?: Bilingual; quote?: string | null; concept?: Bilingual | null }[] };
@@ -186,10 +187,10 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
         </Card>
       )}
 
-      {(d.notScored.length > 0 || data.offline || d.reviewFlags > 0) && (
+      {(d.notScored.length > 0 || data.offline || data.noJudge || d.reviewFlags > 0) && (
         <p className="reveal-rise px-1 text-[13px] text-muted" style={cascade(step++)}>
           {/* Offline, items go unscored because there is no judge, not because the audio was unclear. */}
-          {data.offline ? ui("practice.offlineNotice") : d.notScored.length > 0 ? ui("debrief.notScored") : ""} {d.reviewFlags > 0 ? ui("debrief.reviewFlags", { count: d.reviewFlags }) : ""}
+          {data.noJudge ? ui("debrief.noJudge") : data.offline ? ui("practice.offlineNotice") : d.notScored.length > 0 ? ui("debrief.notScored") : ""} {d.reviewFlags > 0 ? ui("debrief.reviewFlags", { count: d.reviewFlags }) : ""}
         </p>
       )}
 

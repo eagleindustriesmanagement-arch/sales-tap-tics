@@ -16,12 +16,16 @@ export function NavProgress() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const tapped = useRef<HTMLAnchorElement | null>(null);
 
-  // A finished navigation: complete the bar, then hide it, and clear the tapped link's waiting look.
-  useEffect(() => {
-    setState((s) => (s === "running" ? "done" : s));
+  const clearTapped = () => {
     tapped.current?.removeAttribute("data-pending");
     tapped.current = null;
     navIntent.set(null);
+  };
+
+  // A finished navigation: complete the bar, then hide it, and clear the tapped link's waiting look.
+  useEffect(() => {
+    setState((s) => (s === "running" ? "done" : s));
+    clearTapped();
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => setState("idle"), 320);
   }, [path, query]);
@@ -34,15 +38,22 @@ export function NavProgress() {
       if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
       const url = new URL(a.href, location.href);
       if (url.origin !== location.origin || url.pathname.startsWith("/api/")) return;
-      if (url.pathname === location.pathname && url.search === location.search) return;
+      // Any tap inside the site supersedes the one before: its waiting look and its intent go (the router drops a
+      // navigation that a newer one replaces, so the old path change never comes).
+      clearTapped();
+      if (url.pathname === location.pathname && url.search === location.search) {
+        setState((s) => (s === "running" ? "idle" : s));
+        return;
+      }
       if (timer.current) clearTimeout(timer.current);
       setState("running");
       // The tapped link itself shows it is on its way (globals.css), where the finger and eye already are: the thin
       // bar at the top alone went unnoticed on a slow first load, and the tap was repeated.
-      tapped.current?.removeAttribute("data-pending");
       a.setAttribute("data-pending", "");
       tapped.current = a;
       navIntent.set(url.href);
+      // A navigation that never changes the path (a redirect back to this screen, a failure) still ends.
+      timer.current = setTimeout(() => { clearTapped(); setState("idle"); }, 15_000);
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);

@@ -114,6 +114,23 @@ describe("offline practice session (spec 12.2, M2 thin slice)", () => {
     expect(again.violations.length).toBe(first.violations.length);
   });
 
+  it("without the live judge a score is never a pass, even where the rules alone measure most points (October 5 review)", async () => {
+    // Some scenarios carry most of their points in rule-measured items (the review found S-no-extras-L2 scoring 100
+    // and passing offline); the judge's honesty checks still did not run, so no score may pass.
+    for (const sc of library.scenarios.values()) {
+      const code = sc.code;
+      const s = new PracticeSession({ library, scenarioCode: code, language: "en", seed: `nojudge-${code}`, exitDraw: 0.99, tenantId: "t1", sessionId: "s1", textMode: false });
+      s.start();
+      for (const line of sc.demonstrations.good.script.en.filter((l) => l.speaker === "rep")) {
+        const { outcome } = await say(s, line.text.replace(/\[[^\]]*\]\s*/g, ""));
+        if (outcome.ended) break;
+      }
+      const r = await s.finish();
+      expect(r.score.partial, code).toBe(true);
+      expect(r.score.passed, code).toBe(false);
+    }
+  });
+
   it("the pre-brief never shows the hidden truth", () => {
     const s = session();
     const brief = JSON.stringify(s.preBrief());

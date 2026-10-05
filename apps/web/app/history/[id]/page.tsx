@@ -33,7 +33,10 @@ export default async function SessionPage({ params }: { params: Promise<{ id: st
   const payload = debriefPayload({
     scenarioCode: detail.session.scenario_code,
     language: lang,
-    offline: detail.score.judge_model === null,
+    // A stored score the AI judge never saw (offline, or an outage, which stores the fixture judge): no claim about
+    // the customer, only that the judge's behaviors were not scored (October 5 review).
+    offline: false,
+    noJudge: detail.score.judge_model === null || detail.score.judge_model === "fixture",
     endReason: detail.session.end_reason,
     nextStepSecured: false,
     score: { total: detail.score.total, passed: detail.score.passed, partial: dims.partial, coverage: dims.coverage, honestyPassed: detail.score.honesty_passed, items: detail.score.items },

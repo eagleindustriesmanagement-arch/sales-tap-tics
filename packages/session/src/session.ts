@@ -80,6 +80,8 @@ export interface SessionResult {
   score: ScoreResult;
   debrief: Debrief;
   offline: boolean;
+  /** The live judge was configured but failed, and the rules' verdict stands alone (the customer was still live). */
+  judgeDown: boolean;
 }
 
 /** The scenario with the store's mandatory dealer charges in place of its example fees. */
@@ -244,8 +246,9 @@ export class PracticeSession {
     if (!this.finalized) this.violations.push(...finalizeSession(this.ctx, this.compliance));
     this.finalized = true;
     const outcome = this.engine.outcome();
-    const run = (judge: Judge) =>
+    const run = (judge: Judge, judgeUnavailable = false) =>
       scoreSession({
+        judgeUnavailable,
         library: this.options.library,
         scenario: this.scenario,
         transcript: this.transcript,
@@ -256,17 +259,21 @@ export class PracticeSession {
         level: this.scenario.difficulty as 1 | 2 | 3,
       });
     let offline = this.offline;
+    let judgeDown = false;
     let score: ScoreResult;
     try {
-      score = await run(this.options.ai?.judge ?? new FixtureJudge());
+      // Without the live judge (offline, or down) the judge's checks, honesty ones included, did not run: the score
+      // is the rules' verdict, partial and never a pass, however much the rules alone could measure.
+      score = await run(this.options.ai?.judge ?? new FixtureJudge(), !this.options.ai?.judge);
     } catch (error) {
       if (!this.options.ai?.judge) throw error;
       // The judge is down or timed out: the rep still gets the rules' and the engine's verdict, shown as partial
       // (never a pass, spec 13.4), instead of losing the session to an error.
-      score = await run(new FixtureJudge());
+      score = await run(new FixtureJudge(), true);
       offline = true;
+      judgeDown = true;
     }
     const debrief = buildDebrief({ library: this.options.library, scenario: this.scenario, score, transcript: this.transcript, endReason: outcome.endReason });
-    return { sessionId: this.options.sessionId, scenarioCode: this.scenario.code, language: this.language, transcript: this.transcript, violations: this.violations, engine: outcome, score, debrief, offline };
+    return { sessionId: this.options.sessionId, scenarioCode: this.scenario.code, language: this.language, transcript: this.transcript, violations: this.violations, engine: outcome, score, debrief, offline, judgeDown };
   }
 }

@@ -46,17 +46,18 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   // Spec 19.4: whether the rep watched the demonstration before starting.
   const [watchedDemo, setWatchedDemo] = useState(false);
   useEffect(() => { if (phase === "demo") setWatchedDemo(true); }, [phase]);
-  // A new release never reloads the screen in the middle of a conversation (components/update-check.tsx).
-  useEffect(() => {
-    document.documentElement.dataset.liveSession = phase === "live" ? "1" : "0";
-    return () => { document.documentElement.dataset.liveSession = "0"; };
-  }, [phase]);
   const [choice, setChoice] = useState<Language | "follow">(uiLanguage);
   const [lang, setLang] = useState<Language>(uiLanguage);
   const [session, setSession] = useState<{ id: string; brief: string; name: string } | null>(null);
   const [lines, setLines] = useState<Line[]>([]);
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
+  // A new release never reloads the screen in the middle of a conversation, while it starts or is being scored, or
+  // over the debrief the rep is reading (components/update-check.tsx): it offers the reload instead.
+  useEffect(() => {
+    document.documentElement.dataset.liveSession = phase === "live" || phase === "debrief" || busy ? "1" : "0";
+    return () => { document.documentElement.dataset.liveSession = "0"; };
+  }, [phase, busy]);
   const [finishFailed, setFinishFailed] = useState(false);
   const [ended, setEnded] = useState<{ stopped: boolean } | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -96,6 +97,9 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   };
   const resume = () => {
     if (!resumable) return;
+    // This tap is the iPhone's permission to speak, as Start is for a new session; without it the resumed customer
+    // would be silent.
+    if (ttsOk && ios) DeviceTextToSpeech.unlock();
     setLang(resumable.language);
     setSession({ id: resumable.id, brief: resumable.brief, name: resumable.name });
     setLines(resumable.lines);
@@ -132,8 +136,15 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   useEffect(() => {
     if (phase === "debrief") speaker.current?.cancel();
   }, [phase]);
+  // Once the rep ends the conversation or leaves, nothing more is spoken: a reply still streaming in, or the opening
+  // of a session that started after the rep left, stays silent (cancel alone only drops what is already queued).
+  const closed = useRef(false);
   useEffect(() => {
-    return () => speaker.current?.cancel();
+    closed.current = false;
+    return () => {
+      closed.current = true;
+      speaker.current?.cancel();
+    };
   }, []);
   const choose = (a: AnswerBy) => {
     setAnswerBy(a);
@@ -151,6 +162,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   /** The customer's lines are read aloud by this screen (elsewhere the hands-free stage does it). */
   const speakAloud = ttsOk && ios;
   const say = (text: string) => {
+    if (closed.current) return;
     speaker.current ??= new DeviceTextToSpeech();
     void speaker.current.speak(text, { language: lang, voiceKey: scenario.code });
   };
@@ -189,7 +201,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
       setLines([{ speaker: "customer", text: data.opening }]);
       setOpening(data.opening);
       setPhase("live");
-      if (speakAloud) {
+      if (speakAloud && !closed.current) {
         speaker.current ??= new DeviceTextToSpeech();
         void speaker.current.speak(data.opening, { language: data.language, voiceKey: scenario.code });
       }
@@ -264,17 +276,23 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
 
   async function finish() {
     if (!session) return;
-    remember(null);
+    closed.current = true;
+    speaker.current?.cancel();
     setBusy(true);
     setFinishFailed(false);
     setPhase("debrief");
     try {
       const res = await fetch(`/api/sessions/${session.id}/finish`, { method: "POST" });
       // Already scored by an earlier try whose answer was lost: the saved debrief is in the history.
-      if (res.status === 404) return location.assign(`/history/${session.id}`);
+      if (res.status === 404) {
+        remember(null);
+        return location.assign(`/history/${session.id}`);
+      }
       // An error body is not a debrief: drawing it would crash the screen.
       if (!res.ok) throw new Error(String(res.status));
       setDebrief((await res.json()) as DebriefPayload);
+      // Only a finished session leaves the resume pointer: a failed finish can still be picked back up.
+      remember(null);
     } catch {
       setFinishFailed(true);
     } finally {

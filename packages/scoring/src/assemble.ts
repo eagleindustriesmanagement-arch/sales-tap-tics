@@ -14,6 +14,9 @@ export interface ScoreInput {
   textMode: boolean;
   level?: 1 | 2 | 3;
   lowConfidence?: number;
+  /** The live judge was down and a fixture stood in: the score is partial and never a pass, however much the rules
+   *  alone could measure, because the judge's honesty checks did not run (spec 13.4). */
+  judgeUnavailable?: boolean;
 }
 
 const DIMENSIONS = ["composure", "discovery", "technique", "outcome"] as const;
@@ -126,7 +129,7 @@ export async function scoreSession(input: ScoreInput): Promise<ScoreResult> {
   if (!honestyPassed) total = 0;
 
   const coverage = coverageOf(scenario.scoring ? results.filter((r) => r.scenarioItem) : results);
-  const partial = coverage < MIN_COVERAGE;
+  const partial = coverage < MIN_COVERAGE || input.judgeUnavailable === true;
   const level = input.level ?? scenario.difficulty as 1 | 2 | 3;
   const threshold = level === 1 ? thresholds.level_1 : level === 2 ? thresholds.level_2 : thresholds.level_3;
   return {
