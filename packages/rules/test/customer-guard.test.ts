@@ -92,3 +92,52 @@ describe("customer guard: an amount must fit its role", () => {
     expect(guard(T, text, language, true)).toContain("false_fact");
   });
 });
+
+describe("customer guard: rates and deadlines", () => {
+  it.each([
+    ["en", "Credit union gave me 2.9% APR already."],
+    ["es", "La cooperativa me dio 2.9% de interés."],
+  ] as const)("blocks a rate the scenario does not hold (%s): %s", (language, text) => {
+    expect(guard("S-payment-buyer-L2", text, language, true)).toContain("false_fact");
+  });
+
+  it.each([
+    ["en", "So the approval came back at 6.99% APR?"],
+    ["es", "¿O sea que el banco lo aprobó al 6.99% de interés?"],
+  ] as const)("allows the lender's real rate (%s): %s", (language, text) => {
+    expect(guard("S-no-extras-L2", text, language, true)).not.toContain("false_fact");
+  });
+
+  it("does not read a percent with no rate in it as a rate", () => {
+    expect(guard("S-payment-buyer-L2", "I'm 100% sure I want the gray one.", "en", true)).not.toContain("false_fact");
+    expect(guard("S-payment-buyer-L2", "Estoy 100% seguro de que quiero la gris.", "es", true)).not.toContain("false_fact");
+  });
+
+  const D = "S-deadline-tester-L2"; // Friday Oct 2; $1,000 bonus cash ends Monday Oct 5
+  it.each([
+    ["en", "I read the rebate ends Friday."],
+    ["es", "La oferta se acaba el viernes, me dijeron."],
+    ["en", "Your manager told me the bonus cash ends tonight."],
+    ["es", "Su gerente me dijo que el bono se acaba esta noche."],
+    ["en", "The bonus ends at six, right?"],
+  ] as const)("blocks a deadline the scenario does not hold (%s): %s", (language, text) => {
+    expect(guard(D, text, language, true)).toContain("false_fact");
+  });
+
+  it.each([
+    ["en", "So the thousand bucks is gone after Monday?"],
+    ["es", "¿O sea que los mil dólares se van después del lunes?"],
+    ["en", "The bonus cash ends Monday, October 5th?"],
+    ["es", "¿El bono se vence el lunes 5 de octubre?"],
+    ["en", "My lunch break ends at two today."],
+    ["es", "Mi hora de almuerzo se acaba a las dos."],
+    ["en", "Every dealer in Miami tells me the rebate ends this weekend."],
+  ] as const)("allows the real deadline and other things that end (%s): %s", (language, text) => {
+    expect(guard(D, text, language, true)).not.toContain("false_fact");
+  });
+
+  it("blocks any offer deadline in a scenario with none", () => {
+    expect(guard("S-payment-buyer-L2", "I heard the deal ends tomorrow.", "en", true)).toContain("false_fact");
+    expect(guard("S-payment-buyer-L2", "Me dijeron que la oferta se acaba mañana.", "es", true)).toContain("false_fact");
+  });
+});

@@ -1,8 +1,9 @@
 import type { BilingualText, Lexicon, ScenarioFacts } from "@taptics/content";
 import type { Language } from "@taptics/i18n";
 import { findMoney } from "./money.js";
-import { findNumbers } from "./numbers.js";
-import { clauseAt, compile, patternsFor } from "./text.js";
+import { resolveDates } from "./dates.js";
+import { findClockTimes, findNumbers } from "./numbers.js";
+import { clauseAt, clauses, compile, patternsFor } from "./text.js";
 
 /**
  * Guards every AI customer line before it is spoken (spec 4.3 item 7, 10.4, 21.3): the hidden truth must not leak
@@ -99,6 +100,18 @@ const TRADE_CUE = [
 const ELSEWHERE_CUE =
   /(?<![\p{L}])(?:other (?:dealer(?:ship)?|store|place|lot)s?|another (?:dealer(?:ship)?|store|place|lot)|down the street|online|carvana|carmax|credit union|my bank|otra (?:agencia|tienda)|otro (?:dealer|concesionario|lugar)|la cooperativa|mi banco|en internet)(?![\p{L}])/iu;
 
+/** A rate: only true when it is the lender's approval or a quoted option's APR. */
+const RATE_CUE =
+  /(?<![\p{L}])(?:apr|a\.p\.r\.?|rate|interest|financ\p{L}*|credit union|bank|lender|inter[eé]s|tasa|cooperativa|banco|prestamista)(?![\p{L}])/iu;
+/** An offer, a rebate or an amount said to end on some day ("the rebate ends Friday", "la oferta se acaba el viernes"). */
+const DEADLINE_CUE =
+  /(?<![\p{L}])(?:ends?|ending|expires?|expiring|runs? out|is over|gone|goes away|good (?:until|through|till)|valid (?:until|through)|last day|deadline|cut-?off|se acaba|acaba|se termina|termina|vence|se vence|expira|caduca|se va|se van|se pierde|[uú]ltimo d[ií]a|v[aá]lid[ao] hasta|fecha l[ií]mite)(?![\p{L}])/iu;
+/** "Every dealer tells me the rebate ends this weekend": a doubt about dealers in general, not a fact about this deal. */
+const GENERIC_CLAIM_CUE =
+  /(?<![\p{L}])(?:every (?:dealer(?:ship)?|salesman|salesperson|sales guy|store|place|lot)|all (?:the |you )?(?:dealers|dealerships|salesmen|salespeople|stores)|(?:dealers|you guys|they) always|todos los (?:dealers|vendedores|concesionarios)|todas las (?:agencias|tiendas)|siempre (?:me )?dicen)(?![\p{L}])/iu;
+const OFFER_CUE =
+  /(?<![\p{L}])(?:rebate|bonus|cash back|incentive|offer|deal|discount|promo(?:tion)?|special|sale|price|financing|rate|apr|reembolso|bono|incentivo|oferta|descuento|rebaja|promoci[oó]n|especial|precio|financiamiento|tasa)(?![\p{L}])/iu;
+
 interface Amount {
   start: number;
   end: number;
@@ -172,6 +185,31 @@ export function guardCustomerLine(input: CustomerGuardInput): CustomerIssue[] {
     const differenceRole = m.role === "gap" || m.role === "payment" || m.role === "budget" || m.role === "unknown";
     if (differenceRole && !ELSEWHERE_CUE.test(clause.text) && near(sets.differences, m.value, tolerance)) continue;
     flag(`amount ${m.value} not in scenario facts`);
+  }
+
+  // A rate the customer was "given" must be the lender's approval or a quoted option's APR.
+  const rates = [facts.approved_apr_bps, ...facts.payment_options.map((p) => p.apr_bps)].filter((v): v is number => v != null);
+  for (const n of findNumbers(text, language)) {
+    if (n.unit !== "percent" || !RATE_CUE.test(clauseAt(text, n.start).text)) continue;
+    if (rates.some((r) => Math.abs(r - n.value) <= 5)) continue;
+    issues.push({ kind: "false_fact", span: { start: n.start, end: n.end, text: n.text }, detail: `rate ${n.value} bps not in scenario facts` });
+  }
+
+  // An offer said to end on a day (or at a time today) must end on one of the scenario's real deadlines.
+  const deadlineDates = new Set([...facts.deadlines.map((d) => d.date), ...facts.rebates.map((r) => r.ends)]);
+  for (const clause of clauses(text)) {
+    const deadline = DEADLINE_CUE.exec(clause.text);
+    if (!deadline || GENERIC_CLAIM_CUE.test(clause.text)) continue;
+    if (!OFFER_CUE.test(clause.text) && !amounts.some((a) => a.start >= clause.start && a.start < clause.end)) continue;
+    const resolved = resolveDates(clause.text, facts.session_date, lexicon);
+    // "It ends at six" names a time, so it means today.
+    const dates = resolved.dates.length ? resolved.dates : findClockTimes(clause.text).length ? [facts.session_date] : [];
+    if (dates.length === 0 || dates.some((d) => deadlineDates.has(d))) continue;
+    issues.push({
+      kind: "false_fact",
+      span: { start: clause.start, end: clause.end, text: clause.text },
+      detail: deadlineDates.size ? `deadline ${dates.join("/")} is not ${[...deadlineDates].join("/")}` : `deadline ${dates.join("/")}: the scenario has none`,
+    });
   }
   return issues;
 }
