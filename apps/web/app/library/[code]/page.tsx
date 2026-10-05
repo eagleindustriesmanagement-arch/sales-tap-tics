@@ -39,6 +39,8 @@ export default async function Detail({ params }: { params: Promise<{ code: strin
         <Card className="space-y-4">
           <Both lang={lang} label={t("library.when", lang)} value={tech.when} />
           <Both lang={lang} label={t("library.modelLine", lang)} value={tech.model_line} quote={tech.model_line_kind === "spoken"} />
+          {/* "$X" and "$A" are fill-ins, not numbers to say (October 5 blitz): say so. */}
+          {/\$[A-Z]\b/.test(tech.model_line.en + tech.model_line.es) && <p className="text-[13px] text-muted">{t("library.placeholderNote", lang)}</p>}
           {tech.use_only_when && <Both lang={lang} label={t("library.onlyWhen", lang)} value={tech.use_only_when} />}
           {tech.flawed_line && <Both lang={lang} label={t("library.flawedLine", lang)} value={tech.flawed_line} quote />}
           {tech.why && <Both lang={lang} label={t("library.why", lang)} value={tech.why} />}
