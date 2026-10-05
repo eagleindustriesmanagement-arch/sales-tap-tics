@@ -8,7 +8,7 @@ import { language, library } from "@/lib/server";
 const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
 export default async function Library({ searchParams }: { searchParams: Promise<{ tab?: string; q?: string; grade?: string }> }) {
-  await requireUser();
+  const user = await requireUser();
   const lang: Language = await language();
   const { tab = "techniques", q = "", grade = "" } = await searchParams;
   const lib = library();
@@ -21,6 +21,8 @@ export default async function Library({ searchParams }: { searchParams: Promise<
   return (
     <div className="space-y-4">
       <PageHeader title={t("library.title", lang)} />
+      {/* The example lines come from car sales; a solar, homes or furniture team is told the moves carry over. */}
+      {user.industry !== "cars" && <p className="text-[14px] text-muted" data-testid="library-car-note">{t("library.carExamples", lang)}</p>}
       <div role="tablist" className="liquid-glass-inset grid grid-cols-2 gap-1 rounded-[1.1rem] p-1">
         {(["techniques", "objections"] as const).map((name) => (
           <Link key={name} role="tab" aria-selected={tab === name} href={tabLink(name)} className={`flex min-h-11 items-center justify-center rounded-[0.85rem] px-4 text-[15px] font-semibold ${tab === name ? "liquid-glass liquid-glass-flat text-ink" : "text-muted"}`}>

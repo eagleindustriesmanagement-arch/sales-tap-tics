@@ -604,6 +604,7 @@ export const STRINGS = {
   "library.behind": { en: "Usually behind it", es: "Lo que suele haber detrás" },
   "library.coreMoves": { en: "Core moves", es: "Movimientos clave" },
   "library.placeholderNote": { en: "$X, $Y, $A and $B stand for the real numbers on your numbers sheet.", es: "$X, $Y, $A y $B representan los números reales de su hoja de números." },
+  "library.carExamples": { en: "The example lines come from car sales. The moves are the same with your customers: swap in your product and your numbers.", es: "Las frases de ejemplo vienen de la venta de carros. Las técnicas son las mismas con sus clientes: cambie el producto y los números por los suyos." },
   "library.release1": { en: "Pilot scenario", es: "Escenario piloto" },
   "library.results": { en: "{count, plural, one {# result} other {# results}}", es: "{count, plural, one {# resultado} other {# resultados}}" },
   "library.related": { en: "Related", es: "Relacionadas" },
