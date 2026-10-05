@@ -19,6 +19,9 @@ admin access as a privilege, a home page that sells, pricing, industries). Build
     lie on unclear audio is flagged for review instead of zeroing.
   - **Debrief**: "You said" on the turning point is always the rep's own line from the transcript; a placeholder
     the AI customer leaves ("la [SUV]") becomes the product's name.
+  - **Hardening**: one turn at a time per session; a migration never blocks the app on a lock (it fails the deploy
+    after 15 s instead); CI enforces spec 21.1's 80% line coverage (rules 86%, scoring 93%, content 93%, engine 96%);
+    spec 21.4's English/Spanish fairness holds on all 80 customers, good and flawed, and a test keeps it so.
 
 - **Learn, see it, do it, get scored** (decision 0031): each of the 20 certification scenarios opens with a lesson
   (the tactic, the psychology, when and when not, the exact words, the mistakes, the named moves scored), in English
@@ -339,6 +342,10 @@ admin access as a privilege, a home page that sells, pricing, industries). Build
   models, but a reviewer should confirm or move them into the facts.
 
 ## Next
+
+0. **Customer-prep mode** (spec 12.5): the last session mode not built. It builds a persona from the rep's own
+   description of a real upcoming customer, so it needs the live model and a privacy warning against names,
+   phone numbers and financial details (spec 20.1 item 2). It is Ernesto's call when to build it.
 
 1. M3: run the suite with both layers (`pnpm compliance:suite --with-classifier`) once `ANTHROPIC_API_KEY` is set,
    and work the critical misses to zero on dev, reporting holdout.
