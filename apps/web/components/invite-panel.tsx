@@ -6,7 +6,7 @@ import { t, type Language } from "@taptics/i18n";
 import { IconUsers } from "@/components/icons";
 import { Card, buttonClass, ghostButtonClass } from "@/components/ui";
 
-interface Link { id: string; role: "rep" | "manager"; uses: number }
+interface Link { id: string; role: "rep" | "manager"; uses: number; createdAt: Date | string }
 
 /**
  * Invite links (decision 0032): a manager makes a link, sends it any way they like, and whoever signs up through it
@@ -15,7 +15,7 @@ interface Link { id: string; role: "rep" | "manager"; uses: number }
 export function InvitePanel({ language: lang, links, canInviteManagers }: { language: Language; links: Link[]; canInviteManagers: boolean }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
   const router = useRouter();
-  const [fresh, setFresh] = useState<{ url: string; role: string } | null>(null);
+  const [fresh, setFresh] = useState<{ id: string; url: string; role: string } | null>(null);
   const [copied, setCopied] = useState(false);
   const [busy, setBusy] = useState(false);
 
@@ -23,9 +23,9 @@ export function InvitePanel({ language: lang, links, canInviteManagers }: { lang
     setBusy(true);
     setCopied(false);
     const res = await fetch("/api/invites", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ role }) }).catch(() => null);
-    const data = ((await res?.json().catch(() => ({}))) ?? {}) as { url?: string };
+    const data = ((await res?.json().catch(() => ({}))) ?? {}) as { id?: string; url?: string };
     setBusy(false);
-    if (data.url) setFresh({ url: data.url, role });
+    if (data.url) setFresh({ id: data.id ?? "", url: data.url, role });
     router.refresh();
   }
   async function revoke(id: string) {
@@ -72,15 +72,40 @@ export function InvitePanel({ language: lang, links, canInviteManagers }: { lang
         <div className="space-y-2 border-t border-line-soft pt-3">
           <p className="text-[13px] font-semibold tracking-wide text-muted uppercase">{ui("invites.active")}</p>
           <ul className="space-y-1.5">
-            {links.map((l) => (
-              <li key={l.id} className="flex items-center justify-between gap-3 text-[15px] text-ink">
-                <span>{ui("invites.linkFor", { role: ui(l.role === "manager" ? "role.manager" : "role.rep"), n: l.uses })}</span>
-                <button type="button" className="min-h-11 px-2 font-semibold text-bad" onClick={() => void revoke(l.id)}>{ui("invites.revoke")}</button>
-              </li>
-            ))}
+            {/* Each row says when its link was made and which one was just made: two links for the same role otherwise
+                read the same, and on a phone the second row's button looked like a stray one (October 5 report). */}
+            {links.map((l) => {
+              const role = ui(l.role === "manager" ? "role.manager" : "role.rep");
+              const when = madeWhen(l.createdAt, lang);
+              return (
+                <li key={l.id} className="flex items-center justify-between gap-3" data-testid="invite-row">
+                  <span className="min-w-0">
+                    <span className="block text-[15px] text-ink">{ui("invites.linkFor", { role, n: l.uses })}</span>
+                    <span className="block text-[13px] text-muted">
+                      <span className="whitespace-nowrap">{ui("invites.made", { when })}</span>
+                      {fresh?.id === l.id && <span className="ml-2 font-semibold text-brand">{ui("invites.fresh")}</span>}
+                    </span>
+                  </span>
+                  <button type="button" aria-label={ui("invites.revokeOne", { role, when })} className="min-h-11 shrink-0 px-2 font-semibold text-bad" onClick={() => void revoke(l.id)}>{ui("invites.revoke")}</button>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
     </Card>
   );
+}
+
+/** "today, 10:42 AM" or "Oct 3": enough to tell two links apart, in the dealership's time zone. */
+function madeWhen(at: Date | string, lang: Language): string {
+  const d = new Date(at);
+  const tz = "America/New_York";
+  const locale = lang === "es" ? "es-US" : "en-US";
+  const day = (x: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(x);
+  if (day(d) === day(new Date())) {
+    const time = new Intl.DateTimeFormat(locale, { timeZone: tz, hour: "numeric", minute: "2-digit" }).format(d);
+    return t("invites.today", lang, { time });
+  }
+  return new Intl.DateTimeFormat(locale, { timeZone: tz, month: "short", day: "numeric" }).format(d);
 }

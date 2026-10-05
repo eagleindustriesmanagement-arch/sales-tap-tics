@@ -62,6 +62,15 @@ test("a manager signs up a team, sends an invite link, and whoever joins through
   const url = (await page.getByTestId("invite-url").textContent())!.trim();
   expect(url).toMatch(/\/join\/[A-Za-z0-9_-]{30,}$/);
   await expect(page.getByTestId("invite-panel")).toContainText("Rep link · 0 joined");
+  // Two links for the same role read apart: each says when it was made, and the one just made says so (October 5:
+  // two identical rows on a phone looked like one link with a stray second "Turn off").
+  await page.getByRole("button", { name: "Make a link for reps" }).click();
+  await expect(page.getByTestId("invite-row")).toHaveCount(2);
+  await expect(page.getByTestId("invite-row").filter({ hasText: "Made today" })).toHaveCount(2);
+  await expect(page.getByTestId("invite-row").filter({ hasText: "Just made" })).toHaveCount(1);
+  await expect(page.getByTestId("invite-url")).not.toHaveText(url);
+  await page.getByTestId("invite-row").filter({ hasText: "Just made" }).getByRole("button", { name: /^Turn off the Rep link made today/ }).click();
+  await expect(page.getByTestId("invite-row")).toHaveCount(1);
 
   // A rep opens the link, joins with their own email, and practices on this team.
   const ctx = await browser.newContext();

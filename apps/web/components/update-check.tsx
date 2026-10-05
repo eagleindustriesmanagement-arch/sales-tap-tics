@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { t, type Language } from "@taptics/i18n";
+import { navIntent } from "@/lib/nav-intent";
 import { CLIENT_BUILD } from "@/lib/voice/diagnostics";
 
 /**
@@ -30,7 +31,10 @@ export function UpdateCheck({ language }: { language: Language }) {
       if (quiet || tried === body.build || document.documentElement.dataset.liveSession === "1") return setReady(true);
       // No storage to remember the try (some private windows): offer, never risk a reload loop.
       try { sessionStorage.setItem(key, body.build); } catch { return setReady(true); }
-      location.reload();
+      // A tap still on its way goes where it was headed, on the new release; reloading this screen would undo it.
+      const going = navIntent.get();
+      if (going) location.assign(going);
+      else location.reload();
     };
     void check(false);
     const onVisible = () => { void check(false); };

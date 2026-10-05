@@ -132,17 +132,19 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
               <Avatar name={q.first_name ?? "?"} size={36} />
               <p className="text-[16px] font-bold text-ink">{q.first_name}</p>
             </div>
-            <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
+            {/* One row per measure, label left and value right in plain bold numbers (the Panel's style): the display
+                serif's "1" read as a stroke and wrapped labels put values beside the wrong label (October 5 report). */}
+            <dl className="divide-y divide-line-soft">
               {([
-                [t("team.checks", lang), String(q.checks), undefined],
+                [t("team.checks", lang), String(q.checks), "quality-checks"],
                 [t("team.hours", lang), q.avg_hours === null ? "—" : q.avg_hours.toFixed(1), undefined],
                 [t("team.specific", lang), pct(q.specific_share), undefined],
-                [t("team.modeled", lang), pct(q.modeled_share), undefined],
+                [t("team.modeled", lang), pct(q.modeled_share), "quality-modeled"],
                 [t("coach.column", lang), coachCell(coachPractice.find((c) => c.manager_id === q.manager_id), lang), `coach-${q.first_name}`],
               ] as const).map(([label, value, testId]) => (
-                <div key={label}>
-                  <dt className="text-[13px] text-muted">{label}</dt>
-                  <dd className={`font-display leading-tight text-ink tabular-nums ${value.length > 6 ? "text-[18px]" : "text-[26px]"}`} data-testid={testId}>{value}</dd>
+                <div key={label} className="flex items-baseline justify-between gap-4 py-2">
+                  <dt className="text-[14px] text-muted">{label}</dt>
+                  <dd className="text-right text-[16px] font-bold text-ink tabular-nums" data-testid={testId}>{value}</dd>
                 </div>
               ))}
             </dl>

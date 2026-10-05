@@ -164,6 +164,10 @@ test("the manager sees the team's cards, records a floor check in under 60 secon
   await expect(page.getByRole("link", { name: "Luis", exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "Ana", exact: true })).toBeVisible();
   await expect(page.getByText(/\(Checked\)/)).toBeVisible();
+  // Every coaching measure shows its value beside its own label (October 5: "Checks" and "Line modeled" read empty).
+  await expect(page.getByTestId("quality-checks")).toHaveText("1");
+  await expect(page.getByTestId("quality-modeled")).toHaveText("100%");
+  await expect(page.getByTestId("quality-checks").locator("xpath=preceding-sibling::dt")).toHaveText("Checks");
 
   const c = db();
   await c.connect();
@@ -909,5 +913,25 @@ test("a phone still on an older release reloads once, then offers the update ins
   await expect(page.getByTestId("update-ready")).toBeVisible({ timeout: 15_000 });
   await page.waitForTimeout(1500);
   expect(visits).toBe(2); // the page, then exactly one reload
+  await page.unroute("**/api/version");
+});
+
+test("a tap made while the app reloads for a new release still lands on the tapped screen", async ({ page }) => {
+  // October 5: a first tap on "Team" seemed to do nothing. A release check that reloads while a tap is on its way
+  // must finish the tap on the new release, not reload the screen the rep was leaving.
+  await signInReady(page, "rep2@demo.test");
+  let releaseVersion!: () => void;
+  const gate = new Promise<void>((r) => (releaseVersion = r));
+  await page.route("**/api/version", async (route) => { await gate; await route.fulfill({ json: { build: "a-newer-release" } }); });
+  // The next screen is slow to arrive, as on a cold server.
+  await page.route(/\/progress\?_rsc=/, async (route) => { await new Promise((r) => setTimeout(r, 4000)); await route.continue().catch(() => undefined); });
+  await page.goto("/today");
+  await page.waitForTimeout(1000); // hydrated: the tap is the app's own navigation
+  const link = page.getByRole("link", { name: "Progress" }).first();
+  await link.click();
+  await expect(link).toHaveAttribute("data-pending", ""); // the tap shows it landed
+  releaseVersion();
+  await expect(page).toHaveURL(/\/progress$/, { timeout: 15_000 });
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.unroute("**/api/version");
 });
