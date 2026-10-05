@@ -4,13 +4,14 @@ import { Card, PageHeader } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 /** Audit log (spec 18.3): who read whose session, changed settings, people or scores. General manager only. */
 export default async function Audit() {
   const user = await requireUser({ roles: ["general_manager"] });
   const lang = await language();
   const entries = await asUser(principalOf(user), (db) => auditEntries(db, 200));
-  const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/New_York" });
+  const fmt = dateFormat(lang, { dateStyle: "medium", timeStyle: "short", timeZone: "America/New_York" });
   return (
     <div className="space-y-4">
       <PageHeader title={t("audit.title", lang)} subtitle={t("audit.intro", lang)} />

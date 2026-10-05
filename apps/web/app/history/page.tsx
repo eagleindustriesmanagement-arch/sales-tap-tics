@@ -6,13 +6,14 @@ import { Empty, ListRow, PageHeader, RowGroup, ScoreBadge, WarmUpTag, buttonClas
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 /** Every session the rep ran, newest first, with the score and how the customer left. */
 export default async function History() {
   const user = await requireUser();
   const lang = await language();
   const sessions = await asUser(principalOf(user), (db) => listSessions(db, { userId: user.id }));
-  const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/New_York" });
+  const fmt = dateFormat(lang, { dateStyle: "medium", timeStyle: "short", timeZone: "America/New_York" });
   const now = new Date();
   return (
     <div className="space-y-5">

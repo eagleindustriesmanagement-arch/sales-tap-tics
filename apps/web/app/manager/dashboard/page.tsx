@@ -6,6 +6,7 @@ import { Avatar, Card, ListRow, PageHeader, RowGroup, SectionTitle, Stat } from 
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, scheduleInputs } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 /** Store dashboard (spec 18.3): return on training, for the general manager. The four numbers first, the trend under them. */
 export default async function Dashboard() {
@@ -18,7 +19,7 @@ export default async function Dashboard() {
   const issued = last4.reduce((n, w) => n + w.cardsIssued, 0);
   const checked = last4.reduce((n, w) => n + w.cardsChecked, 0);
   const pct = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)}%` : "—");
-  const fmtWeek = (w: string) => new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${w}T00:00:00Z`));
+  const fmtWeek = (w: string) => dateFormat(lang, { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${w}T00:00:00Z`));
   const maxSessions = Math.max(1, ...d.weeks.map((w) => w.sessions));
   const tile = "grid h-9 w-9 place-items-center rounded-[10px] ring-1 ring-current/20 ring-inset";
   return (

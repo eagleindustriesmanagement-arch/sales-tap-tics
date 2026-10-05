@@ -6,13 +6,14 @@ import { Card, Empty, PageHeader, Pill, SectionTitle } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 /** Compliance view (spec 14.5 item 3): violations by rule and by rep, with the turn and the true fact. */
 export default async function Compliance() {
   const user = await requireUser({ roles: ["manager", "general_manager", "compliance_reviewer"] });
   const lang = await language();
   const flags = await asUser(principalOf(user), (db) => complianceFlags(db));
-  const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/New_York" });
+  const fmt = dateFormat(lang, { dateStyle: "medium", timeStyle: "short", timeZone: "America/New_York" });
   if (flags.recent.length === 0) {
     return (
       <div className="space-y-4">

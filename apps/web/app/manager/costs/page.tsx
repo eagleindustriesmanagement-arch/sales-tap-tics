@@ -4,6 +4,7 @@ import { Card, PageHeader, Stat } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { aiConfigured, language } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 /** Model cost and health for the store (M7): spend, cost per session, latency and failures, by day and purpose. */
 export default async function Costs() {
@@ -46,4 +47,4 @@ export default async function Costs() {
 
 /** A calendar day ("2026-10-05") as the rest of the app writes it: "Oct 5" / "5 oct". */
 const dayLabel = (d: string | Date, lang: "en" | "es") =>
-  new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(typeof d === "string" ? `${d.slice(0, 10)}T12:00:00Z` : d));
+  dateFormat(lang, { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(typeof d === "string" ? `${d.slice(0, 10)}T12:00:00Z` : d));

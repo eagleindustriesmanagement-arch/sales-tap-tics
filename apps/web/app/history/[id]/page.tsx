@@ -9,6 +9,7 @@ import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { debriefPayload } from "@/lib/payload";
 import { language, library } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 /** A stored session (spec 18.1 History): the rep's own, or a team member's for a manager (RLS decides, reads are audited). */
 export default async function SessionPage({ params }: { params: Promise<{ id: string }> }) {
@@ -60,7 +61,7 @@ export default async function SessionPage({ params }: { params: Promise<{ id: st
     debrief: detail.debrief,
     transcript: detail.turns,
   });
-  const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { dateStyle: "medium", timeZone: "America/New_York" });
+  const fmt = dateFormat(lang, { dateStyle: "medium", timeZone: "America/New_York" });
   return (
     <div className="space-y-4">
       {overrides.length > 0 && (

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { t, type Language } from "@taptics/i18n";
 import { Card, SEGMENT_INPUT, buttonClass } from "@/components/ui";
 import type { AssignGroup } from "@/lib/assign-options";
+import { dateFormat } from "@/lib/dates";
 
 const input = "mt-1.5 min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
 
@@ -91,7 +92,7 @@ export function AssignForm({ language: lang, reps, groups, preselected }: {
               <input type="date" className={`${input} [color-scheme:dark]`} min={daysFromToday(0)} value={due} onChange={(e) => setDue(e.target.value)} data-testid="due-date" />
             </label>
           ) : due ? (
-            <p className="mt-2 text-[14px] text-body" data-testid="due-summary">{ui("assign.dueOn", { date: new Date(`${due}T12:00:00`).toLocaleDateString(lang === "es" ? "es-US" : "en-US", { weekday: "short", month: "short", day: "numeric" }) })}</p>
+            <p className="mt-2 text-[14px] text-body" data-testid="due-summary">{ui("assign.dueOn", { date: dateFormat(lang, { weekday: "short", month: "short", day: "numeric" }).format(new Date(`${due}T12:00:00`)) })}</p>
           ) : null}
         </fieldset>
         <label className="block text-[14px] font-medium text-muted">{ui("assign.reason")}<textarea className={`${input} min-h-20 py-2`} maxLength={300} value={reason} onChange={(e) => setReason(e.target.value)} placeholder={ui("assign.reasonHint")} /></label>

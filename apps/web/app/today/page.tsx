@@ -8,6 +8,7 @@ import { Card, Chip, Inset, ListRow, Ring, RowGroup, ScoreBadge, WarmUpTag, Sect
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { hasIndustry, language, library, scheduleInputs, warmUpItems } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 const DAILY_GOAL = 1;
 const TZ = "America/New_York";
@@ -57,8 +58,8 @@ export default async function Today() {
   const assignedNext = top?.reason.kind === "assigned" ? assigned.find((a) => a.scenarioCode === top.scenarioCode) : undefined;
   const after = plan.slice(1, 3).map((p) => ({ p, s: lib.scenarios.get(p.scenarioCode)! })).filter((x) => x.s);
   const locale = lang === "es" ? "es-US" : "en-US";
-  const dateFmt = new Intl.DateTimeFormat(locale, { weekday: "long", month: "long", day: "numeric", timeZone: TZ });
-  const dueFmt = new Intl.DateTimeFormat(locale, { weekday: "long", month: "short", day: "numeric", timeZone: TZ });
+  const dateFmt = dateFormat(locale, { weekday: "long", month: "long", day: "numeric", timeZone: TZ });
+  const dueFmt = dateFormat(locale, { weekday: "long", month: "short", day: "numeric", timeZone: TZ });
   const goalMet = doneToday >= DAILY_GOAL;
   // Spec 12.5 and 15.2: an optional 3-minute warm-up at the start of a shift, on the rep's weakest behavior.
   const warm = pickWarmUp({ scenarios: inputs.scenarios, items: warmUpItems(lib), history: progress.history });

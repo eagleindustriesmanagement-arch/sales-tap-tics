@@ -8,6 +8,7 @@ import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import type { Scenario } from "@taptics/content";
 import { language, library, practiceList, scheduleInputs } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 type NodeState = "certified" | "passed" | "next" | "tried" | "new";
 
@@ -33,7 +34,7 @@ export default async function Practice() {
   // Certification opens once onboarding has met every release 1 scenario (spec 15.2).
   const tried = new Set(past.history.map((o) => o.scenarioCode));
   const certOpen = onboardingDay({ now, startedAt: past.startedAt }) >= 30 || inputs.scenarios.filter((s) => s.release1).every((s) => tried.has(s.code));
-  const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { month: "short", day: "numeric", timeZone: "America/New_York" });
+  const fmt = dateFormat(lang, { month: "short", day: "numeric", timeZone: "America/New_York" });
   const release1 = new Set(inputs.scenarios.filter((s) => s.release1).map((s) => s.code));
   const byTitle = (a: Scenario, b: Scenario) => a.title[lang].localeCompare(b.title[lang], lang);
   const core = list.filter((s) => release1.has(s.code)).map((s) => lib.scenarios.get(s.code)!);

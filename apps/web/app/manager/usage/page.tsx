@@ -5,6 +5,7 @@ import { Card, PageHeader, SectionTitle, Stat } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 const DAYS = 28;
 
@@ -79,4 +80,4 @@ export default async function Usage() {
 
 /** A calendar day ("2026-10-05") as the rest of the app writes it: "Oct 5" / "5 oct". */
 const dayLabel = (d: string | Date, lang: "en" | "es") =>
-  new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(typeof d === "string" ? `${d.slice(0, 10)}T12:00:00Z` : d));
+  dateFormat(lang, { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(typeof d === "string" ? `${d.slice(0, 10)}T12:00:00Z` : d));

@@ -4,6 +4,7 @@ import { certificationState, masteryFrom, practiceStreak, type Observation } fro
 import { IconBulb, IconCheck, IconFlame, IconTrophy } from "@/components/icons";
 import { Bar, Card, Ring, SectionTitle, quoted } from "@/components/ui";
 import { itemBehavior, library, scheduleInputs } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 const DIMENSIONS = ["discovery", "technique", "composure", "outcome"] as const;
 
@@ -30,12 +31,12 @@ export function ProgressView({ progress, history, lang, industry = "cars", solo 
     }))
     .filter((x) => x.m)
     .sort((a, b) => a.m!.value - b.m!.value);
-  const fmtWeek = (d: string) => new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${d}T00:00:00Z`));
+  const fmtWeek = (d: string) => dateFormat(lang, { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${d}T00:00:00Z`));
   const latest = progress.weeks.at(-1);
   // Weeks start on Monday (UTC), as the scores are grouped: say which week the tiles show, so this week's sessions
   // are never mistaken for an old date.
   const monday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - ((now.getUTCDay() + 6) % 7))).toISOString().slice(0, 10);
-  const fmtDay = (d: string) => new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${d}T00:00:00Z`));
+  const fmtDay = (d: string) => dateFormat(lang, { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${d}T00:00:00Z`));
   const prior = progress.weeks.at(-2);
   return (
     <div className="space-y-6">

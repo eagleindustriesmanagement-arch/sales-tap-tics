@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { t, type Language } from "@taptics/i18n";
 import { Card, buttonClass, ghostButtonClass } from "@/components/ui";
+import { dateFormat } from "@/lib/dates";
 
 type Kind = "dealer_mandatory" | "government_customer_pays" | "optional";
 interface Fee { code: string; nameEn: string; nameEs: string; amountCents: number; kind: Kind }
@@ -57,9 +58,9 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove, dealer
     if (res?.ok) setApprovedAt(new Date().toISOString());
   }
 
-  const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { dateStyle: "medium", timeZone: "America/New_York" });
+  const fmt = dateFormat(lang, { dateStyle: "medium", timeZone: "America/New_York" });
   // 2026-10-04 was a Sunday: day n of that week names weekday n in the rep's language.
-  const dayName = (n: number) => new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "long", timeZone: "UTC" }).format(new Date(Date.UTC(2026, 9, 4 + n)));
+  const dayName = (n: number) => dateFormat(lang, { weekday: "long", timeZone: "UTC" }).format(new Date(Date.UTC(2026, 9, 4 + n)));
   const setPeak = (i: number, patch: Partial<StoreFormValue["peakHours"][number]>) => set("peakHours", v.peakHours.map((p, j) => (i === j ? { ...p, ...patch } : p)));
   return (
     <form onSubmit={save} className="space-y-4">

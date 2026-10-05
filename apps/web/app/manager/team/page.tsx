@@ -10,6 +10,7 @@ import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { madeWhen } from "@/lib/made-when";
 import { language, library, scheduleInputs } from "@/lib/server";
+import { dateFormat } from "@/lib/dates";
 
 const FOCUS_TONE = { coach: "brand", extra_practice: "warn", stretch: "good", needs_scores: "neutral" } as const;
 
@@ -162,7 +163,7 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
 }
 
 function fmtDay(d: Date, lang: "en" | "es") {
-  return new Intl.DateTimeFormat(lang === "es" ? "es-US" : "en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "America/New_York" }).format(new Date(d));
+  return dateFormat(lang, { weekday: "short", month: "short", day: "numeric", timeZone: "America/New_York" }).format(new Date(d));
 }
 
 /** "2 sessions · avg 75", not a bare "2 · 75" nobody can read. */
