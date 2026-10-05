@@ -48,7 +48,7 @@ export function weakestItem(library: Library, items: ItemResult[]): ItemResult |
   return scored.reduce((a, b) => (priority(b) > priority(a) ? b : a));
 }
 
-export function buildDebrief(input: { library: Library; scenario: Scenario; score: ScoreResult; transcript: ScoredTurn[]; judge?: JudgeResult | null; endReason: string | null; focusItem?: string }): Debrief {
+export function buildDebrief(input: { library: Library; scenario: Scenario; score: ScoreResult; transcript: ScoredTurn[]; judge?: JudgeResult | null; endReason: string | null; focusItem?: string; /** Walk-out triggers the rep's lines hit, as the persona describes them. */ triggers?: BilingualText[] }): Debrief {
   const { library, scenario, score, transcript } = input;
   const behavior = (code: string) =>
     scenario.scoring?.items.find((i) => i.code === code)?.behavior ??
@@ -73,6 +73,17 @@ export function buildDebrief(input: { library: Library; scenario: Scenario; scor
   if (weak) {
     const t = weak.technique ? library.techniques.get(weak.technique) : undefined;
     change = { code: weak.code, behavior: behavior(weak.code), why: t?.why ?? weak.explanation, technique: t?.code ?? null, stretch: false, concept: concept(weak.code) };
+  } else if (input.triggers?.length) {
+    // Everything scored landed, but a line pushed the customer toward the door: that is the one change, not a
+    // stretch goal (October 5 blitz: "Everything landed" after a line that belittled the customer).
+    const hit = input.triggers[0]!;
+    change = {
+      code: "walk_out_trigger",
+      behavior: { en: `Drop the line that pushed the customer away: ${hit.en.charAt(0).toLowerCase()}${hit.en.slice(1)}`, es: `Evite la frase que le dio ganas de irse: ${hit.es.charAt(0).toLowerCase()}${hit.es.slice(1)}` },
+      why: { en: "Lines like that make a customer want to leave, even when everything else goes well.", es: "Una frase así da ganas de irse, aunque todo lo demás salga bien." },
+      technique: null,
+      stretch: false,
+    };
   } else {
     // Everything scored landed: point to the next target technique instead of showing a bare score.
     const next = scenario.target_techniques.map((c) => library.techniques.get(c)).find((t) => t?.why);

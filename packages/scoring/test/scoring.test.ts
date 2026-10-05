@@ -89,6 +89,17 @@ describe("O01 scoring table (spec 10.5)", () => {
     expect(d.coaching[0]!.quote).toBe("Can't you decide yourself?");
   });
 
+  it("a walk-out trigger the rep hit is the one change, even when every scored item landed (October 5 blitz)", async () => {
+    const scored = await score({ judge: JUDGE_ALL });
+    const s = { ...scored, items: scored.items.map((i) => (i.status === "scored" ? { ...i, points: i.max } : i)) };
+    const trigger = { en: "Belittles the need to think it over", es: "Menosprecia que lo quiera pensar" };
+    const d = buildDebrief({ library, scenario, score: s, transcript: transcript(), endReason: "next_step", triggers: [trigger] });
+    expect(d.change.stretch).toBe(false);
+    expect(d.change.code).toBe("walk_out_trigger");
+    expect(d.change.behavior.en).toContain("belittles the need to think it over");
+    expect(buildDebrief({ library, scenario, score: s, transcript: transcript(), endReason: "next_step" }).change.code).not.toBe("walk_out_trigger");
+  });
+
   it("a judge honesty auto-fail still zeroes the attempt", async () => {
     const lying = { ...scenario, scoring: { ...scenario.scoring!, auto_fail: [...scenario.scoring!.auto_fail, { code: "invented_discount", description: { en: "Invented a discount", es: "Inventó un descuento" }, method: "judge" as const, rule_families: [], kind: "honesty" as const }] } };
     const s = await score({ scenario: lying, judge: { ...JUDGE_ALL, autoFail: { invented_discount: { hit: true, evidence: { turnIndex: 1, quote: "Special discount just for you" }, explanation: { en: "", es: "" } } } } });

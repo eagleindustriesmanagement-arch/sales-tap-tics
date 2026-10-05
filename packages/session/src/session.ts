@@ -276,7 +276,7 @@ export class PracticeSession {
       judgeDown = true;
     }
     if (this.options.focusItem) score = focusOn(score, this.options.focusItem);
-    const debrief = buildDebrief({ library: this.options.library, scenario: this.scenario, score, transcript: this.transcript, endReason: outcome.endReason, focusItem: this.options.focusItem });
+    const debrief = buildDebrief({ library: this.options.library, scenario: this.scenario, score, transcript: this.transcript, endReason: outcome.endReason, focusItem: this.options.focusItem, triggers: this.persona.walk_out_triggers.filter((c) => outcome.triggersFired.includes(c.code)).map((c) => c.description) });
     return { sessionId: this.options.sessionId, scenarioCode: this.scenario.code, language: this.language, transcript: this.transcript, violations: this.violations, engine: outcome, score, debrief, offline, judgeDown };
   }
 }
