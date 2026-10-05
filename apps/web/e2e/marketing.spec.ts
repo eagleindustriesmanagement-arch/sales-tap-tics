@@ -147,3 +147,30 @@ test.describe("the public home page", () => {
     }
   });
 });
+
+test("every response carries the security headers, and the page refuses another site's script and framing", async ({ page, request }) => {
+  for (const path of ["/", "/login", "/api/health"]) {
+    const res = await request.get(path);
+    const h = res.headers();
+    expect(h["content-security-policy"], path).toContain("default-src 'self'");
+    expect(h["content-security-policy"], path).toContain("frame-ancestors 'none'");
+    expect(h["strict-transport-security"], path).toContain("max-age=63072000");
+    expect(h["x-content-type-options"], path).toBe("nosniff");
+    expect(h["x-frame-options"], path).toBe("DENY");
+    expect(h["referrer-policy"], path).toBe("strict-origin-when-cross-origin");
+    expect(h["permissions-policy"], path).toContain("microphone=(self)");
+  }
+  // The policy is enforced, not only sent: a script from another origin is refused before it loads.
+  await page.goto("/");
+  const blocked = await page.evaluate(
+    () =>
+      new Promise<string>((resolve) => {
+        document.addEventListener("securitypolicyviolation", (e) => resolve(e.violatedDirective), { once: true });
+        const s = document.createElement("script");
+        s.src = "https://example.com/x.js";
+        document.head.appendChild(s);
+        setTimeout(() => resolve("none"), 3000);
+      }),
+  );
+  expect(blocked).toMatch(/^script-src/);
+});

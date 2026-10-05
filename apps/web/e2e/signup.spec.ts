@@ -1,7 +1,11 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
+import pg from "pg";
 import { OUTBOX } from "../playwright.config";
+
+/** The demo company (packages/db/scripts/seed-demo.ts): the other tenant in the cross-tenant test. */
+const DEMO_TENANT = "11111111-1111-4111-8111-111111111111";
 
 /** Practice opens on the lesson (decision 0031); tests that are about something else step past it. */
 async function pastLesson(page: Page) {
@@ -103,6 +107,55 @@ test("a manager signs up a team, sends an invite link, and whoever joins through
   await late.goto(url);
   await expect(late.getByRole("heading", { level: 1, name: "This link has expired" })).toBeVisible();
   await late.close();
+
+  // Spec 21.1: cross-tenant access through every API route that takes an id. The owner is the general manager and
+  // admin of their own company; aimed at the demo company's records, every call is refused and nothing changes.
+  const c = new pg.Client({ connectionString: process.env.DATABASE_URL });
+  await c.connect();
+  const one = async (sql: string) => ((await c.query(sql, [DEMO_TENANT])).rows[0] ?? {}) as Record<string, string>;
+  const demoRep = (await one("select u.id from users u join memberships m on m.user_id = u.id and m.role = 'rep' where u.tenant_id = $1 order by u.email limit 1")).id!;
+  const demoSession = (await one("select id from sessions where tenant_id = $1 order by started_at limit 1")).id;
+  const demoInvite = (await one("insert into invite_links (tenant_id, store_id, token_hash, role, created_by) select $1, s.id, md5(random()::text), 'rep', (select id from users where tenant_id = $1 limit 1) from stores s where s.tenant_id = $1 limit 1 returning id")).id!;
+  const demoCard = (await one("insert into behavior_card_issues (tenant_id, user_id, card_code, item_code, due_week) select $1, u.id, 'C01', 'I1', date '2001-01-01' from users u where u.tenant_id = $1 order by u.email limit 1 on conflict do nothing returning id")).id;
+  const fingerprint = async () =>
+    JSON.stringify((await c.query(
+      `select (select count(*) from assignments where tenant_id = $1) a, (select count(*) from floor_checks where tenant_id = $1) f,
+              (select count(*) from behavior_card_issues where tenant_id = $1) b, (select count(*) from turns where tenant_id = $1) t,
+              (select count(*) from invite_links where tenant_id = $1 and revoked_at is null) i,
+              (select string_agg(id || status, ',' order by id) from users where tenant_id = $1) u,
+              (select string_agg(user_id || role, ',' order by user_id, role) from memberships where tenant_id = $1) m,
+              (select count(*) from score_overrides where tenant_id = $1) o,
+              (select string_agg(id || coalesce(ended_at::text, '') || coalesce(debrief_seen_at::text, ''), ',' order by id) from sessions where tenant_id = $1) s`,
+      [DEMO_TENANT],
+    )).rows[0]);
+  const before = await fingerprint();
+  const calls: [string, string, unknown][] = [
+    ["PUT", `/api/people/${demoRep}`, { status: "inactive" }],
+    ["PUT", `/api/people/${demoRep}`, { roles: ["general_manager"] }],
+    ["DELETE", `/api/invites/${demoInvite}`, undefined],
+    ["POST", "/api/assignments", { userIds: [demoRep], scenarioCode: "S-partner-check-L1", dueDate: null, reason: "x" }],
+    ["POST", "/api/floor-checks/cards", { userId: demoRep, cardCode: "C01" }],
+    ...(demoCard ? [["POST", "/api/floor-checks", { cardIssueId: demoCard, observed: "yes", seconds: 5 }] as [string, string, unknown]] : []),
+    ...(demoSession
+      ? ([
+          ["GET", `/api/sessions/${demoSession}`, undefined],
+          ["POST", `/api/sessions/${demoSession}/turn`, { text: "Hola" }],
+          ["POST", `/api/sessions/${demoSession}/finish`, {}],
+          ["POST", `/api/sessions/${demoSession}/seen`, {}],
+          ["POST", `/api/sessions/${demoSession}/override`, { flag: "judge_disagrees", reason: "cross-tenant test" }],
+        ] as [string, string, unknown][])
+      : []),
+  ];
+  const allowed: string[] = [];
+  for (const [method, url, body] of calls) {
+    const res = await page.request.fetch(url, { method, data: body });
+    if (res.ok()) allowed.push(`${method} ${url} answered ${res.status()}`);
+  }
+  expect(allowed).toEqual([]);
+  expect(await fingerprint()).toBe(before);
+  await c.query("delete from invite_links where id = $1", [demoInvite]);
+  if (demoCard) await c.query("delete from behavior_card_issues where id = $1", [demoCard]);
+  await c.end();
 
   // A wrong address is a real 404 with a way back.
   const missing = await page.goto("/no-such-page");
