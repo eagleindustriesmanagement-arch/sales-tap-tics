@@ -290,3 +290,13 @@ describe("Spanish unlock cues on a real floor (October 5 blitz)", () => {
     expect(unlocks("P-trade-defender", "Le doy dieciocho mil por la camioneta.")).toEqual([]);
   });
 });
+
+describe("a payment laid out with its terms is not a bare anchor (October 5 blitz)", () => {
+  const p = library.personas.get("P-payment-buyer")!;
+  const reason = (text: string, language: "en" | "es" = "en") => detectFromCues({ text, language, persona: p, lexicon }).givesReason;
+  it("counts the term and down payment as the reason", () => {
+    expect(reason("It's $549 a month for 72 months with $5,500 down.")).toBe(true);
+    expect(reason("Son $549 al mes, 72 meses, con $5,500 de inicial.", "es")).toBe(true);
+    expect(reason("It's $33,349 out the door.")).toBe(false);
+  });
+});

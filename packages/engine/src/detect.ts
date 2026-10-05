@@ -57,7 +57,9 @@ function triggered(condition: BehaviorCondition, raw: string, lexicon: Lexicon):
   });
 }
 
-const REASON = compile("\\b(because|here'?s why|the reason|that'?s why|since|based on|porque|le explico por qué|la razón|ya que|según)\\b");
+// A payment quoted with its terms ("$549 a month for 72 months with $5,500 down"), or a price with what it
+// includes, is explained, not a bare anchor (October 5 blitz: a rookie laying out the numbers sheet was penalized).
+const REASON = compile("\\b(because|here'?s why|the reason|that'?s why|since|based on|includes?|including|for \\d+ months|\\d+ months|down payment|\\$[\\d,]+ down|porque|le explico por qué|la razón|ya que|según|incluye|\\d+ meses|de inicial|de entrada|de down)\\b");
 const PARTNER_CALL = compile("\\b(video ?call|facetime|call (her|him|them) (now|right now)|get (her|him) on the phone|videollamada|llamarla ahora|llamarlo ahora|hacerle una llamada)\\b");
 const QUESTION_END = /[?？]\s*$/;
 
