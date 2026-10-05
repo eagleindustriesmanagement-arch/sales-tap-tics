@@ -22,7 +22,7 @@ parameters:
     en: ['\bonly (\w+) (left|on the lot|in stock)\b', '\b(\w+) left on the lot\b']
     es: ['\bsolo (nos )?quedan (\w+)\b', '\bquedan (\w+) nada más\b']
   competing_buyer:
-    en: ['\b(someone|somebody|another (customer|buyer|couple|guy|lady))\b.{0,30}\b(looking at|interested in|coming (back|in)|wants|is (on|about to))\b', '\b(has|have) (a|another) (deposit|hold|offer) on\b']
-    es: ['\b(otro cliente|otra persona|alguien más|otra pareja)\b.{0,30}\b(lo|la)? ?(quiere|está viendo|viene|anda mirando)\b', '\b(tiene|tienen) (un depósito|una oferta) (en|por)\b']
+    en: ['\b(someone|somebody|another (customer|buyer|couple|guy|lady))\b.{0,30}\b(looking at|interested in|coming (back|in)|wants|is (on|about to))\b', '\b(has|have) (a|another) (deposit|hold|offer) on\b', '\b(someone|somebody|another (customer|buyer|couple|guy|lady|family)|(a|one) (customer|buyer|couple|guy|lady|family))\b.{0,30}\b(coming|stopping by|swinging by|scheduled|booked|due)( (in|back|by|over))? to (look at|see|check out|drive|test[- ]drive|buy|pick up|put a deposit on) (it|this|that|the same|the exact|this exact|the one)\b']
+    es: ['\b(otro cliente|otra persona|alguien más|otra pareja)\b.{0,30}\b(lo|la)? ?(quiere|está viendo|viene|anda mirando)\b', '\b(alguien|un cliente|una clienta|una pareja|un señor|una señora)\b.{0,20}\b(viene|va a venir|vendrá|pasa|va a pasar)\b.{0,10}\ba (verlo|verla|ver este|ver esta|probarlo|probarla|llevárselo|llevársela|dejar un depósito|buscarlo|buscarla)\b', '\b(tiene|tienen) (un depósito|una oferta) (en|por)\b']
 legal_basis: FTC guidance (spec 4.2)
 attorney_reviewed: false

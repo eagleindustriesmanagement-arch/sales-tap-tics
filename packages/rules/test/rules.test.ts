@@ -401,3 +401,19 @@ describe("ADD-01: a product required for approval, said as a negative", () => {
     expect(scenarioRules(S, "Sin el GAP, si el carro se pierde, usted paga la diferencia.", "es")).toEqual([]);
   });
 });
+
+describe("AVAIL-01: a made-up buyer coming to look at this one", () => {
+  const S = "S-deadline-tester-L2"; // no competing buyer in the facts
+  it("flags the invented appointment", () => {
+    expect(scenarioRules(S, "I have someone else coming to look at this exact one at three.", "en")).toContain("AVAIL-01");
+    expect(scenarioRules(S, "I've got a couple stopping by to test drive this one tonight.", "en")).toContain("AVAIL-01");
+    expect(scenarioRules(S, "Tengo a alguien que viene a verlo a las tres.", "es")).toContain("AVAIL-01");
+    expect(scenarioRules(S, "Un señor va a pasar a dejar un depósito esta tarde.", "es")).toContain("AVAIL-01");
+  });
+  it("an appointment that is not about this car is clean", () => {
+    expect(scenarioRules(S, "I have a customer coming to see me at three, so let's set your time for four.", "en")).toEqual([]);
+    expect(scenarioRules(S, "Nobody else is coming to look at this one; take your time.", "en")).toEqual([]);
+    expect(scenarioRules(S, "Alguien de finanzas viene a explicarle los papeles.", "es")).toEqual([]);
+    expect(scenarioRules(S, "Nadie más viene a verlo; tómese su tiempo.", "es")).toEqual([]);
+  });
+});
