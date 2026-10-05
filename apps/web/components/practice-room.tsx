@@ -358,7 +358,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", wa
             {(answerBy === "type" || ios) && <Avatar name={session.name} size={40} />}
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-[22px] leading-tight text-ink">{session.name}</p>
-              <p className="truncate text-[13px] text-muted">{warmUp ? warmUp.behavior[lang] : scenario.title[lang]}</p>
+              <p className="truncate text-[13px] text-muted">{warmUp ? warmUp.technique.name[lang] : scenario.title[lang]}</p>
             </div>
             {warmUp && <span className="shrink-0 font-display text-[22px] text-brand tabular-nums" data-testid="warmup-clock" aria-label={ui("warmup.timeLeft", { time: clock(secondsLeft) })}>{clock(secondsLeft)}</span>}
             {!ended && <button type="button" onClick={finish} className="liquid-glass liquid-glass-flat min-h-10 shrink-0 rounded-full px-3.5 text-[14px] font-semibold text-ink">{ui("practice.end")}</button>}
@@ -543,8 +543,8 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", wa
         {phase === "intro" && warmUp && (
           <Card className="space-y-3" data-testid="warmup-brief">
             <h2 className="text-[17px] font-bold text-ink">{ui("warmup.drill")}</h2>
-            <p className="text-[17px] text-ink">{warmUp.behavior[lang]}</p>
-            <p className="text-[15px] text-muted">{warmUp.technique.name[lang]}</p>
+            <p className="text-[19px] font-semibold text-ink">{warmUp.technique.name[lang]}</p>
+            <p className="text-[15px] text-muted">{ui("warmup.lookFor", { behavior: warmUp.behavior[lang] })}</p>
             {warmUp.technique.modelLine && <Inset className="text-[15px]">{quoted(warmUp.technique.modelLine[lang])}</Inset>}
             <p className="border-t border-line-soft pt-3 text-[14px] text-muted">{ui("warmup.howItWorks", { turns: WARM_UP_TURNS })}</p>
           </Card>
@@ -679,7 +679,8 @@ function WarmUpResult({ data, warmUp, lang }: { data: DebriefPayload; warmUp: Wa
       <div className="space-y-2 pt-6">
         <Chip tone="brand" icon={<IconClock size={15} />}>{ui("warmup.chip")}</Chip>
         <h1 className="pt-2 font-display text-[36px] leading-[1.05] text-ink">{ui("warmup.done")}</h1>
-        <p className="text-[17px] text-body">{warmUp.behavior[lang]}</p>
+        <p className="text-[17px] text-body">{warmUp.technique.name[lang]}</p>
+        <p className="text-[15px] text-muted">{ui("warmup.lookFor", { behavior: warmUp.behavior[lang] })}</p>
       </div>
       {critical ? (
         <Card className="space-y-2" data-testid="warmup-critical">
@@ -698,7 +699,7 @@ function WarmUpResult({ data, warmUp, lang }: { data: DebriefPayload; warmUp: Wa
       )}
       {warmUp.technique.modelLine && (
         <Card className="space-y-2">
-          <h2 className="text-[15px] font-semibold text-muted">{ui("warmup.tryLine", { technique: warmUp.technique.name[lang] })}</h2>
+          <h2 className="text-[15px] font-semibold text-muted">{ui("warmup.tryLineShort")}</h2>
           <p className="rounded-[1.1rem] rounded-tl-md bg-good-soft px-3.5 py-2.5 text-[16px] text-ink">{quoted(warmUp.technique.modelLine[lang])}</p>
         </Card>
       )}

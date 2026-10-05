@@ -62,7 +62,7 @@ export default async function Today() {
   const goalMet = doneToday >= DAILY_GOAL;
   // Spec 12.5 and 15.2: an optional 3-minute warm-up at the start of a shift, on the rep's weakest behavior.
   const warm = pickWarmUp({ scenarios: inputs.scenarios, items: warmUpItems(lib), history: progress.history });
-  const warmBehavior = warm ? lib.scenarios.get(warm.scenarioCode)?.scoring?.items.find((i) => i.code === warm.itemCode)?.behavior : undefined;
+  const warmTechnique = warm ? lib.techniques.get(warm.technique)?.name : undefined;
 
   return (
     <div className="space-y-6">
@@ -151,13 +151,13 @@ export default async function Today() {
         </section>
       )}
 
-      {warm && warmBehavior && (
+      {warm && warmTechnique && (
         <Link href={`/practice/${warm.scenarioCode}?warmup=${encodeURIComponent(warm.itemCode)}`} className="block" data-testid="warmup-card">
           <Card className="flex items-center gap-3">
             <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand-soft text-brand ring-1 ring-brand/25 ring-inset"><IconClock size={22} /></span>
             <div className="min-w-0 flex-1">
               <p className="text-[16px] font-bold text-ink">{t("warmup.todayTitle", lang)}</p>
-              <p className="mt-0.5 text-[15px] text-body">{t("warmup.todayBody", lang, { behavior: warmBehavior[lang] })}</p>
+              <p className="mt-0.5 text-[15px] text-body">{t("warmup.todayBody", lang, { technique: warmTechnique[lang] })}</p>
             </div>
             <IconPlay size={18} className="shrink-0 fill-current text-brand" aria-hidden="true" />
           </Card>
