@@ -1,8 +1,24 @@
 # Status
 
-Updated 2026-10-03 (eighth pass: teams and individuals, admin access as a privilege, a home page that sells, pricing, industries). Build plan: spec section 22. Decisions: `docs/decisions/`. Plan: `docs/plans/`.
+Updated 2026-10-05 (ninth pass, overnight: warm-up mode, security headers, cross-company integrity, the
+honesty line enforced in content and scoring, debrief attribution). Previous: 2026-10-03 (teams and individuals,
+admin access as a privilege, a home page that sells, pricing, industries). Build plan: spec section 22. Decisions: `docs/decisions/`. Plan: `docs/plans/`.
 
 ## What runs today
+
+- **Overnight October 5** (decisions 0034, 0037, 0038):
+  - **Warm-up** (spec 12.5): an optional 3-minute drill on the rep's weakest behavior, from a card on Today; scored
+    on that one behavior, never a pass, completion only for the manager.
+  - **Security headers** on every response: a Content-Security-Policy that keeps everything on this site, HSTS,
+    no framing, a strict referrer policy and the microphone for this site only.
+  - **Cross-company integrity**: a browser test aims every id-taking API route at another company's records; it
+    found that a manager could write a membership and an assignment naming another company's person (reads were
+    always isolated). The database now refuses any row that ties one company's person or store to another.
+  - **The honesty line**: twelve scenario conditions that described a lie but were filed as coaching now zero the
+    attempt, and a content test keeps it so; without the live judge (offline or down) no score can pass; a judged
+    lie on unclear audio is flagged for review instead of zeroing.
+  - **Debrief**: "You said" on the turning point is always the rep's own line from the transcript; a placeholder
+    the AI customer leaves ("la [SUV]") becomes the product's name.
 
 - **Learn, see it, do it, get scored** (decision 0031): each of the 20 certification scenarios opens with a lesson
   (the tactic, the psychology, when and when not, the exact words, the mistakes, the named moves scored), in English
@@ -205,6 +221,9 @@ Updated 2026-10-03 (eighth pass: teams and individuals, admin access as a privil
 | M3 | Store setup wizard and compliance reviewer sign-off; compliance view | Done |
 | M4 | 122 techniques, 65 objections as content | Done (imported from the spec) |
 | M7 | Accessibility audit | Done: axe (WCAG 2.1 A and AA) passes on every main screen for every role, a live practice session and a debrief, in CI. It found and fixed low-contrast grey text and keyboard-unreachable scrolling tables |
+| M7 | Cross-tenant access tests on every API route (spec 21.1) | Done: a second company's admin aims every id-taking route at the demo company's records; every call is refused and nothing changes. It found and closed a write that could name another company's person (migration 0022) |
+| M7 | Security headers | Done (decision 0037): CSP, HSTS, no framing, referrer and permissions policies; a browser test proves another origin's script is refused |
+| M6 | Warm-up mode (spec 12.5) | Done (decision 0038) |
 | M7 | Dependency and secret scanning in CI | Done: `pnpm audit --prod` (no known vulnerabilities) and a secret scan of tracked files (proven to catch a planted key) |
 | M7 | Prompt-injection tests | Done offline: the engine never unlocks on injections (200 sessions), and an obedient model's leak is blocked and replaced before it is spoken, in both languages. To repeat against the real model once a key is set |
 | M7 | Load test | Done offline: 25 reps at once, 0 errors; server share of a turn p95 205 ms warm, 410 ms on the first burst after boot; dashboard p95 1.3 s cold, 485 ms warm (budgets met). A boot warm-up cut the cold tail from 1.35 s. Live model latency needs the key (`docs/runbooks`) |
