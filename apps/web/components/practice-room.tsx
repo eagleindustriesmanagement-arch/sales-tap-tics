@@ -642,11 +642,14 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", wa
       {/* Primary actions live in the bottom 40% (guidelines §7). */}
       <BottomBar>
         <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4">
-          <button className={`${buttonClass} w-full`} onClick={start} disabled={busy} aria-busy={busy}>
+          {/* From the demo, go to the setup first: starting from here skipped the Talk / Type choice (October 5 blitz). */}
+          {phase === "demo" ? (
+            <button className={`${buttonClass} w-full`} onClick={() => { setPhase("intro"); window.scrollTo(0, 0); }}><IconPlay size={18} className="fill-current" />{ui("scenario.tryIt")}</button>
+          ) : <button className={`${buttonClass} w-full`} onClick={start} disabled={busy} aria-busy={busy}>
             {busy
               ? <><span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden="true" />{ui("scenario.starting")}</>
               : <><IconPlay size={18} className="fill-current" />{ui("scenario.start")}</>}
-          </button>
+          </button>}
           {phase === "intro" && <button className={`${ghostButtonClass} w-full`} onClick={() => setPhase("demo")}><IconEye size={18} />{ui("scenario.watchDemo")}</button>}
           {phase === "intro" && scenario.lesson && mode === "practice" && (
             <button type="button" className="min-h-11 w-full text-[15px] font-semibold text-brand" onClick={() => { setPhase("lesson"); window.scrollTo(0, 0); }}>{ui("lesson.review")}</button>

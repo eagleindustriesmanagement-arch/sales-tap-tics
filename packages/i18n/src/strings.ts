@@ -460,6 +460,7 @@ export const STRINGS = {
   "scenario.language.en": { en: "English", es: "Inglés" },
   "scenario.language.es": { en: "Spanish", es: "Español" },
   "scenario.language.follow": { en: "Follow the customer", es: "El idioma del cliente" },
+  "scenario.tryIt": { en: "Now you try", es: "Ahora pruebe usted" },
   "scenario.watchDemo": { en: "Watch demo", es: "Ver demostración" },
   "scenario.start": { en: "Start", es: "Empezar" },
   "scenario.starting": { en: "Starting…", es: "Empezando…" },
