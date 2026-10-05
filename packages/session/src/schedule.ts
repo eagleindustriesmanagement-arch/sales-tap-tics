@@ -58,6 +58,8 @@ export function masteryFrom(history: Observation[]): Map<string, Mastery> {
   for (const o of [...history].sort((a, b) => a.at.getTime() - b.at.getTime())) {
     if (o.mode === "demonstration" || o.mode === "customer_prep") continue;
     for (const i of o.items) update(`item:${i.code}`, i.ratio, o.at, i.ratio < 0.5);
+    // A warm-up drills one behavior (decision 0038): it teaches that item's mastery, never the whole customer's.
+    if (o.mode === "warm_up") continue;
     const ratio = sessionRatio(o);
     if (ratio !== null) update(`scenario:${o.scenarioCode}`, ratio, o.at, ratio < 0.5 || o.criticalRules.length > 0);
   }
@@ -197,7 +199,8 @@ export function dailyPlan(input: PlanInput, size = 2): PlanItem[] {
     add({ scenarioCode: lastFailed.scenarioCode, mode: "practice", reason: { kind: "retry", best: totals.length ? Math.round(Math.max(...totals)) : null } });
   }
 
-  const tried = new Set(history.map((o) => o.scenarioCode));
+  // A warm-up on a customer is not having met them: onboarding still brings the full lesson and conversation.
+  const tried = new Set(history.filter((o) => o.mode !== "warm_up").map((o) => o.scenarioCode));
   const day = onboardingDay(input);
   const order = onboardingOrder(scenarios);
   const untried = order.filter((s) => !tried.has(s.code));

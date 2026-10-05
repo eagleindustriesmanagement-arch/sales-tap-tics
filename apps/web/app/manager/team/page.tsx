@@ -119,7 +119,7 @@ export default async function Team({ searchParams }: { searchParams: Promise<{ w
           <SectionTitle>{t("team.recent", lang)}</SectionTitle>
           <RowGroup>
             {teamSessions.map((s) => (
-              <ListRow key={s.id} href={`/history/${s.id}`} leading={<Avatar name={name.get(s.userId) ?? "?"} size={36} />} title={name.get(s.userId) ?? "—"} subtitle={lib.scenarios.get(s.scenarioCode)?.title[lang]} trailing={s.mode === "warm_up" ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />} />
+              <ListRow key={s.id} href={`/history/${s.id}`} leading={<Avatar name={name.get(s.userId) ?? "?"} size={36} />} title={name.get(s.userId) ?? "—"} subtitle={lib.scenarios.get(s.scenarioCode)?.title[lang]} trailing={s.mode === "warm_up" && s.total !== null ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />} />
             ))}
           </RowGroup>
         </section>

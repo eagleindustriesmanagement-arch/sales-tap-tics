@@ -977,6 +977,12 @@ test("a 3-minute warm-up drills one behavior: the rep sees how it went, the mana
   await tag.click();
   await expect(manager.getByTestId("warmup-summary")).toBeVisible();
   await expect(manager.getByTestId("warmup-summary")).not.toContainText(/You did it|Not yet|could not be scored/);
+  // Nor in the CSV export: a warm-up row says what and when, never a score.
+  const csv = (await (await manager.request.get("/api/export")).text()).trim().split("\n");
+  const header = csv[0]!.split(",");
+  const warmRows = csv.slice(1).map((l) => l.split(",")).filter((cells) => cells[header.indexOf("mode")] === "warm_up");
+  expect(warmRows.length).toBeGreaterThan(0);
+  for (const cells of warmRows) for (const col of ["total", "passed", "partial"]) expect(cells[header.indexOf(col)], col).toBe("");
   await manager.close();
 });
 

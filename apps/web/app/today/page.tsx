@@ -198,7 +198,7 @@ export default async function Today() {
                 href={`/history/${s.id}`}
                 title={lib.scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode}
                 subtitle={s.endReason ? t(`endReason.${s.endReason}` as "endReason.sale", lang) : t("history.inProgress", lang)}
-                trailing={s.mode === "warm_up" ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />}
+                trailing={s.mode === "warm_up" && s.total !== null ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />}
               />
             ))}
           </RowGroup>

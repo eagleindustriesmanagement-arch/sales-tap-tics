@@ -29,7 +29,7 @@ export default async function History() {
                 href={`/history/${s.id}`}
                 title={library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode}
                 subtitle={<>{fmt.format(new Date(s.startedAt))} · {s.endReason ? t(`endReason.${s.endReason}` as "endReason.sale", lang) : t("history.inProgress", lang)}{isPrivate && <span className="mt-0.5 flex items-center gap-1"><IconLock size={13} />{t("history.private", lang, { time: fmt.format(new Date(s.privateUntil!)) })}</span>}</>}
-                trailing={s.mode === "warm_up" ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />}
+                trailing={s.mode === "warm_up" && s.total !== null ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />}
               />
             );
           })}

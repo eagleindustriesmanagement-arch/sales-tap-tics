@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { platformLibrary } from "@taptics/content";
-import { PracticeSession, pickWarmUp, type Observation, type ScenarioMeta, type WarmUpItem } from "../src/index.js";
+import { dailyPlan, masteryFrom, PracticeSession, pickWarmUp, type Observation, type ScenarioMeta, type WarmUpItem } from "../src/index.js";
 
 const library = platformLibrary();
 const cars = [...library.scenarios.values()].filter((s) => s.industry === "cars" && s.status === "active");
@@ -45,5 +45,19 @@ describe("warm-up (spec 12.5, decision 0038)", () => {
     expect(r2.score.honestyPassed).toBe(false);
     expect(r2.score.total).toBe(0);
     expect(r2.debrief.critical.length).toBeGreaterThan(0);
+  });
+
+  it("a warm-up teaches one behavior's mastery, never the customer's: onboarding still brings that customer (October 5 review)", () => {
+    const now = new Date("2026-10-05T14:00:00Z");
+    const itemsByScenario = new Map(cars.map((s) => [s.code, (s.scoring?.items ?? []).map((i) => i.code)]));
+    const input = { now, startedAt: now, scenarios, assignments: [], itemsByScenario };
+    const first = dailyPlan({ ...input, history: [] })[0]!;
+    const warm = pickWarmUp({ scenarios, items, history: [] })!;
+    expect(warm.scenarioCode).toBe(first.scenarioCode); // the case the review found: day 1, the same customer
+    const warmedUp: Observation = { ...obs(warm.scenarioCode, "2026-10-05T13:00:00Z", [[warm.itemCode, 1]]), mode: "warm_up" };
+    expect(dailyPlan({ ...input, history: [warmedUp] })[0]!.scenarioCode).toBe(first.scenarioCode);
+    const m = masteryFrom([warmedUp]);
+    expect(m.get(`item:${warm.itemCode}`)?.value).toBe(1);
+    expect(m.has(`scenario:${warm.scenarioCode}`)).toBe(false);
   });
 });

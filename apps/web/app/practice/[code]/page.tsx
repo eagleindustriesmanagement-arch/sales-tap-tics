@@ -13,7 +13,7 @@ export default async function Practice({ params, searchParams }: { params: Promi
   // A warm-up drills one of this customer's behaviors (decision 0038); an unknown one falls back to practice.
   const drilled = query.warmup ? warmUpItems(lib).find((i) => i.scenarioCode === code && i.code === query.warmup) : undefined;
   const mode = query.mode === "certification" ? "certification" : drilled ? "warm_up" : "practice";
-  const warmUp: WarmUp | null = drilled
+  const warmUp: WarmUp | null = drilled && mode === "warm_up"
     ? (() => {
         const tech = lib.techniques.get(drilled.technique)!;
         const item = s.scoring!.items.find((i) => i.code === drilled.code)!;

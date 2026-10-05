@@ -860,7 +860,7 @@ export async function progressFor(db: Queryable, userId: string): Promise<RepPro
   const items = await db.query(
     `select i->>'code' code, avg((i->>'points')::float / nullif((i->>'max')::float, 0))::real ratio, count(*)::int times
      from sessions s join scores sc on sc.session_id = s.id, jsonb_array_elements(sc.items) i
-     where s.user_id = $1 and i->>'status' = 'scored' and (i->>'max')::float > 0
+     where s.user_id = $1 and s.mode <> 'warm_up' and i->>'status' = 'scored' and (i->>'max')::float > 0
      group by 1 having count(*) >= 2 order by 2, 1 limit 3`,
     [userId],
   );
@@ -951,7 +951,11 @@ export async function auditEntries(db: Queryable, limit = 200) {
 export async function exportSessions(db: Queryable) {
   const r = await db.query(
     `select s.started_at, app.colleague_first_name(s.user_id) rep, s.scenario_code, s.mode, s.language, s.end_reason,
-            sc.total, sc.passed, sc.honesty_passed, coalesce((sc.dimensions->>'partial')::boolean, false) partial,
+            -- A warm-up shows only that it was done (spec 12.5, decision 0038): no score in the export.
+            case when s.mode = 'warm_up' then null else sc.total end total,
+            case when s.mode = 'warm_up' then null else sc.passed end passed,
+            case when s.mode = 'warm_up' then null else sc.honesty_passed end honesty_passed,
+            case when s.mode = 'warm_up' then null else coalesce((sc.dimensions->>'partial')::boolean, false) end partial,
             (select count(*) from violations v where v.session_id = s.id and v.severity = 'critical' and not v.uncertain)::int critical_flags,
             (select count(*) from score_overrides o where o.score_id = sc.id)::int overrides
      from sessions s left join scores sc on sc.session_id = s.id where s.ended_at is not null order by s.started_at`,

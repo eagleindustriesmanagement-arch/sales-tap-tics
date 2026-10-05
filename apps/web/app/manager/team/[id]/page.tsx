@@ -23,13 +23,14 @@ export default async function RepDetail({ params }: { params: Promise<{ id: stri
   return (
     <div className="space-y-4">
       <PageHeader title={data.name} action={<Link href={`/manager/assign?rep=${id}`} className={buttonClass}>{t("assign.title", lang)}</Link>} />
-      <ProgressView progress={data.progress} history={data.past.history} lang={lang} />
+      {/* A manager sees a warm-up only as done (spec 12.5): its result never reaches their mastery view. */}
+      <ProgressView progress={data.progress} history={data.past.history.filter((o) => o.mode !== "warm_up")} lang={lang} />
       {data.sessions.length > 0 && (
         <section className="space-y-2.5">
           <SectionTitle>{t("team.repSessions", lang, { name: data.name ?? "" })}</SectionTitle>
           <RowGroup>
             {data.sessions.map((s) => (
-              <ListRow key={s.id} href={`/history/${s.id}`} title={library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode} trailing={s.mode === "warm_up" ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />} />
+              <ListRow key={s.id} href={`/history/${s.id}`} title={library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode} trailing={s.mode === "warm_up" && s.total !== null ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />} />
             ))}
           </RowGroup>
         </section>

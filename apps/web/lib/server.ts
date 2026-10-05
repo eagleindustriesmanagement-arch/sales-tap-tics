@@ -110,9 +110,22 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
  * A live session, only for the rep who owns it. A serverless host may send a turn to an instance that never saw the
  * session; that instance rebuilds it from the stored turns (`replayPracticeSession`) and carries on.
  */
+/** Rebuilds in progress, so two requests that both miss the cache share one rebuilt session (and its turn guard). */
+const rebuilding = new Map<string, Promise<Live | null>>();
+
 export async function liveSession(id: string, user: UserContext): Promise<Live | null> {
   const s = live.get(id);
   if (s) return s.userId === user.id ? s : null;
+  // Keyed by session and caller: someone else's request can never hand the owner a "not found".
+  const key = `${id}:${user.id}`;
+  const pending = rebuilding.get(key);
+  if (pending) return pending;
+  const work = rebuildSession(id, user).finally(() => rebuilding.delete(key));
+  rebuilding.set(key, work);
+  return work;
+}
+
+async function rebuildSession(id: string, user: UserContext): Promise<Live | null> {
   const found = await asUser(principal(user), async (db) => {
     const rec = await liveSessionRecord(db, id, user.id);
     return rec && { rec, store: user.storeId ? await loadStoreSetup(db, user.storeId) : null };
