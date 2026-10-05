@@ -89,4 +89,7 @@ export interface ScoreResult {
   judgeModel: string | null;
   judgePromptVersion: string | null;
   textMode: boolean;
+  /** The judge's pick for "the turning point" (a turn index and a better line); the debrief grounds it in the
+   *  transcript and shows it only when that turn is the rep's. Absent on scores stored before October 5. */
+  turningPoint?: JudgeResult["turningPoint"];
 }

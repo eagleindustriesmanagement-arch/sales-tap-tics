@@ -147,11 +147,11 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
           <h2 className="text-[17px] font-bold text-ink">{ui("debrief.turningPoint")}</h2>
           <div>
             <p className="mb-1 text-[13px] font-semibold text-muted">{ui("debrief.youSaid")}</p>
-            <p className="rounded-[1.1rem] rounded-tl-md bg-ground px-3.5 py-2.5 text-[15px] text-ink">{quoted(d.turningPoint.repLine)}</p>
+            <p className="rounded-[1.1rem] rounded-tl-md bg-ground px-3.5 py-2.5 text-[15px] text-ink">{quoted(real(d.turningPoint.repLine)!)}</p>
           </div>
           <div>
             <p className="mb-1 text-[13px] font-semibold text-good">{ui("debrief.tryInstead")}</p>
-            <p className="rounded-[1.1rem] rounded-tl-md bg-good-soft px-3.5 py-2.5 text-[15px] text-ink">{quoted(d.turningPoint.modelAlternative[lang])}</p>
+            <p className="rounded-[1.1rem] rounded-tl-md bg-good-soft px-3.5 py-2.5 text-[15px] text-ink">{quoted(real(d.turningPoint.modelAlternative[lang])!)}</p>
           </div>
         </Card>
       )}

@@ -171,6 +171,28 @@ describe("debrief (spec 12.3)", () => {
     expect(d.critical[0]!.compliantLine?.es).toBeTruthy();
   });
 
+  it("'You said' on the turning point is always the rep's own words from the transcript (October 5)", async () => {
+    const turns = transcript(900, "es");
+    const customerTurn = turns.find((t) => t.speaker === "customer" && t.index > 0)!;
+    const repAnswer = turns.find((t) => t.speaker === "rep" && t.index > customerTurn.index)!;
+    const better = { en: "What number did you two agree on?", es: "¿En qué número quedaron ustedes dos?" };
+    // The judge points at the customer's line: the card shows the rep's answer to it, never the customer's words.
+    const s = await score({ turns, judge: { turningPoint: { turnIndex: customerTurn.index, modelAlternative: better } } });
+    expect(s.turningPoint?.turnIndex).toBe(customerTurn.index);
+    const d = buildDebrief({ library, scenario, score: s, transcript: turns, endReason: "next_step" });
+    expect(d.turningPoint).toEqual({ turnIndex: repAnswer.index, repLine: repAnswer.text, modelAlternative: better });
+    expect(turns.filter((t) => t.speaker === "customer").map((t) => t.text)).not.toContain(d.turningPoint!.repLine);
+    // A judge's quote of the customer, reworded, is never shown as the rep's: the rep's transcript line is.
+    const slow = transcript(900, "es");
+    const weakScore = await score({ turns: slow });
+    const weakItem = weakScore.items.find((i) => i.evidence);
+    if (weakItem?.evidence) {
+      weakItem.evidence = { turnIndex: customerTurn.index, quote: `${customerTurn.text.slice(0, 30)} la Equinox` };
+      const d2 = buildDebrief({ library, scenario, score: { ...weakScore, turningPoint: null }, transcript: slow, endReason: "next_step" });
+      if (d2.turningPoint) expect(slow.find((t) => t.index === d2.turningPoint!.turnIndex)!.speaker).toBe("rep");
+    }
+  });
+
   it("gives a stretch change when everything landed", async () => {
     const s = await score();
     const d = buildDebrief({ library, scenario, score: s, transcript: transcript(), endReason: "next_step" });

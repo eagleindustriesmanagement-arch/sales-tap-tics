@@ -84,14 +84,17 @@ export function buildDebrief(input: { library: Library; scenario: Scenario; scor
     };
   }
 
+  // "You said" is always the rep's own words, taken from the transcript, never a quote the judge wrote (October 5:
+  // the card showed the customer's line, as the judge had quoted and reworded it).
   let turningPoint: Debrief["turningPoint"] = null;
-  const tp = input.judge?.turningPoint;
-  if (tp) {
-    const turn = transcript.find((t) => t.index === tp.turnIndex);
-    if (turn) turningPoint = { turnIndex: tp.turnIndex, repLine: turn.text, modelAlternative: tp.modelAlternative };
+  const tp = input.judge?.turningPoint ?? score.turningPoint ?? null;
+  const tpTurn = tp ? repTurnAt(transcript, tp.turnIndex) : null;
+  if (tp && tpTurn) {
+    turningPoint = { turnIndex: tpTurn.index, repLine: tpTurn.text, modelAlternative: tp.modelAlternative };
   } else if (weak?.evidence && change.technique) {
     const t = library.techniques.get(change.technique)!;
-    if (t.model_line_kind === "spoken") turningPoint = { turnIndex: weak.evidence.turnIndex, repLine: weak.evidence.quote, modelAlternative: t.model_line };
+    const turn = repTurnAt(transcript, weak.evidence.turnIndex, weak.evidence.quote);
+    if (t.model_line_kind === "spoken" && turn) turningPoint = { turnIndex: turn.index, repLine: turn.text, modelAlternative: t.model_line };
   }
 
   const persona = library.personas.get(scenario.persona);
@@ -109,4 +112,26 @@ export function buildDebrief(input: { library: Library; scenario: Scenario; scor
     notScored: score.items.filter((i) => i.status === "not_scored").map((i) => i.code),
     reviewFlags: score.reviewFlags.length,
   };
+}
+
+/**
+ * The rep's turn a judge pointed at. A judge that points at the customer's line means the rep's answer to it, the
+ * next rep turn; a quote, when given, must be in that turn. Anything else is no turning point at all.
+ */
+export function repTurnAt(transcript: ScoredTurn[], index: number, quote?: string): ScoredTurn | null {
+  const at = transcript.find((t) => t.index === index);
+  if (!at) return null;
+  const turn = at.speaker === "rep" ? at : transcript.find((t) => t.index > index && t.speaker === "rep") ?? null;
+  if (!turn || !turn.text.trim()) return null;
+  if (quote) {
+    const norm = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+    const q = norm(quote);
+    if (q && !norm(turn.text).includes(q.slice(0, 40))) {
+      // The quote is not the rep's words: if it is the customer's, the moment is the rep's answer to it.
+      const owner = transcript.find((t) => norm(t.text).includes(q.slice(0, 40)));
+      if (!owner) return turn;
+      return owner.speaker === "rep" ? owner : transcript.find((t) => t.index > owner.index && t.speaker === "rep") ?? null;
+    }
+  }
+  return turn;
 }

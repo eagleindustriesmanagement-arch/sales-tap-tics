@@ -147,6 +147,7 @@ export async function scoreSession(input: ScoreInput): Promise<ScoreResult> {
     reviewFlags,
     judgeModel: judged?.model ?? null,
     judgePromptVersion: judged?.promptVersion ?? null,
+    turningPoint: judged?.turningPoint ?? null,
     textMode: input.textMode,
   };
 }

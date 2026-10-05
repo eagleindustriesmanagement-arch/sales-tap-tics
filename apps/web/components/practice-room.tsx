@@ -358,7 +358,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
                     ? "bezel fill-gold rounded-[1.25rem] rounded-br-md text-brand-fill-ink"
                     : "liquid-glass liquid-glass-panel rounded-[1.25rem] rounded-bl-md text-ink"}`}>
                     <span className="sr-only">{ui(rep ? "practice.you" : "practice.customer")}: </span>
-                    <span>{l.text}</span>
+                    <span>{rep ? l.text : strip(l.text)}</span>
                   </p>
                   {/* A tap always plays: the sure way to hear the customer on a phone that blocks speech. */}
                   {!rep && ttsOk && hasVoices && (

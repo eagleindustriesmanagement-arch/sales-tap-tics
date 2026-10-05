@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { platformLibrary } from "@taptics/content";
 import { ScenarioEngine, type CustomerDirective } from "@taptics/engine";
-import { AiClient, AiCustomer, ClaudeComplianceClassifier, ClaudeJudge, ClaudeUnlockDetector, loadPrompt, MemoryUsageSink, ModelDisabledError, render, type MessagesApi } from "../src/index.js";
+import { AiClient, AiCustomer, ClaudeComplianceClassifier, fillProductSlots, ClaudeJudge, ClaudeUnlockDetector, loadPrompt, MemoryUsageSink, ModelDisabledError, render, type MessagesApi } from "../src/index.js";
 
 const library = platformLibrary();
 const scenario = library.scenarios.get("S-partner-check-L1")!;
@@ -137,6 +137,17 @@ describe("AI customer (spec 10.4)", () => {
     expect(params.messages.at(-1)).toMatchObject({ role: "system", clear_at: "next_user_message" });
     expect(params.system[0]!.cache_control).toEqual({ type: "ephemeral" });
     expect(c.history.map((m) => m.role)).toEqual(["user", "assistant", "user", "system", "assistant"]);
+  });
+
+  it("names the product where the model left a placeholder: 'la [SUV]' is said and stored as 'la Equinox' (October 5)", async () => {
+    const { c } = customer([["De ahí no me puedo pasar, por mucho que me guste la [SUV]. ", "Y el [vehículo] me encanta. [agreed_next_step]"]], "es");
+    c.opening();
+    const { texts, result } = await collect(c.reply("¿Cuánto quiere pagar al mes?", directive()));
+    expect(texts).toEqual(["De ahí no me puedo pasar, por mucho que me guste la Equinox.", "Y el Equinox me encanta."]);
+    expect(texts.join(" ")).not.toMatch(/\[|\]/);
+    expect(result.raw).toContain("[agreed_next_step]"); // the system's own tags are untouched
+    expect(fillProductSlots("I like the [ SUV ] and [the car].", "Equinox")).toBe("I like the Equinox and Equinox.");
+    expect(fillProductSlots("[pausa] Bueno. [revealed]", "Equinox")).toBe("[pausa] Bueno. [revealed]");
   });
 
   it("blocks a leak before the unlock and regenerates before anything is spoken", async () => {

@@ -121,6 +121,16 @@ export function sceneNote(directive: CustomerDirective, persona: Persona, alread
   return render(loadPrompt("customer-state"), { lines: lines.map((l) => `- ${l}`).join("\n") });
 }
 
+/**
+ * A word in square brackets that names the product ("[SUV]", "[vehicle]", "[el carro]") is the model leaving a slot
+ * unfilled, not a tag for the system (October 5: the chat showed "la [SUV]"). It becomes the product's name from the
+ * facts, so the customer says "la Equinox"; stripping it instead would leave "la ." on screen and in the voice.
+ */
+const PRODUCT_SLOT = /\[\s*(?:(?:the|el|la|los|las|su|your|this|esta?|ese|esa)\s+)?(suv|car|cars|vehicle|vehicles|truck|van|crossover|sedan|model|product|carro|auto|veh[ií]culo|camioneta|troca|modelo|producto|item)\s*\]/giu;
+export function fillProductSlots(text: string, productName: string): string {
+  return productName ? text.replace(PRODUCT_SLOT, productName) : text;
+}
+
 function splitSentences(buffer: string): { complete: string[]; rest: string } {
   const complete: string[] = [];
   let rest = buffer;
@@ -145,7 +155,7 @@ export class AiCustomer {
   private revealed = false;
 
   constructor(private readonly client: AiClient, private readonly cfg: CustomerConfig) {
-    const prompt = loadPrompt("customer", 2);
+    const prompt = loadPrompt("customer", 3);
     const lang = languageRules(cfg);
     this.promptRef = prompt.ref;
     this.system = render(prompt, {
@@ -189,6 +199,7 @@ export class AiCustomer {
       let raw = "";
       let buffer = "";
       let failed: CustomerIssue[] | null = null;
+      const product = this.cfg.variation.facts.vehicle.model;
       const check = (sentence: string) =>
         guardCustomerLine({
           text: sentence,
@@ -207,7 +218,8 @@ export class AiCustomer {
         buffer += delta;
         const { complete, rest } = splitSentences(buffer);
         buffer = rest;
-        for (const sentence of complete) {
+        for (const drafted of complete) {
+          const sentence = fillProductSlots(drafted, product);
           const issues = check(sentence);
           if (issues.length) {
             failed = issues;
@@ -222,14 +234,15 @@ export class AiCustomer {
         }
       }
       if (!failed && buffer.trim()) {
-        const issues = check(buffer.trim());
+        const last = fillProductSlots(buffer.trim(), product);
+        const issues = check(last);
         if (issues.length) failed = issues;
         else {
-          raw += (raw ? " " : "") + buffer.trim();
-          const text = stripCues(buffer.trim());
+          raw += (raw ? " " : "") + last;
+          const text = stripCues(last);
           if (text) {
             spokenParts.push(text);
-            yield { text, raw: buffer.trim() };
+            yield { text, raw: last };
           }
         }
       }
