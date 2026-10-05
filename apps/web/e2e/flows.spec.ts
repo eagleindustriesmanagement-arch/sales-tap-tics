@@ -935,3 +935,47 @@ test("a tap made while the app reloads for a new release still lands on the tapp
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.unroute("**/api/version");
 });
+
+test("a 3-minute warm-up drills one behavior: the rep sees how it went, the manager only that it was done, never a pass", async ({ page, browser }) => {
+  await signInReady(page, "rep@demo.test");
+  await page.goto("/today");
+  await page.getByTestId("warmup-card").click();
+  // Straight to the drill: no lesson, one behavior, its technique and a line to try.
+  await expect(page.getByTestId("warmup-brief")).toBeVisible();
+  await expect(page.getByTestId("warmup-badge")).toHaveText("Warm-up · 3 min");
+  await page.getByRole("radio", { name: "Type" }).check();
+  await page.getByRole("button", { name: "Start" }).click();
+  await expect(page.getByTestId("warmup-clock")).toHaveText(/^[23]:\d\d$/);
+  await page.getByLabel("Type what you would say").fill("I hear you. What matters most to you here?");
+  await page.getByRole("button", { name: "Send" }).click();
+  await expect(page.getByTestId("line-customer")).toHaveCount(2);
+  await page.getByRole("button", { name: "End session" }).click();
+  await expect(page.getByTestId("warmup-result")).toBeVisible();
+  await expect(page.getByTestId("warmup-result")).toContainText("Warm-up done");
+
+  const c = db();
+  await c.connect();
+  const r = await c.query(
+    `select s.focus_item, sc.passed, coalesce((sc.dimensions->>'partial')::boolean, false) partial, jsonb_array_length(sc.items) items
+     from sessions s join scores sc on sc.session_id = s.id join users u on u.id = s.user_id
+     where u.email = 'rep@demo.test' and s.mode = 'warm_up'`,
+  );
+  await c.end();
+  expect(r.rows).toHaveLength(1);
+  expect(r.rows[0]).toMatchObject({ passed: false, partial: true, items: 1 });
+  expect(r.rows[0].focus_item).toBeTruthy();
+
+  // History says it was done, without a score; the daily goal still waits for a real session.
+  await page.goto("/history");
+  await expect(page.getByTestId("warmup-tag").first()).toHaveText("Warm-up done");
+
+  const manager = await browser.newPage();
+  await signInReady(manager, "manager@demo.test");
+  await manager.goto("/manager/team");
+  const tag = manager.getByTestId("warmup-tag").first();
+  await expect(tag).toBeVisible();
+  await tag.click();
+  await expect(manager.getByTestId("warmup-summary")).toBeVisible();
+  await expect(manager.getByTestId("warmup-summary")).not.toContainText(/You did it|Not yet|could not be scored/);
+  await manager.close();
+});

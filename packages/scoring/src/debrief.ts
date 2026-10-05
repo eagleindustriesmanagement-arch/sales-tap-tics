@@ -48,7 +48,7 @@ export function weakestItem(library: Library, items: ItemResult[]): ItemResult |
   return scored.reduce((a, b) => (priority(b) > priority(a) ? b : a));
 }
 
-export function buildDebrief(input: { library: Library; scenario: Scenario; score: ScoreResult; transcript: ScoredTurn[]; judge?: JudgeResult | null; endReason: string | null }): Debrief {
+export function buildDebrief(input: { library: Library; scenario: Scenario; score: ScoreResult; transcript: ScoredTurn[]; judge?: JudgeResult | null; endReason: string | null; focusItem?: string }): Debrief {
   const { library, scenario, score, transcript } = input;
   const behavior = (code: string) =>
     scenario.scoring?.items.find((i) => i.code === code)?.behavior ??
@@ -67,7 +67,8 @@ export function buildDebrief(input: { library: Library; scenario: Scenario; scor
     .slice(0, 2)
     .map((i) => ({ code: i.code, behavior: behavior(i.code), quote: i.evidence?.quote ?? null, explanation: i.explanation, concept: concept(i.code)?.name ?? null }));
 
-  const weak = weakestItem(library, score.items);
+  // A warm-up's one change is its drilled behavior, landed or not (decision 0038).
+  const weak = (input.focusItem ? score.items.find((i) => i.code === input.focusItem) : null) ?? weakestItem(library, score.items);
   let change: Debrief["change"];
   if (weak) {
     const t = weak.technique ? library.techniques.get(weak.technique) : undefined;

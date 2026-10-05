@@ -182,6 +182,11 @@ export function Empty({ icon, children, action }: { icon?: ReactNode; children: 
 }
 
 /** A session's score: tinted by how it went, an asterisk when the offline judge scored only part of it. */
+/** A warm-up in a list (decision 0038): done, with no score, for the rep and the manager alike. */
+export function WarmUpTag({ label }: { label: string }) {
+  return <span className="rounded-full bg-brand-soft px-2.5 py-1 text-[13px] font-semibold text-brand ring-1 ring-brand/25 ring-inset" data-testid="warmup-tag">{label}</span>;
+}
+
 export function ScoreBadge({ total, partial }: { total: number | null; partial?: boolean | null }) {
   if (total === null) return <span className="text-[15px] font-semibold text-faint">—</span>;
   const v = Math.round(total);

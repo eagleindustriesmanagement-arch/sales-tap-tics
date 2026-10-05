@@ -2,12 +2,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { currentObjectionWeights, isManager, listAssignments, listSessions, practiceHistory, weekCards } from "@taptics/db";
 import { t } from "@taptics/i18n";
-import { certificationState, dailyPlan, practiceStreak, type PlanReason } from "@taptics/session";
+import { certificationState, dailyPlan, pickWarmUp, practiceStreak, type PlanReason } from "@taptics/session";
 import { IconBulb, IconCheck, IconClock, IconFlame, IconPlay, IconTarget, IconTrophy } from "@/components/icons";
-import { Card, Chip, Inset, ListRow, Ring, RowGroup, ScoreBadge, SectionTitle, buttonClass, quoted, titleClass } from "@/components/ui";
+import { Card, Chip, Inset, ListRow, Ring, RowGroup, ScoreBadge, WarmUpTag, SectionTitle, buttonClass, quoted, titleClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
-import { hasIndustry, language, library, scheduleInputs } from "@/lib/server";
+import { hasIndustry, language, library, scheduleInputs, warmUpItems } from "@/lib/server";
 
 const DAILY_GOAL = 1;
 const TZ = "America/New_York";
@@ -49,7 +49,8 @@ export default async function Today() {
   const top = plan[0];
   const streak = practiceStreak(progress.history.map((o) => o.at), now);
   const day = (d: Date) => new Intl.DateTimeFormat("en-CA", { timeZone: TZ }).format(d);
-  const doneToday = progress.history.filter((o) => day(o.at) === day(now)).length;
+  // The daily goal is a real session; a 3-minute warm-up keeps the streak but does not meet the goal (decision 0038).
+  const doneToday = progress.history.filter((o) => day(o.at) === day(now) && o.mode !== "warm_up").length;
   const release1 = inputs.scenarios.filter((s) => s.release1);
   const certified = release1.filter((s) => certificationState(s.code, progress.history, now).state === "certified").length;
   const next = top ? lib.scenarios.get(top.scenarioCode) : undefined;
@@ -59,6 +60,9 @@ export default async function Today() {
   const dateFmt = new Intl.DateTimeFormat(locale, { weekday: "long", month: "long", day: "numeric", timeZone: TZ });
   const dueFmt = new Intl.DateTimeFormat(locale, { weekday: "long", month: "short", day: "numeric", timeZone: TZ });
   const goalMet = doneToday >= DAILY_GOAL;
+  // Spec 12.5 and 15.2: an optional 3-minute warm-up at the start of a shift, on the rep's weakest behavior.
+  const warm = pickWarmUp({ scenarios: inputs.scenarios, items: warmUpItems(lib), history: progress.history });
+  const warmBehavior = warm ? lib.scenarios.get(warm.scenarioCode)?.scoring?.items.find((i) => i.code === warm.itemCode)?.behavior : undefined;
 
   return (
     <div className="space-y-6">
@@ -147,6 +151,19 @@ export default async function Today() {
         </section>
       )}
 
+      {warm && warmBehavior && (
+        <Link href={`/practice/${warm.scenarioCode}?warmup=${encodeURIComponent(warm.itemCode)}`} className="block" data-testid="warmup-card">
+          <Card className="flex items-center gap-3">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand-soft text-brand ring-1 ring-brand/25 ring-inset"><IconClock size={22} /></span>
+            <div className="min-w-0 flex-1">
+              <p className="text-[16px] font-bold text-ink">{t("warmup.todayTitle", lang)}</p>
+              <p className="mt-0.5 text-[15px] text-body">{t("warmup.todayBody", lang, { behavior: warmBehavior[lang] })}</p>
+            </div>
+            <IconPlay size={18} className="shrink-0 fill-current text-brand" aria-hidden="true" />
+          </Card>
+        </Link>
+      )}
+
       <section className="space-y-2.5">
         <SectionTitle>{card ? t("card.issued", lang) : t("today.behaviorCard", lang)}</SectionTitle>
         <Card>
@@ -181,7 +198,7 @@ export default async function Today() {
                 href={`/history/${s.id}`}
                 title={lib.scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode}
                 subtitle={s.endReason ? t(`endReason.${s.endReason}` as "endReason.sale", lang) : t("history.inProgress", lang)}
-                trailing={<ScoreBadge total={s.total} partial={s.partial} />}
+                trailing={s.mode === "warm_up" ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />}
               />
             ))}
           </RowGroup>

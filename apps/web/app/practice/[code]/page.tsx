@@ -1,15 +1,25 @@
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
-import { aiConfigured, language, lessonFor, library } from "@/lib/server";
-import { PracticeRoom, type RoomScenario } from "@/components/practice-room";
+import { aiConfigured, language, lessonFor, library, warmUpItems } from "@/lib/server";
+import { PracticeRoom, type RoomScenario, type WarmUp } from "@/components/practice-room";
 
-export default async function Practice({ params, searchParams }: { params: Promise<{ code: string }>; searchParams: Promise<{ mode?: string }> }) {
+export default async function Practice({ params, searchParams }: { params: Promise<{ code: string }>; searchParams: Promise<{ mode?: string; warmup?: string }> }) {
   await requireUser();
   const { code } = await params;
-  const mode = (await searchParams).mode === "certification" ? "certification" : "practice";
+  const query = await searchParams;
   const lib = library();
   const s = lib.scenarios.get(code);
   if (!s) notFound();
+  // A warm-up drills one of this customer's behaviors (decision 0038); an unknown one falls back to practice.
+  const drilled = query.warmup ? warmUpItems(lib).find((i) => i.scenarioCode === code && i.code === query.warmup) : undefined;
+  const mode = query.mode === "certification" ? "certification" : drilled ? "warm_up" : "practice";
+  const warmUp: WarmUp | null = drilled
+    ? (() => {
+        const tech = lib.techniques.get(drilled.technique)!;
+        const item = s.scoring!.items.find((i) => i.code === drilled.code)!;
+        return { item: drilled.code, behavior: item.behavior, technique: { code: tech.code, name: tech.name, modelLine: tech.model_line_kind === "spoken" ? tech.model_line : null } };
+      })()
+    : null;
   const lang = await language();
   const scenario: RoomScenario = {
     code: s.code,
@@ -31,5 +41,5 @@ export default async function Practice({ params, searchParams }: { params: Promi
       good: { notice: s.demonstrations.good.notice, script: s.demonstrations.good.script },
     },
   };
-  return <PracticeRoom scenario={scenario} uiLanguage={lang} live={aiConfigured()} mode={mode} />;
+  return <PracticeRoom scenario={scenario} uiLanguage={lang} live={aiConfigured()} mode={mode} warmUp={warmUp} />;
 }

@@ -16,7 +16,7 @@ import {
   type StoreContext,
   type Violation,
 } from "@taptics/rules";
-import { buildDebrief, FixtureJudge, scoreSession, type Debrief, type Judge, type ScoredTurn, type ScoreResult } from "@taptics/scoring";
+import { buildDebrief, FixtureJudge, focusOn, scoreSession, type Debrief, type Judge, type ScoredTurn, type ScoreResult } from "@taptics/scoring";
 import { OfflineCustomer, type CustomerSentence, type CustomerTurnResult, type CustomerVoice } from "./offline-customer.js";
 import { scaleExitPolicy } from "./calibrate.js";
 
@@ -35,6 +35,8 @@ export interface PracticeSessionOptions {
   /** "follow" starts in the persona's preferred language (spec 12.2 item 1). */
   language: Language | "follow";
   mode?: SessionMode;
+  /** A warm-up's one drilled behavior (decision 0038): the score and the debrief are narrowed to it. */
+  focusItem?: string;
   seed: string;
   exitDraw?: number;
   tenantId: string;
@@ -273,7 +275,8 @@ export class PracticeSession {
       offline = true;
       judgeDown = true;
     }
-    const debrief = buildDebrief({ library: this.options.library, scenario: this.scenario, score, transcript: this.transcript, endReason: outcome.endReason });
+    if (this.options.focusItem) score = focusOn(score, this.options.focusItem);
+    const debrief = buildDebrief({ library: this.options.library, scenario: this.scenario, score, transcript: this.transcript, endReason: outcome.endReason, focusItem: this.options.focusItem });
     return { sessionId: this.options.sessionId, scenarioCode: this.scenario.code, language: this.language, transcript: this.transcript, violations: this.violations, engine: outcome, score, debrief, offline, judgeDown };
   }
 }

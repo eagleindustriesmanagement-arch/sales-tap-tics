@@ -2,7 +2,7 @@ import Link from "next/link";
 import { listSessions } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { IconClock, IconLock } from "@/components/icons";
-import { Empty, ListRow, PageHeader, RowGroup, ScoreBadge, buttonClass } from "@/components/ui";
+import { Empty, ListRow, PageHeader, RowGroup, ScoreBadge, WarmUpTag, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library } from "@/lib/server";
@@ -29,7 +29,7 @@ export default async function History() {
                 href={`/history/${s.id}`}
                 title={library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode}
                 subtitle={<>{fmt.format(new Date(s.startedAt))} · {s.endReason ? t(`endReason.${s.endReason}` as "endReason.sale", lang) : t("history.inProgress", lang)}{isPrivate && <span className="mt-0.5 flex items-center gap-1"><IconLock size={13} />{t("history.private", lang, { time: fmt.format(new Date(s.privateUntil!)) })}</span>}</>}
-                trailing={<ScoreBadge total={s.total} partial={s.partial} />}
+                trailing={s.mode === "warm_up" ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />}
               />
             );
           })}

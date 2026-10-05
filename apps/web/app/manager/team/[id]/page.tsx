@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { listSessions, practiceHistory, progressFor } from "@taptics/db";
 import { t } from "@taptics/i18n";
 import { ProgressView } from "@/components/progress-view";
-import { ListRow, PageHeader, RowGroup, ScoreBadge, SectionTitle, buttonClass } from "@/components/ui";
+import { ListRow, PageHeader, RowGroup, ScoreBadge, WarmUpTag, SectionTitle, buttonClass } from "@/components/ui";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { language, library } from "@/lib/server";
@@ -29,7 +29,7 @@ export default async function RepDetail({ params }: { params: Promise<{ id: stri
           <SectionTitle>{t("team.repSessions", lang, { name: data.name ?? "" })}</SectionTitle>
           <RowGroup>
             {data.sessions.map((s) => (
-              <ListRow key={s.id} href={`/history/${s.id}`} title={library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode} trailing={<ScoreBadge total={s.total} partial={s.partial} />} />
+              <ListRow key={s.id} href={`/history/${s.id}`} title={library().scenarios.get(s.scenarioCode)?.title[lang] ?? s.scenarioCode} trailing={s.mode === "warm_up" ? <WarmUpTag label={t("warmup.listLabel", lang)} /> : <ScoreBadge total={s.total} partial={s.partial} />} />
             ))}
           </RowGroup>
         </section>

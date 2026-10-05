@@ -90,6 +90,8 @@ export interface NewSession {
   exitMultiplier?: number;
   /** Whether the rep watched the demonstration first (spec 19.4); null when not recorded. */
   demoWatched?: boolean | null;
+  /** A warm-up's drilled rubric item (decision 0038). */
+  focusItem?: string | null;
 }
 
 /** Spec 3.3 rule 3: practice is private for the store's window; certification is visible immediately. */
@@ -97,9 +99,9 @@ export async function createPracticeSession(db: Queryable, user: UserContext, s:
   if (!user.storeId) throw new Error("user has no store");
   const privateUntil = s.mode === "practice" || s.mode === "warm_up" ? new Date(Date.now() + user.privateWindowHours * 3_600_000) : null;
   await db.query(
-    `insert into sessions (id, tenant_id, user_id, store_id, scenario_code, release_id, language, mode, channel, text_mode, seed, exit_draw, private_until, exit_multiplier, demo_watched)
-     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)`,
-    [s.id, user.tenantId, user.id, user.storeId, s.scenarioCode, s.releaseId, s.language, s.mode, s.channel, s.textMode, s.seed, s.exitDraw, privateUntil, s.exitMultiplier ?? 1, s.demoWatched ?? null],
+    `insert into sessions (id, tenant_id, user_id, store_id, scenario_code, release_id, language, mode, channel, text_mode, seed, exit_draw, private_until, exit_multiplier, demo_watched, focus_item)
+     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`,
+    [s.id, user.tenantId, user.id, user.storeId, s.scenarioCode, s.releaseId, s.language, s.mode, s.channel, s.textMode, s.seed, s.exitDraw, privateUntil, s.exitMultiplier ?? 1, s.demoWatched ?? null, s.focusItem ?? null],
   );
 }
 
@@ -123,8 +125,8 @@ export interface TurnRow {
  * has ended or when the caller does not own it (row-level security decides).
  */
 export async function liveSessionRecord(db: Queryable, sessionId: string, userId: string) {
-  const s = await db.query<{ scenario_code: string; language: "en" | "es"; mode: string; seed: string; exit_draw: number | null; text_mode: boolean; exit_multiplier: string; created_at: Date }>(
-    "select scenario_code, language, mode, seed, exit_draw, text_mode, exit_multiplier, created_at from sessions where id = $1 and user_id = $2 and ended_at is null",
+  const s = await db.query<{ scenario_code: string; language: "en" | "es"; mode: string; seed: string; exit_draw: number | null; text_mode: boolean; exit_multiplier: string; created_at: Date; focus_item: string | null }>(
+    "select scenario_code, language, mode, seed, exit_draw, text_mode, exit_multiplier, created_at, focus_item from sessions where id = $1 and user_id = $2 and ended_at is null",
     [sessionId, userId],
   );
   const row = s.rows[0];
@@ -142,6 +144,7 @@ export async function liveSessionRecord(db: Queryable, sessionId: string, userId
     textMode: row.text_mode,
     exitMultiplier: Number(row.exit_multiplier),
     createdAt: row.created_at,
+    focusItem: row.focus_item,
     turns: t.rows.map((r) => ({
       index: r.index,
       speaker: r.speaker,

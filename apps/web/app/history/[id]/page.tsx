@@ -8,7 +8,7 @@ import { DebriefView } from "@/components/debrief-view";
 import { principalOf, requireUser } from "@/lib/auth";
 import { asUser } from "@/lib/db";
 import { debriefPayload } from "@/lib/payload";
-import { language } from "@/lib/server";
+import { language, library } from "@/lib/server";
 
 /** A stored session (spec 18.1 History): the rep's own, or a team member's for a manager (RLS decides, reads are audited). */
 export default async function SessionPage({ params }: { params: Promise<{ id: string }> }) {
@@ -25,6 +25,22 @@ export default async function SessionPage({ params }: { params: Promise<{ id: st
       <Card className="space-y-3" data-testid="session-unfinished">
         <p className="text-ink">{t("history.unfinished", lang)}</p>
         <Link href="/manager/team" className={buttonClass}>{t("history.backToTeam", lang)}</Link>
+      </Card>
+    );
+  }
+  // A warm-up (decision 0038): the rep sees how the one behavior went; a manager sees only that it was done (spec 12.5).
+  if (detail.session.mode === "warm_up") {
+    const own = detail.session.user_id === user.id;
+    const items = (detail.score.items ?? []) as { code: string; points: number; max: number; status: string; explanation: { en: string; es: string } }[];
+    const item = items[0];
+    const behavior = item ? library().scenarios.get(detail.session.scenario_code)?.scoring?.items.find((i) => i.code === item.code)?.behavior : undefined;
+    const landed = item?.status === "scored" && item.max > 0 && item.points >= item.max;
+    return (
+      <Card className="space-y-3" data-testid="warmup-summary">
+        <p className="text-[17px] font-bold text-ink">{t("warmup.listLabel", lang)}</p>
+        {behavior && <p className="text-[15px] text-body">{behavior[lang]}</p>}
+        {own && item && <p className={`text-[15px] font-semibold ${landed ? "text-good" : "text-muted"}`}>{t(landed ? "warmup.landed" : item.status === "scored" ? "warmup.missed" : "warmup.notScored", lang)}</p>}
+        <Link href={own ? "/today" : "/manager/team"} className={buttonClass}>{t(own ? "warmup.toToday" : "history.backToTeam", lang)}</Link>
       </Card>
     );
   }

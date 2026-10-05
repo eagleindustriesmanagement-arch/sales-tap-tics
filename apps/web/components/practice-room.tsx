@@ -6,10 +6,10 @@ import { useEffect, useRef, useState } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
 import type { VoiceTiming } from "@taptics/voice";
 import { Debrief, type DebriefPayload } from "@/components/debrief";
-import { IconAlert, IconEye, IconMessage, IconMic, IconPlay, IconSend, IconSpeaker, IconTrophy, IconX } from "@/components/icons";
+import { IconAlert, IconCheck, IconClock, IconEye, IconMessage, IconMic, IconPlay, IconSend, IconSpeaker, IconTrophy, IconX } from "@/components/icons";
 import { Lesson, LessonSteps, type LessonView } from "@/components/lesson";
 import { Recover } from "@/components/recover";
-import { Avatar, Card, Chip, Grade, Inset, SEGMENT_INPUT, buttonClass, ghostButtonClass } from "@/components/ui";
+import { Avatar, Card, Chip, Grade, Inset, SEGMENT_INPUT, buttonClass, ghostButtonClass, quoted, real } from "@/components/ui";
 import { VoiceStage } from "@/components/voice-stage";
 import { DeviceSpeechToText, DeviceTextToSpeech } from "@/lib/voice/device";
 import { platform } from "@/lib/voice/diagnostics";
@@ -31,6 +31,15 @@ export interface RoomScenario {
 }
 
 type Phase = "lesson" | "intro" | "demo" | "live" | "debrief";
+
+/** A warm-up's one behavior (spec 12.5, decision 0038): what to drill, the technique behind it and a line to try. */
+export interface WarmUp {
+  item: string;
+  behavior: Bilingual;
+  technique: { code: string; name: Bilingual; modelLine: Bilingual | null };
+}
+const WARM_UP_SECONDS = 180;
+const WARM_UP_TURNS = 4;
 type AnswerBy = "talk" | "type";
 const ANSWER_KEY = "taptics.answerBy";
 
@@ -40,8 +49,9 @@ const strip = (s: string) => s.replace(/\[[^\]]*\]\s*/g, "");
  * The practice room (spec 12.2), immersive like a lesson in a learning app: the briefing, an optional
  * demonstration, the conversation, then the debrief. No tab bar; one way out at the top left.
  */
-export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: { scenario: RoomScenario; uiLanguage: Language; live: boolean; mode?: "practice" | "certification" }) {
-  // Learn first: practice opens on the lesson; certification is a test and goes straight to the briefing.
+export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", warmUp = null }: { scenario: RoomScenario; uiLanguage: Language; live: boolean; mode?: "practice" | "certification" | "warm_up"; warmUp?: WarmUp | null }) {
+  // Learn first: practice opens on the lesson; certification is a test and goes straight to the briefing, and so
+  // does a warm-up, which is three minutes on one behavior.
   const [phase, setPhase] = useState<Phase>(scenario.lesson && mode === "practice" ? "lesson" : "intro");
   // Spec 19.4: whether the rep watched the demonstration before starting.
   const [watchedDemo, setWatchedDemo] = useState(false);
@@ -154,8 +164,21 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   const field = useRef<HTMLTextAreaElement>(null);
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
   const repTurns = lines.filter((l) => l.speaker === "rep").length;
-  const turnBudget = Math.max(1, Math.floor(scenario.maxTurns / 2));
+  const turnBudget = warmUp ? WARM_UP_TURNS : Math.max(1, Math.floor(scenario.maxTurns / 2));
   const turnsLeft = Math.max(0, turnBudget - repTurns);
+  // A warm-up ends itself at three minutes, or once the customer has answered the fourth reply.
+  const [secondsLeft, setSecondsLeft] = useState(WARM_UP_SECONDS);
+  useEffect(() => {
+    if (!warmUp || phase !== "live") return;
+    const timer = setInterval(() => setSecondsLeft((s) => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(timer);
+  }, [warmUp, phase]);
+  const warmUpOver = Boolean(warmUp) && phase === "live" && (secondsLeft === 0 || (repTurns >= WARM_UP_TURNS && !busy));
+  useEffect(() => {
+    if (warmUpOver) void finish();
+    // finish is stable for this purpose: it reads the current session from state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [warmUpOver]);
   const waiting = busy && lines.at(-1)?.speaker === "rep";
   /** iPhone talk: the rep speaks into the keyboard's dictation key; the conversation is typed turns. */
   const dictation = ios && answerBy === "talk";
@@ -187,7 +210,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
     // iOS lets a page speak only after a tap: this one, so the customer's first line is not blocked.
     if (voice || speakAloud) DeviceTextToSpeech.unlock();
     try {
-      const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice, mode, voice, demoWatched: watchedDemo }) });
+      const res = await fetch("/api/sessions", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ scenario: scenario.code, language: choice, mode, voice, demoWatched: watchedDemo, item: warmUp?.item }) });
       if (res.status === 409) {
         const body = (await res.json().catch(() => ({}))) as { error?: string };
         setError(t(body.error === "needs_judge" ? "cert.needsJudge" : "cert.notEligible", lang));
@@ -301,6 +324,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
   }
 
   if (phase === "debrief") {
+    if (debrief && warmUp) return <WarmUpResult data={debrief} warmUp={warmUp} lang={lang} />;
     if (debrief) return <Debrief data={debrief} language={lang} seenId={session?.id} onRetry={() => location.reload()} />;
     if (finishFailed)
       return (
@@ -334,8 +358,9 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
             {(answerBy === "type" || ios) && <Avatar name={session.name} size={40} />}
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-[22px] leading-tight text-ink">{session.name}</p>
-              <p className="truncate text-[13px] text-muted">{scenario.title[lang]}</p>
+              <p className="truncate text-[13px] text-muted">{warmUp ? warmUp.behavior[lang] : scenario.title[lang]}</p>
             </div>
+            {warmUp && <span className="shrink-0 font-display text-[22px] text-brand tabular-nums" data-testid="warmup-clock" aria-label={ui("warmup.timeLeft", { time: clock(secondsLeft) })}>{clock(secondsLeft)}</span>}
             {!ended && <button type="button" onClick={finish} className="liquid-glass liquid-glass-flat min-h-10 shrink-0 rounded-full px-3.5 text-[14px] font-semibold text-ink">{ui("practice.end")}</button>}
           </div>
           {/* Turns left: the conversation has a limit, and the rep should feel it coming. */}
@@ -500,7 +525,9 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
           <div className="flex-1" />
           {mode === "certification"
             ? <Chip tone="spark" icon={<IconTrophy size={15} />} data-testid="cert-badge">{t("cert.badge", lang)}</Chip>
-            : <Chip tone="brand">{t("practice.level", lang, { n: scenario.level })}</Chip>}
+            : warmUp
+              ? <Chip tone="brand" icon={<IconClock size={15} />} data-testid="warmup-badge">{t("warmup.chip", lang)}</Chip>
+              : <Chip tone="brand">{t("practice.level", lang, { n: scenario.level })}</Chip>}
         </div>
       </div>
 
@@ -513,9 +540,18 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
           <p className="text-[17px] text-body">{scenario.setting[lang]}</p>
         </div>
 
+        {phase === "intro" && warmUp && (
+          <Card className="space-y-3" data-testid="warmup-brief">
+            <h2 className="text-[17px] font-bold text-ink">{ui("warmup.drill")}</h2>
+            <p className="text-[17px] text-ink">{warmUp.behavior[lang]}</p>
+            <p className="text-[15px] text-muted">{warmUp.technique.name[lang]}</p>
+            {warmUp.technique.modelLine && <Inset className="text-[15px]">{quoted(warmUp.technique.modelLine[lang])}</Inset>}
+            <p className="border-t border-line-soft pt-3 text-[14px] text-muted">{ui("warmup.howItWorks", { turns: WARM_UP_TURNS })}</p>
+          </Card>
+        )}
         {phase === "intro" && (
           <>
-            <Card className="space-y-3">
+            {!warmUp && <Card className="space-y-3">
               <h2 className="text-[17px] font-bold text-ink">{ui("scenario.targets")}</h2>
               <ul className="space-y-2.5">
                 {scenario.targets.map((x) => (
@@ -525,7 +561,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice" }: 
                 ))}
               </ul>
               <p className="border-t border-line-soft pt-3 text-[14px] text-muted">{ui("scenario.howItWorks")}</p>
-            </Card>
+            </Card>}
             <fieldset className="space-y-2">
               <legend className="px-1 text-[15px] font-semibold text-muted">{ui("scenario.language")}</legend>
               <div className="liquid-glass-inset grid grid-cols-3 gap-1 rounded-[1.1rem] p-1">
@@ -625,6 +661,50 @@ function ScoringProgress({ lang }: { lang: Language }) {
           <div className="fill-gold-x h-full rounded-full transition-[width] duration-1000 ease-linear" style={{ width: `${Math.round(8 + progress * 88)}%` }} />
         </div>
         <p className="text-[13px] text-muted tabular-nums">{t("debrief.elapsed", lang, { n: seconds })}</p>
+      </div>
+    </div>
+  );
+}
+
+const clock = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+
+/** The end of a warm-up: how the one behavior went, and the line to carry onto the floor (decision 0038). */
+function WarmUpResult({ data, warmUp, lang }: { data: DebriefPayload; warmUp: WarmUp; lang: Language }) {
+  const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
+  const item = data.score.items.find((i) => i.code === warmUp.item);
+  const landed = item?.status === "scored" && item.max > 0 && item.points >= item.max;
+  const critical = data.debrief.critical[0];
+  return (
+    <div className="mx-auto max-w-2xl space-y-5 px-4 pt-safe pb-10" data-testid="warmup-result">
+      <div className="space-y-2 pt-6">
+        <Chip tone="brand" icon={<IconClock size={15} />}>{ui("warmup.chip")}</Chip>
+        <h1 className="pt-2 font-display text-[36px] leading-[1.05] text-ink">{ui("warmup.done")}</h1>
+        <p className="text-[17px] text-body">{warmUp.behavior[lang]}</p>
+      </div>
+      {critical ? (
+        <Card className="space-y-2" data-testid="warmup-critical">
+          <p className="flex items-center gap-2 font-semibold text-bad"><IconAlert size={18} />{ui("warmup.honesty")}</p>
+          {real(critical.quote) && <p className="text-[15px] text-ink">{quoted(real(critical.quote)!)}</p>}
+          <p className="text-[15px] text-body">{critical.trueFact[lang]}</p>
+        </Card>
+      ) : (
+        <Card className="space-y-2" data-testid="warmup-item">
+          <p className={`flex items-center gap-2 text-[17px] font-bold ${landed ? "text-good" : item?.status === "scored" ? "text-bad" : "text-muted"}`}>
+            {landed ? <IconCheck size={18} /> : <IconAlert size={18} />}
+            {ui(landed ? "warmup.landed" : item?.status === "scored" ? "warmup.missed" : "warmup.notScored")}
+          </p>
+          {item && <p className="text-[15px] text-body">{item.explanation[lang]}</p>}
+        </Card>
+      )}
+      {warmUp.technique.modelLine && (
+        <Card className="space-y-2">
+          <h2 className="text-[15px] font-semibold text-muted">{ui("warmup.tryLine", { technique: warmUp.technique.name[lang] })}</h2>
+          <p className="rounded-[1.1rem] rounded-tl-md bg-good-soft px-3.5 py-2.5 text-[16px] text-ink">{quoted(warmUp.technique.modelLine[lang])}</p>
+        </Card>
+      )}
+      <div className="flex flex-col gap-2">
+        <Link href="/today" className={`${buttonClass} w-full`}>{ui("warmup.toToday")}</Link>
+        <button type="button" className={`${ghostButtonClass} w-full`} onClick={() => location.reload()}>{ui("warmup.again")}</button>
       </div>
     </div>
   );

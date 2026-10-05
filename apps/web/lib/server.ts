@@ -9,7 +9,7 @@ import {
 import { exitDrawFor } from "@taptics/engine";
 import { isLanguage, type Language } from "@taptics/i18n";
 import { chooseWeeklyCard, type ItemResult, type ScoreResult } from "@taptics/scoring";
-import { certificationSeed, certificationState, certifiedForUps, PracticeSession, replayPracticeSession, type PracticeSessionOptions, type ScenarioMeta, type SessionResult } from "@taptics/session";
+import { certificationSeed, certificationState, certifiedForUps, PracticeSession, replayPracticeSession, type PracticeSessionOptions, type ScenarioMeta, type SessionResult, type WarmUpItem } from "@taptics/session";
 import { asUser, withClient } from "./db";
 
 export const library = () => platformLibrary();
@@ -55,7 +55,10 @@ const principal = (u: { tenantId: string; id: string }) => ({ tenantId: u.tenant
 const STARTS_PER_MINUTE = 4;
 
 /** `voice` is a spoken session: pause and pace are measured and scored; typed sessions exclude them (spec 11.5). */
-export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow", mode: "practice" | "certification" = "practice", voice = false, demoWatched: boolean | null = null) {
+export async function startSession(user: UserContext, scenarioCode: string, lang: Language | "follow", mode: "practice" | "certification" | "warm_up" = "practice", voice = false, demoWatched: boolean | null = null, focusItem: string | null = null) {
+  // A warm-up drills one of this customer's behaviors that a typed or spoken drill can score (decision 0038).
+  if (mode === "warm_up" && !warmUpItems().some((i) => i.scenarioCode === scenarioCode && i.code === focusItem)) return { error: "bad_item" as const };
+  if (mode !== "warm_up") focusItem = null;
   sweep();
   const id = randomUUID();
   const { recent, attempt, certAttempt, release, store, history, exitMultiplier } = await asUser(principal(user), async (db) => {
@@ -91,10 +94,10 @@ export async function startSession(user: UserContext, scenarioCode: string, lang
   const seed = certification ? certificationSeed(scenarioCode, certAttempt) : `${user.id}:${scenarioCode}:${attempt}`;
   const exitDraw = certification ? exitDrawFor("certification", scenarioCode, certAttempt % 3) : exitDrawFor(user.id, scenarioCode, attempt);
   const usage = new MemoryUsageSink();
-  const session = new PracticeSession(sessionOptions(user, { id, scenarioCode, language: lang, mode, seed, exitDraw, voice, exitMultiplier, store, usage }));
+  const session = new PracticeSession(sessionOptions(user, { id, scenarioCode, language: lang, mode, seed, exitDraw, voice, exitMultiplier, store, usage, focusItem }));
   const opening = session.start();
   await asUser(principal(user), async (db) => {
-    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: !voice, seed, exitDraw, exitMultiplier, demoWatched });
+    await createPracticeSession(db, user, { id, scenarioCode, releaseId: release?.id ?? null, language: session.language, mode, channel: session.scenario.channel, textMode: !voice, seed, exitDraw, exitMultiplier, demoWatched, focusItem });
     await insertTurns(db, user.tenantId, id, session.transcript.map((t) => ({ ...t, isObjection: t.isObjection })));
   });
   live.set(id, { id, session, userId: user.id, tenantId: user.tenantId, createdAt: Date.now(), persistedTurns: session.transcript.length, usage, result: null });
@@ -115,7 +118,7 @@ export async function liveSession(id: string, user: UserContext): Promise<Live |
   if (!found || Date.now() - found.rec.createdAt.getTime() > 60 * 60 * 1000) return null;
   const { rec, store } = found;
   const usage = new MemoryUsageSink();
-  const options = sessionOptions(user, { id, scenarioCode: rec.scenarioCode, language: rec.language, mode: rec.mode, seed: rec.seed, exitDraw: rec.exitDraw ?? 0.5, voice: !rec.textMode, exitMultiplier: rec.exitMultiplier, store, usage });
+  const options = sessionOptions(user, { id, scenarioCode: rec.scenarioCode, language: rec.language, mode: rec.mode, seed: rec.seed, exitDraw: rec.exitDraw ?? 0.5, voice: !rec.textMode, exitMultiplier: rec.exitMultiplier, store, usage, focusItem: rec.focusItem });
   const session = await replayPracticeSession(options, rec.turns);
   const restored: Live = { id, session, userId: user.id, tenantId: user.tenantId, createdAt: rec.createdAt.getTime(), persistedTurns: session.transcript.length, usage, result: null };
   live.set(id, restored);
@@ -127,7 +130,7 @@ type StoreSetup = Awaited<ReturnType<typeof loadStoreSetup>>;
 /** The settings a session runs with: one place, so a session rebuilt on another instance runs exactly as it began. */
 function sessionOptions(
   user: UserContext,
-  o: { id: string; scenarioCode: string; language: Language | "follow"; mode: string; seed: string; exitDraw: number; voice: boolean; exitMultiplier: number; store: StoreSetup | null; usage: MemoryUsageSink },
+  o: { id: string; scenarioCode: string; language: Language | "follow"; mode: string; seed: string; exitDraw: number; voice: boolean; exitMultiplier: number; store: StoreSetup | null; usage: MemoryUsageSink; focusItem?: string | null },
 ): Omit<PracticeSessionOptions, "replay"> {
   let ai: PracticeSessionOptions["ai"];
   if (aiConfigured()) {
@@ -148,7 +151,8 @@ function sessionOptions(
     language: o.language,
     seed: o.seed,
     exitDraw: o.exitDraw,
-    mode: certification ? "certification" : "practice",
+    mode: certification ? "certification" : o.mode === "warm_up" ? "warm_up" : "practice",
+    focusItem: o.mode === "warm_up" ? o.focusItem ?? undefined : undefined,
     tenantId: user.tenantId,
     sessionId: o.id,
     textMode: !o.voice,
@@ -268,4 +272,11 @@ export function itemBehavior(code: string, lib = library()) {
     if (item) return item.behavior;
   }
   return null;
+}
+
+/** Every behavior a warm-up can drill (decision 0038): a scenario item tied to a technique, not measured by voice only. */
+export function warmUpItems(lib = library()): WarmUpItem[] {
+  return [...lib.scenarios.values()]
+    .filter((s) => s.status === "active")
+    .flatMap((s) => (s.scoring?.items ?? []).filter((i) => i.technique && !i.voice_only).map((i) => ({ code: i.code, scenarioCode: s.code, technique: i.technique!, voiceOnly: false })));
 }
