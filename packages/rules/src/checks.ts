@@ -373,6 +373,8 @@ export function checkRate(rule: Rule, utterance: Utterance, ctx: CheckContext, m
         const clause = clauseAt(text, start);
         if (isNegated(ctx, text, clause, start, end, false) || isAttributed(ctx, text, clause, start)) continue;
         if (isAskingOrConditional(ctx, text, clause, start)) continue;
+        // Already flagged as a stated rate ("0% APR financing") or by an earlier pattern.
+        if (out.some((v) => v.span.start < end && v.span.end > start)) continue;
         out.push(
           makeViolation(rule, ctx, utterance, spanOf(text, start, end), {
             en: "No 0% offer is on the sheet, so interest is not free. Any rate comes from the lender.",

@@ -27,10 +27,15 @@ parameters:
       - '\b(no|zero) interest\b'
       - '\binterest[- ]free\b'
       - '\bsame as cash\b'
+      # "0% financing this month": a 0% rate said with financing, not with an APR or rate cue.
+      - '(?<![\d.,])(0|zero) ?(%|percent)( apr)? (financing|interest|financed|loans?)\b'
+      - '\b(financing|financed|interest|loans?) (at|of|for) (0|zero) ?(%|percent)(?![\d.,])'
     es:
       - '\bsin intereses?\b'
       - '\bcero (de )?inter[eé]s(es)?\b'
       - '\bigual que (de )?contado\b'
+      - '\b(financiamiento|financiación|financiado|financiada|préstamo|crédito)( de| al| a| en| con)? (0|cero) ?(%|por ciento)(?![\d.,])'
+      - '(?<![\d.,])(0|cero) ?(%|por ciento) de (financiamiento|financiación|interés|intereses)\b'
       - '\bno (paga|le cobran|le cobramos) inter[eé]s(es)?\b'
   approval_claims:
     en:

@@ -350,3 +350,20 @@ describe("TRADE-01: the payoff the rep states must match the facts payoff", () =
     expect(scenarioRules(S, "¿Todavía debe $8,000?", "es")).toEqual([]);
   });
 });
+
+describe("RATE-01: 0% financing said with no 0% offer on the sheet", () => {
+  const S = "S-payment-buyer-L2"; // no rate on the sheet, lender not applied
+  it("flags 0% financing", () => {
+    expect(scenarioRules(S, "With 0% financing this month, it's a steal.", "en")).toContain("RATE-01");
+    expect(scenarioRules(S, "We've got financing at zero percent for you.", "en")).toContain("RATE-01");
+    expect(scenarioRules(S, "Con financiamiento al 0% este mes, es un regalo.", "es")).toContain("RATE-01");
+    expect(scenarioRules(S, "Le tengo 0% de financiamiento.", "es")).toContain("RATE-01");
+  });
+  it("a denial, or a real 0% option, is clean", () => {
+    expect(scenarioRules(S, "There's no 0% financing on this one; the rate comes from the lender.", "en")).toEqual([]);
+    expect(scenarioRules(S, "No tenemos financiamiento al 0% en este carro.", "es")).toEqual([]);
+    const zero = { ...FACTS, payment_options: FACTS.payment_options.map((o) => ({ ...o, apr_bps: 0 })) };
+    expect(hits("With 0% financing this month, it's a steal.", "en", { facts: zero })).not.toContain("RATE-01");
+    expect(hits("Con financiamiento al 0% este mes, es un regalo.", "es", { facts: zero })).not.toContain("RATE-01");
+  });
+});
