@@ -170,7 +170,10 @@ function count(item: RubricItem, input: DeterministicInput): ItemResult {
     for (const t of reps) for (const m of models) if (compile(`\\b${m}\\b`).test(t.text)) seen.add(m);
     return result(item, input, {
       points: seen.size <= max ? item.points : 0,
-      explanation: both(`${seen.size} vehicle${seen.size === 1 ? "" : "s"} in play.`, `${seen.size} vehículo${seen.size === 1 ? "" : "s"} en juego.`),
+      // "0 vehicles in play" read as a mistake when one car was the whole conversation (October 5 blitz).
+      explanation: seen.size <= 1
+        ? both("Kept the focus on one vehicle.", "Se mantuvo en un solo vehículo.")
+        : both(`${seen.size} vehicles in play.`, `${seen.size} vehículos en juego.`),
     });
   }
   // `lexicon` names one or more lexicon lists; `patterns` gives patterns directly.

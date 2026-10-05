@@ -210,6 +210,8 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
                 </div>
                 {scored && i.concept && <p className="text-[12px] font-semibold tracking-wide text-brand uppercase">{i.concept[lang]}</p>}
                 {note && <p className="text-[13px] text-muted">{note}</p>}
+                {/* A bare dash said nothing (October 5 blitz): say why the behavior has no score. */}
+                {!scored && !note && <p className="text-[13px] text-muted">{ui(i.status === "not_applicable" ? "debrief.notApplicable" : data.noJudge || data.offline ? "debrief.notScoredPlain" : "debrief.notScoredOther")}</p>}
                 {/* The line that earned (or missed) the points, so the score points at something the rep said. */}
                 {scored && real(i.quote) && <p className="border-l-2 border-brand/50 pl-2.5 text-[13px] text-body" data-testid="item-quote"><span className="text-muted">{ui("debrief.yourLine")}:</span> {quoted(real(i.quote)!)}</p>}
                 {scored && <Bar value={i.max ? i.points / i.max : 0} tone={i.points >= i.max * 0.7 ? "good" : i.points >= i.max * 0.4 ? "warn" : "bad"} />}

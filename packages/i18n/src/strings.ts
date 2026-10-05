@@ -524,6 +524,9 @@ export const STRINGS = {
   "debrief.youSaid": { en: "You said", es: "Usted dijo" },
   "debrief.tryInstead": { en: "Try instead", es: "Pruebe en su lugar" },
   "debrief.tryAgain": { en: "Try again", es: "Volver a intentar" },
+  "debrief.notScoredPlain": { en: "Not scored this session: it needs the AI coach.", es: "No se calificó en esta sesión: necesita al coach de IA." },
+  "debrief.notScoredOther": { en: "Not scored this session.", es: "No se calificó en esta sesión." },
+  "debrief.notApplicable": { en: "Didn't come up in this conversation.", es: "No hizo falta en esta conversación." },
   "debrief.notScored": {
     en: "Not scored: the recording was unclear at this moment.",
     es: "Sin calificar: la grabación no se entendió bien en este momento.",
@@ -579,7 +582,7 @@ export const STRINGS = {
   "today.skills": { en: "{n, plural, one {# skill} other {# skills}}", es: "{n, plural, one {# habilidad} other {# habilidades}}" },
   "today.noStreak": { en: "Practice today to start a streak", es: "Practique hoy para empezar una racha" },
   "today.recommended": { en: "Recommended for you", es: "Recomendado para usted" },
-  "today.noCard": { en: "Your first behavior card arrives after your first practice week.", es: "Su primera meta llega después de su primera semana de práctica." },
+  "today.noCard": { en: "Your first behavior card arrives after your first practice session.", es: "Su primera meta de la semana llega después de su primera práctica." },
   "today.noAssignments": { en: "No assignments right now.", es: "No tiene tareas asignadas por ahora." },
 
   "library.practiceThis": { en: "Practice this objection", es: "Practicar esta objeción" },
