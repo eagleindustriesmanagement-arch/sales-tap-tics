@@ -324,7 +324,7 @@ export const STRINGS = {
   "people.invalid": { en: "Check the name, an email or phone, and at least one role.", es: "Revise el nombre, un correo o teléfono, y al menos un rol." },
   "people.saved": { en: "Saved.", es: "Guardado." },
   "people.you": { en: "you", es: "usted" },
-  "people.active": { en: "Active", es: "Activo" },
+  "people.active": { en: "Active", es: "Con acceso" },
   "people.inactive": { en: "Deactivated", es: "Desactivado" },
   "people.saveRoles": { en: "Save roles", es: "Guardar roles" },
   "people.editRoles": { en: "Edit roles", es: "Cambiar roles" },
