@@ -136,8 +136,28 @@ describe("customer guard: rates and deadlines", () => {
     expect(guard(D, text, language, true)).not.toContain("false_fact");
   });
 
-  it("blocks any offer deadline in a scenario with none", () => {
+  it("blocks any offer deadline in a scenario with none (EN and ES)", () => {
     expect(guard("S-payment-buyer-L2", "I heard the deal ends tomorrow.", "en", true)).toContain("false_fact");
     expect(guard("S-payment-buyer-L2", "Me dijeron que la oferta se acaba mañana.", "es", true)).toContain("false_fact");
+  });
+});
+
+describe("customer guard: coaching the rep", () => {
+  it.each([
+    ["en", "Why don't you show me the 84-month option? That's what a smart salesman would do."],
+    ["en", "Ask me about my budget, that's the first thing."],
+    ["es", "Pregúnteme por el plazo largo, que eso es lo que hace un buen vendedor."],
+    ["es", "Eso es lo que haría un vendedor inteligente."],
+  ] as const)("blocks (%s): %s", (language, text) => {
+    expect(guard("S-payment-buyer-L2", text, language, true)).toContain("coaching");
+  });
+
+  it.each([
+    ["en", "Why don't you show me the 84-month option?"],
+    ["en", "My last salesman never called me back."],
+    ["es", "¿Por qué no me enseña la opción de 84 meses?"],
+    ["es", "El último vendedor nunca me llamó."],
+  ] as const)("allows a plain request or a story (%s): %s", (language, text) => {
+    expect(guard("S-payment-buyer-L2", text, language, true)).not.toContain("coaching");
   });
 });
