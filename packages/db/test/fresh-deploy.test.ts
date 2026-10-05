@@ -1,7 +1,9 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import pg from "pg";
 import { randomUUID } from "node:crypto";
-import { readdirSync } from "node:fs";
+import { mkdtempSync, readdirSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { migrate, MIGRATIONS_DIR, publishPlatformRelease } from "../src/index.js";
 import { DEMO, seedDemo } from "../scripts/seed-demo.js";
 import { SKIP } from "./helpers.js";
@@ -44,6 +46,22 @@ describe.skipIf(SKIP)("deploying to a fresh, shared database (decision 0025)", (
     expect(rows.rows).toEqual([]);
     // A second run is a no-op.
     expect(await migrate(clients[1]!)).toEqual([]);
+  });
+
+  it("a migration waits only so long for its locks, then fails instead of blocking the app (October 5 review)", async () => {
+    const dir = mkdtempSync(join(tmpdir(), "taptics-migration-"));
+    writeFileSync(join(dir, "9999_alter_sessions.sql"), "alter table sessions add column lock_test text;");
+    // A long-running reader holds the table, as a busy app would.
+    await clients[2]!.query("begin");
+    await clients[2]!.query("lock table sessions in access share mode");
+    const started = Date.now();
+    await expect(migrate(clients[0]!, dir, { lockTimeoutMs: 300 })).rejects.toThrow(/9999_alter_sessions\.sql failed: .*lock timeout/);
+    expect(Date.now() - started).toBeLessThan(5_000);
+    await clients[2]!.query("rollback");
+    // Once the table is free, the next deploy applies it.
+    expect(await migrate(clients[0]!, dir, { lockTimeoutMs: 300 })).toEqual(["9999_alter_sessions.sql"]);
+    await clients[0]!.query("alter table sessions drop column lock_test");
+    await clients[0]!.query("delete from schema_migrations where name = '9999_alter_sessions.sql'");
   });
 
   it("three demo seeds at once leave one of each row", async () => {
