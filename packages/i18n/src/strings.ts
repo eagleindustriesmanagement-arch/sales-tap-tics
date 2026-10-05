@@ -16,7 +16,7 @@ export const STRINGS = {
   "consent.title": { en: "Before you start", es: "Antes de empezar" },
   "consent.body": {
     en: "Your practice sessions are recorded and transcribed for training. You and, after your private window of {hours} hours, your managers can see them. Audio is kept for {days} days. Recordings are never used to train AI models.",
-    es: "Sus sesiones de práctica se graban y se transcriben para entrenamiento. Usted y, después de su ventana privada de {hours} horas, sus gerentes las pueden ver. El audio se guarda por {days} días. Las grabaciones nunca se usan para entrenar modelos de inteligencia artificial.",
+    es: "Sus sesiones de práctica se graban y se transcriben para entrenamiento. Usted las puede ver enseguida; sus gerentes, después de {hours} horas. El audio se guarda por {days} días. Las grabaciones nunca se usan para entrenar modelos de inteligencia artificial.",
   },
   "consent.accept": { en: "I understand and agree", es: "Entiendo y acepto" },
 
@@ -38,7 +38,7 @@ export const STRINGS = {
   "voice.hearLine": { en: "Hear {name} say this", es: "Oír a {name} decir esto" },
   "voice.testSound": { en: "Test the sound", es: "Probar el sonido" },
   // The sound check (October 4): what the phone's speech engine did, so a test on a real phone gives data.
-  "sound.playBeep": { en: "Play a beep", es: "Tocar un pitido" },
+  "sound.playBeep": { en: "Play a beep", es: "Probar con un pitido" },
   "sound.details": { en: "Sound check details", es: "Detalles de la prueba de sonido" },
   "sound.build": { en: "App version", es: "Versión de la app" },
   "sound.device": { en: "Device", es: "Dispositivo" },
@@ -334,7 +334,7 @@ export const STRINGS = {
   "role.bdc_agent": { en: "BDC agent", es: "Agente de BDC" },
   "role.manager": { en: "Manager", es: "Gerente" },
   "role.general_manager": { en: "Admin access", es: "Acceso de administrador" },
-  "role.content_editor": { en: "Spanish reviewer", es: "Revisor del español" },
+  "role.content_editor": { en: "Spanish reviewer", es: "Revisor de español" },
   "role.compliance_reviewer": { en: "Compliance reviewer", es: "Revisor de cumplimiento" },
   "usage.title": { en: "Usage", es: "Uso" },
   "usage.intro": { en: "The last {days} days. Counts only: no conversation text, and no one rep's sessions.", es: "Los últimos {days} días. Solo conteos: ningún texto de las conversaciones ni las sesiones de un vendedor en particular." },
@@ -421,11 +421,11 @@ export const STRINGS = {
   "assign.scenario": { en: "Scenario", es: "Escenario" },
   "assign.reps": { en: "Reps", es: "Vendedores" },
   "assign.due": { en: "Due date (optional)", es: "Fecha límite (opcional)" },
-  "assign.reason": { en: "Reason the rep will see", es: "Motivo que verá el vendedor" },
+  "assign.reason": { en: "Reason the rep will see", es: "Motivo (lo verá en su pantalla de Hoy)" },
   "assign.reasonHint": { en: "One specific behavior, e.g. \"You went to options before asking a question.\"", es: "Un comportamiento específico, por ejemplo: \"Fue directo a las opciones antes de hacer una pregunta.\"" },
   "assign.submit": { en: "Assign", es: "Asignar" },
   "assign.pickRep": { en: "Pick at least one rep.", es: "Elija al menos un vendedor." },
-  "assign.done": { en: "Assigned to {n}.", es: "Asignado a {n}." },
+  "assign.done": { en: "Assigned to {n}.", es: "Listo: se asignó a {n}." },
   "assign.failed": { en: "Could not assign. Check the reps and the date.", es: "No se pudo asignar. Revise los vendedores y la fecha." },
   "assign.list": { en: "Assignments", es: "Tareas asignadas" },
   "assign.statusDone": { en: "Done", es: "Hecho" },
@@ -528,7 +528,7 @@ export const STRINGS = {
     en: "Not scored: the recording was unclear at this moment.",
     es: "Sin calificar: la grabación no se entendió bien en este momento.",
   },
-  "debrief.hiddenTruth": { en: "What the customer was really thinking", es: "Lo que el cliente de verdad pensaba" },
+  "debrief.hiddenTruth": { en: "What the customer was really thinking", es: "Lo que de verdad estaba pensando" },
   "debrief.truthSaid": { en: "In this conversation, it came out: “{quote}”", es: "En esta conversación salió: “{quote}”" },
   "debrief.truthNotSaid": { en: "In this conversation, it never came out.", es: "En esta conversación nunca salió." },
 
@@ -557,7 +557,7 @@ export const STRINGS = {
   "floor.observed.no": { en: "No", es: "No" },
   "floor.note": { en: "One-line note (optional)", es: "Nota de una línea (opcional)" },
   "floor.selfCheck.specific": { en: "I named one specific behavior", es: "Nombré un comportamiento específico" },
-  "floor.selfCheck.modeled": { en: "I modeled the line in person", es: "Modelé la frase en persona" },
+  "floor.selfCheck.modeled": { en: "I modeled the line in person", es: "Le mostré cómo decir la frase" },
   "floor.save": { en: "Record check", es: "Registrar revisión" },
 
   "customer.fallback": {
@@ -604,7 +604,7 @@ export const STRINGS = {
 
   "practice.offlineNotice": {
     en: "Offline customer: approved lines driven by the scenario engine, no AI model. Behaviors that need the AI judge are not scored.",
-    es: "Cliente sin conexión: frases aprobadas guiadas por el motor del escenario, sin modelo de IA. Los comportamientos que necesitan el juez de IA no se califican.",
+    es: "Cliente de práctica sin IA: usa frases aprobadas. Los comportamientos que necesitan el juez de IA no se califican.",
   },
   "practice.liveNotice": { en: "Live AI customer.", es: "Cliente de IA en vivo." },
   "consent.bodySolo": {
@@ -791,7 +791,7 @@ export const STRINGS = {
     en: "We emailed a six-digit code to {email}. It works for 10 minutes.",
     es: "Le enviamos un código de seis dígitos a {email}. Sirve por 10 minutos.",
   },
-  "signup.verify": { en: "Open my store", es: "Abrir mi tienda" },
+  "signup.verify": { en: "Open my store", es: "Crear mi cuenta" },
   "signup.invalidInput": { en: "Check the store name and the email address.", es: "Revise el nombre de la tienda y el correo." },
   "signup.unavailable": {
     en: "We couldn't send your code just now. Please try again in a few minutes.",
@@ -838,7 +838,7 @@ export const STRINGS = {
   "team.checks": { en: "Checks", es: "Revisiones" },
   "team.hours": { en: "Hours to check", es: "Horas hasta la revisión" },
   "team.specific": { en: "Specific behavior named", es: "Comportamiento específico" },
-  "team.modeled": { en: "Line modeled", es: "Frase modelada" },
+  "team.modeled": { en: "Line modeled", es: "Frase mostrada" },
   "team.noCards": { en: "No cards issued this week yet. Cards appear after reps practice.", es: "Todavía no hay metas esta semana. Aparecen cuando los vendedores practican." },
 
   "card.issued": { en: "Your card for this week", es: "Su meta de esta semana" },

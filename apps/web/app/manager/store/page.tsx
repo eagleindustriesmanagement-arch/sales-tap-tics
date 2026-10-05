@@ -22,6 +22,7 @@ export default async function StorePage() {
         language={lang}
         canEdit={user.roles.includes("general_manager")}
         canApprove={user.roles.includes("compliance_reviewer")}
+        dealer={user.industry === "cars" || user.industry === "other"}
       />
     </div>
   );

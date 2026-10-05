@@ -10,10 +10,10 @@ floor_check_script:
     es: "Lo vi con [el cliente]. Usted resolvió [la objeción] y después salió otra."
   behavior:
     en: Next time, isolate it before you solve it.
-    es: La próxima vez, aíslela antes de resolverla.
+    es: La próxima vez, antes de resolver, pregunte si hay algo más.
   line:
-    en: "\"Other than that, is anything about the car or the numbers holding you back?\""
-    es: "\"Aparte de eso, ¿hay algo del carro o de los números que lo detenga?\""
+    en: "\"Other than that, is there anything else holding you back?\""
+    es: "\"Aparte de eso, ¿hay algo más que lo frene?\""
   check_again:
     en: Try it on your next up. I'll ask you how it went after lunch.
     es: Pruébelo con su próximo cliente. Le pregunto cómo le fue después del almuerzo.

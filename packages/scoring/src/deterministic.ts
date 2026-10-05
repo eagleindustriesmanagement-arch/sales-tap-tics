@@ -203,7 +203,7 @@ function engineItem(item: RubricItem, input: DeterministicInput): ItemResult | n
   if (event === "hidden_revealed") {
     return result(item, input, {
       points: input.engine.hiddenRevealed ? item.points : 0,
-      explanation: input.engine.hiddenRevealed ? both("You surfaced the customer's real concern.", "Sacó a la luz la preocupación real del cliente.") : both("The customer's real concern never came out.", "La preocupación real del cliente nunca salió."),
+      explanation: input.engine.hiddenRevealed ? both("You surfaced the customer's real concern.", "Sacó a la luz la preocupación real.") : both("The customer's real concern never came out.", "La preocupación real nunca salió a la luz."),
     });
   }
   if (event === "next_step") {

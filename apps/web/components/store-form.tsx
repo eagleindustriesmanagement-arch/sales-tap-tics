@@ -25,7 +25,7 @@ export interface StoreFormValue {
 
 const input = "mt-1.5 min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink disabled:opacity-70";
 
-export function StoreForm({ initial, language: lang, canEdit, canApprove }: { initial: StoreFormValue; language: Language; canEdit: boolean; canApprove: boolean }) {
+export function StoreForm({ initial, language: lang, canEdit, canApprove, dealer = true }: { initial: StoreFormValue; language: Language; canEdit: boolean; canApprove: boolean; dealer?: boolean }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
   const [v, setV] = useState(initial);
   const [lenders, setLenders] = useState(initial.lenders.map((l) => `${l.name}${l.isCreditAcceptance ? " *" : ""}`).join("\n"));
@@ -91,12 +91,15 @@ export function StoreForm({ initial, language: lang, canEdit, canApprove }: { in
 
       <Card className="space-y-3">
         <fieldset disabled={!canEdit} className="space-y-3">
+          {/* Add-ons and lenders are dealership settings: a solar, homes or furniture team never sees them. */}
+          {dealer && (<>
           <label className="block text-[14px] font-medium text-muted">{ui("store.addOnRemoval")}
             <select className={input} value={v.addOnRemoval} onChange={(e) => set("addOnRemoval", e.target.value as StoreFormValue["addOnRemoval"])}>
               {(["credit_price", "show_alternative", "none_configured"] as const).map((k) => <option key={k} value={k}>{ui(`store.addOn.${k}`)}</option>)}
             </select>
           </label>
           <label className="block text-[14px] font-medium text-muted">{ui("store.lenders")}<textarea className={`${input} min-h-24 py-2`} value={lenders} onChange={(e) => setLenders(e.target.value)} /></label>
+          </>)}
           <label className="block text-[14px] font-medium text-muted">{ui("store.referral")}
             <select className={input} value={v.referralReward} onChange={(e) => set("referralReward", e.target.value as StoreFormValue["referralReward"])}>
               {(["none", "gift", "cash"] as const).map((k) => <option key={k} value={k}>{ui(`store.referral.${k}`)}</option>)}
