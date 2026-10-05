@@ -669,7 +669,7 @@ export const STRINGS = {
   "login.emailSubject": { en: "Your Sales Taptics code", es: "Su código de Sales Taptics" },
   "login.signOut": { en: "Sign out", es: "Cerrar sesión" },
   "login.newStore": { en: "New here?", es: "¿Es nuevo aquí?" },
-  "login.demoHeading": { en: "Try the demo store", es: "Pruebe el dealer de demostración" },
+  "login.demoHeading": { en: "Try the demo store", es: "Pruebe la tienda de demostración" },
   "login.demoIntro": {
     en: "Pick a seat: rep or sales manager (with admin access). No email needed; the code fills itself in.",
     es: "Escoja un puesto: vendedor o gerente de ventas (con acceso de administrador). No hace falta correo; el código se escribe solo.",
@@ -677,7 +677,7 @@ export const STRINGS = {
   "login.demoPick": { en: "Sign in as", es: "Entrar como" },
   "login.orEmail": { en: "Or sign in with your email", es: "O entre con su correo" },
   "login.startPilot": { en: "Get started", es: "Empezar" },
-  "login.orDemo": { en: "Just looking? Try the demo store, no email needed.", es: "¿Solo mirando? Pruebe el dealer de demostración, sin correo." },
+  "login.orDemo": { en: "Just looking? Try the demo store, no email needed.", es: "¿Solo mirando? Pruebe la tienda de demostración, sin correo." },
 
   "signup.title": { en: "Get started", es: "Empiece ya" },
   "signup.intro": {
@@ -736,7 +736,7 @@ export const STRINGS = {
     es: "Le enviamos un código de seis dígitos a {email}. Sirve por 10 minutos.",
   },
   "signup.verify": { en: "Open my store", es: "Abrir mi tienda" },
-  "signup.invalidInput": { en: "Check the store name and the email address.", es: "Revise el nombre de la tienda y el correo." },
+  "signup.invalidInput": { en: "Check the team name and the email address.", es: "Revise el nombre del equipo y el correo." },
   "signup.unavailable": {
     en: "We couldn't send your code just now. Please try again in a few minutes.",
     es: "No pudimos enviarle el código en este momento. Intente de nuevo en unos minutos.",
@@ -744,7 +744,7 @@ export const STRINGS = {
   "signup.haveAccount": { en: "Already have an account?", es: "¿Ya tiene una cuenta?" },
   "signup.otherEmail": { en: "Use a different email", es: "Usar otro correo" },
 
-  "invite.emailSubject": { en: "{store} added you to Sales Taptics", es: "{store} lo agregó a Sales Taptics" },
+  "invite.emailSubject": { en: "{store} added you to Sales Taptics", es: "{store} le dio acceso a Sales Taptics" },
 
   // Emails (decision 0035): the words of each message; the look is the shared layout in apps/web/lib/email.
   "email.tagline": { en: "Practice the hard conversations before the real ones.", es: "Practique las conversaciones difíciles antes de las de verdad." },
@@ -753,9 +753,9 @@ export const STRINGS = {
   "email.code.intro": { en: "Type this code on the sign-in screen. It works for 10 minutes.", es: "Escriba este código en la pantalla para entrar. Sirve por 10 minutos." },
   "email.code.label": { en: "Sign-in code", es: "Código para entrar" },
   "email.code.note": { en: "If you didn't ask for this code, you can ignore this email. No one can sign in without it.", es: "Si usted no pidió este código, puede ignorar este correo. Nadie puede entrar sin él." },
-  "email.invite.preheader": { en: "{name} added you to {store}. Sign in with this email address.", es: "{name} lo agregó a {store}. Entre con este correo." },
+  "email.invite.preheader": { en: "{name} added you to {store}. Sign in with this email address.", es: "{name} le dio acceso al equipo de {store}. Entre con este correo." },
   "email.invite.heading": { en: "You're on the team at {store}", es: "Ya es parte del equipo de {store}" },
-  "email.invite.intro": { en: "{name} added you to {store} on Sales Taptics, where you practice the hard conversations before the real ones.", es: "{name} lo agregó a {store} en Sales Taptics, donde practica las conversaciones difíciles antes de las de verdad." },
+  "email.invite.intro": { en: "{name} added you to {store} on Sales Taptics, where you practice the hard conversations before the real ones.", es: "{name} le dio acceso al equipo de {store} en Sales Taptics, donde practica las conversaciones difíciles antes de las de verdad." },
   "email.invite.how": { en: "Sign in with this email address and we'll send you a code. No password to remember.", es: "Entre con este correo y le enviaremos un código. No tiene que recordar ninguna contraseña." },
   "email.invite.action": { en: "Sign in to Sales Taptics", es: "Entrar a Sales Taptics" },
   "email.invite.note": { en: "You're getting this email because {name} added this address to {store}.", es: "Le llegó este correo porque {name} agregó esta dirección a {store}." },

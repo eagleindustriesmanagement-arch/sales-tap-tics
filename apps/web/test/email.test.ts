@@ -52,7 +52,7 @@ describe("the branded email layout (decision 0035)", () => {
     expect(en.html).toContain(`href="${SITE}/login"`);
     expect(en.html).toContain("Sign in to Sales Taptics");
     expect(es.html).toContain("Entrar a Sales Taptics");
-    expect(es.subject).toBe("Kendall Toyota lo agregó a Sales Taptics");
+    expect(es.subject).toBe("Kendall Toyota le dio acceso a Sales Taptics");
     expect(en.text).toContain(`Sign in to Sales Taptics: ${SITE}/login`);
     expect(en.html).toContain(BRAND.goldFill);
   });
