@@ -30,8 +30,9 @@ export const CONTENT_SECURITY_POLICY = [
 
 export const SECURITY_HEADERS = [
   { key: "Content-Security-Policy", value: CONTENT_SECURITY_POLICY },
-  // Two years, every subdomain: the site is HTTPS-only (Vercel redirects plain HTTP).
-  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
+  // Two years for this host: the site is HTTPS-only (Vercel redirects plain HTTP). Not every subdomain: email
+  // tracking or other services the owner adds later may live on one, and HSTS is hard to take back.
+  { key: "Strict-Transport-Security", value: "max-age=63072000" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
   // An invite link carries its token in the path: another site gets only our origin, never the path.

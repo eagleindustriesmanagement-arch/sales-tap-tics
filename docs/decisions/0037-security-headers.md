@@ -10,7 +10,8 @@
     elsewhere. Inline scripts and styles stay allowed: Next.js streams page data in inline scripts, and a nonce would
     need per-request middleware for little gain while every page already renders on the server. Media and images allow
     `data:` and `blob:` (the sound check's beep). Development adds `'unsafe-eval'` for fast refresh only.
-  - **Strict-Transport-Security** for two years, subdomains included, not preloaded (preloading is hard to undo).
+  - **Strict-Transport-Security** for two years, for this host only: not subdomains (a service the owner adds later,
+    such as email link tracking, may live on one) and not preloaded (both are hard to undo).
   - **X-Frame-Options: DENY** for browsers that predate `frame-ancestors`; **X-Content-Type-Options: nosniff**.
   - **Referrer-Policy: strict-origin-when-cross-origin**: an invite link carries its token in the path, and another
     site only ever sees our origin.
