@@ -72,20 +72,29 @@ const OBJECTION_FOR: Record<string, string> = {
 };
 
 /** A short scene for one card: the rep's flawed habit in front of a customer, as the manager saw it. */
-export function coachScene(library: Library, card: BehaviorCard, seed: number): CoachScene {
+/** Where the manager watched the rep, per industry (October 5 blitz: a solar team was shown "the Equinox"). */
+const WHERE: Record<string, { en: string; es: string }> = {
+  cars: { en: "at the Equinox", es: "en la Equinox" },
+  solar: { en: "at their kitchen table, going over a solar estimate", es: "en la mesa de la cocina, revisando un estimado solar" },
+  homes: { en: "at a model home", es: "en una casa modelo" },
+  furniture: { en: "by a sectional on the showroom floor", es: "junto a un sofá en la sala de exhibición" },
+};
+
+export function coachScene(library: Library, card: BehaviorCard, seed: number, industry = "cars"): CoachScene {
   const repName = REPS[seed % REPS.length]!;
+  const where = WHERE[industry] ?? WHERE.cars!;
   const technique = library.techniques.get(card.technique);
   const objection = library.objections.get(OBJECTION_FOR[card.technique] ?? "O03");
   const flawed = technique?.flawed_line;
   const said = objection?.says ?? { en: "the payment is too high", es: "el pago está muy alto" };
   const scene = flawed
     ? {
-        en: `You watched ${repName} with a couple at the Equinox. When they said "${said.en}", ${repName} answered: "${flawed.en}"`,
-        es: `Usted vio a ${repName} con una pareja en la Equinox. Cuando dijeron "${said.es}", ${repName} contestó: "${flawed.es}"`,
+        en: `You watched ${repName} with a couple ${where.en}. When they said "${said.en}", ${repName} answered: "${flawed.en}"`,
+        es: `Usted vio a ${repName} con una pareja ${where.es}. Cuando dijeron "${said.es}", ${repName} contestó: "${flawed.es}"`,
       }
     : {
-        en: `You watched ${repName} with a couple at the Equinox. ${card.floor_check_script.saw.en.replace(/\[[^\]]*\]/g, "the customer")}`,
-        es: `Usted vio a ${repName} con una pareja en la Equinox. ${card.floor_check_script.saw.es.replace(/\[[^\]]*\]/g, "el cliente")}`,
+        en: `You watched ${repName} with a couple ${where.en}. ${card.floor_check_script.saw.en.replace(/\[[^\]]*\]/g, "the customer")}`,
+        es: `Usted vio a ${repName} con una pareja ${where.es}. ${card.floor_check_script.saw.es.replace(/\[[^\]]*\]/g, "el cliente")}`,
       };
   return { cardCode: card.code, repName, scene };
 }
