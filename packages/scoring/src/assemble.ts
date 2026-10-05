@@ -101,6 +101,15 @@ export async function scoreSession(input: ScoreInput): Promise<ScoreResult> {
   const familyOf = (code: string) => library.rules.get(code)?.family;
   const autoFails: ScoreResult["autoFails"] = [];
   const coaching: ScoreResult["coaching"] = [];
+  const uncertainAutoFails: ScoreResult["autoFails"] = [];
+  // The judge reads the transcript, not the audio: a judged lie at a moment the recording was unclear may be the
+  // speech engine's mishearing ("we'll try to get you approved" heard as "you'll be approved"). Like an uncertain
+  // rule violation, it is flagged for review and never zeroes the score on its own (October 5 review).
+  const unclear = (e: { turnIndex: number } | null | undefined) => {
+    if (input.textMode || !e) return false;
+    const c = transcript.find((t) => t.index === e.turnIndex)?.asrConfidence;
+    return typeof c === "number" && c < lowConfidence;
+  };
   for (const a of autoFail) {
     // Only dishonesty zeroes the attempt; a coaching move is named and costs nothing (decision 0034).
     const into = a.kind === "coaching" ? coaching : autoFails;
@@ -108,7 +117,8 @@ export async function scoreSession(input: ScoreInput): Promise<ScoreResult> {
       const hit = critical.find((v) => a.rule_families.includes(familyOf(v.rule) ?? ""));
       if (hit) into.push({ code: a.code, description: a.description, evidence: { turnIndex: hit.turnIndex ?? 0, quote: hit.span.text } });
     } else if (judged?.autoFail[a.code]?.hit) {
-      into.push({ code: a.code, description: a.description, evidence: judged.autoFail[a.code]!.evidence });
+      const evidence = judged.autoFail[a.code]!.evidence;
+      (into === autoFails && unclear(evidence) ? uncertainAutoFails : into).push({ code: a.code, description: a.description, evidence });
     }
   }
   const honestyPassed = !failsHonesty(input.violations) && autoFails.length === 0;
@@ -129,7 +139,7 @@ export async function scoreSession(input: ScoreInput): Promise<ScoreResult> {
   if (!honestyPassed) total = 0;
 
   const coverage = coverageOf(scenario.scoring ? results.filter((r) => r.scenarioItem) : results);
-  const partial = coverage < MIN_COVERAGE || input.judgeUnavailable === true;
+  const partial = coverage < MIN_COVERAGE || input.judgeUnavailable === true || uncertainAutoFails.length > 0;
   const level = input.level ?? scenario.difficulty as 1 | 2 | 3;
   const threshold = level === 1 ? thresholds.level_1 : level === 2 ? thresholds.level_2 : thresholds.level_3;
   return {
@@ -148,6 +158,7 @@ export async function scoreSession(input: ScoreInput): Promise<ScoreResult> {
     coaching,
     criticalViolations: critical,
     reviewFlags,
+    uncertainAutoFails,
     judgeModel: judged?.model ?? null,
     judgePromptVersion: judged?.promptVersion ?? null,
     turningPoint: judged?.turningPoint ?? null,

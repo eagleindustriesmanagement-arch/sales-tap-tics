@@ -86,6 +86,9 @@ export interface ScoreResult {
   coaching: { code: string; description: BilingualText; evidence: Evidence | null }[];
   criticalViolations: Violation[];
   reviewFlags: Violation[];
+  /** Judged honesty failures at a moment the recording was unclear: flagged for review, never a zero (absent on
+   *  scores stored before October 5). */
+  uncertainAutoFails?: { code: string; description: BilingualText; evidence: Evidence | null }[];
   judgeModel: string | null;
   judgePromptVersion: string | null;
   textMode: boolean;

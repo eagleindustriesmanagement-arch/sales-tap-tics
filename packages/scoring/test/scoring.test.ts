@@ -235,3 +235,25 @@ describe("no live judge, no pass (October 5 review)", () => {
     expect((await scoreSession({ library, scenario: sc, transcript: turns, violations: [], engine: ENGINE_WIN, judge: new FixtureJudge(), textMode: false })).passed).toBe(true);
   });
 });
+
+describe("a judged lie on unclear audio (October 5 review)", () => {
+  it("is flagged for review instead of zeroing the score; on clear audio it zeroes", async () => {
+    const sc = library.scenarios.get("S-no-extras-L2")!;
+    expect(sc.scoring!.auto_fail.find((a) => a.code === "false_product_claim")?.kind ?? "honesty").toBe("honesty");
+    const turns = (confidence: number): ScoredTurn[] => [
+      { index: 0, speaker: "customer", text: "I don't want any extras.", language: "en", isObjection: true },
+      { index: 1, speaker: "rep", text: "Understood. Most people take it, you'll want it.", language: "en", pauseBeforeMs: 2500, startedMs: 0, endedMs: 3000, asrConfidence: confidence },
+    ];
+    const judge = new FixtureJudge({ autoFail: { false_product_claim: { hit: true, evidence: { turnIndex: 1, quote: "Most people take it" }, explanation: { en: "", es: "" } } } });
+    const unclear = await scoreSession({ library, scenario: sc, transcript: turns(0.4), violations: [], engine: ENGINE_WIN, judge, textMode: false });
+    expect(unclear.autoFails).toEqual([]);
+    expect(unclear.uncertainAutoFails?.map((a) => a.code)).toEqual(["false_product_claim"]);
+    expect(unclear.honestyPassed).toBe(true);
+    expect(unclear.partial).toBe(true);
+    expect(unclear.passed).toBe(false);
+    expect(buildDebrief({ library, scenario: sc, score: unclear, transcript: turns(0.4), endReason: "next_step" }).reviewFlags).toBe(1);
+    const clear = await scoreSession({ library, scenario: sc, transcript: turns(0.95), violations: [], engine: ENGINE_WIN, judge, textMode: false });
+    expect(clear.autoFails.map((a) => a.code)).toEqual(["false_product_claim"]);
+    expect(clear.total).toBe(0);
+  });
+});

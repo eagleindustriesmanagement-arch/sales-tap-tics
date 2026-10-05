@@ -110,7 +110,7 @@ export function buildDebrief(input: { library: Library; scenario: Scenario; scor
     hiddenTruth: persona?.hidden_truth ?? null,
     hiddenTruthSaid: persona ? firstSaid(transcript, persona.hidden_truth_markers) : null,
     notScored: score.items.filter((i) => i.status === "not_scored").map((i) => i.code),
-    reviewFlags: score.reviewFlags.length,
+    reviewFlags: score.reviewFlags.length + (score.uncertainAutoFails?.length ?? 0),
   };
 }
 
