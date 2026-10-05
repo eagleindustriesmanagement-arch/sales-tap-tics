@@ -88,7 +88,8 @@ export function AppChrome({ tabs, appName, lang, settingsLabel, initial, childre
                 <Link key={t.href} href={t.href} aria-current={on ? "page" : undefined}
                   className={`relative flex flex-col items-center justify-center gap-0.5 rounded-[1.35rem] text-[11px] font-semibold transition-colors duration-300 ${on ? "text-brand" : "text-muted"}`}>
                   <Icon size={23} />
-                  <span className="max-w-full truncate px-1">{t.label}</span>
+                  {/* A long label (es "Revisión del español") wraps to two balanced lines instead of losing its end. */}
+                  <span className="line-clamp-2 max-w-full px-1 text-center leading-tight [text-wrap:balance]">{t.label}</span>
                 </Link>
               );
             })}

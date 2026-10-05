@@ -244,12 +244,12 @@ admin access as a privilege, a home page that sells, pricing, industries). Build
 
 ## Numbers
 
-- 683 unit and database tests: session 299 (the 65-scenario release gate in both languages, the 30-day simulation,
+- 892 unit and database tests (October 5; the breakdown below is from October 3, at 683): session 299 (the 65-scenario release gate in both languages, the 30-day simulation,
   objection weights, reminders), engine 152, rules 120, database 55 (row-level security for reads and writes,
   sign-in, repository, assignments, coaching practice, Spanish review, usage, people, store-number import, exit
   calibration, objection weights, product analytics, push reminders), scoring 19, AI client 16 (fake SDK), i18n 8,
   voice 8, content 3, web 3 (log redaction).
-- 24 browser tests (18 flows and 6 accessibility audits, every main screen audited in light and dark); each account signs in once per run, under the real limit
+- 56 browser tests on October 5 (flows, the regression sweep of every screen of every role in both languages, accessibility audits, accounts, security headers, cross-company access, warm-up). On October 3: 24 browser tests (18 flows and 6 accessibility audits, every main screen audited in light and dark); each account signs in once per run, under the real limit
   of five codes per 15 minutes on the production build against Postgres (Pixel 7 viewport): rep sign-in, consent, practice,
   debrief and saved session; stop-on-critical with the violation stored; manager floor check and team view; a rep
   refused from manager screens, another rep's session and the floor-check API; an admin edits store
