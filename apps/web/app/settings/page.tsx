@@ -44,7 +44,7 @@ export default async function Settings({ searchParams }: { searchParams: Promise
             <span className={icon}><IconClock size={20} /></span>
             <div className="min-w-0">
               <label className="block text-[16px] font-bold text-ink" htmlFor="reminder">{t("settings.reminder", lang)}</label>
-              <p className="text-[14px] text-muted">{t("settings.reminderHelp", lang)}</p>
+              <p className="text-[14px] text-muted">{t(user.accountKind === "individual" ? "settings.reminderHelpSolo" : "settings.reminderHelp", lang)}</p>
             </div>
           </div>
           <input id="reminder" name="reminder" type="time" defaultValue={reminderTime ?? ""} className={fieldClass} />
@@ -56,7 +56,7 @@ export default async function Settings({ searchParams }: { searchParams: Promise
         <span className={icon}><IconLock size={20} /></span>
         <div>
           <h2 className="text-[16px] font-bold text-ink">{t("settings.privacy", lang)}</h2>
-          <p className="text-[14px] text-body" data-testid="private-window">{user.privateWindowHours > 0 ? t("settings.privateWindow", lang, { hours: user.privateWindowHours }) : t("settings.noPrivateWindow", lang)}</p>
+          <p className="text-[14px] text-body" data-testid="private-window">{user.accountKind === "individual" ? t("settings.privateSolo", lang) : user.privateWindowHours > 0 ? t("settings.privateWindow", lang, { hours: user.privateWindowHours }) : t("settings.noPrivateWindow", lang)}</p>
         </div>
       </Card>
       <form action="/api/auth/logout" method="post">

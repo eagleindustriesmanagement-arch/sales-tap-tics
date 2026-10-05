@@ -19,7 +19,8 @@ export default async function Consent() {
         <span className="grid h-16 w-16 place-items-center rounded-[1.25rem] bg-brand-soft text-brand ring-1 ring-brand/25 ring-inset"><IconShield size={32} /></span>
         <h1 className={titleClass}>{t("consent.title", lang)}</h1>
         <Card className="space-y-4">
-          <p className="text-[16px] leading-relaxed text-ink">{t("consent.body", lang, { hours: user.privateWindowHours, days: user.audioRetentionDays })}</p>
+          <p className="text-[16px] leading-relaxed text-ink">{/* Someone practicing alone has no managers: the notice says only what is true for them. */}
+            {user.accountKind === "individual" ? t("consent.bodySolo", lang, { days: user.audioRetentionDays }) : t("consent.body", lang, { hours: user.privateWindowHours, days: user.audioRetentionDays })}</p>
           <p className="text-[13px] text-muted">{t("app.disclaimer", lang)}</p>
         </Card>
         <form action="/api/consent" method="post">

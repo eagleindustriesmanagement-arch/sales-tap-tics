@@ -15,7 +15,7 @@ export default async function Progress() {
   return (
     <div className="space-y-5">
       <PageHeader title={t("progress.title", lang)} action={<Link href="/history" className={smallButtonClass}><IconClock size={18} />{t("progress.history", lang)}</Link>} />
-      <ProgressView progress={progress} history={past.history} lang={lang} />
+      <ProgressView progress={progress} history={past.history} lang={lang} industry={user.industry} solo={user.accountKind === "individual"} />
     </div>
   );
 }

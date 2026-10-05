@@ -22,7 +22,8 @@ export default async function History() {
       ) : (
         <RowGroup>
           {sessions.map((s) => {
-            const isPrivate = s.privateUntil && new Date(s.privateUntil) > now;
+            // Someone practicing alone shares with no one: "private until" would promise a reveal that never comes.
+            const isPrivate = user.accountKind !== "individual" && s.privateUntil && new Date(s.privateUntil) > now;
             return (
               <ListRow
                 key={s.id}

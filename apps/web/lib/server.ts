@@ -215,7 +215,8 @@ export async function finishSession(s: Live, user: UserContext): Promise<Session
     });
     const week = await weekScoreItems(db, user.id);
     const scores = week.map((items) => ({ items: items as unknown as ItemResult[] }) as ScoreResult);
-    const choice = chooseWeeklyCard(library(), scores);
+    // The weekly card is checked by a manager on the floor (spec 12.4): someone practicing alone gets none.
+    const choice = user.accountKind === "individual" ? null : chooseWeeklyCard(library(), scores);
     if (choice) await issueCard(db, user.tenantId, user.id, { code: choice.card.code, itemCode: choice.itemCode, sessionId: s.id });
   });
   s.result = result;

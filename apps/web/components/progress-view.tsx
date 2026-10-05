@@ -11,14 +11,16 @@ const DIMENSIONS = ["discovery", "technique", "composure", "outcome"] as const;
  * One rep's progress (spec 18.1 Progress, 18.2 Rep detail): the same view for the rep and the manager. The
  * certification ring is the long goal; skills by week show the trend; weakest skills say what to work on next.
  */
-export function ProgressView({ progress, history, lang }: { progress: RepProgress; history: Observation[]; lang: Language }) {
+export function ProgressView({ progress, history, lang, industry = "cars", solo = false }: { progress: RepProgress; history: Observation[]; lang: Language; industry?: string; solo?: boolean }) {
   const lib = library();
   const now = new Date();
-  const release1 = scheduleInputs(lib).scenarios.filter((s) => s.release1);
+  // The rep's own industry (decision 0033): certification is the car path; other industries track their customers.
+  const pool = scheduleInputs(lib, {}, industry).scenarios;
+  const release1 = pool.filter((s) => s.release1);
   const certified = release1.filter((s) => certificationState(s.code, history, now).state === "certified").length;
   const streak = practiceStreak(history.map((o) => o.at), now);
   const mastery = masteryFrom(history);
-  const objections = release1
+  const objections = (release1.length > 0 ? release1 : pool)
     .map((s) => ({
       code: s.code,
       title: lib.scenarios.get(s.code)!.title[lang],
@@ -37,16 +39,26 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
   const prior = progress.weeks.at(-2);
   return (
     <div className="space-y-6">
-      <section className="liquid-glass liquid-glass-panel liquid-glass-hero flex items-center gap-5 rounded-[1.5rem] p-5">
-        <Ring value={release1.length ? certified / release1.length : 0} size={108} stroke={8} tone="brand" label={`${certified}/${release1.length}`}>
-          <IconTrophy size={30} className="text-brand" />
-        </Ring>
-        <div className="min-w-0 space-y-1">
-          <p className="font-display text-[46px] leading-none text-ink tabular-nums" data-testid="progress-certified">{certified}/{release1.length}</p>
-          <p className="text-[15px] font-semibold text-ink">{t("progress.certifiedShort", lang)}</p>
-          <p className="text-[13px] text-muted">{t("progress.certifyHint", lang)}</p>
-        </div>
-      </section>
+      {release1.length > 0 ? (
+        <section className="liquid-glass liquid-glass-panel liquid-glass-hero flex items-center gap-5 rounded-[1.5rem] p-5">
+          <Ring value={certified / release1.length} size={108} stroke={8} tone="brand" label={`${certified}/${release1.length}`}>
+            <IconTrophy size={30} className="text-brand" />
+          </Ring>
+          <div className="min-w-0 space-y-1">
+            <p className="font-display text-[46px] leading-none text-ink tabular-nums" data-testid="progress-certified">{certified}/{release1.length}</p>
+            <p className="text-[15px] font-semibold text-ink">{t("progress.certifiedShort", lang)}</p>
+            <p className="text-[13px] text-muted">{t(solo ? "progress.certifyHintSolo" : "progress.certifyHint", lang)}</p>
+          </div>
+        </section>
+      ) : (
+        <section className="liquid-glass liquid-glass-panel liquid-glass-hero flex items-center gap-5 rounded-[1.5rem] p-5" data-testid="progress-sessions">
+          <span className="grid h-[72px] w-[72px] shrink-0 place-items-center rounded-full bg-brand-soft text-brand ring-1 ring-brand/25 ring-inset"><IconTrophy size={30} /></span>
+          <div className="min-w-0 space-y-1">
+            <p className="font-display text-[46px] leading-none text-ink tabular-nums">{history.filter((o) => o.mode !== "warm_up").length}</p>
+            <p className="text-[15px] font-semibold text-ink">{t("today.sessionsSoFar", lang)}</p>
+          </div>
+        </section>
+      )}
 
       <div className="grid grid-cols-2 gap-3">
         <Card className="p-3.5">
@@ -104,11 +116,12 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
       <section className="space-y-2.5">
         <SectionTitle>{t("progress.weakest", lang)}</SectionTitle>
         <Card>
-          {progress.weakest.length === 0 ? (
+          {progress.weakest.filter((w) => w.ratio < 1).length === 0 ? (
             <p className="text-[15px] text-muted">{t("progress.notEnough", lang)}</p>
           ) : (
             <ul className="space-y-3.5" data-testid="progress-weakest">
-              {progress.weakest.map((w) => (
+              {/* A skill at 100% is not a weak one. */}
+              {progress.weakest.filter((w) => w.ratio < 1).map((w) => (
                 <li key={w.code}>
                   <div className="flex justify-between gap-3 text-[15px]"><span className="text-ink">{itemBehavior(w.code)?.[lang] ?? w.code}</span><span className="font-semibold text-muted tabular-nums">{Math.round(w.ratio * 100)}%</span></div>
                   <Bar value={w.ratio} tone={w.ratio >= 0.7 ? "good" : w.ratio >= 0.4 ? "warn" : "bad"} className="mt-1.5" />
@@ -136,6 +149,7 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
         </section>
       )}
 
+      {!solo && (
       <section className="space-y-2.5">
         <SectionTitle>{t("progress.cards", lang)}</SectionTitle>
         <Card>
@@ -157,6 +171,7 @@ export function ProgressView({ progress, history, lang }: { progress: RepProgres
           )}
         </Card>
       </section>
+      )}
     </div>
   );
 }

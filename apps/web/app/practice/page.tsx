@@ -79,10 +79,13 @@ export default async function Practice() {
   return (
     <div className="space-y-6">
       <PageHeader title={t("practice.title", lang)} subtitle={t("practice.intro", lang)} />
-      <div className="px-1">
-        <h2 className="font-display text-[28px] leading-tight text-ink">{t("practice.core.title", lang)}</h2>
-        <p className="text-[15px] text-muted">{t("practice.core.sub", lang)}</p>
-      </div>
+      {/* The certification path is the car path (decision 0033): no empty heading for other industries. */}
+      {core.length > 0 && (
+        <div className="px-1">
+          <h2 className="font-display text-[28px] leading-tight text-ink">{t("practice.core.title", lang)}</h2>
+          <p className="text-[15px] text-muted">{t("practice.core.sub", lang)}</p>
+        </div>
+      )}
       {levels.map((level) => {
         const scenarios = core.filter((s) => s.difficulty === level).sort(byTitle);
         const passed = scenarios.filter((s) => progress.get(s.code)?.passed).length;
@@ -112,7 +115,11 @@ export default async function Practice() {
             return (
               <section key={topic} className="space-y-3" aria-labelledby={`topic-${topic}`} data-testid={`topic-${topic}`}>
                 <div className="flex items-end justify-between gap-3 px-1">
-                  <h3 id={`topic-${topic}`} className="text-[20px] font-bold text-ink">{topicName(topic, lang)}</h3>
+                  <h3 id={`topic-${topic}`} className="text-[20px] font-bold text-ink">
+                    {topicName(topic, lang)}
+                    {/* Someone who sells something else sees which customers are car buyers. */}
+                    {user.industry !== "cars" && user.industry !== "other" && topic.startsWith("car-") && <span className="text-[15px] font-semibold text-muted"> · {t("practice.carCustomers", lang)}</span>}
+                  </h3>
                   <p className="pb-0.5 text-[14px] font-semibold text-muted tabular-nums">{t("practice.levelProgress", lang, { passed, total: scenarios.length })}</p>
                 </div>
                 <ol className="liquid-glass liquid-glass-panel overflow-hidden rounded-[1.25rem] py-1.5">{scenarios.map(row)}</ol>

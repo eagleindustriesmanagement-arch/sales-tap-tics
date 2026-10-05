@@ -98,10 +98,18 @@ export default async function Today() {
         <Link href="/progress" className="block">
           <Card className="flex h-full items-center gap-3 p-3.5">
             <span className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full bg-spark-soft text-spark ring-1 ring-spark/30 ring-inset"><IconTrophy size={24} /></span>
-            <div className="min-w-0">
-              <p className="text-[13px] font-medium text-muted">{t("today.certified", lang)}</p>
-              <p className="mt-0.5 font-display text-[30px] leading-none text-ink tabular-nums">{certified}<span className="font-sans text-[15px] font-semibold text-muted">/{release1.length}</span></p>
-            </div>
+            {/* Certification is the car path (decision 0033); other industries count their sessions instead of "0/0". */}
+            {release1.length > 0 ? (
+              <div className="min-w-0">
+                <p className="text-[13px] font-medium text-muted">{t("today.certified", lang)}</p>
+                <p className="mt-0.5 font-display text-[30px] leading-none text-ink tabular-nums">{certified}<span className="font-sans text-[15px] font-semibold text-muted">/{release1.length}</span></p>
+              </div>
+            ) : (
+              <div className="min-w-0" data-testid="today-sessions">
+                <p className="text-[13px] font-medium text-muted">{t("today.sessionsSoFar", lang)}</p>
+                <p className="mt-0.5 font-display text-[30px] leading-none text-ink tabular-nums">{progress.history.filter((o) => o.mode !== "warm_up").length}</p>
+              </div>
+            )}
           </Card>
         </Link>
       </div>
@@ -164,6 +172,8 @@ export default async function Today() {
         </Link>
       )}
 
+      {/* The weekly behavior is checked by a manager on the floor (spec 12.4): not shown to someone practicing alone. */}
+      {user.accountKind !== "individual" && (
       <section className="space-y-2.5">
         <SectionTitle>{card ? t("card.issued", lang) : t("today.behaviorCard", lang)}</SectionTitle>
         <Card>
@@ -187,6 +197,7 @@ export default async function Today() {
           )}
         </Card>
       </section>
+      )}
 
       {recent.length > 0 && (
         <section className="space-y-2.5">
