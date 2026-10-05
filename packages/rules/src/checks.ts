@@ -195,7 +195,9 @@ function allInFact(facts: ScenarioFacts): BilingualText {
 function moneyIn(utterance: Utterance, ctx: CheckContext): MoneyMention[] {
   const v = ctx.facts?.vehicle;
   const vehicleNames = v ? [v.model, v.make, v.trim].filter((x): x is string => typeof x === "string" && x.length > 1) : [];
-  return findMoney(utterance.text, utterance.language, ctx.lexicon, { lowConfidence: utterance.lowConfidence, vehicleNames });
+  // The trade vehicle's make and model: "2019 Chevrolet Silverado 1500 LT, 96,000 miles" gives Chevrolet, Silverado.
+  const tradeNames = (ctx.facts?.trade?.vehicle ?? "").split(",")[0]!.split(/\s+/).filter((w) => /^\p{Lu}\p{Ll}{2,}$/u.test(w));
+  return findMoney(utterance.text, utterance.language, ctx.lexicon, { lowConfidence: utterance.lowConfidence, vehicleNames, tradeNames });
 }
 
 function claims(mentions: MoneyMention[], role: MoneyMention["role"]): MoneyMention[] {

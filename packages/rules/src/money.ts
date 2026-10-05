@@ -86,6 +86,17 @@ export interface MoneyOptions {
   lowConfidence?: Array<{ start: number; end: number }>;
   /** The deal's vehicle (model, make, trim): "the Blazer is $39,651" quotes its price. */
   vehicleNames?: string[];
+  /** The customer's trade vehicle (make, model): "$25,000 for your Silverado" is a trade number. */
+  tradeNames?: string[];
+}
+
+const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** "for your Silverado", "por su Silverado 1500": the amount before it is what the customer gets for the trade. */
+function tradeNamedAfter(after: string, names: string[]): boolean {
+  const words = names.map((n) => n.trim()).filter((n) => n.length > 2).map(escapeRe);
+  if (words.length === 0) return false;
+  return new RegExp(`^[\\s,]*(?:for|on|por)\\s+(?:your|su|tu)\\s+(?:[\\p{L}\\p{N}'-]+\\s+){0,2}?(?:${words.join("|")})(?![\\p{L}\\p{N}_])`, "iu").test(after);
 }
 
 /** A vehicle named, then "is": the amount after it is that vehicle's price. Only for amounts no cue claimed. */
@@ -125,6 +136,14 @@ export function findMoney(text: string, language: Language, lexicon: Lexicon, op
   const payments = mentions.filter((m) => m.role === "payment").map((m) => m.value);
   for (const m of mentions) {
     if (m.role === "unknown" && payments.some((p) => m.value >= p * 0.5 && m.value <= p * 1.5)) m.role = "payment";
+  }
+  // "$25,000 for your Silverado": the trade vehicle by name. A cue for another role (a payment) still wins.
+  if (options.tradeNames?.length) {
+    for (const m of mentions) {
+      if (m.role !== "unknown" && m.role !== "price") continue;
+      const clause = clauseAt(text, m.start);
+      if (tradeNamedAfter(text.slice(m.end, Math.min(clause.end, m.end + 40)), options.tradeNames)) m.role = "trade";
+    }
   }
   // "The Blazer is $39,651" / "la Blazer está en $39,651": a price, even with no price word before it.
   if (options.vehicleNames?.length) {

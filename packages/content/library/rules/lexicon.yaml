@@ -17,7 +17,9 @@ money_roles:
     after: { en: ["off", "rebate", "discount", "bonus", "cash back", "less"], es: ["de descuento", "menos", "de rebaja", "de reembolso", "de bono", "adicionales de descuento"] }
   trade:
     before: { en: ["trade", "trade-in", "your car", "appraisal", "appraised", "comes in at", "worth"], es: ["trade", "trade-in", "su carro", "tasación", "tasado", "sale en", "vale"] }
-    after: { en: ["for your trade", "on your trade", "for the trade", "on the trade", "for your car"], es: ["por su carro", "por el trade", "por su trade-in", "por el trade-in"] }
+    # "for your truck" / "por su troca": the customer's own vehicle, named by kind. The trade vehicle's own name ("for
+    # your Silverado") comes from the facts.
+    after: { en: ["for your trade", "on your trade", "for the trade", "on the trade", "for your car", "for your truck", "on your truck", "for your old car", "for your old truck", "for your suv", "for your van", "for your vehicle", "for your ride", "for your pickup", "for your minivan"], es: ["por su carro", "por el trade", "por su trade-in", "por el trade-in", "por su troca", "por su camioneta", "por su guagua", "por su vehículo", "por su auto", "por su coche", "por su van", "por su pickup", "por su carro viejo", "por tu carro", "por tu troca", "por tu camioneta"] }
   payoff:
     before: { en: ["payoff", "owe", "you owe", "balance"], es: ["payoff", "debe", "saldo"] }
     after: { en: ["payoff", "left on the loan"], es: ["de payoff", "de deuda"] }

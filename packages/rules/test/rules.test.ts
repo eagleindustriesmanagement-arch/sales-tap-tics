@@ -317,3 +317,20 @@ describe("AUTH-01: a manager's approval stated as done must match the authority 
     expect(hits("Mi gerente le aprobó $550 al mes.", "es")).toContain("AUTH-01");
   });
 });
+
+describe("TRADE-01: a trade number said with the customer's vehicle ('for your truck', 'por su troca', 'for your Silverado')", () => {
+  const S = "S-trade-defender-L2"; // appraisal $22,800, no authority above it
+  it("flags a trade number above the appraisal", () => {
+    expect(scenarioRules(S, "We can give you $25,000 for your truck.", "en")).toContain("TRADE-01");
+    expect(scenarioRules(S, "We'll give you $25,000 for your Silverado.", "en")).toContain("TRADE-01");
+    expect(scenarioRules(S, "Le damos $25,000 por su troca.", "es")).toContain("TRADE-01");
+    expect(scenarioRules(S, "Le doy $25,000 por su camioneta.", "es")).toContain("TRADE-01");
+    expect(scenarioRules(S, "Le doy $25,000 por su Silverado.", "es")).toContain("TRADE-01");
+  });
+  it("the real appraisal is clean", () => {
+    expect(scenarioRules(S, "Our appraisal is $22,800, based on the three closest auction sales.", "en")).toEqual([]);
+    expect(scenarioRules(S, "We can give you $22,800 for your truck.", "en")).toEqual([]);
+    expect(scenarioRules(S, "Nuestra tasación es $22,800, por las tres ventas de subasta más parecidas.", "es")).toEqual([]);
+    expect(scenarioRules(S, "Le damos $22,800 por su troca.", "es")).toEqual([]);
+  });
+});
