@@ -10,6 +10,7 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage packages/rules packages/scoring packages/content packages/engine",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "content:validate": "tsx packages/content/scripts/validate.ts && tsx packages/rules/scripts/check-content.ts",
     "content:import-spec": "tsx packages/content/scripts/import-spec.ts",

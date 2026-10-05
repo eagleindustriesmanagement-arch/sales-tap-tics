@@ -57,6 +57,8 @@ jobs:
           end \$\$"
       - run: pnpm typecheck
       - run: pnpm test
+      # Spec 21.1: at least 80% of lines covered in the rule engine, scoring and content; fails below it.
+      - run: pnpm test:coverage
       - run: pnpm content:validate
       - run: pnpm i18n:check
       - run: pnpm compliance:suite
