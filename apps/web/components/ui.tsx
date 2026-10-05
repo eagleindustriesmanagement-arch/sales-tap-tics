@@ -1,3 +1,4 @@
+export { real } from "@/lib/text";
 import Link from "next/link";
 import type { HTMLAttributes, ReactNode } from "react";
 import { IconChevronLeft, IconChevronRight } from "@/components/icons";

@@ -233,6 +233,6 @@ describe("classifiers and judge", () => {
     expect(bad.turningPoint).toBeNull();
     const good = await judge.evaluate(input);
     expect(good.turningPoint?.modelAlternative.es).toMatch(/primero/);
-    expect(good.promptVersion).toBe("judge@2");
+    expect(good.promptVersion).toBe("judge@3");
   });
 });

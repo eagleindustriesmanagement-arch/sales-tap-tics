@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, type CSSProperties } from "react";
 import { t, type Bilingual, type Language } from "@taptics/i18n";
 import { IconAlert, IconBulb, IconCheck, IconChevronRight, IconEye, IconRefresh, IconX } from "@/components/icons";
-import { Bar, Card, Chip, Ring, buttonClass, ghostButtonClass, quoted, titleClass } from "@/components/ui";
+import { Bar, Card, Chip, Ring, buttonClass, ghostButtonClass, quoted, real, titleClass } from "@/components/ui";
 
 /** When each part of the reveal starts (globals.css motion): all of it is over by ~0.85s. */
 const delay = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as CSSProperties;
@@ -89,8 +89,8 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
       {d.critical.map((c, i) => (
         <section key={i} className="reveal-slide bezel space-y-2.5 rounded-[1.25rem] bg-bad-soft p-4 ring-1 ring-bad/30 ring-inset" style={delay(VIOLATIONS_AT + i * 60)}>
           <p className="flex items-center gap-2 text-[15px] font-bold text-bad"><IconAlert size={18} />{ui("debrief.critical")} · {c.rule}</p>
-          <p className="text-[16px] text-ink">{quoted(c.quote)}</p>
-          <p className="text-[15px] text-ink">{c.explanation[lang]}</p>
+          {real(c.quote) && <p className="text-[16px] text-ink">{quoted(real(c.quote)!)}</p>}
+          {real(c.explanation[lang]) && <p className="text-[15px] text-ink">{real(c.explanation[lang])}</p>}
           {c.compliantLine && (
             <p className="rounded-[0.875rem] bg-page/60 p-3 text-[15px] text-ink"><span className="font-semibold">{ui("debrief.compliantLine")}:</span> {quoted(c.compliantLine[lang])}</p>
           )}
@@ -99,7 +99,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
       {d.autoFails.filter(() => !d.critical.length).map((a) => (
         <section key={a.code} className="reveal-slide bezel space-y-1 rounded-[1.25rem] bg-bad-soft p-4 ring-1 ring-bad/30 ring-inset" style={delay(VIOLATIONS_AT)}>
           <p className="flex items-center gap-2 font-bold text-bad"><IconAlert size={18} />{a.description[lang]}</p>
-          {a.quote && <p className="text-ink">{quoted(a.quote)}</p>}
+          {real(a.quote) && <p className="text-ink">{quoted(real(a.quote)!)}</p>}
         </section>
       ))}
 
@@ -125,7 +125,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
       <section className="reveal-rise liquid-glass liquid-glass-panel liquid-glass-hero space-y-2 rounded-[1.5rem] p-5" style={cascade(step++)}>
         <p className="flex items-center gap-2 text-[15px] font-semibold text-brand"><IconBulb size={18} />{d.change.stretch ? ui("debrief.stretch") : ui("debrief.change")}</p>
         <p className="font-display text-[27px] leading-[1.15] text-ink">{d.change.behavior[lang]}</p>
-        <p className="text-[15px] text-body"><span className="font-semibold text-ink">{ui("debrief.why")}:</span> {d.change.why[lang]}</p>
+        {real(d.change.why[lang]) && <p className="text-[15px] text-body"><span className="font-semibold text-ink">{ui("debrief.why")}:</span> {real(d.change.why[lang])}</p>}
         {/* Back to the lesson by name: the move the rep read about before the role-play (decision 0031). */}
         {d.change.concept && (
           <p className="rounded-[1rem] border-l-2 border-brand bg-brand-soft/60 px-3.5 py-2.5 text-[15px] text-ink" data-testid="change-concept">
@@ -138,11 +138,11 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
         <section key={a.code} className="reveal-rise space-y-1 rounded-[1.25rem] bg-warn-soft p-4 ring-1 ring-warn/30 ring-inset" style={cascade(step++)} data-testid="coaching-note">
           <p className="text-[13px] font-semibold text-muted">{ui("debrief.coachingNote")}</p>
           <p className="font-semibold text-ink">{a.description[lang]}</p>
-          {a.quote && <p className="text-[15px] text-body">{quoted(a.quote)}</p>}
+          {real(a.quote) && <p className="text-[15px] text-body">{quoted(real(a.quote)!)}</p>}
         </section>
       ))}
 
-      {d.turningPoint && (
+      {d.turningPoint && real(d.turningPoint.repLine) && real(d.turningPoint.modelAlternative[lang]) && (
         <Card className="reveal-rise space-y-3" style={cascade(step++)}>
           <h2 className="text-[17px] font-bold text-ink">{ui("debrief.turningPoint")}</h2>
           <div>
@@ -166,7 +166,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
                 <div>
                   <p className="text-[15px] font-semibold text-ink">{w.behavior[lang]}</p>
                   {w.concept && <p className="text-[13px] font-semibold text-brand">{ui("lesson.fromLesson", { name: w.concept[lang] })}</p>}
-                  {w.quote && <p className="text-[14px] text-muted">{quoted(w.quote)}</p>}
+                  {real(w.quote) && <p className="text-[14px] text-muted">{quoted(real(w.quote)!)}</p>}
                 </div>
               </li>
             ))}
@@ -199,7 +199,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
           {/* Scored behaviors first; the ones this session could not score follow, quieter. */}
           {[...data.score.items].sort((a, b) => Number(b.status === "scored") - Number(a.status === "scored")).map((i, n) => {
             const label = (i.behavior ?? i.explanation)[lang];
-            const note = i.explanation[lang] !== label ? i.explanation[lang] : null;
+            const note = real(i.explanation[lang]) !== label ? real(i.explanation[lang]) : null;
             const scored = i.status === "scored";
             return (
               <li key={i.code} className={`space-y-1 ${scored ? "" : "opacity-80"}`} style={{ ["--i" as string]: n }} data-testid="scored-item">
@@ -210,7 +210,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
                 {scored && i.concept && <p className="text-[12px] font-semibold tracking-wide text-brand uppercase">{i.concept[lang]}</p>}
                 {note && <p className="text-[13px] text-muted">{note}</p>}
                 {/* The line that earned (or missed) the points, so the score points at something the rep said. */}
-                {scored && i.quote && <p className="border-l-2 border-brand/50 pl-2.5 text-[13px] text-body" data-testid="item-quote"><span className="text-muted">{ui("debrief.yourLine")}:</span> {quoted(i.quote)}</p>}
+                {scored && real(i.quote) && <p className="border-l-2 border-brand/50 pl-2.5 text-[13px] text-body" data-testid="item-quote"><span className="text-muted">{ui("debrief.yourLine")}:</span> {quoted(real(i.quote)!)}</p>}
                 {scored && <Bar value={i.max ? i.points / i.max : 0} tone={i.points >= i.max * 0.7 ? "good" : i.points >= i.max * 0.4 ? "warn" : "bad"} />}
               </li>
             );

@@ -132,8 +132,8 @@ export interface JudgeComplianceContext {
   rules: import("@taptics/content").Rule[];
 }
 
-/** Version 2 tells the judge that honest persuasion is never marked down (decision 0034). */
-const JUDGE_PROMPT = 2;
+/** Version 2: honest persuasion is never marked down (decision 0034). Version 3: real words only, never a placeholder ("Su respuesta final: …"). */
+const JUDGE_PROMPT = 3;
 
 export class ClaudeJudge implements Judge {
   readonly model: string;
