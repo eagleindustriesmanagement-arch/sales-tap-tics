@@ -149,10 +149,19 @@ test("a manager signs up a team, sends an invite link, and whoever joins through
   const allowed: string[] = [];
   for (const [method, url, body] of calls) {
     const res = await page.request.fetch(url, { method, data: body });
-    if (res.ok()) allowed.push(`${method} ${url} answered ${res.status()}`);
+    // "Seen" answers every caller alike and marks only the caller's own session: it must say it marked nothing.
+    if (url.endsWith("/seen")) {
+      if ((await res.json()).marked !== false) allowed.push(`${method} ${url} marked another company's session`);
+    } else if (res.ok()) allowed.push(`${method} ${url} answered ${res.status()}`);
   }
   expect(allowed).toEqual([]);
   expect(await fingerprint()).toBe(before);
+  // And no row anywhere ties one company's person to another company (migration 0022).
+  const crossed = await c.query(
+    `select (select count(*) from memberships m join users u on u.id = m.user_id where m.tenant_id <> u.tenant_id)::int
+          + (select count(*) from assignments a join users u on u.id = a.user_id where a.tenant_id <> u.tenant_id)::int n`,
+  );
+  expect(crossed.rows[0].n).toBe(0);
   await c.query("delete from invite_links where id = $1", [demoInvite]);
   if (demoCard) await c.query("delete from behavior_card_issues where id = $1", [demoCard]);
   await c.end();

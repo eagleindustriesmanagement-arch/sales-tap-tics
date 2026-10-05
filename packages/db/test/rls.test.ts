@@ -94,6 +94,16 @@ describe.skipIf(SKIP)("row-level security", () => {
     await expect(asUser(A.tenant, A.rep, (q) => q.query("update stores set name = 'hacked' where tenant_id = $1", [B.tenant]))).resolves.toMatchObject({ rowCount: 0 });
   });
 
+  it("refuses a row in its own company that points at another company's person or store (migration 0022)", async () => {
+    // A general manager of A writing rows that name B's rep or B's store: row-level security allows the row's own
+    // tenant, so only the composite keys can refuse it.
+    await expect(asUser(A.tenant, A.gm, (q) => q.query("insert into memberships (tenant_id, user_id, store_id, role) values ($1, $2, $3, 'general_manager')", [A.tenant, B.rep, A.store]))).rejects.toThrow(/same_tenant/);
+    await expect(asUser(A.tenant, A.gm, (q) => q.query("insert into memberships (tenant_id, user_id, store_id, role) values ($1, $2, $3, 'rep')", [A.tenant, A.rep2, B.store]))).rejects.toThrow(/same_tenant/);
+    await expect(asUser(A.tenant, A.gm, (q) => q.query("insert into behavior_card_issues (tenant_id, user_id, card_code, item_code, due_week) values ($1, $2, 'B-T002-clarify', 'U-QFIRST', date '2001-01-01')", [A.tenant, B.rep]))).rejects.toThrow(/same_tenant/);
+    // The same rows inside one company still work.
+    await expect(asUser(A.tenant, A.gm, (q) => q.query("insert into behavior_card_issues (tenant_id, user_id, card_code, item_code, due_week) values ($1, $2, 'B-T002-clarify', 'U-QFIRST', date '2001-01-01') returning id", [A.tenant, A.rep2]))).resolves.toMatchObject({ rowCount: 1 });
+  });
+
   it("platform content is shared; tenant content is not", async () => {
     const r = await asUser(A.tenant, A.rep, (q) => q.query("select scope, tenant_id from content_releases order by scope"));
     expect(r.rows.map((x: { scope: string }) => x.scope)).toEqual(["platform", "tenant"]);

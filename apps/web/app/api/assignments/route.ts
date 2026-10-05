@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, ids });
   } catch (error) {
     // Row-level security refuses a rep outside the manager's scope.
-    const denied = error instanceof Error && /row-level security/.test(error.message);
+    const denied = error instanceof Error && /row-level security|not your rep|foreign key/.test(error.message);
     return NextResponse.json({ error: denied ? "not your rep" : "failed" }, { status: denied ? 403 : 500 });
   }
 }

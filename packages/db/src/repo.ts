@@ -569,6 +569,9 @@ const toAssignment = (x: Record<string, unknown>): Assignment => ({
 /** A manager assigns one scenario to several reps. Row-level security refuses reps outside the manager's scope. */
 export async function createAssignments(db: Queryable, manager: UserContext, input: { userIds: string[]; scenarioCode: string; dueAt: Date | null; reason: string }): Promise<string[]> {
   if (!isManager(manager)) throw new Error("only a manager assigns practice");
+  // Only reps the manager can see on their own team; anyone else is refused before anything is written.
+  const mine = new Set((await assignableReps(db, manager)).map((r) => r.id));
+  if (input.userIds.some((id) => !mine.has(id))) throw new Error("not your rep");
   const ids: string[] = [];
   for (const userId of [...new Set(input.userIds)]) {
     const r = await db.query(
@@ -803,6 +806,10 @@ export async function revokeInviteLink(db: Queryable, manager: UserContext, id: 
 export async function setRoles(db: Queryable, gm: UserContext, userId: string, roles: Role[]) {
   requireGm(gm);
   if (roles.length === 0) throw new Error("at least one role; deactivate the person instead");
+  // Only someone already in this store (October 5: a role given to another company's user created a membership
+  // pointing across companies; the database now refuses that too, migration 0022).
+  const inStore = await db.query("select 1 from users u join memberships m on m.user_id = u.id where u.id = $1 and u.tenant_id = $2 and m.store_id = $3 limit 1", [userId, gm.tenantId, gm.storeId]);
+  if (inStore.rowCount === 0) throw new Error("not in your store");
   if (userId === gm.id && !roles.includes("general_manager")) throw new Error("you cannot remove your own general manager role");
   const before = await db.query("select role from memberships where user_id = $1 and store_id = $2", [userId, gm.storeId]);
   const had = new Set(before.rows.map((r) => r.role as Role));
