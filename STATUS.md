@@ -1,10 +1,27 @@
 # Status
 
-Updated 2026-10-05 (ninth pass, overnight: warm-up mode, security headers, cross-company integrity, the
+Updated 2026-10-05 (tenth pass, evening: six-persona verification blitz and its fixes). Before that: ninth pass, overnight: warm-up mode, security headers, cross-company integrity, the
 honesty line enforced in content and scoring, debrief attribution). Previous: 2026-10-03 (teams and individuals,
 admin access as a privilege, a home page that sells, pricing, industries). Build plan: spec section 22. Decisions: `docs/decisions/`. Plan: `docs/plans/`.
 
 ## What runs today
+
+- **Verification blitz, evening October 5:** six persona passes (car owner, solar owner in Spanish, rookie rep,
+  veteran rep in Spanish, an adversarial compliance probe, a solo seller). They ran against a local production
+  build, not salestaptics.com, which this environment cannot reach, with no AI model: an offline customer and no
+  judge. Fixed from them:
+  - The practice room shows the numbers sheet.
+  - A finished conversation is saved even if the rep closes the phone.
+  - A booked next step survives ending by hand.
+  - Assign practice is grouped by industry.
+  - Private-window notes explain why manager counts lag Usage.
+  - Solo accounts get no manager or store wording.
+  - Non-car teams no longer see car certification counts or dealer-only store fields.
+  - Spanish persona cues match without accents and in everyday Miami phrasing.
+  - A payment quoted with its terms is not a bare anchor.
+  - RATE-01 checks that a payment's term and down payment match the sheet (also in debrief suggestions).
+  - About 35 Spanish strings and lines were rewritten.
+  - Compliance-engine fixes from the adversarial pass are listed under Open risks.
 
 - **Overnight October 5** (decisions 0034, 0037, 0038):
   - **Warm-up** (spec 12.5): an optional 3-minute drill on the rep's weakest behavior, from a card on Today; scored
