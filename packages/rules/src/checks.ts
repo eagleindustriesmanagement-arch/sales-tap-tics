@@ -546,18 +546,66 @@ export function checkInventory(rule: Rule, utterance: Utterance, ctx: CheckConte
 
 // ------------------------------------------------------------------ authority (AUTH-01)
 
-export function checkAuthority(rule: Rule, utterance: Utterance, ctx: CheckContext): Violation[] {
+export function checkAuthority(rule: Rule, utterance: Utterance, ctx: CheckContext, mentions: MoneyMention[] = []): Violation[] {
   const facts = ctx.facts;
   if (!facts) return [];
   const a = facts.authority;
   const hasRoom = a.manager_has_room || (a.min_all_in_price_cents !== null && a.min_all_in_price_cents < facts.all_in_price_cents) || a.min_payment_cents !== null || (a.max_trade_cents !== null && a.max_trade_cents > (facts.trade?.appraisal_cents ?? 0));
-  if (!hasRoom) return [];
-  return patternHits(rule, utterance, ctx, "no_room_claims").map((hit) =>
-    makeViolation(rule, ctx, utterance, spanOf(utterance.text, hit.start, hit.end), {
-      en: "The manager still has room to move in this deal.",
-      es: "El gerente todavía tiene margen para moverse en este negocio.",
-    }),
-  );
+  const out: Violation[] = [];
+  if (hasRoom) {
+    out.push(...patternHits(rule, utterance, ctx, "no_room_claims").map((hit) =>
+      makeViolation(rule, ctx, utterance, spanOf(utterance.text, hit.start, hit.end), {
+        en: "The manager still has room to move in this deal.",
+        es: "El gerente todavía tiene margen para moverse en este negocio.",
+      }),
+    ));
+  }
+  out.push(...falseApprovals(rule, utterance, ctx, mentions, hasRoom));
+  return out;
+}
+
+/**
+ * "My manager already approved $550 a month for you": a manager's approval stated as done. False when the manager
+ * has no room at all, or when the number in the same sentence is outside the authority in the facts (a payment under
+ * the manager's minimum payment, a price under the minimum price, a trade over the maximum trade).
+ */
+function falseApprovals(rule: Rule, utterance: Utterance, ctx: CheckContext, mentions: MoneyMention[], hasRoom: boolean): Violation[] {
+  const facts = ctx.facts!;
+  const a = facts.authority;
+  const text = utterance.text;
+  const tolerance = 100;
+  const out: Violation[] = [];
+  for (const hit of patternHits(rule, utterance, ctx, "approval_claims")) {
+    if (isNegated(ctx, text, hit.clause, hit.start, hit.end) || isAskingOrConditional(ctx, text, hit.clause, hit.start)) continue;
+    const inSentence = mentions.filter((m) => m.start >= hit.clause.start && m.start < hit.clause.end && !m.attributed && !m.delta && m.placeholder === null);
+    const outside = inSentence.some((m) =>
+      m.role === "payment" ? a.min_payment_cents === null || m.value < a.min_payment_cents - tolerance
+      : m.role === "price" ? m.value >= facts.all_in_price_cents * 0.5 && (a.min_all_in_price_cents === null || m.value < a.min_all_in_price_cents - tolerance)
+      : m.role === "trade" ? m.value > (a.max_trade_cents ?? facts.trade?.appraisal_cents ?? 0) + tolerance
+      : false);
+    if (hasRoom && !outside) continue;
+    out.push(
+      makeViolation(rule, ctx, utterance, spanOf(text, hit.start, hit.end), hasRoom
+        ? {
+            en: `The manager's authority in this deal: ${authoritySummary(facts, "en")}. Nothing beyond it has been approved.`,
+            es: `La autoridad del gerente en este negocio: ${authoritySummary(facts, "es")}. No se ha aprobado nada fuera de eso.`,
+          }
+        : {
+            en: "The manager has not approved anything and has no room to move in this deal; the numbers sheet is an estimate, subject to the lender.",
+            es: "El gerente no ha aprobado nada y no tiene margen para moverse en este negocio; la hoja de números es un estimado, sujeto al banco.",
+          }),
+    );
+  }
+  return out;
+}
+
+function authoritySummary(facts: ScenarioFacts, language: "en" | "es"): string {
+  const a = facts.authority;
+  const parts: string[] = [];
+  if (a.min_payment_cents !== null) parts.push(language === "en" ? `payment down to ${formatDollars(a.min_payment_cents, "en")} a month` : `pago hasta ${formatDollars(a.min_payment_cents, "es")} al mes`);
+  if (a.min_all_in_price_cents !== null) parts.push(language === "en" ? `price down to ${formatDollars(a.min_all_in_price_cents, "en")}` : `precio hasta ${formatDollars(a.min_all_in_price_cents, "es")}`);
+  if (a.max_trade_cents !== null) parts.push(language === "en" ? `trade up to ${formatDollars(a.max_trade_cents, "en")}` : `trade-in hasta ${formatDollars(a.max_trade_cents, "es")}`);
+  return parts.length ? parts.join("; ") : language === "en" ? "no set numbers" : "ningún número fijo";
 }
 
 // ------------------------------------------------------------------ identity (ID-01)

@@ -294,3 +294,26 @@ describe("CANCEL-01: honest myth-busting is not a claim (a denial after the clai
     expect(scenarioRules(S, "Tiene tres días para cancelar, no es un mito.", "es")).toContain("CANCEL-01");
   });
 });
+
+describe("AUTH-01: a manager's approval stated as done must match the authority in the facts", () => {
+  const S = "S-payment-buyer-L2"; // manager_has_room false, lender not_applied
+  it("flags a made-up approval when the manager has no room, sheet number or not", () => {
+    expect(scenarioRules(S, "My manager already approved $550 a month for you.", "en")).toContain("AUTH-01");
+    expect(scenarioRules(S, "My manager already approved $541 a month for you.", "en")).toContain("AUTH-01");
+    expect(scenarioRules(S, "Mi gerente ya le aprobó $550 al mes.", "es")).toContain("AUTH-01");
+    expect(scenarioRules(S, "Mi gerente ya le aprobó $541 al mes.", "es")).toContain("AUTH-01");
+  });
+  it("asking the manager, a hedge or a denied approval is clean", () => {
+    expect(scenarioRules(S, "Let me ask my manager what he can do. I can't promise anything.", "en")).toEqual([]);
+    expect(scenarioRules(S, "My manager hasn't approved anything yet.", "en")).toEqual([]);
+    expect(scenarioRules(S, "Mi gerente a lo mejor puede mejorar algo, pero no le prometo nada.", "es")).toEqual([]);
+    expect(scenarioRules(S, "Mi gerente todavía no aprobó nada.", "es")).toEqual([]);
+  });
+  it("with room, an approval inside the authority is fine and one outside it is not", () => {
+    // Fixture: the manager can go to $575 a month.
+    expect(hits("My manager approved $575 a month for you.")).not.toContain("AUTH-01");
+    expect(hits("My manager approved $550 a month for you.")).toContain("AUTH-01");
+    expect(hits("Mi gerente le aprobó $575 al mes.", "es")).not.toContain("AUTH-01");
+    expect(hits("Mi gerente le aprobó $550 al mes.", "es")).toContain("AUTH-01");
+  });
+});

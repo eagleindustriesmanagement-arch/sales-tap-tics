@@ -42,7 +42,7 @@ all_in_markers:
   es: ["precio total", "todo incluido", "ya incluye", "incluye (nuestro|el)", "con todos los cargos", "con todo", "más impuestos", "precio final"]
 # Negations break a pattern match when they appear in the same clause before it.
 negations:
-  en: ["no", "not", "never", "isn't", "is not", "aren't", "don't", "doesn't", "won't", "can't", "nothing", "there's no", "there is no", "without"]
+  en: ["no", "not", "never", "isn't", "is not", "aren't", "don't", "doesn't", "won't", "can't", "nothing", "there's no", "there is no", "without", "hasn't", "haven't", "didn't"]
   es: ["no", "nunca", "nada", "ningún", "ninguna", "sin", "tampoco", "jamás"]
 # The speaker refusing to make a claim. Regular expressions; a claim later in the same sentence is not made.
 # Not "I'm not going to lie" / "no le voy a mentir": those are idioms for "honestly" and come before a claim, never

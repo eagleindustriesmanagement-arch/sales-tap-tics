@@ -27,5 +27,14 @@ parameters:
       - '\bes lo (más bajo|último|mínimo|máximo)\b.{0,20}\b(que|del|de mi)\b'
       - '\bni un (dólar|centavo|peso) más\b'
       - '\b(mi )?gerente\b.{0,20}\bno (lo )?(aprueba|aprobó|va a aprobar|me deja)\b'
+  # The manager approving a number as a done deal ("My manager already approved $550 a month for you"). True only
+  # when the manager has room and the number is inside the authority in the facts; a sheet estimate is not an
+  # approval. A negation inside or before the claim, a question or a condition is not a claim.
+  approval_claims:
+    en:
+      - '\b(manager|boss|desk|gm|sales manager)\b.{0,25}\b(approved|signed off on|okayed|ok''?d|authorized|green-?lit)\b'
+      - '\b(got|have|has) (it |you |that |this |the (deal|payment|price|number) )?(approved|signed off|okayed) by (my|the|our) (manager|boss)\b'
+    es:
+      - '\b(gerente|jefe|manager)\b.{0,25}\b(aprobó|autorizó|firmó|dio el visto bueno|tiene aprobad[oa]|dejó aprobad[oa])\b'
 legal_basis: Agreed rule (spec 4.2); Friedman's "To the Bone" close excluded
 attorney_reviewed: false

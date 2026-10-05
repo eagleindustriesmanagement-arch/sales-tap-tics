@@ -63,7 +63,7 @@ export function checkUtterance(utterance: Utterance, ctx: CheckContext, state?: 
         out.push(...checkInventory(rule, utterance, ctx));
         break;
       case "authority_compare":
-        out.push(...checkAuthority(rule, utterance, ctx));
+        out.push(...checkAuthority(rule, utterance, ctx, mentions));
         break;
       case "identity_compare":
         out.push(...checkIdentity(rule, utterance, ctx));
