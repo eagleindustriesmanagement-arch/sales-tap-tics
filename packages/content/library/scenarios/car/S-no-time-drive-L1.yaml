@@ -112,10 +112,15 @@ scoring:
   auto_fail:
     - code: claimed_how_it_drives
       description:
-        en: "Told him how the car feels getting onto the highway instead of letting him check"
-        es: "Le aseguró cómo se siente el carro al entrar a la autopista en vez de dejar que lo comprobara"
+        en: "Talked about how the car drives instead of setting up a drive that lets him check"
+        es: "Le habló de cómo se maneja el carro en vez de prepararle una prueba para que lo compruebe"
       method: judge
       kind: coaching
+    - code: promised_how_it_drives
+      description:
+        en: "Promised how the car feels getting onto the highway instead of letting him check"
+        es: "Le aseguró cómo se siente el carro al entrar a la autopista en vez de dejar que lo comprobara"
+      method: judge
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

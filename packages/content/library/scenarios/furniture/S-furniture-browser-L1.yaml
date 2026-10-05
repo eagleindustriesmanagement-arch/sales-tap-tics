@@ -115,10 +115,15 @@ scoring:
   auto_fail:
     - code: move_as_pressure
       description:
+        en: "Used his real move-in date to push for a purchase today"
+        es: "Usó la fecha real de la mudanza para presionarlo a comprar hoy"
+      method: judge
+      kind: coaching
+    - code: misstated_move_timing
+      description:
         en: "Made the move date sound tighter than it is (made-up delivery times, a today-only price)"
         es: "Hizo ver la fecha de la mudanza más apretada de lo que es (tiempos de entrega inventados, un precio solo por hoy)"
       method: judge
-      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

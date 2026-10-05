@@ -119,10 +119,15 @@ scoring:
       method: judge
     - code: blamed_others
       description:
+        en: "Blamed the fee on the website or other dealers instead of owning it"
+        es: "Le echó la culpa del cargo a la página o a otros dealers en vez de dar la cara"
+      method: judge
+      kind: coaching
+    - code: untrue_fee_blame
+      description:
         en: "Blamed the fee on the website or other dealers with something untrue"
         es: "Le echó la culpa del cargo a la página o a otros dealers con algo que no es verdad"
       method: judge
-      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

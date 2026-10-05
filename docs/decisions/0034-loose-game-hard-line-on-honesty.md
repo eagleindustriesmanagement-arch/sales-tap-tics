@@ -29,3 +29,9 @@
   Every lesson and scenario was audited the same way: rubric items score the strategy a lesson teaches, and
   automatic fails cover only dishonesty (a lie about the term, made-up urgency, a hidden product or charge, a
   promise the rep can't keep). Moralizing ("never push", "respect his no", "if theirs is better, say so") is gone.
+- **Lies are never coaching (October 5).** That audit rewrote twelve coaching conditions so they described a lie (a
+  made-up date or charge, an untrue excuse, a claim or promise the rep can't back up) but left them coaching, so a
+  lie cost nothing. Each was split like the competitor case above: the move itself stays a coaching note (using a
+  real date to push, not giving the price, running a dealer down) and the untrue part is an honesty condition with
+  its own code. `packages/content/test/coaching-honesty.test.ts` fails if a coaching description, in English or
+  Spanish, names a lie, a made-up fact or a promise.

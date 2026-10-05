@@ -118,10 +118,15 @@ scoring:
   auto_fail:
     - code: move_date_as_pressure
       description:
+        en: "Used her real move-out date to push for a contract or deposit today"
+        es: "Usó su fecha real de salida para presionarla a firmar o dejar un depósito hoy"
+      method: judge
+      kind: coaching
+    - code: misstated_move_date
+      description:
         en: "Made her move-out date sound tighter than it is to get a contract or deposit today"
         es: "Hizo ver su fecha de salida más apretada de lo que es para que firme o deje un depósito hoy"
       method: judge
-      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

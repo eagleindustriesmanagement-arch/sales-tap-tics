@@ -114,10 +114,15 @@ scoring:
       method: judge
     - code: chased_or_ran_down
       description:
-        en: "Tried to stop him with claims he can't back up (\"nobody in Miami will beat this deal\"), or ran down other dealers without proof"
-        es: "Trató de pararlo con cosas que no puede probar (\"nadie en Miami le gana este negocio\"), o habló mal de otros dealers sin pruebas"
+        en: "Chased him out the door, or ran down other dealers"
+        es: "Lo persiguió hasta la puerta o habló mal de otros dealers"
       method: judge
       kind: coaching
+    - code: unbacked_claim_to_stop_him
+      description:
+        en: "Tried to stop him with claims he can't back up (\"nobody in Miami will beat this deal\", something about another dealer stated as fact without proof)"
+        es: "Trató de pararlo con cosas que no puede probar (\"nadie en Miami le gana este negocio\", algo de otro dealer dicho como un hecho sin pruebas)"
+      method: judge
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

@@ -105,10 +105,15 @@ scoring:
   auto_fail:
     - code: claimed_unchecked_feel
       description:
+        en: "Talked about how the car drives instead of setting up a drive on her route"
+        es: "Le habló de cómo se maneja el carro en vez de prepararle una prueba por su ruta"
+      method: judge
+      kind: coaching
+    - code: promised_unchecked_feel
+      description:
         en: "Promised how the car feels on the highway instead of letting her drive it"
         es: "Aseguró cómo se siente el carro en la autopista en vez de dejar que ella lo maneje"
       method: judge
-      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

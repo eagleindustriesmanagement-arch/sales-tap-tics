@@ -117,10 +117,15 @@ scoring:
       method: judge
     - code: held_back_the_price
       description:
+        en: "Would not give or send her the price"
+        es: "No quiso darle ni mandarle el precio"
+      method: judge
+      kind: coaching
+    - code: false_price_excuse
+      description:
         en: "Dodged the price with an excuse that isn't true (\"prices change every day\", \"we can't email prices\")"
         es: "Esquivó el precio con una excusa que no es verdad (\"los precios cambian todos los días\", \"no podemos mandar precios por email\")"
       method: judge
-      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

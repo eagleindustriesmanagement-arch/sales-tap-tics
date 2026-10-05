@@ -115,8 +115,8 @@ scoring:
   auto_fail:
     - code: promised_no_regret
       description:
-        en: "Promised he would not regret it instead of removing real risk"
-        es: "Le prometió que no se iba a arrepentir en vez de quitarle el riesgo real"
+        en: "Reassured him he would not regret it (\"there's nothing to regret\") instead of removing real risk"
+        es: "Le dijo que no se iba a arrepentir (\"no hay nada de qué arrepentirse\") en vez de quitarle el riesgo real"
       method: judge
       kind: coaching
     - code: made_up_deadline

@@ -113,10 +113,15 @@ scoring:
   auto_fail:
     - code: disparaged_other_dealer
       description:
+        en: "Ran down the other dealer"
+        es: "Habló mal del otro dealer"
+      method: judge
+      kind: coaching
+    - code: unbacked_claim_about_dealer
+      description:
         en: "Said things about the other dealer that the rep can't back up"
         es: "Dijo cosas del otro dealer que no puede probar"
       method: judge
-      kind: coaching
     - code: called_quote_fake
       description:
         en: "Called their quote fake, or said what it hides, without proof"

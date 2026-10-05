@@ -112,10 +112,15 @@ scoring:
   auto_fail:
     - code: refused_phone_price
       description:
+        en: "Would not give him a price on the phone"
+        es: "Se negó a darle un precio por teléfono"
+      method: judge
+      kind: coaching
+    - code: false_price_excuse
+      description:
         en: "Dodged the price with an excuse that isn't true (\"prices change every day\", \"prices are only given in person\")"
         es: "Esquivó el precio con una excusa que no es verdad (\"los precios cambian todos los días\", \"los precios solo se dan en persona\")"
       method: judge
-      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

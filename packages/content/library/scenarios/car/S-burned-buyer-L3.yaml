@@ -103,10 +103,15 @@ scoring:
   auto_fail:
     - code: brushed_off_past
       description:
-        en: "Brushed off her bad experience with a promise the store can't back up (\"trust me, that won't happen here\")"
-        es: "Le restó importancia a su mala experiencia con una promesa que la tienda no puede cumplir (\"confíe en mí, eso aquí no pasa\")"
+        en: "Brushed off her bad experience instead of asking what happened"
+        es: "Le restó importancia a su mala experiencia en vez de preguntarle qué pasó"
       method: judge
       kind: coaching
+    - code: unkeepable_promise
+      description:
+        en: "Answered her bad experience with a promise the store can't back up (\"trust me, that won't happen here\")"
+        es: "Le respondió a su mala experiencia con una promesa que la tienda no puede cumplir (\"confíe en mí, eso aquí no pasa\")"
+      method: judge
     - code: made_up_deadline
       description:
         en: "Made up a deadline"

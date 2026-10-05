@@ -140,10 +140,15 @@ scoring:
   auto_fail:
     - code: prejudged_product
       description:
+        en: "Kept pushing a product after his no (\"you'll want it\")"
+        es: "Le siguió empujando un producto después de su no (\"usted lo va a querer\")"
+      method: judge
+      kind: coaching
+    - code: false_product_claim
+      description:
         en: "Pushed a product after his no with a claim that isn't true (\"the bank likes to see it\", a made-up \"most people take it\")"
         es: "Le empujó un producto después de su no con algo que no es verdad (\"al banco le gusta verlo\", un \"casi todos lo llevan\" inventado)"
       method: judge
-      kind: coaching
     - code: misdescribed_add_on
       description:
         en: "Called a product required, impossible to remove, or free"

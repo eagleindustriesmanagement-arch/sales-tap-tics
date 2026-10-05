@@ -112,10 +112,15 @@ scoring:
   auto_fail:
     - code: lease_timing_as_pressure
       description:
+        en: "Used her real lease timing to push for a purchase today"
+        es: "Usó la fecha real del lease para presionarla a comprar hoy"
+      method: judge
+      kind: coaching
+    - code: misstated_lease_timing
+      description:
         en: "Made the lease timing sound tighter than it is (a wrong date, a made-up charge, a today-only price)"
         es: "Hizo ver la fecha del lease más apretada de lo que es (una fecha equivocada, un cargo inventado, un precio solo por hoy)"
       method: judge
-      kind: coaching
     - code: made_up_deadline
       description:
         en: "Made up a deadline"
