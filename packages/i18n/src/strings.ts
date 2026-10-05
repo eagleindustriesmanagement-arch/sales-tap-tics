@@ -10,7 +10,7 @@ export const STRINGS = {
   "app.name": { en: "Sales Taptics", es: "Sales Taptics" },
   "app.disclaimer": {
     en: "This is a training tool, not legal advice. Its compliance rules follow the strictest reading of the laws and FTC guidance they cite.",
-    es: "Esta es una herramienta de entrenamiento, no asesoría legal. Sus reglas de cumplimiento siguen la lectura más estricta de las leyes y guías de la FTC que citan.",
+    es: "Esta es una herramienta de entrenamiento, no asesoría legal. Sus reglas de cumplimiento siguen la interpretación más estricta de las leyes y guías de la FTC en que se basan.",
   },
 
   "consent.title": { en: "Before you start", es: "Antes de empezar" },
@@ -78,7 +78,7 @@ export const STRINGS = {
   "practice.title": { en: "Practice", es: "Practicar" },
   "practice.intro": { en: "Start with the certification path, easiest first. Then practice any objection you meet on the floor.", es: "Empiece por la ruta de certificación, de lo más fácil a lo más difícil. Después practique cualquier objeción que le salga en el piso." },
   "practice.core.title": { en: "Certification path", es: "Ruta de certificación" },
-  "practice.core.sub": { en: "The customers every rep passes before taking customers alone.", es: "Los clientes que todo vendedor aprueba antes de atender clientes solo." },
+  "practice.core.sub": { en: "The customers every rep passes before taking customers alone.", es: "Los clientes que todo vendedor tiene que pasar antes de atender solo." },
   "practice.more.title": { en: "More customers", es: "Más clientes" },
   "practice.more.sub": { en: "One customer for every other objection, by topic. Practice them any time; they do not count toward certification.", es: "Un cliente para cada una de las demás objeciones, por tema. Practíquelos cuando quiera; no cuentan para la certificación." },
   "practice.topic.car-core": { en: "Everyday objections", es: "Objeciones de todos los días" },
@@ -119,9 +119,9 @@ export const STRINGS = {
   "lesson.when": { en: "Use it when", es: "Úsela cuando" },
   "lesson.whenNot": { en: "Not when", es: "No cuando" },
   "lesson.say": { en: "Say it like this", es: "Dígalo así" },
-  "lesson.mistakes": { en: "Mistakes that kill it", es: "Errores que la matan" },
+  "lesson.mistakes": { en: "Mistakes that kill it", es: "Errores que matan la venta" },
   "lesson.concepts": { en: "What you'll be scored on", es: "Lo que se va a calificar" },
-  "lesson.seeIt": { en: "See it done", es: "Véalo hecho" },
+  "lesson.seeIt": { en: "See it done", es: "Ver ejemplo" },
   "lesson.skip": { en: "Skip to practice", es: "Ir directo a practicar" },
   "lesson.review": { en: "Review the lesson", es: "Repasar la lección" },
   "lesson.fromLesson": { en: "From the lesson: {name}", es: "De la lección: {name}" },
@@ -449,7 +449,7 @@ export const STRINGS = {
 
   "today.practiceNow": { en: "Practice now", es: "Practicar ahora" },
   "today.whyPicked": { en: "Why this one: {reason}", es: "Por qué este: {reason}" },
-  "today.behaviorCard": { en: "This week's behavior", es: "El comportamiento de esta semana" },
+  "today.behaviorCard": { en: "This week's behavior", es: "Meta de la semana" },
   "today.assignments": { en: "From your manager", es: "De su gerente" },
   "today.due": { en: "Due {date}", es: "Vence el {date}" },
 
@@ -459,14 +459,14 @@ export const STRINGS = {
   "scenario.language": { en: "Session language", es: "Idioma de la sesión" },
   "scenario.language.en": { en: "English", es: "Inglés" },
   "scenario.language.es": { en: "Spanish", es: "Español" },
-  "scenario.language.follow": { en: "Follow the customer", es: "Seguir al cliente" },
+  "scenario.language.follow": { en: "Follow the customer", es: "El idioma del cliente" },
   "scenario.watchDemo": { en: "Watch demo", es: "Ver demostración" },
   "scenario.start": { en: "Start", es: "Empezar" },
   "scenario.starting": { en: "Starting…", es: "Empezando…" },
   "scenario.skipDemo": { en: "Skip demo", es: "Saltar demostración" },
 
   "demo.flawed": { en: "What not to do", es: "Lo que no se debe hacer" },
-  "demo.good": { en: "The model", es: "El modelo" },
+  "demo.good": { en: "The model", es: "Así se hace" },
 
   "practice.end": { en: "End session", es: "Terminar sesión" },
   "practice.showSheet": { en: "Show sheet", es: "Mostrar hoja" },
@@ -518,7 +518,7 @@ export const STRINGS = {
   "debrief.passed": { en: "Passed", es: "Aprobado" },
   "debrief.notPassed": { en: "Not passed yet", es: "Todavía no aprobado" },
   "debrief.worked": { en: "What worked", es: "Lo que funcionó" },
-  "debrief.change": { en: "Your one change. Here's what good looks like:", es: "Su único cambio. Así se ve bien hecho:" },
+  "debrief.change": { en: "Your one change. Here's what good looks like:", es: "Lo que tiene que cambiar. Así se hace:" },
   "debrief.why": { en: "Why it matters", es: "Por qué importa" },
   "debrief.turningPoint": { en: "The turning point", es: "El momento clave" },
   "debrief.youSaid": { en: "You said", es: "Usted dijo" },
@@ -535,7 +535,7 @@ export const STRINGS = {
   "endReason.sale": { en: "Bought", es: "Compró" },
   "endReason.next_step": { en: "Booked a next step", es: "Acordó un próximo paso" },
   "endReason.walk_away": { en: "Walked away", es: "Se fue" },
-  "endReason.not_now": { en: "Not now", es: "Hoy no" },
+  "endReason.not_now": { en: "Not now", es: "No compró hoy" },
   "endReason.timeout": { en: "Time ran out", es: "Se acabó el tiempo" },
   "endReason.abandoned": { en: "Ended early", es: "Terminada antes de tiempo" },
 
@@ -689,7 +689,7 @@ export const STRINGS = {
 
   "login.title": { en: "Sign in", es: "Iniciar sesión" },
   "login.identifier": { en: "Email or mobile number", es: "Correo o número de celular" },
-  "login.sendCode": { en: "Send me a code", es: "Envíeme un código" },
+  "login.sendCode": { en: "Send me a code", es: "Enviar código" },
   "login.codeSent": {
     en: "If that account exists, we sent a six-digit code. It works for 10 minutes.",
     es: "Si esa cuenta existe, le enviamos un código de seis dígitos. Sirve por 10 minutos.",
@@ -711,7 +711,7 @@ export const STRINGS = {
   "login.otherIdentifier": { en: "Use a different email or number", es: "Usar otro correo o número" },
   "login.emailSubject": { en: "Your Sales Taptics code", es: "Su código de Sales Taptics" },
   "login.signOut": { en: "Sign out", es: "Cerrar sesión" },
-  "login.newStore": { en: "New here?", es: "¿Es nuevo aquí?" },
+  "login.newStore": { en: "New here?", es: "¿Primera vez aquí?" },
   "login.demoHeading": { en: "Try the demo store", es: "Pruebe el dealer de demostración" },
   "login.demoIntro": {
     en: "Pick a seat: rep or sales manager (with admin access). No email needed; the code fills itself in.",
@@ -750,7 +750,7 @@ export const STRINGS = {
     es: "Las técnicas son universales: practíquelas aquí con nuestros clientes de venta de carros y llévelas a su propio piso.",
   },
   "join.title": { en: "Join {team}", es: "Únase a {team}" },
-  "join.intro": { en: "Your team practices on Sales Taptics. Sign up with your email and you're in, as a {role}.", es: "Su equipo practica en Sales Taptics. Regístrese con su correo y entra directo al equipo." },
+  "join.intro": { en: "Your team practices on Sales Taptics. Sign up with your email and you're in, as a {role}.", es: "Su equipo practica en Sales Taptics. Regístrese con su correo y entra directo al equipo como {role}." },
   "join.deadLink": { en: "This invite link no longer works. Ask your manager for a new one.", es: "Este enlace de invitación ya no sirve. Pídale uno nuevo a su gerente." },
   "join.deadTitle": { en: "This link has expired", es: "Este enlace ya no sirve" },
   "join.verify": { en: "Join the team", es: "Unirme al equipo" },
@@ -773,7 +773,7 @@ export const STRINGS = {
   "signup.storeName": { en: "Team or company name", es: "Nombre del equipo o la empresa" },
   "signup.firstName": { en: "Your first name", es: "Su nombre" },
   "signup.email": { en: "Work email", es: "Correo del trabajo" },
-  "signup.send": { en: "Email me a code", es: "Envíeme un código" },
+  "signup.send": { en: "Email me a code", es: "Enviar código" },
   "signup.codeSent": {
     en: "We emailed a six-digit code to {email}. It works for 10 minutes.",
     es: "Le enviamos un código de seis dígitos a {email}. Sirve por 10 minutos.",

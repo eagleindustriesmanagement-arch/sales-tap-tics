@@ -44,6 +44,9 @@ unlock_conditions:
       es:
         - '\bqué (número|valor|cantidad|precio)\b.{0,25}\b(esperaba|tenía en mente|vio|pensaba)\b'
         - '\bde dónde (sacó|salió|viene) (ese|el|su) (número|estimado|valor)\b'
+        - '\b(ese|el|su) (número|estimado|valor) de dónde (usted )?lo (sacó|vio)\b'
+        - '\bcuánto (usted )?(esperaba|quería|pensaba) (por ella|por él|por la camioneta|por el carro|por la troca|que le dieran)\b'
+        - '\bcuánto le (dio|da|dieron) (el kelley|kelley|la página|internet|el estimado)\b'
         - '\bdónde (vio|sacó|encontró) (ese|el|un) (número|valor|estimado)\b'
   - code: asks_estimate_condition
     description:

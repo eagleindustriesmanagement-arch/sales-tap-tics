@@ -169,6 +169,9 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", wa
   // Once the rep ends the conversation or leaves, nothing more is spoken: a reply still streaming in, or the opening
   // of a session that started after the rep left, stays silent (cancel alone only drops what is already queued).
   const closed = useRef(false);
+  /** Scoring starts the moment the conversation ends (keepalive), so a rep who closes the phone there still has it saved. */
+  const scoring = useRef<Promise<Response> | null>(null);
+  const startScoring = (id: string) => (scoring.current ??= fetch(`/api/sessions/${id}/finish`, { method: "POST", keepalive: true }));
   useEffect(() => {
     closed.current = false;
     return () => {
@@ -303,6 +306,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", wa
           }
           if (msg.outcome?.ended === true) {
             setEnded({ stopped: msg.outcome.stoppedOnCritical === true });
+            void startScoring(session.id).catch(() => undefined);
             result = { ended: true };
           }
           if (msg.error) setError(t("practice.error", lang));
@@ -325,7 +329,7 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", wa
     setFinishFailed(false);
     setPhase("debrief");
     try {
-      const res = await fetch(`/api/sessions/${session.id}/finish`, { method: "POST" });
+      const res = await startScoring(session.id);
       // Already scored by an earlier try whose answer was lost: the saved debrief is in the history.
       if (res.status === 404) {
         remember(null);
@@ -337,6 +341,8 @@ export function PracticeRoom({ scenario, uiLanguage, live, mode = "practice", wa
       // Only a finished session leaves the resume pointer: a failed finish can still be picked back up.
       remember(null);
     } catch {
+      // A try again starts a fresh request: a response body can be read only once.
+      scoring.current = null;
       setFinishFailed(true);
     } finally {
       setBusy(false);

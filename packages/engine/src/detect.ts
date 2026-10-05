@@ -28,8 +28,14 @@ export interface UnlockDetector {
   detect(input: { text: string; language: Language; persona: Persona; lexicon: Lexicon; previousCustomerText?: string }): Promise<RepTurnSignals>;
 }
 
+/** Reps type fast and skip accents ("que pago tenia en mente"): persona cues match with accents folded on both sides. */
+export function fold(s: string): string {
+  return s.normalize("NFD").replace(/\p{M}/gu, "");
+}
+
 function matches(condition: BehaviorCondition, text: string): boolean {
-  return [...condition.cues.en, ...condition.cues.es].some((cue) => compile(cue).test(text));
+  const plain = fold(text);
+  return [...condition.cues.en, ...condition.cues.es].some((cue) => compile(fold(cue)).test(plain));
 }
 
 /**
@@ -37,9 +43,11 @@ function matches(condition: BehaviorCondition, text: string): boolean {
  * el último") is not the trigger. Only a disclaimer earlier in the same sentence counts, from the lexicon's list of
  * real refusals ("I'm not going to lie" is not one).
  */
-function triggered(condition: BehaviorCondition, text: string, lexicon: Lexicon): boolean {
-  const disclaimers = [...lexicon.disclaimers.en, ...lexicon.disclaimers.es].map((d) => compile(d));
-  return [...condition.cues.en, ...condition.cues.es].some((cue) => {
+function triggered(condition: BehaviorCondition, raw: string, lexicon: Lexicon): boolean {
+  const text = fold(raw);
+  const disclaimers = [...lexicon.disclaimers.en, ...lexicon.disclaimers.es].map((d) => compile(fold(d)));
+  return [...condition.cues.en, ...condition.cues.es].some((c) => {
+    const cue = fold(c);
     for (const m of text.matchAll(new RegExp(compile(cue).source, `${compile(cue).flags.replace("g", "")}g`))) {
       const head = text.slice(0, m.index);
       const sentence = head.slice(Math.max(head.lastIndexOf(". "), head.lastIndexOf("! "), head.lastIndexOf("? ")) + 1);

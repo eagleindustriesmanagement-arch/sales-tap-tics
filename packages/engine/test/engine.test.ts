@@ -274,3 +274,19 @@ describe("a walk-out trigger the rep explicitly refuses is not the trigger", () 
     expect(fires("I'm not going to lie, there's only one bank that takes ITIN.")).toBe(true);
   });
 });
+
+describe("Spanish unlock cues on a real floor (October 5 blitz)", () => {
+  const unlocks = (code: string, text: string) => detectFromCues({ text, language: "es", persona: library.personas.get(code)!, lexicon }).unlocks;
+  it("hear everyday Miami phrasing and text typed without accents", () => {
+    for (const text of ["¿Cuánto usted quiere pagar al mes, más o menos?", "¿Que pago usted tenia en mente?", "¿De qué pago usted no se puede pasar?", "¿Qué mensualidad usted está buscando?", "¿En cuánto usted quiere quedar?"]) {
+      expect(unlocks("P-payment-buyer", text), text).toContain("asks_payment_number");
+    }
+    for (const text of ["¿Y usted cuánto esperaba por ella?", "¿Cuánto le dio el Kelley?", "¿Y ese número de dónde usted lo sacó?", "¿Donde vio ese numero?"]) {
+      expect(unlocks("P-trade-defender", text), text).toContain("asks_expected_number");
+    }
+  });
+  it("still unlock nothing on a pitch", () => {
+    expect(unlocks("P-payment-buyer", "Este carro es una ganga, se lo dejo hoy.")).toEqual([]);
+    expect(unlocks("P-trade-defender", "Le doy dieciocho mil por la camioneta.")).toEqual([]);
+  });
+});

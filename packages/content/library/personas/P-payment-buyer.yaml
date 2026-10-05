@@ -45,7 +45,10 @@ unlock_conditions:
         - '\bwhat(''s| is) the (most|highest|max(imum)?)\b.{0,25}\b(pay|payment)\b'
         - '\bhow (high|much) (can|could) you (go|pay)\b.{0,20}\b(month|monthly|payment)\b'
       es:
-        - '\bqué (pago|número|cuota|mensualidad)\b.{0,30}\b(tenía en mente|tiene en mente|esperaba|le funciona|necesita|busca)\b'
+        - '\bqué (pago|número|cuota|mensualidad)\b.{0,30}\b(tenía en mente|tiene en mente|esperaba|le funciona|necesita|busca(ndo)?|quiere)\b'
+        - '\bcuánto (usted )?(quiere|puede|esperaba|pensaba|necesita) pagar\b'
+        - '\bde qué pago (usted )?no se puede pasar\b'
+        - '\ben cuánto (usted )?(quiere|necesita) quedar\b'
         - '\b(cuál|qué) (es|sería) (el|su) pago máximo\b'
         - '\bhasta (qué pago|cuánto) puede (llegar|pagar)\b'
         - '\bcuánto (es lo máximo que|puede|esperaba|pensaba) pagar\b'

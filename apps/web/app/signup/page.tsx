@@ -7,7 +7,9 @@ import { SignupForm } from "@/components/signup-form";
 import { currentUser } from "@/lib/auth";
 import { language } from "@/lib/server";
 
-export const metadata: Metadata = { title: "Start a pilot · Sales Taptics" };
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await language()) === "es" ? "Empezar un piloto · Sales Taptics" : "Start a pilot · Sales Taptics" };
+}
 
 /** Sign-up (decisions 0029, 0032): a team or an individual, then the emailed code. */
 export default async function Signup({ searchParams }: { searchParams: Promise<{ for?: string }> }) {
