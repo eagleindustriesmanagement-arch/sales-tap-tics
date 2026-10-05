@@ -261,7 +261,7 @@ export function Debrief({ data, language: lang, onRetry, standalone = true, seen
           <span className="w-10" />
         </div>
       </header>
-      <div className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-44">{body}</div>
+      <div className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-4">{body}</div>
       <BottomBar>
         <div className="mx-auto flex max-w-2xl flex-col gap-2 px-4">{actions}</div>
       </BottomBar>

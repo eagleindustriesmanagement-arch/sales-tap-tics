@@ -30,7 +30,7 @@ export function BottomBar({ children }: { children: ReactNode }) {
     <>
       {/* Before the first measure (server render) a generous guess, so the first paint never overlaps either. */}
       <div aria-hidden="true" data-testid="bottom-bar-space" style={{ height: (height ?? 240) + 24 }} />
-      <div ref={bar} data-testid="bottom-bar" className="glass-chrome pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
+      <div ref={bar} data-testid="bottom-bar" className="glass-chrome action-bar pb-safe fixed inset-x-0 bottom-0 z-30 pt-3">
         {children}
       </div>
     </>

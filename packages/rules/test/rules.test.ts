@@ -250,3 +250,22 @@ describe("clock times for parity", () => {
     expect(findClockTimes("Este cumple con las dos.")).toEqual([]);
   });
 });
+
+describe("a sheet payment with a term or down payment from no option is made up (October 5: '$549 al mes, 60 meses, $3,500 de inicial')", () => {
+  const lib = platformLibrary();
+  const sc = lib.scenarios.get("S-payment-buyer-L2")!; // $549 is 72 months with $5,500 down; $541 is 84 with $2,000
+  const base = { facts: sc.facts, store: { addOnRemovalPolicy: "none_configured" as const, ignoredIdentityPlaces: [] }, channel: sc.channel, lexicon: lib.lexicon!, rules: [...lib.rules.values()], techniques: lib.techniques };
+  const rate = (text: string, language: "en" | "es") => checkUtterance({ text, language, speaker: "rep", turnIndex: 1 }, { ...base, offerLanguage: language }).filter((v) => v.rule === "RATE-01").length;
+  it("flags an invented term or down payment, in both languages, for the rep and for debrief text", () => {
+    expect(rate("Podemos dejarlo en $549 al mes, 60 meses, $3,500 de inicial.", "es")).toBe(1);
+    expect(rate("We can do $549 a month on 60 months.", "en")).toBe(1);
+    expect(rate("$541 a month with $5,000 down, on 84 months.", "en")).toBe(1);
+    const tip = checkContentLine({ en: "Try: $549 a month, 60 months, $3,500 down.", es: "Pruebe: $549 al mes, 60 meses, $3,500 de inicial." }, base, "debrief");
+    expect(tip.some((v) => v.rule === "RATE-01" && v.severity === "critical")).toBe(true);
+  });
+  it("accepts the real options, alone or side by side", () => {
+    expect(rate("$549 a month on 72 months with $5,500 down, or $541 a month with the same $2,000 down, on 84 months.", "en")).toBe(0);
+    expect(rate("$549 al mes a 72 meses con $5,500 de inicial, o $541 al mes con los mismos $2,000 de inicial, a 84 meses.", "es")).toBe(0);
+    expect(rate("Your payment would be $549 a month.", "en")).toBe(0);
+  });
+});

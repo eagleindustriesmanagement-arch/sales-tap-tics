@@ -296,8 +296,24 @@ export function checkRate(rule: Rule, utterance: Utterance, ctx: CheckContext, m
   {
     const max = Math.max(0, ...facts.payment_options.map((o) => o.cents));
     const lowest = Math.min(...facts.payment_options.map((o) => o.cents), min ?? Infinity);
-    for (const m of claims(mentions, "payment")) {
-      if (matchOption(facts, m.value, tolerance)) continue;
+    const payments = claims(mentions, "payment");
+    for (const m of payments) {
+      if (matchOption(facts, m.value, tolerance)) {
+        // A real payment with a term or a down payment from no sheet option is a made-up deal (October 5: "$549 al
+        // mes, 60 meses, $3,500 de inicial" when $549 is 72 months with $5,500 down). What follows the payment, up to
+        // the next payment or the end of the sentence, must match an option with this payment.
+        const wrong = mismatchedTerms(facts, m, payments, mentions, text, tolerance, utterance.language);
+        if (wrong) {
+          const ways = facts.payment_options.filter((o) => Math.abs(o.cents - m.value) <= tolerance);
+          out.push(
+            makeViolation(rule, ctx, utterance, spanOf(text, m.start, Math.max(m.end, wrong.end)), {
+              en: `${formatDollars(m.value, "en")} a month is ${ways.map((o) => `${o.term_months} months with ${formatDollars(o.down_cents, "en")} down`).join(", or ")}.`,
+              es: `${formatDollars(m.value, "es")} al mes es a ${ways.map((o) => `${o.term_months} meses con ${formatDollars(o.down_cents, "es")} de inicial`).join(", o a ")}.`,
+            }, m.uncertain),
+          );
+        }
+        continue;
+      }
       // A small monthly amount is the cost of a product or a gap between offers ("twenty bucks a month"), not a payment.
       // With no quoted payment to compare, anything under $50 a month is treated as that kind of small cost.
       if (m.value < (Number.isFinite(lowest) ? lowest / 4 : 5000)) continue;
@@ -777,3 +793,26 @@ export function finalizePresence(rules: Map<string, Rule>, ctx: CheckContext, st
 }
 
 export { moneyIn };
+
+const MONTHS_AFTER = /^\s*(?:-\s*)?(?:months?|meses|mo\b)/i;
+
+/**
+ * The term or the down payment said with a sheet payment, when no option with that payment has it: the end of the
+ * first such mention, or null. Only what follows the payment counts, up to the next payment or the sentence's end.
+ */
+function mismatchedTerms(facts: ScenarioFacts, m: MoneyMention, payments: MoneyMention[], mentions: MoneyMention[], text: string, tolerance: number, language: Utterance["language"]): { end: number } | null {
+  const ways = facts.payment_options.filter((o) => Math.abs(o.cents - m.value) <= tolerance);
+  const next = payments.find((p) => p.start > m.start)?.start ?? text.length;
+  const sentenceEnd = text.slice(m.end).search(/[.;!?](\s|$)/);
+  const end = Math.min(next, sentenceEnd < 0 ? text.length : m.end + sentenceEnd);
+  for (const n of findNumbers(text.slice(m.end, end), language)) {
+    if (n.unit !== "none" || !Number.isInteger(n.value) || n.value < 12 || n.value > 96) continue;
+    if (!MONTHS_AFTER.test(text.slice(m.end + n.end, m.end + n.end + 12))) continue;
+    if (!ways.some((o) => o.term_months === n.value)) return { end: m.end + n.end };
+  }
+  for (const d of mentions) {
+    if (d.role !== "down" || d.start < m.end || d.start >= end || d.attributed || d.delta || d.placeholder !== null) continue;
+    if (!ways.some((o) => Math.abs(o.down_cents - d.value) <= Math.max(tolerance, 5000))) return { end: d.end };
+  }
+  return null;
+}
