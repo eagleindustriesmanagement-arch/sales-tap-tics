@@ -24,7 +24,7 @@ export default async function Dashboard() {
   const tile = "grid h-9 w-9 place-items-center rounded-[10px] ring-1 ring-current/20 ring-inset";
   return (
     <div className="space-y-6">
-      <PageHeader title={t("dash.title", lang)} />
+      <PageHeader title={t(user.industry === "cars" || user.industry === "other" ? "dash.title" : "dash.titleCompany", lang)} />
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {(user.industry === "cars" || user.industry === "other") && <Stat label={t("dash.certified", lang)} value={`${d.certified}/${d.reps}`} testId="dash-certified" icon={<IconTrophy size={15} className="text-brand" />} />}
         <Stat label={t("dash.practicing", lang)} value={`${thisWeek.repsPracticing}/${d.reps}`} testId="dash-practicing" icon={<IconUsers size={15} className="text-brand" />} />

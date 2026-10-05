@@ -12,7 +12,7 @@ interface Person { id: string; firstName: string | null; lastName: string | null
 
 const input = "min-h-12 w-full liquid-glass-field rounded-[0.875rem] px-3 text-ink";
 
-export function PeopleManager({ language: lang, people, me }: { language: Language; people: Person[]; me: string }) {
+export function PeopleManager({ language: lang, people, me, dealer = true }: { language: Language; people: Person[]; me: string; dealer?: boolean }) {
   const ui = (key: Parameters<typeof t>[0], values?: Record<string, string | number>) => t(key, lang, values);
   const router = useRouter();
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", language: lang as Language, roles: ["rep"] as Role[] });
@@ -73,7 +73,7 @@ export function PeopleManager({ language: lang, people, me }: { language: Langua
             </select>
           </label>
           {roleBoxes(form.roles, (roles) => setForm({ ...form, roles }), "invite-role")}
-          <button className={`${buttonClass} w-full`}>{ui("people.add")}</button>
+          <button className={`${buttonClass} w-full`}>{ui(dealer ? "people.add" : "people.addCompany")}</button>
         </Card>
       </form>
       {status && <p role="status" className="font-semibold text-ink">{status}</p>}

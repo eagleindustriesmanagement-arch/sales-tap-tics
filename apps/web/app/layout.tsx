@@ -40,14 +40,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const lang = await language();
   const user = await currentUser();
   const tab = (href: string, key: Parameters<typeof t>[0], icon: Tab["icon"]): Tab => ({ href, label: t(key, lang), icon });
+  // A solar, homes or furniture team is a company, not a store (October 5 blitz).
+  const storeTab = user && user.industry !== "cars" && user.industry !== "other" ? "nav.company" : "nav.store";
   const tabs: Tab[] = !user
     ? []
     : user.roles.includes("general_manager")
-      ? [tab("/manager/floor", "nav.floor", "floor"), tab("/manager/team", "nav.team", "team"), tab("/manager/dashboard", "nav.dashboard", "dashboard"), tab("/manager/store", "nav.store", "store")]
+      ? [tab("/manager/floor", "nav.floor", "floor"), tab("/manager/team", "nav.team", "team"), tab("/manager/dashboard", "nav.dashboard", "dashboard"), tab("/manager/store", storeTab, "store")]
       : isManager(user)
         ? [tab("/manager/floor", "nav.floor", "floor"), tab("/manager/team", "nav.team", "team"), tab("/manager/compliance", "nav.compliance.view", "compliance")]
         : user.roles.includes("compliance_reviewer")
-          ? [tab("/manager/compliance", "nav.compliance.view", "compliance"), tab("/manager/store", "nav.store", "store"), tab("/review", "nav.review", "review"), tab("/library", "nav.library", "library")]
+          ? [tab("/manager/compliance", "nav.compliance.view", "compliance"), tab("/manager/store", storeTab, "store"), tab("/review", "nav.review", "review"), tab("/library", "nav.library", "library")]
           : user.roles.includes("content_editor")
             ? [tab("/review", "nav.review", "review"), tab("/library", "nav.library", "library")]
             : [tab("/today", "nav.today", "today"), tab("/practice", "nav.practice", "practice"), tab("/progress", "nav.progress", "progress"), tab("/library", "nav.library", "library")];

@@ -25,7 +25,7 @@ export default async function People({ searchParams }: { searchParams: Promise<{
       ) : (
         <PageHeader title={t("people.title", lang)} subtitle={t("people.intro", lang)} />
       )}
-      <PeopleManager language={lang} people={people} me={user.id} />
+      <PeopleManager language={lang} people={people} me={user.id} dealer={user.industry === "cars" || user.industry === "other"} />
     </div>
   );
 }

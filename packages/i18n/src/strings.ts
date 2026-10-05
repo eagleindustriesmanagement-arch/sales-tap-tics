@@ -199,6 +199,7 @@ export const STRINGS = {
   "team.focus.extra_practice": { en: "Assign extra practice", es: "Asignar más práctica" },
   "team.focus.stretch": { en: "Keep stretching", es: "Seguir subiendo la meta" },
   "team.focus.needs_scores": { en: "Not enough scores", es: "Faltan puntajes" },
+  "dash.titleCompany": { en: "Company dashboard", es: "Panel de la empresa" },
   "dash.title": { en: "Store dashboard", es: "Panel de la tienda" },
   "dash.certified": { en: "Certified for customers", es: "Certificados para atender clientes" },
   "dash.practicing": { en: "Practiced this week", es: "Practicaron esta semana" },
@@ -317,6 +318,7 @@ export const STRINGS = {
   "people.phone": { en: "Mobile phone", es: "Teléfono celular" },
   "people.language": { en: "Language", es: "Idioma" },
   "people.roles": { en: "Roles", es: "Roles" },
+  "people.addCompany": { en: "Add to the company", es: "Agregar a la empresa" },
   "people.add": { en: "Add to the store", es: "Agregar a la tienda" },
   "people.invited": { en: "{name} was added and can sign in now.", es: "{name} fue agregado y ya puede entrar." },
   "people.invitedNoEmail": { en: "{name} was added. We couldn't send the welcome email just now; let them know they can sign in at salestaptics.com.", es: "{name} fue agregado. No pudimos enviarle el correo de bienvenida; avísele que puede entrar en salestaptics.com." },
@@ -849,6 +851,7 @@ export const STRINGS = {
   "card.issued": { en: "Your card for this week", es: "Su meta de esta semana" },
   "card.checked": { en: "Checked by your manager", es: "Revisada por su gerente" },
 
+  "nav.company": { en: "Company", es: "Empresa" },
   "nav.store": { en: "Store", es: "Tienda" },
   "store.peaks": { en: "Peak hours", es: "Horas de más movimiento" },
   "store.peaksHelp": { en: "No practice reminders go out during these hours.", es: "En estas horas no se mandan recordatorios de práctica." },
