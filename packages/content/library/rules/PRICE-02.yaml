@@ -15,6 +15,20 @@ compliant_technique: T118
 parameters:
   tolerance_cents: 100
   approximate_tolerance_cents: 0
+  # Denying a mandatory dealer charge the facts have ("There's no dealer fee on this one", "Este no lleva cargo del
+  # dealer"). The patterns carry their own "no"; a question, a condition, a disclaimer or someone else's claim is
+  # not one.
+  fee_denials:
+    en:
+      - '\b(there''?s|there is|there are|we have|we charge|it has|it''?s got|this one has|you pay|you''ll pay|with) no (dealer|doc|documentation|admin|administrative|processing|dealer prep|prep)[- ]?(fee|fees|charge|charges)\b'
+      - '\bno (dealer|doc|admin|processing)[- ](fee|fees|charge|charges) (on|with|for|here|at|to pay)\b'
+      - '\b(we|they) (don''?t|do not|never) (charge|have|add|do) (a |any )?(dealer|doc|documentation|admin|processing)[- ]?(fee|fees|charge|charges)\b'
+      - '\b(dealer|doc|admin|processing)[- ]?(fee|fees|charge|charges) (is|are|has been|have been|gets|get) (waived|zero|\$0|gone|taken off)\b'
+      - '\b(this one|it|this car|this truck) (doesn''?t|does not) (have|carry|come with) (a |any )?(dealer|doc|admin|processing)[- ]?(fee|fees|charge|charges)\b'
+    es:
+      - '\bno (lleva|tiene|hay|cobramos|le cobramos|se cobra|se le cobra|paga|va a pagar)( ningún| ninguna| el| un| una)? (cargo|cargos|fee|fees|tarifa)( del| de| de la)? (dealer|concesionario|documentación|documentos|procesamiento|administración)\b'
+      - '\bno (lleva|tiene|hay|cobramos|le cobramos|se cobra|se le cobra|paga|va a pagar)( ningún| el| un)? dealer fee\b'
+      - '\b(el )?(dealer fee|cargo del dealer|cargo del concesionario|cargo de documentación) (se lo quitamos|se lo perdonamos|no se cobra|es cero|está en cero)\b'
 legal_basis: FTC pricing guidance (September 15, 2026) treating calls and texts as advertising; Florida s. 501.976
 attorney_reviewed: false
 # Car-dealer law: other industries have their own (decision 0033).

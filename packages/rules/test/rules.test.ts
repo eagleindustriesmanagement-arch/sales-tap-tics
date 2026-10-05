@@ -367,3 +367,21 @@ describe("RATE-01: 0% financing said with no 0% offer on the sheet", () => {
     expect(hits("Con financiamiento al 0% este mes, es un regalo.", "es", { facts: zero })).not.toContain("RATE-01");
   });
 });
+
+describe("PRICE-01/PRICE-02: denying a dealer fee the deal has", () => {
+  const S = "S-payment-buyer-L2"; // $899 dealer fee
+  it("flags the denial on the floor and on the phone", () => {
+    expect(scenarioRules(S, "There's no dealer fee on this one.", "en")).toContain("PRICE-01");
+    expect(scenarioRules(S, "Este no lleva cargo del dealer.", "es")).toContain("PRICE-01");
+    expect(hits("We don't charge a doc fee here.", "en", { channel: "phone" })).toContain("PRICE-02");
+    expect(hits("Aquí no le cobramos cargo de documentación.", "es", { channel: "phone" })).toContain("PRICE-02");
+  });
+  it("disclosing the fee, a question, or a deal with no fee is clean", () => {
+    expect(scenarioRules(S, "The price includes the $899 dealer fee; only tax and tags are added.", "en")).toEqual([]);
+    expect(scenarioRules(S, "I'm not going to tell you there's no dealer fee: it's $899, and it's in the price.", "en")).toEqual([]);
+    expect(scenarioRules(S, "El precio ya incluye el cargo del dealer de $899.", "es")).toEqual([]);
+    const noFee = { ...FACTS, dealer_fees: [], all_in_price_cents: FACTS.price_cents };
+    expect(hits("There's no dealer fee on this one.", "en", { facts: noFee })).toEqual([]);
+    expect(hits("Este no lleva cargo del dealer.", "es", { facts: noFee })).toEqual([]);
+  });
+});

@@ -241,6 +241,16 @@ export function checkPrice(rule: Rule, utterance: Utterance, ctx: CheckContext, 
     if (!leavesOutFees && min !== null && m.value >= min && m.value <= facts.all_in_price_cents) continue; // a real concession
     out.push(makeViolation(rule, ctx, utterance, spanOf(utterance.text, m.start, m.end), allInFact(facts), m.uncertain));
   }
+  // "There's no dealer fee on this one" when the deal has one. The patterns carry their own "no", so only a negation
+  // or disclaimer before them counts.
+  if (fees > 0) {
+    const text = utterance.text;
+    for (const hit of patternHits(rule, utterance, ctx, "fee_denials")) {
+      if (isNegated(ctx, text, hit.clause, hit.start, hit.end, false) || isAttributed(ctx, text, hit.clause, hit.start)) continue;
+      if (isAskingOrConditional(ctx, text, hit.clause, hit.start)) continue;
+      out.push(makeViolation(rule, ctx, utterance, spanOf(text, hit.start, hit.end), allInFact(facts)));
+    }
+  }
   return out;
 }
 
