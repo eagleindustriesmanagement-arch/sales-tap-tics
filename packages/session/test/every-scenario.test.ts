@@ -39,3 +39,17 @@ describe("every scenario plays through offline", () => {
     }
   }
 });
+
+// Spec 21.4 fairness: the same scripted performance scores within 2 points in English and in Spanish, for every
+// customer, done well and done badly (measured October 5: all 160 pairs within 2).
+describe("English and Spanish score the same performance alike", () => {
+  for (const scenario of library.scenarios.values()) {
+    if (scenario.status !== "active") continue;
+    it(`${scenario.code}: within 2 points in both languages, good and flawed`, async () => {
+      for (const kind of ["good", "flawed"] as const) {
+        const [en, es] = [await play(scenario.code, "en", kind), await play(scenario.code, "es", kind)];
+        expect(Math.abs(en.score.total - es.score.total), `${kind}: en ${en.score.total}, es ${es.score.total}`).toBeLessThanOrEqual(2);
+      }
+    });
+  }
+});
