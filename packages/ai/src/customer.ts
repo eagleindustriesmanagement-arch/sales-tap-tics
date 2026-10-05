@@ -126,9 +126,29 @@ export function sceneNote(directive: CustomerDirective, persona: Persona, alread
  * unfilled, not a tag for the system (October 5: the chat showed "la [SUV]"). It becomes the product's name from the
  * facts, so the customer says "la Equinox"; stripping it instead would leave "la ." on screen and in the voice.
  */
-const PRODUCT_SLOT = /\[\s*(?:(?:the|el|la|los|las|su|your|this|esta?|ese|esa)\s+)?(suv|car|cars|vehicle|vehicles|truck|van|crossover|sedan|model|product|carro|auto|veh[ií]culo|camioneta|troca|modelo|producto|item)\s*\]/giu;
+const ARTICLE = String.raw`(?:the|a|an|your|this|that|el|la|los|las|un|una|su|sus|este|esta|estos|estas|ese|esa|esos|esas)`;
+/** Words that name a car: the slot becomes the car's model ("la [SUV]" → "la Equinox"). */
+const CAR_WORDS = String.raw`suv|car|cars|vehicle|vehicles|truck|van|crossover|sedan|model|product|item|carro|carros|auto|autos|veh[ií]culo|veh[ií]culos|camioneta|troca|modelo|producto`;
+/**
+ * Words that name what a home builder, solar company or furniture store sells (October 5 audit): a model name
+ * after an article reads badly there ("los Rooftop system"), so the slot keeps its own words without the brackets
+ * ("[los paneles]" → "los paneles").
+ */
+const OTHER_WORDS = String.raw`house|home|homes|townhouse|townhome|condo|lot|property|unit|casa|casas|vivienda|modelo de casa|lote|propiedad|unidad|panels?|system|battery|inverter|paneles|placas|sistema|bater[ií]a|inversor|sofa|couch|sectional|furniture|mattress|bed|table|dining set|sof[aá]|seccional|mueble|muebles|colch[oó]n|cama|mesa|juego de comedor`;
+const PRODUCT_SLOT = new RegExp(String.raw`\[\s*(${ARTICLE}\s+)?(${CAR_WORDS}|${OTHER_WORDS})\s*\]`, "giu");
+const IS_CAR_WORD = new RegExp(String.raw`^(?:${CAR_WORDS})$`, "iu");
+
+/**
+ * Fills a product slot the model left unfilled. A car word becomes the product's name, keeping an article said
+ * inside the brackets; any other product word, or a car word when the facts carry no name (an empty model), keeps
+ * its own words: never a gap ("la .") where the brackets were.
+ */
 export function fillProductSlots(text: string, productName: string): string {
-  return productName ? text.replace(PRODUCT_SLOT, productName) : text;
+  const name = (productName ?? "").trim();
+  return text.replace(PRODUCT_SLOT, (_whole, article: string | undefined, word: string) => {
+    const lead = article ? article.trim() + " " : "";
+    return name && IS_CAR_WORD.test(word) ? `${lead}${name}` : `${lead}${word}`;
+  });
 }
 
 function splitSentences(buffer: string): { complete: string[]; rest: string } {

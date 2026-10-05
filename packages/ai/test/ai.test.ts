@@ -146,7 +146,11 @@ describe("AI customer (spec 10.4)", () => {
     expect(texts).toEqual(["De ahí no me puedo pasar, por mucho que me guste la Equinox.", "Y el Equinox me encanta."]);
     expect(texts.join(" ")).not.toMatch(/\[|\]/);
     expect(result.raw).toContain("[agreed_next_step]"); // the system's own tags are untouched
-    expect(fillProductSlots("I like the [ SUV ] and [the car].", "Equinox")).toBe("I like the Equinox and Equinox.");
+    expect(fillProductSlots("I like the [ SUV ] and [the car].", "Equinox")).toBe("I like the Equinox and the Equinox.");
+    // Homes, solar and furniture keep their own words (October 5 audit); an empty model never leaves a gap.
+    expect(fillProductSlots("Me encanta [la casa], pero [los paneles] me preocupan, y [el sofá] también.", "Rooftop system")).toBe("Me encanta la casa, pero los paneles me preocupan, y el sofá también.");
+    expect(fillProductSlots("Me gusta la [SUV].", "")).toBe("Me gusta la SUV.");
+    expect(fillProductSlots("Me gusta la [SUV].", "   ")).toBe("Me gusta la SUV.");
     expect(fillProductSlots("[pausa] Bueno. [revealed]", "Equinox")).toBe("[pausa] Bueno. [revealed]");
   });
 
