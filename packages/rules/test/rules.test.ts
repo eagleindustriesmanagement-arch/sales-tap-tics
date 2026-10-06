@@ -417,3 +417,21 @@ describe("AVAIL-01: a made-up buyer coming to look at this one", () => {
     expect(scenarioRules(S, "Nadie más viene a verlo; tómese su tiempo.", "es")).toEqual([]);
   });
 });
+
+describe("RATE-01: 'same term' / 'mismo plazo' with a payment whose term no other option has", () => {
+  const S = "S-payment-buyer-L2"; // $612/72/$2,000 down, $549/72/$5,500, $541/84/$2,000
+  const rate = (text: string, language: "en" | "es") => scenarioRules(S, text, language).includes("RATE-01");
+  it("flags a longer term hidden behind 'same term', and a bigger down payment behind 'same down'", () => {
+    expect(rate("Five forty-one a month, same term, same down.", "en")).toBe(true);
+    expect(rate("I can get you $541 a month, same term.", "en")).toBe(true);
+    expect(rate("$549 a month, same down.", "en")).toBe(true);
+    expect(rate("Le consigo $541 al mes, mismo plazo, misma inicial.", "es")).toBe(true);
+    expect(rate("$549 al mes, con la misma inicial.", "es")).toBe(true);
+  });
+  it("'same' that is true on the sheet is clean", () => {
+    expect(rate("$549 a month, same term, with $5,500 down.", "en")).toBe(false);
+    expect(rate("$541 a month, same down, on 84 months.", "en")).toBe(false);
+    expect(rate("$549 al mes, mismo plazo, con $5,500 de inicial.", "es")).toBe(false);
+    expect(rate("$541 al mes, misma inicial, a 84 meses.", "es")).toBe(false);
+  });
+});

@@ -919,5 +919,19 @@ function mismatchedTerms(facts: ScenarioFacts, m: MoneyMention, payments: MoneyM
     if (d.role !== "down" || d.start < m.end || d.start >= end || d.attributed || d.delta || d.placeholder !== null) continue;
     if (!ways.some((o) => Math.abs(o.down_cents - d.value) <= Math.max(tolerance, 5000))) return { end: d.end };
   }
+  // "Five forty-one a month, same term, same down": "same" says the term (or down payment) did not change from another
+  // quote. When no other option on the sheet has this payment's term (or down payment), it did change: $541 is 84
+  // months while every other option is 72.
+  const others = facts.payment_options.filter((o) => !ways.includes(o));
+  if (others.length > 0) {
+    const segment = text.slice(m.end, end);
+    const sameTerm = SAME_TERM.exec(segment);
+    if (sameTerm && ways.every((o) => others.every((p) => p.term_months !== o.term_months))) return { end: m.end + sameTerm.index + sameTerm[0].length };
+    const sameDown = SAME_DOWN.exec(segment);
+    if (sameDown && ways.every((o) => others.every((p) => Math.abs(p.down_cents - o.down_cents) > Math.max(tolerance, 5000)))) return { end: m.end + sameDown.index + sameDown[0].length };
+  }
   return null;
 }
+
+const SAME_TERM = /(?<![\p{L}])(?:(?:the )?same (?:term|loan term|length|number of months|months)|(?:el )?mismo (?:plazo|término|número de meses|tiempo)|(?:los )?mismos meses)(?![\p{L}])/iu;
+const SAME_DOWN = /(?<![\p{L}])(?:(?:the )?same (?:down(?: payment)?|money down|amount down)|(?:la )?misma (?:inicial|entrada|cuota inicial)|(?:el )?mismo (?:down|pago inicial|enganche))(?![\p{L}])/iu;
