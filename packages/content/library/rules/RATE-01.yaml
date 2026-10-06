@@ -13,7 +13,7 @@ applies_to: [rep, demonstrator, debrief]
 channels: [floor, phone, text]
 compliant_technique: T070
 parameters:
-  tolerance_cents: 100
+  tolerance_cents: 50
   tolerance_bps: 0
   negation_breaks: true
   attribution_breaks: true

@@ -434,4 +434,10 @@ describe("RATE-01: 'same term' / 'mismo plazo' with a payment whose term no othe
     expect(rate("$549 al mes, mismo plazo, con $5,500 de inicial.", "es")).toBe(false);
     expect(rate("$541 al mes, misma inicial, a 84 meses.", "es")).toBe(false);
   });
+  it("a payment rounded up a dollar is not the sheet payment; cents rounding is", () => {
+    expect(rate("Your payment would be $550 a month.", "en")).toBe(true);
+    expect(rate("Su pago quedaría en $550 al mes.", "es")).toBe(true);
+    expect(rate("Your payment would be $549 a month.", "en")).toBe(false);
+    expect(rate("Su pago quedaría en $549 al mes.", "es")).toBe(false);
+  });
 });
