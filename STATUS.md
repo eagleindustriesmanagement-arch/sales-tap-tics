@@ -21,7 +21,29 @@ admin access as a privilege, a home page that sells, pricing, industries). Build
   - A payment quoted with its terms is not a bare anchor.
   - RATE-01 checks that a payment's term and down payment match the sheet (also in debrief suggestions).
   - About 35 Spanish strings and lines were rewritten.
-  - Compliance-engine fixes from the adversarial pass are listed under Open risks.
+  - Compliance engine, rep side:
+    - Honest myth-busting about a three-day cancel window is no longer a critical.
+    - These are now caught:
+      - false "my manager already approved" claims;
+      - trade values said with the vehicle's name;
+      - wrong payoffs;
+      - "0% financing";
+      - denying the dealer fee;
+      - "won't approve you without GAP";
+      - an invented buyer coming to see this car;
+      - a "same term" that hides the longer term.
+    - RATE-01's tolerance is now 50 cents.
+  - Customer guard:
+    - The hidden ceiling no longer leaks through paraphrase.
+    - An amount must fit its role (owed, offered, or a difference).
+    - Rates and offer deadlines are checked against the facts.
+    - Coaching cues are wider.
+  - The compliance baseline is updated: dev critical misses 46 to 44, false positives 11 to 9.
+  - Still open (offline customer only, the live model is unaffected):
+    - The scripted customer can answer a turn late when the rep proposes a time on the turn the concern comes out.
+  - Still open (content):
+    - The technique library's example lines are car lines for every industry; a note says so.
+    - "Me parece justo" and "lado a lado" remain in some customer lines and lessons, for the Spanish batch review.
 
 - **Overnight October 5** (decisions 0034, 0037, 0038):
   - **Warm-up** (spec 12.5): an optional 3-minute drill on the rep's weakest behavior, from a card on Today; scored
