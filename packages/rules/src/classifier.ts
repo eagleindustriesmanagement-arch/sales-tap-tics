@@ -4,7 +4,7 @@ import type { CheckContext, SessionComplianceState, Utterance, Violation } from 
 
 /**
  * Layer two of the rule engine (spec 4.3 item 2): a language-model classifier for meaning the patterns miss
- * ("implying an add-on is required without the word required"). Fixed prompt, temperature 0, structured JSON.
+ * ("implying an add-on is required without the word required"). Fixed prompt, structured JSON.
  * The Claude implementation lives in `@taptics/ai`; this package only defines the contract.
  */
 export interface ClassifierInput {

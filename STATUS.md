@@ -176,7 +176,7 @@ admin access as a privilege, a home page that sells, pricing, industries). Build
   change and its why, the turning point and the hidden truth. Phone-first layout, installable as a PWA.
 - **Offline customer** when no `ANTHROPIC_API_KEY` is set: approved persona lines driven by the same engine. Its
   scores are marked partial (only engine and rule items are measurable), never a pass.
-- **Live Claude customer, classifier, unlock detector and judge** when a key is set (Sonnet 5.5, Haiku 4.5,
+- **Live Claude customer, classifier, unlock detector and judge** when a key is set (Sonnet 5.5, Haiku 5.5,
   Opus 5.5; decision 0006). Not yet exercised against the real API from this environment.
 - **Sign-in with a one-time code** (email or phone), consent notice at first sign-in, server-side role checks on
   every page and API route. Codes and session tokens are stored only as hashes; five codes per 15 minutes, five

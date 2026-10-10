@@ -297,7 +297,7 @@ The system is a TypeScript monorepo with a Next.js web app, a separate real-time
 ### 5.3 Model choices
 
 - **AI customer:** Claude, a fast, high-quality model (for example `claude-sonnet-5-5`), streaming, temperature about 0.8 for natural variation, with strict persona and scenario prompts. Verify current model names against Anthropic's documentation at build time; model strings in this spec are examples.
-- **Live compliance classifier:** a fast, low-cost Claude model (for example `claude-haiku-4-5-20251001`), temperature 0, structured JSON output.
+- **Live compliance classifier:** a fast, low-cost Claude model (for example `claude-haiku-5-5`), structured JSON output. Haiku 5.5 takes no temperature (a non-default value returns a 400); repeatability comes from the fixed prompt and schema (decision 0006).
 - **Post-session scoring judge and debrief writer:** the most capable available Claude model (for example `claude-opus-5-5`), temperature 0, structured output, run against the full transcript and the rubric. Latency is not critical here (target under 60 seconds).
 - Every model call is wrapped in one client in `packages/ai` with retries, timeouts, token and cost logging per tenant, and a kill switch per model. Prompts live in versioned files, not inline strings.
 - Never send the rep's personal data (name, phone, email) to a model. Sessions use a pseudonymous id; the rep's first name may be passed only if the persona needs to say it, and the store setting allows it.

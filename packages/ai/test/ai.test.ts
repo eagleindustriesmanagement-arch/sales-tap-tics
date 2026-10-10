@@ -65,7 +65,12 @@ describe("AiClient", () => {
     expect(customerParams).toMatchObject({ model: "claude-sonnet-5-5", thinking: { type: "between_tools" }, output_config: { effort: "low" }, fallbacks: "default" });
     expect(customerParams.betas).toEqual(["mid-conversation-system-clear-at-2026-08-21", "server-side-fallback-2026-07-01"]);
     expect(customerParams).not.toHaveProperty("temperature");
-    expect(c.baseParams("classifier")).toMatchObject({ model: "claude-haiku-4-5", temperature: 0 });
+    expect(c.baseParams("classifier")).toMatchObject({ model: "claude-haiku-5-5", output_config: { effort: "low" } });
+    // Haiku 5.5 rejects a non-default temperature, and a manual thinking budget, with a 400.
+    for (const p of ["classifier", "unlock"] as const) {
+      expect(c.baseParams(p)).not.toHaveProperty("temperature");
+      expect(c.baseParams(p)).not.toHaveProperty("thinking");
+    }
     expect(c.baseParams("classifier")).not.toHaveProperty("fallbacks");
     expect(c.baseParams("judge")).toMatchObject({ model: "claude-opus-5-5", thinking: { type: "adaptive" }, output_config: { effort: "high" } });
   });

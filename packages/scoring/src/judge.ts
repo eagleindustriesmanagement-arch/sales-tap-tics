@@ -3,7 +3,7 @@ import type { Language } from "@taptics/i18n";
 import type { JudgeResult, ScoredTurn } from "./types.js";
 
 /**
- * The judge pass (spec 13.4 item 2): the strongest Claude model, temperature 0, fixed prompt, structured output.
+ * The judge pass (spec 13.4 item 2): the strongest Claude model, fixed prompt, structured output.
  * Scores intent, not wording (item 3). The Claude implementation lives in `@taptics/ai`.
  */
 export interface JudgeInput {

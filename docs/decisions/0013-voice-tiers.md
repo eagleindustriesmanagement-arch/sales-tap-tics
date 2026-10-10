@@ -32,7 +32,9 @@
     and those models cost more per minute.
 - **Cost per 10-minute session.** Estimates, to be replaced by the cost dashboard's measurements.
   - AI customer, Claude Sonnet 5.5 at $2 and $10 per million tokens, cache reads $0.20: about $0.05 to $0.10.
-  - Live checks on Haiku 4.5 (classifier and unlock detector): about $0.03 to $0.06.
+  - Live checks on Haiku 5.5 (classifier and unlock detector), $0.10 and $0.50 per million tokens for prompts under
+    100K tokens: about $0.004 to $0.008. That is the Haiku 4.5 estimate ($0.03 to $0.06) times 0.1 for the price,
+    times 1.3 because Haiku 5.5's tokenizer counts about 30% more tokens for the same text.
   - Scoring judge, Claude Opus 5.5 at $4 and $20 per million tokens (thinking is always on, so its output runs
     longer): about $0.05 to $0.15.
   - Device tier speech: $0.
